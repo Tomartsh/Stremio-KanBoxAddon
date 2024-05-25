@@ -1,0 +1,14 @@
+{
+  "type": "module",
+  "scripts": {
+    "start": "addon.js"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2",
+    "node-html-parser": "^6.1.13",
+    "stremio-addon-sdk": "^1.6.10"
+  },
+  "devDependencies": {
+    "@types/stremio-addon-sdk": "^1.6.11"
+  }
+}
