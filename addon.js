@@ -116,32 +116,23 @@ function writeLog(level, msg){
 //+===================================================================================
 var listSeries = [];
 
-async function scrapeData() {
-    
-	let response = await fetch(url);
-	let body = await response.text();
-	parseData(body);
-	/*
+function scrapeData() {
 	try {
-        
 		fetch(url)
         .then((res) => res.text())
         .then((body) => {
-            parseData(body)	
-			for (let i = 0; i < listSeries.length; i++){
-				getSeriesDetails(listSeries[i])
-			}
+            //parseData(body)	
+			var tempRoot = parse(body)
+			parseData(tempRoot);
         })
-		
-        .catch(console.error)
 	} catch (error) {
 		console.error(error)
 	}   
-	*/
 }
 
-function parseData(htmlDoc){
-    var root = parse(htmlDoc);
+//function parseData(htmlDoc){
+//    var root = parse(htmlDoc);
+function parseData(root){
     for (let i = 0; i < root.querySelectorAll('a.card-link').length; i++){
         var elem = root.querySelectorAll('a.card-link')[i]
         var link = elem.attributes.href;
@@ -159,54 +150,10 @@ function parseData(htmlDoc){
         }
         genre = setGenre(genreRaw);
         
+		writeLog("DEBUG","ID: " + seriesID + "\n   name:" + name + "\n   desc:" + description);
 		listSeries.push([seriesID, name, description, link, imgUrl, genre])
-		//getSeriesDetails(linkSeries, name, seriesID, imgUrl, genre, description)
-
-		//for each series we need to list the chapters and seasons.
-		//check how many series we have
-		/*
-		var resSeries = 
-		fetch(linkSeries)
-			.then((resSeries) => resSeries.text())
-			.then((bodySeries) => {
-
-				var rootSeries = parse(bodySeries);
-				var seriesSeasons = rootSeries.querySelectorAll('div.seasons-item')
-				var noOfSeasons = seriesSeasons.length;
-				writeLog("DEBUG","Series: " + name + " - No of seasons: " + noOfSeasons)
-				
-				for (var i = 0; i < noOfSeasons ; i++){
-					var currSeriesNo = noOfSeasons - i;
-					var elemSeries = rootSeries.querySelectorAll('div.seasons-item')[i]
-					var elemEpisodes = elemSeries.getElementsByTagName('li')
-					for (var iter =0 ; iter < elemEpisodes.length ; iter ++){
-						writeLog("DEBUG","Series: " + name + " Season: " + currSeriesNo + " Episode: " + (iter +1));
-					}
-					//for (let t = 0;
-					//writeLog("DEBUG","No of Seasons: " + noOfSeasons + " Season: " + (noOfSeasons - 1) +  " and number of episodes is: " + elemEpisodes.length)
-				}
-				
-			})
-			*/
-        //push into series catalog
-        //catalogSeries.push([seriesID, "series", name, imgUrl, genre]).
-		/*
-        catalogSeries[seriesID] = {
-            "type": "series",
-			"id": seriesID,
-			"name": name,
-            "poster": imgUrl,
-            "posterShape": "poster",
-            "stream": linkSeries,
-            "description": description,
-            "genre": genre,
-            "banner": ""}
-        */
-        //writeLog("DEBUG","ID: " +  seriesID +  "\n    Name: " + name + "\n   Image URL is: " + imgUrl + "\n    Link: "+ link + "\n    Desc: " + description + "\n    Genre: " + genre);
     }  
-	//for (let i = 0; i < listSeries.length; i++){
-	//	getSeriesDetails(listSeries[i])
-	//}
+	writeLog("DEBUG","Exiting parse function");
 }
 
 // Function to extract each season and episode of the series and push them into map (catalogSeries)
@@ -242,10 +189,6 @@ function getSeriesDetails (seriesStr ){
 				episodeId = episodeId + ":" + seasonNo;
 
 			}
-			//parseData(body)	
-        
-		
-		
 		})
         .catch(console.error)
 	} catch (error) {
@@ -396,5 +339,9 @@ function setGenre(genres) {
 }
 
 scrapeData();
+writeLog("DEBUG", "Finished parsing. What's next?");
+for (let i = 0; i < listSeries.length; i++){
+	getSeriesDetails(listSeries[i]);
+}
 
 module.exports = builder.getInterface()
