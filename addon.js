@@ -117,13 +117,12 @@ function writeLog(level, msg){
 var listSeries = [];
 
 function scrapeData() {
-
 	try {
-        
 		fetch(url)
         .then((res) => res.text())
         .then((body) => {
-            var tempRoot = parse(body);
+            //parseData(body)	
+			var tempRoot = parse(body)
 			parseData(tempRoot);
         })
 	} catch (error) {
@@ -132,8 +131,8 @@ function scrapeData() {
 }
 
 //function parseData(htmlDoc){
+//    var root = parse(htmlDoc);
 function parseData(root){
-    //var root = parse(htmlDoc);
     for (let i = 0; i < root.querySelectorAll('a.card-link').length; i++){
         var elem = root.querySelectorAll('a.card-link')[i]
         var link = elem.attributes.href;
@@ -151,9 +150,10 @@ function parseData(root){
         }
         genre = setGenre(genreRaw);
         
-		writeLog("DEBUG", "ID: " + seriesID + "\n    name:" + name + "\n    desc: " + description + "\n   genres:" + genre);
+		writeLog("DEBUG","ID: " + seriesID + "\n   name:" + name + "\n   desc:" + description);
 		listSeries.push([seriesID, name, description, link, imgUrl, genre])
     }  
+	writeLog("DEBUG","Exiting parse function");
 }
 
 // Function to extract each season and episode of the series and push them into map (catalogSeries)
@@ -189,15 +189,24 @@ function getSeriesDetails (seriesStr ){
 				episodeId = episodeId + ":" + seasonNo;
 
 			}
-			//parseData(body)	
-        
-		
-		
 		})
         .catch(console.error)
 	} catch (error) {
 		console.error(error)
 	}      
+	//var response = await fetch(linkSeries);
+  	//var bodySeries = await response.text();
+
+	//parsing
+	//var rootSeries = parse(bodySeries);
+
+	//extracting
+	//var seriesSeasons = rootSeries.querySelectorAll('div.seasons-item');
+	//var noOfSeasons = seriesSeasons.length;
+	//writeLog("DEBUG","Series: " + nameSeries + " - No of seasons: " + noOfSeasons);
+
+
+
 }
 
 function getName (altRet, linkRet ){
@@ -322,14 +331,17 @@ function setGenre(genres) {
 				//genres.replace("קומדיה וסאטירה", "Comedy")
 				newGenres.push("Comedy");
                 break;
-        default:              
-        } 
+        default:
+              
+          } 
     }
     return newGenres;
 }
 
 scrapeData();
-for (i = 0; i< listSeries.length ; i++){
+writeLog("DEBUG", "Finished parsing. What's next?");
+for (let i = 0; i < listSeries.length; i++){
 	getSeriesDetails(listSeries[i]);
 }
+
 module.exports = builder.getInterface()
