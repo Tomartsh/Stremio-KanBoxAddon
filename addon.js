@@ -117,31 +117,22 @@ function writeLog(level, msg){
 var listSeries = [];
 
 async function scrapeData() {
-    
-	let response = await fetch(url);
-	let body = await response.text();
-	parseData(body);
-	/*
+
 	try {
         
 		fetch(url)
         .then((res) => res.text())
         .then((body) => {
-            parseData(body)	
-			for (let i = 0; i < listSeries.length; i++){
-				getSeriesDetails(listSeries[i])
-			}
+            var tempRoot = parse(body);
         })
-		
-        .catch(console.error)
 	} catch (error) {
 		console.error(error)
 	}   
-	*/
 }
 
-function parseData(htmlDoc){
-    var root = parse(htmlDoc);
+//function parseData(htmlDoc){
+function parseData(root){
+    //var root = parse(htmlDoc);
     for (let i = 0; i < root.querySelectorAll('a.card-link').length; i++){
         var elem = root.querySelectorAll('a.card-link')[i]
         var link = elem.attributes.href;
@@ -159,6 +150,7 @@ function parseData(htmlDoc){
         }
         genre = setGenre(genreRaw);
         
+		writeLog("DEBUG", "ID: " + seriesID + "\n    name:" + name + "\n    desc: " + description);
 		listSeries.push([seriesID, name, description, link, imgUrl, genre])
 		//getSeriesDetails(linkSeries, name, seriesID, imgUrl, genre, description)
 
