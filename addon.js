@@ -1,52 +1,155 @@
-import { parse } from 'node-html-parser';
-import fetch from 'node-fetch';
-import addonBuilder from 'stremio-addon-sdk';
-import serveHTTP from 'stremio-addon-sdk';
-import publishToCentral from 'stremio-addon-sdk';
-
+const { parse } = require('node-html-parser');
+const fetch = require('node-fetch');
+const { addonBuilder } = require("stremio-addon-sdk");
 
 const debugState = true
-const series = [];
-const catalogSeries = [];
-const url = "https://www.kan.org.il/lobby/kan-box/";
 
+const catalogSeries = {}; //create the series catalog doctionary
+const url = "https://www.kan.org.il/lobby/kan-box/";
+const prefeix = "kanbox_"
+
+//+===================================================================================
+//
+//  Stremio related code
+//+===================================================================================
+
+// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md
+const manifest = {
+	"id": "community.KanBoxDigital",
+	"version": "0.0.1",
+	"catalogs": [
+		{
+			"type": "movie",
+			"id": "top"
+		},
+		{
+			"type": "series",
+			"id": "top"
+		}
+	],
+	"resources": [
+		"catalog",
+		"stream",
+		"meta"
+	],
+	"types": [
+		"movie",
+		"series",
+		"tv"
+	],
+	"idPrefixes": [
+		prefeix 
+	],
+	"name": "KanBoxDigital",
+	"description": "Addon for Israel Public Broadcastin Corporation - Kan Digital"
+}
+const builder = new addonBuilder(manifest)
+
+builder.defineCatalogHandler(({type, id, extra}) => {
+	console.log("request for catalogs: "+type+" "+id)
+	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineCatalogHandler.md
+	
+	let results;
+
+	switch(type) {
+        case "movie":
+            results = Promise.resolve( [] )
+            break
+		case "series":
+			console.log("In Series")
+			return Promise.resolve({ metas: [
+				{
+					id: "tt1254207",
+					type: "movie",
+					name: "The Big Buck Bunny",
+					poster: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Big_buck_bunny_poster_big.jpg/220px-Big_buck_bunny_poster_big.jpg"
+				}
+			] })
+			
+			break
+       default:
+            results = Promise.resolve( [] )
+            break
+    }
+	
+	return results.then(items => ({
+        metas: items
+    }))
+
+})
+
+builder.defineMetaHandler(({type, id}) => {
+	console.log("request for meta: "+type+" "+id)
+	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
+	return Promise.resolve({ meta: null })
+})
+
+builder.defineStreamHandler(({type, id}) => {
+	console.log("request for streams: "+type+" "+id)
+	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineStreamHandler.md
+	/*
+	if (type === "movie" && id === "tt1254207") {
+		// serve one stream to big buck bunny
+		const stream = { url: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4" }
+		return Promise.resolve({ streams: [stream] })
+	}
+	*/
+	// otherwise return no streams
+	return Promise.resolve({ streams: [] })
+})
+
+//module.exports = builder.getInterface()
+
+//+===================================================================================
+//
+//  Utility related code
+//+===================================================================================
 function writeLog(level, msg){
     if (level =="DEBUG"){
         console.log(msg)
     }
 }
 
-/*======================================================================
-  Data retrieval and parsing related code
-========================================================================*/
+//+===================================================================================
+//
+//  Data retrieval related code
+//+===================================================================================
+var listSeries = [];
+
 async function scrapeData() {
-    try {
-        //const model = '.mb-3.h4 + .f4.mt-3'
+    
+	let response = await fetch(url);
+	let body = await response.text();
+	parseData(body);
+	/*
+	try {
         
-        fetch(url)
+		fetch(url)
         .then((res) => res.text())
         .then((body) => {
-            parseData(body)
+            parseData(body)	
+			for (let i = 0; i < listSeries.length; i++){
+				getSeriesDetails(listSeries[i])
+			}
         })
+		
         .catch(console.error)
 	} catch (error) {
 		console.error(error)
-	}
-          
+	}   
+	*/
 }
 
 function parseData(htmlDoc){
-    
-    const root = parse(htmlDoc);
-    
+    var root = parse(htmlDoc);
     for (let i = 0; i < root.querySelectorAll('a.card-link').length; i++){
         var elem = root.querySelectorAll('a.card-link')[i]
         var link = elem.attributes.href;
         var seriesID = setID(link)
         var imageElem = root.querySelectorAll('a.card-link')[i].getElementsByTagName('img')[0];
-        var imgUrl = imageElem.attributes.src
+        var imgUrl = imageElem.attributes.src.substring(0,imageElem.attributes.src.indexOf("?"))
         var name = getName(imageElem.attributes.alt, link)
-        
+
         var genreRaw, genre, description
         var st = elem.structuredText.split("\n")
         if (st.length == 1) {genreRaw = st[0].trim()}
@@ -55,27 +158,115 @@ function parseData(htmlDoc){
             description = st[0].trim()
         }
         genre = setGenre(genreRaw);
-
-        var seriesSingle = {
-            id: seriesID,
-            type: "series",
-            name: name,
-            poster: imgUrl,
-            posterShape: "poster",
-            genre: genre,
-            banner: ""
-        }
-        // push id (link), type (series or movies or stream), name, poster (link), genre
-        //series.push([seriesID, "series", name, imgUrl, genre, link])
-        series.push(seriesSingle)
         
+		listSeries.push([seriesID, name, description, link, imgUrl, genre])
+		//getSeriesDetails(linkSeries, name, seriesID, imgUrl, genre, description)
+
+		//for each series we need to list the chapters and seasons.
+		//check how many series we have
+		/*
+		var resSeries = 
+		fetch(linkSeries)
+			.then((resSeries) => resSeries.text())
+			.then((bodySeries) => {
+
+				var rootSeries = parse(bodySeries);
+				var seriesSeasons = rootSeries.querySelectorAll('div.seasons-item')
+				var noOfSeasons = seriesSeasons.length;
+				writeLog("DEBUG","Series: " + name + " - No of seasons: " + noOfSeasons)
+				
+				for (var i = 0; i < noOfSeasons ; i++){
+					var currSeriesNo = noOfSeasons - i;
+					var elemSeries = rootSeries.querySelectorAll('div.seasons-item')[i]
+					var elemEpisodes = elemSeries.getElementsByTagName('li')
+					for (var iter =0 ; iter < elemEpisodes.length ; iter ++){
+						writeLog("DEBUG","Series: " + name + " Season: " + currSeriesNo + " Episode: " + (iter +1));
+					}
+					//for (let t = 0;
+					//writeLog("DEBUG","No of Seasons: " + noOfSeasons + " Season: " + (noOfSeasons - 1) +  " and number of episodes is: " + elemEpisodes.length)
+				}
+				
+			})
+			*/
         //push into series catalog
-        catalogSeries.push([seriesID, "series", name, imgUrl, genre])
-        writeLog("DEBUG","Name: " + name + "\n   Image URL is: " + imgUrl + "\n    Link: "+ link + "\n    Desc: " + description + "\n    Genre: " + genre);
+        //catalogSeries.push([seriesID, "series", name, imgUrl, genre]).
+		/*
+        catalogSeries[seriesID] = {
+            "type": "series",
+			"id": seriesID,
+			"name": name,
+            "poster": imgUrl,
+            "posterShape": "poster",
+            "stream": linkSeries,
+            "description": description,
+            "genre": genre,
+            "banner": ""}
+        */
+        //writeLog("DEBUG","ID: " +  seriesID +  "\n    Name: " + name + "\n   Image URL is: " + imgUrl + "\n    Link: "+ link + "\n    Desc: " + description + "\n    Genre: " + genre);
     }  
+	//for (let i = 0; i < listSeries.length; i++){
+	//	getSeriesDetails(listSeries[i])
+	//}
 }
 
-function getName (altRet, linkRet){
+// Function to extract each season and episode of the series and push them into map (catalogSeries)
+function getSeriesDetails (seriesStr ){
+	var seriesId = seriesStr[0]
+	var nameSeries = seriesStr[1];
+	var desc = seriesStr[2];
+	var linkSeries = seriesStr[3];
+	var posterUrl = seriesStr[4];
+	var genres = seriesStr[5];
+
+	//fetching
+	writeLog("DEBUG"," ID: " + seriesId + " name: " + nameSeries + " link: " + linkSeries)
+	try {
+        
+		fetch(linkSeries)
+        .then((resSeries) => resSeries.text())
+        .then((bodySeries) => {
+            var rootSeries = parse(bodySeries);
+
+			var elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
+			var totalNoOfSeasons =elemSeasons.length
+			var episodeId = seriesId;
+			for (let i = 0; i < seasonNo; i++){
+				var elemSeason = elemSeasons[i];
+				var elemEpisodes = elemSeasons[i].querySelectorAll('div.seasons-item')
+				for (iter = 0; iter < elemEpisodes.length; iter++){
+					var episode = elemEpisodes[0].querySelectorAll('card card-row card-row-xs card-link')
+					var episodesLink = episode.href
+				}
+				var totalNoOfSeasons = elemSeasons.length
+				var seasonNo = (totalNoOfSeasons - i )
+				episodeId = episodeId + ":" + seasonNo;
+
+			}
+			//parseData(body)	
+        
+		
+		
+		})
+        .catch(console.error)
+	} catch (error) {
+		console.error(error)
+	}      
+	//var response = await fetch(linkSeries);
+  	//var bodySeries = await response.text();
+
+	//parsing
+	//var rootSeries = parse(bodySeries);
+
+	//extracting
+	//var seriesSeasons = rootSeries.querySelectorAll('div.seasons-item');
+	//var noOfSeasons = seriesSeasons.length;
+	//writeLog("DEBUG","Series: " + nameSeries + " - No of seasons: " + noOfSeasons);
+
+
+
+}
+
+function getName (altRet, linkRet ){
     var val = ""
     var linkMod = ""
     var altMod = altRet.replace("פוסטר קטן", "")
@@ -104,174 +295,106 @@ function setID(link){
 }
 
 function setGenre(genres) {
+	var newGenres = [];
     var genresArr = genres.split(",")
     if (genresArr < 1) {return genres}
     for (let i = 0; i < genresArr.length; i++){
-        var check = genresArr[i]
-        check = check.trim()
+        var check = genresArr[i].trim()
+        //check = check.trim()
         //if (check === undefined){ continue;}
         switch(check) {
             case "דרמה":
-                genres = genres + ", Drama"
+                //genres = genres + ", Drama"
+				//genres.replace("דרמה","Drama")
+				newGenres.push("Drama");
                 break;
             case "מתח":
-                genres = genres + ", Suspence"
+                //genres = genres + ", Thriller"
+				//genres.replace("מתח", "Thriller")
+				newGenres.push("Thriller");
                 break;
             case "פעולה":
-                genres = genres + ", Action"
+                //genres = genres + ", Action"
+				//genres.replace("פעולה", "Action")
+				newGenres.push("Action");
                 break;
             case "אימה":
-                genres = genres + ", Horror"
+                //genres = genres + ", Horror"
+				//genres.replace("אימה","Horror")
+				newGenres.push("Horror");
                 break;
             case "דוקו":
-                genres = genres + ", Documentary"
+                //genres = genres + ", Documentary"
+				//genres.replace("דוקו","Documentary")
+				newGenres.push("Documentary");
                 break;
             case "אקטואליה":
-                genres = genres + ", News"
+                //genres = genres + ", Documentary"
+				//genres.replace("אקטואליה", "Documentary")
+				newGenres.push("Documentary");
                 break;
             case "ארכיון":
-                genres = genres + ", Archive"
+                //genres = genres + ", Archive"
+				//genres.replace("ארכיון", "Archive")
+				newGenres.push("Archive");
                 break;
             case "תרבות":
-                genres = genres + ", Culture"
+                //genres = genres + ", Culture"
+				//genres.replace("תרבות", "Culture")
+				newGenres.push("Culture");
                 break;
             case "היסטוריה":
-                genres = genres + ", History"
+                //genres = genres + ", History"
+				//genres.replace("היסטוריה", "History")
+				newGenres.push("History");
                 break;
             case "מוזיקה":
-                genres = genres + ", Music"
+                //genres = genres + ", Music"
+				//genres.replace("מוזיקה", "Music")
+				newGenres.push("Music");
                 break;
             case "תעודה":
-                genres = genres + ", Documentary"
+                //genres = genres + ", Documentary"
+				//genres.replace("תעודה", "Documentary")
+				newGenres.push("Documentary");
                 break;
+			case "ספורט":
+				//genres = genres + ", Documentary"
+				//genres.replace("ספורט", "Sport")
+				newGenres.push("Sport");
+				break;
             case "קומדיה":
-                genres = genres + ", Comedy"
+                //genres = genres + ", Comedy"
+				//genres.replace("קומדיה", "Comedy")
+				newGenres.push("Comedy");
                 break;
             case "ילדים":
-                genres = genres + ", Kids"
+                //genres = genres + ", Kids"
+				//genres.replace("ילדים", "Kids")
+				newGenres.push("Kids");
                 break;
             case "ילדים ונוער":
-                genres = genres + ", Kids"
+                //genres = genres + ", Kids"
+				//genres.replace("ילדים ונוער", "Kids")
+				newGenres.push("Kids");
                 break;
             case "בישול":
-                genres = genres + ", Cooking"
+                //genres = genres + ", Cooking"
+				//genres.replace("בישול", "Cooking")
+				newGenres.push("Cooking");
                 break;
             case "קומדיה וסאטירה":
-                genres = genres + ", Cooking, Satire"
+                //genres = genres + ", Comedy, Satire"
+				//genres.replace("קומדיה וסאטירה", "Comedy")
+				newGenres.push("Comedy");
                 break;
         default:
               
           } 
     }
-
-    return genres;
-
+    return newGenres;
 }
 
-  
-/*======================================================================
-  Stremio related code
-========================================================================*/
-
-const builder = new addonBuilder({
-    id: "org.stremio.kanboxdigital",
-    version: "0.0.1",
-
-    name: "Kan Box Digital Addon",
-    description: "Kan - Israeli Public Broadcasting Corporation - Box Digital Series",
-
-    catalogs: [],
-    resources: "stream",
-    types: "series",
-    idPrefixes: "kanbox_"
-})
-
-builder.defineCatalogHandler(function(args) {
-    if (args.type === 'series' && args.id === 'top') {
-
-        // we will only respond with Big Buck Bunny
-        // to both feed and search requests
-        /*
-        const meta = {
-            id: 'tt1254207',
-            name: 'Big Buck Bunny',
-            releaseInfo: '2008',
-            poster: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2/uVEFQvFMMsg4e6yb03xOfVsDz4o.jpg',
-            posterShape: 'poster',
-            banner: 'https://image.tmdb.org/t/p/original/aHLST0g8sOE1ixCxRDgM35SKwwp.jpg',
-            type: 'movie'
-        }
-        */
-       /*
-        if (args.extra && args.extra.search) {
-
-            // catalog search request
-
-            if (args.extra.search == 'big buck bunny') {
-                return Promise.resolve({ metas: [meta] })
-            } else {
-                return Promise.resolve({ metas: [] })
-            }
-
-        } else {
-
-            // catalog feed request
-
-            return Promise.resolve({ metas: [meta] })
-
-        }*/
-
-    } else {
-        // otherwise return empty catalog
-        return Promise.resolve({ metas: [] })
-    }
-})
-
-// takes function(args)
-builder.defineStreamHandler(function(args) {
-    if (args.type === 'series' && args.id === 'tt1254207') {
-        // serve one stream to big buck bunny
-        const stream = { url: 'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4' }
-        return Promise.resolve({ streams: [stream] })
-    } else {
-        // otherwise return no streams
-        return Promise.resolve({ streams: [] })
-    }
-})
-
-serveHTTP(builder.getInterface(), { port: process.env.PORT || 7000 })
-//publishToCentral("https://your-domain/manifest.json") // <- invoke this if you want to publish your addon and it's accessible publically on "your-domain"
-
-
-builder.defineCatalogHandler(({type, id, extra}) => {
-    let results;
-
-    switch(type) {
-        case "series":
-            results = getSeriesCatalog(id)
-            break
-       default:
-            results = Promise.resolve( [] )
-            break
-    }
-
-    if(extra.search) {
-        return results.then(items => {
-            metas: items.filter(meta => meta.name
-            .toLowercase()
-            .includes(extra.search.toLowercase()))
-        })
-    } else if(extra.genre) {
-        return results.then(items => ({
-            metas: items.filter(meta => meta.genres
-            .includes(extra.genre))
-        }))
-    }
-
-    const skip = extra.skip || 0;
-    return results.then(items => ({
-        metas: items.slice(skip, skip + 100)
-    }))
-})
-
 scrapeData();
+
+module.exports = builder.getInterface()

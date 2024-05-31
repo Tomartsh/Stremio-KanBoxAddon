@@ -1,14 +1,12 @@
 {
-  "type": "module",
-  "scripts": {
-    "start": "addon.js"
-  },
-  "dependencies": {
-    "node-fetch": "^3.3.2",
-    "node-html-parser": "^6.1.13",
-    "stremio-addon-sdk": "^1.6.10"
-  },
-  "devDependencies": {
-    "@types/stremio-addon-sdk": "^1.6.11"
-  }
+	"name": "stremio-addon-KanBoxDigital",
+	"version": "0.0.1",
+	"description": "Addon for Israel Public Broadcastin Corporation - Kan Digital",
+	"scripts": {
+		"start": "node server.js"
+	},
+	"dependencies": {
+		"node-html-parser": "^6.1.13",
+		"stremio-addon-sdk": "1.1.x"
+	}
 }
