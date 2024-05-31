@@ -116,7 +116,7 @@ function writeLog(level, msg){
 //+===================================================================================
 var listSeries = [];
 
-async function scrapeData() {
+function scrapeData() {
 
 	try {
         
@@ -124,6 +124,7 @@ async function scrapeData() {
         .then((res) => res.text())
         .then((body) => {
             var tempRoot = parse(body);
+			parseData(tempRoot);
         })
 	} catch (error) {
 		console.error(error)
@@ -150,55 +151,9 @@ function parseData(root){
         }
         genre = setGenre(genreRaw);
         
-		writeLog("DEBUG", "ID: " + seriesID + "\n    name:" + name + "\n    desc: " + description);
+		writeLog("DEBUG", "ID: " + seriesID + "\n    name:" + name + "\n    desc: " + description + "\n   genres:" + genre);
 		listSeries.push([seriesID, name, description, link, imgUrl, genre])
-		//getSeriesDetails(linkSeries, name, seriesID, imgUrl, genre, description)
-
-		//for each series we need to list the chapters and seasons.
-		//check how many series we have
-		/*
-		var resSeries = 
-		fetch(linkSeries)
-			.then((resSeries) => resSeries.text())
-			.then((bodySeries) => {
-
-				var rootSeries = parse(bodySeries);
-				var seriesSeasons = rootSeries.querySelectorAll('div.seasons-item')
-				var noOfSeasons = seriesSeasons.length;
-				writeLog("DEBUG","Series: " + name + " - No of seasons: " + noOfSeasons)
-				
-				for (var i = 0; i < noOfSeasons ; i++){
-					var currSeriesNo = noOfSeasons - i;
-					var elemSeries = rootSeries.querySelectorAll('div.seasons-item')[i]
-					var elemEpisodes = elemSeries.getElementsByTagName('li')
-					for (var iter =0 ; iter < elemEpisodes.length ; iter ++){
-						writeLog("DEBUG","Series: " + name + " Season: " + currSeriesNo + " Episode: " + (iter +1));
-					}
-					//for (let t = 0;
-					//writeLog("DEBUG","No of Seasons: " + noOfSeasons + " Season: " + (noOfSeasons - 1) +  " and number of episodes is: " + elemEpisodes.length)
-				}
-				
-			})
-			*/
-        //push into series catalog
-        //catalogSeries.push([seriesID, "series", name, imgUrl, genre]).
-		/*
-        catalogSeries[seriesID] = {
-            "type": "series",
-			"id": seriesID,
-			"name": name,
-            "poster": imgUrl,
-            "posterShape": "poster",
-            "stream": linkSeries,
-            "description": description,
-            "genre": genre,
-            "banner": ""}
-        */
-        //writeLog("DEBUG","ID: " +  seriesID +  "\n    Name: " + name + "\n   Image URL is: " + imgUrl + "\n    Link: "+ link + "\n    Desc: " + description + "\n    Genre: " + genre);
     }  
-	//for (let i = 0; i < listSeries.length; i++){
-	//	getSeriesDetails(listSeries[i])
-	//}
 }
 
 // Function to extract each season and episode of the series and push them into map (catalogSeries)
@@ -243,19 +198,6 @@ function getSeriesDetails (seriesStr ){
 	} catch (error) {
 		console.error(error)
 	}      
-	//var response = await fetch(linkSeries);
-  	//var bodySeries = await response.text();
-
-	//parsing
-	//var rootSeries = parse(bodySeries);
-
-	//extracting
-	//var seriesSeasons = rootSeries.querySelectorAll('div.seasons-item');
-	//var noOfSeasons = seriesSeasons.length;
-	//writeLog("DEBUG","Series: " + nameSeries + " - No of seasons: " + noOfSeasons);
-
-
-
 }
 
 function getName (altRet, linkRet ){
@@ -380,13 +322,14 @@ function setGenre(genres) {
 				//genres.replace("קומדיה וסאטירה", "Comedy")
 				newGenres.push("Comedy");
                 break;
-        default:
-              
-          } 
+        default:              
+        } 
     }
     return newGenres;
 }
 
 scrapeData();
-
+for (i = 0; i< listSeries.length ; i++){
+	getSeriesDetails(listSeries[i]);
+}
 module.exports = builder.getInterface()
