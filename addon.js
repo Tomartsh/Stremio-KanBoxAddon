@@ -8,6 +8,13 @@ const catalogSeries = {}; //create the series catalog doctionary
 const url = "https://www.kan.org.il/lobby/kan-box/";
 const prefeix = "kanbox_"
 
+let listSeries = [];
+let finishParsing = false;
+let finishedProcessing = false;
+
+scrapeData();
+
+
 //+===================================================================================
 //
 //  Stremio related code
@@ -48,7 +55,7 @@ const builder = new addonBuilder(manifest)
 builder.defineCatalogHandler(({type, id, extra}) => {
 	console.log("request for catalogs: "+type+" "+id)
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineCatalogHandler.md
-	
+	scrapeData();
 	let results;
 
 	switch(type) {
@@ -57,14 +64,16 @@ builder.defineCatalogHandler(({type, id, extra}) => {
             break
 		case "series":
 			console.log("In Series")
-			return Promise.resolve({ metas: [
-				{
-					id: "tt1254207",
-					type: "movie",
-					name: "The Big Buck Bunny",
-					poster: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Big_buck_bunny_poster_big.jpg/220px-Big_buck_bunny_poster_big.jpg"
-				}
-			] })
+			var metas = [];
+			for (i = 0; listSeries.length; i++){
+				metas.push({
+					id: listSeries[i][0],
+					type: "series",
+					name: listSeries[i][1],
+					poster: listSeries[i][4]
+				})
+			}
+			return Promise.resolve({ metas })
 			
 			break
        default:
@@ -114,9 +123,9 @@ function writeLog(level, msg){
 //
 //  Data retrieval related code
 //+===================================================================================
-var listSeries = [];
 
 function scrapeData() {
+	//writeLog ("DEBUG", "Entered scrapeData")
 	try {
 		fetch(url)
         .then((res) => res.text())
@@ -127,16 +136,17 @@ function scrapeData() {
         })
 	} catch (error) {
 		console.error(error)
-	}   
+	}  
+	//writeLog("DEBUG","Exited scrapeData") ;
 }
 
 //function parseData(htmlDoc){
 //    var root = parse(htmlDoc);
 function parseData(root){
-    for (let i = 0; i < root.querySelectorAll('a.card-link').length; i++){
+	for (let i = 0; i < root.querySelectorAll('a.card-link').length; i++){
         var elem = root.querySelectorAll('a.card-link')[i]
         var link = elem.attributes.href;
-        var seriesID = setID(link)
+        var seriesID = setID(link) + ":1:1";
         var imageElem = root.querySelectorAll('a.card-link')[i].getElementsByTagName('img')[0];
         var imgUrl = imageElem.attributes.src.substring(0,imageElem.attributes.src.indexOf("?"))
         var name = getName(imageElem.attributes.alt, link)
@@ -150,10 +160,10 @@ function parseData(root){
         }
         genre = setGenre(genreRaw);
         
-		writeLog("DEBUG","ID: " + seriesID + "\n   name:" + name + "\n   desc:" + description);
+		//writeLog("DEBUG","ID: " + seriesID + "\n   name:" + name + "\n   desc:" + description);
 		listSeries.push([seriesID, name, description, link, imgUrl, genre])
-    }  
-	writeLog("DEBUG","Exiting parse function");
+    } 
+	finishParsing = true;
 }
 
 // Function to extract each season and episode of the series and push them into map (catalogSeries)
@@ -204,9 +214,6 @@ function getSeriesDetails (seriesStr ){
 	//var seriesSeasons = rootSeries.querySelectorAll('div.seasons-item');
 	//var noOfSeasons = seriesSeasons.length;
 	//writeLog("DEBUG","Series: " + nameSeries + " - No of seasons: " + noOfSeasons);
-
-
-
 }
 
 function getName (altRet, linkRet ){
@@ -338,10 +345,6 @@ function setGenre(genres) {
     return newGenres;
 }
 
-scrapeData();
-writeLog("DEBUG", "Finished parsing. What's next?");
-for (let i = 0; i < listSeries.length; i++){
-	getSeriesDetails(listSeries[i]);
-}
+
 
 module.exports = builder.getInterface()
