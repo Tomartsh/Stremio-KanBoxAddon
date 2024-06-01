@@ -55,7 +55,6 @@ const builder = new addonBuilder(manifest)
 builder.defineCatalogHandler(({type, id, extra}) => {
 	console.log("request for catalogs: "+type+" "+id)
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineCatalogHandler.md
-	scrapeData();
 	let results;
 
 	switch(type) {
@@ -65,7 +64,7 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 		case "series":
 			console.log("In Series")
 			var metas = [];
-			for (i = 0; listSeries.length; i++){
+			for (i = 0; i < listSeries.length; i++){
 				metas.push({
 					id: listSeries[i][0],
 					type: "series",
