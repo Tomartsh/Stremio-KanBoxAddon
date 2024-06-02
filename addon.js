@@ -9,8 +9,7 @@ const prefeix = "kanbox_"
 
 //let listSeries = [];
 let listSeries = [];
-let finishParsing = false;
-let finishedProcessing = false;
+let tempSeriesEpisodes = [];
 
 scrapeData();
 
@@ -186,6 +185,7 @@ function getSeriesDetails (seriesId ){
         .then((bodySeries) => {
             var rootSeries = parse(bodySeries);
 
+			writeLog("DEBUG","After data retrieval of " + series.id);
 			var elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
 			var totalNoOfSeasons =elemSeasons.length
 			//var episodeId = seriesId;
@@ -202,7 +202,7 @@ function getSeriesDetails (seriesId ){
 				}
 				var totalNoOfSeasons = elemSeasons.length
 				var seasonNo = (totalNoOfSeasons - i )
-				episodeId = seriesId + ":" + seasonNo;+ ":" + (i + 1);
+				var episodeId = seriesId + ":" + seasonNo;+ ":" + (i + 1);
 
 				writeLog("DEBUG", "Episode ID: " + episodeId + "\n    name: " + title + "\n    Link: " + episodeLink);
 				seriesEpisodes.push({
