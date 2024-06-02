@@ -4,10 +4,10 @@ const { addonBuilder } = require("stremio-addon-sdk");
 
 const debugState = true
 
-const catalogSeries = {}; //create the series catalog doctionary
 const url = "https://www.kan.org.il/lobby/kan-box/";
 const prefeix = "kanbox_"
 
+//let listSeries = [];
 let listSeries = [];
 let finishParsing = false;
 let finishedProcessing = false;
@@ -54,7 +54,6 @@ const builder = new addonBuilder(manifest)
 
 builder.defineCatalogHandler(({type, id, extra}) => {
 	console.log("request for catalogs: "+type+" "+id)
-	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineCatalogHandler.md
 	let results;
 
 	switch(type) {
@@ -62,14 +61,14 @@ builder.defineCatalogHandler(({type, id, extra}) => {
             results = Promise.resolve( [] )
             break
 		case "series":
-			console.log("In Series")
 			var metas = [];
 			for (i = 0; i < listSeries.length; i++){
 				metas.push({
-					id: listSeries[i][0],
+					id: listSeries[i].id,
 					type: "series",
-					name: listSeries[i][1],
-					poster: listSeries[i][4]
+					name: listSeries[i].name,
+					poster: listSeries[i].poster,
+					genres: listSeries[i].genres
 				})
 			}
 			return Promise.resolve({ metas })
@@ -88,6 +87,7 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 
 builder.defineMetaHandler(({type, id}) => {
 	console.log("request for meta: "+type+" "+id)
+	var meta = getSeriesDetails(id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	return Promise.resolve({ meta: null })
 })
@@ -124,7 +124,6 @@ function writeLog(level, msg){
 //+===================================================================================
 
 function scrapeData() {
-	//writeLog ("DEBUG", "Entered scrapeData")
 	try {
 		fetch(url)
         .then((res) => res.text())
@@ -136,7 +135,6 @@ function scrapeData() {
 	} catch (error) {
 		console.error(error)
 	}  
-	//writeLog("DEBUG","Exited scrapeData") ;
 }
 
 //function parseData(htmlDoc){
@@ -145,74 +143,85 @@ function parseData(root){
 	for (let i = 0; i < root.querySelectorAll('a.card-link').length; i++){
         var elem = root.querySelectorAll('a.card-link')[i]
         var link = elem.attributes.href;
-        var seriesID = setID(link) + ":1:1";
+        var seriesID = setID(link);
         var imageElem = root.querySelectorAll('a.card-link')[i].getElementsByTagName('img')[0];
         var imgUrl = imageElem.attributes.src.substring(0,imageElem.attributes.src.indexOf("?"))
         var name = getName(imageElem.attributes.alt, link)
 
-        var genreRaw, genre, description
+        var genreRaw, genres, description
         var st = elem.structuredText.split("\n")
         if (st.length == 1) {genreRaw = st[0].trim()}
         if (st.length == 2) {
             genreRaw = st[1].trim()
             description = st[0].trim()
         }
-        genre = setGenre(genreRaw);
+        genres = setGenre(genreRaw);
         
-		//writeLog("DEBUG","ID: " + seriesID + "\n   name:" + name + "\n   desc:" + description);
-		listSeries.push([seriesID, name, description, link, imgUrl, genre])
-    } 
+		listSeries.push(
+			{
+				id: seriesID,
+				name: name,
+				description: description,
+				link: link,
+				poster: imgUrl,
+				genres: genres
+
+			})
+	} 
 	finishParsing = true;
 }
 
 // Function to extract each season and episode of the series and push them into map (catalogSeries)
-function getSeriesDetails (seriesStr ){
-	var seriesId = seriesStr[0]
-	var nameSeries = seriesStr[1];
-	var desc = seriesStr[2];
-	var linkSeries = seriesStr[3];
-	var posterUrl = seriesStr[4];
-	var genres = seriesStr[5];
+function getSeriesDetails (seriesId ){
+	
+	//var series = listSeries[seriesId];
+	var series  = listSeries.find((objSeries) => objSeries.id === seriesId);
 
+	writeLog("DEBUG", "HEre is the object: " +  series.id + ", " + series.name + ", " + series.link);
 	//fetching
-	writeLog("DEBUG"," ID: " + seriesId + " name: " + nameSeries + " link: " + linkSeries)
 	try {
-        
-		fetch(linkSeries)
+        var seriesEpisodes = [];
+		fetch(series.link)
         .then((resSeries) => resSeries.text())
         .then((bodySeries) => {
             var rootSeries = parse(bodySeries);
 
 			var elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
 			var totalNoOfSeasons =elemSeasons.length
-			var episodeId = seriesId;
+			//var episodeId = seriesId;
 			for (let i = 0; i < seasonNo; i++){
 				var elemSeason = elemSeasons[i];
 				var elemEpisodes = elemSeasons[i].querySelectorAll('div.seasons-item')
 				for (iter = 0; iter < elemEpisodes.length; iter++){
 					var episode = elemEpisodes[0].querySelectorAll('card card-row card-row-xs card-link')
 					var episodesLink = episode.href
+					var title = elemEpisodes[0].querySelectorAll("div.card-title").text;
+					var desc = elemEpisodes[0].querySelectorAll("div.card-text").text;
+					var elemEpisodeLog = elemEpisodes[0].querySelectorAll("img.img-full")[0]
+					var episodeLogUrl = elemEpisodeLog.attributes.src.substring(0,elemEpisodeLog.attributes.src.indexOf("?"))
 				}
 				var totalNoOfSeasons = elemSeasons.length
 				var seasonNo = (totalNoOfSeasons - i )
-				episodeId = episodeId + ":" + seasonNo;
+				episodeId = seriesId + ":" + seasonNo;+ ":" + (i + 1);
 
+				writeLog("DEBUG", "Episode ID: " + episodeId + "\n    name: " + title + "\n    Link: " + episodeLink);
+				seriesEpisodes.push({
+					id: episodeId,
+					type: "series",
+					videos: episodesLink,
+					name: title,
+					description: desc,					
+					poster: posterUrl,
+            		genres: genres,
+            		logo: episodeLogUrl,
+            		background: posterUrl
+				})
 			}
 		})
         .catch(console.error)
 	} catch (error) {
 		console.error(error)
 	}      
-	//var response = await fetch(linkSeries);
-  	//var bodySeries = await response.text();
-
-	//parsing
-	//var rootSeries = parse(bodySeries);
-
-	//extracting
-	//var seriesSeasons = rootSeries.querySelectorAll('div.seasons-item');
-	//var noOfSeasons = seriesSeasons.length;
-	//writeLog("DEBUG","Series: " + nameSeries + " - No of seasons: " + noOfSeasons);
 }
 
 function getName (altRet, linkRet ){
