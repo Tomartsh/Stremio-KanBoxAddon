@@ -88,11 +88,12 @@ builder.defineMetaHandler(({type, id}) => {
 	console.log("request for meta: "+type+" "+id)
 	var meta = getSeriesDetails(id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
-	return Promise.resolve({ meta: null })
+	return Promise.resolve({ meta: []})
 })
 
 builder.defineStreamHandler(({type, id}) => {
 	console.log("request for streams: "+type+" "+id)
+	var meta = getSeriesDetails(id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineStreamHandler.md
 	/*
 	if (type === "movie" && id === "tt1254207") {
@@ -115,6 +116,11 @@ function writeLog(level, msg){
     if (level =="DEBUG"){
         console.log(msg)
     }
+}
+
+//return true if empty or undefined
+function isEmpty(value) {
+	return (value == null || (typeof value === "string" && value.trim().length === 0));
 }
 
 //+===================================================================================
@@ -172,29 +178,29 @@ function parseData(root){
 
 // Function to extract each season and episode of the series and push them into map (catalogSeries)
 function getSeriesDetails (seriesId ){
-	
+	var seriesEpisodes = [];
 	//var series = listSeries[seriesId];
 	var series  = listSeries.find((objSeries) => objSeries.id === seriesId);
 
 	writeLog("DEBUG", "HEre is the object: " +  series.id + ", " + series.name + ", " + series.link);
 	//fetching
 	try {
-        var seriesEpisodes = [];
+       
 		fetch(series.link)
         .then((resSeries) => resSeries.text())
         .then((bodySeries) => {
             var rootSeries = parse(bodySeries);
 
-			writeLog("DEBUG","After data retrieval of " + series.id);
 			var elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
-			var totalNoOfSeasons =elemSeasons.length
-			//var episodeId = seriesId;
-			for (let i = 0; i < seasonNo; i++){
-				var elemSeason = elemSeasons[i];
-				var elemEpisodes = elemSeasons[i].querySelectorAll('div.seasons-item')
-				for (iter = 0; iter < elemEpisodes.length; iter++){
-					var episode = elemEpisodes[0].querySelectorAll('card card-row card-row-xs card-link')
-					var episodesLink = episode.href
+			var totalNoOfSeasons = elemSeasons.length
+			
+			for (let i = 0; i < totalNoOfSeasons; i++){
+				//var elemEpisodes = elemSeasons[i].querySelectorAll('div.seasons-item')
+				writeLog("DEBUG", "i is: " + i + " and elemEpisodes: " + elemEpisodes);
+				for (iter = 0; iter < elemSeasons[i].querySelectorAll('div.seasons-item').length; iter++){
+					var episode = elemSeasons[i].querySelectorAll('div.seasons-item')[0].querySelectorAll('card card-row card-row-xs card-link')
+					var episodeLink = episode.href
+					writeLog("DEBUG","Episode link: " + episode);
 					var title = elemEpisodes[0].querySelectorAll("div.card-title").text;
 					var desc = elemEpisodes[0].querySelectorAll("div.card-text").text;
 					var elemEpisodeLog = elemEpisodes[0].querySelectorAll("img.img-full")[0]
@@ -208,15 +214,16 @@ function getSeriesDetails (seriesId ){
 				seriesEpisodes.push({
 					id: episodeId,
 					type: "series",
-					videos: episodesLink,
+					videos: episodeLink,
 					name: title,
 					description: desc,					
-					poster: posterUrl,
-            		genres: genres,
+					poster: series.poster,
+            		genres: series.genres,
             		logo: episodeLogUrl,
-            		background: posterUrl
+            		background: series.poster
 				})
 			}
+			return seriesEpisodes;
 		})
         .catch(console.error)
 	} catch (error) {
