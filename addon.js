@@ -76,34 +76,56 @@ builder.defineCatalogHandler(({type, id, extra}) => {
        default:
             results = Promise.resolve( [] )
             break
-    }
-	
+    }	
 	return results.then(items => ({
         metas: items
     }))
-
 })
+
 
 builder.defineMetaHandler(({type, id}) => {
 	console.log("request for meta: "+type+" "+id)
-	var meta = getSeriesDetails(id);
+	var meta = [];
+	//find out if we alraedy processed the series
+	if (id.includes(":")){
+		writeLog("DEBUG", "We alraedy have the series with ID " + id + " in the main catalog");
+
+	}
+
+	var meta = {"kanbox_p-12832:1:1": { name: "Big Buck Bunny", 
+		type: "series", 
+		url: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" }
+	}
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	return Promise.resolve({ meta: []})
 })
 
+
 builder.defineStreamHandler(({type, id}) => {
 	console.log("request for streams: "+type+" "+id)
-	var meta = getSeriesDetails(id);
+
+	
+
+	//var meta = getSeriesDetails(id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineStreamHandler.md
-	/*
-	if (type === "movie" && id === "tt1254207") {
+	
+	//if (type === "series" && id === "tt1254207") {
+	if (type == "series") {
 		// serve one stream to big buck bunny
+		writeLog("DEBUG", "This is series we are talking about");
 		const stream = { url: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4" }
-		return Promise.resolve({ streams: [stream] })
+		//return Promise.resolve({ streams: [stream] })
+		return Promise.resolve({ streams: [ { url: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4" }] })
 	}
-	*/
-	// otherwise return no streams
+	
+	//otherwise return no streams
 	return Promise.resolve({ streams: [] })
+
+	if (dataset[args.id]) {
+        return Promise.resolve({ streams: [dataset[args.id]] });
+    } else {
+        return Promise.resolve({ streams: [] });
+    }
 })
 
 //module.exports = builder.getInterface()
@@ -173,19 +195,15 @@ function parseData(root){
 
 			})
 	} 
-	finishParsing = true;
 }
 
 // Function to extract each season and episode of the series and push them into map (catalogSeries)
 function getSeriesDetails (seriesId ){
+	writeLog("DEBUG", "In getSeriesDetails(" + seriesId +")" );
 	var seriesEpisodes = [];
-	//var series = listSeries[seriesId];
 	var series  = listSeries.find((objSeries) => objSeries.id === seriesId);
 
-	writeLog("DEBUG", "HEre is the object: " +  series.id + ", " + series.name + ", " + series.link);
-	//fetching
 	try {
-       
 		fetch(series.link)
         .then((resSeries) => resSeries.text())
         .then((bodySeries) => {
@@ -194,34 +212,32 @@ function getSeriesDetails (seriesId ){
 			var elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
 			var totalNoOfSeasons = elemSeasons.length
 			
-			for (let i = 0; i < totalNoOfSeasons; i++){
-				//var elemEpisodes = elemSeasons[i].querySelectorAll('div.seasons-item')
-				writeLog("DEBUG", "i is: " + i + " and elemEpisodes: " + elemEpisodes);
-				for (iter = 0; iter < elemSeasons[i].querySelectorAll('div.seasons-item').length; iter++){
-					var episode = elemSeasons[i].querySelectorAll('div.seasons-item')[0].querySelectorAll('card card-row card-row-xs card-link')
-					var episodeLink = episode.href
-					writeLog("DEBUG","Episode link: " + episode);
-					var title = elemEpisodes[0].querySelectorAll("div.card-title").text;
-					var desc = elemEpisodes[0].querySelectorAll("div.card-text").text;
-					var elemEpisodeLog = elemEpisodes[0].querySelectorAll("img.img-full")[0]
-					var episodeLogUrl = elemEpisodeLog.attributes.src.substring(0,elemEpisodeLog.attributes.src.indexOf("?"))
+			for (let i = 0; i < totalNoOfSeasons; i++){ //iterate over the sseasons
+				var seasonNo = totalNoOfSeasons - i //what season is this
+				var elemEpisodes = elemSeasons[i].querySelectorAll('a.card-link');//get all the episodes
+				
+				for (let iter = 0; iter < elemEpisodes.length; iter++){ //iterate over the episodes
+					var episode = elemEpisodes[iter];
+					var episodeLink = episode.attributes.href
+					var title = episode.querySelector("div.card-title").text.trim();
+					var desc = episode.querySelector("div.card-text").text.trim();
+					var elemEpisodeLogo = episode.querySelector("img.img-full")
+					var episodeLogoUrl = elemEpisodeLogo.attributes.src.substring(0,elemEpisodeLogo.attributes.src.indexOf("?"))
+					var episodeId = seriesId + ":" + seasonNo + ":" + (iter + 1);
+					
+					seriesEpisodes.push({
+						id: episodeId,
+						type: "series",
+						videos: episodeLink,
+						url: episodeLink,
+						name: title,
+						description: desc,					
+						poster: series.poster,
+						genres: series.genres,
+						logo: episodeLogoUrl,
+						background: series.poster
+					})
 				}
-				var totalNoOfSeasons = elemSeasons.length
-				var seasonNo = (totalNoOfSeasons - i )
-				var episodeId = seriesId + ":" + seasonNo;+ ":" + (i + 1);
-
-				writeLog("DEBUG", "Episode ID: " + episodeId + "\n    name: " + title + "\n    Link: " + episodeLink);
-				seriesEpisodes.push({
-					id: episodeId,
-					type: "series",
-					videos: episodeLink,
-					name: title,
-					description: desc,					
-					poster: series.poster,
-            		genres: series.genres,
-            		logo: episodeLogUrl,
-            		background: series.poster
-				})
 			}
 			return seriesEpisodes;
 		})
