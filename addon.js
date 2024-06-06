@@ -1,7 +1,11 @@
+const KanBox = require("./kanbox");
+const constants = require("./constants");
+
 const { parse } = require('node-html-parser');
 const fetch = require('node-fetch');
 const { addonBuilder } = require("stremio-addon-sdk");
 
+constkanBox = new KanBox();
 const debugState = true
 
 const url = "https://www.kan.org.il/lobby/kan-box/";
@@ -44,7 +48,7 @@ const manifest = {
 		"tv"
 	],
 	"idPrefixes": [
-		prefeix 
+		constants.prefeix 
 	],
 	"name": "KanBoxDigital",
 	"description": "Addon for Israel Public Broadcastin Corporation - Kan Digital"
@@ -63,7 +67,7 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 			var metas = [];
 			for (i = 0; i < listSeries.length; i++){
 				metas.push({
-					id: listSeries[i].id,
+					id: listSeries[i].id + ":1:1",
 					type: "series",
 					name: listSeries[i].name,
 					poster: listSeries[i].poster,
