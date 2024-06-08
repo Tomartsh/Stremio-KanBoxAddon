@@ -12,6 +12,18 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/server.js"
-        }
+        },
+        {
+            "name": "Launch via npm",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": ["run-script", "debug"],
+            "program": "${workspaceFolder}/server.js",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+          }
     ]
 }

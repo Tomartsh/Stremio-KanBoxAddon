@@ -3,7 +3,8 @@
 	"version": "0.0.1",
 	"description": "Addon for Israel Public Broadcastin Corporation - Kan Digital",
 	"scripts": {
-		"start": "node server.js"
+		"start": "node server.js",
+		"debug": "node server.js"
 	},
 	"dependencies": {
 		"node-html-parser": "^6.1.13",

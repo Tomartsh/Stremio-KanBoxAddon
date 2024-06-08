@@ -12,8 +12,7 @@ const url = "https://www.kan.org.il/lobby/kan-box/";
 const prefeix = "kanbox_"
 
 //let listSeries = [];
-let listSeries = [];
-let tempSeriesEpisodes = [];
+let listSeries = {};
 
 scrapeData();
 
@@ -29,12 +28,10 @@ const manifest = {
 	"version": "0.0.1",
 	"catalogs": [
 		{
-			"type": "movie",
-			"id": "top"
-		},
-		{
-			"type": "series",
-			"id": "top"
+			type: "series",
+			id: "top",
+			name: "Kan Box Digital",
+			extra: [ {name: "search" }]
 		}
 	],
 	"resources": [
@@ -43,37 +40,39 @@ const manifest = {
 		"meta"
 	],
 	"types": [
-		"movie",
 		"series",
 		"tv"
 	],
 	"idPrefixes": [
-		constants.prefeix 
+		prefeix 
 	],
-	"name": "KanBoxDigital",
+	"name": "Kan Box Digital",
 	"description": "Addon for Israel Public Broadcastin Corporation - Kan Digital"
 }
 const builder = new addonBuilder(manifest)
 
 builder.defineCatalogHandler(({type, id, extra}) => {
 	console.log("request for catalogs: "+type+" "+id)
-	let results;
+	//let results;
 
 	switch(type) {
-        case "movie":
-            results = Promise.resolve( [] )
-            break
-		case "series":
+        case "series":
 			var metas = [];
-			for (i = 0; i < listSeries.length; i++){
+			for (var [key, value] of Object.entries(listSeries)) {
+				console.log(key + ": " + listSeries[key].id + "  name: " + listSeries[key].name);
+				metas.push(value)
+			}
+			/*
+			for (i = 0; i < listSeries.length; i++){			
 				metas.push({
-					id: listSeries[i].id + ":1:1",
+					id: listSeries[i].id,
 					type: "series",
 					name: listSeries[i].name,
 					poster: listSeries[i].poster,
 					genres: listSeries[i].genres
 				})
 			}
+			*/
 			return Promise.resolve({ metas })
 			
 			break
@@ -90,16 +89,19 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 builder.defineMetaHandler(({type, id}) => {
 	console.log("request for meta: "+type+" "+id)
 	var meta = [];
+	
+	//var series = []
 	//find out if we alraedy processed the series
-	if (id.includes(":")){
-		writeLog("DEBUG", "We alraedy have the series with ID " + id + " in the main catalog");
-
-	}
-
+	//if (id.includes(":")){
+		//writeLog("DEBUG", "We alraedy have the series with ID " + id + " in the main catalog");
+		//getSeriesDetails(id.substring(0,id.indexOf(":")))
+		
+	//}
+/*
 	var meta = {"kanbox_p-12832:1:1": { name: "Big Buck Bunny", 
 		type: "series", 
 		url: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" }
-	}
+	}*/
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	return Promise.resolve({ meta: []})
 })
@@ -107,9 +109,6 @@ builder.defineMetaHandler(({type, id}) => {
 
 builder.defineStreamHandler(({type, id}) => {
 	console.log("request for streams: "+type+" "+id)
-
-	
-
 	//var meta = getSeriesDetails(id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineStreamHandler.md
 	
@@ -179,7 +178,8 @@ function parseData(root){
         var imgUrl = imageElem.attributes.src.substring(0,imageElem.attributes.src.indexOf("?"))
         var name = getName(imageElem.attributes.alt, link)
 
-        var genreRaw, genres, description
+        var genreRaw, genres 
+		var description = ""
         var st = elem.structuredText.split("\n")
         if (st.length == 1) {genreRaw = st[0].trim()}
         if (st.length == 2) {
@@ -187,7 +187,18 @@ function parseData(root){
             description = st[0].trim()
         }
         genres = setGenre(genreRaw);
-        
+		
+		listSeries[seriesID] = {
+			id: seriesID,
+			name: name,
+			description: description,
+			link: link,
+			poster: imgUrl,
+			background: imgUrl,
+			genres: genres,
+			videos: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4" 
+		}
+/*		
 		listSeries.push(
 			{
 				id: seriesID,
@@ -195,18 +206,19 @@ function parseData(root){
 				description: description,
 				link: link,
 				poster: imgUrl,
-				genres: genres
-
+				background: imgUrl,
+				genres: genres,
+				videos: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4" 
 			})
-	} 
+*/	
+		}
 }
 
 // Function to extract each season and episode of the series and push them into map (catalogSeries)
 function getSeriesDetails (seriesId ){
-	writeLog("DEBUG", "In getSeriesDetails(" + seriesId +")" );
+	writeLog("DEBUG", "In getSeriesDetails(" + seriesId + ")" );
 	var seriesEpisodes = [];
-	var series  = listSeries.find((objSeries) => objSeries.id === seriesId);
-
+	
 	try {
 		fetch(series.link)
         .then((resSeries) => resSeries.text())
@@ -241,6 +253,7 @@ function getSeriesDetails (seriesId ){
 						logo: episodeLogoUrl,
 						background: series.poster
 					})
+					//writeLog("DEBUG","ID: " + episodeId + "\n   videos: " + episodeLink + "\n   name: " + title + "\n   desc:" + desc + "\n   poster: " + series.poster + "\n   genres: " + series.genres)
 				}
 			}
 			return seriesEpisodes;
