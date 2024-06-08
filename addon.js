@@ -5,7 +5,7 @@ const { parse } = require('node-html-parser');
 const fetch = require('node-fetch');
 const { addonBuilder } = require("stremio-addon-sdk");
 
-constkanBox = new KanBox();
+const kanBox = new KanBox();
 const debugState = true
 
 const url = "https://www.kan.org.il/lobby/kan-box/";
@@ -59,7 +59,7 @@ builder.defineCatalogHandler(({type, id, extra}) => {
         case "series":
 			var metas = [];
 			for (var [key, value] of Object.entries(listSeries)) {
-				console.log(key + ": " + listSeries[key].id + "  name: " + listSeries[key].name);
+			//	console.log(key + ": " + listSeries[key].id + "  name: " + listSeries[key].name);
 				metas.push(value)
 			}
 			/*
@@ -89,7 +89,7 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 builder.defineMetaHandler(({type, id}) => {
 	console.log("request for meta: "+type+" "+id)
 	var meta = [];
-	
+	getSeriesDetails(id);
 	//var series = []
 	//find out if we alraedy processed the series
 	//if (id.includes(":")){
@@ -159,16 +159,17 @@ function scrapeData() {
         .then((res) => res.text())
         .then((body) => {
             //parseData(body)	
-			var tempRoot = parse(body)
-			parseData(tempRoot);
+			var tempRoot = parse(body);
+			let objSeries = {tempRoot, listSeries};
+			//kanBox.parseData(tempRoot);
+			kanBox.parseData(objSeries);
         })
 	} catch (error) {
 		console.error(error)
 	}  
 }
 
-//function parseData(htmlDoc){
-//    var root = parse(htmlDoc);
+
 function parseData(root){
 	for (let i = 0; i < root.querySelectorAll('a.card-link').length; i++){
         var elem = root.querySelectorAll('a.card-link')[i]
@@ -186,17 +187,18 @@ function parseData(root){
             genreRaw = st[1].trim()
             description = st[0].trim()
         }
-        genres = setGenre(genreRaw);
+        genres = kanBox.setGenre(genreRaw);
 		
 		listSeries[seriesID] = {
 			id: seriesID,
+			type: "series",
 			name: name,
 			description: description,
 			link: link,
 			poster: imgUrl,
 			background: imgUrl,
 			genres: genres,
-			videos: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4" 
+			videos: "" 
 		}
 /*		
 		listSeries.push(
@@ -210,7 +212,7 @@ function parseData(root){
 				genres: genres,
 				videos: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4" 
 			})
-*/	
+*/
 		}
 }
 
@@ -218,9 +220,8 @@ function parseData(root){
 function getSeriesDetails (seriesId ){
 	writeLog("DEBUG", "In getSeriesDetails(" + seriesId + ")" );
 	var seriesEpisodes = [];
-	
 	try {
-		fetch(series.link)
+		fetch(listSeries[seriesId].link)
         .then((resSeries) => resSeries.text())
         .then((bodySeries) => {
             var rootSeries = parse(bodySeries);
@@ -248,12 +249,12 @@ function getSeriesDetails (seriesId ){
 						url: episodeLink,
 						name: title,
 						description: desc,					
-						poster: series.poster,
-						genres: series.genres,
+						poster: listSeries[seriesId].poster,
+						genres: listSeries[seriesId].genres,
 						logo: episodeLogoUrl,
-						background: series.poster
+						background: listSeries[seriesId].poster
 					})
-					//writeLog("DEBUG","ID: " + episodeId + "\n   videos: " + episodeLink + "\n   name: " + title + "\n   desc:" + desc + "\n   poster: " + series.poster + "\n   genres: " + series.genres)
+					writeLog("DEBUG","ID: " + episodeId + "\n   videos: " + episodeLink + "\n   name: " + title + "\n   desc:" + desc + "\n   poster: " + listSeries[seriesId].poster + "\n   genres: " + listSeries[seriesId].genres)
 				}
 			}
 			return seriesEpisodes;
