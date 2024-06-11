@@ -1,4 +1,3 @@
-
 const { parse } = require('node-html-parser');
 const fetch = require('node-fetch');
 const { addonBuilder } = require("stremio-addon-sdk");
@@ -10,12 +9,9 @@ const debugState = true
 const url = "https://www.kan.org.il/lobby/kan-box/";
 const prefeix = "kanbox_"
 
-//let listSeries = [];
 let listSeries = {};
-let listSeriesCatalog = {};
 
 scrapeData();
-//kanBox.scrapeData()
 
 //+===================================================================================
 //
@@ -60,20 +56,8 @@ builder.defineCatalogHandler(({type, id, extra}) => {
         case "series":
 			var metas = [];
 			for (var [key, value] of Object.entries(listSeries)) {
-			//	console.log(key + ": " + listSeries[key].id + "  name: " + listSeries[key].name);
 				metas.push(value)
 			}
-			/*
-			for (i = 0; i < listSeries.length; i++){			
-				metas.push({
-					id: listSeries[i].id,
-					type: "series",
-					name: listSeries[i].name,
-					poster: listSeries[i].poster,
-					genres: listSeries[i].genres
-				})
-			}
-			*/
 			return Promise.resolve({ metas })
 			
 			break
@@ -89,7 +73,8 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 
 builder.defineMetaHandler(({type, id}) => {
 	console.log("request for meta: "+type+" "+id)
-	var metaObj = {
+	getSeriesDetails(id);
+	/*var metaObj = {
 			id: id,
 			name: 'Big Buck Bunny',
 			releaseInfo: '2008',
@@ -100,7 +85,9 @@ builder.defineMetaHandler(({type, id}) => {
 				{ season: "1", episode: "1", id: id+":1:1", title: "Christopher Columbus"},
 				{ season: "1", episode: "2", id: id+":1:2", title: "Stream 2"}
 			]
-	    }
+	    }*/
+	   console.log("Series: " + JSON.stringify(listSeries[id]))
+	   var metas = listSeries[id].metas;
 	
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	return Promise.resolve({meta: metaObj})
@@ -186,8 +173,6 @@ function parseData(root){
         }
         genres = setGenre(genreRaw);
 		
-		//var metas = getSeriesDetails(seriesID);
-		console.log("Hezi " + seriesID)
 		listSeries[seriesID] = {
 			id: seriesID,
 			type: "series",
@@ -197,35 +182,22 @@ function parseData(root){
 			link: link,
 			background: imgUrl,
 			genres: genres, 
-			//metas: metas
 		}
-/*		
-		listSeries.push(
-			{
-				id: seriesID,
-				name: name,
-				description: description,
-				link: link,
-				poster: imgUrl,
-				background: imgUrl,
-				genres: genres,
-			})
-*/
-		}
+	}
 }
 
 // Function to extract each season and episode of the series and push them into map (catalogSeries)
 function getSeriesDetails (seriesId ){
-	var seriesEpisodes = [];
 	try {
 		fetch(listSeries[seriesId].link)
         .then((resSeries) => resSeries.text())
         .then((bodySeries) => {
-            var rootSeries = parse(bodySeries);
+            listSeries[seriesId].metas = "";
+			var rootSeries = parse(bodySeries);
 
 			var elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
 			var totalNoOfSeasons = elemSeasons.length
-			
+
 			for (let i = 0; i < totalNoOfSeasons; i++){ //iterate over the sseasons
 				var seasonNo = totalNoOfSeasons - i //what season is this
 				var elemEpisodes = elemSeasons[i].querySelectorAll('a.card-link');//get all the episodes
@@ -233,36 +205,34 @@ function getSeriesDetails (seriesId ){
 				for (let iter = 0; iter < elemEpisodes.length; iter++){ //iterate over the episodes
 					var episode = elemEpisodes[iter];
 					var episodeLink = episode.attributes.href
+					
 					var title = episode.querySelector("div.card-title").text.trim();
 					var desc = episode.querySelector("div.card-text").text.trim();
+					
 					var elemEpisodeLogo = episode.querySelector("img.img-full")
 					var episodeLogoUrl = elemEpisodeLogo.attributes.src.substring(0,elemEpisodeLogo.attributes.src.indexOf("?"))
-					var episodeId = seriesId + ":" + seasonNo + ":" + (iter + 1);
+					//var episodeId = seriesId + ":" + seasonNo + ":" + (iter + 1);
 					
-					seriesEpisodes.push({
-					//listSeriesCatalog[episodeId] =
-					//{
-						id: episodeId,
+					var metas = [];
+					metas.push({
+						id: seriesId,
 						type: "series",
 						name: title,
 						genres: listSeries[seriesId].genres,
-						poster: listSeries[seriesId].poster,
 						background: listSeries[seriesId].poster,
 						description: desc,
 						logo: episodeLogoUrl,
 						videos: [{
-							id: seriesId + "_v_:" + seasonNo + ":" + (iter + 1) ,
+							id: seriesId + ":" + seasonNo + ":" + (iter + 1) ,
 							title: title,
-							released: new Date("1994-09-22 20:00 UTC+02"),
 							season: seasonNo,
 							episode: (iter + 1)
 						}]
 					})
-					
-					writeLog("DEBUG","ID: " + episodeId + "\n   name: " + title + "\n   desc:" + desc)
+					//writeLog("DEBUG","ID: " + episodeId + "\n   name: " + title + "\n   desc:" + desc)
 				}
 			}
-			return seriesEpisodes;
+			listSeries[seriesId].metas = metas			
 		})
         .catch(console.error)
 	} catch (error) {
