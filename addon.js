@@ -88,7 +88,7 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 
 builder.defineMetaHandler(({type, id}) => {
 	console.log("request for meta: "+type+" "+id)
-	var metaObj 
+	var metaObj = 
 		{
 			id: 'kanbox_p-12394:1:1',
 			name: 'Big Buck Bunny',
@@ -97,11 +97,10 @@ builder.defineMetaHandler(({type, id}) => {
 			posterShape: 'poster',
 			type: 'series',
 			videos: [
-				{ season: "1", episode: "1", id: "kanbox_p-12394:1:2", title: "Christopher Columbus"},
-				{ season: "1", episode: "1", id: "kanbox_p-12394:1:2", title: "Stream 2"}
+				{ season: "1", episode: "1", id: "kanbox_p-12394:1:1", title: "Christopher Columbus"},
+				{ season: "1", episode: "1", id: "kanbox_p-12394:1:1", title: "Stream 2"}
 			]
 		}
-	
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	return Promise.resolve({meta: metaObj})
 })
