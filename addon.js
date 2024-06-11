@@ -88,8 +88,8 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 
 builder.defineMetaHandler(({type, id}) => {
 	console.log("request for meta: "+type+" "+id)
-	var metaObj = 
-		{
+	var metaObj = [];
+		/*{
 			id: 'kanbox_p-12394:1:1',
 			name: 'Big Buck Bunny',
 			releaseInfo: '2008',
@@ -100,7 +100,33 @@ builder.defineMetaHandler(({type, id}) => {
 				{ season: "1", episode: "1", id: "kanbox_p-12394:1:1", title: "Christopher Columbus"},
 				{ season: "1", episode: "1", id: "kanbox_p-12394:1:1", title: "Stream 2"}
 			]
-		}
+	}*/
+	metaObj.push(
+	{
+		id: 'kanbox_p-12394:1:1',
+		name: 'Big Buck Bunny',
+		releaseInfo: '2008',
+		poster: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2/uVEFQvFMMsg4e6yb03xOfVsDz4o.jpg',
+		posterShape: 'poster',
+		type: 'series',
+		videos: [
+			{ season: "1", episode: "1", id: "kanbox_p-12394:1:1", title: "Christopher Columbus"},
+			{ season: "1", episode: "1", id: "kanbox_p-12394:1:1", title: "Stream 2"}
+		]
+	})
+	metaObj.psuh(
+	{
+		id: 'kanbox_p-12394:1:2',
+		name: 'Big Buck Bunny',
+		releaseInfo: '2008',
+		poster: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2/uVEFQvFMMsg4e6yb03xOfVsDz4o.jpg',
+		posterShape: 'poster',
+		type: 'series',
+		videos: [
+			{ season: "1", episode: "1", id: "kanbox_p-12394:1:2", title: "Christopher Columbus Chapter 2"},
+			{ season: "1", episode: "1", id: "kanbox_p-12394:1:2", title: "Stream 2 Chapter 2"}
+		]
+	})
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	return Promise.resolve({meta: metaObj})
 })
