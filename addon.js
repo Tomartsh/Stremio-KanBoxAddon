@@ -37,14 +37,15 @@ const manifest = {
 	"resources": [
 		"catalog",
 		"stream",
-		"meta"
+		{
+			"name": "meta",
+			"types": ["series"],
+			"idPrefixes": [prefeix]
+		}
 	],
 	"types": [
 		"series",
 		"tv"
-	],
-	"idPrefixes": [
-		prefeix 
 	],
 	"name": "Kan Box Digital",
 	"description": "Addon for Israel Public Broadcastin Corporation - Kan Digital"
@@ -88,45 +89,19 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 
 builder.defineMetaHandler(({type, id}) => {
 	console.log("request for meta: "+type+" "+id)
-	var metaObj = [];
-		/*{
-			id: 'kanbox_p-12394:1:1',
+	var metaObj = {
+			id: id,
 			name: 'Big Buck Bunny',
 			releaseInfo: '2008',
-			poster: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2/uVEFQvFMMsg4e6yb03xOfVsDz4o.jpg',
+			background: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.explicit.bing.net%2Fth%3Fid%3DOIP.Och56IaN7hOfKNxsxoG5ywHaLH%26pid%3DApi&f=1&ipt=85731b35df358e9bef890d717dde6ebf31a8750641e210acf9e6073004e4cdaa&ipo=images',
 			posterShape: 'poster',
 			type: 'series',
 			videos: [
-				{ season: "1", episode: "1", id: "kanbox_p-12394:1:1", title: "Christopher Columbus"},
-				{ season: "1", episode: "1", id: "kanbox_p-12394:1:1", title: "Stream 2"}
+				{ season: "1", episode: "1", id: id+":1:1", title: "Christopher Columbus"},
+				{ season: "1", episode: "2", id: id+":1:2", title: "Stream 2"}
 			]
-	}*/
-	metaObj.push(
-	{
-		id: 'kanbox_p-12394:1:1',
-		name: 'Big Buck Bunny',
-		releaseInfo: '2008',
-		poster: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2/uVEFQvFMMsg4e6yb03xOfVsDz4o.jpg',
-		posterShape: 'poster',
-		type: 'series',
-		videos: [
-			{ season: "1", episode: "1", id: "kanbox_p-12394:1:1", title: "Christopher Columbus"},
-			{ season: "1", episode: "1", id: "kanbox_p-12394:1:1", title: "Stream 2"}
-		]
-	})
-	metaObj.psuh(
-	{
-		id: 'kanbox_p-12394:1:2',
-		name: 'Big Buck Bunny',
-		releaseInfo: '2008',
-		poster: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2/uVEFQvFMMsg4e6yb03xOfVsDz4o.jpg',
-		posterShape: 'poster',
-		type: 'series',
-		videos: [
-			{ season: "1", episode: "1", id: "kanbox_p-12394:1:2", title: "Christopher Columbus Chapter 2"},
-			{ season: "1", episode: "1", id: "kanbox_p-12394:1:2", title: "Stream 2 Chapter 2"}
-		]
-	})
+	    }
+	
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	return Promise.resolve({meta: metaObj})
 })
@@ -211,8 +186,8 @@ function parseData(root){
         }
         genres = setGenre(genreRaw);
 		
-		var metas = getSeriesDetails(seriesID);
-
+		//var metas = getSeriesDetails(seriesID);
+		console.log("Hezi " + seriesID)
 		listSeries[seriesID] = {
 			id: seriesID,
 			type: "series",
@@ -222,7 +197,7 @@ function parseData(root){
 			link: link,
 			background: imgUrl,
 			genres: genres, 
-			metas: metas
+			//metas: metas
 		}
 /*		
 		listSeries.push(
