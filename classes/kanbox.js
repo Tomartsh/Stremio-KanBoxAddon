@@ -3,6 +3,33 @@ const fetch = require('node-fetch');
 const { addonBuilder } = require("stremio-addon-sdk");
 const constants = require("./constants");
 
+function setNewListSeriesObjectWithMeta(seriesItem, metasNew){
+	var newSeriesItem = {};
+	var id = seriesItem.id;
+	newSeriesItem = {
+		id: seriesItem.id,
+		type: "series",
+		name: seriesItem.name,
+		poster: seriesItem.imgUrl,
+		description: seriesItem.description,
+		link: seriesItem.link,
+		background: seriesItem.imgUrl,
+		genres: seriesItem.genres, 
+		metas: metasNew
+	}
+	return newSeriesItem
+}
+
+function setID(link){
+    var retVal = ""
+    if (link.substring(link.length -1,link.length) == "/"){
+        retVal = link.substring(0,link.length -1)
+    }
+    retVal = retVal.substring(retVal.lastIndexOf("/") + 1, retVal.length)
+    retVal = constants.prefix + retVal
+    return retVal
+}
+
 function setGenre(genres) {
     var newGenres = [];
     var genresArr = genres.split(",")
@@ -122,5 +149,14 @@ function getName (altRet, linkRet ){
     return val
 }
 
+//+===================================================================================
+//
+//  Utility related code
+//+===================================================================================
+function writeLog(level, msg){
+    if (level =="DEBUG"){
+        console.log(msg)
+    }
+}
 
-module.exports = {getName, setGenre};
+module.exports = {getName, setGenre, setNewListSeriesObjectWithMeta, setID, writeLog};

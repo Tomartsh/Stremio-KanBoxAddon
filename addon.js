@@ -4,11 +4,6 @@ const { addonBuilder } = require("stremio-addon-sdk");
 const constants = require("./classes/constants");
 const kanBox = require("./classes/kanbox");
 
-const debugState = true
-
-const url = "https://www.kan.org.il/lobby/kan-box/";
-const prefeix = "kanbox_"
-
 let listSeries = {};
 
 scrapeData();
@@ -74,23 +69,13 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 builder.defineMetaHandler(({type, id}) => {
 	console.log("request for meta: "+type+" "+id)
 	getSeriesDetails(id);
-	/*var metaObj = {
-			id: id,
-			name: 'Big Buck Bunny',
-			releaseInfo: '2008',
-			background: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.explicit.bing.net%2Fth%3Fid%3DOIP.Och56IaN7hOfKNxsxoG5ywHaLH%26pid%3DApi&f=1&ipt=85731b35df358e9bef890d717dde6ebf31a8750641e210acf9e6073004e4cdaa&ipo=images',
-			posterShape: 'poster',
-			type: 'series',
-			videos: [
-				{ season: "1", episode: "1", id: id+":1:1", title: "Christopher Columbus"},
-				{ season: "1", episode: "2", id: id+":1:2", title: "Stream 2"}
-			]
-	    }*/
-	   console.log("Series: " + JSON.stringify(listSeries[id]))
-	   var metas = listSeries[id].metas;
-	
+	var metas = listSeries[id].metas;
+	console.log("listSeries[id]: " + JSON.stringify(listSeries[id]))   
+	console.log("1. Series: " + JSON.stringify(listSeries[id]))
+	console.log("2. Meta: " + JSON.stringify(metas))
+	  
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
-	return Promise.resolve({meta: metaObj})
+	return Promise.resolve({meta: metas})
 })
 
 
@@ -99,10 +84,8 @@ builder.defineStreamHandler(({type, id}) => {
 	
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineStreamHandler.md
 	
-	//if (type === "series" && id === "tt1254207") {
 	if (type == "series") {
 		// serve one stream to big buck bunny
-		writeLog("DEBUG", "This is series we are talking about");
 		const stream = { url: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4" }
 		//return Promise.resolve({ streams: [stream] })
 		return Promise.resolve({ streams: [ { url: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4" }] })
@@ -110,25 +93,14 @@ builder.defineStreamHandler(({type, id}) => {
 	
 	//otherwise return no streams
 	return Promise.resolve({ streams: [] })
-
+/*
 	if (dataset[args.id]) {
         return Promise.resolve({ streams: [dataset[args.id]] });
     } else {
         return Promise.resolve({ streams: [] });
     }
+*/
 })
-
-//module.exports = builder.getInterface()
-
-//+===================================================================================
-//
-//  Utility related code
-//+===================================================================================
-function writeLog(level, msg){
-    if (level =="DEBUG"){
-        console.log(msg)
-    }
-}
 
 //return true if empty or undefined
 function isEmpty(value) {
@@ -142,7 +114,7 @@ function isEmpty(value) {
 
 function scrapeData() {
 	try {
-		fetch(url)
+		fetch(constants.url)
         .then((res) => res.text())
         .then((body) => {
            var tempRoot = parse(body);
@@ -158,7 +130,7 @@ function parseData(root){
 	for (let i = 0; i < root.querySelectorAll('a.card-link').length; i++){
         var elem = root.querySelectorAll('a.card-link')[i]
         var link = elem.attributes.href;
-        var seriesID = setID(link);
+        var seriesID = kanBox.setID(link);
         var imageElem = root.querySelectorAll('a.card-link')[i].getElementsByTagName('img')[0];
         var imgUrl = imageElem.attributes.src.substring(0,imageElem.attributes.src.indexOf("?"))
         var name = kanBox.getName(imageElem.attributes.alt, link)
@@ -186,19 +158,20 @@ function parseData(root){
 	}
 }
 
-// Function to extract each season and episode of the series and push them into map (catalogSeries)
-function getSeriesDetails (seriesId ){
+async function getSeriesDetails (seriesId ){
 	try {
 		fetch(listSeries[seriesId].link)
         .then((resSeries) => resSeries.text())
         .then((bodySeries) => {
-            listSeries[seriesId].metas = "";
-			var rootSeries = parse(bodySeries);
+            var rootSeries = parse(bodySeries);
 
 			var elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
 			var totalNoOfSeasons = elemSeasons.length
+			var videos = [];
+			var metas = [];
 
 			for (let i = 0; i < totalNoOfSeasons; i++){ //iterate over the sseasons
+				var videos;
 				var seasonNo = totalNoOfSeasons - i //what season is this
 				var elemEpisodes = elemSeasons[i].querySelectorAll('a.card-link');//get all the episodes
 				
@@ -212,60 +185,33 @@ function getSeriesDetails (seriesId ){
 					var elemEpisodeLogo = episode.querySelector("img.img-full")
 					var episodeLogoUrl = elemEpisodeLogo.attributes.src.substring(0,elemEpisodeLogo.attributes.src.indexOf("?"))
 					//var episodeId = seriesId + ":" + seasonNo + ":" + (iter + 1);
-					
-					var metas = [];
-					metas.push({
-						id: seriesId,
-						type: "series",
-						name: title,
-						genres: listSeries[seriesId].genres,
-						background: listSeries[seriesId].poster,
-						description: desc,
-						logo: episodeLogoUrl,
-						videos: [{
-							id: seriesId + ":" + seasonNo + ":" + (iter + 1) ,
-							title: title,
-							season: seasonNo,
-							episode: (iter + 1)
-						}]
+											
+					videos.push(						
+					{
+						id: seriesId + ":" + seasonNo + ":" + (iter + 1) ,
+						title: title,
+						season: seasonNo,
+						episode: (iter + 1)
 					})
-					//writeLog("DEBUG","ID: " + episodeId + "\n   name: " + title + "\n   desc:" + desc)
 				}
 			}
-			listSeries[seriesId].metas = metas			
+			metas.push({
+				id: seriesId,
+				type: "series",
+				name: title,
+				genres: listSeries[seriesId].genres,
+				background: listSeries[seriesId].poster,
+				description: desc,
+				logo: episodeLogoUrl,
+				videos: videos
+			})
+			console.log("3. getSeriesDetails => Meta: " + JSON.stringify(metas))
+			listSeries[seriesId] = kanBox.setNewListSeriesObjectWithMeta(listSeries[seriesId], metas) 			
 		})
         .catch(console.error)
 	} catch (error) {
 		console.error(error)
 	}      
-}
-
-function getName (altRet, linkRet ){
-    var val = ""
-    var linkMod = ""
-    var altMod = altRet.replace("פוסטר קטן", "")
-    altMod = altMod.replace("Poster Image Small 239X360", "")
-    if (altMod == "" || altMod == "-" ){
-        //There is no clear name for the series, so let's try to find it from the link
-        // Start at 239x360_ and end at "?"
-        linkMod = linkRet.substring(linkRet.indexOf("239x360_") + 8, linkRet.indexOf("?"))
-        if (linkMod != "" && !linkMod.startsWith("https") ) {val = linkMod}
-    } else {
-        val = altMod
-    }
-
-    val = val.trim()
-    return val
-}
-
-function setID(link){
-    var retVal = ""
-    if (link.substring(link.length -1,link.length) == "/"){
-        retVal = link.substring(0,link.length -1)
-    }
-    retVal = retVal.substring(retVal.lastIndexOf("/") + 1, retVal.length)
-    retVal = prefeix + retVal
-    return retVal
 }
 
 function setGenre(genres) {
@@ -368,7 +314,5 @@ function setGenre(genres) {
     }
     return newGenres;
 }
-
-
 
 module.exports = builder.getInterface()
