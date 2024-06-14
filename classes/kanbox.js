@@ -1,6 +1,6 @@
 const { parse } = require('node-html-parser');
-const fetch = require('node-fetch');
-const { addonBuilder } = require("stremio-addon-sdk");
+//const fetch = require('node-fetch');
+//const { addonBuilder } = require("stremio-addon-sdk");
 const constants = require("./constants");
 
 function setNewListSeriesObjectWithMeta(seriesItem, metasNew){
@@ -159,4 +159,5 @@ function writeLog(level, msg){
     }
 }
 
-module.exports = {getName, setGenre, setNewListSeriesObjectWithMeta, setID, writeLog};
+module.exports = {getName, setGenre, setNewListSeriesObjectWithMeta, 
+    setID, writeLog};

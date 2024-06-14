@@ -31,7 +31,7 @@ const manifest = {
 		{
 			"name": "meta",
 			"types": ["series"],
-			"idPrefixes": [prefeix]
+			"idPrefixes": [constants.prefix]
 		}
 	],
 	"types": [
@@ -68,14 +68,64 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 
 builder.defineMetaHandler(({type, id}) => {
 	console.log("request for meta: "+type+" "+id)
-	getSeriesDetails(id);
-	var metas = listSeries[id].metas;
-	console.log("listSeries[id]: " + JSON.stringify(listSeries[id]))   
-	console.log("1. Series: " + JSON.stringify(listSeries[id]))
-	console.log("2. Meta: " + JSON.stringify(metas))
-	  
+	//var metas = getSeriesDetails(id);
+	//var metas = listSeries[id].metas;
+	try {
+		fetch(listSeries[id].link)
+        .then((resSeries) => resSeries.text())
+        .then((bodySeries) => {
+            var rootSeries = parse(bodySeries);
+
+			var elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
+			var totalNoOfSeasons = elemSeasons.length
+			var videos = [];
+			var metas = [];
+
+			for (let i = 0; i < totalNoOfSeasons; i++){ //iterate over the sseasons
+				var videos;
+				var seasonNo = totalNoOfSeasons - i //what season is this
+				var elemEpisodes = elemSeasons[i].querySelectorAll('a.card-link');//get all the episodes
+				
+				for (let iter = 0; iter < elemEpisodes.length; iter++){ //iterate over the episodes
+					var episode = elemEpisodes[iter];
+					var episodeLink = episode.attributes.href
+					
+					var title = episode.querySelector("div.card-title").text.trim();
+					var desc = episode.querySelector("div.card-text").text.trim();
+					
+					var elemEpisodeLogo = episode.querySelector("img.img-full")
+					var episodeLogoUrl = elemEpisodeLogo.attributes.src.substring(0,elemEpisodeLogo.attributes.src.indexOf("?"))
+					//var episodeId = seriesId + ":" + seasonNo + ":" + (iter + 1);
+											
+					videos.push(						
+					{
+						id: id + ":" + seasonNo + ":" + (iter + 1) ,
+						title: title,
+						season: seasonNo,
+						episode: (iter + 1)
+					})
+				}
+			}
+			metas.push({
+				id: id,
+				type: "series",
+				name: title,
+				genres: listSeries[id].genres,
+				background: listSeries[id].poster,
+				description: desc,
+				logo: episodeLogoUrl,
+				videos: videos
+			})
+			console.log("Setting metas: " + JSON.stringify(metas))
+			listSeries[id] = kanBox.setNewListSeriesObjectWithMeta(listSeries[id], metas);					
+		})
+        .catch(console.error)
+	} catch (error) {
+		console.error(error)
+	} 
+	console.log("Meta from listSeries: " + JSON.stringify(listSeries[id].metas) )
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
-	return Promise.resolve({meta: metas})
+	return Promise.resolve({meta: listSeries[id].metas})
 })
 
 
@@ -158,7 +208,52 @@ function parseData(root){
 	}
 }
 
-async function getSeriesDetails (seriesId ){
+function setSeriesEpisodeIntoMetas (rootSeries){
+	var elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
+	var totalNoOfSeasons = elemSeasons.length
+	var videos = [];
+	var metas = [];
+
+	for (let i = 0; i < totalNoOfSeasons; i++){ //iterate over the sseasons
+		var videos;
+		var seasonNo = totalNoOfSeasons - i //what season is this
+		var elemEpisodes = elemSeasons[i].querySelectorAll('a.card-link');//get all the episodes
+		
+		for (let iter = 0; iter < elemEpisodes.length; iter++){ //iterate over the episodes
+			var episode = elemEpisodes[iter];
+			var episodeLink = episode.attributes.href
+			
+			var title = episode.querySelector("div.card-title").text.trim();
+			var desc = episode.querySelector("div.card-text").text.trim();
+			
+			var elemEpisodeLogo = episode.querySelector("img.img-full")
+			var episodeLogoUrl = elemEpisodeLogo.attributes.src.substring(0,elemEpisodeLogo.attributes.src.indexOf("?"))
+			//var episodeId = seriesId + ":" + seasonNo + ":" + (iter + 1);
+									
+			videos.push(						
+			{
+				id: seriesId + ":" + seasonNo + ":" + (iter + 1) ,
+				title: title,
+				season: seasonNo,
+				episode: (iter + 1)
+			})
+		}
+	}
+	metas.push({
+		id: seriesId,
+		type: "series",
+		name: title,
+		genres: listSeries[seriesId].genres,
+		background: listSeries[seriesId].poster,
+		description: desc,
+		logo: episodeLogoUrl,
+		videos: videos
+	})
+	listSeries[seriesId] = kanBox.setNewListSeriesObjectWithMeta(listSeries[seriesId], metas);					
+}
+
+function getSeriesDetails (seriesId ){
+	var results = [];
 	try {
 		fetch(listSeries[seriesId].link)
         .then((resSeries) => resSeries.text())
@@ -206,9 +301,22 @@ async function getSeriesDetails (seriesId ){
 				videos: videos
 			})
 			console.log("3. getSeriesDetails => Meta: " + JSON.stringify(metas))
-			listSeries[seriesId] = kanBox.setNewListSeriesObjectWithMeta(listSeries[seriesId], metas) 			
+			listSeries[seriesId] = kanBox.setNewListSeriesObjectWithMeta(listSeries[seriesId], metas);
+			results.push({
+				id: seriesId,
+				type: "series",
+				name: title,
+				genres: listSeries[seriesId].genres,
+				background: listSeries[seriesId].poster,
+				description: desc,
+				logo: episodeLogoUrl,
+				videos: videos
+			})
+					
 		})
         .catch(console.error)
+
+		return results;
 	} catch (error) {
 		console.error(error)
 	}      
