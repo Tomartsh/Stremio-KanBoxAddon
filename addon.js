@@ -70,7 +70,8 @@ builder.defineMetaHandler(({type, id}) => {
 	console.log("request for meta: "+type+" "+id)
 	//var metas = getSeriesDetails(id);
 	//var metas = listSeries[id].metas;
-	getSeriesDetails(id);
+	var metas = getSeriesDetails(id);
+	console.log("Meta printing metas: " + JSON.stringify(metas) )
 	console.log("Meta from listSeries: " + JSON.stringify(listSeries[id].metas) )
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	return Promise.resolve({meta: listSeries[id].metas})
@@ -197,7 +198,8 @@ function setSeriesEpisodeIntoMetas (rootSeries){
 		logo: episodeLogoUrl,
 		videos: videos
 	})
-	listSeries[seriesId] = kanBox.setNewListSeriesObjectWithMeta(listSeries[seriesId], metas);					
+	listSeries[seriesId] = kanBox.setNewListSeriesObjectWithMeta(listSeries[seriesId], metas);	
+	return  metas				
 }
 
 async function getSeriesDetails (seriesId ){
