@@ -1,23 +1,86 @@
 const { parse } = require('node-html-parser');
-//const fetch = require('node-fetch');
+const fetch = require('node-fetch');
 //const { addonBuilder } = require("stremio-addon-sdk");
 const constants = require("./constants");
 
-function setNewListSeriesObjectWithMeta(seriesItem, metasNew){
-	var newSeriesItem = {};
-	var id = seriesItem.id;
-	newSeriesItem = {
-		id: seriesItem.id,
-		type: "series",
-		name: seriesItem.name,
-		poster: seriesItem.imgUrl,
-		description: seriesItem.description,
-		link: seriesItem.link,
-		background: seriesItem.imgUrl,
-		genres: seriesItem.genres, 
-		metas: metasNew
-	}
-	return newSeriesItem
+//async function getSeriesDetails (seriesId, link, name, genres, poster){
+async function getSeriesDetails (objListSeries){
+	var seriesId = objListSeries.id;
+    var link = objListSeries.link;
+    //console.log("ID: " + seriesId + "\n    link: " + link);
+    try {
+		var response = await fetch(link);
+		var bodySeries = await response.text();
+
+            var rootSeries = parse(bodySeries);
+
+			var elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
+			var totalNoOfSeasons = elemSeasons.length
+			var videos = [];
+			var metas = "";
+
+			for (let i = 0; i < totalNoOfSeasons; i++){ //iterate over the sseasons
+				var videos;
+				var seasonNo = totalNoOfSeasons - i //what season is this
+				var elemEpisodes = elemSeasons[i].querySelectorAll('a.card-link');//get all the episodes
+				
+				for (let iter = 0; iter < elemEpisodes.length; iter++){ //iterate over the episodes
+					var episode = elemEpisodes[iter];
+					var episodeLink = episode.attributes.href
+					
+					var title = "";
+					//if ((! (isEmpty(episode.querySelector("div.card-title").text))) && (!(episode.querySelector("div.card-title").text))){
+                    if (episode.querySelector("div.card-title")){
+                        title = episode.querySelector("div.card-title").text.trim();
+					 }
+					var desc = "";
+					//if ((! (isEmpty(episode.querySelector("div.card-text").text))) && (!(episode.querySelector("div.card-text").text))){
+                    if (episode.querySelector("div.card-text")){
+                        desc = episode.querySelector("div.card-text").text.trim();
+					}
+					
+                    var elemImage = episode.querySelector("div.card-img")
+					var episodeLogoUrl = "";
+                    if ((elemImage)){
+					    var elemEpisodeLogo = elemImage.querySelector("img.img-full")
+                        if ((elemEpisodeLogo) && (elemEpisodeLogo.attributes.src.indexOf('?') > 0)){
+                            episodeLogoUrl = elemEpisodeLogo.attributes.src.substring(0,elemEpisodeLogo.attributes.src.indexOf("?"))
+                        }
+                    }
+											
+					videos.push(						
+					{
+						id: seriesId + ":" + seasonNo + ":" + (iter + 1) ,
+						title: title,
+						season: seasonNo,
+						episode: (iter + 1),
+                        thumbnail: episodeLogoUrl,
+                        description: desc,
+                        streams: [
+                            {
+                                url: "",
+                                description: desc  
+                            }
+                        ]
+					})
+				}
+			}
+			metas = {
+				id: seriesId,
+				type: "series",
+				name: objListSeries.name,
+				genres: objListSeries.genres,
+				background: objListSeries.poster,
+				description: objListSeries.description,
+				//logo: episodeLogoUrl,
+				videos: videos
+			}
+            var listSeries = objListSeries.listSeries
+			listSeries[seriesId].metas = metas;
+	} catch (error) {
+		//console.error("Error for ID: " + seriesId + "\n   link: " + link + "\n" + error)
+        console.error(error)
+	}      
 }
 
 function setID(link){
@@ -159,5 +222,13 @@ function writeLog(level, msg){
     }
 }
 
-module.exports = {getName, setGenre, setNewListSeriesObjectWithMeta, 
-    setID, writeLog};
+//return false if empty or undefined
+function isEmpty(value) {
+	if (value == null || (typeof value === "string" && value.trim().length === 0)){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+module.exports = {getName, setGenre, setID, writeLog, getSeriesDetails, isEmpty};
