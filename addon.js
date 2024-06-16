@@ -67,15 +67,9 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 
 
 builder.defineMetaHandler(({type, id}) => {
-	console.log("request for meta: "+type+" "+id)
-	//var metas = getSeriesDetails(id);
-	//var metas = listSeries[id].metas;
-	//var metas = getSeriesDetails(id);
-	//console.log("Meta printing metas: " + JSON.stringify(metas) )
-	console.log("Meta from listSeries: " + JSON.stringify(listSeries[id].metas) )
-	 
+	var metaObj = listSeries[id].metas;
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
-	return Promise.resolve({meta: listSeries[id].metas})
+	return Promise.resolve({meta: metaObj})
 })
 
 
@@ -154,75 +148,23 @@ function parseData(root){
 			link: link,
 			background: imgUrl,
 			genres: genres, 
-			metas: {}
+			metas: ""
 		}
-		getSeriesDetails(seriesID, link);
+		getSeriesDetails(seriesID, link, name);
 	}
 }
 
-function setSeriesEpisodeIntoMetas (rootSeries){
-	var elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
-	var totalNoOfSeasons = elemSeasons.length
-	var videos = [];
-	var metas = [];
-
-	for (let i = 0; i < totalNoOfSeasons; i++){ //iterate over the sseasons
-		var videos;
-		var seasonNo = totalNoOfSeasons - i //what season is this
-		var elemEpisodes = elemSeasons[i].querySelectorAll('a.card-link');//get all the episodes
-		
-		for (let iter = 0; iter < elemEpisodes.length; iter++){ //iterate over the episodes
-			var episode = elemEpisodes[iter];
-			var episodeLink = episode.attributes.href
-			
-			var title = episode.querySelector("div.card-title").text.trim();
-			var desc = episode.querySelector("div.card-text").text.trim();
-			
-			var elemEpisodeLogo = episode.querySelector("img.img-full")
-			var episodeLogoUrl = elemEpisodeLogo.attributes.src.substring(0,elemEpisodeLogo.attributes.src.indexOf("?"))
-			//var episodeId = seriesId + ":" + seasonNo + ":" + (iter + 1);
-									
-			videos.push(						
-			{
-				id: seriesId + ":" + seasonNo + ":" + (iter + 1) ,
-				title: title,
-				season: seasonNo,
-				episode: (iter + 1)
-			})
-		}
-	}
-	metas.push({
-		id: seriesId,
-		type: "series",
-		name: title,
-		genres: listSeries[seriesId].genres,
-		background: listSeries[seriesId].poster,
-		description: desc,
-		logo: episodeLogoUrl,
-		videos: videos
-	})
-	listSeries[seriesId] = kanBox.setNewListSeriesObjectWithMeta(listSeries[seriesId], metas);	
-	return  metas				
-}
-
-//async function getSeriesDetails (seriesId ){
-async function getSeriesDetails (seriesId, link){
-	console.log("printing one + link: " + link);
-	var results = [];
+async function getSeriesDetails (seriesId, link, name){
 	try {
-		//var response = await fetch(listSeries[seriesId].link);
 		var response = await fetch(link);
 		var bodySeries = await response.text();
-		//console.log("async function getSeriesDetails " +seriesId + "\n     " + bodySeries)
-		//fetch(listSeries[seriesId].link)
-        //.then((resSeries) => resSeries.text())
-        //.then((bodySeries) => {
+
             var rootSeries = parse(bodySeries);
 
 			var elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
 			var totalNoOfSeasons = elemSeasons.length
 			var videos = [];
-			var metas = [];
+			var metas = "";
 
 			for (let i = 0; i < totalNoOfSeasons; i++){ //iterate over the sseasons
 				var videos;
@@ -233,12 +175,17 @@ async function getSeriesDetails (seriesId, link){
 					var episode = elemEpisodes[iter];
 					var episodeLink = episode.attributes.href
 					
-					var title = episode.querySelector("div.card-title").text.trim();
-					var desc = episode.querySelector("div.card-text").text.trim();
+					var title = "";
+					if (!isEmpty(episode.querySelector("div.card-title").text.trim())){
+						title = episode.querySelector("div.card-title").text.trim();
+					 }
+					var desc = "";
+					if (!isEmpty(episode.querySelector("div.card-text").text.trim())){
+						desc = episode.querySelector("div.card-text").text.trim();
+					}
 					
 					var elemEpisodeLogo = episode.querySelector("img.img-full")
 					var episodeLogoUrl = elemEpisodeLogo.attributes.src.substring(0,elemEpisodeLogo.attributes.src.indexOf("?"))
-					//var episodeId = seriesId + ":" + seasonNo + ":" + (iter + 1);
 											
 					videos.push(						
 					{
@@ -249,35 +196,17 @@ async function getSeriesDetails (seriesId, link){
 					})
 				}
 			}
-			metas.push({
+			metas = {
 				id: seriesId,
 				type: "series",
-				name: title,
+				name: name,
 				genres: listSeries[seriesId].genres,
 				background: listSeries[seriesId].poster,
 				description: desc,
 				logo: episodeLogoUrl,
 				videos: videos
-			})
+			}
 			listSeries[seriesId].metas = metas;
-			console.log("3. getSeriesDetails => Meta: " + JSON.stringify(metas))
-			//listSeries[seriesId] = kanBox.setNewListSeriesObjectWithMeta(listSeries[seriesId], metas);
-			/*
-			results.push({
-				id: seriesId,
-				type: "series",
-				name: title,
-				genres: listSeries[seriesId].genres,
-				background: listSeries[seriesId].poster,
-				description: desc,
-				logo: episodeLogoUrl,
-				videos: videos
-			})
-			*/
-		//})
-        //.catch(console.error)
-
-		//return results;
 	} catch (error) {
 		console.error(error)
 	}      
@@ -289,8 +218,6 @@ function setGenre(genres) {
     if (genresArr < 1) {return genres}
     for (let i = 0; i < genresArr.length; i++){
         var check = genresArr[i].trim()
-        //check = check.trim()
-        //if (check === undefined){ continue;}
         switch(check) {
             case "דרמה":
                 //genres = genres + ", Drama"
