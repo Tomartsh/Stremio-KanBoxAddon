@@ -70,9 +70,10 @@ builder.defineMetaHandler(({type, id}) => {
 	console.log("request for meta: "+type+" "+id)
 	//var metas = getSeriesDetails(id);
 	//var metas = listSeries[id].metas;
-	var metas = getSeriesDetails(id);
-	console.log("Meta printing metas: " + JSON.stringify(metas) )
+	//var metas = getSeriesDetails(id);
+	//console.log("Meta printing metas: " + JSON.stringify(metas) )
 	console.log("Meta from listSeries: " + JSON.stringify(listSeries[id].metas) )
+	 
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	return Promise.resolve({meta: listSeries[id].metas})
 })
@@ -153,7 +154,9 @@ function parseData(root){
 			link: link,
 			background: imgUrl,
 			genres: genres, 
+			metas: {}
 		}
+		getSeriesDetails(seriesID, link);
 	}
 }
 
@@ -202,12 +205,15 @@ function setSeriesEpisodeIntoMetas (rootSeries){
 	return  metas				
 }
 
-async function getSeriesDetails (seriesId ){
+//async function getSeriesDetails (seriesId ){
+async function getSeriesDetails (seriesId, link){
+	console.log("printing one + link: " + link);
 	var results = [];
 	try {
-		var response = await fetch(listSeries[seriesId].link);
-		var bodySeries = response.text();
-		console.log("async function getSeriesDetails " +seriesId + "\n     " + bodySeries )
+		//var response = await fetch(listSeries[seriesId].link);
+		var response = await fetch(link);
+		var bodySeries = await response.text();
+		//console.log("async function getSeriesDetails " +seriesId + "\n     " + bodySeries)
 		//fetch(listSeries[seriesId].link)
         //.then((resSeries) => resSeries.text())
         //.then((bodySeries) => {
@@ -253,8 +259,10 @@ async function getSeriesDetails (seriesId ){
 				logo: episodeLogoUrl,
 				videos: videos
 			})
+			listSeries[seriesId].metas = metas;
 			console.log("3. getSeriesDetails => Meta: " + JSON.stringify(metas))
-			listSeries[seriesId] = kanBox.setNewListSeriesObjectWithMeta(listSeries[seriesId], metas);
+			//listSeries[seriesId] = kanBox.setNewListSeriesObjectWithMeta(listSeries[seriesId], metas);
+			/*
 			results.push({
 				id: seriesId,
 				type: "series",
@@ -265,11 +273,11 @@ async function getSeriesDetails (seriesId ){
 				logo: episodeLogoUrl,
 				videos: videos
 			})
-					
+			*/
 		//})
         //.catch(console.error)
 
-		return results;
+		//return results;
 	} catch (error) {
 		console.error(error)
 	}      
