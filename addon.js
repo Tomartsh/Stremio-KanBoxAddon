@@ -111,15 +111,19 @@ function scrapeData() {
 		fetch(constants.url)
         .then((res) => res.text())
         .then((body) => {
-           var tempRoot = parse(body);
-		   parseData(tempRoot);
+    		var tempRoot = parse(body);
+			var objParse = {
+				listSeries: listSeries, 
+				tempRoot: tempRoot
+			}
+			//parseData(tempRoot);
+			kanBox.parseData(objParse);
         })
 	} catch (error) {
 		console.error(error)
 	}  
 }
-
-
+/*
 function parseData(root){
 	for (let i = 0; i < root.querySelectorAll('a.card-link').length; i++){
         var elem = root.querySelectorAll('a.card-link')[i]
@@ -158,9 +162,8 @@ function parseData(root){
 			description: description,
 			listSeries: listSeries
 		}
-		//kanBox.getSeriesDetails(seriesID, link, name, genres, imgUrl);
 		kanBox.getSeriesDetails(objListSeries);
 	}
-}
+}*/
 
 module.exports = builder.getInterface()

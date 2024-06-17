@@ -3,7 +3,52 @@ const fetch = require('node-fetch');
 //const { addonBuilder } = require("stremio-addon-sdk");
 const constants = require("./constants");
 
-//async function getSeriesDetails (seriesId, link, name, genres, poster){
+//function parseData(root){
+function parseData(objParse){
+    var root = objParse.tempRoot;
+    var listSeries = objParse.listSeries;
+
+	for (let i = 0; i < root.querySelectorAll('a.card-link').length; i++){
+        var elem = root.querySelectorAll('a.card-link')[i]
+        var link = elem.attributes.href;
+        var seriesID = setID(link);
+        var imageElem = root.querySelectorAll('a.card-link')[i].getElementsByTagName('img')[0];
+        var imgUrl = imageElem.attributes.src.substring(0,imageElem.attributes.src.indexOf("?"))
+        var name = getName(imageElem.attributes.alt, link)
+
+        var genreRaw, genres 
+		var description = ""
+        var st = elem.structuredText.split("\n")
+        if (st.length == 1) {genreRaw = st[0].trim()}
+        if (st.length == 2) {
+            genreRaw = st[1].trim()
+            description = st[0].trim()
+        }
+        genres = setGenre(genreRaw);
+		
+		listSeries[seriesID] = {
+			id: seriesID,
+			type: "series",
+			name: name,
+			poster: imgUrl,
+			description: description,
+			link: link,
+			background: imgUrl,
+			genres: genres, 
+			metas: ""
+		}
+		var objListSeries = {id: seriesID, 
+			link: link, 
+			name: name,
+			genres: genres,
+			poster: imgUrl,
+			description: description,
+			listSeries: listSeries
+		}
+		getSeriesDetails(objListSeries);
+	}
+}
+
 async function getSeriesDetails (objListSeries){
 	var seriesId = objListSeries.id;
     var link = objListSeries.link;
@@ -231,4 +276,4 @@ function isEmpty(value) {
     }
 }
 
-module.exports = {getName, setGenre, setID, writeLog, getSeriesDetails, isEmpty};
+module.exports = {getName, setGenre, setID, writeLog, getSeriesDetails, isEmpty, parseData};
