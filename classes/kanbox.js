@@ -37,7 +37,8 @@ function parseData(objParse){
 			genres: genres, 
 			metas: ""
 		}
-		var objListSeries = {id: seriesID, 
+		var objListSeries = {
+            id: seriesID, 
 			link: link, 
 			name: name,
 			genres: genres,
@@ -47,6 +48,50 @@ function parseData(objParse){
 		}
 		getSeriesDetails(objListSeries);
 	}
+}
+
+function addLiveTVToList(objList){
+
+    var listSeries = objList.listSeries;
+    var videos = [];
+    var metas = "";
+    var seriesId = "000000001";
+
+    videos.push(						
+        {
+            id: seriesId,
+            title: "Kan 11 Live Stream",
+            thumbnail: episodeLogoUrl,
+            description: "Kan 11 Live Stream From Israel",
+            streams: [
+                {
+                    url: "Live stream from Kan 11 Israel",
+                    description: "Kan 11 Live Stream From Israel"  
+                }
+            ]
+        })
+
+    metas = {
+        id: seriesId,
+        type: "tv",
+        name: "Kan 11 Live Stream",
+        genres: "Actuality",
+        //background: objListSeries.poster,
+        description: "Kan 11 Live Stream From Israel" ,
+        //logo: episodeLogoUrl,
+        videos: videos
+    }
+    listSeries[seriesId] = {
+        id: seriesId,
+        type: "tv",
+        name: "Kan 11 Live Stream",
+        //poster: imgUrl,
+        description: "Kan 11 Live Stream From Israel",
+        //link: link,
+        //background: imgUrl,
+        genres: "Actuality", 
+        metas: metas
+    }
 }
 
 async function getSeriesDetails (objListSeries){
@@ -134,7 +179,7 @@ function setID(link){
         retVal = link.substring(0,link.length -1)
     }
     retVal = retVal.substring(retVal.lastIndexOf("/") + 1, retVal.length)
-    retVal = constants.prefix + retVal
+    retVal = constants.prefix_kanbox + retVal
     return retVal
 }
 

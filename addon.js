@@ -31,7 +31,7 @@ const manifest = {
 		{
 			"name": "meta",
 			"types": ["series"],
-			"idPrefixes": [constants.prefix]
+			"idPrefixes": [constants.prefix_kanbox]
 		}
 	],
 	"types": [
@@ -55,8 +55,11 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 			}
 			return Promise.resolve({ metas })
 			
-			break
-       default:
+			break;
+		case "tv":
+			
+			break;
+		default:
             results = Promise.resolve( [] )
             break
     }	
@@ -108,7 +111,7 @@ function isEmpty(value) {
 
 function scrapeData() {
 	try {
-		fetch(constants.url)
+		fetch(constants.url_kanbox)
         .then((res) => res.text())
         .then((body) => {
     		var tempRoot = parse(body);
@@ -123,47 +126,5 @@ function scrapeData() {
 		console.error(error)
 	}  
 }
-/*
-function parseData(root){
-	for (let i = 0; i < root.querySelectorAll('a.card-link').length; i++){
-        var elem = root.querySelectorAll('a.card-link')[i]
-        var link = elem.attributes.href;
-        var seriesID = kanBox.setID(link);
-        var imageElem = root.querySelectorAll('a.card-link')[i].getElementsByTagName('img')[0];
-        var imgUrl = imageElem.attributes.src.substring(0,imageElem.attributes.src.indexOf("?"))
-        var name = kanBox.getName(imageElem.attributes.alt, link)
-
-        var genreRaw, genres 
-		var description = ""
-        var st = elem.structuredText.split("\n")
-        if (st.length == 1) {genreRaw = st[0].trim()}
-        if (st.length == 2) {
-            genreRaw = st[1].trim()
-            description = st[0].trim()
-        }
-        genres = kanBox.setGenre(genreRaw);
-		
-		listSeries[seriesID] = {
-			id: seriesID,
-			type: "series",
-			name: name,
-			poster: imgUrl,
-			description: description,
-			link: link,
-			background: imgUrl,
-			genres: genres, 
-			metas: ""
-		}
-		var objListSeries = {id: seriesID, 
-			link: link, 
-			name: name,
-			genres: genres,
-			poster: imgUrl,
-			description: description,
-			listSeries: listSeries
-		}
-		kanBox.getSeriesDetails(objListSeries);
-	}
-}*/
 
 module.exports = builder.getInterface()
