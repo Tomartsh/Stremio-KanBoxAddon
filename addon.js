@@ -5,6 +5,7 @@ const constants = require("./classes/constants");
 const kanBox = require("./classes/kanbox");
 
 let listSeries = {};
+let listLiveTV = {};
 
 scrapeData();
 
@@ -22,6 +23,12 @@ const manifest = {
 			type: "series",
 			id: "top",
 			name: "Kan Box Digital",
+			extra: [ {name: "search" }]
+		},
+		{
+			type: "tv",
+			id: "top",
+			name: "Kan Live",
 			extra: [ {name: "search" }]
 		}
 	],
@@ -46,10 +53,9 @@ const builder = new addonBuilder(manifest)
 builder.defineCatalogHandler(({type, id, extra}) => {
 	console.log("request for catalogs: "+type+" "+id)
 	//let results;
-
+	var metas = [];
 	switch(type) {
         case "series":
-			var metas = [];
 			for (var [key, value] of Object.entries(listSeries)) {
 				metas.push(value)
 			}
@@ -57,15 +63,18 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 			
 			break;
 		case "tv":
-			
+			for (var [key, value] of Object.entries(listLiveTV)) {
+				metas.push(value)
+			}
+			return Promise.resolve({ metas })
 			break;
 		default:
             results = Promise.resolve( [] )
             break
     }	
-	return results.then(items => ({
-        metas: items
-    }))
+	//return results.then(items => ({
+    //    metas: items
+    //}))
 })
 
 
@@ -110,6 +119,12 @@ function isEmpty(value) {
 //+===================================================================================
 
 function scrapeData() {
+	
+	//Load the TV catalg
+	objKanLive = {listTV: listLiveTV};
+	kanBox.addLiveTVToList(objKanLive);
+
+	// Load series catalog
 	try {
 		fetch(constants.url_kanbox)
         .then((res) => res.text())

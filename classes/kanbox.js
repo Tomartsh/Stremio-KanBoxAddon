@@ -52,45 +52,83 @@ function parseData(objParse){
 
 function addLiveTVToList(objList){
 
-    var listSeries = objList.listSeries;
-    var videos = [];
-    var metas = "";
-    var seriesId = "000000001";
+    var listLiveTV = objList.listTV;
+    var videosKan = [];
+    var videosKids = [];
+    var v = [];
+    var metasKan = "";
+    var metasKids = "";
+    var idKan = "kanTV_000000001";
+    var idKids = "kanTV_000000002";
 
-    videos.push(						
+    videosKan.push(						
         {
-            id: seriesId,
+            id: idKan,
             title: "Kan 11 Live Stream",
-            thumbnail: episodeLogoUrl,
+            //thumbnail: episodeLogoUrl,
             description: "Kan 11 Live Stream From Israel",
             streams: [
                 {
-                    url: "Live stream from Kan 11 Israel",
+                    url: "",
                     description: "Kan 11 Live Stream From Israel"  
                 }
             ]
         })
+        videosKids.push(						
+            {
+                id: idKids,
+                title: "Kids Live Stream",
+                //thumbnail: episodeLogoUrl,
+                description: "Kids Live Stream From Israel",
+                streams: [
+                    {
+                        url: "",
+                        description: "Live stream from Kids Channel in Israel"  
+                    }
+                ]
+            })
 
-    metas = {
-        id: seriesId,
+    metasKan = {
+        id: idKan,
         type: "tv",
         name: "Kan 11 Live Stream",
         genres: "Actuality",
-        //background: objListSeries.poster,
+        background: "assets/Kan Background.jpg",
         description: "Kan 11 Live Stream From Israel" ,
-        //logo: episodeLogoUrl,
-        videos: videos
+        logo: "assets/Kan Logo.jpg",
+        videos: videosKan
     }
-    listSeries[seriesId] = {
-        id: seriesId,
+    metasKids = {
+        id: idKids,
         type: "tv",
-        name: "Kan 11 Live Stream",
+        name: "חנוכית",
+        genres: "Kids",
+        background: "assets/Kan Background.jpg",
+        description: "Kids Live Stream From Israel" ,
+        logo: "https://kan-media.kan.org.il/media/0ymcnuw4/logo_hinuchit_main.svg",
+        videos: videosKids
+    }
+    listLiveTV[idKan] = {
+        id: idKan,
+        type: "tv",
+        name: "כאן 11",
         //poster: imgUrl,
-        description: "Kan 11 Live Stream From Israel",
+        description: "כאן 11 שידור חי מישראל",
         //link: link,
         //background: imgUrl,
-        genres: "Actuality", 
-        metas: metas
+        genres: "TV", 
+        metas: metasKan
+    }
+    listLiveTV[idKids] = {
+        id: idKids,
+        type: "tv",
+        name: "חנוכית",
+        //poster: imgUrl,
+        description: "חינוכית שידור חי מישראל ",
+        //link: link,
+        //background: imgUrl,
+        genres: "Kids, TV", 
+        metas: metasKids
     }
 }
 
@@ -321,4 +359,4 @@ function isEmpty(value) {
     }
 }
 
-module.exports = {getName, setGenre, setID, writeLog, getSeriesDetails, isEmpty, parseData};
+module.exports = {getName, setGenre, setID, writeLog, getSeriesDetails, isEmpty, parseData, addLiveTVToList};
