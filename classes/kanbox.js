@@ -135,81 +135,133 @@ function addLiveTVToList(objList){
 async function getSeriesDetails (objListSeries){
 	var seriesId = objListSeries.id;
     var link = objListSeries.link;
-    //console.log("ID: " + seriesId + "\n    link: " + link);
+    //writeLog("DEBUG", "ID: " + seriesId + "\n    link: " + link);
     try {
 		var response = await fetch(link);
 		var bodySeries = await response.text();
 
-            var rootSeries = parse(bodySeries);
+        var rootSeries = parse(bodySeries);
 
-			var elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
-			var totalNoOfSeasons = elemSeasons.length
-			var videos = [];
-			var metas = "";
+        var elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
+        var totalNoOfSeasons = elemSeasons.length
+        var videos = [];
+        var metas = "";
 
-			for (let i = 0; i < totalNoOfSeasons; i++){ //iterate over the sseasons
-				var videos;
-				var seasonNo = totalNoOfSeasons - i //what season is this
-				var elemEpisodes = elemSeasons[i].querySelectorAll('a.card-link');//get all the episodes
-				
-				for (let iter = 0; iter < elemEpisodes.length; iter++){ //iterate over the episodes
-					var episode = elemEpisodes[iter];
-					var episodeLink = episode.attributes.href
-					
-					var title = "";
-					//if ((! (isEmpty(episode.querySelector("div.card-title").text))) && (!(episode.querySelector("div.card-title").text))){
-                    if (episode.querySelector("div.card-title")){
-                        title = episode.querySelector("div.card-title").text.trim();
-					 }
-					var desc = "";
-					//if ((! (isEmpty(episode.querySelector("div.card-text").text))) && (!(episode.querySelector("div.card-text").text))){
-                    if (episode.querySelector("div.card-text")){
-                        desc = episode.querySelector("div.card-text").text.trim();
-					}
-					
-                    var elemImage = episode.querySelector("div.card-img")
-					var episodeLogoUrl = "";
-                    if ((elemImage)){
-					    var elemEpisodeLogo = elemImage.querySelector("img.img-full")
-                        if ((elemEpisodeLogo) && (elemEpisodeLogo.attributes.src.indexOf('?') > 0)){
-                            episodeLogoUrl = elemEpisodeLogo.attributes.src.substring(0,elemEpisodeLogo.attributes.src.indexOf("?"))
-                        }
+        for (let i = 0; i < totalNoOfSeasons; i++){ //iterate over the sseasons
+            var videos;
+            var seasonNo = totalNoOfSeasons - i //what season is this
+            var elemEpisodes = elemSeasons[i].querySelectorAll('a.card-link');//get all the episodes
+            
+            for (let iter = 0; iter < elemEpisodes.length; iter++){ //iterate over the episodes
+                var episode = elemEpisodes[iter];
+                var episodeLink = episode.attributes.href
+                
+                var title = "";
+                if (episode.querySelector("div.card-title")){
+                    title = episode.querySelector("div.card-title").text.trim();
                     }
-											
-					videos.push(						
-					{
-						id: seriesId + ":" + seasonNo + ":" + (iter + 1) ,
-						title: title,
-						season: seasonNo,
-						episode: (iter + 1),
-                        thumbnail: episodeLogoUrl,
-                        description: desc,
-                        streams: [
-                            {
-                                url: "",
-                                description: desc  
-                            }
-                        ]
-					})
-				}
-			}
-			metas = {
-				id: seriesId,
-				type: "series",
-				name: objListSeries.name,
-				genres: objListSeries.genres,
-				background: objListSeries.poster,
-				description: objListSeries.description,
-				//logo: episodeLogoUrl,
-				videos: videos
-			}
-            var listSeries = objListSeries.listSeries
-			listSeries[seriesId].metas = metas;
+                var desc = "";
+                if (episode.querySelector("div.card-text")){
+                    desc = episode.querySelector("div.card-text").text.trim();
+                }
+                
+                var elemImage = episode.querySelector("div.card-img")
+                var episodeLogoUrl = "";
+                if ((elemImage)){
+                    var elemEpisodeLogo = elemImage.querySelector("img.img-full")
+                    if ((elemEpisodeLogo) && (elemEpisodeLogo.attributes.src.indexOf('?') > 0)){
+                        episodeLogoUrl = elemEpisodeLogo.attributes.src.substring(0,elemEpisodeLogo.attributes.src.indexOf("?"))
+                    }
+                }
+                    
+                //get the streams of the episode:
+                //var streams = getStreams(episodeLink);
+
+                videos.push(						
+                {
+                    id: seriesId + ":" + seasonNo + ":" + (iter + 1) ,
+                    title: title,
+                    season: seasonNo,
+                    episode: (iter + 1),
+                    thumbnail: episodeLogoUrl,
+                    description: desc,
+                    streams: ""
+                })
+            }
+        }
+        metas = {
+            id: seriesId,
+            type: "series",
+            name: objListSeries.name,
+            genres: objListSeries.genres,
+            background: objListSeries.poster,
+            description: objListSeries.description,
+            link: episodeLink,
+            //logo: episodeLogoUrl,
+            videos: videos
+        }
+        var listSeries = objListSeries.listSeries
+        listSeries[seriesId].metas = metas;
 	} catch (error) {
 		//console.error("Error for ID: " + seriesId + "\n   link: " + link + "\n" + error)
         console.error(error)
 	}      
 }
+
+
+//Here is what the script data in the episode URL looks like:
+/*
+    {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+
+                "name": "מנאייכ עונה 3 | פרק 1",
+                "description": "פרק פתיחת העונה. איזי חושד בברק אבל המערכת מגוננת עליו כי הוא מביא חומרים מעולים לחקירה. במקביל, שוטרי ראשון לציון מגלים שאדהם אבו כמאל עושה בלאגן, מאחורי גבם של תמיר וגילי. הניסיון שלהם לטפל בבעיה זו נגמר בצורה הכי גרועה שיש, אבל פותח צוהר לטל בן הרוש לחזור למשחק",
+                "thumbnailUrl": "https://kan-media.kan.org.il/media/14td1wvm/לאתר-פרק-1.jpg",
+                "uploadDate": "2024-01-17T11:17:36+03:00",
+                "contentUrl": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_4a6kir7n/format/applehttp/protocol/https/desiredFileName.m3u8",
+                "embedUrl": "https://www.kan.org.il/content/kan/kan-11/p-12394/s3/686141/"
+    }
+*/
+
+async function getStreams(episodeLink){
+    writeLog("DEBUG","Here is the link: " + episodeLink);
+    var retStreams = [];
+    try {
+        if (episodeLink.startsWith('/')) {
+            episodeLink = "https://www.kan.org.il" + episodeLink;
+        }
+        var response = await fetch(episodeLink);
+		var bodyStreams = await response.text();
+        
+        let b = parse(bodyStreams);
+            
+        for (let iter = 0; iter < b.querySelectorAll("script").length; iter++){ //iterate over the episode stream links
+            //writeLog("DEBUG","The script is: " + b.querySelectorAll("script")[iter]);
+            var selectedData = b.querySelectorAll("script")[iter];
+            var scriptData = String(selectedData);
+            if (scriptData.includes("VideoObject")){
+                scriptData = scriptData.substring(scriptData.indexOf('{'), scriptData.indexOf('}') + 1);
+                //writeLog("DEBUG","JSON Is: " + scriptData);
+                
+                var videoUrl = JSON.parse(scriptData)["contentUrl"];
+                var name = JSON.parse(scriptData)["name"];
+                var desc = JSON.parse(scriptData)["description"];
+                //writeLog("DEBUG", "URL is: " + videoUrl);
+                retStreams.push(
+                {
+                    url: videoUrl,
+                    name: name,
+                    description: desc  
+                })
+                return retStreams;
+            }
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 
 function setID(link){
     var retVal = ""
@@ -359,4 +411,4 @@ function isEmpty(value) {
     }
 }
 
-module.exports = {getName, setGenre, setID, writeLog, getSeriesDetails, isEmpty, parseData, addLiveTVToList};
+module.exports = {getName, setGenre, setID, writeLog, getSeriesDetails, isEmpty, parseData, addLiveTVToList, getStreams};

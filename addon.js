@@ -51,8 +51,7 @@ const manifest = {
 const builder = new addonBuilder(manifest)
 
 builder.defineCatalogHandler(({type, id, extra}) => {
-	console.log("request for catalogs: "+type+" "+id)
-	//let results;
+	kanBox.writeLog("DEBUG","request for catalogs: "+type+" "+id)
 	var metas = [];
 	switch(type) {
         case "series":
@@ -72,30 +71,60 @@ builder.defineCatalogHandler(({type, id, extra}) => {
             results = Promise.resolve( [] )
             break
     }	
-	//return results.then(items => ({
-    //    metas: items
-    //}))
 })
 
-
+// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 builder.defineMetaHandler(({type, id}) => {
+	kanBox.writeLog("DEBUG", "Request for meta: type " + type +" ID: " + id);
 	var metaObj = listSeries[id].metas;
-	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
-	return Promise.resolve({meta: metaObj})
+	
+	return Promise.resolve({meta: metaObj});
 })
 
-
+//Going over all the episodes of all seasons of all series takes too long
+//So we are retrieving the information we need when it is being asked for in the defineStreamHandler method
+//We check if the video array inside the meta object has streams. If not we are retriving them
 builder.defineStreamHandler(({type, id}) => {
-	console.log("request for streams: "+type+" "+id)
+	kanBox.writeLog("DEBUG", "request for streams: "+type+" ID: "+id);
 	
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineStreamHandler.md
 	
+	switch(type) {
+        case "series":
+			
+			//exatract the relevant video object from the meta object inside the listSeries
+			var seriesId = id.split(":")[0];
+			/*
+			if (! kanBox.isEmpty(streams)){
+				kanBox.writeLog("DEBUG", "url is undefined");
+				var link = listSeries[seriesId].metas.link;
+				kanBox.writeLog("DEBUG", "Link is: " + link);
+				kanBox.getStreams(link);
+			}
+			*/
+
+			//return Promise.resolve({ metas })
+			
+			break;
+		case "tv":
+			//for (var [key, value] of Object.entries(listLiveTV)) {
+			//	metas.push(value)
+			//}
+			return Promise.resolve({ metas })
+			break;
+		default:
+            results = Promise.resolve( [] )
+            break
+    }
+	/*
 	if (type == "series") {
 		// serve one stream to big buck bunny
 		const stream = { url: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4" }
 		//return Promise.resolve({ streams: [stream] })
 		return Promise.resolve({ streams: [ { url: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4" }] })
-	}
+	} 
+	/*
+	})
 	
 	//otherwise return no streams
 	return Promise.resolve({ streams: [] })
@@ -108,17 +137,12 @@ builder.defineStreamHandler(({type, id}) => {
 */
 })
 
-//return true if empty or undefined
-function isEmpty(value) {
-	return (value == null || (typeof value === "string" && value.trim().length === 0));
-}
-
 //+===================================================================================
 //
 //  Data retrieval related code
 //+===================================================================================
 
-function scrapeData() {
+async function scrapeData() {
 	
 	//Load the TV catalg
 	objKanLive = {listTV: listLiveTV};
@@ -134,7 +158,6 @@ function scrapeData() {
 				listSeries: listSeries, 
 				tempRoot: tempRoot
 			}
-			//parseData(tempRoot);
 			kanBox.parseData(objParse);
         })
 	} catch (error) {
