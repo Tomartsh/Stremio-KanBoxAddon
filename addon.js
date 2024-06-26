@@ -91,19 +91,38 @@ builder.defineStreamHandler(({type, id}) => {
 	
 	switch(type) {
         case "series":
-			
-			//exatract the relevant video object from the meta object inside the listSeries
-			var seriesId = id.split(":")[0];
-			/*
-			if (! kanBox.isEmpty(streams)){
-				kanBox.writeLog("DEBUG", "url is undefined");
-				var link = listSeries[seriesId].metas.link;
-				kanBox.writeLog("DEBUG", "Link is: " + link);
-				kanBox.getStreams(link);
+			if(1)
+			{
+				var streams = []
+				//exatract the relevant video object from the meta object inside the listSeries
+				var seriesId = id.split(":")[0];
+				let ser = listSeries[seriesId];
+				let m = ser.metas;
+				for(index in m.videos)
+				{
+					let v = m.videos[index];
+					if(v["id"] == id)
+					{
+						let s = v.streams;
+						console.log(s);
+						//var link = listSeries[seriesId].metas.link;
+						var link = v.episodelink;
+						kanBox.writeLog("DEBUG", "Link is: " + link);
+						streams = kanBox.getStreams(link);
+						console.log(streams.length);
+						break;
+					}
+				}
+				/*
+				if (! kanBox.isEmpty(streams)){
+					kanBox.writeLog("DEBUG", "url is undefined");
+					var link = listSeries[seriesId].metas.link;
+					kanBox.writeLog("DEBUG", "Link is: " + link);
+					kanBox.getStreams(link);
+				}
+				*/
 			}
-			*/
-
-			//return Promise.resolve({ metas })
+			return Promise.resolve({ streams })
 			
 			break;
 		case "tv":
