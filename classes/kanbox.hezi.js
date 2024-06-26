@@ -335,4 +335,4 @@ function isEmpty(value) {
     }
 }
 
-module.exports = {getName, setGenre, setID, writeLog, getSeriesDetails, isEmpty, parseData};
+module.exports = {getName, setGenre, setID, writeLog, getSeriesDetails, isEmpty, parseData, addLiveTVToList};
