@@ -184,7 +184,8 @@ async function getSeriesDetails (objListSeries){
                     episode: (iter + 1),
                     thumbnail: episodeLogoUrl,
                     description: desc,
-                    streams: ""
+                    streams: "",
+                    episodelink: episodeLink
                 })
             }
         }
@@ -231,7 +232,7 @@ async function getStreams(episodeLink){
             episodeLink = "https://www.kan.org.il" + episodeLink;
         }
         var response = await fetch(episodeLink);
-		var bodyStreams = await response.text();
+		var bodyStreams = response.text();
         
         let b = parse(bodyStreams);
             
@@ -253,9 +254,9 @@ async function getStreams(episodeLink){
                     name: name,
                     description: desc  
                 })
-                return retStreams;
             }
         }
+        return retStreams;
     } catch (error) {
         console.error(error)
     }
