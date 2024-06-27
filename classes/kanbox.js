@@ -3,7 +3,6 @@ const fetch = require('node-fetch');
 //const { addonBuilder } = require("stremio-addon-sdk");
 const constants = require("./constants");
 
-//function parseData(root){
 function parseData(objParse){
     var root = objParse.tempRoot;
     var listSeries = objParse.listSeries;
