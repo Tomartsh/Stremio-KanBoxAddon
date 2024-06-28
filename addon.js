@@ -91,6 +91,19 @@ builder.defineStreamHandler(({type, id}) => {
 	
 	switch(type) {
         case "series":
+			var seriesId = id.split(":")[0];
+				let ser = listSeries[seriesId];
+				let m = ser.metas;
+				for(index in m.videos)
+				{
+					let v = m.videos[index];
+					if(v["id"] == id)
+					{
+						let s = v.streams;
+						return Promise.resolve({ s })
+						break;
+					}
+				}
 			/*if(1)
 			{
 				var streams = []
@@ -112,7 +125,7 @@ builder.defineStreamHandler(({type, id}) => {
 						console.log(streams.length);
 						break;
 					}
-				}*/
+				}
 				/*
 				if (! kanBox.isEmpty(streams)){
 					kanBox.writeLog("DEBUG", "url is undefined");
@@ -121,7 +134,7 @@ builder.defineStreamHandler(({type, id}) => {
 					kanBox.getStreams(link);
 				}
 				*/
-			}
+			//}
 			return Promise.resolve({ streams })
 			
 			break;

@@ -231,34 +231,34 @@ async function getStreams(episodeLink){
         if (episodeLink.startsWith('/')) {
             episodeLink = "https://www.kan.org.il" + episodeLink;
         }
-        //var response = await fetch(episodeLink);
-		//var bodyStreams = response.text();
+        var response = await fetch(episodeLink);
+		var bodyStreams = response.text();
         
         //fetch(episodeLink)
         //.then((res) => res.text())
         //.then((bodyStreams) => {
-            let b = parse(bodyStreams);
+        let b = parse(bodyStreams);
+            
+        for (let iter = 0; iter < b.querySelectorAll("script").length; iter++){ //iterate over the episode stream links
+            //writeLog("DEBUG","The script is: " + b.querySelectorAll("script")[iter]);
+            var selectedData = b.querySelectorAll("script")[iter];
+            var scriptData = String(selectedData);
+            if (scriptData.includes("VideoObject")){
+                scriptData = scriptData.substring(scriptData.indexOf('{'), scriptData.indexOf('}') + 1);
+                //writeLog("DEBUG","JSON Is: " + scriptData);
                 
-            for (let iter = 0; iter < b.querySelectorAll("script").length; iter++){ //iterate over the episode stream links
-                //writeLog("DEBUG","The script is: " + b.querySelectorAll("script")[iter]);
-                var selectedData = b.querySelectorAll("script")[iter];
-                var scriptData = String(selectedData);
-                if (scriptData.includes("VideoObject")){
-                    scriptData = scriptData.substring(scriptData.indexOf('{'), scriptData.indexOf('}') + 1);
-                    //writeLog("DEBUG","JSON Is: " + scriptData);
-                    
-                    var videoUrl = JSON.parse(scriptData)["contentUrl"];
-                    var name = JSON.parse(scriptData)["name"];
-                    var desc = JSON.parse(scriptData)["description"];
-                    //writeLog("DEBUG", "URL is: " + videoUrl);
-                    retStreams.push(
-                    {
-                        url: videoUrl,
-                        name: name,
-                        description: desc  
-                    })
-                }
+                var videoUrl = JSON.parse(scriptData)["contentUrl"];
+                var name = JSON.parse(scriptData)["name"];
+                var desc = JSON.parse(scriptData)["description"];
+                //writeLog("DEBUG", "URL is: " + videoUrl);
+                retStreams.push(
+                {
+                    url: videoUrl,
+                    name: name,
+                    description: desc  
+                })
             }
+        }
         //})    
         return retStreams;
     } catch (error) {
