@@ -91,7 +91,7 @@ builder.defineStreamHandler(({type, id}) => {
 	
 	switch(type) {
         case "series":
-			if(1)
+			/*if(1)
 			{
 				var streams = []
 				//exatract the relevant video object from the meta object inside the listSeries
@@ -112,7 +112,7 @@ builder.defineStreamHandler(({type, id}) => {
 						console.log(streams.length);
 						break;
 					}
-				}
+				}*/
 				/*
 				if (! kanBox.isEmpty(streams)){
 					kanBox.writeLog("DEBUG", "url is undefined");

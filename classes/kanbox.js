@@ -150,11 +150,14 @@ async function getSeriesDetails (objListSeries){
             var videos;
             var seasonNo = totalNoOfSeasons - i //what season is this
             var elemEpisodes = elemSeasons[i].querySelectorAll('a.card-link');//get all the episodes
-            
+
             for (let iter = 0; iter < elemEpisodes.length; iter++){ //iterate over the episodes
                 var episode = elemEpisodes[iter];
                 var episodeLink = episode.attributes.href
                 
+                //get the streams of the episode:
+                var streams = getStreams(episodeLink);
+
                 var title = "";
                 if (episode.querySelector("div.card-title")){
                     title = episode.querySelector("div.card-title").text.trim();
@@ -172,10 +175,7 @@ async function getSeriesDetails (objListSeries){
                         episodeLogoUrl = elemEpisodeLogo.attributes.src.substring(0,elemEpisodeLogo.attributes.src.indexOf("?"))
                     }
                 }
-                    
-                //get the streams of the episode:
-                //var streams = getStreams(episodeLink);
-
+                
                 videos.push(						
                 {
                     id: seriesId + ":" + seasonNo + ":" + (iter + 1) ,
@@ -184,7 +184,7 @@ async function getSeriesDetails (objListSeries){
                     episode: (iter + 1),
                     thumbnail: episodeLogoUrl,
                     description: desc,
-                    streams: "",
+                    streams: streams,
                     episodelink: episodeLink
                 })
             }
