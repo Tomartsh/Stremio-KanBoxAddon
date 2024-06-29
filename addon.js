@@ -125,15 +125,8 @@ builder.defineStreamHandler(({type, id}) => {
 						console.log(streams.length);
 						break;
 					}
-				}
-				/*
-				if (! kanBox.isEmpty(streams)){
-					kanBox.writeLog("DEBUG", "url is undefined");
-					var link = listSeries[seriesId].metas.link;
-					kanBox.writeLog("DEBUG", "Link is: " + link);
-					kanBox.getStreams(link);
-				}
-				*/
+				}*/
+				
 			//}
 			return Promise.resolve({ streams })
 			
@@ -148,15 +141,6 @@ builder.defineStreamHandler(({type, id}) => {
             results = Promise.resolve( [] )
             break
     }
-	/*
-	if (type == "series") {
-		// serve one stream to big buck bunny
-		const stream = { url: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4" }
-		//return Promise.resolve({ streams: [stream] })
-		return Promise.resolve({ streams: [ { url: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4" }] })
-	} 
-	/*
-	})
 	
 	//otherwise return no streams
 	return Promise.resolve({ streams: [] })
