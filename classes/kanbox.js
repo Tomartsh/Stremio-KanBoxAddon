@@ -73,24 +73,24 @@ function addLiveTVToList(objList){
                 }
             ]
         })
-        videosKids.push(						
-            {
-                id: idKids,
-                title: "Kids Live Stream",
-                //thumbnail: episodeLogoUrl,
-                description: "Kids Live Stream From Israel",
-                streams: [
-                    {
-                        url: "",
-                        description: "Live stream from Kids Channel in Israel"  
-                    }
-                ]
-            })
+    videosKids.push(						
+        {
+            id: idKids,
+            title: "Kids Live Stream",
+            //thumbnail: episodeLogoUrl,
+            description: "Kids Live Stream From Israel",
+            streams: [
+                {
+                    url: "",
+                    description: "Live stream from Kids Channel in Israel"  
+                }
+            ]
+        })
 
     metasKan = {
         id: idKan,
         type: "tv",
-        name: "Kan 11 Live Stream",
+        name: "כאן 11",
         genres: "Actuality",
         background: "assets/Kan Background.jpg",
         description: "Kan 11 Live Stream From Israel" ,
@@ -123,7 +123,7 @@ function addLiveTVToList(objList){
         type: "tv",
         name: "חנוכית",
         //poster: imgUrl,
-        description: "חינוכית שידור חי מישראל ",
+        description: "חינוכית שידור חי מישראל",
         //link: link,
         //background: imgUrl,
         genres: "Kids, TV", 
@@ -156,7 +156,7 @@ async function getSeriesDetails (objListSeries){
                 var episodeLink = episode.attributes.href
                 
                 //get the streams of the episode:
-                var streams = getStreams(episodeLink);
+                //var streams = getStreams(episodeLink);
 
                 var title = "";
                 if (episode.querySelector("div.card-title")){
@@ -184,7 +184,7 @@ async function getSeriesDetails (objListSeries){
                     episode: (iter + 1),
                     thumbnail: episodeLogoUrl,
                     description: desc,
-                    streams: streams,
+                    streams: [],
                     episodelink: episodeLink
                 })
             }
@@ -232,7 +232,7 @@ async function getStreams(episodeLink){
             episodeLink = "https://www.kan.org.il" + episodeLink;
         }
         var response = await fetch(episodeLink);
-		var bodyStreams = response.text();
+		var bodyStreams = await response.text();
         
         //fetch(episodeLink)
         //.then((res) => res.text())
@@ -254,6 +254,7 @@ async function getStreams(episodeLink){
                 retStreams.push(
                 {
                     url: videoUrl,
+                    type: "series",
                     name: name,
                     description: desc  
                 })

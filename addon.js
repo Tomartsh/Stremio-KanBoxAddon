@@ -39,7 +39,7 @@ const manifest = {
 			"name": "meta",
 			"types": ["series"],
 			"idPrefixes": [constants.prefix_kanbox]
-		}
+		},
 	],
 	"types": [
 		"series",
@@ -91,7 +91,9 @@ builder.defineStreamHandler(({type, id}) => {
 	
 	switch(type) {
         case "series":
-			var seriesId = id.split(":")[0];
+			if(0)
+			{
+			    var seriesId = id.split(":")[0];
 				let ser = listSeries[seriesId];
 				let m = ser.metas;
 				for(index in m.videos)
@@ -104,9 +106,11 @@ builder.defineStreamHandler(({type, id}) => {
 						break;
 					}
 				}
-			/*if(1)
+			}
+			else
+			//if(1)
 			{
-				var streams = []
+				var stream = null
 				//exatract the relevant video object from the meta object inside the listSeries
 				var seriesId = id.split(":")[0];
 				let ser = listSeries[seriesId];
@@ -121,17 +125,20 @@ builder.defineStreamHandler(({type, id}) => {
 						//var link = listSeries[seriesId].metas.link;
 						var link = v.episodelink;
 						kanBox.writeLog("DEBUG", "Link is: " + link);
-						streams = kanBox.getStreams(link);
-						console.log(streams.length);
+						stream = kanBox.getStreams(link);
+						listSeries[seriesId].meta.video[id].streams = stream;
 						break;
 					}
-				}*/
+				}
 				
-			//}
-			return Promise.resolve({ streams })
+			}
+			return Promise.resolve({ streams: {url:stream} })
 			
 			break;
 		case "tv":
+			var metas = listLiveTV[id].meta;
+			var videos = metas.videos;
+			var stream =  
 			//for (var [key, value] of Object.entries(listLiveTV)) {
 			//	metas.push(value)
 			//}
