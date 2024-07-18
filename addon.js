@@ -6,6 +6,8 @@ const kanBox = require("./classes/kanbox");
 
 let listSeries = {};
 let listLiveTV = {};
+let listArchiveKan = {};
+let listKids = {};
 
 scrapeData();
 
@@ -22,13 +24,40 @@ const manifest = {
 		{
 			type: "series",
 			id: "top",
-			name: "Kan Box Digital",
-			extra: [ {name: "search" }]
+			name: "כאן 11 דיגיטל",
+			extra: [
+				{
+					name: "search",
+					isRequired: false
+				}
+			]
+		},
+		{
+			type: "series",
+			id: "top",
+			name: "כאן חינוכית",
+			extra: [
+				{
+					name: "search",
+					isRequired: false
+				}
+			]
+		},
+		{
+			type: "series",
+			id: "top",
+			name: "כאן 11 ארכיב",
+			extra: [
+				{
+					name: "search",
+					isRequired: false
+				}
+			]
 		},
 		{
 			type: "tv",
 			id: "top",
-			name: "Kan Live",
+			name: "שידור חי",
 			extra: [ {name: "search" }]
 		}
 	],
@@ -45,7 +74,7 @@ const manifest = {
 		"series",
 		"tv"
 	],
-	"name": "Kan Box Digital",
+	"name": "כאן 11",
 	"description": "Addon for Israel Public Broadcastin Corporation - Kan Digital"
 }
 const builder = new addonBuilder(manifest)
@@ -138,7 +167,7 @@ builder.defineStreamHandler(({type, id}) => {
 		case "tv":
 			var metas = listLiveTV[id].meta;
 			var videos = metas.videos;
-			var stream =  
+			//var stream =  
 			//for (var [key, value] of Object.entries(listLiveTV)) {
 			//	metas.push(value)
 			//}
@@ -179,6 +208,8 @@ async function scrapeData() {
     		var tempRoot = parse(body);
 			var objParse = {
 				listSeries: listSeries, 
+				listArchiveKan: listArchiveKan,
+				listKids: listKids,
 				tempRoot: tempRoot
 			}
 			kanBox.parseData(objParse);
