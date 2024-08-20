@@ -8,181 +8,279 @@ function parseData(objParse){
     var listArchiveKan = objParse.listArchiveKan
     var listKids = objParse.listKids;
 
+    //Get the series list
 	for (let i = 0; i < root.querySelectorAll('a.card-link').length; i++){
         var elem = root.querySelectorAll('a.card-link')[i]
         var link = elem.attributes.href;
         var seriesID = setID(link);
-        var imageElem = root.querySelectorAll('a.card-link')[i].getElementsByTagName('img')[0];
-        var imgUrl = imageElem.attributes.src.substring(0,imageElem.attributes.src.indexOf("?"))
-        var name = getName(imageElem.attributes.alt, link)
-        if ((name == null) || (name == "")) {
-            var name = imgUrl.substring(imgUrl.indexOf("239x360_") + 8, imgUrl.indexOf(".jpg"));
-            if (name.indexOf("1200x1800") > 0) { 
-                name = "";
-           } else {
-                name.replace("פוסטר-קטן","");
-                name.replace("239X360","");
-                name.trim();
-            }
-        }
-        
-        var genreRaw, genres 
-		var description = ""
-        var st = elem.structuredText.split("\n")
-        if (st.length == 1) {genreRaw = st[0].trim()}
-        if (st.length == 2) {
-            genreRaw = st[1].trim()
-            description = st[0].trim()
-        }
-        genres = setGenre(genreRaw);
-		
+
+        //If we do not have a valid seriesID or link, we cannot add this entry
         if ((seriesID == null) || (link == null)){
             continue;
         }
-        //route the correct source to the correct catalog. Regular list and archive
-        var objSeries = "";
-        if (link.includes("/content/kan/")){
 
-            listSeries[seriesID] = {
-                id: seriesID,
-                type: "series",
-                name: name,
-                poster: imgUrl,
-                description: description,
-                link: link,
-                background: imgUrl,
-                genres: genres, 
-                metas: ""
-            }
-            objSeries = {id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, listObj: listSeries}
-            
-        } else if (link.includes("/archive1/")){
-            listArchiveKan[seriesID] = {
-                id: seriesID,
-                type: "series",
-                name: name,
-                poster: imgUrl,
-                description: description,
-                link: link,
-                background: imgUrl,
-                genres: genres, 
-                metas: ""
-            }
-            objSeries = {id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, listObj: listArchiveKan}
-        } else if (link.includes("/content/kids/hinuchit-main/")){
-            listKids[seriesID] = {
-                id: seriesID,
-                type: "series",
-                name: name,
-                poster: imgUrl,
-                description: description,
-                link: link,
-                background: imgUrl,
-                genres: genres, 
-                metas: ""
-            }
-            objSeries = {id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, listObj: listKids}
-        }
-        writeLog("DEBUG", "ID: " + seriesID + " link: " + link + " name: " + name);
-        
-		//getSeriesDetails(objSeries);
-	}
-    var listSeriesToRetrieve = {list: listSeries};
-    retrieveSeriesDetails(listSeriesToRetrieve);
-    var listKidsToRetrieve = {list: listKids};
-    retrieveSeriesDetails(listKidsToRetrieve);
-    var listArchiveToRetrieve = {list: listArchiveKan};
-    retrieveSeriesDetails(listArchiveToRetrieve);
-
-}
-/*--------------------------------------------------------------------
-/ The lists of the kids, archive and kan are identical in structure.  /
-/ we need to go over each and retrieve the data of each season and    /
-/ each chapter and get the steam URL                                  /
-/--------------------------------------------------------------------*/
-async function retrieveSeriesDetails(objArgs){
-    listObj = objArgs.list;
-    for (var seriesId in listObj){
-        var seriesObj = listObj[seriesId];
-        //get the link to the series
-        writeLog("DEBUG","Details - ID: " + seriesId + " Name: " + seriesObj.name);
-        if (seriesObj.link == null){
+        //remove podcasts
+        if (link.indexOf("podcasts") > 0 ){
             continue;
         }
 
-        var link = seriesObj.link;
-        try {
-            var response = await fetch(link);
-            var bodySeries = await response.text();
-            var rootSeries =  parse(bodySeries);
-            
-            //update the description if there is one
-            var description  = rootSeries.querySelector('p.ql-align-right').text;
-            var objData = {list: listObj}
-            updateDescription(objData, seriesId, description);
+        var imageElem = root.querySelectorAll('a.card-link')[i].getElementsByTagName('img')[0];
 
-            var elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
-            var totalNoOfSeasons = elemSeasons.length
-            var videos = [];
-            var metas = "";
+        //Set the image URL
+        var imgUrl = imageElem.attributes.src.substring(0,imageElem.attributes.src.indexOf("?"))
 
-            for (let i = 0; i < totalNoOfSeasons; i++){ //iterate over the seasons
-                var videos;
-                var seasonNo = totalNoOfSeasons - i //what season is this
-                var elemEpisodes = elemSeasons[i].querySelectorAll('a.card-link');//get all the episodes
+        //Set the name
+        var name = ""
+        //writeLog("DEBUG","Name in parseData() : " + imageElem.attributes.alt);
+        if ((imageElem.attributes.alt != undefined) && (imageElem.attributes.alt != null) && (imageElem.attributes.alt != "")){
+            name = getName(imageElem.attributes.alt, link, imgUrl)
+        } 
+        
+        var genres = " "; 
+		var description = ""
+        var st = elem.structuredText.split("\n")
+        if (st.length == 1) {
+            genres = setGenre(st[0].trim());
+        }
+        if (st.length == 2) {
+            description = st[0].trim();
+            genres = setGenre(st[1].trim());
+        }
+
+        //Route the correct source to the correct catalog. Regular list and archive
+        //First calculate the subType - 'd' for Kan Box Digital,'a' for archive and 'k' for kids (hinuchit)
+        //We can then add the chapters for each series
+        if (link.includes("/content/kan/")) {
+            listSeries[seriesID] = {subType: "d", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "" }
+            var objSeries = {id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "d", listObj: listSeries}
+            retrieveNameAndDescription(objSeries);
+        } else if (link.includes("/archive1/")){
+            listArchiveKan[seriesID] = {subType: "a", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""}
+            var objSeriesArchive = {id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "a", listObj: listArchiveKan}
+            //retrieveNameAndDescription(objSeriesArchive);
+        } else if (link.includes("/content/kids/hinuchit-main/")){
+            listKids[seriesID] = {subType: "k", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""}
+            var objSeriesKids = {id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "k", listObj: listKids}
+        }
+	}
+}
+
+//get the name from the main page. It may be inaccurate so we are 
+//performing a chacek within the series page itself later on
+function getName (altRet, linkRet, imgUrlVal ){
+    var imageUrl = imgUrlVal;
+    var name = altRet.replace("פוסטר קטן", "");
+    name = name.replace("239X360","");
+    name = name.replace("\n", "");
+    name = name.replace("\r", "");
+    name = name.replace("לוגו", "");
+    name = name.replace("Poster Image Small", "");
+    name = name.replace("Share Image", "");
+    name = name.replace("1200X630", "");
+    name = name.trim();
+   
+    if (name == "-" ){
+        //There is no clear name for the series, so let's try to find it from the link
+        // Start at 239x360_ and end at "?"
+        linkMod = linkRet.substring(linkRet.indexOf("239x360_") + 8, linkRet.indexOf("?"))
+        if (linkMod != "" && !linkMod.startsWith("https") ) {name = linkMod}
+    } 
+
+    if ((name == null) || (name == "")){
+        if (imageUrl.indexOf("1200x1800") > 0) { 
+            var name = imageUrl.substring(imageUrl.indexOf("239x360_") + 8, imageUrl.indexOf(".jpg"));
+            if (name.indexOf("1200x1800") > 0) { 
+                return "";
+            }
+        }
+    }
+    return name.trim();
+}
+
+function getNameFromSeriesPage(nameElement){
+    var name = nameElement;
+    if (name.indexOf("|") > 0){
+        name = name.substring(0,name.indexOf("|") -1);
+    }
+    if (name.indexOf (" - פרקים מלאים לצפייה ישירה") > 0){
+        name = name.substring(0,name.indexOf("-") - 1);
+    }
+    if (name.indexOf (" - פרקים לצפייה ישירה") > 0){
+        name = name.substring(0,name.indexOf("-") - 1);
+    }
+    if (name.indexOf (" - פרקים מלאים") > 0){
+        name = name.substring(0,name.indexOf("-") - 1);
+    }
+    if (name.indexOf ("- לצפייה ישירה") > 0){
+        name = name.substring(0,name.indexOf("-"));
+    }
+    if (name.indexOf (" - סרט דוקו לצפייה") > 0){
+        name = name.substring(0,name.indexOf("-") - 1);
+    }
+    if (name.indexOf (" - הסרט המלא לצפייה ישיר") > 0){
+        name = name.substring(0,name.indexOf("-") - 1);
+    }
+    if (name.indexOf (" - תכניות מלאות לצפייה ישירה") > 0){
+        name = name.substring(0,name.indexOf("-") - 1);
+    }
+    return name;
+}
+
+async function retrieveNameAndDescription(listObj){
+    //retrieve data from the object passed
+    var link = listObj.link;
+    var seriesId = listObj.id;
+    var subType = listObj.subType;
+    var name = listObj.name;
+    var description = listObj.description;
+
+    //Fetch data from the link
+    var response = await fetch(link);
+    var bodySeries = await response.text();
+    var rootSeries =  parse(bodySeries);
+
+    if (rootSeries == "") {
+        kanLive.writeLog("DEBUG","addSeriesChapters => Could not retrieve data from link. Exiting");
+        return;
+    }
     
-                for (let iter = 0; iter < elemEpisodes.length; iter++){ //iterate over the episodes
-                    var episode = elemEpisodes[iter];
-                    var episodeLink = episode.attributes.href
-                    
-                    var title = "";
-                    if (episode.querySelector("div.card-title")){
-                        title = episode.querySelector("div.card-title").text.trim();
-                        }
-                    var desc = "";
-                    if (episode.querySelector("div.card-text")){
-                        desc = episode.querySelector("div.card-text").text.trim();
-                    }
-                    
-                    var elemImage = episode.querySelector("div.card-img")
-                    var episodeLogoUrl = "";
-                    if ((elemImage)){
-                        var elemEpisodeLogo = elemImage.querySelector("img.img-full")
-                        if ((elemEpisodeLogo) && (elemEpisodeLogo.attributes.src.indexOf('?') > 0)){
-                            episodeLogoUrl = elemEpisodeLogo.attributes.src.substring(0,elemEpisodeLogo.attributes.src.indexOf("?"))
-                        }
-                    }
-                    
-                    videos.push(						
-                    {
-                        id: seriesId + ":" + seasonNo + ":" + (iter + 1) ,
-                        title: title,
-                        season: seasonNo,
-                        episode: (iter + 1),
-                        thumbnail: episodeLogoUrl,
-                        description: desc,
-                        streams: [],
-                        episodelink: episodeLink
-                    })
+    switch (subType){
+
+        case "d":
+            var nameFromSeriesPage = "";
+            var descriptionFromSeriesPage = "";
+            if (rootSeries.querySelector('title').text){
+                nameFromSeriesPage = getNameFromSeriesPage(rootSeries.querySelector('title').text);   
+            }  
+            //set the fixed values to the list
+            if ((nameFromSeriesPage != name) && (nameFromSeriesPage != "")){ 
+                updateName(listObj, seriesId, nameFromSeriesPage);
+            }
+
+            if ((rootSeries.querySelector('div.info-description') != "undefined") &&
+                (rootSeries.querySelector('div.info-description') != null)){
+                    descriptionFromSeriesPage = rootSeries.querySelector('div.info-description').text.trim();
+            }
+            //set the fixed values to the list
+            if ((descriptionFromSeriesPage != description) && (descriptionFromSeriesPage != "")){ 
+                updateDescription(listObj, seriesId, description);
+            }
+            
+            //Get the episodes (we already have the parsing of the page)
+            retrieveSeriesEpisodes(rootSeries,seriesId, listObj);
+
+            break;
+            
+        case "a":
+            //var name = rootSeries.querySelector('span.d-md-none').text;
+            //var description = rootSeries.querySelector('div.info-description').text.trim();
+            //writeLog("DEBUG","Series name is: " + name + "\n    Description: " + description); 
+            break;
+
+        default:
+            writeLog("DEBUG","Unidentified type, Exiting");
+            return; 
+    }
+}
+
+async function retrieveSeriesEpisodes(rootSeries, seriesId, listObj){
+    var list = listObj.listObj;
+    var elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
+    var totalNoOfSeasons = elemSeasons.length
+    var videosList = [];
+    var metas = {id: "", type: "", name: "", genres: "", background: "", description: "", link: "", videos: ""};
+
+    for (let i = 0; i < totalNoOfSeasons; i++){ //iterate over the seasons
+        //var videos;
+        var seasonNo = totalNoOfSeasons - i //what season is this
+        var elemEpisodes = elemSeasons[i].querySelectorAll('a.card-link');//get all the episodes
+
+        for (let iter = 0; iter < elemEpisodes.length; iter++){ //iterate over the episodes
+            var episode = elemEpisodes[iter];
+            var episodeLink = episode.attributes.href
+            
+            var title = "";
+            if (episode.querySelector("div.card-title")){
+                title = episode.querySelector("div.card-title").text.trim();
+                }
+            var desc = "";
+            if (episode.querySelector("div.card-text")){
+                desc = episode.querySelector("div.card-text").text.trim();
+            }
+            
+            var elemImage = episode.querySelector("div.card-img")
+            var episodeLogoUrl = "";
+            if ((elemImage)){
+                var elemEpisodeLogo = elemImage.querySelector("img.img-full")
+                if ((elemEpisodeLogo) && (elemEpisodeLogo.attributes.src.indexOf('?') > 0)){
+                    episodeLogoUrl = elemEpisodeLogo.attributes.src.substring(0,elemEpisodeLogo.attributes.src.indexOf("?"))
                 }
             }
-            metas = {
-                id: seriesId,
-                type: "series",
-                name: seriesObj.name,
-                genres: listObj[seriesId].genres,
-                background: listObj[seriesId].poster,
-                description: description,
-                link: episodeLink,
-                //logo: episodeLogoUrl,
-                videos: videos
-            }
             
-            listObj[seriesId].metas = metas;
-        } catch (err) {
-            console.log(err);
+            var streamsList = [];
+            //format the link so it is accessible
+            try {
+                if (episodeLink.startsWith('/')) {
+                    episodeLink = "https://www.kan.org.il" + episodeLink;
+                }
+                var response = await fetch(episodeLink);
+                var bodyStreams = await response.text();
+        
+                let b = parse(bodyStreams);
+                    
+                for (let iter = 0; iter < b.querySelectorAll("script").length; iter++){ //iterate over the episode stream links
+                    var selectedData = b.querySelectorAll("script")[iter];
+                    var scriptData = String(selectedData);
+                    if (scriptData.includes("VideoObject")){
+                        scriptData = scriptData.substring(scriptData.indexOf('{'), scriptData.indexOf('}') + 1);
+                        
+                        var videoUrl = JSON.parse(scriptData)["contentUrl"];
+                        var name = JSON.parse(scriptData)["name"];
+                        var desc = JSON.parse(scriptData)["description"];
+                        streamsList.push(
+                        {
+                            url: videoUrl,
+                            type: "series",
+                            name: name,
+                            description: desc  
+                        })
+                    }
+                }
+            } catch (error) {
+                console.error(error)
+            }
+
+
+            videosList.push({
+                id: seriesId + ":" + seasonNo + ":" + (iter + 1) ,
+                title: title,
+                season: seasonNo,
+                episode: (iter + 1),
+                thumbnail: episodeLogoUrl,
+                description: desc,
+                streams: streamsList,
+                episodelink: episodeLink
+            })
         }
-    }    
+    }
+    //writeLog("DEBUG","retrieveSeriesEpisodes => :d: " + list[seriesId].id + "  Link: " +  list[seriesId].link + " Name: " + list[seriesId].name);
+    var genresTemp = "";
+    if (list[seriesId].genres !== undefined){
+        genresTemp = list[seriesId].genres; 
+    }
+    metas = {
+        id: seriesId,
+        type: "series",
+        name: list[seriesId].name,
+        genres: genresTemp,
+        background: list[seriesId].poster,
+        description: list[seriesId].description,
+        link: list[seriesId].link,
+        //logo: episodeLogoUrl,
+        videos: videosList
+    }
+    
+    list[seriesId].metas = metas;
 }
 
 /*-------------------------------------------------------------------/
@@ -192,92 +290,18 @@ async function retrieveSeriesDetails(objArgs){
 / catalog list.
 --------------------------------------------------------------------*/
 function updateDescription (objData, seriesId,  description){
-    var listObj = objData.list;
+    var listObj = objData.listObj;
     if (description != null){
         listObj[seriesId].description = description;
     }
    
 }
-
-async function getSeriesDetails (objSeries){
-	var seriesId = objSeries.id;
-    var link = objSeries.link;
-    var listObj = objSeries.listObj
-    if (seriesId == null){
-        return;
-    }
-    writeLog("DEBUG", "ID: " + seriesId + " link: " + link + " name: " + objSeries.name);
-
-    try {
-		var response = await fetch(link);
-		var bodySeries = await response.text();
-
-        var rootSeries = parse(bodySeries);
-
-        var elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
-        var totalNoOfSeasons = elemSeasons.length
-        var videos = [];
-        var metas = "";
-
-        for (let i = 0; i < totalNoOfSeasons; i++){ //iterate over the seasons
-            var videos;
-            var seasonNo = totalNoOfSeasons - i //what season is this
-            var elemEpisodes = elemSeasons[i].querySelectorAll('a.card-link');//get all the episodes
-
-            for (let iter = 0; iter < elemEpisodes.length; iter++){ //iterate over the episodes
-                var episode = elemEpisodes[iter];
-                var episodeLink = episode.attributes.href
-                
-                var title = "";
-                if (episode.querySelector("div.card-title")){
-                    title = episode.querySelector("div.card-title").text.trim();
-                    }
-                var desc = "";
-                if (episode.querySelector("div.card-text")){
-                    desc = episode.querySelector("div.card-text").text.trim();
-                }
-                
-                var elemImage = episode.querySelector("div.card-img")
-                var episodeLogoUrl = "";
-                if ((elemImage)){
-                    var elemEpisodeLogo = elemImage.querySelector("img.img-full")
-                    if ((elemEpisodeLogo) && (elemEpisodeLogo.attributes.src.indexOf('?') > 0)){
-                        episodeLogoUrl = elemEpisodeLogo.attributes.src.substring(0,elemEpisodeLogo.attributes.src.indexOf("?"))
-                    }
-                }
-                
-                videos.push(						
-                {
-                    id: seriesId + ":" + seasonNo + ":" + (iter + 1) ,
-                    title: title,
-                    season: seasonNo,
-                    episode: (iter + 1),
-                    thumbnail: episodeLogoUrl,
-                    description: desc,
-                    streams: [],
-                    episodelink: episodeLink
-                })
-            }
-        }
-        metas = {
-            id: seriesId,
-            type: "series",
-            name: objSeries.name,
-            genres: objSeries.genres,
-            background: objSeries.poster,
-            description: objSeries.description,
-            link: episodeLink,
-            //logo: episodeLogoUrl,
-            videos: videos
-        }
-        
-        listObj[seriesId].metas = metas;
-	} catch (error) {
-		console.error("Error for ID: " + seriesId + "\n   link: " + link + "\n" + error)
-        console.error(error)
-	}      
+function updateName (objData, seriesId,  name){
+    var listObj = objData.listObj;
+    if (name != null){
+        listObj[seriesId]["name"] = name;
+    } 
 }
-
 
 
 function addLiveTVToList(objList){
@@ -437,118 +461,65 @@ function setGenre(genres) {
     if (genresArr < 1) {return genres}
     for (let i = 0; i < genresArr.length; i++){
         var check = genresArr[i].trim()
-        //check = check.trim()
-        //if (check === undefined){ continue;}
+
         switch(check) {
             case "דרמה":
-                //genres = genres + ", Drama"
-                //genres.replace("דרמה","Drama")
                 newGenres.push("Drama");
                 break;
             case "מתח":
-                //genres = genres + ", Thriller"
-                //genres.replace("מתח", "Thriller")
                 newGenres.push("Thriller");
                 break;
             case "פעולה":
-                //genres = genres + ", Action"
-                //genres.replace("פעולה", "Action")
                 newGenres.push("Action");
                 break;
             case "אימה":
-                //genres = genres + ", Horror"
-                //genres.replace("אימה","Horror")
                 newGenres.push("Horror");
                 break;
             case "דוקו":
-                //genres = genres + ", Documentary"
-                //genres.replace("דוקו","Documentary")
                 newGenres.push("Documentary");
                 break;
             case "אקטואליה":
-                //genres = genres + ", Documentary"
-                //genres.replace("אקטואליה", "Documentary")
                 newGenres.push("Documentary");
                 break;
             case "ארכיון":
-                //genres = genres + ", Archive"
-                //genres.replace("ארכיון", "Archive")
                 newGenres.push("Archive");
                 break;
             case "תרבות":
-                //genres = genres + ", Culture"
-                //genres.replace("תרבות", "Culture")
                 newGenres.push("Culture");
                 break;
             case "היסטוריה":
-                //genres = genres + ", History"
-                //genres.replace("היסטוריה", "History")
                 newGenres.push("History");
                 break;
             case "מוזיקה":
-                //genres = genres + ", Music"
-                //genres.replace("מוזיקה", "Music")
                 newGenres.push("Music");
                 break;
             case "תעודה":
-                //genres = genres + ", Documentary"
-                //genres.replace("תעודה", "Documentary")
                 newGenres.push("Documentary");
                 break;
             case "ספורט":
-                //genres = genres + ", Documentary"
-                //genres.replace("ספורט", "Sport")
                 newGenres.push("Sport");
                 break;
             case "קומדיה":
-                //genres = genres + ", Comedy"
-                //genres.replace("קומדיה", "Comedy")
                 newGenres.push("Comedy");
                 break;
             case "ילדים":
-                //genres = genres + ", Kids"
-                //genres.replace("ילדים", "Kids")
                 newGenres.push("Kids");
                 break;
             case "ילדים ונוער":
-                //genres = genres + ", Kids"
-                //genres.replace("ילדים ונוער", "Kids")
-                newGenres.push("Kids");
                 break;
             case "בישול":
-                //genres = genres + ", Cooking"
-                //genres.replace("בישול", "Cooking")
                 newGenres.push("Cooking");
                 break;
             case "קומדיה וסאטירה":
-                //genres = genres + ", Comedy, Satire"
-                //genres.replace("קומדיה וסאטירה", "Comedy")
                 newGenres.push("Comedy");
                 break;
-        default:
-                
+        default:               
             } 
     }
     return newGenres;
 }
 
-function getName (altRet, linkRet ){
-    var val = ""
-    var linkMod = ""
-    var altMod = altRet.replace("פוסטר קטן", "")
-    altMod = altMod.replace("Poster Image Small 239X360", "")
-    if (altMod == "" || altMod == "-" ){
-        //There is no clear name for the series, so let's try to find it from the link
-        // Start at 239x360_ and end at "?"
-        linkMod = linkRet.substring(linkRet.indexOf("239x360_") + 8, linkRet.indexOf("?"))
-        if (linkMod != "" && !linkMod.startsWith("https") ) {val = linkMod}
-    } else {
-        val = altMod
-    }
 
-    val = val.trim()
-    return val
-}
 
 //+===================================================================================
 //
@@ -569,4 +540,4 @@ function isEmpty(value) {
     }
 }
 
-module.exports = {getName, setGenre, setID, writeLog, getSeriesDetails, isEmpty, parseData, addLiveTVToList, getStreams};
+module.exports = {getName, setGenre, setID, writeLog, isEmpty, parseData, addLiveTVToList, getStreams};

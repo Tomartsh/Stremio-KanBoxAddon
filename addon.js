@@ -3,6 +3,7 @@ const fetch = require('node-fetch');
 const { addonBuilder } = require("stremio-addon-sdk");
 const constants = require("./classes/constants");
 const kanBox = require("./classes/kanbox");
+const kanLive = require("./classes/kanlive");
 
 let listSeries = {};
 let listLiveTV = {};
@@ -46,7 +47,7 @@ const manifest = {
 		{
 			type: "series",
 			id: "top",
-			name: "כאן 11 ארכיב",
+			name: "כאן 11 ארכיון",
 			extra: [
 				{
 					name: "search",
@@ -57,7 +58,13 @@ const manifest = {
 		{
 			type: "tv",
 			id: "top",
-			name: "שידור חי",
+			name: "כאן שידור חי",
+			extra: [ {name: "search" }]
+		},
+		{
+			type: "tv",
+			id: "top",
+			name: "חינוכית שידור חי",
 			extra: [ {name: "search" }]
 		}
 	],
@@ -154,8 +161,9 @@ builder.defineStreamHandler(({type, id}) => {
 						//var link = listSeries[seriesId].metas.link;
 						var link = v.episodelink;
 						kanBox.writeLog("DEBUG", "Link is: " + link);
-						stream = kanBox.getStreams(link);
-						listSeries[seriesId].meta.video[id].streams = stream;
+						//stream = kanBox.getStreams(link);
+						//listSeries[seriesId].meta.video[id].streams = stream;
+						stream = v.streams;
 						break;
 					}
 				}
