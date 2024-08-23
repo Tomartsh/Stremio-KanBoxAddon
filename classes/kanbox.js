@@ -53,6 +53,7 @@ function parseData(objParse){
         if (link.includes("/content/kan/")) {
             listSeries[seriesID] = {subType: "d", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "" }
             var objSeries = {id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "d", listObj: listSeries}
+            writeLog("DEBUG","Name: " + name + " imgUrl: " + imgUrl + " description: " + description + " ID: " + seriesID);
             retrieveNameAndDescription(objSeries);
         } else if (link.includes("/archive1/")){
             listArchiveKan[seriesID] = {subType: "a", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""}

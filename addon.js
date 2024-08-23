@@ -112,6 +112,9 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 builder.defineMetaHandler(({type, id}) => {
 	kanBox.writeLog("DEBUG", "Request for meta: type " + type +" ID: " + id);
+	writeLog("DEBUG", "    Image  URL: " + listSeries[id].poster);
+	writeLog("DEBUG", "    Name: " + listSeries[id].name);
+	writeLog("DEBUG", "    Description: " + listSeries[id].decsription;
 	var metaObj = listSeries[id].metas;
 	
 	return Promise.resolve({meta: metaObj});
