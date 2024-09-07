@@ -51,16 +51,16 @@ function parseData(objParse){
         //First calculate the subType - 'd' for Kan Box Digital,'a' for archive and 'k' for kids (hinuchit)
         //We can then add the chapters for each series
         if (link.includes("/content/kan/")) {
-            listSeries[seriesID] = {subType: "d", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "" }
+            objParse.listSeries[seriesID] = {subType: "d", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "" }
             var objSeries = {id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "d", listObj: listSeries}
             writeLog("DEBUG","Name: " + name + " imgUrl: " + imgUrl + " description: " + description + " ID: " + seriesID);
             retrieveNameAndDescription(objSeries);
         } else if (link.includes("/archive1/")){
-            listArchiveKan[seriesID] = {subType: "a", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""}
+            objParse.listArchiveKan[seriesID] = {subType: "a", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""}
             var objSeriesArchive = {id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "a", listObj: listArchiveKan}
             //retrieveNameAndDescription(objSeriesArchive);
         } else if (link.includes("/content/kids/hinuchit-main/")){
-            listKids[seriesID] = {subType: "k", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""}
+            objParse.listArchiveKan[seriesID] = {subType: "k", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""}
             var objSeriesKids = {id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "k", listObj: listKids}
         }
 	}
@@ -280,7 +280,7 @@ async function retrieveSeriesEpisodes(rootSeries, seriesId, listObj){
         //logo: episodeLogoUrl,
         videos: videosList
     }
-    
+    writeLog("DEBUG","Metas is: " + metas);
     list[seriesId].metas = metas;
 }
 
