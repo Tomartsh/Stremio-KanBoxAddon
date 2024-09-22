@@ -4,9 +4,9 @@ const constants = require("./constants");
 
 function parseData(objParse){
     var root = objParse.tempRoot;
-    var listSeries = objParse.listSeries;
-    var listArchiveKan = objParse.listArchiveKan
-    var listKids = objParse.listKids;
+    //var listSeries = objParse.listSeries;
+    //var listArchiveKan = objParse.listArchiveKan
+    //var listKids = objParse.listKids;
 
     //Get the series list
 	for (let i = 0; i < root.querySelectorAll('a.card-link').length; i++){
@@ -51,17 +51,16 @@ function parseData(objParse){
         //First calculate the subType - 'd' for Kan Box Digital,'a' for archive and 'k' for kids (hinuchit)
         //We can then add the chapters for each series
         if (link.includes("/content/kan/")) {
-            objParse.listSeries[seriesID] = {subType: "d", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "" }
-            var objSeries = {id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "d", listObj: listSeries}
+            var objSeries = {list: objParse.listSeries, id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "d", listObj: listSeries}
             writeLog("DEBUG","Name: " + name + " imgUrl: " + imgUrl + " description: " + description + " ID: " + seriesID);
             retrieveNameAndDescription(objSeries);
         } else if (link.includes("/archive1/")){
-            objParse.listArchiveKan[seriesID] = {subType: "a", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""}
-            var objSeriesArchive = {id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "a", listObj: listArchiveKan}
+            //objParse.listArchiveKan[seriesID] = {subType: "a", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""}
+            var objSeriesArchive = {list: objParse.listArchiveKan, id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "a", listObj: listArchiveKan}
             //retrieveNameAndDescription(objSeriesArchive);
         } else if (link.includes("/content/kids/hinuchit-main/")){
-            objParse.listArchiveKan[seriesID] = {subType: "k", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""}
-            var objSeriesKids = {id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "k", listObj: listKids}
+            //objParse.listArchiveKan[seriesID] = {subType: "k", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""}
+            var objSeriesKids = {list: objParse.listKids, id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "k", listObj: listKids}
         }
 	}
 }
@@ -129,16 +128,33 @@ function getNameFromSeriesPage(nameElement){
 
 async function retrieveNameAndDescription(listObj){
     //retrieve data from the object passed
+    var list = listObj.list;
     var link = listObj.link;
     var seriesId = listObj.id;
-    var subType = listObj.subType;
     var name = listObj.name;
+    var subType = listObj.subType;
     var description = listObj.description;
-
+    
     //Fetch data from the link
     var response = await fetch(link);
     var bodySeries = await response.text();
     var rootSeries =  parse(bodySeries);
+
+    switch (type){
+        case "d":
+            link = listObj.listSeries[id].link;
+            name = listObj.listSeries[id].name;
+            description = listObj.listSeries[id].description;
+            var response = await fetch(link);
+            var bodySeries = await response.text();
+            var rootSeries =  parse(bodySeries);
+            break;
+
+        default:
+            writeLog("DEBUG","WTF!!!");
+            return;
+            break;
+    }
 
     if (rootSeries == "") {
         kanLive.writeLog("DEBUG","addSeriesChapters => Could not retrieve data from link. Exiting");
