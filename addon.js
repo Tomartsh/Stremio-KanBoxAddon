@@ -230,4 +230,19 @@ async function scrapeData() {
 	}  
 }
 
-module.exports = builder.getInterface()
+function getListSeries (){
+	return this.listSeries;
+}
+
+function getListArchiveKan () {
+	return this.listArchiveKan;
+}
+
+function getListKids(){
+	return this.listKids;
+}
+
+function getListLiveTV(){
+	return this.listLiveTV;
+}
+module.exports = builder.getInterface(), getListSeries, getListArchiveKan, getListKids, getListLiveTV;

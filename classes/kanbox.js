@@ -1,6 +1,7 @@
 const { parse } = require('node-html-parser');
 const fetch = require('node-fetch');
 const constants = require("./constants");
+const ADDON = require("../addon");
 
 function parseData(objParse){
     var root = objParse.tempRoot;
@@ -51,7 +52,7 @@ function parseData(objParse){
         //First calculate the subType - 'd' for Kan Box Digital,'a' for archive and 'k' for kids (hinuchit)
         //We can then add the chapters for each series
         if (link.includes("/content/kan/")) {
-            var objSeries = {list: objParse.listSeries, id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "d", listObj: listSeries}
+            var objSeries = {list: ADDON.get, id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "d", listObj: listSeries}
             writeLog("DEBUG","Name: " + name + " imgUrl: " + imgUrl + " description: " + description + " ID: " + seriesID);
             retrieveNameAndDescription(objSeries);
         } else if (link.includes("/archive1/")){
