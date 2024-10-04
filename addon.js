@@ -4,11 +4,16 @@ const { addonBuilder } = require("stremio-addon-sdk");
 const constants = require("./classes/constants");
 const kanBox = require("./classes/kanbox");
 const kanLive = require("./classes/kanlive");
+const srList = require("./classes/srList");
 
-let listSeries = {};
-let listLiveTV = {};
-let listArchiveKan = {};
-let listKids = {};
+//let listSeries = {};
+const listSeries = new srList("a", "series");
+//let listLiveTV = {};
+const listLiveTV = new srList("t", "tv");
+//let listArchiveKan = {};
+const listArchiveKan = new srList("a","series");
+//let listKids = {};
+const listKids = new srList("k","series");
 
 scrapeData();
 
@@ -208,8 +213,8 @@ builder.defineStreamHandler(({type, id}) => {
 async function scrapeData() {
 	
 	//Load the TV catalg
-	objKanLive = {listTV: listLiveTV};
-	kanBox.addLiveTVToList(objKanLive);
+	//objKanLive = {listTV: listLiveTV};
+	kanBox.addLiveTVToList();
 
 	// Load series catalog
 	try {
@@ -223,11 +228,17 @@ async function scrapeData() {
 				listKids: listKids,
 				tempRoot: tempRoot
 			}
-			kanBox.parseData(objParse);
+			//kanBox.parseData(objParse);
+			kanBox.parseData(temproot);
         })
 	} catch (error) {
 		console.error(error)
 	}  
 }
 
-module.exports = builder.getInterface()
+module.exports = builder.getInterface();
+module.exports.listSeries = listSeries;
+module.exports.listLiveTV = listLiveTV;
+module.exports.listKids = listKids;
+module.exports.listArchiveKan = listArchiveKan;
+
