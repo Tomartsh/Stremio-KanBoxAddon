@@ -1,12 +1,14 @@
 const { parse } = require('node-html-parser');
 const fetch = require('node-fetch');
 const constants = require("./constants");
+const addon = require("../addon");
 
-function parseData(objParse){
-    var root = objParse.tempRoot;
-    var listSeries = objParse.listSeries;
-    var listArchiveKan = objParse.listArchiveKan
-    var listKids = objParse.listKids;
+//function parseData(objParse){
+function parseData(root){
+    //var root = objParse.tempRoot;
+    //var listSeries = objParse.listSeries;
+    //var listArchiveKan = objParse.listArchiveKan
+    //var listKids = objParse.listKids;
 
     //Get the series list
 	for (let i = 0; i < root.querySelectorAll('a.card-link').length; i++){
@@ -51,10 +53,12 @@ function parseData(objParse){
         //First calculate the subType - 'd' for Kan Box Digital,'a' for archive and 'k' for kids (hinuchit)
         //We can then add the chapters for each series
         if (link.includes("/content/kan/")) {
-            objParse.listSeries[seriesID] = {subType: "d", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "" }
-            var objSeries = {id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "d", listObj: listSeries}
+            addon.listSeries.addSeries({id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""});
+            //objParse.listSeries[seriesID] = {subType: "d", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "" }
+            //var objSeries = {id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "d", listObj: listSeries}
             writeLog("DEBUG","Name: " + name + " imgUrl: " + imgUrl + " description: " + description + " ID: " + seriesID);
-            retrieveNameAndDescription(objSeries);
+            //retrieveNameAndDescription(objSeries);
+            retrieveNameAndDescription(seriesID, link, subType);
         } else if (link.includes("/archive1/")){
             objParse.listArchiveKan[seriesID] = {subType: "a", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""}
             var objSeriesArchive = {id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "a", listObj: listArchiveKan}
@@ -127,18 +131,24 @@ function getNameFromSeriesPage(nameElement){
     return name;
 }
 
-async function retrieveNameAndDescription(listObj){
+//async function retrieveNameAndDescription(listObj){
+async function retrieveNameAndDescription(seriesId, link, subType){
     //retrieve data from the object passed
-    var link = listObj.link;
-    var seriesId = listObj.id;
-    var subType = listObj.subType;
-    var name = listObj.name;
-    var description = listObj.description;
+    //var link = listObj.link;
+    //var seriesId = listObj.id;
+    //var subType = listObj.subType;
+    //var name = listObj.name;
+    //var description = listObj.description;
 
     //Fetch data from the link
     var response = await fetch(link);
     var bodySeries = await response.text();
     var rootSeries =  parse(bodySeries);
+    var nameFromSeriesPage = "";
+    var descriptionFromSeriesPage = "";
+    var name = "";
+    var description = "";
+
 
     if (rootSeries == "") {
         kanLive.writeLog("DEBUG","addSeriesChapters => Could not retrieve data from link. Exiting");
@@ -148,28 +158,30 @@ async function retrieveNameAndDescription(listObj){
     switch (subType){
 
         case "d":
-            var nameFromSeriesPage = "";
-            var descriptionFromSeriesPage = "";
+
+            name = addon.listSeries.getSeriesKeyValueEntrById(seriesId, "name");
+            description = addon.listSeries.getSeriesKeyValueEntrById(seriesId, "description");
             if (rootSeries.querySelector('title').text){
-                nameFromSeriesPage = getNameFromSeriesPage(rootSeries.querySelector('title').text);   
-            }  
-            //set the fixed values to the list
-            if ((nameFromSeriesPage != name) && (nameFromSeriesPage != "")){ 
-                updateName(listObj, seriesId, nameFromSeriesPage);
-            }
+                nameFromSeriesPage = getNameFromSeriesPage(rootSeries.querySelector('title').text);  
+                
+                //set the fixed values to the list
+                if ((nameFromSeriesPage != name) && (nameFromSeriesPage != "")){ 
+                    addon.listSeries.setSeriesEntryById(seriesId, "name", nameFromSeriesPage);
+                } 
+            }           
 
             if ((rootSeries.querySelector('div.info-description') != "undefined") &&
                 (rootSeries.querySelector('div.info-description') != null)){
                     descriptionFromSeriesPage = rootSeries.querySelector('div.info-description').text.trim();
-            }
-            //set the fixed values to the list
-            if ((descriptionFromSeriesPage != description) && (descriptionFromSeriesPage != "")){ 
-                updateDescription(listObj, seriesId, description);
-            }
-            
+
+                //set the fixed values to the list
+                if ((descriptionFromSeriesPage != description) && (descriptionFromSeriesPage != "")){ 
+                    addon.listSeries.setSeriesEntryById(seriesId, "description", descriptionFromSeriesPage);
+                    //updateDescription(listObj, seriesId, description);
+                }
+            }                       
             //Get the episodes (we already have the parsing of the page)
             retrieveSeriesEpisodes(rootSeries,seriesId, listObj);
-
             break;
             
         case "a":
@@ -184,8 +196,9 @@ async function retrieveNameAndDescription(listObj){
     }
 }
 
-async function retrieveSeriesEpisodes(rootSeries, seriesId, listObj){
-    var list = listObj.listObj;
+//async function retrieveSeriesEpisodes(rootSeries, seriesId, listObj){
+async function retrieveSeriesEpisodes(rootSeries, seriesId){
+    //var list = listObj.listObj;
     var elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
     var totalNoOfSeasons = elemSeasons.length
     var videosList = [];
@@ -305,17 +318,87 @@ function updateName (objData, seriesId,  name){
 }
 
 
-function addLiveTVToList(objList){
+//function addLiveTVToList(objList){
+function addLiveTVToList(){
 
-    var listLiveTV = objList.listTV;
-    var videosKan = [];
-    var videosKids = [];
-    var v = [];
-    var metasKan = "";
-    var metasKids = "";
+    //var listLiveTV = objList.listTV;
+    //var videosKan = [];
+    //var videosKids = [];
+    //var v = [];
+    //var metasKan = "";
+    //var metasKids = "";
     var idKan = "kanTV_000000001";
     var idKids = "kanTV_000000002";
 
+    var tvLive11 = {
+        id: idKan,
+        title: "Kan 11 Live Stream",
+        //thumbnail: episodeLogoUrl,
+        description: "Kan 11 Live Stream From Israel",
+        streams: [
+            {
+                url: "",
+                description: "Kan 11 Live Stream From Israel"  
+            }
+        ],
+        metas: {
+            id: idKan,
+            type: "tv",
+            name: "כאן 11",
+            genres: "Actuality",
+            background: "assets/Kan Background.jpg",
+            description: "Kan 11 Live Stream From Israel" ,
+            logo: "assets/Kan Logo.jpg",
+            videos: {
+                id: idKan,
+                title: "Kan 11 Live Stream",
+                //thumbnail: episodeLogoUrl,
+                description: "Kan 11 Live Stream From Israel",
+                streams: [
+                    {
+                        url: "",
+                        description: "Kan 11 Live Stream From Israel"  
+                    }
+                ]
+            }
+        }
+    }
+    var tvLivKids = {
+        id: idKids,
+        title: "Kids Live Stream",
+        //thumbnail: episodeLogoUrl,
+        description: "Kids Live Stream From Israel",
+        streams: [
+            {
+                url: "",
+                description: "Live stream from Kids Channel in Israel"  
+            }
+        ],
+        metasKids: {
+            id: idKids,
+            type: "tv",
+            name: "חנוכית",
+            genres: "Kids",
+            background: "assets/Kan Background.jpg",
+            description: "Kids Live Stream From Israel" ,
+            logo: "https://kan-media.kan.org.il/media/0ymcnuw4/logo_hinuchit_main.svg",
+            videos: {
+                id: idKids,
+                title: "Kids Live Stream",
+                //thumbnail: episodeLogoUrl,
+                description: "Kids Live Stream From Israel",
+                streams: [
+                    {
+                        url: "",
+                        description: "Live stream from Kids Channel in Israel"  
+                    }
+                ]
+            }
+        }
+    }
+    addon.listLiveTV.addItem(tvLive11);
+    listLiveTV.addItem(tvLivKids);
+/*
     videosKan.push(						
         {
             id: idKan,
@@ -385,6 +468,7 @@ function addLiveTVToList(objList){
         genres: "Kids, TV", 
         metas: metasKids
     }
+        */
 }
 
 //Here is what the script data in the episode URL looks like:
