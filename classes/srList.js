@@ -51,7 +51,7 @@ class srList {
         if (item.id == null || item.id == ""){
             errObj.errorStatus = true;
            errObj.errorStatus = true;
-            errObj.errorMessage("Series ID is either empty or null. Cannot add series.");
+            errObj.errorMessage = "Series ID is either empty or null. Cannot add series.";
         }
         //prevent duplicate entries
         if (this.isValueExistById(item.id)){
@@ -71,12 +71,12 @@ class srList {
         if (id == null || id == ""){
             errObj.errorStatus = true;
            errObj.errorStatus = true;
-            errObj.errorMessage("Series ID is either empty or null. Cannot add series.");
+            errObj.errorMessage = "Series ID is either empty or null. Cannot add series.";
         }
         //prevent duplicate entries
         if (this.isValueExistById(id)){
             errObj.errorStatus = true;
-            errObj.errorMessage ="Series Id " + id + " already exit.";
+            errObj.errorMessage = "Series Id " + id + " already exit.";
             return true;
         }
         return errObj;
