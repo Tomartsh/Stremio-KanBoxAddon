@@ -89,26 +89,13 @@ class srList {
             return errObj.errorMessage + " Ignoring..."
         }
         this._seriesList[item.id] = item;
-        /*
-        this._seriesList[item.id]={
-            id: item.id,
-            subType: this.subType,
-            type: this.type,
-            name: item.name, 
-            poster: item.imgUrl, 
-            description: item.description, 
-            link: item.link, 
-            background: item.imgUrl, 
-            genres: item.genres, 
-            metas: item.metas
-        }
-        */
+        
     }
 
     // Add an item to the list (each item is an object with an id and key-value pair)
     // values are stated speratately
     addItem(id, name, poster, description, link, background, genres, metas) {
-        var errObj = this._validateSeriesEntry(item);
+        var errObj = this._validateSeriesEntry(id);
         if (errObj.errorStatus == true ) {
             return errObj.errorMessage + " Ignoring..."
         }
