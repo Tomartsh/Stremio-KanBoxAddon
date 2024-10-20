@@ -3,17 +3,6 @@ const fetch = require('node-fetch');
 const { addonBuilder } = require("stremio-addon-sdk");
 const constants = require("./classes/constants");
 const kanBox = require("./classes/kanbox");
-const kanLive = require("./classes/kanlive");
-const srList = require("./classes/srList");
-
-//let listSeries = {};
-const listSeries = new srList("a", "series");
-//let listLiveTV = {};
-const listLiveTV = new srList("t", "tv");
-//let listArchiveKan = {};
-const listArchiveKan = new srList("a","series");
-//let listKids = {};
-const listKids = new srList("k","series");
 
 scrapeData();
 
@@ -93,20 +82,27 @@ const builder = new addonBuilder(manifest)
 
 builder.defineCatalogHandler(({type, id, extra}) => {
 	kanBox.writeLog("DEBUG","request for catalogs: "+type+" "+id)
-	var metas = [];
+	//var meta = {};
+	//var metasDigital = [];
+	//var metasTV = [];
 	switch(type) {
         case "series":
-			for (var [key, value] of Object.entries(listSeries)) {
-				metas.push(value)
-			}
-			return Promise.resolve({ metas })
+			
+			var metas = kanBox.listSeries.getMetas();
+			return Promise.resolve({metas});
 			
 			break;
 		case "tv":
-			for (var [key, value] of Object.entries(listLiveTV)) {
-				metas.push(value)
-			}
-			return Promise.resolve({ metas })
+			//let seriesTV = kanBox.listLiveTV.seriesList;
+			
+			//for (var [key, value] of Object.entries(seriesTV)) {
+				//metasTV.push(value);
+				//meta[key]=value
+			//}
+			var metasTV = kanBox.listLiveTV.getMetas();
+			return Promise.resolve({metasTV});
+			//return Promise.resolve({ metas:[meta] })
+
 			break;
 		default:
             results = Promise.resolve( [] )
@@ -117,10 +113,44 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 builder.defineMetaHandler(({type, id}) => {
 	kanBox.writeLog("DEBUG", "Request for meta: type " + type +" ID: " + id);
+	var listEntry = {};
+	var metaObj = []
+	switch(type) {
+		case "series":
+			// we need to check each series list to see if we have the details of the metas
+			if (kanBox.listArchiveKan.isValueExistById(id)) {
+				listEntry = kanBox.listArchiveKan.getItemById(id);
+			} else if (kanBox.listKids.isValueExistById(id)){
+				listEntry = kanBox.listKids.getItemById(id);
+			} else if (kanBox.listSeries.isValueExistById(id)){
+				listEntry = kanBox.listSeries.getItemById(id);
+			} else { 
+				results = Promise.resolve( [] ); 
+				return Promise.resolve({meta: metaObj});
+			}
+			break;
+		
+		case "tv":
+			if (kanBox.listLiveTV.isvalueExistById(id)){
+				listEntry = kanBox.listLiveTV.getItemById(id);
+			} else { 
+				results = Promise.resolve( [] ); 
+				return Promise.resolve({meta: metaObj});
+			}
+			break;
+
+		default:
+            results = Promise.resolve( [] )
+            break;
+	}
+	metaObj = listEntry[metas];
+	
 	kanBox.writeLog("DEBUG", "    Image  URL: " + listSeries[id].poster);
 	kanBox.writeLog("DEBUG", "    Name: " + listSeries[id].name);
 	kanBox.writeLog("DEBUG", "    Description: " + listSeries[id].description);
-	var metaObj = listSeries[id].metas;
+	
+
+	//var metaObj = listSeries[id].metas;
 	
 	return Promise.resolve({meta: metaObj});
 })
@@ -157,7 +187,11 @@ builder.defineStreamHandler(({type, id}) => {
 				var stream = null
 				//exatract the relevant video object from the meta object inside the listSeries
 				var seriesId = id.split(":")[0];
-				let ser = listSeries[seriesId];
+				if(seriesId == 'INVALID_ID')
+				{
+					return Promise.resolve({ streams: [] })
+				}
+				let ser = kanBox.listSeries.getItemById(seriesId);
 				let m = ser.metas;
 				for(index in m.videos)
 				{
@@ -181,7 +215,7 @@ builder.defineStreamHandler(({type, id}) => {
 			
 			break;
 		case "tv":
-			var metas = listLiveTV[id].meta;
+			var metas = kanBox.listLiveTV[id].metas;
 			var videos = metas.videos;
 			//var stream =  
 			//for (var [key, value] of Object.entries(listLiveTV)) {
@@ -223,13 +257,16 @@ async function scrapeData() {
         .then((body) => {
     		var tempRoot = parse(body);
 			var objParse = {
-				listSeries: listSeries, 
-				listArchiveKan: listArchiveKan,
-				listKids: listKids,
+				listSeries: kanBox.listSeries, 
+				listArchiveKan: kanBox.listArchiveKan,
+				listKids: kanBox.listKids,
 				tempRoot: tempRoot
 			}
 			//kanBox.parseData(objParse);
-			kanBox.parseData(temproot);
+			if(tempRoot != undefined)
+			{
+				kanBox.parseData(tempRoot)
+			}
         })
 	} catch (error) {
 		console.error(error)
@@ -237,8 +274,3 @@ async function scrapeData() {
 }
 
 module.exports = builder.getInterface();
-module.exports.listSeries = listSeries;
-module.exports.listLiveTV = listLiveTV;
-module.exports.listKids = listKids;
-module.exports.listArchiveKan = listArchiveKan;
-

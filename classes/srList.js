@@ -10,8 +10,8 @@ class srList {
         if (type === 'tv' && subType !== 't') {
             throw new Error('For "tv" type, subType must be "t".');
         }
-        if (type === 'series' && !['k', 't', 'a'].includes(subType)) {
-            throw new Error('Invalid subType for series. Must be "k", "t", or "a".');
+        if (type === 'series' && !['k', 'd', 'a'].includes(subType)) {
+            throw new Error('Invalid subType for series. Must be "k", "d", or "a".');
         }
 
         this.type = type;         // Store the type      
@@ -24,6 +24,14 @@ class srList {
       return this._seriesList;
     }   
     
+    getMetas() {
+        var metas = [];
+        for (var [key, value] of Object.entries(this._seriesList)) {
+            metas.push(value);
+        }
+        return metas;
+    }
+
     //Update a single value in a single entry of the list based on ID
     setSeriesEntryById(id, key, value){
         try{
@@ -34,10 +42,31 @@ class srList {
         }
     }
 
+    _validateSeriesEntry(item){
+        var errObj ={
+            errorStatus: false,
+            errorMessage: ""
+        }
+        //make sure we do not have entries with null or empty id
+        if (item.id == null || item.id == ""){
+            errObj.errorStatus = true;
+           errObj.errorStatus = true;
+            errObj.errorMessage("Series ID is either empty or null. Cannot add series.");
+        }
+        //prevent duplicate entries
+        if (this.isValueExistById(item.id)){
+            errObj.errorStatus = true;
+            errObj.errorMessage ="Series Id " + item.id + " already exit.";
+            return true;
+        }
+        return errObj;
+    }
+
     // Add an item to the list (each item is an object with an id and key-value pair)
     addItem(item) {
-        if (! _validateSeriesEntry(item)) {
-            return "There is a problem with the series entry. ignoring..."
+        var errObj = this._validateSeriesEntry(item);
+        if (errObj.errorStatus == true ) {
+            return errObj.errorMessage + " Ignoring..."
         }
         this._seriesList[item.id] = item;
         /*
@@ -60,29 +89,18 @@ class srList {
     getSeriesKeyValueEntrById(id, key){
         return this._seriesList[id][key];
     }
-
-
-    // Get an item from the list by its key
-    getItemByKey(key) {
-      return this._seriesList.find(item => item.key === key);
-    }
     
     // Get an item from the list by its ID
     getItemById(id) {
-      return this._seriesList.find(item => item.id === id);
+      return this._seriesList[id]
     }
 
-    _validateSeriesEntry(item){
-        var errObj ={
-            errorStatus: false,
-            errorMessage: ""
+    isValueExistById(id){
+        if (this._seriesList[id] == undefined){
+            return false; 
         }
-        if (item.id == null || item.id == ""){
-            errObj.errorStatus = true;
-            console.log("Series ID is either empty or null. Cannot add series.");
-            return false;
-        }
-        return errObj;
+        return true;
+        
     }
 }
 module.exports = srList;

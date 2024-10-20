@@ -1,7 +1,17 @@
 const { parse } = require('node-html-parser');
 const fetch = require('node-fetch');
 const constants = require("./constants");
-const addon = require("../addon");
+const kanLive = require("./kanlive");
+const srList = require("./srList");
+
+//let listSeries = {};
+const listSeries = new srList("d", "series");
+//let listLiveTV = {};
+const listLiveTV = new srList("t", "tv");
+//let listArchiveKan = {};
+const listArchiveKan = new srList("a","series");
+//let listKids = {};
+const listKids = new srList("k","series");
 
 //function parseData(objParse){
 function parseData(root){
@@ -15,6 +25,7 @@ function parseData(root){
         var elem = root.querySelectorAll('a.card-link')[i]
         var link = elem.attributes.href;
         var seriesID = setID(link);
+        var subType = 'd'
 
         //If we do not have a valid seriesID or link, we cannot add this entry
         if ((seriesID == null) || (link == null)){
@@ -53,7 +64,11 @@ function parseData(root){
         //First calculate the subType - 'd' for Kan Box Digital,'a' for archive and 'k' for kids (hinuchit)
         //We can then add the chapters for each series
         if (link.includes("/content/kan/")) {
-            addon.listSeries.addSeries({id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""});
+            if(listSeries == undefined)
+            {
+                return;
+            }
+            listSeries.addItem({id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""});
             //objParse.listSeries[seriesID] = {subType: "d", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "" }
             //var objSeries = {id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "d", listObj: listSeries}
             writeLog("DEBUG","Name: " + name + " imgUrl: " + imgUrl + " description: " + description + " ID: " + seriesID);
@@ -61,11 +76,11 @@ function parseData(root){
             retrieveNameAndDescription(seriesID, link, subType);
         } else if (link.includes("/archive1/")){
             //objParse.listArchiveKan[seriesID] = {subType: "a", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""}
-            var objSeriesArchive = {list: objParse.listArchiveKan, id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "a", listObj: listArchiveKan}
+            var objSeriesArchive = {list: root.listArchiveKan, id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "a", listObj: listArchiveKan}
             //retrieveNameAndDescription(objSeriesArchive);
         } else if (link.includes("/content/kids/hinuchit-main/")){
             //objParse.listArchiveKan[seriesID] = {subType: "k", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""}
-            var objSeriesKids = {list: objParse.listKids, id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "k", listObj: listKids}
+            var objSeriesKids = {list: root.listKids, id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "k", listObj: listKids}
         }
 	}
 }
@@ -150,11 +165,11 @@ async function retrieveNameAndDescription(seriesId, link, subType){
     var description = "";
 
 
-    switch (type){
+    switch (subType){
         case "d":
-            link = listObj.listSeries[id].link;
-            name = listObj.listSeries[id].name;
-            description = listObj.listSeries[id].description;
+            link = listSeries.getItemById(seriesId).link;
+            name = listSeries.getItemById(seriesId).name;
+            description = listSeries.getItemById(seriesId).description;
             var response = await fetch(link);
             var bodySeries = await response.text();
             var rootSeries =  parse(bodySeries);
@@ -175,14 +190,14 @@ async function retrieveNameAndDescription(seriesId, link, subType){
 
         case "d":
 
-            name = addon.listSeries.getSeriesKeyValueEntrById(seriesId, "name");
-            description = addon.listSeries.getSeriesKeyValueEntrById(seriesId, "description");
+            name = listSeries.getSeriesKeyValueEntrById(seriesId, "name");
+            description = listSeries.getSeriesKeyValueEntrById(seriesId, "description");
             if (rootSeries.querySelector('title').text){
                 nameFromSeriesPage = getNameFromSeriesPage(rootSeries.querySelector('title').text);  
                 
                 //set the fixed values to the list
                 if ((nameFromSeriesPage != name) && (nameFromSeriesPage != "")){ 
-                    addon.listSeries.setSeriesEntryById(seriesId, "name", nameFromSeriesPage);
+                    listSeries.setSeriesEntryById(seriesId, "name", nameFromSeriesPage);
                 } 
             }           
 
@@ -192,12 +207,12 @@ async function retrieveNameAndDescription(seriesId, link, subType){
 
                 //set the fixed values to the list
                 if ((descriptionFromSeriesPage != description) && (descriptionFromSeriesPage != "")){ 
-                    addon.listSeries.setSeriesEntryById(seriesId, "description", descriptionFromSeriesPage);
+                    listSeries.setSeriesEntryById(seriesId, "description", descriptionFromSeriesPage);
                     //updateDescription(listObj, seriesId, description);
                 }
             }                       
             //Get the episodes (we already have the parsing of the page)
-            retrieveSeriesEpisodes(rootSeries,seriesId, listObj);
+            retrieveSeriesEpisodes(rootSeries,seriesId);
             break;
             
         case "a":
@@ -295,22 +310,22 @@ async function retrieveSeriesEpisodes(rootSeries, seriesId){
     }
     //writeLog("DEBUG","retrieveSeriesEpisodes => :d: " + list[seriesId].id + "  Link: " +  list[seriesId].link + " Name: " + list[seriesId].name);
     var genresTemp = "";
-    if (list[seriesId].genres !== undefined){
-        genresTemp = list[seriesId].genres; 
+    if (listSeries.getItemById(seriesId).genres !== undefined){
+        genresTemp = listSeries.getItemById(seriesId).genres; 
     }
     metas = {
         id: seriesId,
         type: "series",
-        name: list[seriesId].name,
+        name: listSeries.getItemById(seriesId).name,
         genres: genresTemp,
-        background: list[seriesId].poster,
-        description: list[seriesId].description,
-        link: list[seriesId].link,
+        background: listSeries.getItemById(seriesId).poster,
+        description: listSeries.getItemById(seriesId).description,
+        link: listSeries.getItemById(seriesId).link,
         //logo: episodeLogoUrl,
         videos: videosList
     }
-    writeLog("DEBUG","Metas is: " + metas);
-    list[seriesId].metas = metas;
+    //writeLog("DEBUG","Metas is: " + metas.id + ", " + metas.name);
+    listSeries.getItemById(seriesId).metas = metas;
 }
 
 /*-------------------------------------------------------------------/
@@ -412,7 +427,7 @@ function addLiveTVToList(){
             }
         }
     }
-    addon.listLiveTV.addItem(tvLive11);
+    listLiveTV.addItem(tvLive11);
     listLiveTV.addItem(tvLivKids);
 /*
     videosKan.push(						
@@ -642,3 +657,8 @@ function isEmpty(value) {
 }
 
 module.exports = {getName, setGenre, setID, writeLog, isEmpty, parseData, addLiveTVToList, getStreams};
+
+module.exports.listSeries = listSeries;
+module.exports.listLiveTV = listLiveTV;
+module.exports.listKids = listKids;
+module.exports.listArchiveKan = listArchiveKan;
