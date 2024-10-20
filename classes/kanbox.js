@@ -4,21 +4,12 @@ const constants = require("./constants");
 const kanLive = require("./kanlive");
 const srList = require("./srList");
 
-//let listSeries = {};
 const listSeries = new srList("d", "series");
-//let listLiveTV = {};
 const listLiveTV = new srList("t", "tv");
-//let listArchiveKan = {};
 const listArchiveKan = new srList("a","series");
-//let listKids = {};
 const listKids = new srList("k","series");
 
-//function parseData(objParse){
 function parseData(root){
-    //var root = objParse.tempRoot;
-    //var listSeries = objParse.listSeries;
-    //var listArchiveKan = objParse.listArchiveKan
-    //var listKids = objParse.listKids;
 
     //Get the series list
 	for (let i = 0; i < root.querySelectorAll('a.card-link').length; i++){
@@ -64,23 +55,24 @@ function parseData(root){
         //First calculate the subType - 'd' for Kan Box Digital,'a' for archive and 'k' for kids (hinuchit)
         //We can then add the chapters for each series
         if (link.includes("/content/kan/")) {
-            if(listSeries == undefined)
-            {
-                return;
-            }
-            listSeries.addItem({id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""});
+            //listSeries.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""});
+            listSeries.addItem(seriesID, name, imgUrl, description, link, imgUrl, genres, "");
             //objParse.listSeries[seriesID] = {subType: "d", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "" }
             //var objSeries = {id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "d", listObj: listSeries}
-            writeLog("DEBUG","Name: " + name + " imgUrl: " + imgUrl + " description: " + description + " ID: " + seriesID);
+            writeLog("DEBUG"," Added to Kan digital. Name: " + name + " imgUrl: " + imgUrl + " description: " + description + " ID: " + seriesID);
             //retrieveNameAndDescription(objSeries);
             retrieveNameAndDescription(seriesID, link, subType);
         } else if (link.includes("/archive1/")){
+            listArchiveKan.addItem(seriesID, name, imgUrl, description, link, imgUrl, genres, "");
+            writeLog("DEBUG"," Added to Kan archive. Name: " + name + " imgUrl: " + imgUrl + " description: " + description + " ID: " + seriesID);
             //objParse.listArchiveKan[seriesID] = {subType: "a", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""}
-            var objSeriesArchive = {list: root.listArchiveKan, id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "a", listObj: listArchiveKan}
+            //var objSeriesArchive = {list: root.listArchiveKan, id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "a", listObj: listArchiveKan}
             //retrieveNameAndDescription(objSeriesArchive);
         } else if (link.includes("/content/kids/hinuchit-main/")){
+            listKids.addItem(seriesID, name, imgUrl, description, link, imgUrl, genres, "");
+            writeLog("DEBUG"," Added to Kan kids. Name: " + name + " imgUrl: " + imgUrl + " description: " + description + " ID: " + seriesID);
             //objParse.listArchiveKan[seriesID] = {subType: "k", id: seriesID, type: "series", name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""}
-            var objSeriesKids = {list: root.listKids, id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "k", listObj: listKids}
+            //var objSeriesKids = {list: root.listKids, id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "k", listObj: listKids}
         }
 	}
 }
