@@ -192,10 +192,7 @@ builder.defineStreamHandler(({type, id}) => {
 						break;
 					}
 				}
-			}
-			else
-			//if(1)
-			{
+			} else {
 				var stream = null
 				//exatract the relevant video object from the meta object inside the listSeries
 				var seriesId = id.split(":")[0];
@@ -257,24 +254,14 @@ builder.defineStreamHandler(({type, id}) => {
 //+===================================================================================
 
 async function scrapeData() {
-	
-	//Load the TV catalg
-	//objKanLive = {listTV: listLiveTV};
+
 	kanBox.addLiveTVToList();
 
-	// Load series catalog
 	try {
 		fetch(constants.url_kanbox)
         .then((res) => res.text())
         .then((body) => {
     		var tempRoot = parse(body);
-			var objParse = {
-				listSeries: kanBox.listSeries, 
-				listArchiveKan: kanBox.listArchiveKan,
-				listKids: kanBox.listKids,
-				tempRoot: tempRoot
-			}
-			//kanBox.parseData(objParse);
 			if(tempRoot != undefined)
 			{
 				kanBox.parseData(tempRoot)
