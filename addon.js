@@ -18,48 +18,60 @@ const manifest = {
 	"catalogs": [
 		{
 			type: "series",
-			id: "kandigital",
+			id: "top",
 			name: "כאן 11 דיגיטל",
 			extra: [
 				{
 					name: "search",
 					isRequired: false
+				},
+				{ 
+					name: "genre", 
+					isRequired: false 
 				}
 			]
 		},
 		{
 			type: "series",
-			id: "kankids",
+			id: "top",
 			name: "כאן חינוכית",
 			extra: [
 				{
 					name: "search",
 					isRequired: false
+				},
+				{ 
+					name: "genre", 
+					isRequired: false 
 				}
 			]
 		},
 		{
 			type: "series",
-			id: "kanarchive",
+			id: "top",
 			name: "כאן 11 ארכיון",
 			extra: [
 				{
 					name: "search",
 					isRequired: false
+				},
+				{ 
+					name: "genre", 
+					isRequired: false 
 				}
 			]
 		},
 		{
 			type: "tv",
-			id: "kantv",
+			id: "top",
 			name: "כאן שידור חי",
-			extra: [ {name: "search" }]
+			extra: [ {name: "search", isRequired: false }]
 		},
 		{
 			type: "tv",
-			id: "kantvkids",
+			id: "top",
 			name: "חינוכית שידור חי",
-			extra: [ {name: "search" }]
+			extra: [ {name: "search", isRequired: false }]
 		}
 	],
 	"resources": [
