@@ -18,7 +18,7 @@ const manifest = {
 	"catalogs": [
 		{
 			type: "series",
-			id: "top",
+			id: "kandigital",
 			name: "כאן 11 דיגיטל",
 			extra: [
 				{
@@ -29,7 +29,7 @@ const manifest = {
 		},
 		{
 			type: "series",
-			id: "top",
+			id: "kankids",
 			name: "כאן חינוכית",
 			extra: [
 				{
@@ -40,7 +40,7 @@ const manifest = {
 		},
 		{
 			type: "series",
-			id: "top",
+			id: "kanarchive",
 			name: "כאן 11 ארכיון",
 			extra: [
 				{
@@ -51,13 +51,13 @@ const manifest = {
 		},
 		{
 			type: "tv",
-			id: "top",
+			id: "kantv",
 			name: "כאן שידור חי",
 			extra: [ {name: "search" }]
 		},
 		{
 			type: "tv",
-			id: "top",
+			id: "kantvkids",
 			name: "חינוכית שידור חי",
 			extra: [ {name: "search" }]
 		}
