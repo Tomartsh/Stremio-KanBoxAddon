@@ -108,7 +108,7 @@ class srList {
             link: link, 
             background: background, 
             genres: genres, 
-            metas: item.metas
+            metas: metas
         }
     }
 
