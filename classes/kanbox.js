@@ -31,7 +31,7 @@ function parseData(root){
         var imageElem = root.querySelectorAll('a.card-link')[i].getElementsByTagName('img')[0];
 
         //Set the image URL
-        var imgUrl = imageElem.attributes.src.substring(0,imageElem.attributes.src.indexOf("?"))
+        var imgUrl = constants.image_prefix + imageElem.attributes.src.substring(0,imageElem.attributes.src.indexOf("?"))
 
         //Set the name
         var name = ""
@@ -138,15 +138,7 @@ function getNameFromSeriesPage(nameElement){
     return name;
 }
 
-//async function retrieveNameAndDescription(listObj){
 async function retrieveNameAndDescription(seriesId, link, subType){
-    //retrieve data from the object passed
-    //var link = listObj.link;
-    //var seriesId = listObj.id;
-    //var subType = listObj.subType;
-    //var name = listObj.name;
-    //var description = listObj.description;
-
     //Fetch data from the link
     var response = await fetch(link);
     var bodySeries = await response.text();
