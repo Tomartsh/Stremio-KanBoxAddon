@@ -62,9 +62,29 @@ class srList {
         return errObj;
     }
 
+    _validateSeriesEntryDetailed(id){
+        var errObj ={
+            errorStatus: false,
+            errorMessage: ""
+        }
+        //make sure we do not have entries with null or empty id
+        if (id == null || id == ""){
+            errObj.errorStatus = true;
+           errObj.errorStatus = true;
+            errObj.errorMessage("Series ID is either empty or null. Cannot add series.");
+        }
+        //prevent duplicate entries
+        if (this.isValueExistById(id)){
+            errObj.errorStatus = true;
+            errObj.errorMessage ="Series Id " + id + " already exit.";
+            return true;
+        }
+        return errObj;
+    }
+
     // Add an item to the list (each item is an object with an id and key-value pair)
     addItem(item) {
-        var errObj = this._validateSeriesEntry(item);
+        var errObj = this._validateSeriesEntryDetailed(id);
         if (errObj.errorStatus == true ) {
             return errObj.errorMessage + " Ignoring..."
         }
@@ -83,6 +103,26 @@ class srList {
             metas: item.metas
         }
         */
+    }
+
+    // Add an item to the list (each item is an object with an id and key-value pair)
+    // values are stated speratately
+    addItem(id, name, poster, description, link, background, genres, metas) {
+        var errObj = this._validateSeriesEntry(item);
+        if (errObj.errorStatus == true ) {
+            return errObj.errorMessage + " Ignoring..."
+        }
+        this._seriesList[id]={
+            id: id,
+            type: this.type,
+            name: name, 
+            poster: poster, 
+            description: description, 
+            link: link, 
+            background: background, 
+            genres: genres, 
+            metas: item.metas
+        }
     }
 
     //Get Series Entry by id and key
