@@ -1,7 +1,6 @@
 const { parse } = require('node-html-parser');
 const fetch = require('node-fetch');
 const constants = require("./constants");
-const kanLive = require("./kanlive");
 const srList = require("./srList");
 
 const listSeries = new srList("d", "series");
@@ -16,7 +15,7 @@ function parseData(root){
         var elem = root.querySelectorAll('a.card-link')[i]
         var link = elem.attributes.href;
         var seriesID = setID(link);
-        var subType = 'd'
+        //var subType = 'd'
 
         //If we do not have a valid seriesID or link, we cannot add this entry
         if ((seriesID == null) || (link == null)){
@@ -61,7 +60,7 @@ function parseData(root){
             //var objSeries = {id: seriesID, link: link, name: name, genres: genres, poster: imgUrl, description: description, subType: "d", listObj: listSeries}
             writeLog("DEBUG"," Added to Kan digital. Name: " + name + " imgUrl: " + imgUrl + " description: " + description + " ID: " + seriesID);
             //retrieveNameAndDescription(objSeries);
-            retrieveNameAndDescription(seriesID, link, subType);
+            //retrieveNameAndDescription(seriesID, link, subType);
         } else if (link.includes("/archive1/")){
             listArchiveKan.addItem(seriesID, name, imgUrl, description, link, imgUrl, genres, "");
             writeLog("DEBUG"," Added to Kan archive. Name: " + name + " imgUrl: " + imgUrl + " description: " + description + " ID: " + seriesID);
@@ -138,15 +137,16 @@ function getNameFromSeriesPage(nameElement){
     return name;
 }
 
-async function retrieveNameAndDescription(seriesId, link, subType){
+async function retrieveNameAndDescription(seriesId, seriesLinkPage, subType){
     //Fetch data from the link
-    var response = await fetch(link);
+    var response = await fetch(seriesLinkPage);
     var bodySeries = await response.text();
     var rootSeries =  parse(bodySeries);
     var nameFromSeriesPage = "";
     var descriptionFromSeriesPage = "";
     var name = "";
     var description = "";
+    var link = "";
 
 
     switch (subType){
@@ -312,195 +312,6 @@ async function retrieveSeriesEpisodes(rootSeries, seriesId){
     listSeries.getItemById(seriesId).metas = metas;
 }
 
-/*-------------------------------------------------------------------/
-/ updateDescription - In the series page there may be a better       /
-/ description of the series. If so we will find it in a meta tag.    /
-/ Extract the description, clean it up and update the series in the  /
-/ catalog list.
---------------------------------------------------------------------*/
-function updateDescription (objData, seriesId,  description){
-    var listObj = objData.listObj;
-    if (description != null){
-        listObj[seriesId].description = description;
-    }
-   
-}
-function updateName (objData, seriesId,  name){
-    var listObj = objData.listObj;
-    if (name != null){
-        listObj[seriesId]["name"] = name;
-    } 
-}
-
-
-//function addLiveTVToList(objList){
-function addLiveTVToList(){
-
-    //var listLiveTV = objList.listTV;
-    //var videosKan = [];
-    //var videosKids = [];
-    //var v = [];
-    //var metasKan = "";
-    //var metasKids = "";
-    var idKan = "kanTV_000000001";
-    var idKids = "kanTV_000000002";
-
-    var tvLive11 = {
-        id: idKan,
-        title: "Kan 11 Live Stream",
-        //thumbnail: episodeLogoUrl,
-        description: "Kan 11 Live Stream From Israel",
-        streams: [
-            {
-                url: "",
-                description: "Kan 11 Live Stream From Israel"  
-            }
-        ],
-        metas: {
-            id: idKan,
-            type: "tv",
-            name: "כאן 11",
-            genres: "Actuality",
-            background: "assets/Kan Background.jpg",
-            description: "Kan 11 Live Stream From Israel" ,
-            logo: "assets/Kan Logo.jpg",
-            videos: {
-                id: idKan,
-                title: "Kan 11 Live Stream",
-                //thumbnail: episodeLogoUrl,
-                description: "Kan 11 Live Stream From Israel",
-                streams: [
-                    {
-                        url: "",
-                        description: "Kan 11 Live Stream From Israel"  
-                    }
-                ]
-            }
-        }
-    }
-    var tvLivKids = {
-        id: idKids,
-        title: "Kids Live Stream",
-        //thumbnail: episodeLogoUrl,
-        description: "Kids Live Stream From Israel",
-        streams: [
-            {
-                url: "",
-                description: "Live stream from Kids Channel in Israel"  
-            }
-        ],
-        metasKids: {
-            id: idKids,
-            type: "tv",
-            name: "חנוכית",
-            genres: "Kids",
-            background: "assets/Kan Background.jpg",
-            description: "Kids Live Stream From Israel" ,
-            logo: "https://kan-media.kan.org.il/media/0ymcnuw4/logo_hinuchit_main.svg",
-            videos: {
-                id: idKids,
-                title: "Kids Live Stream",
-                //thumbnail: episodeLogoUrl,
-                description: "Kids Live Stream From Israel",
-                streams: [
-                    {
-                        url: "",
-                        description: "Live stream from Kids Channel in Israel"  
-                    }
-                ]
-            }
-        }
-    }
-    listLiveTV.addItem(tvLive11);
-    listLiveTV.addItem(tvLivKids);
-/*
-    videosKan.push(						
-        {
-            id: idKan,
-            title: "Kan 11 Live Stream",
-            //thumbnail: episodeLogoUrl,
-            description: "Kan 11 Live Stream From Israel",
-            streams: [
-                {
-                    url: "",
-                    description: "Kan 11 Live Stream From Israel"  
-                }
-            ]
-        })
-    videosKids.push(						
-        {
-            id: idKids,
-            title: "Kids Live Stream",
-            //thumbnail: episodeLogoUrl,
-            description: "Kids Live Stream From Israel",
-            streams: [
-                {
-                    url: "",
-                    description: "Live stream from Kids Channel in Israel"  
-                }
-            ]
-        })
-
-    metasKan = {
-        id: idKan,
-        type: "tv",
-        name: "כאן 11",
-        genres: "Actuality",
-        background: "assets/Kan Background.jpg",
-        description: "Kan 11 Live Stream From Israel" ,
-        logo: "assets/Kan Logo.jpg",
-        videos: videosKan
-    }
-    metasKids = {
-        id: idKids,
-        type: "tv",
-        name: "חנוכית",
-        genres: "Kids",
-        background: "assets/Kan Background.jpg",
-        description: "Kids Live Stream From Israel" ,
-        logo: "https://kan-media.kan.org.il/media/0ymcnuw4/logo_hinuchit_main.svg",
-        videos: videosKids
-    }
-    listLiveTV[idKan] = {
-        id: idKan,
-        type: "tv",
-        name: "כאן 11",
-        //poster: imgUrl,
-        description: "כאן 11 שידור חי מישראל",
-        //link: link,
-        //background: imgUrl,
-        genres: "TV", 
-        metas: metasKan
-    }
-    listLiveTV[idKids] = {
-        id: idKids,
-        type: "tv",
-        name: "חנוכית",
-        //poster: imgUrl,
-        description: "חינוכית שידור חי מישראל",
-        //link: link,
-        //background: imgUrl,
-        genres: "Kids, TV", 
-        metas: metasKids
-    }
-        */
-}
-
-//Here is what the script data in the episode URL looks like:
-/*
-    {
-        "@context": "https://schema.org",
-        "@type": "VideoObject",
-
-                "name": "מנאייכ עונה 3 | פרק 1",
-                "description": "פרק פתיחת העונה. איזי חושד בברק אבל המערכת מגוננת עליו כי הוא מביא חומרים מעולים לחקירה. במקביל, שוטרי ראשון לציון מגלים שאדהם אבו כמאל עושה בלאגן, מאחורי גבם של תמיר וגילי. הניסיון שלהם לטפל בבעיה זו נגמר בצורה הכי גרועה שיש, אבל פותח צוהר לטל בן הרוש לחזור למשחק",
-                "thumbnailUrl": "https://kan-media.kan.org.il/media/14td1wvm/לאתר-פרק-1.jpg",
-                "uploadDate": "2024-01-17T11:17:36+03:00",
-                "contentUrl": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_4a6kir7n/format/applehttp/protocol/https/desiredFileName.m3u8",
-                "embedUrl": "https://www.kan.org.il/content/kan/kan-11/p-12394/s3/686141/"
-    }
-*/
-
 async function getStreams(episodeLink){
     writeLog("DEBUG","Here is the link: " + episodeLink);
     var retStreams = [];
@@ -619,6 +430,171 @@ function setGenre(genres) {
     return newGenres;
 }
 
+//+===================================================================================
+//
+//  Kan Live functions
+//+===================================================================================
+function addLiveTVToList(){
+
+    var idKan = "kanTV_01";
+    var idKids = "kanTV_02";
+
+    var tvLive11 = {
+        id: idKan,
+        title: "Kan 11 Live Stream",
+        //thumbnail: episodeLogoUrl,
+        poster: "https://www.kan.org.il/media/uymhquu3/%D7%9B%D7%90%D7%9F-11-%D7%9C%D7%95%D7%92%D7%95-%D7%9C%D7%91%D7%9F-2.svg",
+        description: "Kan 11 Live Stream From Israel",
+        streams: [
+            {
+                url: "",
+                description: "Kan 11 Live Stream From Israel"  
+            }
+        ],
+        metas: {
+            id: idKan,
+            type: "tv",
+            name: "כאן 11",
+            genres: "Actuality",
+            background: "assets/Kan Background.jpg",
+            description: "Kan 11 Live Stream From Israel" ,
+            logo: "assets/Kan Logo.jpg",
+            videos: {
+                id: idKan,
+                title: "Kan 11 Live Stream",
+                //thumbnail: episodeLogoUrl,
+                description: "Kan 11 Live Stream From Israel",
+                streams: [
+                    {
+                        url: "",
+                        description: "Kan 11 Live Stream From Israel"  
+                    }
+                ]
+            }
+        }
+    }
+    var tvLivKids = {
+        id: idKids,
+        title: "Kids Live Stream",
+        //thumbnail: episodeLogoUrl,
+        description: "Kids Live Stream From Israel",
+        streams: [
+            {
+                url: "",
+                description: "Live stream from Kids Channel in Israel"  
+            }
+        ],
+        metas: {
+            id: idKids,
+            type: "tv",
+            name: "חנוכית",
+            genres: "Kids",
+            background: "assets/Kan Background.jpg",
+            description: "Kids Live Stream From Israel" ,
+            logo: "https://kan-media.kan.org.il/media/0ymcnuw4/logo_hinuchit_main.svg",
+            videos: {
+                id: idKids,
+                title: "Kids Live Stream",
+                //thumbnail: episodeLogoUrl,
+                description: "Kids Live Stream From Israel",
+                streams: [
+                    {
+                        url: "",
+                        description: "Live stream from Kids Channel in Israel"  
+                    }
+                ]
+            }
+        }
+    }
+    listLiveTV.addItem(tvLive11);
+    listLiveTV.addItem(tvLivKids);
+/*
+    videosKan.push(						
+        {
+            id: idKan,
+            title: "Kan 11 Live Stream",
+            //thumbnail: episodeLogoUrl,
+            description: "Kan 11 Live Stream From Israel",
+            streams: [
+                {
+                    url: "",
+                    description: "Kan 11 Live Stream From Israel"  
+                }
+            ]
+        })
+    videosKids.push(						
+        {
+            id: idKids,
+            title: "Kids Live Stream",
+            //thumbnail: episodeLogoUrl,
+            description: "Kids Live Stream From Israel",
+            streams: [
+                {
+                    url: "",
+                    description: "Live stream from Kids Channel in Israel"  
+                }
+            ]
+        })
+
+    metasKan = {
+        id: idKan,
+        type: "tv",
+        name: "כאן 11",
+        genres: "Actuality",
+        background: "assets/Kan Background.jpg",
+        description: "Kan 11 Live Stream From Israel" ,
+        logo: "assets/Kan Logo.jpg",
+        videos: videosKan
+    }
+    metasKids = {
+        id: idKids,
+        type: "tv",
+        name: "חנוכית",
+        genres: "Kids",
+        background: "assets/Kan Background.jpg",
+        description: "Kids Live Stream From Israel" ,
+        logo: "https://kan-media.kan.org.il/media/0ymcnuw4/logo_hinuchit_main.svg",
+        videos: videosKids
+    }
+    listLiveTV[idKan] = {
+        id: idKan,
+        type: "tv",
+        name: "כאן 11",
+        //poster: imgUrl,
+        description: "כאן 11 שידור חי מישראל",
+        //link: link,
+        //background: imgUrl,
+        genres: "TV", 
+        metas: metasKan
+    }
+    listLiveTV[idKids] = {
+        id: idKids,
+        type: "tv",
+        name: "חנוכית",
+        //poster: imgUrl,
+        description: "חינוכית שידור חי מישראל",
+        //link: link,
+        //background: imgUrl,
+        genres: "Kids, TV", 
+        metas: metasKids
+    }
+        */
+}
+
+//Here is what the script data in the episode URL looks like:
+/*
+    {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+
+                "name": "מנאייכ עונה 3 | פרק 1",
+                "description": "פרק פתיחת העונה. איזי חושד בברק אבל המערכת מגוננת עליו כי הוא מביא חומרים מעולים לחקירה. במקביל, שוטרי ראשון לציון מגלים שאדהם אבו כמאל עושה בלאגן, מאחורי גבם של תמיר וגילי. הניסיון שלהם לטפל בבעיה זו נגמר בצורה הכי גרועה שיש, אבל פותח צוהר לטל בן הרוש לחזור למשחק",
+                "thumbnailUrl": "https://kan-media.kan.org.il/media/14td1wvm/לאתר-פרק-1.jpg",
+                "uploadDate": "2024-01-17T11:17:36+03:00",
+                "contentUrl": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_4a6kir7n/format/applehttp/protocol/https/desiredFileName.m3u8",
+                "embedUrl": "https://www.kan.org.il/content/kan/kan-11/p-12394/s3/686141/"
+    }
+*/
 
 
 //+===================================================================================
@@ -640,7 +616,10 @@ function isEmpty(value) {
     }
 }
 
-module.exports = {getName, setGenre, setID, writeLog, isEmpty, parseData, addLiveTVToList, getStreams};
+
+
+
+module.exports = {getName, setGenre, setID, writeLog, isEmpty, parseData, getStreams, addLiveTVToList};
 
 module.exports.listSeries = listSeries;
 module.exports.listLiveTV = listLiveTV;
