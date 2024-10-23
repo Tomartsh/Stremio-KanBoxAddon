@@ -1,5 +1,11 @@
 //srList.js
 // Class for the structure of the lists
+
+// type can be "series" or "tv"
+// subtype can be "d", "a", "k" or "t".
+// subtype "t" can only be with type  "tv".
+// rest of the subtypes can be for "series" type only
+
 class srList {
     constructor(subType, type) {
         // Restrict the type to 'd', 'k', or 'a'
@@ -31,7 +37,7 @@ class srList {
         }
         return metas;
     }
-
+ 
     //Update a single value in a single entry of the list based on ID
     setSeriesEntryById(id, key, value){
         try{
@@ -84,7 +90,7 @@ class srList {
 
     // Add an item to the list (each item is an object with an id and key-value pair)
     addItem(item) {
-        var errObj = this._validateSeriesEntryDetailed(id);
+        var errObj = this._validateSeriesEntryDetailed(item.id);
         if (errObj.errorStatus == true ) {
             return errObj.errorMessage + " Ignoring..."
         }
@@ -92,14 +98,22 @@ class srList {
         
     }
 
-    // Add an item to the list (each item is an object with an id and key-value pair)
-    // values are stated speratately
-    addItem(id, name, poster, description, link, background, genres, metas) {
+    addItemById(id, value) {
         var errObj = this._validateSeriesEntry(id);
         if (errObj.errorStatus == true ) {
             return errObj.errorMessage + " Ignoring..."
         }
-        this._seriesList[id]={
+        this._seriesList.id = value;
+    }
+
+    // Add an item to the list (each item is an object with an id and key-value pair)
+    // values are stated speratately
+    addItemByDetails(id, name, poster, description, link, background, genres, metas) {
+        var errObj = this._validateSeriesEntry(id);
+        if (errObj.errorStatus == true ) {
+            return errObj.errorMessage + " Ignoring..."
+        }
+        this._seriesList.id = {
             id: id,
             type: this.type,
             name: name, 
@@ -113,7 +127,7 @@ class srList {
     }
 
     //Get Series Entry by id and key
-    getSeriesKeyValueEntrById(id, key){
+    getSeriesKeyValueEntryById(id, key){
         return this._seriesList[id][key];
     }
     
