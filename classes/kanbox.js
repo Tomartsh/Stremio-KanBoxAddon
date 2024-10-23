@@ -3,6 +3,8 @@ const fetch = require('node-fetch');
 const constants = require("./constants");
 const srList = require("./srList");
 
+const axios = require("axios")
+
 const listSeries = new srList("d", "series");
 const listLiveTV = new srList("t", "tv");
 const listArchiveKan = new srList("a","series");
@@ -54,18 +56,20 @@ function parseData(root){
         //First calculate the subType - 'd' for Kan Box Digital,'a' for archive and 'k' for kids (hinuchit)
         //We can then add the chapters for each series
         if (link.includes("/content/kan/")) {
-            listSeries.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""});
+            listSeries.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "", type: "series", subtype: "d"});
             writeLog("DEBUG"," Added to Kan digital. Name: " + name + " description: " + description + " ID: " + seriesID + ", link: " + link);
             updateNameAndDescription(seriesID, link, "d");
             
         } else if (link.includes("/archive1/")){
-            listArchiveKan.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""});
-            writeLog("DEBUG"," Added to Kan archive. Name: " + name + " description: " + description + " ID: " + seriesID + ", link: " + link);
-            updateNameAndDescription(seriesID, link, "a");
+            //listArchiveKan.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""});
+            //listSeries.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "", type: "series", subtype: "a"});
+            //writeLog("DEBUG"," Added to Kan archive. Name: " + name + " description: " + description + " ID: " + seriesID + ", link: " + link);
+            //updateNameAndDescription(seriesID, link, "a");
         } else if (link.includes("/content/kids/hinuchit-main/")){
-            listKids.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""});
-            writeLog("DEBUG"," Added to Kan kids. Name: " + name + " description: " + description + " ID: " + seriesID + ", link: " + link);
-            updateNameAndDescription(seriesID, link, "a");
+            //listKids.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""});
+            //listSeries.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "", type: "series", subtype: "k"});
+            //writeLog("DEBUG"," Added to Kan kids. Name: " + name + " description: " + description + " ID: " + seriesID + ", link: " + link);
+            //updateNameAndDescription(seriesID, link, "a");
         }
 	}
 }
@@ -81,6 +85,19 @@ async function updateNameAndDescription(seriesId, seriesLinkPage, subType){
     var description = "";
     var link = "";
     
+    //set name again from episodes of series page
+    nameFromCatalog = listSeries.getSeriesKeyValueEntryById(seriesId, "name");
+    name = getNameFromSeriesPage(rootSeries.querySelector('title').text, nameFromCatalog);
+    listSeries.setSeriesEntryById(seriesId, "name", name);
+
+    //set description
+    descriptionFromCatalog = listSeries.getSeriesKeyValueEntryById(seriesId, "description");
+    description = getDescriptionFromSeriesPage(listSeries.getSeriesKeyValueEntryById(seriesId, "description"), descriptionFromCatalog);
+    listSeries.setSeriesEntryById(seriesId, "description", description);
+
+    generateSeriesMeta(rootSeries,seriesId);
+    setStreams(seriesId)
+    /*
     switch (subType){
         case "d":
             //set name again from episodes of series page
@@ -131,11 +148,12 @@ async function updateNameAndDescription(seriesId, seriesLinkPage, subType){
             writeLog("DEBUG","WTF!!!");
             break;
     }
-
+    */
 }
 
 //async function retrieveSeriesEpisodes(rootSeries, seriesId, subType){
-function generateSeriesMeta(rootSeries, seriesId, subType){
+//function generateSeriesMeta(rootSeries, seriesId, subType){
+function generateSeriesMeta(rootSeries, seriesId){
     var elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
     var totalNoOfSeasons = elemSeasons.length
     var videosList = [];
@@ -167,8 +185,8 @@ function generateSeriesMeta(rootSeries, seriesId, subType){
                 }
             }
             var streamsList = [];
-
-
+            streamsList = getStreamObject(episodeLink);
+           
             videosList.push({
                 id: seriesId + ":" + seasonNo + ":" + (iter + 1) ,
                 title: title,
@@ -183,8 +201,9 @@ function generateSeriesMeta(rootSeries, seriesId, subType){
     }
     //writeLog("DEBUG","retrieveSeriesEpisodes => :d: " + list[seriesId].id + "  Link: " +  list[seriesId].link + " Name: " + list[seriesId].name);
     var genresTemp = "";
-    if (listSeries.getItemById(seriesId).genres !== undefined){
-        genresTemp = listSeries.getItemById(seriesId).genres; 
+
+    if (listSeries.getSeriesKeyValueEntryById(seriesId, "genres") !== undefined){
+        genresTemp = listSeries.getSeriesKeyValueEntryById(seriesId, "genres"); 
     }
     metas = {
         id: seriesId,
@@ -197,7 +216,9 @@ function generateSeriesMeta(rootSeries, seriesId, subType){
         //logo: episodeLogoUrl,
         videos: videosList
     }
+    listSeries.setSeriesEntryById(seriesId, "metas", metas);
     writeLog("DEBUG","Metas is: " + metas.id + ", " + metas.name);
+    /*
     switch (subType){
         case "d":
             listSeries.setSeriesEntryById(seriesId, "metas", metas);
@@ -209,12 +230,24 @@ function generateSeriesMeta(rootSeries, seriesId, subType){
             listKids.setSeriesEntryById(seriesId, "metas", metas);
             break;
     }
+    */
 }
 
-function setStreams(seriesId, subType){  
+//function setStreams(seriesId, subType){  
+function setStreams(seriesId){ 
     var streamsList = [];
-    
+    metas = listSeries.getSeriesKeyValueEntryById(seriesId, "metas");
+    videos = metas["videos"];
+    for (let i = 0; i < videos.length; i++){
+        videoObj = videos[i];
+        var epidosdeLink = videoObj["episodelink"];
+        streamsList = getStreamObject(epidosdeLink);
+        videoObj["streams"] = streamsList;
+        metas["videos"] = videoObj;
+        listSeries.setSeriesEntryById(seriesId,"metas",metas);
+    }
     //get the episodes page link from the videos array
+    /*
     switch (subType){
         case "d":
             metas = listSeries.getSeriesKeyValueEntryById(seriesId, "metas");
@@ -223,6 +256,7 @@ function setStreams(seriesId, subType){
                 videoObj = videos[i];
                 var epidosdeLink = videoObj["episodelink"];
                 streamsList = getStreamObject(epidosdeLink);
+
             }
             break;
         case "a":
@@ -234,6 +268,7 @@ function setStreams(seriesId, subType){
             videos = metas["videos"];
             break;
     }
+            */
 }
 
 async function getStreamObject(episodeLink){
@@ -243,6 +278,7 @@ async function getStreamObject(episodeLink){
         if (episodeLink.startsWith('/')) {
             episodeLink = "https://www.kan.org.il" + episodeLink;
         }
+
         var response = await fetch(episodeLink);
         var bodyStreams = await response.text();
 
@@ -266,10 +302,11 @@ async function getStreamObject(episodeLink){
                 });
             }
         }
+        return streamsList;
     } catch (error) {
-        console.error(error)
+        console.error("getStreamObject => ERROR - " + error);
     }
-    return streamsList;
+    
 }
 
 function setID(link){
@@ -435,6 +472,8 @@ function addLiveTVToList(){
     var idKids = "kanTV_02";
 
     var tvLive11 = {
+        type: "series",
+        subtype: "t",
         id: idKan,
         title: "Kan 11 Live Stream",
         //thumbnail: episodeLogoUrl,
@@ -469,6 +508,8 @@ function addLiveTVToList(){
         }
     }
     var tvLivKids = {
+        type: "series",
+        subtype: "t",
         id: idKids,
         title: "Kids Live Stream",
         //thumbnail: episodeLogoUrl,

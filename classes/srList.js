@@ -7,9 +7,12 @@
 // rest of the subtypes can be for "series" type only
 
 class srList {
-    constructor(subType, type) {
+    //constructor(subType, type) {
+    constructor() {
+
         // Restrict the type to 'd', 'k', or 'a'
         // Type of items in the container (d- digital, k - kids, a - archive)
+        /*
         if (type !== 'series' && type !== 'tv') {
             throw new Error('Invalid type. Must be "series" or "tv".');
         }
@@ -19,9 +22,9 @@ class srList {
         if (type === 'series' && !['k', 'd', 'a'].includes(subType)) {
             throw new Error('Invalid subType for series. Must be "k", "d", or "a".');
         }
-
-        this.type = type;         // Store the type      
-        this.subType = subType 
+        */
+        //this.type = type;         // Store the type      
+        //this.subType = subType 
         this._seriesList = {};    // Private list to store items
     }
     
@@ -108,7 +111,7 @@ class srList {
 
     // Add an item to the list (each item is an object with an id and key-value pair)
     // values are stated speratately
-    addItemByDetails(id, name, poster, description, link, background, genres, metas) {
+    addItemByDetails(id, name, poster, description, link, background, genres, metas, type, subtype) {
         var errObj = this._validateSeriesEntry(id);
         if (errObj.errorStatus == true ) {
             return errObj.errorMessage + " Ignoring..."

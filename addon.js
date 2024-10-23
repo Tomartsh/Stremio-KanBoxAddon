@@ -18,36 +18,11 @@ const manifest = {
 	"catalogs": [
 		{
 			type: "series",
-			id: "kanDigital",
+			id: "top",
 			name: "כאן 11 דיגיטל",
 			extra: [
-				{
-					name: "search",
-					isRequired: false
-				},
-				{ 
-					name: "genre", 
-					isRequired: false 
-				}
-			]
-		},
-		{
-			type: "series",
-			id: "kanKids",
-			name: "כאן חינוכית",
-			extra: [
-				{ "name": "search", isRequired: false },
-				{ "name": "genre", isRequired: false },
-				{ "name": "skip", "isRequired": false }
-			]
-		},
-		{
-			type: "series",
-			id: "kanArchive",
-			name: "כאן 11 ארכיון",
-			extra: [
-				{ "name": "search", "isRequired": false },
-				{ "name": "genre", "isRequired": false }
+				{name: "search", isRequired: false},
+				{name: "genre", isRequired: false}
 			]
 		},
 		{
@@ -68,7 +43,7 @@ const manifest = {
 		"stream",
 		{
 			"name": "meta",
-			"types": ["series"],
+			"types": ["series", "tv"],
 			"idPrefixes": [constants.prefix_kanbox]
 		},
 	],
@@ -86,6 +61,8 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 	var metas = [];
 	switch(type) {
         case "series":
+			metas = kanBox.listSeries.getMetas();
+			/*
 			if (id == "kanDigital") {
 				metas = kanBox.listSeries.getMetas();
 				//return Promise.resolve({metas});
@@ -99,6 +76,7 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 				metas = kanBox.listKids.getMetas();
 				//return Promise.resolve({metas});
 			}
+			*/
 			break;
 		case "tv":
 			metas = kanBox.listLiveTV.getMetas();
@@ -116,11 +94,12 @@ builder.defineMetaHandler(({type, id}) => {
 	switch(type) {
 		case "series":
 			// we need to check each series list to see if we have the details of the metas
-			if (kanBox.listArchiveKan.isValueExistById(id)) {
-				listEntry = kanBox.listArchiveKan.getItemById(id);
-			} else if (kanBox.listKids.isValueExistById(id)){
-				listEntry = kanBox.listKids.getItemById(id);
-			} else if (kanBox.listSeries.isValueExistById(id)){
+			//if (kanBox.listArchiveKan.isValueExistById(id)) {
+			//	listEntry = kanBox.listArchiveKan.getItemById(id);
+			//} else if (kanBox.listKids.isValueExistById(id)){
+			//	listEntry = kanBox.listKids.getItemById(id);
+			//} else if (kanBox.listSeries.isValueExistById(id)){
+			 if (kanBox.listSeries.isValueExistById(id)){
 				listEntry = kanBox.listSeries.getItemById(id);
 			} else { 
 				results = Promise.resolve( [] ); 
@@ -158,6 +137,7 @@ builder.defineMetaHandler(({type, id}) => {
 //We check if the video array inside the meta object has streams. If not we are retriving them
 builder.defineStreamHandler(({type, id}) => {
 	kanBox.writeLog("DEBUG", "request for streams: "+type+" ID: "+id);
+	
 	
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineStreamHandler.md
 	
