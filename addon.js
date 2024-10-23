@@ -18,7 +18,7 @@ const manifest = {
 	"catalogs": [
 		{
 			type: "series",
-			id: "top",
+			id: "kanDigital",
 			name: "כאן 11 דיגיטל",
 			extra: [
 				{
@@ -33,43 +33,32 @@ const manifest = {
 		},
 		{
 			type: "series",
-			id: "top",
+			id: "kanKids",
 			name: "כאן חינוכית",
 			extra: [
-				{
-					name: "search",
-					isRequired: false
-				},
-				{ 
-					name: "genre", 
-					isRequired: false 
-				}
+				{ "name": "search", isRequired: false },
+				{ "name": "genre", isRequired: false },
+				{ "name": "skip", "isRequired": false }
 			]
 		},
 		{
 			type: "series",
-			id: "top",
+			id: "kanArchive",
 			name: "כאן 11 ארכיון",
 			extra: [
-				{
-					name: "search",
-					isRequired: false
-				},
-				{ 
-					name: "genre", 
-					isRequired: false 
-				}
+				{ "name": "search", "isRequired": false },
+				{ "name": "genre", "isRequired": false }
 			]
 		},
 		{
 			type: "tv",
-			id: "top",
+			id: "kanLive",
 			name: "כאן שידור חי",
 			extra: [ {name: "search", isRequired: false }]
 		},
 		{
 			type: "tv",
-			id: "top",
+			id: "kanKidsLive",
 			name: "חינוכית שידור חי",
 			extra: [ {name: "search", isRequired: false }]
 		}
@@ -93,33 +82,30 @@ const manifest = {
 const builder = new addonBuilder(manifest)
 
 builder.defineCatalogHandler(({type, id, extra}) => {
-	kanBox.writeLog("DEBUG","request for catalogs: "+type+" "+id)
-	//var meta = {};
-	//var metasDigital = [];
-	//var metasTV = [];
+	kanBox.writeLog("DEBUG","request for catalogs: "+type+" "+id + ", extra: " + extra)
+	var metas = [];
 	switch(type) {
         case "series":
+			if (id == "kanDigital") {
+				metas = kanBox.listSeries.getMetas();
+				//return Promise.resolve({metas});
+			}
 			
-			var metas = kanBox.listSeries.getMetas();
-			return Promise.resolve({metas});
-			
+			if (id == "kanArchive") {
+				metas = kanBox.listArchiveKan.getMetas();
+				//return Promise.resolve({metas});
+			}
+			if (id == "kanKids") {
+				metas = kanBox.listKids.getMetas();
+				//return Promise.resolve({metas});
+			}
 			break;
 		case "tv":
-			//let seriesTV = kanBox.listLiveTV.seriesList;
+			metas = kanBox.listLiveTV.getMetas();
 			
-			//for (var [key, value] of Object.entries(seriesTV)) {
-				//metasTV.push(value);
-				//meta[key]=value
-			//}
-			var metasTV = kanBox.listLiveTV.getMetas();
-			return Promise.resolve({metasTV});
-			//return Promise.resolve({ metas:[meta] })
-
 			break;
-		default:
-            results = Promise.resolve( [] )
-            break
-    }	
+    }
+	return Promise.resolve({metas});	
 })
 
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
@@ -155,11 +141,11 @@ builder.defineMetaHandler(({type, id}) => {
             results = Promise.resolve( [] )
             break;
 	}
-	metaObj = listEntry[metas];
+	metaObj = listEntry["metas"];
 	
-	kanBox.writeLog("DEBUG", "    Image  URL: " + listSeries[id].poster);
-	kanBox.writeLog("DEBUG", "    Name: " + listSeries[id].name);
-	kanBox.writeLog("DEBUG", "    Description: " + listSeries[id].description);
+	kanBox.writeLog("DEBUG", "    Image  URL: " + metaObj.poster);
+	kanBox.writeLog("DEBUG", "    Name: " + metaObj.name);
+	kanBox.writeLog("DEBUG", "    Description: " + metaObj.description);
 	
 
 	//var metaObj = listSeries[id].metas;
