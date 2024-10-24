@@ -62,14 +62,14 @@ function parseData(root){
             
         } else if (link.includes("/archive1/")){
             //listArchiveKan.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""});
-            //listSeries.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "", type: "series", subtype: "a"});
+            listSeries.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "", type: "series", subtype: "a"});
             //writeLog("DEBUG"," Added to Kan archive. Name: " + name + " description: " + description + " ID: " + seriesID + ", link: " + link);
-            //updateNameAndDescription(seriesID, link, "a");
+            updateNameAndDescription(seriesID, link, "a");
         } else if (link.includes("/content/kids/hinuchit-main/")){
             //listKids.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""});
-            //listSeries.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "", type: "series", subtype: "k"});
+            listSeries.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "", type: "series", subtype: "k"});
             //writeLog("DEBUG"," Added to Kan kids. Name: " + name + " description: " + description + " ID: " + seriesID + ", link: " + link);
-            //updateNameAndDescription(seriesID, link, "a");
+            updateNameAndDescription(seriesID, link, "a");
         }
 	}
 }
