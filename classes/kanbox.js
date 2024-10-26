@@ -52,26 +52,26 @@ function parseData(root){
             genres = setGenre(st[1].trim());
         }
 
-        //Route the correct source to the correct catalog. Regular list and archive
-        //First calculate the subType - 'd' for Kan Box Digital,'a' for archive and 'k' for kids (hinuchit)
-        //We can then add the chapters for each series
         if (link.includes("/content/kan/")) {
             listSeries.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "", type: "series", subtype: "d"});
-            writeLog("DEBUG"," Added to Kan digital. Name: " + name + " description: " + description + " ID: " + seriesID + ", link: " + link);
+            writeLog("DEBUG"," Added Name: " + name + " ID: " + seriesID + ", link: " + link);
             updateNameAndDescription(seriesID, link, "d");
+            //generateSeriesMeta(rootSeries,seriesID);
             
-        } else if (link.includes("/archive1/")){
+            
+        } //else if (link.includes("/archive1/")){
             //listArchiveKan.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""});
-            listSeries.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "", type: "series", subtype: "a"});
+            //listSeries.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "", type: "series", subtype: "a"});
             //writeLog("DEBUG"," Added to Kan archive. Name: " + name + " description: " + description + " ID: " + seriesID + ", link: " + link);
-            updateNameAndDescription(seriesID, link, "a");
-        } else if (link.includes("/content/kids/hinuchit-main/")){
+            //setStreams(seriesID);
+        //} else if (link.includes("/content/kids/hinuchit-main/")){
             //listKids.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""});
-            listSeries.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "", type: "series", subtype: "k"});
+            //listSeries.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "", type: "series", subtype: "k"});
             //writeLog("DEBUG"," Added to Kan kids. Name: " + name + " description: " + description + " ID: " + seriesID + ", link: " + link);
-            updateNameAndDescription(seriesID, link, "a");
-        }
+            //updateNameAndDescription(seriesID, link, "a");
+        //}
 	}
+    setStreams(seriesID);
 }
 
 async function updateNameAndDescription(seriesId, seriesLinkPage, subType){
@@ -94,70 +94,19 @@ async function updateNameAndDescription(seriesId, seriesLinkPage, subType){
     descriptionFromCatalog = listSeries.getSeriesKeyValueEntryById(seriesId, "description");
     description = getDescriptionFromSeriesPage(listSeries.getSeriesKeyValueEntryById(seriesId, "description"), descriptionFromCatalog);
     listSeries.setSeriesEntryById(seriesId, "description", description);
+    listSeries.setSeriesEntryById(seriesId, "subtype", subType);
 
-    generateSeriesMeta(rootSeries,seriesId);
-    setStreams(seriesId)
-    /*
-    switch (subType){
-        case "d":
-            //set name again from episodes of series page
-            nameFromCatalog = listSeries.getSeriesKeyValueEntryById(seriesId, "name");
-            name = getNameFromSeriesPage(rootSeries.querySelector('title').text, nameFromCatalog);
-            listSeries.setSeriesEntryById(seriesId, "name", name);
-
-            //set description
-            descriptionFromCatalog = listSeries.getSeriesKeyValueEntryById(seriesId, "description");
-            description = getDescriptionFromSeriesPage(listSeries.getSeriesKeyValueEntryById(seriesId, "description"), descriptionFromCatalog);
-            listSeries.setSeriesEntryById(seriesId, "description", description);
-
-            generateSeriesMeta(rootSeries,seriesId, "d");
-            setStreams(seriesId, "d")
-            break;
-
-        case "a":
-            //set name again from episodes of series page
-            nameFromCatalog = listArchiveKan.getSeriesKeyValueEntryById(seriesId, "name");
-            name = getNameFromSeriesPage(rootSeries.querySelector('title').text, nameFromCatalog);
-            listArchiveKan.setSeriesEntryById(seriesId, "name", name);
-
-            //set description
-            descriptionFromCatalog = listArchiveKan.getSeriesKeyValueEntryById(seriesId, "description");
-            description = getDescriptionFromSeriesPage(listArchiveKan.getSeriesKeyValueEntryById(seriesId, "description"), descriptionFromCatalog);
-            listArchiveKan.setSeriesEntryById(seriesId, "description", description);
-
-            //get the episodes
-            generateSeriesMeta(rootSeries,seriesId, "a");
-            break;
-
-        case "k":
-            //set name again from episodes of series page
-            nameFromCatalog = listArchiveKan.getSeriesKeyValueEntryById(seriesId, "name");
-            name = getNameFromSeriesPage(rootSeries.querySelector('title').text, nameFromCatalog);
-            listArchiveKan.setSeriesEntryById(seriesId, "name", name);
-
-            //set description
-            descriptionFromCatalog = listArchiveKan.getSeriesKeyValueEntryById(seriesId, "description");
-            description = getDescriptionFromSeriesPage(listArchiveKan.getSeriesKeyValueEntryById(seriesId, "description"), descriptionFromCatalog);
-            listArchiveKan.setSeriesEntryById(seriesId, "description", description);
-
-            //get the episodes
-            generateSeriesMeta(rootSeries,seriesId, "k");
-            break;
-    
-        default:
-            writeLog("DEBUG","WTF!!!");
-            break;
-    }
-    */
+    generateSeriesMeta (rootSeries, seriesId);
 }
 
 //async function retrieveSeriesEpisodes(rootSeries, seriesId, subType){
 //function generateSeriesMeta(rootSeries, seriesId, subType){
-function generateSeriesMeta(rootSeries, seriesId){
-    var elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
+async function generateSeriesMeta(rootSeries, seriesId){
+     var elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
     var totalNoOfSeasons = elemSeasons.length
     var videosList = [];
-    var metas = {id: "", type: "", name: "", genres: "", background: "", description: "", link: "", videos: ""};
+    var seriesEntry = listSeries.getItemById(seriesId);
+    var metas = {id: seriesId, type: "series", name: "", genres: "", background: "", description: "", link: "", videos: ""};
 
     for (let i = 0; i < totalNoOfSeasons; i++){ //iterate over the seasons
         var seasonNo = totalNoOfSeasons - i //what season is this
@@ -185,7 +134,37 @@ function generateSeriesMeta(rootSeries, seriesId){
                 }
             }
             var streamsList = [];
-            streamsList = getStreamObject(episodeLink);
+            //format the link so it is accessible
+            try {
+                if (episodeLink.startsWith('/')) {
+                    episodeLink = "https://www.kan.org.il" + episodeLink;
+                }
+                var response = await fetch(episodeLink);
+                var bodyStreams = await response.text();
+        
+                let b = parse(bodyStreams);
+                    
+                for (let iter = 0; iter < b.querySelectorAll("script").length; iter++){ //iterate over the episode stream links
+                    var selectedData = b.querySelectorAll("script")[iter];
+                    var scriptData = String(selectedData);
+                    if (scriptData.includes("VideoObject")){
+                        scriptData = scriptData.substring(scriptData.indexOf('{'), scriptData.indexOf('}') + 1);
+                        
+                        var videoUrl = JSON.parse(scriptData)["contentUrl"];
+                        var name = JSON.parse(scriptData)["name"];
+                        var desc = JSON.parse(scriptData)["description"];
+                        streamsList.push(
+                        {
+                            url: videoUrl,
+                            type: "series",
+                            name: name,
+                            description: desc  
+                        })
+                    }
+                }
+            } catch (error) {
+                console.error(error)
+            }
            
             videosList.push({
                 id: seriesId + ":" + seasonNo + ":" + (iter + 1) ,
@@ -194,46 +173,35 @@ function generateSeriesMeta(rootSeries, seriesId){
                 episode: (iter + 1),
                 thumbnail: episodeLogoUrl,
                 description: desc,
-                streams: streamsList,
+                streams: [],
                 episodelink: episodeLink
             })
         }
     }
-    //writeLog("DEBUG","retrieveSeriesEpisodes => :d: " + list[seriesId].id + "  Link: " +  list[seriesId].link + " Name: " + list[seriesId].name);
-    var genresTemp = "";
+    //let's fix the genres 
+    var genres = "";
 
     if (listSeries.getSeriesKeyValueEntryById(seriesId, "genres") !== undefined){
-        genresTemp = listSeries.getSeriesKeyValueEntryById(seriesId, "genres"); 
+        genres = listSeries.getSeriesKeyValueEntryById(seriesId, "genres"); 
     }
     metas = {
         id: seriesId,
         type: "series",
-        name: listSeries.getItemById(seriesId).name,
-        genres: genresTemp,
-        background: listSeries.getItemById(seriesId).poster,
-        description: listSeries.getItemById(seriesId).description,
-        link: listSeries.getItemById(seriesId).link,
+        name: seriesEntry.name,
+        genres: genres,
+        background: seriesEntry.poster,
+        description: seriesEntry.description,
+        link: seriesEntry.link,
         //logo: episodeLogoUrl,
         videos: videosList
     }
-    listSeries.setSeriesEntryById(seriesId, "metas", metas);
+    //listSeries.setSeriesEntryById(seriesId, "metas", metas);
+    listSeries.setMetasById(metas);
     writeLog("DEBUG","Metas is: " + metas.id + ", " + metas.name);
-    /*
-    switch (subType){
-        case "d":
-            listSeries.setSeriesEntryById(seriesId, "metas", metas);
-            break;
-        case "a":
-            listArchiveKan.setSeriesEntryById(seriesId, "metas", metas);
-            break;
-        case "k":
-            listKids.setSeriesEntryById(seriesId, "metas", metas);
-            break;
-    }
-    */
 }
 
 //function setStreams(seriesId, subType){  
+//function setStreams(seriesId){ 
 function setStreams(seriesId){ 
     var streamsList = [];
     metas = listSeries.getSeriesKeyValueEntryById(seriesId, "metas");
@@ -245,30 +213,8 @@ function setStreams(seriesId){
         videoObj["streams"] = streamsList;
         metas["videos"] = videoObj;
         listSeries.setSeriesEntryById(seriesId,"metas",metas);
+        writeLog("DEBUG"," Set streams of : " + metas.name);
     }
-    //get the episodes page link from the videos array
-    /*
-    switch (subType){
-        case "d":
-            metas = listSeries.getSeriesKeyValueEntryById(seriesId, "metas");
-            videos = metas["videos"];
-            for (let i = 0; i < videos.length; i++){
-                videoObj = videos[i];
-                var epidosdeLink = videoObj["episodelink"];
-                streamsList = getStreamObject(epidosdeLink);
-
-            }
-            break;
-        case "a":
-            listArchiveKan.getSeriesKeyValueEntryById(seriesId, "metas");
-            videos = metas["videos"];
-            break;
-        case "k":
-            listKids.getSeriesKeyValueEntryById(seriesId, "metas");
-            videos = metas["videos"];
-            break;
-    }
-            */
 }
 
 async function getStreamObject(episodeLink){
@@ -479,12 +425,6 @@ function addLiveTVToList(){
         //thumbnail: episodeLogoUrl,
         poster: "https://www.kan.org.il/media/uymhquu3/%D7%9B%D7%90%D7%9F-11-%D7%9C%D7%95%D7%92%D7%95-%D7%9C%D7%91%D7%9F-2.svg",
         description: "Kan 11 Live Stream From Israel",
-        streams: [
-            {
-                url: "",
-                description: "Kan 11 Live Stream From Israel"  
-            }
-        ],
         metas: {
             id: idKan,
             type: "tv",
@@ -514,12 +454,6 @@ function addLiveTVToList(){
         title: "Kids Live Stream",
         //thumbnail: episodeLogoUrl,
         description: "Kids Live Stream From Israel",
-        streams: [
-            {
-                url: "",
-                description: "Live stream from Kids Channel in Israel"  
-            }
-        ],
         metas: {
             id: idKids,
             type: "tv",
@@ -542,8 +476,8 @@ function addLiveTVToList(){
             }
         }
     }
-    listLiveTV.addItem(tvLive11);
-    listLiveTV.addItem(tvLivKids);
+    listSeries.addItem(tvLive11);
+    listSeries.addItem(tvLivKids);
 }
 
 //Here is what the script data in the episode URL looks like:

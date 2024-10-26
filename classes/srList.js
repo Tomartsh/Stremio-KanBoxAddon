@@ -32,19 +32,19 @@ class srList {
     get seriesList() {
       return this._seriesList;
     }   
-    
-    getMetas() {
-        var metas = [];
-        for (var [key, value] of Object.entries(this._seriesList)) {
-            metas.push(value);
-        }
-        return metas;
-    }
  
     //Update a single value in a single entry of the list based on ID
     setSeriesEntryById(id, key, value){
         try{
             this._seriesList[id][key] = value;
+        } catch (error) {
+            console.error(error)
+
+        }
+    }
+    setMetasById(id, metas){
+        try{
+            this._seriesList[id].metas = metas;
         } catch (error) {
             console.error(error)
 
@@ -111,14 +111,15 @@ class srList {
 
     // Add an item to the list (each item is an object with an id and key-value pair)
     // values are stated speratately
-    addItemByDetails(id, name, poster, description, link, background, genres, metas, type, subtype) {
+    addItemByDetails(id, name, poster, description, link, background, genres, metas, type, subType) {
         var errObj = this._validateSeriesEntry(id);
         if (errObj.errorStatus == true ) {
             return errObj.errorMessage + " Ignoring..."
         }
         this._seriesList.id = {
             id: id,
-            type: this.type,
+            type: type,
+            subtype: subType,
             name: name, 
             poster: poster, 
             description: description, 
@@ -129,9 +130,21 @@ class srList {
         }
     }
 
+    getMetas() {
+        var metas = [];
+        for (var [key, value] of Object.entries(this._seriesList)) {
+            metas.push(value);
+        }
+        return metas;
+    }
+
     //Get Series Entry by id and key
     getSeriesKeyValueEntryById(id, key){
-        return this._seriesList[id][key];
+        if (this._seriesList[id][key] != undefined){
+            return this._seriesList[id][key];
+        } else {
+            return "";
+        }
     }
     
     // Get an item from the list by its ID
@@ -139,6 +152,18 @@ class srList {
       return this._seriesList[id]
     }
 
+    getItemsBySubtype(subType){
+        //iterate over the list and get the relevant subtype elements
+        var metas = [];
+        for (var [key, value] of Object.entries(this._seriesList)) {
+            if (value.subtype == subType){
+                metas.push(value.metas);
+            }
+            
+        }
+        return metas;
+
+    }
     isValueExistById(id){
         if (this._seriesList[id] == undefined){
             return false; 

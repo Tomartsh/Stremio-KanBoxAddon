@@ -57,7 +57,7 @@ const manifest = {
 const builder = new addonBuilder(manifest)
 
 builder.defineCatalogHandler(({type, id, extra}) => {
-	kanBox.writeLog("DEBUG","request for catalogs: "+type+" "+id + ", extra: " + extra)
+	kanBox.writeLog("DEBUG","request for catalogs: "+type+" "+id)
 	var metas = [];
 	switch(type) {
         case "series":
@@ -79,8 +79,8 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 			*/
 			break;
 		case "tv":
-			metas = kanBox.listLiveTV.getMetas();
-			
+			//metas = kanBox.listLiveTV.getMetas();
+			metas = kanBox.listSeries.getItemsBySubtype("t");
 			break;
     }
 	return Promise.resolve({metas});	
@@ -99,19 +99,27 @@ builder.defineMetaHandler(({type, id}) => {
 			//} else if (kanBox.listKids.isValueExistById(id)){
 			//	listEntry = kanBox.listKids.getItemById(id);
 			//} else if (kanBox.listSeries.isValueExistById(id)){
-			 if (kanBox.listSeries.isValueExistById(id)){
+			if (kanBox.listSeries.isValueExistById(id)){
 				listEntry = kanBox.listSeries.getItemById(id);
 			} else { 
-				results = Promise.resolve( [] ); 
+				//results = Promise.resolve( [] ); 
 				return Promise.resolve({meta: metaObj});
 			}
 			break;
 		
 		case "tv":
-			if (kanBox.listLiveTV.isvalueExistById(id)){
+			/*
+			if (kanBox.listLiveTV.isValueExistById(id)){
 				listEntry = kanBox.listLiveTV.getItemById(id);
 			} else { 
 				results = Promise.resolve( [] ); 
+				return Promise.resolve({meta: metaObj});
+			}
+			*/
+			if (kanBox.listSeries.isValueExistById(id)){
+				listEntry = kanBox.listSeries.getItemById(id);
+			} else { 
+				//results = Promise.resolve( [] ); 
 				return Promise.resolve({meta: metaObj});
 			}
 			break;
@@ -190,7 +198,7 @@ builder.defineStreamHandler(({type, id}) => {
 			
 			break;
 		case "tv":
-			var metas = kanBox.listLiveTV[id].metas;
+			//var metas = kanBox.listLiveTV[id].metas;
 			var videos = metas.videos;
 			//var stream =  
 			//for (var [key, value] of Object.entries(listLiveTV)) {
