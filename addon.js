@@ -88,11 +88,6 @@ builder.defineMetaHandler(({type, id}) => {
 	switch(type) {
 		case "series":
 			// we need to check each series list to see if we have the details of the metas
-			//if (kanBox.listArchiveKan.isValueExistById(id)) {
-			//	listEntry = kanBox.listArchiveKan.getItemById(id);
-			//} else if (kanBox.listKids.isValueExistById(id)){
-			//	listEntry = kanBox.listKids.getItemById(id);
-			//} else if (kanBox.listSeries.isValueExistById(id)){
 			if (kanBox.listSeries.isValueExistById(id)){
 				listEntry = kanBox.listSeries.getItemById(id);
 				metaObj = listEntry.metas;
@@ -103,14 +98,6 @@ builder.defineMetaHandler(({type, id}) => {
 			break;
 		
 		case "tv":
-			/*
-			if (kanBox.listLiveTV.isValueExistById(id)){
-				listEntry = kanBox.listLiveTV.getItemById(id);
-			} else { 
-				results = Promise.resolve( [] ); 
-				return Promise.resolve({meta: metaObj});
-			}
-			*/
 			if (kanBox.listSeries.isValueExistById(id)){
 				listEntry = kanBox.listSeries.getItemById(id);
 				metaObj = listEntry.metas;
