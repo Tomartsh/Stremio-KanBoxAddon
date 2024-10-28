@@ -30,12 +30,6 @@ const manifest = {
 			id: "kanLive",
 			name: "כאן שידור חי",
 			extra: [ {name: "search", isRequired: false }]
-		},
-		{
-			type: "tv",
-			id: "kanKidsLive",
-			name: "חינוכית שידור חי",
-			extra: [ {name: "search", isRequired: false }]
 		}
 	],
 	"resources": [
@@ -61,7 +55,7 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 	var metas = [];
 	switch(type) {
         case "series":
-			metas = kanBox.listSeries.getMetas();
+			metas = kanBox.listSeries.getMetasByType("series");
 			/*
 			if (id == "kanDigital") {
 				metas = kanBox.listSeries.getMetas();
@@ -100,7 +94,8 @@ builder.defineMetaHandler(({type, id}) => {
 			//	listEntry = kanBox.listKids.getItemById(id);
 			//} else if (kanBox.listSeries.isValueExistById(id)){
 			if (kanBox.listSeries.isValueExistById(id)){
-				listEntry = kanBox.listSeries.getMetasByType("series");
+				listEntry = kanBox.listSeries.getItemById(id);
+				metaObj = listEntry.metas;
 			} else { 
 				//results = Promise.resolve( [] ); 
 				return Promise.resolve({meta: metaObj});
@@ -117,7 +112,8 @@ builder.defineMetaHandler(({type, id}) => {
 			}
 			*/
 			if (kanBox.listSeries.isValueExistById(id)){
-				listEntry = kanBox.listSeries.getMetasByType("tv");
+				listEntry = kanBox.listSeries.getItemById(id);
+				metaObj = listEntry.metas;
 			} else { 
 				//results = Promise.resolve( [] ); 
 				return Promise.resolve({meta: metaObj});
