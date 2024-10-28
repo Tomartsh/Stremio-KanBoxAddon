@@ -26,6 +26,7 @@ class srList {
         //this.type = type;         // Store the type      
         //this.subType = subType 
         this._seriesList = {};    // Private list to store items
+        this.logLevel = "DEBUG"
     }
     
     // Getter for the list
@@ -140,12 +141,15 @@ class srList {
         }
         return metas;
     }
-    getMetasByType(type) {
+    getMetasByType(types) {
         var metas = [];
         for (var [key, value] of Object.entries(this._seriesList)) {
-            if ((value.metas != undefined) && (value.metas != "") &&
-                (value.type == type)) {
-                metas.push(value.metas);
+            if ((value.metas != undefined) && (value.metas != "")) {
+                    for (let type in types){
+                        if (type == value.type){
+                            metas.push(value.metas);
+                        }
+                    }
             }
         }
         return metas;
@@ -189,7 +193,7 @@ class srList {
     //  Utility related code
     //+===================================================================================
     writeLog(level, msg){
-        if (level =="DEBUG"){
+        if (level == this.logLevel){
             console.log(msg)
         }
     }
