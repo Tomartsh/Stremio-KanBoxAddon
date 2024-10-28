@@ -68,8 +68,9 @@ function parseData(root){
             //writeLog("DEBUG"," Added to Kan kids. Name: " + name + " description: " + description + " ID: " + seriesID + ", link: " + link);
             //updateNameAndDescription(seriesID, link, "a");
         //}
+        //setStreams(seriesID);
 	}
-    setStreams(seriesID);
+    
 }
 
 async function updateNameAndDescription(seriesId, seriesLinkPage, subType){
@@ -194,7 +195,7 @@ async function generateSeriesMeta(rootSeries, seriesId){
         videos: videosList
     }
     //listSeries.setSeriesEntryById(seriesId, "metas", metas);
-    listSeries.setMetasById(metas);
+    listSeries.setMetasById(seriesId, metas);
     writeLog("DEBUG","Metas is: " + metas.id + ", " + metas.name);
 }
 

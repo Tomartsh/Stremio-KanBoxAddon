@@ -45,6 +45,7 @@ class srList {
     setMetasById(id, metas){
         try{
             this._seriesList[id].metas = metas;
+            this.writeLog("DEBUG", "srList.setMetasById=>id: "+ id + ", metas:" + metas);
         } catch (error) {
             console.error(error)
 
@@ -133,7 +134,19 @@ class srList {
     getMetas() {
         var metas = [];
         for (var [key, value] of Object.entries(this._seriesList)) {
-            metas.push(value);
+            if ((value.metas != undefined) && (value.metas != "") ) {
+                metas.push(value.metas);
+            }
+        }
+        return metas;
+    }
+    getMetasByType(type) {
+        var metas = [];
+        for (var [key, value] of Object.entries(this._seriesList)) {
+            if ((value.metas != undefined) && (value.metas != "") &&
+                (value.type == type)) {
+                metas.push(value.metas);
+            }
         }
         return metas;
     }
@@ -170,6 +183,15 @@ class srList {
         }
         return true;
         
+    }
+    //+===================================================================================
+    //
+    //  Utility related code
+    //+===================================================================================
+    writeLog(level, msg){
+        if (level =="DEBUG"){
+            console.log(msg)
+        }
     }
 }
 module.exports = srList;

@@ -100,7 +100,7 @@ builder.defineMetaHandler(({type, id}) => {
 			//	listEntry = kanBox.listKids.getItemById(id);
 			//} else if (kanBox.listSeries.isValueExistById(id)){
 			if (kanBox.listSeries.isValueExistById(id)){
-				listEntry = kanBox.listSeries.getItemById(id);
+				listEntry = kanBox.listSeries.getMetasByType("series");
 			} else { 
 				//results = Promise.resolve( [] ); 
 				return Promise.resolve({meta: metaObj});
@@ -117,7 +117,7 @@ builder.defineMetaHandler(({type, id}) => {
 			}
 			*/
 			if (kanBox.listSeries.isValueExistById(id)){
-				listEntry = kanBox.listSeries.getItemById(id);
+				listEntry = kanBox.listSeries.getMetasByType("tv");
 			} else { 
 				//results = Promise.resolve( [] ); 
 				return Promise.resolve({meta: metaObj});
