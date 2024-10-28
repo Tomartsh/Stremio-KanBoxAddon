@@ -4,9 +4,9 @@ const constants = require("./constants");
 const srList = require("./srList");
 
 const listSeries = new srList("d", "series");
-const listLiveTV = new srList("t", "tv");
-const listArchiveKan = new srList("a","series");
-const listKids = new srList("k","series");
+//const listLiveTV = new srList("t", "tv");
+//const listArchiveKan = new srList("a","series");
+//const listKids = new srList("k","series");
 
 function parseData(root){
 
@@ -52,37 +52,32 @@ function parseData(root){
 
         if (link.includes("/content/kan/")) {
             listSeries.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "", type: "series", subtype: "d"});
-            writeLog("DEBUG"," Added Name: " + name + " ID: " + seriesID + ", link: " + link);
-            updateNameAndDescription(seriesID, link, "d");
-            //generateSeriesMeta(rootSeries,seriesID);
             
+            writeLog("DEBUG"," Added Name: " + name + " ID: " + seriesID + ", link: " + link);
+            var rootSeries = updateFields(seriesID, link);
+            generateSeriesMeta (rootSeries, seriesID);
+            //generateVideos(rootSeries, seriesID);   
             
         } //else if (link.includes("/archive1/")){
-            //listArchiveKan.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""});
-            //listSeries.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "", type: "series", subtype: "a"});
-            //writeLog("DEBUG"," Added to Kan archive. Name: " + name + " description: " + description + " ID: " + seriesID + ", link: " + link);
-            //setStreams(seriesID);
         //} else if (link.includes("/content/kids/hinuchit-main/")){
-            //listKids.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: ""});
-            //listSeries.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "", type: "series", subtype: "k"});
-            //writeLog("DEBUG"," Added to Kan kids. Name: " + name + " description: " + description + " ID: " + seriesID + ", link: " + link);
-            //updateNameAndDescription(seriesID, link, "a");
-        //}
-        //setStreams(seriesID);
-	}
-    
+	} 
 }
 
-async function updateNameAndDescription(seriesId, seriesLinkPage, subType){
+async function updateFields(seriesId, seriesLinkPage){
     //Fetch data from the link
-    var response = await fetch(seriesLinkPage);
-    var bodySeries = await response.text();
-    var rootSeries =  parse(bodySeries);
+    var rootSeries = "";
+    try {
+        var response = await fetch(seriesLinkPage);
+        var bodySeries = await response.text();
+        rootSeries =  parse(bodySeries);
+    } catch(error){
+        console.error(error);
+    }
+    
     var nameFromCatalog = "";
     var descriptionFromCatalog = "";
     var name = "";
     var description = "";
-    var link = "";
     
     //set name again from episodes of series page
     nameFromCatalog = listSeries.getSeriesKeyValueEntryById(seriesId, "name");
@@ -93,11 +88,35 @@ async function updateNameAndDescription(seriesId, seriesLinkPage, subType){
     descriptionFromCatalog = listSeries.getSeriesKeyValueEntryById(seriesId, "description");
     description = getDescriptionFromSeriesPage(listSeries.getSeriesKeyValueEntryById(seriesId, "description"), descriptionFromCatalog);
     listSeries.setSeriesEntryById(seriesId, "description", description);
-    listSeries.setSeriesEntryById(seriesId, "subtype", subType);
 
-    generateSeriesMeta (rootSeries, seriesId);
+    //set the genres
+    var genres = getGenresFromSeriesPage(rootSeries,seriesId);
+    listSeries.setSeriesEntryById(seriesId, "genres", genres);
+
+    return rootSeries;
 }
 
+//function generateSeriesMeta(seriesId){
+function generateSeriesMeta(rootSeries, seriesId){
+    var seriesEntry = listSeries.getItemById(seriesId);
+    var metas = {
+        id: seriesId,
+        type: "series",
+        name: seriesEntry.name,
+        genres: seriesEntry.genres,
+        background: seriesEntry.poster,
+        description: seriesEntry.description,
+        link: seriesEntry.link,
+        logo: seriesEntry.background,
+        videos: ""
+   }    
+
+   listSeries.setMetasById(seriesId, metas);
+   writeLog("DEBUG","generateSeriesMeta=> Metas is: " + metas.id + ", " + metas.name);
+   generateVideos(rootSeries, seriesId)
+
+}
+/*
 //async function retrieveSeriesEpisodes(rootSeries, seriesId, subType){
 //function generateSeriesMeta(rootSeries, seriesId, subType){
 async function generateSeriesMeta(rootSeries, seriesId){
@@ -198,60 +217,88 @@ async function generateSeriesMeta(rootSeries, seriesId){
     listSeries.setMetasById(seriesId, metas);
     writeLog("DEBUG","Metas is: " + metas.id + ", " + metas.name);
 }
+*/
 
-//function setStreams(seriesId, subType){  
-//function setStreams(seriesId){ 
-function setStreams(seriesId){ 
+async function generateVideos(rootSeries, seriesId){
+    writeLog("DEBUG","generateVideos=> " + rootSeries);
+    var elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
+    var totalNoOfSeasons = elemSeasons.length
+    var videosList = [];
     var streamsList = [];
-    metas = listSeries.getSeriesKeyValueEntryById(seriesId, "metas");
-    videos = metas["videos"];
-    for (let i = 0; i < videos.length; i++){
-        videoObj = videos[i];
-        var epidosdeLink = videoObj["episodelink"];
-        streamsList = getStreamObject(epidosdeLink);
-        videoObj["streams"] = streamsList;
-        metas["videos"] = videoObj;
-        listSeries.setSeriesEntryById(seriesId,"metas",metas);
-        writeLog("DEBUG"," Set streams of : " + metas.name);
-    }
-}
 
-async function getStreamObject(episodeLink){
-    var streamsList = [];
-    
-    try {
-        if (episodeLink.startsWith('/')) {
-            episodeLink = "https://www.kan.org.il" + episodeLink;
-        }
+    for (let i = 0; i < totalNoOfSeasons; i++){ //iterate over the seasons
+        var seasonNo = totalNoOfSeasons - i //what season is this
+        var elemEpisodes = elemSeasons[i].querySelectorAll('a.card-link');//get all the episodes
 
-        var response = await fetch(episodeLink);
-        var bodyStreams = await response.text();
-
-        let b = parse(bodyStreams);
+        for (let iter = 0; iter < elemEpisodes.length; iter++){ //iterate over the episodes
+            var episode = elemEpisodes[iter];
+            var episodeLink = episode.attributes.href
             
-        for (let iter = 0; iter < b.querySelectorAll("script").length; iter++){ //iterate over the episode stream links
-            var selectedData = b.querySelectorAll("script")[iter];
-            var scriptData = String(selectedData);
-            if (scriptData.includes("VideoObject")){
-                scriptData = scriptData.substring(scriptData.indexOf('{'), scriptData.indexOf('}') + 1);
-                
-                var videoUrl = JSON.parse(scriptData)["contentUrl"];
-                var name = JSON.parse(scriptData)["name"];
-                var desc = JSON.parse(scriptData)["description"];
-                streamsList.push(
-                {
-                    url: videoUrl,
-                    type: "series",
-                    name: name,
-                    description: desc  
-                });
+            var title = "";
+            if (episode.querySelector("div.card-title")){
+                title = episode.querySelector("div.card-title").text.trim();
+                }
+            var desc = "";
+            if (episode.querySelector("div.card-text")){
+                desc = episode.querySelector("div.card-text").text.trim();
             }
+            
+            var elemImage = episode.querySelector("div.card-img")
+            var episodeLogoUrl = "";
+            if ((elemImage)){
+                var elemEpisodeLogo = elemImage.querySelector("img.img-full")
+                if ((elemEpisodeLogo) && (elemEpisodeLogo.attributes.src.indexOf('?') > 0)){
+                    episodeLogoUrl = elemEpisodeLogo.attributes.src.substring(0,elemEpisodeLogo.attributes.src.indexOf("?"))
+                }
+            }
+            var streamsList = [];
+            //format the link so it is accessible
+            try {
+                if (episodeLink.startsWith('/')) {
+                    episodeLink = "https://www.kan.org.il" + episodeLink;
+                }
+                var response = await fetch(episodeLink);
+                var bodyStreams = await response.text();
+        
+                let b = parse(bodyStreams);
+                    
+                for (let iter = 0; iter < b.querySelectorAll("script").length; iter++){ //iterate over the episode stream links
+                    var selectedData = b.querySelectorAll("script")[iter];
+                    var scriptData = String(selectedData);
+                    if (scriptData.includes("VideoObject")){
+                        scriptData = scriptData.substring(scriptData.indexOf('{'), scriptData.indexOf('}') + 1);
+                        
+                        var videoUrl = JSON.parse(scriptData)["contentUrl"];
+                        var name = JSON.parse(scriptData)["name"];
+                        var desc = JSON.parse(scriptData)["description"];
+                        streamsList.push(
+                        {
+                            url: videoUrl,
+                            type: "series",
+                            name: name,
+                            description: desc  
+                        })
+                    }
+                }
+            } catch (error) {
+                console.error(error)
+            }
+            videoId = seriesId + ":" + seasonNo + ":" + (iter + 1);
+            videosList.push({
+                id: videoId,
+                title: title,
+                season: seasonNo,
+                episode: (iter + 1),
+                thumbnail: episodeLogoUrl,
+                description: desc,
+                streams: [],
+                episodelink: episodeLink
+            })
+            listSeries.setVideosById(seriesId,videos);
+            writeLog("DEBUG", "generateVideos=> Videos: " + videoId + ", Title: " + title);
         }
-        return streamsList;
-    } catch (error) {
-        console.error("getStreamObject => ERROR - " + error);
     }
-    
+
 }
 
 function setID(link){
@@ -340,6 +387,7 @@ function getName (altRet, linkRet, imgUrlVal ){
     name = name.replace("Poster Image Small", "");
     name = name.replace("Share Image", "");
     name = name.replace("1200X630", "");
+    name = name.replace("Copy", "");
     name = name.trim();
    
     if (name == "-" ){
@@ -407,6 +455,19 @@ function getDescriptionFromSeriesPage(description, descFromCatalog){
     return descFromCatalog;
 }
 
+function getGenresFromSeriesPage(rootSeries, seriesId){
+    //Get the series from the series page. We are not chewcking the general page as 
+    // the information from there is no longer relevant
+    var genresUL = rootSeries.querySelectorAll('div.info-genre ul');
+    if (genresUL.length < 1) {
+        return "";
+    }
+    var genresList = genresUL[0].structuredText.trim();
+    genresList = genresList.replace("\n",",");
+    var genresSeries = setGenre(genresList);
+
+    return genresSeries;
+}
 //+===================================================================================
 //
 //  Kan Live functions
@@ -498,6 +559,7 @@ function addLiveTVToList(){
 //+===================================================================================
 //
 //  Utility related code
+//
 //+===================================================================================
 function writeLog(level, msg){
     if (level =="DEBUG"){
@@ -520,6 +582,6 @@ function isEmpty(value) {
 module.exports = {getName, setGenre, setID, writeLog, isEmpty, parseData, addLiveTVToList};
 
 module.exports.listSeries = listSeries;
-module.exports.listLiveTV = listLiveTV;
-module.exports.listKids = listKids;
-module.exports.listArchiveKan = listArchiveKan;
+//module.exports.listLiveTV = listLiveTV;
+//module.exports.listKids = listKids;
+//module.exports.listArchiveKan = listArchiveKan;
