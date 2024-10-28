@@ -3,8 +3,6 @@ const fetch = require('node-fetch');
 const constants = require("./constants");
 const srList = require("./srList");
 
-const axios = require("axios")
-
 const listSeries = new srList("d", "series");
 const listLiveTV = new srList("t", "tv");
 const listArchiveKan = new srList("a","series");
