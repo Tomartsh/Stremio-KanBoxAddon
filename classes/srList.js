@@ -9,24 +9,8 @@
 class srList {
     //constructor(subType, type) {
     constructor() {
-
-        // Restrict the type to 'd', 'k', or 'a'
-        // Type of items in the container (d- digital, k - kids, a - archive)
-        /*
-        if (type !== 'series' && type !== 'tv') {
-            throw new Error('Invalid type. Must be "series" or "tv".');
-        }
-        if (type === 'tv' && subType !== 't') {
-            throw new Error('For "tv" type, subType must be "t".');
-        }
-        if (type === 'series' && !['k', 'd', 'a'].includes(subType)) {
-            throw new Error('Invalid subType for series. Must be "k", "d", or "a".');
-        }
-        */
-        //this.type = type;         // Store the type      
-        //this.subType = subType 
         this._seriesList = {};    // Private list to store items
-        this.logLevel = "DEBUG"
+        this.logLevel = "INFO"
     }
     
     // Getter for the list
@@ -53,44 +37,16 @@ class srList {
         }
     }
 
-    _validateSeriesEntry(item){
-        var errObj ={
-            errorStatus: false,
-            errorMessage: ""
+    setVideosById(id, videos){
+        try{
+            var meta = this._seriesList[id].metas;
+            if ((meta != undefined) && (meta != "")){
+                meta.videos = videos;
+            }
+            this.writeLog("DEBUG", "srList.setMetasById=>id: "+ id + ", metas:" + metas);
+        } catch (error) {
+            console.error(error)
         }
-        //make sure we do not have entries with null or empty id
-        if (item.id == null || item.id == ""){
-            errObj.errorStatus = true;
-           errObj.errorStatus = true;
-            errObj.errorMessage = "Series ID is either empty or null. Cannot add series.";
-        }
-        //prevent duplicate entries
-        if (this.isValueExistById(item.id)){
-            errObj.errorStatus = true;
-            errObj.errorMessage ="Series Id " + item.id + " already exit.";
-            return true;
-        }
-        return errObj;
-    }
-
-    _validateSeriesEntryDetailed(id){
-        var errObj ={
-            errorStatus: false,
-            errorMessage: ""
-        }
-        //make sure we do not have entries with null or empty id
-        if (id == null || id == ""){
-            errObj.errorStatus = true;
-           errObj.errorStatus = true;
-            errObj.errorMessage = "Series ID is either empty or null. Cannot add series.";
-        }
-        //prevent duplicate entries
-        if (this.isValueExistById(id)){
-            errObj.errorStatus = true;
-            errObj.errorMessage = "Series Id " + id + " already exit.";
-            return true;
-        }
-        return errObj;
     }
 
     // Add an item to the list (each item is an object with an id and key-value pair)
@@ -187,6 +143,46 @@ class srList {
         }
         return true;
         
+    }
+
+    _validateSeriesEntry(item){
+        var errObj ={
+            errorStatus: false,
+            errorMessage: ""
+        }
+        //make sure we do not have entries with null or empty id
+        if (item.id == null || item.id == ""){
+            errObj.errorStatus = true;
+           errObj.errorStatus = true;
+            errObj.errorMessage = "Series ID is either empty or null. Cannot add series.";
+        }
+        //prevent duplicate entries
+        if (this.isValueExistById(item.id)){
+            errObj.errorStatus = true;
+            errObj.errorMessage ="Series Id " + item.id + " already exit.";
+            return true;
+        }
+        return errObj;
+    }
+
+    _validateSeriesEntryDetailed(id){
+        var errObj ={
+            errorStatus: false,
+            errorMessage: ""
+        }
+        //make sure we do not have entries with null or empty id
+        if (id == null || id == ""){
+            errObj.errorStatus = true;
+           errObj.errorStatus = true;
+            errObj.errorMessage = "Series ID is either empty or null. Cannot add series.";
+        }
+        //prevent duplicate entries
+        if (this.isValueExistById(id)){
+            errObj.errorStatus = true;
+            errObj.errorMessage = "Series Id " + id + " already exit.";
+            return true;
+        }
+        return errObj;
     }
     //+===================================================================================
     //
