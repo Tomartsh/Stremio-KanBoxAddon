@@ -68,8 +68,12 @@ async function updateFields(seriesId, seriesLinkPage){
     var rootSeries = "";
     try {
         var response = await fetch(seriesLinkPage);
-        var bodySeries = await response.text();
-        rootSeries =  parse(bodySeries);
+        if (response.ok){
+            var bodySeries = await response.text();
+            rootSeries =  parse(bodySeries);
+        } else {
+            console.error('Server responded with a status:', response.status);
+        }        
     } catch(error){
         console.error(error);
     }
@@ -105,6 +109,7 @@ function generateSeriesMeta(rootSeries, seriesId){
         name: seriesEntry.name,
         genres: seriesEntry.genres,
         background: seriesEntry.poster,
+        poster: seriesEntry.poster,
         description: seriesEntry.description,
         link: seriesEntry.link,
         logo: seriesEntry.background,
@@ -589,11 +594,21 @@ function isEmpty(value) {
         return false;
     }
 }
+async function fetchPage(url) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const text = await response.text();
+        return text;
+    } catch (error) {
+        console.error('Error fetching page:', error);
+    }
+}
 
 
 
 
-module.exports = {getName, setGenre, setID, writeLog, isEmpty, parseData, addLiveTVToList};
+module.exports = {getName, setGenre, setID, writeLog, isEmpty, parseData, addLiveTVToList,fetchPage};
 
 module.exports.listSeries = listSeries;
 //module.exports.listLiveTV = listLiveTV;

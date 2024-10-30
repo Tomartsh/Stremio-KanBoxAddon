@@ -214,6 +214,11 @@ async function scrapeData() {
 
 	kanBox.addLiveTVToList();
 
+	var pageContent = kanBox.fetchPage(constants.url_kanbox);
+	if (!pageContent) return;
+	var tempRoot = parse(pageContent);
+	kanBox.parseData(tempRoot);
+	/*
 	try {
 		fetch(constants.url_kanbox)
         .then((res) => res.text())
@@ -226,7 +231,8 @@ async function scrapeData() {
         })
 	} catch (error) {
 		console.error(error)
-	}  
+	} 
+	*/ 
 }
 
 module.exports = builder.getInterface();
