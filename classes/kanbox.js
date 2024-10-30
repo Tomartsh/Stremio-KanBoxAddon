@@ -478,7 +478,7 @@ function addLiveTVToList(){
     var idKids = "kanTV_02";
 
     var tvLive11 = {
-        type: "series",
+        type: "tv",
         subtype: "t",
         id: idKan,
         title: "Kan 11 Live Stream",
@@ -508,7 +508,7 @@ function addLiveTVToList(){
         }
     }
     var tvLivKids = {
-        type: "series",
+        type: "tv",
         subtype: "t",
         id: idKids,
         title: "Kids Live Stream",
