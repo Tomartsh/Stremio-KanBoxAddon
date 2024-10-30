@@ -53,7 +53,7 @@ function parseData(root){
         if (link.includes("/content/kan/")) {
             listSeries.addItem({id: seriesID,  name: name, poster: imgUrl, description: description, link: link, background: imgUrl, genres: genres, metas: "", type: "series", subtype: "d"});
             
-            writeLog("DEBUG"," Added Name: " + name + " ID: " + seriesID + ", link: " + link);
+            writeLog("DEBUG","Added Name: " + name + " ID: " + seriesID + ", link: " + link);
             var rootSeries = updateFields(seriesID, link);
             generateSeriesMeta (rootSeries, seriesID);
             //generateVideos(rootSeries, seriesID);   
@@ -220,8 +220,15 @@ async function generateSeriesMeta(rootSeries, seriesId){
 */
 
 async function generateVideos(rootSeries, seriesId){
-    writeLog("DEBUG","generateVideos=> " + rootSeries);
+    //writeLog("DEBUG","generateVideos=> " + rootSeries);
+    //var elemSeasons = "";
     var elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
+    //try {
+    //    elemSeasons = rootSeries.querySelectorAll('div.seasons-item');
+    //} catch(error){
+    //    console.error(error);
+    //}
+    
     var totalNoOfSeasons = elemSeasons.length
     var videosList = [];
     var streamsList = [];
@@ -384,11 +391,18 @@ function getName (altRet, linkRet, imgUrlVal ){
     name = name.replace("\n", "");
     name = name.replace("\r", "");
     name = name.replace("לוגו", "");
+    name = name.replace("פוסטר", "");
     name = name.replace("Poster Image Small", "");
+    name = name.replace("Poster image_small__", "");
     name = name.replace("Share Image", "");
     name = name.replace("1200X630", "");
+    name = name.replace("1200X1800 (1)", "");
+    name = name.replace("Poster Image Big 1200X1800 (7)", "");
+    name = name.replace("Poster Image Big 1200X1800", "");
     name = name.replace("Copy", "");
+    name = name.replace("  ", " ");
     name = name.trim();
+    name = name.replace("_", " ");
    
     if (name == "-" ){
         //There is no clear name for the series, so let's try to find it from the link
