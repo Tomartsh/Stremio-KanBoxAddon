@@ -444,9 +444,10 @@ function setLiveTVToList(){
         type: "tv",
         name: "כאן 11",
         genres: "Actuality",
-        background: "assets/Kan Background.jpg",
+        background: "https://efitriger.com/wp-content/uploads/2022/11/%D7%9B%D7%90%D7%9F-BOX-660x330.jpg",
+        poster: "https://efitriger.com/wp-content/uploads/2022/11/%D7%9B%D7%90%D7%9F-BOX-660x330.jpg",
         description: "Kan 11 Live Stream From Israel" ,
-        logo: "assets/Kan Logo.jpg",
+        logo: "",
         videos: [
             {
                 id: idKan,
@@ -455,7 +456,7 @@ function setLiveTVToList(){
                 description: "Kan 11 Live Stream From Israel",
                 streams: [
                     {
-                        url: "",
+                        url: "https://kan11w.media.kan.org.il/hls/live/2105694/2105694/source1_600/chunklist.m3u8",
                         description: "Kan 11 Live Stream From Israel"  
                     }
                 ]
@@ -468,9 +469,9 @@ function setLiveTVToList(){
         type: "tv",
         name: "חנוכית",
         genres: "Kids",
-        background: "assets/Kan Background.jpg",
+        background: "https://directorsguild.org.il/wp-content/uploads/2022/04/share_kan_hinuchit.jpeg",
         description: "Kan Kids Live Stream From Israel" ,
-        logo: "https://kan-media.kan.org.il/media/0ymcnuw4/logo_hinuchit_main.svg",
+        poster: "https://directorsguild.org.il/wp-content/uploads/2022/04/share_kan_hinuchit.jpeg",
         videos:[ 
             {
                 id: idKanKids,
@@ -479,7 +480,7 @@ function setLiveTVToList(){
                 description: "Kids Live Stream From Israel",
                 streams: [
                     {
-                        url: "",
+                        url: "https://kan23.media.kan.org.il/hls/live/2024691-b/2024691/source1_4k/chunklist.m3u8",
                         description: "Live stream from Kids Channel in Israel"  
                     }
                 ]
