@@ -1,80 +1,18 @@
-//srList.js
-// Class for the structure of the lists
-
-// type can be "series" or "tv"
-// subtype can be "d", "a", "k" or "t".
-// subtype "t" can only be with type  "tv".
-// rest of the subtypes can be for "series" type only
-
 class srList {
-    //constructor(subType, type) {
     constructor() {
         this._seriesList = {};    // Private list to store items
-        this.logLevel = "INFO"
     }
-    
+
+
     // Getter for the list
     get seriesList() {
-      return this._seriesList;
-    }   
- 
-    //Update a single value in a single entry of the list based on ID
-    setSeriesEntryById(id, key, value){
-        try{
-            this._seriesList[id][key] = value;
-        } catch (error) {
-            console.error(error)
-
-        }
-    }
-    setMetasById(id, metas){
-        try{
-            this._seriesList[id].metas = metas;
-            this.writeLog("DEBUG", "srList.setMetasById=>id: "+ id + ", metas:" + metas);
-        } catch (error) {
-            console.error(error)
-
-        }
-    }
-
-    setVideosById(id, videos){
-        try{
-            var meta = this._seriesList[id].metas;
-            if ((meta != undefined) && (meta != "")){
-                meta.videos = videos;
-            }
-            this.writeLog("DEBUG", "srList.setMetasById=>id: "+ id + ", metas:" + metas);
-        } catch (error) {
-            console.error(error)
-        }
-    }
-
-    // Add an item to the list (each item is an object with an id and key-value pair)
-    addItem(item) {
-        var errObj = this._validateSeriesEntryDetailed(item.id);
-        if (errObj.errorStatus == true ) {
-            return errObj.errorMessage + " Ignoring..."
-        }
-        this._seriesList[item.id] = item;
-        
-    }
-
-    addItemById(id, value) {
-        var errObj = this._validateSeriesEntry(id);
-        if (errObj.errorStatus == true ) {
-            return errObj.errorMessage + " Ignoring..."
-        }
-        this._seriesList.id = value;
+        return this._seriesList;
     }
 
     // Add an item to the list (each item is an object with an id and key-value pair)
     // values are stated speratately
-    addItemByDetails(id, name, poster, description, link, background, genres, metas, type, subType) {
-        var errObj = this._validateSeriesEntry(id);
-        if (errObj.errorStatus == true ) {
-            return errObj.errorMessage + " Ignoring..."
-        }
-        this._seriesList.id = {
+    addItemByDetails(id, name, poster, description, link, background, genres, metas, type, subType, root) {
+        var item = {
             id: id,
             type: type,
             subtype: subType,
@@ -84,57 +22,52 @@ class srList {
             link: link, 
             background: background, 
             genres: genres, 
-            metas: metas
+            meta: metas
         }
+        this._addItem(item);
     }
 
-    getMetas() {
-        var metas = [];
-        for (var [key, value] of Object.entries(this._seriesList)) {
-            if ((value.metas != undefined) && (value.metas != "") ) {
-                metas.push(value.metas);
-            }
-        }
-        return metas;
+    setStreamById(id, stream){
+
     }
-    getMetasByType(types) {
+
+    getMetasByType(type) {
         var metas = [];
         for (var [key, value] of Object.entries(this._seriesList)) {
-            if ((value.metas != undefined) && (value.metas != "")) {
-                    for (let type in types){
-                        if (type == value.type){
-                            metas.push(value.metas);
-                        }
-                    }
-            }
+            if (value.type == type){
+                metas.push(value.meta);
+            }  
         }
         return metas;
     }
 
-    //Get Series Entry by id and key
-    getSeriesKeyValueEntryById(id, key){
-        if (this._seriesList[id][key] != undefined){
-            return this._seriesList[id][key];
-        } else {
-            return "";
+    getMetasBySubtype(subtype) {
+        var metas = [];
+        for (var [key, value] of Object.entries(this._seriesList)) {
+            if (value.subtype == subtype){
+                metas.push(value.meta);
+            }  
         }
+        return metas;
+    }
+
+    getMetaById(id){
+        var meta = {};
+        if (this._seriesList[id] == undefined){ return meta;}
+        else {return this._seriesList[id].meta;}
     }
     
-    // Get an item from the list by its ID
-    getItemById(id) {
-      return this._seriesList[id]
+    getStreamsById(id){
+        var meta = this.getMetaById(id);
+        var videos = meta["videos"];
+        return videos.streams;
     }
-
-    getItemsBySubtype(subType){
-        //iterate over the list and get the relevant subtype elements
-        var metas = [];
-        for (var [key, value] of Object.entries(this._seriesList)) {
-            if (value.subtype == subType){
-                metas.push(value.metas);
-            }
-            
-        }
-        return metas;
+    setVideosById(id, videos){
+        if ((id == undefined) || (id == "")){
+            return;
+       }
+       var meta = this.getMetaById(id);
+       meta.videos = videos;
 
     }
     isValueExistById(id){
@@ -143,6 +76,35 @@ class srList {
         }
         return true;
         
+    }
+
+    // Add an item to the list (each item is an object with an id and key-value pair)
+    _addItem(item) {
+        var errObj = this._validateSeriesEntryDetailed(item.id);
+        if (errObj.errorStatus == true ) {
+            return errObj.errorMessage + " Ignoring..."
+        }
+        this._seriesList[item.id] = item;
+        
+    }
+    _validateSeriesEntryDetailed(id){
+        var errObj ={
+            errorStatus: false,
+            errorMessage: ""
+        }
+        //make sure we do not have entries with null or empty id
+        if (id == null || id == ""){
+            errObj.errorStatus = true;
+           errObj.errorStatus = true;
+            errObj.errorMessage = "Series ID is either empty or null. Cannot add series.";
+        }
+        //prevent duplicate entries
+        if (this.isValueExistById(id)){
+            errObj.errorStatus = true;
+            errObj.errorMessage = "Series Id " + id + " already exit.";
+            return true;
+        }
+        return errObj;
     }
 
     _validateSeriesEntry(item){
@@ -164,34 +126,6 @@ class srList {
         }
         return errObj;
     }
-
-    _validateSeriesEntryDetailed(id){
-        var errObj ={
-            errorStatus: false,
-            errorMessage: ""
-        }
-        //make sure we do not have entries with null or empty id
-        if (id == null || id == ""){
-            errObj.errorStatus = true;
-           errObj.errorStatus = true;
-            errObj.errorMessage = "Series ID is either empty or null. Cannot add series.";
-        }
-        //prevent duplicate entries
-        if (this.isValueExistById(id)){
-            errObj.errorStatus = true;
-            errObj.errorMessage = "Series Id " + id + " already exit.";
-            return true;
-        }
-        return errObj;
-    }
-    //+===================================================================================
-    //
-    //  Utility related code
-    //+===================================================================================
-    writeLog(level, msg){
-        if (level == this.logLevel){
-            console.log(msg)
-        }
-    }
 }
+
 module.exports = srList;

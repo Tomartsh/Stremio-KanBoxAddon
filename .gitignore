@@ -1,2 +1,3 @@
 # ignore the modules folder
 node_modules
+package-lock.json
