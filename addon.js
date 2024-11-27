@@ -190,11 +190,49 @@ function getMetasSeriesPages(link, imgUrl, root){
     
     listSeries.addItemByDetails(seriesID, name, imgUrl, description, link, imgUrl, genres, metas, "series", subtype);
     //Set videos
-    getVideos(root.querySelectorAll('div.seasons-item'), seriesID);
+    if (root.querySelectorAll('div.seasons-item').length > 0) {
+        getVideos(root.querySelectorAll('div.seasons-item'), seriesID);
+    } else { //probably a movie
+        getMovie(root, seriesID)
+    }
     writeLog("DEBUG"," getMetasSeriesPages=> added " + name + " ID: " + seriesID + ", link: " + link + "name: " + name);   
 }
 
 
+async function getMovie(root, seriesID){
+    var videosList = [];
+    var title = "";
+    if (root.querySelector("h2")){
+        title = root.querySelector("h2").text.trim();
+    }
+
+    var desc = "";
+    if (root.querySelector("div.info-description p")){
+        desc = root.querySelector("div.info-description p").text.trim();
+    }
+
+    var elemImage = String(root.querySelector("div.block-img"));
+    var startPoint = elemImage.indexOf("--desktop-vod-bg-image: url(") + 28;
+    var imgUrl = elemImage.substring(startPoint, elemImage.indexOf("\')") + 28);
+
+    var movieId = seriesID + ":1:1";
+
+    var episodeLink = root.querySelector("a.btn.with-arrow.info-link.btn-gradient").attrs.href;
+    //episodeLink = episodeLink.substring(9,episodeLink.indexOf("/\"") + 1);
+    var streams = await getStream(episodeLink,movieId);
+
+    videosList.push({
+        id: movieId,
+        title: title,
+        season: "1",
+        episode: "1",
+        thumbnail: imgUrl,
+        description: desc,
+        streams: streams,
+        episodelink: ""
+    });
+    listSeries.setVideosById(seriesID, videosList);
+}
 
 async function getVideos(elemSeasons, seriesID){
     var videosList = [];

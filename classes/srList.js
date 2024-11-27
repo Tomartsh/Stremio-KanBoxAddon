@@ -55,7 +55,7 @@ class srList {
                     metas.push(value.meta);
                 } else {
                     var meta = value.meta;
-                    if (meta.name == nameToSearch.trim()){
+                    if (meta.name.includes(nameToSearch.trim())){
                         metas.push(value.meta);
                     }
                 }
