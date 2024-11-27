@@ -65,18 +65,26 @@ const builder = new addonBuilder(manifest)
 
 builder.defineCatalogHandler(({type, id, extra}) => {
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineCatalogHandler.md
-	writeLog("DEBUG","request for catalogs: "+type+" "+id)
+	writeLog("DEBUG","request for catalogs: "+type+" "+id + " search: " + extra.search)
 	var metas = [];
+    var search;
+    if ((extra.search == "undefined") || (extra.search == null)){
+        search = "*";
+    } else {
+        search = extra.search.trim();
+    }
+
+
 	switch(type) {
         case "series":
-			if (id == "kanDigital"){
-                metas = listSeries.getMetasBySubtype("d");
+			if (id == "kanDigital"){              
+                metas = listSeries.getMetasBySubtypeAndName("d", search);
             } else if (id == "KanArchive"){
-                metas = listSeries.getMetasBySubtype("a");
+                metas = listSeries.getMetasBySubtypeAndName("a", search);
             } else if (id == "KanKids"){
-                metas = listSeries.getMetasBySubtype("k");
+                metas = listSeries.getMetasBySubtypeAndName("k",search);
             } else {
-                metas = listSeries.getMetasBySubtype("d");
+                metas = listSeries.getMetasBySubtypeAndName("d", search);
             }
             break;
 		case "tv":
@@ -462,12 +470,12 @@ function setLiveTVToList(){
         name: "כאן 11",
         genres: "Actuality",
         background: "https://efitriger.com/wp-content/uploads/2022/11/%D7%9B%D7%90%D7%9F-BOX-660x330.jpg",
-        poster: "https://efitriger.com/wp-content/uploads/2022/11/%D7%9B%D7%90%D7%9F-BOX-660x330.jpg",
+        poster: "https://octopus.org.il/wp-content/uploads/2022/01/logo_ogImageKan.jpg",
         description: "Kan 11 Live Stream From Israel" ,
         logo: "",
         videos: [
             {
-                id: idKan,
+                id: idKan + "1:1",
                 title: "Kan 11 Live Stream",
                 //thumbnail: episodeLogoUrl,
                 description: "Kan 11 Live Stream From Israel",
@@ -493,7 +501,7 @@ function setLiveTVToList(){
         poster: "https://directorsguild.org.il/wp-content/uploads/2022/04/share_kan_hinuchit.jpeg",
         videos:[ 
             {
-                id: idKanKids,
+                id: idKanKids  + "1:1",
                 title: "Kids Live Stream",
                 //thumbnail: episodeLogoUrl,
                 description: "Kids Live Stream From Israel",
@@ -520,7 +528,7 @@ function setLiveTVToList(){
         logo: "",
         videos: [
             {
-                id: idKan,
+                id: idKnesset  + "1:1",
                 title: "ערוץ הכנסת 99",
                 //thumbnail: episodeLogoUrl,
                 description: "שידורי ערוץ הכנסת 99",
@@ -537,13 +545,17 @@ function setLiveTVToList(){
     }
 
     //listSeries.addItem(tvLive11);
-    listSeries.addItemByDetails(idKan, "Kan 11 Live Stream", "https://www.kan.org.il/media/uymhquu3/%D7%9B%D7%90%D7%9F-11-%D7%9C%D7%95%D7%92%D7%95-%D7%9C%D7%91%D7%9F-2.svg",
-        "Kan 11 Live Stream From Israel", "", "https://www.kan.org.il/media/uymhquu3/%D7%9B%D7%90%D7%9F-11-%D7%9C%D7%95%D7%92%D7%95-%D7%9C%D7%91%D7%9F-2.svg",
+    listSeries.addItemByDetails(idKan, "Kan 11 Live Stream", "http://res.cloudinary.com/atzuma/image/upload/v1492370857/atzuma/ti0gm5xxyknqylq8mgr5.jpg",
+        "Kan 11 Live Stream From Israel", "", "http://res.cloudinary.com/atzuma/image/upload/v1492370857/atzuma/ti0gm5xxyknqylq8mgr5.jpg",
         "", metasKan, "tv","t"
     );
     listSeries.addItemByDetails(idKanKids, "Kan Kids Live Stream", "https://kan-media.kan.org.il/media/0ymcnuw4/logo_hinuchit_main.svg",
         "Kan Kids Live Stream From Israel", "", "https://kan-media.kan.org.il/media/0ymcnuw4/logo_hinuchit_main.svg",
         "", metasKids, "tv", "t"
+    );
+    listSeries.addItemByDetails(idKnesset, "שידורי ערוץ הכנסת 99", "https://www.knesset.tv/media/20004/logo-new.png",
+        "שידורי ערוץ הכנסת 99", "", "https://www.knesset.tv/media/20004/logo-new.png",
+        "", metasKnesset, "tv", "t"
     );
 }
 

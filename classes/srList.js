@@ -47,6 +47,23 @@ class srList {
         return metas;
     }
 
+    getMetasBySubtypeAndName(subtype, nameToSearch) {
+        var metas = [];
+        for (var [key, value] of Object.entries(this._seriesList)) {
+            if (value.subtype == subtype){
+                if (nameToSearch.trim() == "*"){
+                    metas.push(value.meta);
+                } else {
+                    var meta = value.meta;
+                    if (meta.name == nameToSearch.trim()){
+                        metas.push(value.meta);
+                    }
+                }
+            }  
+        }
+        return metas;
+    }
+
     getMetaById(id){
         var meta = {};
         if (this._seriesList[id] == undefined){ return meta;}
