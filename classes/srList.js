@@ -27,10 +27,6 @@ class srList {
         this._addItem(item);
     }
 
-    setStreamById(id, stream){
-
-    }
-
     getMetasByType(type) {
         var metas = [];
         for (var [key, value] of Object.entries(this._seriesList)) {
@@ -68,8 +64,21 @@ class srList {
        }
        var meta = this.getMetaById(id);
        meta.videos = videos;
-
+       //console.log("Added videos to meta. No of Videos: " + meta.videos);
     }
+
+    setStreamsById(id, streams){
+        var seriesId = id.substring(0,id.indexOf(":"));
+        var meta = this.getMetaById(seriesId);
+        var videos = meta.videos;
+        for (var video of videos){
+            if (video.id == id){
+                video.streams = streams;
+            }
+
+        }
+    }
+
     isValueExistById(id){
         if (this._seriesList[id] == undefined){
             return false; 

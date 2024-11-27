@@ -3,7 +3,7 @@ const srList = require("./classes/srList");
 const constants = require("./classes/constants");
 
 const { parse } = require('node-html-parser');
-const logLevel = "DEBUG";
+const logLevel = "INFO";
 
 const listSeries = new srList();
 
@@ -65,7 +65,7 @@ const builder = new addonBuilder(manifest)
 
 builder.defineCatalogHandler(({type, id, extra}) => {
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineCatalogHandler.md
-	writeLog("INFO","request for catalogs: "+type+" "+id)
+	writeLog("DEBUG","request for catalogs: "+type+" "+id)
 	var metas = [];
 	switch(type) {
         case "series":
@@ -97,14 +97,14 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 })
 
 builder.defineMetaHandler(({type, id}) => {
-	writeLog("INFO","defineMetaHandler=> request for meta: "+type+" "+id);
+	writeLog("DEBUG","defineMetaHandler=> request for meta: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	var meta = listSeries.getMetaById(id);
     return Promise.resolve({ meta: meta })
 })
 
 builder.defineStreamHandler(({type, id}) => {
-	writeLog("INFO","defineStreamHandler=> request for streams: "+type+" "+id);
+	writeLog("DEBUG","defineStreamHandler=> request for streams: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineStreamHandler.md
 	var streams = listSeries.getStreamsById(id)
     
@@ -135,65 +135,76 @@ async function getSeriesLinks(){
             var imageElem = elem.getElementsByTagName('img')[0];
             var imgUrl = constants.image_prefix + imageElem.attributes.src.substring(0,imageElem.attributes.src.indexOf("?"))
 
-            await getMetasSeriesPages(link, imgUrl)
+            var b = await fetchPage(link);
+
+            //await 
+            getMetasSeriesPages(link, imgUrl, b)
         }
 }
 
-async function getMetasSeriesPages(link, imgUrl){
+//async 
+function getMetasSeriesPages(link, imgUrl, root){
     var seriesID = setID(link);
     var subtype = "";
     var name = "";
     var description = "";
     var videos = [];
 
-        var root = await fetchPage(link);
+    //var root = await fetchPage(link);
 
-        if (link.includes("/content/kan/")) {
-            subtype = "d";
-        } else if (link.includes("/archive1/")) {
-            subtype = "a";
-        } else if (link.includes("/content/kids/hinuchit-main/")) {
-            subtype = "k";
-        } else {
-            subtype = "d";
-        }
+    if (link.includes("/content/kan/")) {
+        subtype = "d";
+    } else if (link.includes("/archive1/")) {
+        subtype = "a";
+    } else if (link.includes("/content/kids/hinuchit-main/")) {
+        subtype = "k";
+    } else {
+        subtype = "d";
+    }
 
-        name = getNameFromSeriesPage(root.querySelector('title').text);
-        description = setDescription(root.querySelectorAll('div.info-description p'));
+    name = getNameFromSeriesPage(root.querySelector('title').text);
+    description = setDescription(root.querySelectorAll('div.info-description p'));
 
-        //set the genres
-        var genres = setGenre(root.querySelector('div.info-genre'));
-        
-        //set meta
-        var metas = {
-            id: seriesID,
-            type: "series",
-            name: name,
-            genres: genres,
-            background: imgUrl,
-            poster: imgUrl,
-            posterShape: "poster",
-            description: description,
-            link: link,
-            logo: imgUrl,
-            videos: videos
-        }  
-        
-        //set videos
-        getVideos(root.querySelectorAll('div.seasons-item'), seriesID);
+    //set the genres
+    var genres = setGenre(root.querySelector('div.info-genre'));
+    //videos = getVideos(root.querySelectorAll('div.seasons-item'), seriesID);
+    //writeLog("DEBUG"," getMetasSeriesPages=> Videos size: " + videos.length); 
+    
+    //set meta
+    var metas = {
+        id: seriesID,
+        type: "series",
+        name: name,
+        genres: genres,
+        background: imgUrl,
+        poster: imgUrl,
+        posterShape: "poster",
+        description: description,
+        link: link,
+        logo: imgUrl,
+        videos: videos
+    }  
+    
+    //set videos
+    //videos = getVideos(root.querySelectorAll('div.seasons-item'), seriesID);
 
     listSeries.addItemByDetails(seriesID, name, imgUrl, description, link, imgUrl, genres, metas, "series", subtype);
-    writeLog("DEBUG"," getMetasSeriesPages=> added " + name + " ID: " + seriesID + ", link: " + link);    
-
+    //Set videos
+    getVideos(root.querySelectorAll('div.seasons-item'), seriesID);
+    //writeLog("DEBUG"," getMetasSeriesPages=> added " + name + " ID: " + seriesID + ", link: " + link + "name: " + name);   
 }
+
+
 
 async function getVideos(elemSeasons, seriesID){
     var videosList = [];
 
     var totalNoOfSeasons = elemSeasons.length;
+    writeLog("DEBUG", "getVideos=> number of seasons: " + totalNoOfSeasons);
     for (let i = 0; i < totalNoOfSeasons; i++){ //iterate over the seasons
         var seasonNo = totalNoOfSeasons - i; //what season is this
         var elemEpisodes = elemSeasons[i].querySelectorAll('a.card-link');//get all the episodes
+        writeLog("DEBUG", "getVideos=> Number of episodes: " + elemEpisodes.length)
         for (let iter = 0; iter < elemEpisodes.length; iter++){ //iterate over the episodes
             var episode = elemEpisodes[iter];
             var episodeLink = episode.attributes.href;
@@ -223,9 +234,8 @@ async function getVideos(elemSeasons, seriesID){
             }
 
             videoId = seriesID + ":" + seasonNo + ":" + (iter + 1);
-            var streams = await getStream(episodeLink);
-            
-            writeLog("DEBUG"," getVideos=> added ID: " + videoId + ", link: " + episodeLink);    
+            var streams = await getStream(episodeLink,videoId);
+
             videosList.push({
                 id: videoId,
                 title: title,
@@ -237,13 +247,16 @@ async function getVideos(elemSeasons, seriesID){
                 episodelink: episodeLink
             });
         }
+
     }
     //return videosList;
     listSeries.setVideosById(seriesID, videosList);
+    
 }
 
-async function getStream(link){
+async function getStream(link, videoId){
     var streamsList = [];
+    writeLog("DEBUG","getStream => Link: " + link + "ID: " + videoId);
     var b = await fetchPage(link);
     for (let iter = 0; iter < b.querySelectorAll("script").length; iter++){ //iterate over the episode stream links
         var selectedData = b.querySelectorAll("script")[iter];
@@ -251,7 +264,7 @@ async function getStream(link){
         if (scriptData.includes("VideoObject")){
             scriptData = scriptData.substring(scriptData.indexOf('{'), scriptData.indexOf('}') + 1);
             
-            writeLog("DEBUG"," getStream=> added Link: " + link);
+            //writeLog("DEBUG"," getStream=> added Link: " + link);
             //var videoUrl = JSON.parse(scriptData)["contentUrl"];
             var videoUrl = getEpisodeUrl(scriptData);
             var nameVideo = "";
@@ -269,7 +282,7 @@ async function getStream(link){
                     descVideo = b.querySelector("div.info-description").text;
                 }
             
-            writeLog("DEBUG"," getStream=> added name: " + nameVideo + ", videoUrl: " + videoUrl);
+            //writeLog("DEBUG"," getStream=> added name: " + nameVideo + ", videoUrl: " + videoUrl);
             streamsList.push(
             {
                 url: videoUrl,
@@ -280,6 +293,7 @@ async function getStream(link){
         }
     }
     return streamsList;
+    //listSeries.setStreamsById(videoId,streamsList);
 }
 
 function getEpisodeUrl(str){
@@ -295,13 +309,14 @@ function getEpisodeUrl(str){
 }
 
 async function fetchPage(link){
+    //writeLog("DEBUG","fetchPage => " + link)
     var root = "";
     try{
         var response = await fetch(link);
         var html = await response.text();
         var root = parse(html);
     } catch(error){
-        console.log("Error fetching series page:", error);
+        console.log("Error fetching series page:" + link, error);
     }
 
     return root;
@@ -439,6 +454,8 @@ function setLiveTVToList(){
 
     var idKan = "kanTV_01";
     var idKanKids = "kanTV_02";
+    var idKnesset = "kanTv_03";
+
     var metasKan = {
         id: idKan,
         type: "tv",
@@ -457,6 +474,8 @@ function setLiveTVToList(){
                 streams: [
                     {
                         url: "https://kan11w.media.kan.org.il/hls/live/2105694/2105694/source1_600/chunklist.m3u8",
+                        name: "שידור חי כאן 11",
+                        type: "tv",
                         description: "Kan 11 Live Stream From Israel"  
                     }
                 ]
@@ -481,7 +500,36 @@ function setLiveTVToList(){
                 streams: [
                     {
                         url: "https://kan23.media.kan.org.il/hls/live/2024691-b/2024691/source1_4k/chunklist.m3u8",
+                        nane: "שידור חי חינוכית",
+                        type: "tv",
                         description: "Live stream from Kids Channel in Israel"  
+                    }
+                ]
+            }
+        ]
+    }
+
+    var metasKnesset = {
+        id: idKnesset,
+        type: "tv",
+        name: "ערוץ הכנסת",
+        genres: "Actuality",
+        background: "https://www.knesset.tv/media/20004/logo-new.png",
+        poster: "https://www.knesset.tv/media/20004/logo-new.png",
+        description: "שידורי ערות הכנסת - 99" ,
+        logo: "",
+        videos: [
+            {
+                id: idKan,
+                title: "ערוץ הכנסת 99",
+                //thumbnail: episodeLogoUrl,
+                description: "שידורי ערוץ הכנסת 99",
+                streams: [
+                    {
+                        url: "https://contactgbs.mmdlive.lldns.net/contactgbs/a40693c59c714fecbcba2cee6e5ab957/manifest.m3u8",
+                        name: "ערוץ הכנסת 99",
+                        type: "tv",
+                        description: "שידורי ערוץ הכנסת 99"  
                     }
                 ]
             }
@@ -507,11 +555,11 @@ function setLiveTVToList(){
 function writeLog(level, msg){
     if (logLevel == "INFO"){
         if (level =="INFO"){
-            console.log(msg)
+            console.log(level + ": " + msg);
         } 
     } else if (logLevel == "DEBUG"){
         if ((level == "DEBUG")|| (level == "INFO")){
-            console.log(msg)
+            console.log(level + ": " + msg);
         }
     }
 }
