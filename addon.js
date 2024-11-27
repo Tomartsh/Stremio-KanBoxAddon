@@ -65,7 +65,7 @@ const builder = new addonBuilder(manifest)
 
 builder.defineCatalogHandler(({type, id, extra}) => {
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineCatalogHandler.md
-	writeLog("DEBUG","request for catalogs: "+type+" "+id + " search: " + extra.search)
+	writeLog("INFO","request for catalogs: "+type+" "+id + " search: " + extra.search)
 	var metas = [];
     var search;
     if ((extra.search == "undefined") || (extra.search == null)){
@@ -105,14 +105,14 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 })
 
 builder.defineMetaHandler(({type, id}) => {
-	writeLog("DEBUG","defineMetaHandler=> request for meta: "+type+" "+id);
+	writeLog("INFO","defineMetaHandler=> request for meta: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	var meta = listSeries.getMetaById(id);
     return Promise.resolve({ meta: meta })
 })
 
 builder.defineStreamHandler(({type, id}) => {
-	writeLog("DEBUG","defineStreamHandler=> request for streams: "+type+" "+id);
+	writeLog("INFO","defineStreamHandler=> request for streams: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineStreamHandler.md
 	var streams = listSeries.getStreamsById(id)
     
@@ -145,20 +145,16 @@ async function getSeriesLinks(){
 
             var b = await fetchPage(link);
 
-            //await 
             getMetasSeriesPages(link, imgUrl, b)
         }
 }
 
-//async 
 function getMetasSeriesPages(link, imgUrl, root){
     var seriesID = setID(link);
     var subtype = "";
     var name = "";
     var description = "";
     var videos = [];
-
-    //var root = await fetchPage(link);
 
     if (link.includes("/content/kan/")) {
         subtype = "d";
@@ -175,8 +171,7 @@ function getMetasSeriesPages(link, imgUrl, root){
 
     //set the genres
     var genres = setGenre(root.querySelector('div.info-genre'));
-    //videos = getVideos(root.querySelectorAll('div.seasons-item'), seriesID);
-    //writeLog("DEBUG"," getMetasSeriesPages=> Videos size: " + videos.length); 
+
     
     //set meta
     var metas = {
@@ -193,13 +188,10 @@ function getMetasSeriesPages(link, imgUrl, root){
         videos: videos
     }  
     
-    //set videos
-    //videos = getVideos(root.querySelectorAll('div.seasons-item'), seriesID);
-
     listSeries.addItemByDetails(seriesID, name, imgUrl, description, link, imgUrl, genres, metas, "series", subtype);
     //Set videos
     getVideos(root.querySelectorAll('div.seasons-item'), seriesID);
-    //writeLog("DEBUG"," getMetasSeriesPages=> added " + name + " ID: " + seriesID + ", link: " + link + "name: " + name);   
+    writeLog("DEBUG"," getMetasSeriesPages=> added " + name + " ID: " + seriesID + ", link: " + link + "name: " + name);   
 }
 
 
@@ -272,8 +264,7 @@ async function getStream(link, videoId){
         if (scriptData.includes("VideoObject")){
             scriptData = scriptData.substring(scriptData.indexOf('{'), scriptData.indexOf('}') + 1);
             
-            //writeLog("DEBUG"," getStream=> added Link: " + link);
-            //var videoUrl = JSON.parse(scriptData)["contentUrl"];
+            writeLog("DEBUG"," getStream=> added Link: " + link);
             var videoUrl = getEpisodeUrl(scriptData);
             var nameVideo = "";
             if ((b.querySelector("div.info-title h1.h2") != null) && 
@@ -290,7 +281,7 @@ async function getStream(link, videoId){
                     descVideo = b.querySelector("div.info-description").text;
                 }
             
-            //writeLog("DEBUG"," getStream=> added name: " + nameVideo + ", videoUrl: " + videoUrl);
+            writeLog("DEBUG"," getStream=> added name: " + nameVideo + ", videoUrl: " + videoUrl);
             streamsList.push(
             {
                 url: videoUrl,
@@ -301,7 +292,6 @@ async function getStream(link, videoId){
         }
     }
     return streamsList;
-    //listSeries.setStreamsById(videoId,streamsList);
 }
 
 function getEpisodeUrl(str){
@@ -317,7 +307,7 @@ function getEpisodeUrl(str){
 }
 
 async function fetchPage(link){
-    //writeLog("DEBUG","fetchPage => " + link)
+    writeLog("DEBUG","fetchPage => " + link)
     var root = "";
     try{
         var response = await fetch(link);
@@ -340,7 +330,6 @@ function setDescription(descArr){
     return description;
 }
 
-//function setGenre(genresArr) {
 function setGenre(genresDiv) {
     if ((genresDiv == undefined) || (genresDiv == null)){ return "Kan";}
     
@@ -460,10 +449,19 @@ function getNameFromSeriesPage(name){
 //+===================================================================================
 function setLiveTVToList(){
 
-    var idKan = "kanTV_01";
-    var idKanKids = "kanTV_02";
-    var idKnesset = "kanTv_03";
+    var idKan = "kanTV_04";
+    var idKanKids = "kanTV_05";
+    var idKnesset = "kanTv_06";
 
+    var streamsKan = [];
+    streamsKan.push (
+        {
+            url: "https://kan11w.media.kan.org.il/hls/live/2105694/2105694/source1_600/chunklist.m3u8",
+            name: "שידור חי כאן 11",
+            type: "tv",
+            description: "Kan 11 Live Stream From Israel"  
+        }
+    )
     var metasKan = {
         id: idKan,
         type: "tv",
@@ -471,22 +469,17 @@ function setLiveTVToList(){
         genres: "Actuality",
         background: "https://efitriger.com/wp-content/uploads/2022/11/%D7%9B%D7%90%D7%9F-BOX-660x330.jpg",
         poster: "https://octopus.org.il/wp-content/uploads/2022/01/logo_ogImageKan.jpg",
+        posterShape: "landscape",
         description: "Kan 11 Live Stream From Israel" ,
         logo: "",
         videos: [
             {
-                id: idKan + "1:1",
+                id: idKan,
                 title: "Kan 11 Live Stream",
                 //thumbnail: episodeLogoUrl,
                 description: "Kan 11 Live Stream From Israel",
-                streams: [
-                    {
-                        url: "https://kan11w.media.kan.org.il/hls/live/2105694/2105694/source1_600/chunklist.m3u8",
-                        name: "שידור חי כאן 11",
-                        type: "tv",
-                        description: "Kan 11 Live Stream From Israel"  
-                    }
-                ]
+                released: Date.now(),
+                streams: streamsKan
             }
         ]
     }
@@ -499,12 +492,14 @@ function setLiveTVToList(){
         background: "https://directorsguild.org.il/wp-content/uploads/2022/04/share_kan_hinuchit.jpeg",
         description: "Kan Kids Live Stream From Israel" ,
         poster: "https://directorsguild.org.il/wp-content/uploads/2022/04/share_kan_hinuchit.jpeg",
+        posterShape: "landscape",
         videos:[ 
             {
-                id: idKanKids  + "1:1",
+                id: idKanKids,
                 title: "Kids Live Stream",
                 //thumbnail: episodeLogoUrl,
                 description: "Kids Live Stream From Israel",
+                released: Date.now(),
                 streams: [
                     {
                         url: "https://kan23.media.kan.org.il/hls/live/2024691-b/2024691/source1_4k/chunklist.m3u8",
@@ -524,14 +519,16 @@ function setLiveTVToList(){
         genres: "Actuality",
         background: "https://www.knesset.tv/media/20004/logo-new.png",
         poster: "https://www.knesset.tv/media/20004/logo-new.png",
+        posterShape: "landscape",
         description: "שידורי ערות הכנסת - 99" ,
         logo: "",
         videos: [
             {
-                id: idKnesset  + "1:1",
+                id: idKnesset,
                 title: "ערוץ הכנסת 99",
                 //thumbnail: episodeLogoUrl,
                 description: "שידורי ערוץ הכנסת 99",
+                released: Date.now(),
                 streams: [
                     {
                         url: "https://contactgbs.mmdlive.lldns.net/contactgbs/a40693c59c714fecbcba2cee6e5ab957/manifest.m3u8",
@@ -544,7 +541,6 @@ function setLiveTVToList(){
         ]
     }
 
-    //listSeries.addItem(tvLive11);
     listSeries.addItemByDetails(idKan, "Kan 11 Live Stream", "http://res.cloudinary.com/atzuma/image/upload/v1492370857/atzuma/ti0gm5xxyknqylq8mgr5.jpg",
         "Kan 11 Live Stream From Israel", "", "http://res.cloudinary.com/atzuma/image/upload/v1492370857/atzuma/ti0gm5xxyknqylq8mgr5.jpg",
         "", metasKan, "tv","t"
@@ -553,8 +549,8 @@ function setLiveTVToList(){
         "Kan Kids Live Stream From Israel", "", "https://kan-media.kan.org.il/media/0ymcnuw4/logo_hinuchit_main.svg",
         "", metasKids, "tv", "t"
     );
-    listSeries.addItemByDetails(idKnesset, "שידורי ערוץ הכנסת 99", "https://www.knesset.tv/media/20004/logo-new.png",
-        "שידורי ערוץ הכנסת 99", "", "https://www.knesset.tv/media/20004/logo-new.png",
+    listSeries.addItemByDetails(idKnesset, "שידורי ערוץ הכנסת 99", "https://m.isramedia.net/images/channelpic/c99.webp",
+        "שידורי ערוץ הכנסת 99", "", "https://m.isramedia.net/images/channelpic/c99.webp",
         "", metasKnesset, "tv", "t"
     );
 }

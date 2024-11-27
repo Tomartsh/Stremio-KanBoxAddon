@@ -11,7 +11,7 @@ class srList {
 
     // Add an item to the list (each item is an object with an id and key-value pair)
     // values are stated speratately
-    addItemByDetails(id, name, poster, description, link, background, genres, metas, type, subType, root) {
+    addItemByDetails(id, name, poster, description, link, background, genres, metas, type, subType) {
         var item = {
             id: id,
             type: type,
