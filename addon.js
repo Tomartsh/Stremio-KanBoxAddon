@@ -212,8 +212,11 @@ async function getMovie(root, seriesID){
     }
 
     var elemImage = String(root.querySelector("div.block-img"));
-    var startPoint = elemImage.indexOf("--desktop-vod-bg-image: url(") + 28;
-    var imgUrl = elemImage.substring(startPoint, elemImage.indexOf("\')") + 28);
+    var startPoint = elemImage.indexOf("--desktop-vod-bg-image: url(") + 29;
+    var imgUrl = elemImage.substring(startPoint, elemImage.indexOf("?"));
+    if (imgUrl.startsWith("/")){ 
+        imgUrl = "https://www.kan.org.il" + imgUrl;
+    }
 
     var movieId = seriesID + ":1:1";
 
@@ -229,7 +232,7 @@ async function getMovie(root, seriesID){
         thumbnail: imgUrl,
         description: desc,
         streams: streams,
-        episodelink: ""
+        episodelink: episodeLink
     });
     listSeries.setVideosById(seriesID, videosList);
 }
