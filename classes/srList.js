@@ -71,10 +71,25 @@ class srList {
     }
     
     getStreamsById(id){
-        var meta = this.getMetaById(id);
+        var seriesId = id;
+        var seasonId;
+        var episodeId;
+        if (seriesId.indexOf(":") > 0){ 
+            var tempId = id.split(":")
+            seriesId = tempId[0];
+            seasonId = tempId[1];
+            episodeId = tempId[2];
+        }
+
+        var meta = this.getMetaById(seriesId);
         var videos = meta["videos"];
-        return videos.streams;
+        var streams = [];
+        for (var video in videos){
+            if (video.id == id) {streams = video.streams;}
+        }
+        return streams;
     }
+
     setVideosById(id, videos){
         if ((id == undefined) || (id == "")){
             return;

@@ -3,12 +3,14 @@ const srList = require("./classes/srList");
 const constants = require("./classes/constants");
 
 const { parse } = require('node-html-parser');
-const logLevel = "INFO";
+const logLevel = "DEBUG";
 
 const listSeries = new srList();
 
-setLiveTVToList();
-getSeriesLinks();
+//setLiveTVToList();
+//getSeriesLinks();
+//getHinuchitSeriesLinksTiny();
+getHinuchitSeriesLinksTeens();
 
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md
 const manifest = {
@@ -42,10 +44,25 @@ const manifest = {
 				{name: "genre", isRequired: false}
 			]
 		},
+        {
+			type: "series",
+			id: "KanTeens",
+			name: "כאן 11 נוער",
+			extra: [
+				{name: "search", isRequired: false},
+				{name: "genre", isRequired: false}
+			]
+		},
 		{
 			type: "tv",
 			id: "kanLive",
 			name: "כאן שידור חי",
+			extra: [ {name: "search", isRequired: false }]
+		},
+        {
+			type: "podcasts",
+			id: "kanPodcasts",
+			name: "כאן הסכתים",
 			extra: [ {name: "search", isRequired: false }]
 		}
 	],
@@ -56,7 +73,8 @@ const manifest = {
 	],
 	"types": [
 		"series",
-		"tv"
+		"tv",
+        "podcasts"
 	],
 	"name": "Stremio-Kan",
 	"description": "Kan Digital and live broadcast"
@@ -83,6 +101,8 @@ builder.defineCatalogHandler(({type, id, extra}) => {
                 metas = listSeries.getMetasBySubtypeAndName("a", search);
             } else if (id == "KanKids"){
                 metas = listSeries.getMetasBySubtypeAndName("k",search);
+            } else if (id == "KanTeens"){
+                metas = listSeries.getMetasBySubtypeAndName("n",search);
             } else {
                 metas = listSeries.getMetasBySubtypeAndName("d", search);
             }
@@ -130,10 +150,12 @@ async function getSeriesLinks(){
             var link = elem.attributes.href;
             
             //TODO: add support for podcasts
-            //remove podcasts
-            if (link.indexOf("podcasts") > 0 ){
+            //remove podcasts and hinuchit
+            if ((link.indexOf("podcasts") > 0 ) ||
+                (link.includes("/content/kan/"))){
                 continue;
             }
+
             //If we do not have a valid seriesID or link, we cannot add this entry
             if ((link == null) || (link == undefined) || (link == "")){
                 continue;
@@ -161,12 +183,14 @@ function getMetasSeriesPages(link, imgUrl, root){
     } else if (link.includes("/archive1/")) {
         subtype = "a";
     } else if (link.includes("/content/kids/hinuchit-main/")) {
-        subtype = "k";
+        //subtype = "k";
+        return;
     } else {
         subtype = "d";
     }
 
     name = getNameFromSeriesPage(root.querySelector('title').text);
+    //TODO: add what if name is empty. look in java
     description = setDescription(root.querySelectorAll('div.info-description p'));
 
     //set the genres
@@ -193,13 +217,13 @@ function getMetasSeriesPages(link, imgUrl, root){
     if (root.querySelectorAll('div.seasons-item').length > 0) {
         getVideos(root.querySelectorAll('div.seasons-item'), seriesID);
     } else { //probably a movie
-        getMovie(root, seriesID)
+        getMovie(root, seriesID, subtype)
     }
     writeLog("DEBUG"," getMetasSeriesPages=> added " + name + " ID: " + seriesID + ", link: " + link + "name: " + name);   
 }
 
 
-async function getMovie(root, seriesID){
+async function getMovie(root, seriesID,subType){
     var videosList = [];
     var title = "";
     if (root.querySelector("h2")){
@@ -219,8 +243,16 @@ async function getMovie(root, seriesID){
     }
 
     var movieId = seriesID + ":1:1";
-
-    var episodeLink = root.querySelector("a.btn.with-arrow.info-link.btn-gradient").attrs.href;
+    var episodeLink;
+    if (root.querySelector("a.btn.with-arrow.info-link")){
+        //episodeLink = root.querySelector("a.btn.with-arrow.info-link.btn-gradient").attrs.href;
+        episodeLink = root.querySelector("a.btn.with-arrow.info-link").attrs.href;
+    } else { 
+        if ( subType == "k"){
+            //root.querySelector("a.btn.with-arrowinfo-link.btn-general-sm.btn-secondary").attrs.href;
+        }
+        writeLog("INFO", "Look at this: " + root)}
+     
     //episodeLink = episodeLink.substring(9,episodeLink.indexOf("/\"") + 1);
     var streams = await getStream(episodeLink,movieId);
 
@@ -433,6 +465,93 @@ function setGenre(genresDiv) {
             case "קומדיה וסאטירה":
                 genres.push("Comedy");
                 break;
+            case "אנימציה":
+                genres.push("Animation");
+                break;
+            case "מצוירים":
+                genres.push("Animation");
+                break;
+            case "קטנטנים":
+                genres.push("Kids");
+                break;
+            default:  
+                genres.push("Kan");
+                break;         
+        } 
+    }
+    return genres;
+}
+
+function setGenreFromString(str) {
+    if (str == "") { return "Kan";}
+    
+    var genresArr = str.split(",");
+    var genres = [];
+    if (genresArr < 1) {return "Kan";}
+    for (var check of genresArr){
+        check = check.trim();
+
+        switch(check) {
+            case "דרמה":
+                genres.push("Drama");
+                break;
+            case "מתח":
+                genres.push("Thriller");
+                break;
+            case "פעולה":
+                genres.push("Action");
+                break;
+            case "אימה":
+                genres.push("Horror");
+                break;
+            case "דוקו":
+                genres.push("Documentary");
+                break;
+            case "אקטואליה":
+                genres.push("Documentary");
+                break;
+            case "ארכיון":
+                genres.push("Archive");
+                break;
+            case "תרבות":
+                genres.push("Culture");
+                break;
+            case "היסטוריה":
+                genres.push("History");
+                break;
+            case "מוזיקה":
+                genres.push("Music");
+                break;
+            case "תעודה":
+                genres.push("Documentary");
+                break;
+            case "ספורט":
+                genres.push("Sport");
+                break;
+            case "קומדיה":
+                genres.push("Comedy");
+                break;
+            case "ילדים":
+                genres.push("Kids");
+                break;
+            case "ילדים ונוער":
+                if (! genres.indexOf("Kids")) { genres.push("Kids"); }
+                break;
+            case "בישול":
+                genres.push("Cooking");
+                break;
+            case "קומדיה וסאטירה":
+                genres.push("Comedy");
+                break;
+            case "אנימציה":
+                genres.push("Animation");
+                break;
+            case "מצוירים":
+                genres.push("Animation");
+                break;
+            case "קטנטנים":
+                if (! genres.indexOf("Kids")) { genres.push("Kids"); }
+                break;
             default:  
                 genres.push("Kan");
                 break;         
@@ -477,8 +596,11 @@ function getNameFromSeriesPage(name){
         if (name.indexOf (" - תכניות מלאות לצפייה ישירה") > 0){
             name = name.substring(0,name.indexOf("-") - 1).trim();
         }
-         if (name.indexOf ("- סרטונים מלאים לצפייה ישירה") > 0){
+        if (name.indexOf ("- סרטונים מלאים לצפייה ישירה") > 0){
             name = name.substring(0,name.indexOf("-") - 1).trim();
+        }
+        if (name.indexOf ("239 360") > 0){
+            name = name.replace("Poster 239 360","");
         }
         return name.trim();
     }
@@ -598,9 +720,231 @@ function setLiveTVToList(){
 
 //+===================================================================================
 //
-//  Utility related code
-//
+//  Kan Hinuchit functions
 //+===================================================================================
+
+async function getHinuchitSeriesLinksTiny(){
+    const root = await fetchPage(constants.url_hiuchit_tiny);
+
+    var seriesArray = root.querySelectorAll('div.umb-block-list div script');
+    var kidsScriptStr = seriesArray[4].toString();
+    var startIndex = kidsScriptStr.indexOf("[{");
+    var lastIndex = kidsScriptStr.lastIndexOf("}]") +2 ;
+    var kidsJsonStr = kidsScriptStr.substring(startIndex, lastIndex);
+    var hinuchitTiny = JSON.parse(kidsJsonStr);
+    var seriesIterator = 1;
+    for (var key in hinuchitTiny){ //iterate over series
+
+        var id = constants.prefix_kanbox + "tiny_" + padWithLeadingZeros(seriesIterator,5);
+        var name = getNameFromSeriesPage(hinuchitTiny[key].ImageAlt);
+        var desc = hinuchitTiny[key].Description;
+        var imgUrl = constants.url_hinuchit_kids_content_prefix  + hinuchitTiny[key].Image.substring(0,hinuchitTiny[key].Image.indexOf("?"));
+        var seriesPage = constants.url_hinuchit_kids_content_prefix + hinuchitTiny[key].Url;
+        var genres = setGenreFromString(hinuchitTiny[key].Genres);
+        //var subType;
+        //if (seriesPage.indexOf("ktantanim")){
+        //    subType = "k";
+        //} else {
+        //    subType = "n";
+        //}
+
+        var videosList = [];
+        var doc = await fetchPage(seriesPage);
+        var streamsList = [];
+        var seriesEpisodeElem = doc.querySelectorAll("li.border-item");
+        if ((seriesEpisodeElem == undefined) || (seriesEpisodeElem == null)){ continue;}
+
+        var episodeNo = 0;
+        for (var i = 0;  i< seriesEpisodeElem.length; i++){ //iterate over episodes
+            episodeNo++;
+
+            var elemStr = seriesEpisodeElem[i].toString();
+            
+            var linkStartingPoint = elemStr.indexOf("<a href=") + 9;
+            var linkEpisode = elemStr.substring(linkStartingPoint);
+            linkEpisode = linkEpisode.substring(0,linkEpisode.indexOf("class=") -3);
+            linkEpisode = constants.url_hinuchit_kids_content_prefix + linkEpisode;
+
+            var nameStartPoint = elemStr.indexOf("title=") + 7;
+            var nameEpisode = elemStr.substring(nameStartPoint);
+            nameEpisode = nameEpisode.substring(0,nameEpisode.indexOf(">") -1 ); 
+            nameEpisode = nameEpisode.replace(name + " |", "").trim();
+
+            var imgUrlStartPoint = elemStr.indexOf("<img src=") + 10;
+            var imgUrlEpisode = elemStr.substring(imgUrlStartPoint);
+            imgUrlEpisode = imgUrlEpisode.substring(0, imgUrlEpisode.indexOf("?"));
+            imgUrlEpisode = constants.url_hinuchit_kids_content_prefix + imgUrlEpisode;
+
+            var descriptionStartingPoint = elemStr.indexOf("<div class=\"card-text\">") + 23;
+            var descriptionEpisode = elemStr.substring(descriptionStartingPoint);
+            var descriptionEpisode = descriptionEpisode.substring(0, descriptionEpisode.indexOf("</div>"));
+
+            streamsList = await getStreamsKids(linkEpisode, nameEpisode);            
+
+            //set video object
+            videosList.push({
+                id: id + ":1:" + episodeNo,
+                title: nameEpisode,
+                season: "1",
+                episode: episodeNo,
+                thumbnail: imgUrlEpisode,
+                description: descriptionEpisode,
+                streams: streamsList,
+                episodelink: linkEpisode
+            });
+        }
+
+        var meta = {
+            id: id,
+            type: "series",
+            name: name,
+            genres: genres,
+            background: imgUrl,
+            poster: imgUrl,
+            posterShape: "poster",
+            description: desc,
+            link: seriesPage,
+            logo: imgUrl,
+            videos: videosList
+        }  
+
+        listSeries.addItemByDetails(id, name, imgUrl,desc, seriesPage, imgUrl,genres, meta, "series","k");
+        seriesIterator++;
+    }
+}
+
+async function getStreamsKids(linkEpisode, nameEpisode){
+    //get stream
+    var streamDoc = await fetchPage(linkEpisode);
+    for (let iter = 0; iter < streamDoc.querySelectorAll("script").length; iter++){ //iterate over the episode stream links
+        var selectedData = streamDoc.querySelectorAll("script")[iter];
+        var scriptData = String(selectedData);
+        if (scriptData.includes("VideoObject")){
+            scriptData = scriptData.substring(scriptData.indexOf('{'), scriptData.indexOf('}') + 1);
+            
+            writeLog("DEBUG"," getStream=> added Link: " + nameEpisode + " " + linkEpisode);
+            var videoUrl = getEpisodeUrl(scriptData);
+            var descriptionStream = "";
+            if (streamDoc.querySelector("div.info-description").text != null){
+                descriptionStream = streamDoc.querySelector("div.info-description").text;
+            }
+            var streamsList = [];
+            streamsList.push(
+            {
+                url: videoUrl,
+                type: "series",
+                name: nameEpisode,
+                description: descriptionStream  
+            })
+            return streamsList;
+        }
+    }
+}
+
+async function getHinuchitSeriesLinksTeens(){
+    const root = await fetchPage(constants.url_hiuchit_teen);
+    seriesTeenStr = root.toString();
+    var seriesStartPoint = seriesTeenStr.indexOf("digitalSeries:") + 15;
+    var seriesJson = seriesTeenStr.substring(seriesStartPoint);
+    var seriesEndPoint = seriesJson.indexOf("}]") +2;
+    seriesJson = seriesJson.substring(0,seriesEndPoint);
+    var hinuchitTeen = JSON.parse(seriesJson);
+
+    addMetasForKids(hinuchitTeen, "n");
+}
+
+async function addMetasForKids(jsonObj, subType){
+    var idIterator = 1;
+    
+
+    for (var key in jsonObj){ //iterate over series    
+        //reset variables
+        var meta= {};
+        var videosList = [];
+
+        var id = constants.prefix_kanbox + "teen_" + padWithLeadingZeros(idIterator,5);
+        var name = getNameFromSeriesPage(jsonObj[key].ImageAlt);
+        var desc = jsonObj[key].Description;
+        var imgUrl = constants.url_hinuchit_kids_content_prefix  + jsonObj[key].Image.substring(0,jsonObj[key].Image.indexOf("?"));
+        var seriesPage = constants.url_hinuchit_kids_content_prefix + jsonObj[key].Url;
+        var genres = setGenreFromString(jsonObj[key].Genres);
+
+        var doc = await fetchPage(seriesPage + "?currentPage=2&itemsToShow=100");
+        
+        //get the number of seasons
+        var seasons = doc.querySelectorAll("div.seasons-item.kids");
+        var noOfSeasons = seasons.length;
+        var seriesIterator = noOfSeasons;
+        for (var i = 0; i< noOfSeasons; i++){
+            seasonElement = seasons[i];
+            var episodeElement = seasonElement.querySelectorAll("li.border-item");
+            var episodeNo = 0;
+            
+            for (var iter = 0;  iter < episodeElement.length; iter++){ //iterate over episodes
+                episodeNo++;
+                var elemStr = episodeElement[iter].toString();
+            
+                var linkStartingPoint = elemStr.indexOf("<a href=") + 9;
+                var linkEpisode = elemStr.substring(linkStartingPoint);
+                linkEpisode = linkEpisode.substring(0,linkEpisode.indexOf("class=") -3);
+                linkEpisode = constants.url_hinuchit_kids_content_prefix + linkEpisode;
+
+                var nameStartPoint = elemStr.indexOf("title=") + 7;
+                var nameEpisode = elemStr.substring(nameStartPoint);
+                nameEpisode = nameEpisode.substring(0,nameEpisode.indexOf(">") -1 ); 
+                nameEpisode = nameEpisode.replace(name + " |", "").trim();
+
+                var imgUrlStartPoint = elemStr.indexOf("<img src=") + 10;
+                var imgUrlEpisode = elemStr.substring(imgUrlStartPoint);
+                imgUrlEpisode = imgUrlEpisode.substring(0, imgUrlEpisode.indexOf("?"));
+                imgUrlEpisode = constants.url_hinuchit_kids_content_prefix + imgUrlEpisode;
+
+                var descriptionStartingPoint = elemStr.indexOf("<div class=\"card-text\">") + 23;
+                var descriptionEpisode = elemStr.substring(descriptionStartingPoint);
+                descriptionEpisode = descriptionEpisode.substring(0, descriptionEpisode.indexOf("</div>"));
+                descriptionEpisode = descriptionEpisode.replace(/[\r\n]+/gm, "");
+
+                var streamsList = [];
+                streamsList = await getStreamsKids(linkEpisode, nameEpisode);  
+                //set video object
+                videosList.push({
+                    id: id + ":" + seriesIterator + ":" + episodeNo,
+                    title: nameEpisode,
+                    season: seriesIterator,
+                    episode: episodeNo,
+                    thumbnail: imgUrlEpisode,
+                    description: descriptionEpisode,
+                    streams: streamsList,
+                    episodelink: linkEpisode
+                });
+            }
+        }
+        meta = {
+            id: id,
+            type: "series",
+            name: name,
+            genres: genres,
+            background: imgUrl,
+            poster: imgUrl,
+            posterShape: "poster",
+            description: desc,
+            link: seriesPage,
+            logo: imgUrl,
+            videos: videosList
+        }  
+    
+        listSeries.addItemByDetails(id, name, imgUrl,desc, seriesPage, imgUrl,genres, meta, "series",subType);
+        idIterator++;
+    }
+}
+//+===================================================================================
+//
+//  Utility functions
+//+===================================================================================
+function padWithLeadingZeros(num, totalLength) {
+    return String(num).padStart(totalLength, '0');
+}
+
 function writeLog(level, msg){
     if (logLevel == "INFO"){
         if (level =="INFO"){
