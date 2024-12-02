@@ -7,9 +7,9 @@ const logLevel = "DEBUG";
 
 const listSeries = new srList();
 
-//setLiveTVToList();
-//getSeriesLinks();
-//getHinuchitSeriesLinksTiny();
+setLiveTVToList();
+getSeriesLinks();
+getHinuchitSeriesLinksTiny();
 getHinuchitSeriesLinksTeens();
 
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md
@@ -732,85 +732,8 @@ async function getHinuchitSeriesLinksTiny(){
     var lastIndex = kidsScriptStr.lastIndexOf("}]") +2 ;
     var kidsJsonStr = kidsScriptStr.substring(startIndex, lastIndex);
     var hinuchitTiny = JSON.parse(kidsJsonStr);
-    var seriesIterator = 1;
-    for (var key in hinuchitTiny){ //iterate over series
-
-        var id = constants.prefix_kanbox + "tiny_" + padWithLeadingZeros(seriesIterator,5);
-        var name = getNameFromSeriesPage(hinuchitTiny[key].ImageAlt);
-        var desc = hinuchitTiny[key].Description;
-        var imgUrl = constants.url_hinuchit_kids_content_prefix  + hinuchitTiny[key].Image.substring(0,hinuchitTiny[key].Image.indexOf("?"));
-        var seriesPage = constants.url_hinuchit_kids_content_prefix + hinuchitTiny[key].Url;
-        var genres = setGenreFromString(hinuchitTiny[key].Genres);
-        //var subType;
-        //if (seriesPage.indexOf("ktantanim")){
-        //    subType = "k";
-        //} else {
-        //    subType = "n";
-        //}
-
-        var videosList = [];
-        var doc = await fetchPage(seriesPage);
-        var streamsList = [];
-        var seriesEpisodeElem = doc.querySelectorAll("li.border-item");
-        if ((seriesEpisodeElem == undefined) || (seriesEpisodeElem == null)){ continue;}
-
-        var episodeNo = 0;
-        for (var i = 0;  i< seriesEpisodeElem.length; i++){ //iterate over episodes
-            episodeNo++;
-
-            var elemStr = seriesEpisodeElem[i].toString();
-            
-            var linkStartingPoint = elemStr.indexOf("<a href=") + 9;
-            var linkEpisode = elemStr.substring(linkStartingPoint);
-            linkEpisode = linkEpisode.substring(0,linkEpisode.indexOf("class=") -3);
-            linkEpisode = constants.url_hinuchit_kids_content_prefix + linkEpisode;
-
-            var nameStartPoint = elemStr.indexOf("title=") + 7;
-            var nameEpisode = elemStr.substring(nameStartPoint);
-            nameEpisode = nameEpisode.substring(0,nameEpisode.indexOf(">") -1 ); 
-            nameEpisode = nameEpisode.replace(name + " |", "").trim();
-
-            var imgUrlStartPoint = elemStr.indexOf("<img src=") + 10;
-            var imgUrlEpisode = elemStr.substring(imgUrlStartPoint);
-            imgUrlEpisode = imgUrlEpisode.substring(0, imgUrlEpisode.indexOf("?"));
-            imgUrlEpisode = constants.url_hinuchit_kids_content_prefix + imgUrlEpisode;
-
-            var descriptionStartingPoint = elemStr.indexOf("<div class=\"card-text\">") + 23;
-            var descriptionEpisode = elemStr.substring(descriptionStartingPoint);
-            var descriptionEpisode = descriptionEpisode.substring(0, descriptionEpisode.indexOf("</div>"));
-
-            streamsList = await getStreamsKids(linkEpisode, nameEpisode);            
-
-            //set video object
-            videosList.push({
-                id: id + ":1:" + episodeNo,
-                title: nameEpisode,
-                season: "1",
-                episode: episodeNo,
-                thumbnail: imgUrlEpisode,
-                description: descriptionEpisode,
-                streams: streamsList,
-                episodelink: linkEpisode
-            });
-        }
-
-        var meta = {
-            id: id,
-            type: "series",
-            name: name,
-            genres: genres,
-            background: imgUrl,
-            poster: imgUrl,
-            posterShape: "poster",
-            description: desc,
-            link: seriesPage,
-            logo: imgUrl,
-            videos: videosList
-        }  
-
-        listSeries.addItemByDetails(id, name, imgUrl,desc, seriesPage, imgUrl,genres, meta, "series","k");
-        seriesIterator++;
-    }
+    
+    addMetasForKids(hinuchitTiny, "k");
 }
 
 async function getStreamsKids(linkEpisode, nameEpisode){
@@ -874,9 +797,9 @@ async function addMetasForKids(jsonObj, subType){
         //get the number of seasons
         var seasons = doc.querySelectorAll("div.seasons-item.kids");
         var noOfSeasons = seasons.length;
-        var seriesIterator = noOfSeasons;
         for (var i = 0; i< noOfSeasons; i++){
             seasonElement = seasons[i];
+            var seasonNo = noOfSeasons - i
             var episodeElement = seasonElement.querySelectorAll("li.border-item");
             var episodeNo = 0;
             
@@ -892,7 +815,9 @@ async function addMetasForKids(jsonObj, subType){
                 var nameStartPoint = elemStr.indexOf("title=") + 7;
                 var nameEpisode = elemStr.substring(nameStartPoint);
                 nameEpisode = nameEpisode.substring(0,nameEpisode.indexOf(">") -1 ); 
-                nameEpisode = nameEpisode.replace(name + " |", "").trim();
+                if (nameEpisode.indexOf("|") > 0){
+                    nameEpisode = nameEpisode.substring(nameEpisode.indexOf("|") + 1).trim();
+                }
 
                 var imgUrlStartPoint = elemStr.indexOf("<img src=") + 10;
                 var imgUrlEpisode = elemStr.substring(imgUrlStartPoint);
@@ -908,9 +833,9 @@ async function addMetasForKids(jsonObj, subType){
                 streamsList = await getStreamsKids(linkEpisode, nameEpisode);  
                 //set video object
                 videosList.push({
-                    id: id + ":" + seriesIterator + ":" + episodeNo,
+                    id: id + ":" + seasonNo + ":" + episodeNo,
                     title: nameEpisode,
-                    season: seriesIterator,
+                    season: seasonNo,
                     episode: episodeNo,
                     thumbnail: imgUrlEpisode,
                     description: descriptionEpisode,
