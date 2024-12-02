@@ -151,8 +151,7 @@ async function getSeriesLinks(){
             
             //TODO: add support for podcasts
             //remove podcasts and hinuchit
-            if ((link.indexOf("podcasts") > 0 ) ||
-                (link.includes("/content/kan/"))){
+            if (link.indexOf("podcasts") > 0 ) {
                 continue;
             }
 
@@ -278,7 +277,9 @@ async function getVideos(elemSeasons, seriesID){
         var seasonNo = totalNoOfSeasons - i; //what season is this
         var elemEpisodes = elemSeasons[i].querySelectorAll('a.card-link');//get all the episodes
         writeLog("DEBUG", "getVideos=> Number of episodes: " + elemEpisodes.length)
+        var episodeNo = 0
         for (let iter = 0; iter < elemEpisodes.length; iter++){ //iterate over the episodes
+            episodeNo++
             var episode = elemEpisodes[iter];
             var episodeLink = episode.attributes.href;
             if (episodeLink.startsWith('/')){
@@ -313,7 +314,7 @@ async function getVideos(elemSeasons, seriesID){
                 id: videoId,
                 title: title,
                 season: seasonNo,
-                episode: (iter + 1),
+                episode: episodeNo,
                 thumbnail: episodeLogoUrl,
                 description: desc,
                 streams: streams,
