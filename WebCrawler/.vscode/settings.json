@@ -1,0 +1,15 @@
+{
+    "java.project.sourcePaths": [
+        "src"
+    ],
+    "java.project.referencedLibraries": [
+        "/Users/ninouziel/Documents/Programming/Java/WebCrawler/lib/gson-2.11.0.jar",
+        "/Users/ninouziel/Documents/Programming/Java/WebCrawler/lib/jsoup-1.18.1.jar",
+        "/Users/ninouziel/Documents/Programming/Java/WebCrawler/lib/gson-2.11.0-javadoc.jar",
+        "/Users/ninouziel/Documents/Programming/Java/WebCrawler/lib/json-20230618.jar",
+        "lib/gson-2.11.0.jar",
+        "lib/gson-2.11.0-javadoc.jar",
+        "lib/json-20230618.jar",
+        "lib/jsoup-1.18.1.jar"
+    ]
+}
