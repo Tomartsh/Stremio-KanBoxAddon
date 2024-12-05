@@ -61,7 +61,7 @@ const manifest = {
 		},
         {
 			type: "podcasts",
-			id: "kanPodcasts",
+			id: "KanPodcasts",
 			name: "כאן הסכתים",
 			extra: [ {name: "search", isRequired: false }]
 		}
@@ -103,6 +103,8 @@ builder.defineCatalogHandler(({type, id, extra}) => {
                 metas = listSeries.getMetasBySubtypeAndName("k",search);
             } else if (id == "KanTeens"){
                 metas = listSeries.getMetasBySubtypeAndName("n",search);
+            } else if (id == "KanPodcasts"){
+                metas = listSeries.getMetasBySubtypeAndName("p",search);
             } else {
                 metas = listSeries.getMetasBySubtypeAndName("d", search);
             }
