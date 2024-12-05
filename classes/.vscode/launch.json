@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "WebCrawler",
+            "request": "launch",
+            "mainClass": "WebCrawler",
+            "projectName": "Stremio-KanBoxAddon_2911b562"
+        },
+        {
+            "type": "java",
             "name": "Java WebCrawler",
             "request": "launch",
             "mainClass": "WebCrawler.java"
@@ -18,7 +25,10 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/server.js",
-            "args": ["--", "--install"]
+            "args": [
+                "--",
+                "--install"
+            ]
         },
         {
             "name": "Launch via npm",
@@ -26,11 +36,14 @@
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "runtimeExecutable": "npm",
-            "runtimeArgs": ["run-script", "debug"],
+            "runtimeArgs": [
+                "run-script",
+                "debug"
+            ],
             "program": "${workspaceFolder}/server.js",
             "skipFiles": [
                 "<node_internals>/**"
-            ],
-          }
+            ]
+        }
     ]
 }
