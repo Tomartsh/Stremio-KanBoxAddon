@@ -7,10 +7,11 @@ const logLevel = "DEBUG";
 
 const listSeries = new srList();
 
-setLiveTVToList();
-getSeriesLinks();
-getHinuchitSeriesLinksTiny();
-getHinuchitSeriesLinksTeens();
+getJSONFile();
+//setLiveTVToList();
+//getSeriesLinks();
+//getHinuchitSeriesLinksTiny();
+//getHinuchitSeriesLinksTeens();
 
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md
 const manifest = {
@@ -141,6 +142,19 @@ builder.defineStreamHandler(({type, id}) => {
     //return Promise.resolve({ streams: [streams] });
     return Promise.resolve({ streams: [streams] });
 })
+
+async function getJSONFile(){
+    var link = "https://drive.google.com/file/d/1yNsxiEpFtETnM6qxnLTYZRyYMcXA5aXD/view?usp=sharing";
+
+    try{
+        var response = await fetch(link);
+        var html = await response.text();
+        var root = parse(html);
+    } catch(error){
+        console.log("Error fetching series page:" + link, error);
+    }
+
+}
 
 async function getSeriesLinks(){
 
