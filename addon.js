@@ -653,7 +653,7 @@ function setLiveTVToList(){
     var metasKids =  {
         id: idKanKids,
         type: "tv",
-        name: "חנוכית",
+        name: "חינוכית",
         genres: "Kids",
         background: "https://directorsguild.org.il/wp-content/uploads/2022/04/share_kan_hinuchit.jpeg",
         description: "Kan Kids Live Stream From Israel" ,
@@ -669,7 +669,7 @@ function setLiveTVToList(){
                 streams: [
                     {
                         url: "https://kan23.media.kan.org.il/hls/live/2024691-b/2024691/source1_4k/chunklist.m3u8",
-                        nane: "שידור חי חינוכית",
+                        name: "שידור חי חינוכית",
                         type: "tv",
                         description: "Live stream from Kids Channel in Israel"  
                     }
@@ -686,7 +686,7 @@ function setLiveTVToList(){
         background: "https://www.knesset.tv/media/20004/logo-new.png",
         poster: "https://www.knesset.tv/media/20004/logo-new.png",
         posterShape: "landscape",
-        description: "שידורי ערות הכנסת - 99" ,
+        description: "שידורי ערוץ הכנסת - 99" ,
         logo: "",
         videos: [
             {
