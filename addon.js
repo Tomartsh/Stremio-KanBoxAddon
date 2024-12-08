@@ -6,11 +6,12 @@ const { parse } = require('node-html-parser');
 const logLevel = "DEBUG";
 
 const listSeries = new srList();
-
-setLiveTVToList();
-getSeriesLinks();
-getHinuchitSeriesLinksTiny();
-getHinuchitSeriesLinksTeens();
+ 
+getJSONFile();
+//setLiveTVToList();
+//getSeriesLinks();
+//getHinuchitSeriesLinksTiny();
+//getHinuchitSeriesLinksTeens();
 
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md
 const manifest = {
@@ -61,7 +62,7 @@ const manifest = {
 		},
         {
 			type: "podcasts",
-			id: "kanPodcasts",
+			id: "KanPodcasts",
 			name: "כאן הסכתים",
 			extra: [ {name: "search", isRequired: false }]
 		}
@@ -103,6 +104,8 @@ builder.defineCatalogHandler(({type, id, extra}) => {
                 metas = listSeries.getMetasBySubtypeAndName("k",search);
             } else if (id == "KanTeens"){
                 metas = listSeries.getMetasBySubtypeAndName("n",search);
+            } else if (id == "KanPodcasts"){
+                metas = listSeries.getMetasBySubtypeAndName("p",search);
             } else {
                 metas = listSeries.getMetasBySubtypeAndName("d", search);
             }
@@ -139,6 +142,23 @@ builder.defineStreamHandler(({type, id}) => {
     //return Promise.resolve({ streams: [streams] });
     return Promise.resolve({ streams: [streams] });
 })
+
+async function getJSONFile(){
+    writeLog("DEUBG","Entered JSON");
+    var link = "https://drive.google.com/file/d/1yNsxiEpFtETnM6qxnLTYZRyYMcXA5aXD/view?usp=sharing";
+
+    try{
+        var response = await fetch(link);
+        var html = await response.json();
+        console.log(html);
+        var root = parse(html);
+    } catch(error){
+        console.log("Error fetching series page:" + link, error);
+    }
+
+    
+
+}
 
 async function getSeriesLinks(){
 
@@ -651,7 +671,7 @@ function setLiveTVToList(){
     var metasKids =  {
         id: idKanKids,
         type: "tv",
-        name: "חנוכית",
+        name: "חינוכית",
         genres: "Kids",
         background: "https://directorsguild.org.il/wp-content/uploads/2022/04/share_kan_hinuchit.jpeg",
         description: "Kan Kids Live Stream From Israel" ,
@@ -667,7 +687,7 @@ function setLiveTVToList(){
                 streams: [
                     {
                         url: "https://kan23.media.kan.org.il/hls/live/2024691-b/2024691/source1_4k/chunklist.m3u8",
-                        nane: "שידור חי חינוכית",
+                        name: "שידור חי חינוכית",
                         type: "tv",
                         description: "Live stream from Kids Channel in Israel"  
                     }
@@ -684,7 +704,7 @@ function setLiveTVToList(){
         background: "https://www.knesset.tv/media/20004/logo-new.png",
         poster: "https://www.knesset.tv/media/20004/logo-new.png",
         posterShape: "landscape",
-        description: "שידורי ערות הכנסת - 99" ,
+        description: "שידורי ערוץ הכנסת - 99" ,
         logo: "",
         videos: [
             {
