@@ -6,7 +6,7 @@ const { parse } = require('node-html-parser');
 const logLevel = "DEBUG";
 
 const listSeries = new srList();
-
+ 
 getJSONFile();
 //setLiveTVToList();
 //getSeriesLinks();
@@ -144,15 +144,19 @@ builder.defineStreamHandler(({type, id}) => {
 })
 
 async function getJSONFile(){
+    writeLog("DEUBG","Entered JSON");
     var link = "https://drive.google.com/file/d/1yNsxiEpFtETnM6qxnLTYZRyYMcXA5aXD/view?usp=sharing";
 
     try{
         var response = await fetch(link);
-        var html = await response.text();
+        var html = await response.json();
+        console.log(html);
         var root = parse(html);
     } catch(error){
         console.log("Error fetching series page:" + link, error);
     }
+
+    
 
 }
 
