@@ -154,8 +154,8 @@ public class WebCrawler {
         Document doc = fetchPage(constantsMap.get("url_hiuchit_tiny"));
         Elements series = doc.select("div.umb-block-list div script");
         String kidsScriptStr = series.get(4).toString();
-        int startIndex = kidsScriptStr.indexOf("[{");
-        int lastIndex = kidsScriptStr.lastIndexOf("}]") +2 ;
+        int startIndex = kidsScriptStr.indexOf("{");
+        int lastIndex = kidsScriptStr.lastIndexOf("}") +2 ;
         String kidsJsonStr = kidsScriptStr.substring(startIndex, lastIndex);
         JSONObject jsonObjectTiny = new JSONObject(kidsJsonStr);
             
