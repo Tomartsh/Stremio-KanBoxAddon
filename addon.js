@@ -150,7 +150,7 @@ async function getJSONFile(){
     try{
         var response = await fetch(link);
         var html = await response.json();
-        console.log(html);
+        console.log(html)
         var root = parse(html);
     } catch(error){
         console.log("Error fetching series page:" + link, error);
