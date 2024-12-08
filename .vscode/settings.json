@@ -1,0 +1,9 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "WebCrawler/lib/gson-2.11.0.jar",
+        "WebCrawler/lib/gson-2.11.0-javadoc.jar",
+        "WebCrawler/lib/json-20230618.jar",
+        "WebCrawler/lib/jsoup-1.18.1.jar"
+    ]
+}

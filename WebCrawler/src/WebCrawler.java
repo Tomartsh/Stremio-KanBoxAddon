@@ -112,7 +112,7 @@ public class WebCrawler {
             //set Description
             String description = setDescription(seriesPageDoc.select("div.info-description p"));
             //set genres
-            String genres = setGenre(seriesPageDoc.select("div.info-genre"));
+            String[] genres = setGenre(seriesPageDoc.select("div.info-genre"));
 
             //set videos
             String [] videosList = null;
@@ -129,7 +129,7 @@ public class WebCrawler {
                 continue;
             }
 
-            addToJsonObject(id, seriesTitle, seriesTitle, imgUrl, description, videosList, videosList, subType, "series");
+            addToJsonObject(id, seriesTitle, seriesTitle, imgUrl, description, genres, videosList, subType, "series");
         }
     }
 
@@ -281,8 +281,8 @@ public class WebCrawler {
         Document doc = fetchPage(constantsMap.get("url_hiuchit_tiny"));
         Elements series = doc.select("div.umb-block-list div script");
         String kidsScriptStr = series.get(4).toString();
-        int startIndex = kidsScriptStr.indexOf("[{");
-        int lastIndex = kidsScriptStr.lastIndexOf("}]") +2 ;
+        int startIndex = kidsScriptStr.indexOf("{");
+        int lastIndex = kidsScriptStr.lastIndexOf("}") +2 ;
         String kidsJsonStr = kidsScriptStr.substring(startIndex, lastIndex);
         JSONArray jsonObjectTiny = new JSONArray(kidsJsonStr);
             
@@ -318,7 +318,7 @@ public class WebCrawler {
                 + jsonObj.getString("Image").substring(0,
                 jsonObj.getString("Image").indexOf("?"));
             String seriesPage = constantsMap.get("url_hinuchit_kids_content_prefix") + jsonObj.getString("Url");
-            String genres = setGenreFromString(jsonObj.getString("Genres"));
+            String[] genres = setGenreFromString(jsonObj.getString("Genres"));
             
             Document doc = fetchPage(seriesPage + "?currentPage=2&itemsToShow=100");
             String seriesDescription = doc.select("div.info-description").text();
@@ -535,11 +535,11 @@ public class WebCrawler {
         return description;
     }
 
-    private String setGenre(Elements genreElems){
-        if ((genreElems == null) || (genreElems.size() < 1)){ return "Kan";}
+    private String[] setGenre(Elements genreElems){
+        if ((genreElems == null) || (genreElems.size() < 1)){ return new String[]{"Kan"};}
     
         Elements genresElements = genreElems.select("ul li");
-        if (genresElements.size() < 1) {return "Kan";}
+        if (genresElements.size() < 1) {return new String[]{"Kan"};}
 
         List<String> genres = new ArrayList<>();
         for (Element check : genresElements){
@@ -619,15 +619,17 @@ public class WebCrawler {
                     break;         
             } 
         }
-        return String.join(", ", genres);
+        //return String.join(", ", genres);
+        String[] genresArr = genres.toArray(new String[genres.size()]);
+        return genresArr;
     }
 
-    private String setGenreFromString(String str) {
-        if ("".equals(str)) { return "Kan";}
+    private String[] setGenreFromString(String str) {
+        if ("".equals(str)) { return new String[]{"Kan"};}
         
         List<String> genres = new ArrayList<>();
         String[] genresArr = str.split(",");
-        if (genresArr.length < 1) {return "Kan";}
+        if (genresArr.length < 1) {return new String[]{"Kan"};}
         for (String check : genresArr){
             check = check.trim();
     
@@ -714,7 +716,7 @@ public class WebCrawler {
                     break;      
             } 
         }
-        return String.join(", ", genres);
+       return genres.toArray(new String[genres.size()]);
     }
 
     private String getEpisodeUrl(String link){
