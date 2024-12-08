@@ -7,11 +7,11 @@ const logLevel = "DEBUG";
 
 const listSeries = new srList();
  
-getJSONFile();
-//setLiveTVToList();
-//getSeriesLinks();
-//getHinuchitSeriesLinksTiny();
-//getHinuchitSeriesLinksTeens();
+//getJSONFile();
+setLiveTVToList();
+getSeriesLinks();
+getHinuchitSeriesLinksTiny();
+getHinuchitSeriesLinksTeens();
 
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md
 const manifest = {
@@ -154,9 +154,7 @@ async function getJSONFile(){
         var root = parse(html);
     } catch(error){
         console.log("Error fetching series page:" + link, error);
-    }
-
-    
+    }   
 
 }
 
