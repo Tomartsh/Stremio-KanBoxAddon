@@ -3,7 +3,7 @@ const srList = require("./classes/srList");
 const constants = require("./classes/constants");
 
 const { parse } = require('node-html-parser');
-const logLevel = "DEBUG";
+const logLevel = "INFO";
 
 const listSeries = new srList();
  
@@ -804,7 +804,11 @@ async function addMetasForKids(jsonObj, subType){
         var meta= {};
         var videosList = [];
 
-        var id = constants.prefix_kanbox + "teen_" + padWithLeadingZeros(idIterator,5);
+        if (subType == "n"){
+            var id = constants.prefix_kanbox + "teen_" + padWithLeadingZeros(idIterator,5);
+        } else if (subType == "k"){
+            var id = constants.prefix_kanbox + "kids_" + padWithLeadingZeros(idIterator,5);
+        }
         var name = getNameFromSeriesPage(jsonObj[key].ImageAlt);
         var desc = jsonObj[key].Description;
         var imgUrl = constants.url_hinuchit_kids_content_prefix  + jsonObj[key].Image.substring(0,jsonObj[key].Image.indexOf("?"));
