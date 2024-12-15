@@ -310,8 +310,8 @@ public class WebCrawler {
         Document doc = fetchPage(constantsMap.get("url_hiuchit_teen"));
         Elements series = doc.select("div.umb-block-list div script");
         String kidsScriptStr = series.get(4).toString();
-        int startIndex = kidsScriptStr.indexOf("[{");
-        int lastIndex = kidsScriptStr.lastIndexOf("}]") +2 ;
+        int startIndex = kidsScriptStr.indexOf("{");
+        int lastIndex = kidsScriptStr.lastIndexOf("}") +2 ;
         String kidsJsonStr = kidsScriptStr.substring(startIndex, lastIndex);
         JSONArray jsonObjectTiny = new JSONArray(kidsJsonStr);
             
@@ -498,7 +498,7 @@ public class WebCrawler {
             retVal = "k";
         } else if (link.contains("/content/kan/")) { 
             retVal = "d";
-        } else if (link.contains("digi/digital")){
+        } else if (link.contains("dig/digital")){
             retVal = "d";
         }
         //System.out.println("getSubType=> type: " + retVal + " link: " + link);
