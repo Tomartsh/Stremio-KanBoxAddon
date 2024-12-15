@@ -768,6 +768,7 @@ function setLiveTVToList(){
     var idKan = "kanTV_04";
     var idKanKids = "kanTV_05";
     var idKnesset = "kanTv_06";
+    var idMakan = "kanTv_07";
 
     var streamsKan = [];
     streamsKan.push (
@@ -857,6 +858,36 @@ function setLiveTVToList(){
         ]
     }
 
+    var metasMakan = {
+        id: idKnesset,
+        type: "tv",
+        name: "Makan",
+        genres: "News",
+        background: "https://www.makan.org.il/media/d3if2qoj/%D7%9C%D7%95%D7%92%D7%95-%D7%A8%D7%90%D7%A9%D7%99-%D7%9E%D7%9B%D7%90%D7%9F.png",
+        poster: "https://www.makan.org.il/media/d3if2qoj/%D7%9C%D7%95%D7%92%D7%95-%D7%A8%D7%90%D7%A9%D7%99-%D7%9E%D7%9B%D7%90%D7%9F.png",
+        posterShape: "landscape",
+        description: "ערוץ השידורים הערבי" ,
+        logo: "",
+        videos: [
+            {
+                id: idMakan,
+                title: "ערוץ השידורים הערבי",
+                //thumbnail: episodeLogoUrl,
+                description: "ערוץ השידורים הערבי",
+                released: Date.now(),
+                streams: [
+                    {
+                        url: "https://makan.media.kan.org.il/hls/live/2024680/2024680/master.m3u8",
+                        name: "ערוץ השידורים הערבי",
+                        type: "tv",
+                        description: "ערוץ השידורים הערבי"  
+                    }
+                ]
+            }
+        ]
+    }
+
+
     listSeries.addItemByDetails(idKan, "Kan 11 Live Stream", "http://res.cloudinary.com/atzuma/image/upload/v1492370857/atzuma/ti0gm5xxyknqylq8mgr5.jpg",
         "Kan 11 Live Stream From Israel", "", "http://res.cloudinary.com/atzuma/image/upload/v1492370857/atzuma/ti0gm5xxyknqylq8mgr5.jpg",
         "", metasKan, "tv","t"
@@ -867,6 +898,10 @@ function setLiveTVToList(){
     );
     listSeries.addItemByDetails(idKnesset, "שידורי ערוץ הכנסת 99", "https://m.isramedia.net/images/channelpic/c99.webp",
         "שידורי ערוץ הכנסת 99", "", "https://m.isramedia.net/images/channelpic/c99.webp",
+        "", metasKnesset, "tv", "t"
+    );
+    listSeries.addItemByDetails(idKnesset, "ערוץ השידורים הערבי", "https://www.makan.org.il/media/d3if2qoj/%D7%9C%D7%95%D7%92%D7%95-%D7%A8%D7%90%D7%A9%D7%99-%D7%9E%D7%9B%D7%90%D7%9F.png",
+        "ערוץ השידורים הערבי", "", "https://www.makan.org.il/media/d3if2qoj/%D7%9C%D7%95%D7%92%D7%95-%D7%A8%D7%90%D7%A9%D7%99-%D7%9E%D7%9B%D7%90%D7%9F.png",
         "", metasKnesset, "tv", "t"
     );
 }
