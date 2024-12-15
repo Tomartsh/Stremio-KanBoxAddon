@@ -1,0 +1,16 @@
+{
+    "name": "כאן 11",
+    "version": "0.0.1",
+    "description": "Addon for Israel Public Broadcasting Corporation - Kan Digital",
+    "main": "addon.js",
+    "scripts": {
+      "start": "node addon.js"
+    },
+    "dependencies": {
+      "node-fetch": "^2.6.1",
+      "node-html-parser": "^3.1.0",
+      "stremio-addon-sdk": "^2.9.0"
+    },
+    "author": "Tomarsh",
+    "license": "ISC"
+  }
