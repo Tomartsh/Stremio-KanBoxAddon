@@ -1,5 +1,6 @@
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,15 +16,11 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-
 public class WebCrawler {
 
     private static TreeMap<String, String> constantsMap = new TreeMap<>();
     private static JSONObject jo;  
+
     public static void main(String[] args) {  
         jo = new JSONObject();
         constantsMap.put("LOGLEVEL", "DEBUG");
@@ -53,6 +50,10 @@ public class WebCrawler {
       }
 
     public void crawl(){
+        SimpleDateFormat ft = new SimpleDateFormat("dd-MM-yyyy"); 
+        String formattedDate = ft.format(new Date());
+        jo.put("date", formattedDate);
+
         crawlDigitalLive();
         crawlDigital();
         crawlHinuchitTiny();
@@ -79,15 +80,23 @@ public class WebCrawler {
                 continue;
             }
 
+            String linkSeries = seriesElem.attr("href");
+            
+            // we do not want news stuff
+            if (linkSeries.contains("kan-actual")){continue;}            
+
+            // we don't want podcasts 
+            if (linkSeries.contains("podcasts")){continue;}
+
             //set subtype
             String subType = getSubtype(seriesElem);
             //We will retrieve hinuchit separately
             if ("k".equals(subType)){ continue;}
 
             //set series ID
-            String id = generateId(seriesElem.attr("href"));
+            String id = generateId(linkSeries);
             //set series page link
-            String linkSeries = seriesElem.attr("href");
+            //String linkSeries = seriesElem.attr("href");
             if (linkSeries.startsWith("/")) {
                 linkSeries = constantsMap.get("URL_ADDRESS") + linkSeries;
             }
@@ -120,6 +129,7 @@ public class WebCrawler {
                 continue;
             } else {
                 if (seriesPageDoc.select("div.seasons-item").size() > 0) {
+                    System.out.println("crawlDigital => link: " + linkSeries );
                     videosList = getVideos(seriesPageDoc.select("div.seasons-item"), id, subType);
                 } else {
                     videosList = getMovies(seriesPageDoc, id, subType);
@@ -191,25 +201,32 @@ public class WebCrawler {
                 String episodeLogoUrl = "";
                 if (seasonEpisodesElem.select("div.card-img").size() > 0){
                     Element elemImage = seasonEpisodesElem.select("div.card-img").get(0);
-                    if ((elemImage != null)) {
-                        Element elemEpisodeLogo = elemImage.select("img.img-full").get(0);
-                        if ((elemEpisodeLogo != null) && (elemEpisodeLogo.attr("src").indexOf('?') > 0)) {
-                            episodeLogoUrl = elemEpisodeLogo.attr("src").substring(0,
-                                    elemEpisodeLogo.attr("src").indexOf("?"));
-                        }
-                        //System.out.println("getVideos => link before modifications: " + episodeLogoUrl);
-                        if (episodeLogoUrl.startsWith("/")) {
-                            if ("d".equals(subType)) {
-                                episodeLogoUrl = "https://www.kan.org.il" + episodeLogoUrl;
-                            } else if ("k".equals(subType)){
-                                episodeLogoUrl = "https://www.kankids.org.il" + episodeLogoUrl;
-                            } else if ("a".equals(subType)){
-                                episodeLogoUrl = "https://www.kan.org.il" + episodeLogoUrl;
-                            } else if ("p".equals(subType)){
-                                episodeLogoUrl = "https://www.kan.org.il" + episodeLogoUrl;
+                    try {
+                        if ((elemImage != null) && (elemImage.select("img.img-full") != null)) {
+                            Element elemEpisodeLogo = elemImage.select("img.img-full").get(0);
+                            
+                            if ((elemEpisodeLogo != null) && (elemEpisodeLogo.attr("src").indexOf('?') > 0)) {
+                                episodeLogoUrl = elemEpisodeLogo.attr("src").substring(0,
+                                        elemEpisodeLogo.attr("src").indexOf("?"));
+                            }
+                            //System.out.println("getVideos => link before modifications: " + episodeLogoUrl);
+                            if (episodeLogoUrl.startsWith("/")) {
+                                if ("d".equals(subType)) {
+                                    episodeLogoUrl = "https://www.kan.org.il" + episodeLogoUrl;
+                                } else if ("k".equals(subType)){
+                                    episodeLogoUrl = "https://www.kankids.org.il" + episodeLogoUrl;
+                                } else if ("a".equals(subType)){
+                                    episodeLogoUrl = "https://www.kan.org.il" + episodeLogoUrl;
+                                } else if ("p".equals(subType)){
+                                    episodeLogoUrl = "https://www.kan.org.il" + episodeLogoUrl;
+                                }
+                                
                             }
                             
                         }
+                    } catch(Exception ex) {
+                        System.out.println("Error here: " + ex);
+                        
                     }
                 }
                 
@@ -226,7 +243,7 @@ public class WebCrawler {
                 episodeVideoJSONObj.put("streams",streams);
                 
                 videosList.add(episodeVideoJSONObj.toString());
-                System.out.println("WebCrawler.getVideos()=> Added videos for episode : " + title + " " + seasonNo + ":" + (iter +1));
+                System.out.println("WebCrawler.getVideos()=> Added videos for episode : " + title + " " + seasonNo + ":" + (iter +1) + " subtype: " + subType);
             }
         }
         
@@ -481,8 +498,10 @@ public class WebCrawler {
             retVal = "k";
         } else if (link.contains("/content/kan/")) { 
             retVal = "d";
-        } 
-        System.out.println("getSubType=> type: " + retVal + " link: " + link);
+        } else if (link.contains("digi/digital")){
+            retVal = "d";
+        }
+        //System.out.println("getSubType=> type: " + retVal + " link: " + link);
         return retVal;
     }
 

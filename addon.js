@@ -3,9 +3,11 @@ const { parse } = require('node-html-parser');
 
 const srList = require("./classes/srList");
 const constants = require("./classes/constants");
+const JSONHandler = require("./classes/JHandler");
 
 const logLevel = "INFO";
 const listSeries = new srList();
+const jsonHandler = new JSONHandler();
  
 //getJSONFile();
 setLiveTVToList();
@@ -144,8 +146,11 @@ builder.defineStreamHandler(({type, id}) => {
 })
 
 async function getJSONFile(){
-    writeLog("DEUBG","Entered JSON");
-    var link = "https://drive.google.com/file/d/1yNsxiEpFtETnM6qxnLTYZRyYMcXA5aXD/view?usp=sharing";
+    writeLog("DEUBG","getJSONFile = > Entered JSON");
+    jsonHandler.main();  
+    
+    /*
+    var link = "";
 
     try{
         var response = await fetch(link);
@@ -155,7 +160,7 @@ async function getJSONFile(){
     } catch(error){
         console.log("Error fetching series page:" + link, error);
     }   
-
+*/
 }
 
 /**
@@ -1029,6 +1034,10 @@ function writeLog(level, msg){
         } 
     } else if (logLevel == "DEBUG"){
         if ((level == "DEBUG")|| (level == "INFO")){
+            console.log(level + ": " + msg);
+        }
+    } else if (logLevel == "TRACE"){
+        if ((level == "TRACE") || (level == "DEBUG")|| (level == "INFO")){
             console.log(level + ": " + msg);
         }
     }
