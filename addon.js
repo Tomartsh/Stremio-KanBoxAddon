@@ -1,10 +1,10 @@
 const { addonBuilder } = require("stremio-addon-sdk");
+const { parse } = require('node-html-parser');
+
 const srList = require("./classes/srList");
 const constants = require("./classes/constants");
 
-const { parse } = require('node-html-parser');
 const logLevel = "INFO";
-
 const listSeries = new srList();
  
 //getJSONFile();
@@ -61,7 +61,7 @@ const manifest = {
 			extra: [ {name: "search", isRequired: false }]
 		},
         {
-			type: "podcasts",
+			type: "Podcasts",
 			id: "KanPodcasts",
 			name: "כאן הסכתים",
 			extra: [ {name: "search", isRequired: false }]
@@ -77,7 +77,7 @@ const manifest = {
 		"tv",
         "podcasts"
 	],
-	"name": "Stremio-Kan",
+	"name": "Kan 11",
 	"description": "Kan Digital and live broadcast"
 }
 const builder = new addonBuilder(manifest)
@@ -158,6 +158,9 @@ async function getJSONFile(){
 
 }
 
+/**
+* Fetch the list of VOD series
+*/
 async function getSeriesLinks(){
 
         const root = await fetchPage(constants.url_kanbox);
@@ -188,6 +191,12 @@ async function getSeriesLinks(){
         }
 }
 
+/**
+     * Sets meta object for each series and also trigger the generation of the video and stream list
+     * @param link
+     * @param imgUrl
+     * @param root
+     */
 function getMetasSeriesPages(link, imgUrl, root){
     var seriesID = setID(link);
     var subtype = "";
@@ -239,7 +248,12 @@ function getMetasSeriesPages(link, imgUrl, root){
     writeLog("DEBUG"," getMetasSeriesPages=> added " + name + " ID: " + seriesID + ", link: " + link + "name: " + name);   
 }
 
-
+/**
+ * Get the videos list and streams object for a single episode
+ * @param root 
+ * @param seriesID 
+ * @param subType 
+ */
 async function getMovie(root, seriesID,subType){
     var videosList = [];
     var title = "";
@@ -286,6 +300,11 @@ async function getMovie(root, seriesID,subType){
     listSeries.setVideosById(seriesID, videosList);
 }
 
+/**
+ * Get videos and streams objects for single series
+ * @param elemSeasons 
+ * @param seriesID 
+ */
 async function getVideos(elemSeasons, seriesID){
     var videosList = [];
 
@@ -346,6 +365,12 @@ async function getVideos(elemSeasons, seriesID){
     
 }
 
+/**
+ * Get the streams list for a single episode
+ * @param link 
+ * @param videoId 
+ * @returns 
+ */
 async function getStream(link, videoId){
     var streamsList = [];
     writeLog("DEBUG","getStream => Link: " + link + "ID: " + videoId);
@@ -624,6 +649,110 @@ function getNameFromSeriesPage(name){
         return name.trim();
     }
 }
+
+//+===================================================================================
+//
+//  Kan Podcasts functions
+//+===================================================================================
+async function getPodcasts(){
+    const root = await fetchPage(constants.url_podcasts);
+
+        var podcasts = root.querySelectorAll('a.podcast-item');
+
+        for (var podcast of podcasts){
+            var link = podcast.attributes.href;
+
+            //If we do not have a valid seriesID or link, we cannot add this entry
+            if ((link == null) || (link == undefined) || (link == "")){
+                continue;
+            }
+
+            //Set the image URL
+            var imageElem = podcast.getElementsByTagName('img')[0];
+            var imgUrl = constants.image_prefix + imageElem.attributes.src.substring(0,imageElem.attributes.src.indexOf("?"))
+
+            var b = await fetchPage(link);
+
+            getPodcastPage(link, imgUrl, b)
+        }    
+}
+
+async function getPodcastPage(link, imgUrl, b){
+    var seriesID = setID(link);
+    var subtype = "p";
+    var name = "";
+    var description = "";
+    var videos = [];
+    var genres = [];
+
+    name = getNameFromSeriesPage(b.querySelector('h1.title-elem').text);
+    //TODO: add what if name is empty. look in java
+    description = b.querySelectorAll('div.block-text div p');
+
+    //genres = setGenre(root.querySelector('div.info-genre'));
+    
+    //set meta
+    var metas = {
+        id: seriesID,
+        type: "series",
+        name: name,
+        genres: genres,
+        background: imgUrl,
+        poster: imgUrl,
+        posterShape: "poster",
+        description: description,
+        link: link,
+        logo: imgUrl,
+        videos: videos
+    }  
+    
+    listSeries.addItemByDetails(seriesID, name, imgUrl, description, link, imgUrl, genres, metas, "series", subtype);
+    
+    //check how many pages are there
+    var noOfPagesElem = b.querySelector("input#number-of-pages");
+    var noOfPages = noOfPagesElem.attrs.value;
+    var podcastsElements;
+    //for (var i = 0; i < noOfPages ; i++){
+
+    //}
+
+    const browser = await puppeteer.launch({ headless: true }); // Set headless: false for debugging
+    const page = await browser.newPage();
+    await page.goto(link, {
+        waitUntil: 'networkidle2',
+    });
+
+    // Function to click the "show more" button until it disappears
+    const clickShowMoreButton = async () => {
+        let isButtonVisible = true;
+
+        while (isButtonVisible) {
+            try {
+                // Check if the button is present and visible
+                await page.waitForSelector('#podcust-show-more', { visible: true, timeout: 2000 });
+
+                // Click the button
+                await page.click('a#podcust-show-more');
+                console.log('Clicked "Show More" button.');
+
+                // Wait for additional data to load
+                await page.waitForTimeout(2000);
+            } catch (error) {
+                // Break the loop if the button is no longer visible
+                console.log('No more "Show More" button to click.');
+                isButtonVisible = false;
+            }
+        }
+    };
+
+    // Click the "Show More" button until all data is loaded
+    await clickShowMoreButton();
+
+    var pageSourceHTML = await page.content(); 
+    writeLog("DEBUG"," getPodcastPage=> added " + name + " ID: " + seriesID + ", link: " + link + "name: " + name);   
+}
+
+
 
 //+===================================================================================
 //
