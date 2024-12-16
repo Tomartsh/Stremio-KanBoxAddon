@@ -54,8 +54,8 @@ public class WebCrawler {
         String formattedDate = ft.format(new Date());
         jo.put("date", formattedDate);
 
-        crawlDigitalLive();
-        crawlDigital();
+        //crawlDigitalLive();
+        //crawlDigital();
         crawlHinuchitTiny();
         crawlHinuchitTeen();
         //crawlPodcasts();
@@ -298,8 +298,8 @@ public class WebCrawler {
         Document doc = fetchPage(constantsMap.get("url_hiuchit_tiny"));
         Elements series = doc.select("div.umb-block-list div script");
         String kidsScriptStr = series.get(4).toString();
-        int startIndex = kidsScriptStr.indexOf("{");
-        int lastIndex = kidsScriptStr.lastIndexOf("}") +2 ;
+        int startIndex = kidsScriptStr.indexOf("[{");
+        int lastIndex = kidsScriptStr.lastIndexOf("}]") +2 ;
         String kidsJsonStr = kidsScriptStr.substring(startIndex, lastIndex);
         JSONArray jsonObjectTiny = new JSONArray(kidsJsonStr);
             
@@ -310,8 +310,8 @@ public class WebCrawler {
         Document doc = fetchPage(constantsMap.get("url_hiuchit_teen"));
         Elements series = doc.select("div.umb-block-list div script");
         String kidsScriptStr = series.get(4).toString();
-        int startIndex = kidsScriptStr.indexOf("{");
-        int lastIndex = kidsScriptStr.lastIndexOf("}") +2 ;
+        int startIndex = kidsScriptStr.indexOf("[{");
+        int lastIndex = kidsScriptStr.lastIndexOf("}]") +2 ;
         String kidsJsonStr = kidsScriptStr.substring(startIndex, lastIndex);
         JSONArray jsonObjectTiny = new JSONArray(kidsJsonStr);
             
