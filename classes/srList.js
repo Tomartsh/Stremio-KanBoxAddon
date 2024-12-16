@@ -120,7 +120,7 @@ class srList {
     }
 
     // Add an item to the list (each item is an object with an id and key-value pair)
-    _addItem(item) {
+    addItem(item) {
         var errObj = this._validateSeriesEntryDetailed(item.id);
         if (errObj.errorStatus == true ) {
             return errObj.errorMessage + " Ignoring..."

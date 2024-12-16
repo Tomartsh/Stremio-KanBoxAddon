@@ -139,7 +139,7 @@ public class WebCrawler {
                 continue;
             }
 
-            addToJsonObject(id, seriesTitle, seriesTitle, imgUrl, description, genres, videosListArr, subType, "series");
+            addToJsonObject(id, seriesTitle, linkSeries, imgUrl, description, genres, videosListArr, subType, "series");
         }
     }
 
@@ -338,7 +338,7 @@ public class WebCrawler {
             JSONArray videosListArr = getKidsVideos(seasons, id);
        
             addToJsonObject(id, seriesTitle, seriesPage, imgUrl, seriesDescription, genres, videosListArr, subType, "series");
-            System.out.println("WebCrawler.addMetasForKids => Added  series, ID: " + id + " Name: " + seriesTitle);
+            System.out.println("WebCrawler.addMetasForKids => Added  series, ID: " + id + " Name: " + seriesTitle + " subtype: " + subType);
             
             idIterator++; 
         }
