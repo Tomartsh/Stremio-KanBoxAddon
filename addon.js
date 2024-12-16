@@ -900,9 +900,9 @@ function setLiveTVToList(){
         "שידורי ערוץ הכנסת 99", "", "https://m.isramedia.net/images/channelpic/c99.webp",
         "", metasKnesset, "tv", "t"
     );
-    listSeries.addItemByDetails(idKnesset, "ערוץ השידורים הערבי", "https://www.makan.org.il/media/d3if2qoj/%D7%9C%D7%95%D7%92%D7%95-%D7%A8%D7%90%D7%A9%D7%99-%D7%9E%D7%9B%D7%90%D7%9F.png",
+    listSeries.addItemByDetails(idMakan, "ערוץ השידורים הערבי", "https://www.makan.org.il/media/d3if2qoj/%D7%9C%D7%95%D7%92%D7%95-%D7%A8%D7%90%D7%A9%D7%99-%D7%9E%D7%9B%D7%90%D7%9F.png",
         "ערוץ השידורים הערבי", "", "https://www.makan.org.il/media/d3if2qoj/%D7%9C%D7%95%D7%92%D7%95-%D7%A8%D7%90%D7%A9%D7%99-%D7%9E%D7%9B%D7%90%D7%9F.png",
-        "", metasKnesset, "tv", "t"
+        "", metasMakan, "tv", "t"
     );
 }
 
