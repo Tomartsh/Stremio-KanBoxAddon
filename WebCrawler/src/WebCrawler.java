@@ -436,7 +436,7 @@ public class WebCrawler {
     //+===================================================================================
     private Document fetchPage(String url){
         int count = 0;
-        final int maxRetries = 3;
+        final int maxRetries = 10;
         while ( count < maxRetries ) {
             try
             {
