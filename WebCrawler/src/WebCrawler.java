@@ -54,8 +54,8 @@ public class WebCrawler {
         String formattedDate = ft.format(new Date());
         jo.put("date", formattedDate);
 
-        //crawlDigitalLive();
-        //crawlDigital();
+        crawlDigitalLive();
+        crawlDigital();
         crawlHinuchitTiny();
         crawlHinuchitTeen();
         //crawlPodcasts();
