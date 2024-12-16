@@ -6,7 +6,7 @@
 		"start": "node server.js"
 	},
 	"dependencies": {
-		"jszip": "^3.10.1",
+		"adm-zip": "^0.5.16",
 		"node-html-parser": "^6.1.13",
 		"stremio-addon-sdk": "1.1.x"
 	}
