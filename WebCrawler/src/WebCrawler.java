@@ -54,8 +54,8 @@ public class WebCrawler {
         String formattedDate = ft.format(new Date());
         jo.put("date", formattedDate);
 
-        //crawlDigitalLive();
-        //crawlDigital();
+        crawlDigitalLive();
+        crawlDigital();
         crawlHinuchitTiny();
         crawlHinuchitTeen();
         //crawlPodcasts();
@@ -791,6 +791,7 @@ public class WebCrawler {
     //+===================================================================================
 
     private void crawlDigitalLive(){
+        /* Kan 11 Live */
         JSONObject streamKanLiveJSONObj = new JSONObject();
         streamKanLiveJSONObj.put("url", "https://kan11w.media.kan.org.il/hls/live/2105694/2105694/source1_600/chunklist.m3u8");
         streamKanLiveJSONObj.put("type", "tv");
@@ -831,6 +832,7 @@ public class WebCrawler {
         jo.put("kanTV_04", joKanLive);
         System.out.println("WebCrawler.crawlDigitalLive => Added  Kan 11 Live TV");
 
+        /* Kids Live */
         JSONObject streamKanKidsLiveJSONObj = new JSONObject();
         streamKanKidsLiveJSONObj.put("url", "https://kan23.media.kan.org.il/hls/live/2024691-b/2024691/source1_4k/chunklist.m3u8");
         streamKanKidsLiveJSONObj.put("type", "tv");
@@ -871,6 +873,7 @@ public class WebCrawler {
         jo.put("kanTV_05", joKanKidsLive);
         System.out.println("WebCrawler.crawlDigitalLive => Added Kan Kids Live TV");
 
+        /* Kenesset Live */
         JSONObject streamKanKnessetLiveJSONObj = new JSONObject();
         streamKanKnessetLiveJSONObj.put("url", "https://contactgbs.mmdlive.lldns.net/contactgbs/a40693c59c714fecbcba2cee6e5ab957/manifest.m3u8");
         streamKanKnessetLiveJSONObj.put("type", "tv");
@@ -910,6 +913,47 @@ public class WebCrawler {
 
         jo.put("kanTV_06", joKanKnessetLive);
         System.out.println("WebCrawler.crawlDigitalLive => Added Knesset Live TV");
+
+        /* Makan Live */
+        JSONObject streamMakanLiveJSONObj = new JSONObject();
+        streamMakanLiveJSONObj.put("url", "https://makan.media.kan.org.il/hls/live/2024680/2024680/master.m3u8");
+        streamMakanLiveJSONObj.put("type", "tv");
+        streamMakanLiveJSONObj.put("name", "ערוץ השידורים הערבי");
+        streamMakanLiveJSONObj.put("description", "שידורי ערוץ השידורים הערבי");
+
+        String[] streamsMakanLive = new String[1];
+        streamsMakanLive[0] = streamMakanLiveJSONObj.toString();
+
+        JSONObject videosMakanJSONObj = new JSONObject();
+        videosMakanJSONObj.put("id","kanTV_07");
+        videosMakanJSONObj.put("title","ערוץ השידורים הערבי");
+        videosMakanJSONObj.put("description","שידורי ערוץ השידורים הערבי");
+        videosMakanJSONObj.put("released",LocalDate.now());
+        videosMakanJSONObj.put("streams",videosMakanJSONObj);
+        List<String> videosMakanList = new ArrayList<String>();
+        String[] videosMakanArray = videosMakanList.toArray(new String[0]);
+
+        JSONObject metaMakanLiveJSONObj = new JSONObject();
+        metaMakanLiveJSONObj.put("id", "kanTV_07");
+        metaMakanLiveJSONObj.put("name", "שידורי ערוץ השידורים הערבי");
+        metaMakanLiveJSONObj.put("type", "tv");
+        metaMakanLiveJSONObj.put("genres", "Actuality");
+        metaMakanLiveJSONObj.put("background", "https://www.knesset.tv/media/20004/logo-new.png");
+        metaMakanLiveJSONObj.put("poster", "https://www.knesset.tv/media/20004/logo-new.png");
+        metaMakanLiveJSONObj.put("posterShape", "poster");
+        metaMakanLiveJSONObj.put("posterShape", "landscape");
+        metaMakanLiveJSONObj.put("description", "שידורי ערוץ השידורים הערבי");
+        metaMakanLiveJSONObj.put("videos", videosMakanArray);
+
+        JSONObject joMakanLive = new JSONObject();
+        joMakanLive.put("id", "kanTV_07");
+        joMakanLive.put("type", "tv");           
+        joMakanLive.put("subtype", "t");
+        joMakanLive.put("title", "שידורי ערוץ השידורים הערבי");
+        joMakanLive.put("metas", metaMakanLiveJSONObj);    
+
+        jo.put("kanTV_07", joMakanLive);
+        System.out.println("WebCrawler.crawlDigitalLive => Added Makan Live TV");
     }
     
     //+===================================================================================
