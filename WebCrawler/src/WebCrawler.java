@@ -139,7 +139,7 @@ public class WebCrawler {
                 continue;
             }
 
-            addToJsonObject(id, seriesTitle, linkSeries, imgUrl, description, genres, videosListArr, subType, "series");
+            addToJsonObject(id, seriesTitle,  linkSeries, imgUrl, description, genres, videosListArr, subType, "series");
         }
     }
 
