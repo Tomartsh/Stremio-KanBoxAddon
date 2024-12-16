@@ -7,6 +7,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ public class WebCrawler {
 
     private static TreeMap<String, String> constantsMap = new TreeMap<>();
     private static JSONObject jo;  
+    private static final Logger logger = LogManager.getLogger(WebCrawler.class);
 
     public static void main(String[] args) {  
         jo = new JSONObject();
@@ -40,6 +44,7 @@ public class WebCrawler {
         SimpleDateFormat ft = new SimpleDateFormat("dd-MM-yyyy_HH-mm"); 
         String formattedDate = ft.format(new Date());
         System.out.println("WebCrawler = > Started @ " + formattedDate);
+        logger.info(("Here we go now: " + formattedDate));
         WebCrawler webCrawler = new WebCrawler();
         
         webCrawler.crawl();
@@ -782,7 +787,7 @@ public class WebCrawler {
         joSeries.put("metas", joSeriesMeta);    
 
         jo.put(id, joSeries);
-        System.out.println("WebCrawler.addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle);
+        System.out.println("WebCrawler.addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + " Subtype: " + subType + " Genres: " + genres);
     }
 
     //+===================================================================================
