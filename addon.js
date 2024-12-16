@@ -1,19 +1,18 @@
 const { addonBuilder } = require("stremio-addon-sdk");
 const { parse } = require('node-html-parser');
+const AdmZip = require("adm-zip");
 
 const srList = require("./classes/srList");
 const constants = require("./classes/constants");
-const JSONHandler = require("./classes/JHandler");
 
 const logLevel = "INFO";
 const listSeries = new srList();
-const jsonHandler = new JSONHandler();
  
-//getJSONFile();
-setLiveTVToList();
-getSeriesLinks();
-getHinuchitSeriesLinksTiny();
-getHinuchitSeriesLinksTeens();
+getJSONFile();
+//setLiveTVToList();
+//getSeriesLinks();
+//getHinuchitSeriesLinksTiny();
+//getHinuchitSeriesLinksTeens();
 
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md
 const manifest = {
@@ -145,22 +144,33 @@ builder.defineStreamHandler(({type, id}) => {
     return Promise.resolve({ streams: [streams] });
 })
 
+
+//+===================================================================================
+//
+//  zip retrieval and json parsing functions
+//+===================================================================================
+/**
+ * Retrieve the zip file, extract the .json file and then convert it to the seriesList object
+ */
 async function getJSONFile(){
     writeLog("DEUBG","getJSONFile = > Entered JSON");
-    jsonHandler.main();  
+    var jsonStr;
     
-    /*
-    var link = "";
+    try {
+        const zip = new AdmZip(constants.url_JSON_File);
+        jsonStr = zip.readAsText("stremio-kanbox.json");
+        
+    } catch (e) {
+        console.log(`Something went wrong. ${e}`);
+    }
 
-    try{
-        var response = await fetch(link);
-        var html = await response.json();
-        console.log(html)
-        var root = parse(html);
-    } catch(error){
-        console.log("Error fetching series page:" + link, error);
-    }   
-*/
+    var jsonObj = JSON.parse(jsonStr);
+    for (var key in jsonObj){
+        var value = jsonObj[key];
+        listSeries.addItem(value);
+        console.log(value);
+    }
+    
 }
 
 /**
