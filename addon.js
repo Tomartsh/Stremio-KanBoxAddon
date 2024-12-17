@@ -7,12 +7,16 @@ const constants = require("./classes/constants");
 
 const logLevel = "INFO";
 const listSeries = new srList();
+const jsonFileExist = "n";
  
 getJSONFile();
-//setLiveTVToList();
-//getSeriesLinks();
-//getHinuchitSeriesLinksTiny();
-//getHinuchitSeriesLinksTeens();
+if (jsonFileExist == "n") {
+    setLiveTVToList();
+    getSeriesLinks();
+    getHinuchitSeriesLinksTiny();
+    getHinuchitSeriesLinksTeens();
+
+}
 
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md
 const manifest = {
