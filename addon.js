@@ -5,14 +5,18 @@ const AdmZip = require("adm-zip");
 const srList = require("./classes/srList");
 const constants = require("./classes/constants");
 
-const logLevel = "INFO";
+const logLevel = "DEBUG";
 const listSeries = new srList();
+const jsonFileExist = "n";
  
 getJSONFile();
-//setLiveTVToList();
-//getSeriesLinks();
-//getHinuchitSeriesLinksTiny();
-//getHinuchitSeriesLinksTeens();
+if (jsonFileExist == "n") {
+    setLiveTVToList();
+    getSeriesLinks();
+    getHinuchitSeriesLinksTiny();
+    getHinuchitSeriesLinksTeens();
+
+}
 
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md
 const manifest = {
@@ -162,15 +166,17 @@ async function getJSONFile(){
         
     } catch (e) {
         console.log(`Something went wrong. ${e}`);
+
     }
 
-    var jsonObj = JSON.parse(jsonStr);
-    for (var key in jsonObj){
-        var value = jsonObj[key];
-        listSeries.addItem(value);
-        console.log(value);
-    }
-    
+    if ((jsonStr != undefined ) && (jsonStr != null)){
+        var jsonObj = JSON.parse(jsonStr);
+        for (var key in jsonObj){
+            var value = jsonObj[key];
+            listSeries.addItem(value);
+        }
+        jsonFileExist = "y";
+    }    
 }
 
 /**
