@@ -783,7 +783,7 @@ public class WebCrawler {
         joSeries.put("metas", joSeriesMeta);    
 
         jo.put(id, joSeries);
-        System.out.println("WebCrawler.addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + " Subtype: " + subType + " Genres: " + genres);
+        System.out.println("WebCrawler.addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + " Subtype: " + subType + " Genres: " + genres.toString());
     }
 
     //+===================================================================================
