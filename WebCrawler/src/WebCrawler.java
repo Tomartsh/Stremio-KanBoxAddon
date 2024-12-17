@@ -129,27 +129,27 @@ public class WebCrawler {
             String[] genres = setGenre(seriesPageDoc.select("div.info-genre"));
 
             //set videos
-            String [] videosList = null;
+            JSONArray videosListArr;
             if ("p".equals(subType)){
                 continue;
             } else {
                 if (seriesPageDoc.select("div.seasons-item").size() > 0) {
                     System.out.println("crawlDigital => link: " + linkSeries );
-                    videosList = getVideos(seriesPageDoc.select("div.seasons-item"), id, subType);
+                    videosListArr = getVideos(seriesPageDoc.select("div.seasons-item"), id, subType);
                 } else {
-                    videosList = getMovies(seriesPageDoc, id, subType);
+                    videosListArr = getMovies(seriesPageDoc, id, subType);
                 }
             }
-            if (videosList == null){
+            if (videosListArr == null){
                 continue;
             }
 
-            addToJsonObject(id, seriesTitle, linkSeries, imgUrl, description, genres, videosList, subType, "series");
+            addToJsonObject(id, seriesTitle, linkSeries, imgUrl, description, genres, videosListArr, subType, "series");
         }
     }
 
-    private String[] getMovies(Element videosElems, String id, String subType){
-        List<String> videosList = new ArrayList<String>();
+    private JSONArray getMovies(Element videosElems, String id, String subType){
+        JSONArray videosListArr = new JSONArray();
         String title = videosElems.select("h2").text().trim();
         String description = videosElems.select("div.info-description p").text().trim();
         String videoId = id + ":1:1";
@@ -166,7 +166,7 @@ public class WebCrawler {
         String episodeLink = videosElems.select("a.btn.with-arrow.info-link.btn-gradient").attr("href");
 
         //get streams
-        String[] streams = getStreams(episodeLink);
+        JSONArray streamsArr = getStreams(episodeLink);
         
         JSONObject episodeVideoJSONObj = new JSONObject();
         episodeVideoJSONObj.put("id",videoId);
@@ -176,16 +176,14 @@ public class WebCrawler {
         episodeVideoJSONObj.put("description",description);
         episodeVideoJSONObj.put("thumbnail",imgUrl);
         episodeVideoJSONObj.put("episodeLink",episodeLink);
-        episodeVideoJSONObj.put("streams",streams);
+        episodeVideoJSONObj.put("streams",streamsArr);
 
-        videosList.add(episodeVideoJSONObj.toString());
-        
-        String[] videosArray = videosList.toArray(new String[0]);
-        return videosArray;
+        videosListArr.put(episodeVideoJSONObj);
+        return videosListArr;
     }
     
-    private String[] getVideos(Elements videosElems, String id, String subType){
-        List<String> videosList = new ArrayList<String>();
+    private JSONArray getVideos(Elements videosElems, String id, String subType){
+        JSONArray videosListArr = new JSONArray();
         
         int noOfSeasons = videosElems.size();
         for (int i = 0 ; i < noOfSeasons; i++){
@@ -236,7 +234,7 @@ public class WebCrawler {
                 }
                 
                 //get streams
-                String[] streams = getStreams(episodePageLink);
+                JSONArray streamsArr = getStreams(episodePageLink);
 
                 episodeVideoJSONObj.put("id",videoId);
                 episodeVideoJSONObj.put("title",title);
@@ -245,19 +243,17 @@ public class WebCrawler {
                 episodeVideoJSONObj.put("description",description);
                 episodeVideoJSONObj.put("thumbnail",episodeLogoUrl);
                 episodeVideoJSONObj.put("episodeLink",episodePageLink);
-                episodeVideoJSONObj.put("streams",streams);
+                episodeVideoJSONObj.put("streams",streamsArr);
                 
-                videosList.add(episodeVideoJSONObj.toString());
+                videosListArr.put(episodeVideoJSONObj);
                 System.out.println("WebCrawler.getVideos()=> Added videos for episode : " + title + " " + seasonNo + ":" + (iter +1) + " subtype: " + subType);
             }
         }
         
-                
-        String[] videosArray = videosList.toArray(new String[0]);
-        return videosArray;
+        return videosListArr;
     }
 
-    private String[] getStreams(String link){
+    private JSONArray getStreams(String link){
         Document doc = fetchPage(link);
         Elements scriptElems = doc.select("script");
         
@@ -288,10 +284,10 @@ public class WebCrawler {
         episodeStreamJSONObj.put("name", nameVideo);
         episodeStreamJSONObj.put("description", descVideo);
 
-        String[] streams = new String[1];
+        JSONArray streamsArr = new JSONArray();
         //streams[0] = episodeStreamJSONObj.toString(4);
-        streams[0] = episodeStreamJSONObj.toString();
-        return streams;
+        streamsArr.put(episodeStreamJSONObj);
+        return streamsArr;
     }
 
     //+===================================================================================
@@ -347,17 +343,17 @@ public class WebCrawler {
             //get the number of seasons
             Elements seasons = doc.select("div.seasons-item.kids");
             
-            String [] videosList = getKidsVideos(seasons, id);
+            JSONArray videosListArr = getKidsVideos(seasons, id);
        
-            addToJsonObject(id, seriesTitle, seriesPage, imgUrl, seriesDescription, videosList, videosList, subType, "series");
+            addToJsonObject(id, seriesTitle, seriesPage, imgUrl, seriesDescription, genres, videosListArr, subType, "series");
             System.out.println("WebCrawler.addMetasForKids => Added  series, ID: " + id + " Name: " + seriesTitle);
             
             idIterator++; 
         }
     }
 
-    private String[] getKidsVideos(Elements seasons, String id){
-        List<String> videosList = new ArrayList<String>();
+    private JSONArray getKidsVideos(Elements seasons, String id){
+        JSONArray videosListArr = new JSONArray();
         int noOfSeasons = seasons.size();
 
         for (int iter = 0; iter< noOfSeasons; iter++){//iterate over seasons
@@ -389,7 +385,7 @@ public class WebCrawler {
                 
                 String episodeDescription = episode.select("div.card-text").text();
 
-                String[] streams = getStreams(episodeLink);
+                JSONArray streamsArr = getStreams(episodeLink);
                 String videoId = id + ":" + seasonNo + ":" + episodeNo;
                 JSONObject episodeVideoJSONObj = new JSONObject();
                 episodeVideoJSONObj.put("id",videoId);
@@ -399,14 +395,14 @@ public class WebCrawler {
                 episodeVideoJSONObj.put("description",episodeDescription);
                 episodeVideoJSONObj.put("thumbnail",episodeImgUrl);
                 episodeVideoJSONObj.put("episodeLink",episodeLink);
-                episodeVideoJSONObj.put("streams",streams);
+                episodeVideoJSONObj.put("streams",streamsArr);
 
                 //videosList.add(episodeVideoJSONObj.toString(4));
-                videosList.add(episodeVideoJSONObj.toString());
+                videosListArr.put(episodeVideoJSONObj);
                 System.out.println("WebCrawler.getKidsVideos => Added videos for episode : " + episodeTitle + " " + videoId);
             }
         }
-        return videosList.toArray(new String[0]);
+        return videosListArr;
     }
     //+===================================================================================
     //
@@ -762,7 +758,7 @@ public class WebCrawler {
     }
 
     private void addToJsonObject(String id, String seriesTitle, String seriesPage, String imgUrl,
-        String seriesDescription, String[] genres, String[] videosList, String subType, String type){
+        String seriesDescription, String[] genres, JSONArray videosList, String subType, String type){
          
         JSONObject joSeriesMeta = new JSONObject();
         joSeriesMeta.put("id", id);
