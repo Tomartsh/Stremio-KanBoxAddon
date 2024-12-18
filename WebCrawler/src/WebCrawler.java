@@ -723,6 +723,10 @@ public class WebCrawler {
                     if (! genres.contains("Kids")) { genres.add("Kids"); }
                     if (! genres.contains("קטנטנים")) { genres.add("קטנטנים"); }
                     break;      
+                default:
+                    genres.add("Kan");
+                    genres.add("באן");
+                    break;
             } 
         }
        return genres.toArray(new String[genres.size()]);
