@@ -5,9 +5,9 @@ const AdmZip = require("adm-zip");
 const srList = require("./classes/srList");
 const constants = require("./classes/constants");
 
-const logLevel = "INFO";
+const logLevel = "DEBUG";
 const listSeries = new srList();
-const jsonFileExist = "n";
+var jsonFileExist = "n";
  
 getJSONFile();
 if (jsonFileExist == "n") {
@@ -170,11 +170,12 @@ async function getJSONFile(){
 
     var jsonObj = JSON.parse(jsonStr);
     for (var key in jsonObj){
-        var value = jsonObj[key];
-        listSeries.addItem(value);
-        console.log(value);
+        var value = jsonObj[key]
+
+        listSeries.addItemByDetails(value.id, value.title, value.poster, value.description, value.link, value.background, value.genres, value.metas, value.type, value.subtype);
+        writeLog("DEBUG", "getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.title)
     }
-    
+    jsonFileExist = "y";
 }
 
 /**
@@ -305,6 +306,7 @@ async function getMovie(root, seriesID,subType){
      
     //episodeLink = episodeLink.substring(9,episodeLink.indexOf("/\"") + 1);
     var streams = await getStream(episodeLink,movieId);
+    var released = streams[0].released;
 
     videosList.push({
         id: movieId,
@@ -313,6 +315,7 @@ async function getMovie(root, seriesID,subType){
         episode: "1",
         thumbnail: imgUrl,
         description: desc,
+        released: released,
         streams: streams,
         episodelink: episodeLink
     });
@@ -365,6 +368,7 @@ async function getVideos(elemSeasons, seriesID){
 
             videoId = seriesID + ":" + seasonNo + ":" + (iter + 1);
             var streams = await getStream(episodeLink,videoId);
+            var released = streams[0].released;
 
             videosList.push({
                 id: videoId,
@@ -373,6 +377,7 @@ async function getVideos(elemSeasons, seriesID){
                 episode: episodeNo,
                 thumbnail: episodeLogoUrl,
                 description: desc,
+                released: released,
                 streams: streams,
                 episodelink: episodeLink
             });
@@ -392,8 +397,12 @@ async function getVideos(elemSeasons, seriesID){
  */
 async function getStream(link, videoId){
     var streamsList = [];
+    var released;
     writeLog("DEBUG","getStream => Link: " + link + "ID: " + videoId);
     var b = await fetchPage(link);
+    if (b.querySelector("li.date-local") != undefined){
+        released = b.querySelector("li.date-local").getAttribute("data-date-utc");
+    } else {release = "";}
     for (let iter = 0; iter < b.querySelectorAll("script").length; iter++){ //iterate over the episode stream links
         var selectedData = b.querySelectorAll("script")[iter];
         var scriptData = String(selectedData);
@@ -423,7 +432,8 @@ async function getStream(link, videoId){
                 url: videoUrl,
                 type: "series",
                 name: nameVideo,
-                description: descVideo  
+                description: descVideo,
+                released: released  
             })
         }
     }
@@ -1045,6 +1055,7 @@ async function addMetasForKids(jsonObj, subType){
                     episode: episodeNo,
                     thumbnail: imgUrlEpisode,
                     description: descriptionEpisode,
+                    released: "",
                     streams: streamsList,
                     episodelink: linkEpisode
                 });
