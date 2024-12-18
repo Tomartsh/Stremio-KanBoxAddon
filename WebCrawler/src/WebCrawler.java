@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -164,7 +165,10 @@ public class WebCrawler {
         String episodeLink = videosElems.select("a.btn.with-arrow.info-link.btn-gradient").attr("href");
 
         //get streams
-        JSONArray streamsArr = getStreams(episodeLink);
+        //JSONArray streamsJSONArray = getStreams(episodePageLink);
+        Map streamsMap = getStreams(episodeLink);
+        JSONArray streamsArr = (JSONArray)streamsMap.get("jsonArray");
+        String released = (String)streamsMap.get("released");
         
         JSONObject episodeVideoJSONObj = new JSONObject();
         episodeVideoJSONObj.put("id",videoId);
@@ -172,6 +176,7 @@ public class WebCrawler {
         episodeVideoJSONObj.put("season","1");
         episodeVideoJSONObj.put("episode","1");
         episodeVideoJSONObj.put("description",description);
+        episodeVideoJSONObj.put("released",released);
         episodeVideoJSONObj.put("thumbnail",imgUrl);
         episodeVideoJSONObj.put("episodeLink",episodeLink);
         episodeVideoJSONObj.put("streams",streamsArr);
@@ -230,13 +235,17 @@ public class WebCrawler {
                 }
                 
                 //get streams
-                JSONArray streamsJSONArray = getStreams(episodePageLink);
+                //JSONArray streamsJSONArray = getStreams(episodePageLink);
+                Map streamsMap = getStreams(episodePageLink);
+                JSONArray streamsJSONArray = (JSONArray)streamsMap.get("jsonArray");
+                String released = (String)streamsMap.get("released");
 
                 episodeVideoJSONObj.put("id",videoId);
                 episodeVideoJSONObj.put("title",title);
                 episodeVideoJSONObj.put("season",seasonNo);
                 episodeVideoJSONObj.put("episode",(iter +1));
                 episodeVideoJSONObj.put("description",description);
+                episodeVideoJSONObj.put("released",released);
                 episodeVideoJSONObj.put("thumbnail",episodeLogoUrl);
                 episodeVideoJSONObj.put("episodeLink",episodePageLink);
                 episodeVideoJSONObj.put("streams",streamsJSONArray);
@@ -248,8 +257,16 @@ public class WebCrawler {
         return videosArr;        
     }
 
-    private JSONArray getStreams(String link){
+    //private JSONArray getStreams(String link){
+    private Map getStreams(String link){
+        Map streamsMap = new TreeMap<>();
         Document doc = fetchPage(link);
+
+        if (doc.select("li.date-local") != null){
+            streamsMap.put("released",doc.select("li.date-local").attr("data-date-utc"));
+        } else {
+            streamsMap.put("released","");
+        }
         Elements scriptElems = doc.select("script");
         
         String videoUrl = "";
@@ -280,7 +297,9 @@ public class WebCrawler {
 
         JSONArray streamsArr = new JSONArray();
         streamsArr.put(episodeStreamJSONObj);
-        return streamsArr;
+        streamsMap.put ("jsonArray", streamsArr);
+        return streamsMap;
+        //return streamsArr;
     }
 
     //+===================================================================================
@@ -380,7 +399,11 @@ public class WebCrawler {
                 
                 String episodeDescription = episode.select("div.card-text").text();
 
-                JSONArray streamsArr = getStreams(episodeLink);
+                //JSONArray streamsArr = getStreams(episodeLink);
+                Map streamsMap = getStreams(episodeLink);
+                JSONArray streamsArr = (JSONArray)streamsMap.get("jsonArray");
+                String released = (String)streamsMap.get("released");
+
                 String videoId = id + ":" + seasonNo + ":" + episodeNo;
                 JSONObject episodeVideoJSONObj = new JSONObject();
                 episodeVideoJSONObj.put("id",videoId);
@@ -388,6 +411,7 @@ public class WebCrawler {
                 episodeVideoJSONObj.put("season",seasonNo);
                 episodeVideoJSONObj.put("episode",episodeNo);
                 episodeVideoJSONObj.put("description",episodeDescription);
+                episodeVideoJSONObj.put("released",released);
                 episodeVideoJSONObj.put("thumbnail",episodeImgUrl);
                 episodeVideoJSONObj.put("episodeLink",episodeLink);
                 episodeVideoJSONObj.put("streams",streamsArr);
