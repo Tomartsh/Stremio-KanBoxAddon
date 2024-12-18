@@ -7,12 +7,23 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
@@ -21,6 +32,7 @@ public class WebCrawler {
 
     private static TreeMap<String, String> constantsMap = new TreeMap<>();
     private static JSONObject jo;  
+    private static final Logger logger = LogManager.getLogger(WebCrawler.class);
 
     public static void main(String[] args) {  
         jo = new JSONObject();
@@ -40,13 +52,15 @@ public class WebCrawler {
         
         SimpleDateFormat ft = new SimpleDateFormat("dd-MM-yyyy_HH-mm"); 
         String formattedDate = ft.format(new Date());
-        System.out.println("WebCrawler = > Started @ " + formattedDate);
+        //System.out.println("WebCrawler = > Started @ " + formattedDate);
+        logger.info("WebCrawler.crawl = > Started @ " + formattedDate);
         WebCrawler webCrawler = new WebCrawler();
         
         webCrawler.crawl();
         
         String formattedEndDate = ft.format(new Date());
-        System.out.println("WebCrawler = > Stopped @ " + formattedEndDate);
+        //System.out.println("WebCrawler = > Stopped @ " + formattedEndDate);
+        logger.info("WebCrawler.crawl = > Stopped @ " + formattedDate);
 
       }
 
@@ -56,16 +70,17 @@ public class WebCrawler {
         //jo.put("date", formattedDate);
 
         crawlDigitalLive();
-        crawlDigital();
-        crawlHinuchitTiny();
-        crawlHinuchitTeen();
-        crawlPodcasts();
+        //crawlDigital();
+        //crawlHinuchitTiny();
+        //crawlHinuchitTeen();
+        //crawlPodcasts();
         
         //sort the list
 
         //export to file
         String uglyString = jo.toString(4);
         //System.out.println(uglyString);
+        logger.info("WebCrawler.crawl =>      Ugly String\n" + uglyString);
         writeToFile(uglyString);
     }
 
@@ -134,6 +149,7 @@ public class WebCrawler {
             } else {
                 if (seriesPageDoc.select("div.seasons-item").size() > 0) {
                     //System.out.println("crawlDigital => link: " + linkSeries );
+                    logger.debug("WebCrawler.crawlDigital => link: " + linkSeries);
                     videosListArr = getVideos(seriesPageDoc.select("div.seasons-item"), id, subType);
                 } else {
                     videosListArr = getMovies(seriesPageDoc, id, subType);
@@ -216,6 +232,7 @@ public class WebCrawler {
                                         elemEpisodeLogo.attr("src").indexOf("?"));
                             }
                             //System.out.println("getVideos => link before modifications: " + episodeLogoUrl);
+                            logger.debug("WebCrawler.getVideos => link before modifications: " + episodeLogoUrl);
                             if (episodeLogoUrl.startsWith("/")) {
                                 if ("d".equals(subType)) {
                                     episodeLogoUrl = "https://www.kan.org.il" + episodeLogoUrl;
@@ -230,6 +247,7 @@ public class WebCrawler {
                         }
                     } catch(Exception ex) {
                         //System.out.println("Error here: " + ex);
+                        logger.error("WebCrawler.getVideos => " + ex);
                         
                     }
                 }
@@ -251,7 +269,8 @@ public class WebCrawler {
                 episodeVideoJSONObj.put("streams",streamsJSONArray);
 
                 videosArr.put(episodeVideoJSONObj);
-                //System.out.println("WebCrawler.getVideos()=> Added videos for episode : " + title + " " + seasonNo + ":" + (iter +1) + " subtype: " + subType);
+                //System.out.println("WebCrawler =>     getVideos - Added videos for episode : " + title + " " + seasonNo + ":" + (iter +1) + " subtype: " + subType);
+                logger.debug("WebCrawler.getVideos => Added videos for episode : " + title + " " + seasonNo + ":" + (iter +1) + " subtype: " + subType);
             }
         }
         return videosArr;        
@@ -361,7 +380,7 @@ public class WebCrawler {
        
             addToJsonObject(id, seriesTitle, seriesPage, imgUrl, seriesDescription, genres, videosListArr, subType, "series");
             //System.out.println("WebCrawler.addMetasForKids => Added  series, ID: " + id + " Name: " + seriesTitle + " subtype: " + subType);
-            
+            logger.debug("WebCrawler.addMetasForKids => Added  series, ID: " + id + " Name: " + seriesTitle + " subtype: " + subType);
             idIterator++; 
         }
     }
@@ -418,6 +437,7 @@ public class WebCrawler {
 
                 videosListArr.put(episodeVideoJSONObj);
                 //System.out.println("WebCrawler.getKidsVideos => Added videos for episode : " + episodeTitle + " " + videoId);
+                logger.debug("WebCrawler.getKidsVideos => Added videos for episode : " + episodeTitle + " " + videoId);
             }
         }
         return videosListArr;
@@ -475,15 +495,18 @@ public class WebCrawler {
                 return doc;
             }
             catch ( final IOException e ){
-                System.out.println( "Failed to retrieve page: " + url );
+                //System.out.println( "Failed to retrieve page: " + url );
+                logger.error("WebCrawler.fetchPage => Failed to retrieve page: " + url );
                 if ( ++count >= maxRetries )
                 {
-                    System.out.println( "Waiting 2 seconds and retrying...");
+                    //System.out.println( "Waiting 2 seconds and retrying...");
+                    logger.error("WebCrawler.fetchPage => Waiting 2 seconds and retrying...");
                     try {
                         Thread.sleep(2 * 1000);
                         fetchPage(url);
                     } catch (InterruptedException ex){
                         ex.printStackTrace();
+                        logger.error("WebCrawler.fetchPage => error: " + ex);
                     }
                 } else {
                     e.printStackTrace();
@@ -803,7 +826,8 @@ public class WebCrawler {
         joSeries.put("metas", joSeriesMeta);    
 
         jo.put(id, joSeries);
-        System.out.println("WebCrawler.addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle);
+        //System.out.println("WebCrawler.addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle);
+        logger.info("WebCrawler.addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle);
     }
 
     //+===================================================================================
@@ -849,7 +873,8 @@ public class WebCrawler {
         joKanLive.put("metas", metaKanLiveJSONObj);    
 
         jo.put("kanTV_04", joKanLive);
-        System.out.println("WebCrawler.crawlDigitalLive => Added  Kan 11 Live TV");
+        //System.out.println("WebCrawler.crawlDigitalLive => Added  Kan 11 Live TV");
+        logger.info("WebCrawler.crawlDigitalLive => Added  Kan 11 Live TV");
 
         /* Kids Live */
         JSONArray streamsKidsLiveArr = new JSONArray();
@@ -888,7 +913,8 @@ public class WebCrawler {
         joKidsLive.put("metas", metaKidsLiveJSONObj);    
 
         jo.put("kanTV_05", joKidsLive);
-        System.out.println("WebCrawler.crawlDigitalLive => Added Kan Kids Live TV");
+        //System.out.println("WebCrawler.crawlDigitalLive => Added Kan Kids Live TV");
+        logger.info("WebCrawler.crawlDigitalLive => Added Kan Kids Live TV");
 
         /* Knesset Live */
         JSONArray streamsKnessetLiveArr = new JSONArray();
@@ -928,7 +954,8 @@ public class WebCrawler {
         joKnessetLive.put("metas", metaKnessetLiveJSONObj);    
 
         jo.put("kanTV_05", joKidsLive);
-        System.out.println("WebCrawler.crawlDigitalLive => Added Kan Kids Live TV");
+        //System.out.println("WebCrawler.crawlDigitalLive => Added Kan Kids Live TV");
+        logger.info("WebCrawler.crawlDigitalLive => Added Kan Kids Live TV");
 
         /* Makan Live */
         JSONArray streamsMakanLiveArr = new JSONArray();
@@ -967,7 +994,8 @@ public class WebCrawler {
         joKnessetLive.put("metas", metaMakanLiveJSONObj);    
 
         jo.put("kanTV_07", joMakanLive);
-        System.out.println("WebCrawler.crawlDigitalLive => Added Makan Live TV");
+        //System.out.println("WebCrawler.crawlDigitalLive => Added Makan Live TV");
+        logger.info("WebCrawler.crawlDigitalLive => Added Makan Live TV");
     }
     
     //+===================================================================================
@@ -980,10 +1008,34 @@ public class WebCrawler {
         String formattedDate = ft.format(new Date());
         
         String fileName = "stremio-kanbox_" + formattedDate + ".json";
+        File oJsonFile = new File(fileName);
+        Path fileNamePath = oJsonFile.toPath();
+        Path fileNameGenericPath = new File("stremio-kanbox.json").toPath();
         try (FileWriter file = new FileWriter(fileName)) {
             // Write the JSON object to the file
             file.write(jo.toString(4));  // Pretty print with an indentation level of 4
-            System.out.println("Successfully wrote JSON to file.");
+            //System.out.println("Successfully wrote JSON to file.");
+            logger.info("Successfully wrote JSON to file.");
+
+            //copy the file to a generic name
+            Files.copy(fileNamePath, fileNameGenericPath,StandardCopyOption.REPLACE_EXISTING);
+            logger.info("Successfully copied file to generic name.");
+
+            FileOutputStream fos = new FileOutputStream("stremio-kanbox.zip");
+            ZipOutputStream zipOut = new ZipOutputStream(fos);
+            FileInputStream fis = new FileInputStream(oJsonFile);
+            ZipEntry zipEntry = new ZipEntry(oJsonFile.getName());
+            zipOut.putNextEntry(zipEntry);
+
+            byte[] bytes = new byte[1024];
+            int length;
+            while((length = fis.read(bytes)) >= 0) {
+                zipOut.write(bytes, 0, length);
+            }
+
+            zipOut.close();
+            fis.close();
+            fos.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
