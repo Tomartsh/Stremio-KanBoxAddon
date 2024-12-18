@@ -51,9 +51,9 @@ public class WebCrawler {
       }
 
     public void crawl(){
-        SimpleDateFormat ft = new SimpleDateFormat("dd-MM-yyyy"); 
-        String formattedDate = ft.format(new Date());
-        jo.put("date", formattedDate);
+        //SimpleDateFormat ft = new SimpleDateFormat("dd-MM-yyyy"); 
+        //String formattedDate = ft.format(new Date());
+        //jo.put("date", formattedDate);
 
         crawlDigitalLive();
         crawlDigital();
@@ -65,7 +65,7 @@ public class WebCrawler {
 
         //export to file
         String uglyString = jo.toString(4);
-        System.out.println(uglyString);
+        //System.out.println(uglyString);
         writeToFile(uglyString);
     }
 
@@ -117,7 +117,7 @@ public class WebCrawler {
             Document seriesPageDoc = fetchPage(linkSeries);
             //set series title (name)
             String seriesTitle = getNameFromSeriesPage(seriesPageDoc.select("h2.title").text());
-            if (seriesTitle.isEmpty()){
+            if ((seriesTitle.isEmpty()) || "-".equals(seriesTitle) || " ".equals(seriesTitle)){
                 seriesTitle = getNameFromSeriesPage(seriesPageDoc.select("span.logo.d-none.d-md-inline img.img-fluid").attr("alt"));
 
             }
@@ -133,7 +133,7 @@ public class WebCrawler {
                 continue;
             } else {
                 if (seriesPageDoc.select("div.seasons-item").size() > 0) {
-                    System.out.println("crawlDigital => link: " + linkSeries );
+                    //System.out.println("crawlDigital => link: " + linkSeries );
                     videosListArr = getVideos(seriesPageDoc.select("div.seasons-item"), id, subType);
                 } else {
                     videosListArr = getMovies(seriesPageDoc, id, subType);
@@ -229,7 +229,7 @@ public class WebCrawler {
                             }                           
                         }
                     } catch(Exception ex) {
-                        System.out.println("Error here: " + ex);
+                        //System.out.println("Error here: " + ex);
                         
                     }
                 }
@@ -251,7 +251,7 @@ public class WebCrawler {
                 episodeVideoJSONObj.put("streams",streamsJSONArray);
 
                 videosArr.put(episodeVideoJSONObj);
-                System.out.println("WebCrawler.getVideos()=> Added videos for episode : " + title + " " + seasonNo + ":" + (iter +1) + " subtype: " + subType);
+                //System.out.println("WebCrawler.getVideos()=> Added videos for episode : " + title + " " + seasonNo + ":" + (iter +1) + " subtype: " + subType);
             }
         }
         return videosArr;        
@@ -360,7 +360,7 @@ public class WebCrawler {
             JSONArray videosListArr = getKidsVideos(seasons, id);
        
             addToJsonObject(id, seriesTitle, seriesPage, imgUrl, seriesDescription, genres, videosListArr, subType, "series");
-            System.out.println("WebCrawler.addMetasForKids => Added  series, ID: " + id + " Name: " + seriesTitle + " subtype: " + subType);
+            //System.out.println("WebCrawler.addMetasForKids => Added  series, ID: " + id + " Name: " + seriesTitle + " subtype: " + subType);
             
             idIterator++; 
         }
@@ -417,7 +417,7 @@ public class WebCrawler {
                 episodeVideoJSONObj.put("streams",streamsArr);
 
                 videosListArr.put(episodeVideoJSONObj);
-                System.out.println("WebCrawler.getKidsVideos => Added videos for episode : " + episodeTitle + " " + videoId);
+                //System.out.println("WebCrawler.getKidsVideos => Added videos for episode : " + episodeTitle + " " + videoId);
             }
         }
         return videosListArr;
