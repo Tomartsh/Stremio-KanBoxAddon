@@ -2,3 +2,6 @@
 node_modules
 package-lock.json
 stremio-kanbox.json
+
+#ignore the logs folder
+logs
