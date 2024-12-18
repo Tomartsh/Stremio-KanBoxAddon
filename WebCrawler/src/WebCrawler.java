@@ -70,12 +70,10 @@ public class WebCrawler {
         //jo.put("date", formattedDate);
 
         crawlDigitalLive();
-        //crawlDigital();
-        //crawlHinuchitTiny();
-        //crawlHinuchitTeen();
-        //crawlPodcasts();
-        
-        //sort the list
+        crawlDigital();
+        crawlHinuchitTiny();
+        crawlHinuchitTeen();
+        crawlPodcasts();
 
         //export to file
         String uglyString = jo.toString(4);
