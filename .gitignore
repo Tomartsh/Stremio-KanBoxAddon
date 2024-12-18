@@ -5,3 +5,6 @@ stremio-kanbox.json
 
 #ignore the logs folder
 logs
+
+#ignore output folders
+output
