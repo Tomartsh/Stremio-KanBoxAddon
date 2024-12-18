@@ -60,6 +60,8 @@ public class WebCrawler {
         crawlHinuchitTeen();
         crawlPodcasts();
         
+        //sort the list
+
         //export to file
         String uglyString = jo.toString(4);
         System.out.println(uglyString);
@@ -104,6 +106,7 @@ public class WebCrawler {
             //set series image link
             Element imageElem = seriesElem.select("img").get(0);
             String imgUrl = imageElem.attr("src");
+            imgUrl = imgUrl.substring(0,imgUrl.indexOf("?"));
             if (imgUrl.startsWith("/")){
                 imgUrl = constantsMap.get("SITE_PREFIX") + imgUrl;
             }
@@ -884,7 +887,7 @@ public class WebCrawler {
         JSONObject metaKnessetLiveJSONObj = new JSONObject();
         metaKnessetLiveJSONObj.put("id", "kanTV_06");
         metaKnessetLiveJSONObj.put("name", "שידורי ערוץ הכנסת 99");
-        metaKnessetLiveJSONObj.put("name", "חינוכית");
+        metaKnessetLiveJSONObj.put("genres", "Actuality,אקטואליה");
         metaKnessetLiveJSONObj.put("type", "tv");
         metaKnessetLiveJSONObj.put("genres", "Actuality,אקטואליה");
         metaKnessetLiveJSONObj.put("background", "https://www.knesset.tv/media/20004/logo-new.png");
@@ -903,7 +906,7 @@ public class WebCrawler {
         jo.put("kanTV_05", joKidsLive);
         System.out.println("WebCrawler.crawlDigitalLive => Added Kan Kids Live TV");
 
-        /* Mשלשמ Live */
+        /* Makan Live */
         JSONArray streamsMakanLiveArr = new JSONArray();
         JSONObject streamKMakanLiveObj = new JSONObject();
         streamKMakanLiveObj.put("url", "https://makan.media.kan.org.il/hls/live/2024680/2024680/master.m3u8");
