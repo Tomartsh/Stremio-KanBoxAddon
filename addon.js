@@ -166,16 +166,23 @@ async function getJSONFile(){
         
     } catch (e) {
         console.log(`Something went wrong. ${e}`);
+        jsonFileExist = "n";
     }
 
-    var jsonObj = JSON.parse(jsonStr);
-    for (var key in jsonObj){
-        var value = jsonObj[key]
+    if ( jsonStr != undefined){
+        var jsonObj = JSON.parse(jsonStr);
+        for (var key in jsonObj){
+            var value = jsonObj[key]
 
-        listSeries.addItemByDetails(value.id, value.title, value.poster, value.description, value.link, value.background, value.genres, value.metas, value.type, value.subtype);
-        writeLog("DEBUG", "getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.title)
+            listSeries.addItemByDetails(value.id, value.title, value.poster, value.description, value.link, value.background, value.genres, value.metas, value.type, value.subtype);
+            writeLog("DEBUG", "getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.title)
+        }
+        jsonFileExist = "y";
+        
+    } else {
+        writeLog("INFO","Cannot find the JSON data. Generating it.");
+        jsonFileExist = "n";
     }
-    jsonFileExist = "y";
 }
 
 /**
