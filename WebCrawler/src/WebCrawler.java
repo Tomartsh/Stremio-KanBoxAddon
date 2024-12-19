@@ -67,7 +67,7 @@ public class WebCrawler {
         crawlDigital();
         crawlHinuchitTiny();
         crawlHinuchitTeen();
-        crawlPodcasts();
+        //crawlPodcasts();
 
         //export to file
         String uglyString = jo.toString(4);
@@ -363,7 +363,7 @@ public class WebCrawler {
             String[] genres = setGenreFromString(jsonObj.getString("Genres"));
             
             String id;
-            id = constantsMap.get("PREFIX") + generateId(seriesPage);
+            id = generateId(seriesPage);
             /* 
             if ("k".equals(subType)) {
                 //id = constantsMap.get("PREFIX") + "kids_" + String.format("%05d", idIterator);
@@ -999,23 +999,27 @@ public class WebCrawler {
         SimpleDateFormat ft = new SimpleDateFormat("dd-MM-yyyy_HH-mm"); 
         String formattedDate = ft.format(new Date());
         
-        String fileName = "output/stremio-kanbox_" + formattedDate + ".json";
-        File oJsonFile = new File(fileName);
-        Path fileNamePath = oJsonFile.toPath();
-        Path fileNameGenericPath = new File("output/stremio-kanbox.json").toPath();
-        try (FileWriter file = new FileWriter(fileName)) {
+        String outputFileName = "output/stremio-kanbox_" + formattedDate + ".json";
+        File outpuFile = new File(outputFileName);
+        Path outputFilePath = outpuFile.toPath();
+        
+        String shortOutputFileName = "output/stremio-kanbox,json";
+        File shortOutputFile = new File(shortOutputFileName);
+        Path shortOutputFilePath = shortOutputFile.toPath();
+        
+        try (FileWriter file = new FileWriter(outputFileName)) {
             // Write the JSON object to the file
             file.write(jo.toString(4));  // Pretty print with an indentation level of 4
             logger.info("Successfully wrote JSON to file.");
 
             //copy the file to a generic name
-            Files.copy(fileNamePath, fileNameGenericPath,StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(outputFilePath, shortOutputFilePath,StandardCopyOption.REPLACE_EXISTING);
             logger.info("Successfully copied file to generic name.");
 
-            FileOutputStream fos = new FileOutputStream("outputstremio-kanbox.zip");
+            FileOutputStream fos = new FileOutputStream("output/stremio-kanbox.zip");
             ZipOutputStream zipOut = new ZipOutputStream(fos);
-            FileInputStream fis = new FileInputStream(oJsonFile);
-            ZipEntry zipEntry = new ZipEntry(oJsonFile.getName());
+            FileInputStream fis = new FileInputStream(shortOutputFile);
+            ZipEntry zipEntry = new ZipEntry(shortOutputFile.getName());
             zipOut.putNextEntry(zipEntry);
 
             byte[] bytes = new byte[1024];
