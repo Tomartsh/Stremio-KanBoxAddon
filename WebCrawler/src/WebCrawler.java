@@ -33,6 +33,8 @@ public class WebCrawler {
     private static TreeMap<String, String> constantsMap = new TreeMap<>();
     private static JSONObject jo;  
     private static final Logger logger = LogManager.getLogger(WebCrawler.class);
+    public static boolean testMode = false;
+    public static String testUrl = "";
 
     public static void main(String[] args) {  
         jo = new JSONObject();
@@ -58,7 +60,7 @@ public class WebCrawler {
         webCrawler.crawl();
         
         String formattedEndDate = ft.format(new Date());
-        logger.info("WebCrawler.crawl = > Stopped @ " + formattedDate);
+        logger.info("WebCrawler.crawl = > Stopped @ " + formattedEndDate);
 
       }
 
@@ -81,7 +83,12 @@ public class WebCrawler {
     //+===================================================================================
 
     private void crawlDigital(){
-        Document doc = fetchPage(constantsMap.get("URL_ADDRESS"));
+        Document doc = null;
+        if (testMode){
+            doc = fetchPage(testUrl);
+        } else {
+            doc = fetchPage(constantsMap.get("URL_ADDRESS"));
+        }
         
         Elements series = doc.select("a.card-link");
         for (Element seriesElem : series) {
@@ -124,7 +131,7 @@ public class WebCrawler {
             String seriesTitle = getNameFromSeriesPage(seriesPageDoc.select("h2.title").text());
             if (seriesTitle.isEmpty()){
                 seriesTitle = getNameFromSeriesPage(seriesPageDoc.select("span.logo.d-none.d-md-inline img.img-fluid").attr("alt"));
-                if ("-".equals(seriesTitle) || " ".equals(seriesTitle)){
+                if ("-".equals(seriesTitle) || " ".equals(seriesTitle) || (seriesTitle.isEmpty())){
                     seriesTitle = getNameFromSeriesPage(imageElem.attr("alt"));
                     if ("-".equals(seriesTitle) || " ".equals(seriesTitle)){
                         Elements scriptElems = doc.select("script");
@@ -136,6 +143,7 @@ public class WebCrawler {
                             }
                         }
                     }
+                    seriesTitle = getNameFromSeriesPage(seriesTitle);
                 }
             }
 
@@ -347,8 +355,6 @@ public class WebCrawler {
     }
 
     private void addMetasForKids(JSONArray jsonArr, String subType){
-        int idIterator = 1;
-
         for (int i = 0; i < jsonArr.length(); ++i) { //iterate over series    
             JSONObject jsonObj = jsonArr.getJSONObject(i);
             
@@ -364,14 +370,6 @@ public class WebCrawler {
             
             String id;
             id = generateId(seriesPage);
-            /* 
-            if ("k".equals(subType)) {
-                //id = constantsMap.get("PREFIX") + "kids_" + String.format("%05d", idIterator);
-                id = constantsMap.get("PREFIX") + generateId(seriesPage);
-            } else {
-                id = constantsMap.get("PREFIX") + "teens_" + String.format("%05d", idIterator);
-            }
-            */
 
             Document doc = fetchPage(seriesPage + "?currentPage=2&itemsToShow=100");
             String seriesDescription = doc.select("div.info-description").text();
@@ -382,7 +380,6 @@ public class WebCrawler {
        
             addToJsonObject(id, seriesTitle, seriesPage, imgUrl, seriesDescription, genres, videosListArr, subType, "series");
             logger.debug("WebCrawler.addMetasForKids => Added  series, ID: " + id + " Name: " + seriesTitle + " subtype: " + subType);
-            idIterator++; 
         }
     }
 
@@ -577,6 +574,12 @@ public class WebCrawler {
             }
             if (name.indexOf ("Poster Image Small 239X360 ") > 0){
                 name = name.replace("Poster Image Small 239X360 ","");
+            }
+            if (name.indexOf ("Title Logo") > 0){
+                name = name.replace("Title Logo","");
+            }
+            if (name.indexOf ("1920X1080") > 0 ){
+                name = name.replace("1920X1080","");
             }
         }
         return name.trim();
@@ -823,7 +826,7 @@ public class WebCrawler {
         joSeries.put("metas", joSeriesMeta);    
 
         jo.put(id, joSeries);
-        logger.info("WebCrawler.addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle);
+        logger.info("WebCrawler.addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + "\n  Link: " + seriesPage);
     }
 
     //+===================================================================================
