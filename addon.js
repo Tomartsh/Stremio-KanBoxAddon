@@ -169,7 +169,8 @@ async function getJSONFile(){
         jsonFileExist = "n";
     }
 
-    if ( jsonStr != undefined){
+    //if ((jsonStr != undefined) || (jsonStr != '')){
+    if (jsonStr.length > 0){
         var jsonObj = JSON.parse(jsonStr);
         for (var key in jsonObj){
             var value = jsonObj[key]
