@@ -357,25 +357,31 @@ public class WebCrawler {
     private void addMetasForKids(JSONArray jsonArr, String subType){
         for (int i = 0; i < jsonArr.length(); ++i) { //iterate over series    
             JSONObject jsonObj = jsonArr.getJSONObject(i);
-            
-            String seriesTitle = getNameFromSeriesPage(jsonObj.getString("ImageAlt")).trim();
-            
+                        
             String imgUrl = constantsMap.get("url_hinuchit_kids_content_prefix") 
                 + jsonObj.getString("Image").substring(0,
                 jsonObj.getString("Image").indexOf("?"));
             
             String seriesPage = constantsMap.get("url_hinuchit_kids_content_prefix") + jsonObj.getString("Url");
-            
             String[] genres = setGenreFromString(jsonObj.getString("Genres"));
             
             String id;
             id = generateId(seriesPage);
 
             Document doc = fetchPage(seriesPage + "?currentPage=2&itemsToShow=100");
+            //set the series name
+            String h2Title = doc.select("h2.title.h1").text().trim();
+            String seriesTitle = getNameFromSeriesPage(h2Title);
+            if (seriesTitle.isEmpty()){
+                String titleAlt = doc.select("span.logo.d-none.d-md-inline img.img-fluid").attr("alt");
+                seriesTitle = getNameFromSeriesPage(titleAlt);
+                if (seriesTitle.isEmpty()){
+                    seriesTitle = getNameFromSeriesPage(jsonObj.getString("ImageAlt")).trim();
+                }
+            }
             String seriesDescription = doc.select("div.info-description").text();
             //get the number of seasons
             Elements seasons = doc.select("div.seasons-item.kids");
-            
             JSONArray videosListArr = getKidsVideos(seasons, id);
        
             addToJsonObject(id, seriesTitle, seriesPage, imgUrl, seriesDescription, genres, videosListArr, subType, "series");
@@ -572,14 +578,26 @@ public class WebCrawler {
             if (name.indexOf ("239 360") > 0){
                 name = name.replace("Poster 239 360","");
             }
-            if (name.indexOf ("Poster Image Small 239X360 ") > 0){
-                name = name.replace("Poster Image Small 239X360 ","");
+            if (name.contains ("Image Small 239X360")){
+                name = name.replace("Image Small 239X360","");
             }
-            if (name.indexOf ("Title Logo") > 0){
+            if (name.contains ("פוסטר קטן")){
+                name = name.replace("פוסטר קטן","");
+            }
+            if (name.contains ("Poster")){
+                name = name.replace("Poster","");
+            }
+            if (name.contains ("Title Logo")){
                 name = name.replace("Title Logo","");
             }
-            if (name.indexOf ("1920X1080") > 0 ){
+            if (name.contains ("1920X1080")){
                 name = name.replace("1920X1080","");
+            }
+            if (name.startsWith("לוגו")){
+                name = name.replace("לוגו","");
+            }
+            if (name.endsWith("לוגו")){
+                name = name.replace("לוגו","");
             }
         }
         return name.trim();
