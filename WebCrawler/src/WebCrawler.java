@@ -141,7 +141,7 @@ public class WebCrawler {
                 seriesTitle = getNameFromSeriesPage(seriesPageDoc.select("span.logo.d-none.d-md-inline img.img-fluid").attr("alt"));
                 if ("-".equals(seriesTitle) || " ".equals(seriesTitle) || (seriesTitle.isEmpty())){
                     seriesTitle = getNameFromSeriesPage(imageElem.attr("alt"));
-                    if ("-".equals(seriesTitle) || " ".equals(seriesTitle)){
+                    if ("-".equals(seriesTitle) || " ".equals(seriesTitle) || (seriesTitle.isEmpty())){
                         Elements scriptElems = doc.select("script");
                         for (Element scriptElem : scriptElems){
             
