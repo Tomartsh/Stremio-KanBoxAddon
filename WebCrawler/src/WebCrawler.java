@@ -10,11 +10,14 @@ import org.jsoup.select.Elements;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -41,13 +44,17 @@ public class WebCrawler {
         constantsMap.put("LOGLEVEL", "DEBUG");
         constantsMap.put("URL_ADDRESS", "https://www.kan.org.il/lobby/kan-box");
         constantsMap.put("PODCASTS_URL", "https://www.kan.org.il/lobby/podcasts-lobby/");
-        constantsMap.put("CONTENT_PREFIX", "https://www.kan.org.il/content");
+        //constantsMap.put("CONTENT_PREFIX", "https://www.kan.org.il/content");
+        constantsMap.put("DIGITAL_IMAGE_PREFIX", "https://www.kan.org.il");
         constantsMap.put("SITE_PREFIX", "https://www.kan.org.il/content");
         constantsMap.put("MEDIA_PREFIX","https://www.kan.org.il/media");
         constantsMap.put("url_hiuchit_tiny", "https://www.kankids.org.il/lobby-kids/tiny");
         constantsMap.put("url_hiuchit_teen", "https://www.kankids.org.il/lobby-kids/kids-teens");
         constantsMap.put("url_hinuchit_kids_content_prefix","https://www.kankids.org.il");
         constantsMap.put("PODCASTS_URL","https://www.kan.org.il/lobby/aod/");
+        constantsMap.put("OUTPUT_PATH","output/");
+        constantsMap.put("JSON_FILENAME","stremio-kanbox.json");
+        constantsMap.put("ZIP_FILENAME","stremio-kanbox.zip");
         constantsMap.put("USERAGENT", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0");
         constantsMap.put("PREFIX", "kanbox_");
         //constantsMap.put("USERAGENT", "UTF-8");
@@ -70,6 +77,7 @@ public class WebCrawler {
         crawlHinuchitTiny();
         crawlHinuchitTeen();
         //crawlPodcasts();
+        //crawlRadioStations();
 
         //export to file
         String uglyString = jo.toString(4);
@@ -121,7 +129,7 @@ public class WebCrawler {
             String imgUrlStr = imageElem.attr("src");
             String imgUrl = imgUrlStr.substring(0,imgUrlStr.indexOf("?"));
             if (imgUrl.startsWith("/")){
-                imgUrl = constantsMap.get("SITE_PREFIX") + imgUrl;
+                imgUrl = constantsMap.get("DIGITAL_IMAGE_PREFIX") + imgUrl;
             }
 
             //Start individual series section
@@ -1015,29 +1023,67 @@ public class WebCrawler {
     //
     //  General methods
     //+===================================================================================
+    /**
+     * Check if a file exist and if needed, delete it
+     * @param filePath - String to location of file
+     * @param delete - boolean to decide if to delte the file or not
+     * @return If file exist and delete true and successfuly deleted - return false
+     *          If file exist and delete true and NOT successfuly deleted - return true
+     *          If file does NOT exist and delete true - return false
+     *          If file does NOT exist and delete false - return false
+     */
+    private boolean IsFileExist(String filePath, boolean delete){
+        File file = new File(filePath);
+
+        // Check if the file exists
+        if (file.exists()) { // The file exists
+            logger.info("File " + filePath + " Exists");
+            if (delete){// The file exists and we want to delete
+                if (file.delete()) {
+                    logger.info("File '{}' deleted successfully", filePath);
+                    return false;
+                }else {
+                    logger.error("Failed to delete the file '{}", filePath);
+                    return true;
+                }
+            } else {// The file exists and we do not want to delete
+                return true;
+            }
+        } else { // file does not exist
+            logger.info("File '{}' does not Exist.", filePath);
+            return false;
+        }
+    }
+    
     private void writeToFile(String jsonStr){
 
         SimpleDateFormat ft = new SimpleDateFormat("dd-MM-yyyy_HH-mm"); 
         String formattedDate = ft.format(new Date());
         
-        String outputFileName = "output/stremio-kanbox_" + formattedDate + ".json";
+        String outputFileName = constantsMap.get("OUTPUT_PATH") + "stremio-kanbox_" + formattedDate + ".json";
         File outpuFile = new File(outputFileName);
         Path outputFilePath = outpuFile.toPath();
         
-        String shortOutputFileName = "output/stremio-kanbox,json";
+        String shortOutputFileName = constantsMap.get("OUTPUT_PATH") + constantsMap.get("JSON_FILENAME");
         File shortOutputFile = new File(shortOutputFileName);
         Path shortOutputFilePath = shortOutputFile.toPath();
         
         try (FileWriter file = new FileWriter(outputFileName)) {
             // Write the JSON object to the file
+            String joOutput = jo.toString(4);
             file.write(jo.toString(4));  // Pretty print with an indentation level of 4
             logger.info("Successfully wrote JSON to file.");
-
+            InputStream in = new ByteArrayInputStream(joOutput.getBytes());
             //copy the file to a generic name
-            Files.copy(outputFilePath, shortOutputFilePath,StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(in, shortOutputFilePath,StandardCopyOption.REPLACE_EXISTING);
             logger.info("Successfully copied file to generic name.");
 
-            FileOutputStream fos = new FileOutputStream("output/stremio-kanbox.zip");
+            //if there is a zip file, change it's name
+            if (IsFileExist(constantsMap.get("OUTPUT_PATH") + constantsMap.get("ZIP_FILENAME"), true)){
+                logger.error("Zip file exists and was not deleted. We will try to overwrite");
+            }
+
+            FileOutputStream fos = new FileOutputStream(constantsMap.get("OUTPUT_PATH") + constantsMap.get("ZIP_FILENAME"));
             ZipOutputStream zipOut = new ZipOutputStream(fos);
             FileInputStream fis = new FileInputStream(shortOutputFile);
             ZipEntry zipEntry = new ZipEntry(shortOutputFile.getName());
@@ -1048,6 +1094,7 @@ public class WebCrawler {
             while((length = fis.read(bytes)) >= 0) {
                 zipOut.write(bytes, 0, length);
             }
+            logger.info("Successfully generated zip file.");
 
             zipOut.close();
             fis.close();
@@ -1056,5 +1103,4 @@ public class WebCrawler {
             e.printStackTrace();
         }
     }
-    
 }
