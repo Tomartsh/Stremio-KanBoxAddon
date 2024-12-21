@@ -10,7 +10,6 @@ import org.jsoup.select.Elements;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
@@ -1061,8 +1061,8 @@ public class WebCrawler {
         String formattedDate = ft.format(new Date());
         
         String outputFileName = constantsMap.get("OUTPUT_PATH") + "stremio-kanbox_" + formattedDate + ".json";
-        File outpuFile = new File(outputFileName);
-        Path outputFilePath = outpuFile.toPath();
+        //File outpuFile = new File(outputFileName);
+        //Path outputFilePath = outpuFile.toPath();
         
         String shortOutputFileName = constantsMap.get("OUTPUT_PATH") + constantsMap.get("JSON_FILENAME");
         File shortOutputFile = new File(shortOutputFileName);
@@ -1073,14 +1073,23 @@ public class WebCrawler {
             String joOutput = jo.toString(4);
             file.write(jo.toString(4));  // Pretty print with an indentation level of 4
             logger.info("Successfully wrote JSON to file.");
+            
             InputStream in = new ByteArrayInputStream(joOutput.getBytes());
             //copy the file to a generic name
             Files.copy(in, shortOutputFilePath,StandardCopyOption.REPLACE_EXISTING);
             logger.info("Successfully copied file to generic name.");
 
-            //if there is a zip file, change it's name
-            if (IsFileExist(constantsMap.get("OUTPUT_PATH") + constantsMap.get("ZIP_FILENAME"), true)){
-                logger.error("Zip file exists and was not deleted. We will try to overwrite");
+            //if there is a zip file,delete it
+            String zipPathName = constantsMap.get("OUTPUT_PATH") + constantsMap.get("ZIP_FILENAME");
+            if (IsFileExist(zipPathName, false)){
+                logger.error("Zip file exists and was not deleted. We will try to rename it");
+                try{
+                    Path sourcePath = Paths.get(zipPathName);
+                    Path targetPath = Paths.get(zipPathName + "." + formattedDate);
+                    Path path = Files.move(sourcePath, targetPath,StandardCopyOption.REPLACE_EXISTING);
+                } catch (Exception ex){
+                    ex.printStackTrace();
+                }
             }
 
             FileOutputStream fos = new FileOutputStream(constantsMap.get("OUTPUT_PATH") + constantsMap.get("ZIP_FILENAME"));
@@ -1099,6 +1108,8 @@ public class WebCrawler {
             zipOut.close();
             fis.close();
             fos.close();
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
