@@ -6,7 +6,7 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Java WebCrawler",
+            "name": "Java Kan WebCrawler",
             "request": "launch",
             "mainClass": "WebCrawler"
         },

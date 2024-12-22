@@ -10,11 +10,20 @@ import org.jsoup.select.Elements;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
@@ -24,6 +33,8 @@ public class WebCrawler {
     private static TreeMap<String, String> constantsMap = new TreeMap<>();
     private static JSONObject jo;  
     private static final Logger logger = LogManager.getLogger(WebCrawler.class);
+    public static boolean testMode = false;
+    public static String testUrl = "";
 
     public static void main(String[] args) {  
         jo = new JSONObject();
@@ -43,31 +54,25 @@ public class WebCrawler {
         
         SimpleDateFormat ft = new SimpleDateFormat("dd-MM-yyyy_HH-mm"); 
         String formattedDate = ft.format(new Date());
-        System.out.println("WebCrawler = > Started @ " + formattedDate);
-        logger.info(("Here we go now: " + formattedDate));
+        logger.info("WebCrawler.crawl = > Started @ " + formattedDate);
         WebCrawler webCrawler = new WebCrawler();
         
         webCrawler.crawl();
         
         String formattedEndDate = ft.format(new Date());
-        System.out.println("WebCrawler = > Stopped @ " + formattedEndDate);
+        logger.info("WebCrawler.crawl = > Stopped @ " + formattedEndDate);
 
       }
 
     public void crawl(){
-        SimpleDateFormat ft = new SimpleDateFormat("dd-MM-yyyy"); 
-        String formattedDate = ft.format(new Date());
-        jo.put("date", formattedDate);
-
         crawlDigitalLive();
         crawlDigital();
         crawlHinuchitTiny();
         crawlHinuchitTeen();
         //crawlPodcasts();
-        
         //export to file
         String uglyString = jo.toString(4);
-        System.out.println(uglyString);
+        logger.info("WebCrawler.crawl =>      Ugly String\n" + uglyString);
         writeToFile(uglyString);
     }
 
@@ -77,7 +82,12 @@ public class WebCrawler {
     //+===================================================================================
 
     private void crawlDigital(){
-        Document doc = fetchPage(constantsMap.get("URL_ADDRESS"));
+        Document doc = null;
+        if (testMode){
+            doc = fetchPage(testUrl);
+        } else {
+            doc = fetchPage(constantsMap.get("URL_ADDRESS"));
+        }
         
         Elements series = doc.select("a.card-link");
         for (Element seriesElem : series) {
@@ -101,14 +111,14 @@ public class WebCrawler {
             //set series ID
             String id = generateId(linkSeries);
             //set series page link
-            //String linkSeries = seriesElem.attr("href");
             if (linkSeries.startsWith("/")) {
                 linkSeries = constantsMap.get("URL_ADDRESS") + linkSeries;
             }
             
             //set series image link
             Element imageElem = seriesElem.select("img").get(0);
-            String imgUrl = imageElem.attr("src");
+            String imgUrlStr = imageElem.attr("src");
+            String imgUrl = imgUrlStr.substring(0,imgUrlStr.indexOf("?"));
             if (imgUrl.startsWith("/")){
                 imgUrl = constantsMap.get("SITE_PREFIX") + imgUrl;
             }
@@ -120,7 +130,20 @@ public class WebCrawler {
             String seriesTitle = getNameFromSeriesPage(seriesPageDoc.select("h2.title").text());
             if (seriesTitle.isEmpty()){
                 seriesTitle = getNameFromSeriesPage(seriesPageDoc.select("span.logo.d-none.d-md-inline img.img-fluid").attr("alt"));
-
+                if ("-".equals(seriesTitle) || " ".equals(seriesTitle) || (seriesTitle.isEmpty())){
+                    seriesTitle = getNameFromSeriesPage(imageElem.attr("alt"));
+                    if ("-".equals(seriesTitle) || " ".equals(seriesTitle)){
+                        Elements scriptElems = doc.select("script");
+                        for (Element scriptElem : scriptElems){
+            
+                            if (scriptElem.toString().contains("position\": 5,")) {
+                                String altName = scriptElem.toString().substring(scriptElem.toString().indexOf("position\\\": 5,") +40);
+                                seriesTitle = altName.substring(0,altName.indexOf('"'));
+                            }
+                        }
+                    }
+                    seriesTitle = getNameFromSeriesPage(seriesTitle);
+                }
             }
 
             //set Description
@@ -134,7 +157,8 @@ public class WebCrawler {
                 continue;
             } else {
                 if (seriesPageDoc.select("div.seasons-item").size() > 0) {
-                    System.out.println("crawlDigital => link: " + linkSeries );
+                    //System.out.println("crawlDigital => link: " + linkSeries );
+                    logger.debug("WebCrawler.crawlDigital => link: " + linkSeries);
                     videosListArr = getVideos(seriesPageDoc.select("div.seasons-item"), id, subType);
                 } else {
                     videosListArr = getMovies(seriesPageDoc, id, subType);
@@ -166,7 +190,9 @@ public class WebCrawler {
         String episodeLink = videosElems.select("a.btn.with-arrow.info-link.btn-gradient").attr("href");
 
         //get streams
-        JSONArray streamsArr = getStreams(episodeLink);
+        Map streamsMap = getStreams(episodeLink);
+        JSONArray streamsArr = (JSONArray)streamsMap.get("jsonArray");
+        String released = (String)streamsMap.get("released");
         
         JSONObject episodeVideoJSONObj = new JSONObject();
         episodeVideoJSONObj.put("id",videoId);
@@ -174,6 +200,7 @@ public class WebCrawler {
         episodeVideoJSONObj.put("season","1");
         episodeVideoJSONObj.put("episode","1");
         episodeVideoJSONObj.put("description",description);
+        episodeVideoJSONObj.put("released",released);
         episodeVideoJSONObj.put("thumbnail",imgUrl);
         episodeVideoJSONObj.put("episodeLink",episodeLink);
         episodeVideoJSONObj.put("streams",streamsArr);
@@ -212,7 +239,7 @@ public class WebCrawler {
                                 episodeLogoUrl = elemEpisodeLogo.attr("src").substring(0,
                                         elemEpisodeLogo.attr("src").indexOf("?"));
                             }
-                            //System.out.println("getVideos => link before modifications: " + episodeLogoUrl);
+                            logger.debug("WebCrawler.getVideos => link before modifications: " + episodeLogoUrl);
                             if (episodeLogoUrl.startsWith("/")) {
                                 if ("d".equals(subType)) {
                                     episodeLogoUrl = "https://www.kan.org.il" + episodeLogoUrl;
@@ -228,33 +255,44 @@ public class WebCrawler {
                             
                         }
                     } catch(Exception ex) {
-                        System.out.println("Error here: " + ex);
+                        logger.error("WebCrawler.getVideos => " + ex);
                         
                     }
                 }
                 
                 //get streams
-                JSONArray streamsArr = getStreams(episodePageLink);
+                Map streamsMap = getStreams(episodePageLink);
+                JSONArray streamsJSONArray = (JSONArray)streamsMap.get("jsonArray");
+                String released = (String)streamsMap.get("released");
 
                 episodeVideoJSONObj.put("id",videoId);
                 episodeVideoJSONObj.put("title",title);
                 episodeVideoJSONObj.put("season",seasonNo);
                 episodeVideoJSONObj.put("episode",(iter +1));
                 episodeVideoJSONObj.put("description",description);
+                episodeVideoJSONObj.put("released",released);
                 episodeVideoJSONObj.put("thumbnail",episodeLogoUrl);
                 episodeVideoJSONObj.put("episodeLink",episodePageLink);
-                episodeVideoJSONObj.put("streams",streamsArr);
-                
-                videosListArr.put(episodeVideoJSONObj);
-                System.out.println("WebCrawler.getVideos()=> Added videos for episode : " + title + " " + seasonNo + ":" + (iter +1) + " subtype: " + subType);
+                episodeVideoJSONObj.put("streams",streamsJSONArray);
+
+                videosArr.put(episodeVideoJSONObj);
+                logger.debug("WebCrawler.getVideos => Added videos for episode : " + title + " " + seasonNo + ":" + (iter +1) + " subtype: " + subType);
             }
         }
         
         return videosListArr;
     }
 
-    private JSONArray getStreams(String link){
+    //private JSONArray getStreams(String link){
+    private Map getStreams(String link){
+        Map streamsMap = new TreeMap<>();
         Document doc = fetchPage(link);
+
+        if (doc.select("li.date-local") != null){
+            streamsMap.put("released",doc.select("li.date-local").attr("data-date-utc"));
+        } else {
+            streamsMap.put("released","");
+        }
         Elements scriptElems = doc.select("script");
         
         String videoUrl = "";
@@ -287,7 +325,8 @@ public class WebCrawler {
         JSONArray streamsArr = new JSONArray();
         //streams[0] = episodeStreamJSONObj.toString(4);
         streamsArr.put(episodeStreamJSONObj);
-        return streamsArr;
+        streamsMap.put ("jsonArray", streamsArr);
+        return streamsMap;
     }
 
     //+===================================================================================
@@ -320,8 +359,6 @@ public class WebCrawler {
     }
 
     private void addMetasForKids(JSONArray jsonArr, String subType){
-        int idIterator = 1;
-
         for (int i = 0; i < jsonArr.length(); ++i) { //iterate over series    
             JSONObject jsonObj = jsonArr.getJSONObject(i);
             String id;
@@ -331,13 +368,16 @@ public class WebCrawler {
                 id = constantsMap.get("PREFIX") + "teens_" + String.format("%05d", idIterator);
             }
             String seriesTitle = getNameFromSeriesPage(jsonObj.getString("ImageAlt")).trim();
-            //String desc = jsonObj.getString("Description");
+            
             String imgUrl = constantsMap.get("url_hinuchit_kids_content_prefix") 
                 + jsonObj.getString("Image").substring(0,
                 jsonObj.getString("Image").indexOf("?"));
             String seriesPage = constantsMap.get("url_hinuchit_kids_content_prefix") + jsonObj.getString("Url");
             String[] genres = setGenreFromString(jsonObj.getString("Genres"));
             
+            String id;
+            id = generateId(seriesPage);
+
             Document doc = fetchPage(seriesPage + "?currentPage=2&itemsToShow=100");
             String seriesDescription = doc.select("div.info-description").text();
             //get the number of seasons
@@ -346,9 +386,7 @@ public class WebCrawler {
             JSONArray videosListArr = getKidsVideos(seasons, id);
        
             addToJsonObject(id, seriesTitle, seriesPage, imgUrl, seriesDescription, genres, videosListArr, subType, "series");
-            System.out.println("WebCrawler.addMetasForKids => Added  series, ID: " + id + " Name: " + seriesTitle + " subtype: " + subType);
-            
-            idIterator++; 
+            logger.debug("WebCrawler.addMetasForKids => Added  series, ID: " + id + " Name: " + seriesTitle + " subtype: " + subType);
         }
     }
 
@@ -385,7 +423,10 @@ public class WebCrawler {
                 
                 String episodeDescription = episode.select("div.card-text").text();
 
-                JSONArray streamsArr = getStreams(episodeLink);
+                Map streamsMap = getStreams(episodeLink);
+                JSONArray streamsArr = (JSONArray)streamsMap.get("jsonArray");
+                String released = (String)streamsMap.get("released");
+
                 String videoId = id + ":" + seasonNo + ":" + episodeNo;
                 JSONObject episodeVideoJSONObj = new JSONObject();
                 episodeVideoJSONObj.put("id",videoId);
@@ -393,13 +434,14 @@ public class WebCrawler {
                 episodeVideoJSONObj.put("season",seasonNo);
                 episodeVideoJSONObj.put("episode",episodeNo);
                 episodeVideoJSONObj.put("description",episodeDescription);
+                episodeVideoJSONObj.put("released",released);
                 episodeVideoJSONObj.put("thumbnail",episodeImgUrl);
                 episodeVideoJSONObj.put("episodeLink",episodeLink);
                 episodeVideoJSONObj.put("streams",streamsArr);
 
                 //videosList.add(episodeVideoJSONObj.toString(4));
                 videosListArr.put(episodeVideoJSONObj);
-                System.out.println("WebCrawler.getKidsVideos => Added videos for episode : " + episodeTitle + " " + videoId);
+                logger.debug("WebCrawler.getKidsVideos => Added videos for episode : " + episodeTitle + " " + videoId);
             }
         }
         return videosListArr;
@@ -457,15 +499,16 @@ public class WebCrawler {
                 return doc;
             }
             catch ( final IOException e ){
-                System.out.println( "Failed to retrieve page: " + url );
+                logger.error("WebCrawler.fetchPage => Failed to retrieve page: " + url );
                 if ( ++count >= maxRetries )
                 {
-                    System.out.println( "Waiting 2 seconds and retrying...");
+                    logger.error("WebCrawler.fetchPage => Waiting 2 seconds and retrying...");
                     try {
                         Thread.sleep(2 * 1000);
                         fetchPage(url);
                     } catch (InterruptedException ex){
                         ex.printStackTrace();
+                        logger.error("WebCrawler.fetchPage => error: " + ex);
                     }
                 } else {
                     e.printStackTrace();
@@ -540,6 +583,12 @@ public class WebCrawler {
             }
             if (name.indexOf ("Poster Image Small 239X360 ") > 0){
                 name = name.replace("Poster Image Small 239X360 ","");
+            }
+            if (name.indexOf ("Title Logo") > 0){
+                name = name.replace("Title Logo","");
+            }
+            if (name.indexOf ("1920X1080") > 0 ){
+                name = name.replace("1920X1080","");
             }
         }
         return name.trim();
@@ -734,6 +783,10 @@ public class WebCrawler {
                     if (! genres.contains("Kids")) { genres.add("Kids"); }
                     if (! genres.contains("קטנטנים")) { genres.add("קטנטנים"); }
                     break;      
+                default:
+                    genres.add("Kan");
+                    genres.add("באן");
+                    break;
             } 
         }
        return genres.toArray(new String[genres.size()]);
@@ -783,7 +836,7 @@ public class WebCrawler {
         joSeries.put("metas", joSeriesMeta);    
 
         jo.put(id, joSeries);
-        System.out.println("WebCrawler.addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + " Subtype: " + subType + " Genres: " + genres.toString());
+        logger.info("WebCrawler.addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + "\n  Link: " + seriesPage);
     }
 
     //+===================================================================================
@@ -831,7 +884,7 @@ public class WebCrawler {
         joKanLive.put("metas", metaKanLiveJSONObj);    
 
         jo.put("kanTV_04", joKanLive);
-        System.out.println("WebCrawler.crawlDigitalLive => Added  Kan 11 Live TV");
+        logger.info("WebCrawler.crawlDigitalLive => Added  Kan 11 Live TV");
 
         /* Kids Live */
         JSONObject streamKanKidsLiveJSONObj = new JSONObject();
@@ -871,8 +924,8 @@ public class WebCrawler {
         joKanKidsLive.put("title", "חינוכית");
         joKanKidsLive.put("metas", metaKanKidsLiveJSONObj);    
 
-        jo.put("kanTV_05", joKanKidsLive);
-        System.out.println("WebCrawler.crawlDigitalLive => Added Kan Kids Live TV");
+        jo.put("kanTV_05", joKidsLive);
+        logger.info("WebCrawler.crawlDigitalLive => Added Kan Kids Live TV");
 
         /* Kenesset Live */
         JSONObject streamKanKnessetLiveJSONObj = new JSONObject();
@@ -893,17 +946,17 @@ public class WebCrawler {
         List<String> videosKnessetList = new ArrayList<String>();
         String[] videosKnessetArray = videosKnessetList.toArray(new String[0]);
         
-        JSONObject metaKanKnessetLiveJSONObj = new JSONObject();
-        metaKanKnessetLiveJSONObj.put("id", "kanTV_06");
-        metaKanKnessetLiveJSONObj.put("name", "שידורי ערוץ הכנסת 99");
-        metaKanKnessetLiveJSONObj.put("type", "tv");
-        metaKanKnessetLiveJSONObj.put("genres", "Actuality");
-        metaKanKnessetLiveJSONObj.put("background", "https://www.knesset.tv/media/20004/logo-new.png");
-        metaKanKnessetLiveJSONObj.put("poster", "https://www.knesset.tv/media/20004/logo-new.png");
-        metaKanKnessetLiveJSONObj.put("posterShape", "poster");
-        metaKanKnessetLiveJSONObj.put("posterShape", "landscape");
-        metaKanKnessetLiveJSONObj.put("description", "שידורי ערוץ הכנסת - 99");
-        metaKanKnessetLiveJSONObj.put("videos", videosKnessetArray);
+        JSONObject metaKnessetLiveJSONObj = new JSONObject();
+        metaKnessetLiveJSONObj.put("id", "kanTV_06");
+        metaKnessetLiveJSONObj.put("name", "שידורי ערוץ הכנסת 99");
+        metaKnessetLiveJSONObj.put("genres", "Actuality,אקטואליה");
+        metaKnessetLiveJSONObj.put("type", "tv");
+        metaKnessetLiveJSONObj.put("genres", "Actuality,אקטואליה");
+        metaKnessetLiveJSONObj.put("background", "https://www.knesset.tv/media/20004/logo-new.png");
+        metaKnessetLiveJSONObj.put("poster", "https://www.knesset.tv/media/20004/logo-new.png");
+        metaKnessetLiveJSONObj.put("posterShape", "landscape");
+        metaKnessetLiveJSONObj.put("description", "שידורי ערוץ הכנסת - 99");
+        metaKnessetLiveJSONObj.put("videos", videosKnessetLiveJSONArr);
 
         JSONObject joKanKnessetLive = new JSONObject();
         joKanKnessetLive.put("id", "kanTV_06");
@@ -912,27 +965,17 @@ public class WebCrawler {
         joKanKnessetLive.put("title", "שידורי ערוץ הכנסת 99");
         joKanKnessetLive.put("metas", metaKanKnessetLiveJSONObj);    
 
-        jo.put("kanTV_06", joKanKnessetLive);
-        System.out.println("WebCrawler.crawlDigitalLive => Added Knesset Live TV");
+        jo.put("kanTV_05", joKidsLive);
+        logger.info("WebCrawler.crawlDigitalLive => Added Kan Kids Live TV");
 
         /* Makan Live */
-        JSONObject streamMakanLiveJSONObj = new JSONObject();
-        streamMakanLiveJSONObj.put("url", "https://makan.media.kan.org.il/hls/live/2024680/2024680/master.m3u8");
-        streamMakanLiveJSONObj.put("type", "tv");
-        streamMakanLiveJSONObj.put("name", "ערוץ השידורים הערבי");
-        streamMakanLiveJSONObj.put("description", "שידורי ערוץ השידורים הערבי");
-
-        String[] streamsMakanLive = new String[1];
-        streamsMakanLive[0] = streamMakanLiveJSONObj.toString();
-
-        JSONObject videosMakanJSONObj = new JSONObject();
-        videosMakanJSONObj.put("id","kanTV_07");
-        videosMakanJSONObj.put("title","ערוץ השידורים הערבי");
-        videosMakanJSONObj.put("description","שידורי ערוץ השידורים הערבי");
-        videosMakanJSONObj.put("released",LocalDate.now());
-        videosMakanJSONObj.put("streams",videosMakanJSONObj);
-        List<String> videosMakanList = new ArrayList<String>();
-        String[] videosMakanArray = videosMakanList.toArray(new String[0]);
+        JSONArray streamsMakanLiveArr = new JSONArray();
+        JSONObject streamKMakanLiveObj = new JSONObject();
+        streamKMakanLiveObj.put("url", "https://makan.media.kan.org.il/hls/live/2024680/2024680/master.m3u8");
+        streamKMakanLiveObj.put("type", "tv");
+        streamKMakanLiveObj.put("name", "ערוץ השידור הערבי");
+        streamKMakanLiveObj.put("description", "שידורי ערוץ השידור הערבי");
+        streamsMakanLiveArr.put(streamKMakanLiveObj);
 
         JSONObject metaMakanLiveJSONObj = new JSONObject();
         metaMakanLiveJSONObj.put("id", "kanTV_07");
@@ -954,7 +997,7 @@ public class WebCrawler {
         joMakanLive.put("metas", metaMakanLiveJSONObj);    
 
         jo.put("kanTV_07", joMakanLive);
-        System.out.println("WebCrawler.crawlDigitalLive => Added Makan Live TV");
+        logger.info("WebCrawler.crawlDigitalLive => Added Makan Live TV");
     }
     
     //+===================================================================================
@@ -966,11 +1009,38 @@ public class WebCrawler {
         SimpleDateFormat ft = new SimpleDateFormat("dd-MM-yyyy_HH-mm"); 
         String formattedDate = ft.format(new Date());
         
-        String fileName = "stremio-kanbox_" + formattedDate + ".json";
-        try (FileWriter file = new FileWriter(fileName)) {
+        String outputFileName = "output/stremio-kanbox_" + formattedDate + ".json";
+        File outpuFile = new File(outputFileName);
+        Path outputFilePath = outpuFile.toPath();
+        
+        String shortOutputFileName = "output/stremio-kanbox,json";
+        File shortOutputFile = new File(shortOutputFileName);
+        Path shortOutputFilePath = shortOutputFile.toPath();
+        
+        try (FileWriter file = new FileWriter(outputFileName)) {
             // Write the JSON object to the file
             file.write(jo.toString(4));  // Pretty print with an indentation level of 4
-            System.out.println("Successfully wrote JSON to file.");
+            logger.info("Successfully wrote JSON to file.");
+
+            //copy the file to a generic name
+            Files.copy(outputFilePath, shortOutputFilePath,StandardCopyOption.REPLACE_EXISTING);
+            logger.info("Successfully copied file to generic name.");
+
+            FileOutputStream fos = new FileOutputStream("output/stremio-kanbox.zip");
+            ZipOutputStream zipOut = new ZipOutputStream(fos);
+            FileInputStream fis = new FileInputStream(shortOutputFile);
+            ZipEntry zipEntry = new ZipEntry(shortOutputFile.getName());
+            zipOut.putNextEntry(zipEntry);
+
+            byte[] bytes = new byte[1024];
+            int length;
+            while((length = fis.read(bytes)) >= 0) {
+                zipOut.write(bytes, 0, length);
+            }
+
+            zipOut.close();
+            fis.close();
+            fos.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

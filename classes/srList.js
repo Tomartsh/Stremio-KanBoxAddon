@@ -36,7 +36,7 @@ class srList {
         }
         return metas;
     }
-
+   
     getMetasBySubtype(subtype) {
         var metas = [];
         for (var [key, value] of Object.entries(this._seriesList)) {
@@ -49,15 +49,16 @@ class srList {
 
     getMetasBySubtypeAndName(subtype, nameToSearch) {
         var metas = [];
+        //if this is a wild card, return all metas of teh relevant subtype
+        if (nameToSearch.trim() == "*"){
+            metas = this.getMetasBySubtype(subtype);
+            return metas;
+        }
         for (var [key, value] of Object.entries(this._seriesList)) {
             if (value.subtype == subtype){
-                if (nameToSearch.trim() == "*"){
+                var meta = value.meta;
+                if (meta.name.includes(nameToSearch.trim())){
                     metas.push(value.meta);
-                } else {
-                    var meta = value.meta;
-                    if (meta.name.includes(nameToSearch.trim())){
-                        metas.push(value.meta);
-                    }
                 }
             }  
         }
@@ -120,7 +121,7 @@ class srList {
     }
 
     // Add an item to the list (each item is an object with an id and key-value pair)
-    addItem(item) {
+    _addItem(item) {
         var errObj = this._validateSeriesEntryDetailed(item.id);
         if (errObj.errorStatus == true ) {
             return errObj.errorMessage + " Ignoring..."
