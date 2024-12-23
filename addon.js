@@ -1,6 +1,8 @@
 const { addonBuilder } = require("stremio-addon-sdk");
 const { parse } = require('node-html-parser');
 const AdmZip = require("adm-zip");
+const fs = require('fs');
+const https = require('https');
 
 const srList = require("./classes/srList");
 const constants = require("./classes/constants");
@@ -156,16 +158,31 @@ builder.defineStreamHandler(({type, id}) => {
 /**
  * Retrieve the zip file, extract the .json file and then convert it to the seriesList object
  */
-async function getJSONFile(){
+ async function getJSONFile(){
     writeLog("DEUBG","getJSONFile = > Entered JSON");
     var jsonStr;
-    
+
     try {
-        const zip = new AdmZip(constants.url_JSON_File);
-        jsonStr = zip.readAsText("stremio-kanbox.json");
-        
+        //const zip = new AdmZip(constants.url_JSON_File);
+        //var outputPath = "c:/stremio-kanbox.zip";     
+        //const zip = new AdmZip(outputPath);
+        //jsonStr = zip.readAsText("stremio-kanbox.json");
+        https.get(constants.url_JSON_File, (res) => {
+            const path = "stremio-kanbox.zip";
+            const writeStream = fs.createWriteStream(path);
+          
+            res.pipe(writeStream);
+          
+            writeStream.on("finish", () => {
+              writeStream.close();
+              console.log("Download Completed");
+            });
+          });
+          
+
+
     } catch (e) {
-        console.log(`Something went wrong. ${e}`);
+        console.log("Something went wrong. " + e);
         jsonFileExist = "n";
     }
 
@@ -179,12 +196,20 @@ async function getJSONFile(){
             writeLog("DEBUG", "getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.title)
         }
         jsonFileExist = "y";
+        // Clean up temporary file        fs.unlinkSync(tempZipPath);
+        console.log('Temporary ZIP file deleted.');
         
     } else {
         writeLog("INFO","Cannot find the JSON data. Generating it.");
         jsonFileExist = "n";
     }
 }
+
+function downloadFile(url, outputPath) {
+    return fetch(url)
+        .then(x => x.arrayBuffer())
+        .then(x => writeFile(outputPath, Buffer.from(x)));
+  }
 
 /**
 * Fetch the list of VOD series
@@ -244,7 +269,6 @@ function getMetasSeriesPages(link, imgUrl, root){
     }
 
     name = getNameFromSeriesPage(root.querySelector('title').text);
-    //TODO: add what if name is empty. look in java
     description = setDescription(root.querySelectorAll('div.info-description p'));
 
     //set the genres
