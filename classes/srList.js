@@ -24,7 +24,7 @@ class srList {
             genres: genres, 
             meta: metas
         }
-        this._addItem(item);
+        this.addItem(item);
     }
 
     getMetasByType(type) {
