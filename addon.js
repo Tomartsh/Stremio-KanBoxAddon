@@ -1,8 +1,8 @@
 const { addonBuilder } = require("stremio-addon-sdk");
 const { parse } = require('node-html-parser');
 const AdmZip = require("adm-zip");
-const fs = require('fs');
-const https = require('https');
+//const fs = require('fs');
+//const https = require('https');
 
 const srList = require("./classes/srList");
 const constants = require("./classes/constants");
@@ -163,11 +163,13 @@ builder.defineStreamHandler(({type, id}) => {
     var jsonStr;
 
     try {
+        const zip = new AdmZip(outputPath);
+        jsonStr = zip.readAsText("stremio-kanbox.json");
         //const zip = new AdmZip(constants.url_JSON_File);
         //var outputPath = "c:/stremio-kanbox.zip";     
         //const zip = new AdmZip(outputPath);
         //jsonStr = zip.readAsText("stremio-kanbox.json");
-        https.get(constants.url_JSON_File, (res) => {
+        /*https.get(constants.url_JSON_File, (res) => {
             const path = "stremio-kanbox.zip";
             const writeStream = fs.createWriteStream(path);
           
@@ -178,7 +180,7 @@ builder.defineStreamHandler(({type, id}) => {
               console.log("Download Completed");
             });
           });
-          
+          */
 
 
     } catch (e) {
