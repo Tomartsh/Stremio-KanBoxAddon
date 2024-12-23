@@ -1,4 +1,3 @@
-
 const { addonBuilder } = require("stremio-addon-sdk");
 const { parse } = require('node-html-parser');
 const AdmZip = require("adm-zip");
@@ -10,7 +9,7 @@ const constants = require("./classes/constants");
 
 const logLevel = "DEBUG";
 const listSeries = new srList();
-const jsonFileExist = "n";
+var jsonFileExist = "n";
  
 getJSONFile();
 if (jsonFileExist == "n") {
