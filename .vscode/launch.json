@@ -20,6 +20,16 @@
             "program": "${workspaceFolder}/server.js",
             "args": ["--", "--install"]
         },
+		{
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Stremio - start",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/server.js",
+            "args": ["--", "--start"]
+        },
         {
             "name": "Launch via npm",
             "type": "node",
