@@ -2,8 +2,6 @@ const { addonBuilder } = require("stremio-addon-sdk");
 const { parse } = require('node-html-parser');
 const axios = require('axios');
 const AdmZip = require("adm-zip");
-//const fs = require('fs');
-//const https = require('https');
 
 const srList = require("./classes/srList");
 const constants = require("./classes/constants");
