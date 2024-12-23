@@ -10,16 +10,9 @@ const constants = require("./classes/constants");
 
 const logLevel = "DEBUG";
 const listSeries = new srList();
-var jsonFileExist = "n";
- 
-getJSONFile();
-if (jsonFileExist == "n") {
-    setLiveTVToList();
-    getSeriesLinks();
-    getHinuchitSeriesLinksTiny();
-    getHinuchitSeriesLinksTeens();
 
-}
+ 
+new Promise(j => getJSONFile(j));
 
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md
 const manifest = {
@@ -151,7 +144,7 @@ builder.defineStreamHandler(({type, id}) => {
     return Promise.resolve({ streams: [streams] });
 })
 
-
+var jsonFileExist = "";
 //+===================================================================================
 //
 //  zip retrieval and json parsing functions
@@ -166,12 +159,33 @@ builder.defineStreamHandler(({type, id}) => {
     try {
         //const zip = new AdmZip(outputPath);
         //jsonStr = zip.readAsText("stremio-kanbox.json");
-        const body = await axios.get(constants.url_JSON_File, {
+        axios.get(constants.url_JSON_File, {
             responseType: 'arraybuffer'
-        });
-        const data = body.data;
-        const zip = new AdmZip(data);
-        jsonStr = zip.readAsText("stremio-kanbox.json");
+        }).then((body) =>  {
+            const data = body.data;
+            const zip = new AdmZip(data);
+            jsonStr = zip.readAsText("stremio-kanbox.json");
+            if ((jsonStr != undefined) && (jsonStr != '')){
+                //if (jsonStr.length > 0){
+                    var jsonObj = JSON.parse(jsonStr);
+                    for (var key in jsonObj){
+                        var value = jsonObj[key]
+            
+                        listSeries.addItemByDetails(value.id, value.title, value.poster, value.description, value.link, value.background, value.genres, value.metas, value.type, value.subtype);
+                        writeLog("DEBUG", "getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.title)
+                    }
+                    jsonFileExist = "y";
+                    // Clean up temporary file        fs.unlinkSync(tempZipPath);
+                    console.log('Temporary ZIP file deleted.');
+                } else {
+                    writeLog("INFO","Cannot find the JSON data. Generating it.");
+                    jsonFileExist = "n";
+                    setLiveTVToList();
+                    getSeriesLinks();
+                    getHinuchitSeriesLinksTiny();
+                    getHinuchitSeriesLinksTeens();                    
+                }
+            })
         /*
         https.get(constants.url_JSON_File, (res) => {
             const path = "stremio-kanbox.zip";
@@ -189,24 +203,6 @@ builder.defineStreamHandler(({type, id}) => {
 
     } catch (e) {
         console.log("Something went wrong. " + e);
-        jsonFileExist = "n";
-    }
-
-    if ((jsonStr != undefined) && (jsonStr != '')){
-    //if (jsonStr.length > 0){
-        var jsonObj = JSON.parse(jsonStr);
-        for (var key in jsonObj){
-            var value = jsonObj[key]
-
-            listSeries.addItemByDetails(value.id, value.title, value.poster, value.description, value.link, value.background, value.genres, value.metas, value.type, value.subtype);
-            writeLog("DEBUG", "getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.title)
-        }
-        jsonFileExist = "y";
-        // Clean up temporary file        fs.unlinkSync(tempZipPath);
-        console.log('Temporary ZIP file deleted.');
-        
-    } else {
-        writeLog("INFO","Cannot find the JSON data. Generating it.");
         jsonFileExist = "n";
     }
 }
