@@ -1,5 +1,6 @@
 const { addonBuilder } = require("stremio-addon-sdk");
 const { parse } = require('node-html-parser');
+const axios = require('axios');
 const AdmZip = require("adm-zip");
 //const fs = require('fs');
 //const https = require('https');
@@ -163,13 +164,16 @@ builder.defineStreamHandler(({type, id}) => {
     var jsonStr;
 
     try {
-        const zip = new AdmZip(outputPath);
-        jsonStr = zip.readAsText("stremio-kanbox.json");
-        //const zip = new AdmZip(constants.url_JSON_File);
-        //var outputPath = "c:/stremio-kanbox.zip";     
         //const zip = new AdmZip(outputPath);
         //jsonStr = zip.readAsText("stremio-kanbox.json");
-        /*https.get(constants.url_JSON_File, (res) => {
+        const body = await axios.get(constants.url_JSON_File, {
+            responseType: 'arraybuffer'
+        });
+        const data = body.data;
+        const zip = new AdmZip(data);
+        jsonStr = zip.readAsText("stremio-kanbox.json");
+        /*
+        https.get(constants.url_JSON_File, (res) => {
             const path = "stremio-kanbox.zip";
             const writeStream = fs.createWriteStream(path);
           
@@ -179,8 +183,8 @@ builder.defineStreamHandler(({type, id}) => {
               writeStream.close();
               console.log("Download Completed");
             });
-          });
-          */
+        });
+        */
 
 
     } catch (e) {
@@ -188,8 +192,8 @@ builder.defineStreamHandler(({type, id}) => {
         jsonFileExist = "n";
     }
 
-    //if ((jsonStr != undefined) || (jsonStr != '')){
-    if (jsonStr.length > 0){
+    if ((jsonStr != undefined) && (jsonStr != '')){
+    //if (jsonStr.length > 0){
         var jsonObj = JSON.parse(jsonStr);
         for (var key in jsonObj){
             var value = jsonObj[key]

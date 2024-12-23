@@ -6,6 +6,7 @@
 		"start": "node server.js"
 	},
 	"dependencies": {
+		"axios": "",
 		"adm-zip": "^0.5.16",
 		"fs": "^0.0.1-security",
 		"node-html-parser": "^6.1.13",
