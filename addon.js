@@ -6,7 +6,7 @@ const AdmZip = require("adm-zip");
 const srList = require("./classes/srList");
 const constants = require("./classes/constants");
 
-const logLevel = "DEBUG";
+const logLevel = "INFO";
 const listSeries = new srList();
 
  
@@ -15,7 +15,7 @@ new Promise(j => getJSONFile(j));
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md
 const manifest = {
 	"id": "community.StremioKan",
-	"version": "0.0.1",
+	"version": "0.0.9",
     "logo": "https://i.imgur.com/rw5Vxad.png",
 	"catalogs": [
 		{
@@ -131,6 +131,9 @@ builder.defineMetaHandler(({type, id}) => {
 	writeLog("INFO","defineMetaHandler=> request for meta: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	var meta = listSeries.getMetaById(id);
+    var videos = meta.videos;
+    var streams = videos[0].streams;
+    writeLog("DEBUG","defineMetaHandler=> Stream name:" + streams[0].name );
     return Promise.resolve({ meta: meta })
 })
 
