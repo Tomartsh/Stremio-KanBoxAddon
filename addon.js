@@ -16,6 +16,7 @@ new Promise(j => getJSONFile(j));
 const manifest = {
 	"id": "community.StremioKan",
 	"version": "0.0.1",
+    "logo": "https://i.imgur.com/rw5Vxad.png",
 	"catalogs": [
 		{
 			type: "series",
