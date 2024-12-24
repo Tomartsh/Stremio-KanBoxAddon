@@ -626,7 +626,7 @@ public class WebCrawler {
     
         Elements genresElements = genreElems.select("ul li");
         if (genresElements.size() < 1) {return new String[]{"Kan"};}
-
+        
         List<String> genres = new ArrayList<>();
         for (Element check : genresElements){
             String strGenre = check.text().trim();
@@ -701,7 +701,10 @@ public class WebCrawler {
                     genres.add("קומדיה וסאטירה");
                     break;
                 default:  
-                    genres.add("Kan");
+                    if (! genres.contains("Kan")) {
+                        genres.add("Kan");
+                        genres.add("באן");
+                    }
                     break;         
             } 
         }
@@ -800,8 +803,10 @@ public class WebCrawler {
                     if (! genres.contains("קטנטנים")) { genres.add("קטנטנים"); }
                     break;      
                 default:
-                    genres.add("Kan");
-                    genres.add("באן");
+                    if (! genres.contains("Kan")) {
+                        genres.add("Kan");
+                        genres.add("באן");
+                    }
                     break;
             } 
         }
