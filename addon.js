@@ -133,7 +133,7 @@ builder.defineMetaHandler(({type, id}) => {
 	var meta = listSeries.getMetaById(id);
     var videos = meta.videos;
     var streams = videos[0].streams;
-    writeLog("DEBUG","defineMetaHandler=> Stream name:" + streams[0].name );
+    writeLog("INFO","defineMetaHandler=> Stream name:" + streams[0].name );
     return Promise.resolve({ meta: meta })
 })
 
