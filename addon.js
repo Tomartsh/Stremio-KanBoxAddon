@@ -131,9 +131,9 @@ builder.defineMetaHandler(({type, id}) => {
 	writeLog("INFO","defineMetaHandler=> request for meta: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	var meta = listSeries.getMetaById(id);
-    var videos = meta.videos;
-    var streams = videos[0].streams;
-    writeLog("INFO","defineMetaHandler=> Stream name:" + streams[0].name );
+    //var videos = meta.videos;
+    //var streams = videos[0].streams;
+    //writeLog("INFO","defineMetaHandler=> Stream name:" + streams[0].name );
     return Promise.resolve({ meta: meta })
 })
 
