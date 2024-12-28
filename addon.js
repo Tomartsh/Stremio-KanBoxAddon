@@ -6,7 +6,7 @@ const AdmZip = require("adm-zip");
 const srList = require("./classes/srList");
 const constants = require("./classes/constants");
 
-const logLevel = "INFO";
+const logLevel = "DEBUG";
 const listSeries = new srList();
 
  
@@ -75,7 +75,7 @@ const manifest = {
 	"types": [
 		"series",
 		"tv",
-        "podcasts"
+        "Podcasts"
 	],
 	"name": "Kan 11",
 	"description": "Kan Digital and live broadcast"
@@ -188,21 +188,6 @@ var jsonFileExist = "";
                     getHinuchitSeriesLinksTeens();                    
                 }
             })
-        /*
-        https.get(constants.url_JSON_File, (res) => {
-            const path = "stremio-kanbox.zip";
-            const writeStream = fs.createWriteStream(path);
-          
-            res.pipe(writeStream);
-          
-            writeStream.on("finish", () => {
-              writeStream.close();
-              console.log("Download Completed");
-            });
-        });
-        */
-
-
     } catch (e) {
         console.log("Something went wrong. " + e);
         jsonFileExist = "n";
