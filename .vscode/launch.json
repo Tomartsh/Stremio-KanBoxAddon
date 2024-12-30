@@ -6,14 +6,20 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Java Kan WebCrawler",
+            "name": "Kan WebCrawler",
             "request": "launch",
-            "mainClass": "WebCrawler"
+            "mainClass": "WebCrawlerKan"
+        },
+        {
+            "type": "java",
+            "name": "Mako WebCrawler",
+            "request": "launch",
+            "mainClass": "WebCrawlerKanMako"
         },
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Stremio - Install",
+            "name": "Stremio - Install",
             "skipFiles": [
                 "<node_internals>/**"
             ],
@@ -23,7 +29,7 @@
 		{
             "type": "node",
             "request": "launch",
-            "name": "Launch Stremio - start",
+            "name": "Stremio - start",
             "skipFiles": [
                 "<node_internals>/**"
             ],
