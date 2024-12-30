@@ -7,7 +7,10 @@
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n" />
         </Console>
         <!-- File Appender -->
-        <File name="FileAppender" fileName="WebCrawler/logs/StremioKanBox.log">
+        <File name="FileAppenderKan" fileName="WebCrawler/logs/WebCrawlerKan.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n" />
+        </File>
+        <File name="FileAppenderKan" fileName="WebCrawler/logs/WebCrawlerMako.log">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n" />
         </File>
     </Appenders>
@@ -19,8 +22,11 @@
             <!--AppenderRef ref="FileAppender" /-->
         </Root>
         <!-- Logger for specific package -->
-        <Logger name="WebCrawler" level="debug">
-            <AppenderRef ref="FileAppender" />
+        <Logger name="WebCrawlerKan" level="debug">
+            <AppenderRef ref="FileAppenderKan" />
+        </Logger>
+        <Logger name="WebCrawlerKan" level="debug">
+            <AppenderRef ref="FileAppenderMako" />
         </Logger>
     </Loggers>
 </Configuration>
