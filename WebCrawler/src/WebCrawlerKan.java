@@ -27,16 +27,15 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 
-public class WebCrawler {
+public class WebCrawlerKan {
 
     private static TreeMap<String, String> constantsMap = new TreeMap<>();
     private static JSONObject jo;  
-    private static final Logger logger = LogManager.getLogger(WebCrawler.class);
+    private static final Logger logger = LogManager.getLogger(WebCrawlerKan.class);
     public static boolean testMode = false;
     public static String testUrl = "";
 
@@ -61,13 +60,13 @@ public class WebCrawler {
         
         SimpleDateFormat ft = new SimpleDateFormat("dd-MM-yyyy_HH-mm"); 
         String formattedDate = ft.format(new Date());
-        logger.info("WebCrawler.crawl = > Started @ " + formattedDate);
-        WebCrawler webCrawler = new WebCrawler();
+        logger.info("WebCrawlerKan.crawl => Started @ " + formattedDate);
+        WebCrawlerKan WebCrawlerKan = new WebCrawlerKan();
         
-        webCrawler.crawl();
+        WebCrawlerKan.crawl();
         
         String formattedEndDate = ft.format(new Date());
-        logger.info("WebCrawler.crawl = > Stopped @ " + formattedEndDate);
+        logger.info("WebCrawlerKan.crawl = > Stopped @ " + formattedEndDate);
 
       }
 
@@ -81,7 +80,7 @@ public class WebCrawler {
 
         //export to file
         String uglyString = jo.toString(4);
-        logger.info("WebCrawler.crawl =>      Ugly String\n" + uglyString);
+        logger.info("WebCrawlerKan.crawl =>      Ugly String\n" + uglyString);
         writeToFile(uglyString);
     }
 
@@ -167,7 +166,7 @@ public class WebCrawler {
             } else {
                 if (seriesPageDoc.select("div.seasons-item").size() > 0) {
                     //System.out.println("crawlDigital => link: " + linkSeries );
-                    logger.debug("WebCrawler.crawlDigital => link: " + linkSeries);
+                    logger.debug("WebCrawlerKan.crawlDigital => link: " + linkSeries);
                     videosListArr = getVideos(seriesPageDoc.select("div.seasons-item"), id, subType);
                 } else {
                     videosListArr = getMovies(seriesPageDoc, id, subType);
@@ -247,10 +246,10 @@ public class WebCrawler {
                             if (elemEpisodeLogo != null) {
                                 episodeLogoUrl = getImageFromUrl(elemEpisodeLogo.attr("src"),"d");
                             }
-                            logger.debug("WebCrawler.getVideos =>   episodeLogoUrl location: " + episodeLogoUrl);                           
+                            logger.debug("WebCrawlerKan.getVideos =>   episodeLogoUrl location: " + episodeLogoUrl);                           
                         }
                     } catch(Exception ex) {
-                        logger.error("WebCrawler.getVideos => " + ex);
+                        logger.error("WebCrawlerKan.getVideos => " + ex);
                         
                     }
                 }
@@ -271,7 +270,7 @@ public class WebCrawler {
                 episodeVideoJSONObj.put("streams",streamsJSONArray);
 
                 videosArr.put(episodeVideoJSONObj);
-                logger.debug("WebCrawler.getVideos => Added videos for episode : " + title + " " + seasonNo + ":" + (iter +1) + " subtype: " + subType);
+                logger.debug("WebCrawlerKan.getVideos => Added videos for episode : " + title + " " + seasonNo + ":" + (iter +1) + " subtype: " + subType);
             }
         }
         return videosArr;        
@@ -378,7 +377,7 @@ public class WebCrawler {
             JSONArray videosListArr = getKidsVideos(seasons, id, subType);
        
             addToJsonObject(id, seriesTitle, seriesPage, imgUrl, seriesDescription, genres, videosListArr, subType, "series");
-            logger.debug("WebCrawler.addMetasForKids => Added  series, ID: " + id + " Name: " + seriesTitle + " subtype: " + subType);
+            logger.debug("WebCrawlerKan.addMetasForKids => Added  series, ID: " + id + " Name: " + seriesTitle + " subtype: " + subType);
         }
     }
 
@@ -431,7 +430,7 @@ public class WebCrawler {
                 episodeVideoJSONObj.put("streams",streamsArr);
 
                 videosListArr.put(episodeVideoJSONObj);
-                logger.debug("WebCrawler.getKidsVideos => Added videos for episode : " + episodeTitle + " " + videoId);
+                logger.debug("WebCrawlerKan.getKidsVideos => Added videos for episode : " + episodeTitle + " " + videoId);
             }
         }
         return videosListArr;
@@ -441,14 +440,14 @@ public class WebCrawler {
     //  Kan podcasts methods
     //+===================================================================================
     private void crawlPodcasts(){
-        logger.info("WebCrawler.crawlPodcasts => Starting retrieval of podcasts");
+        logger.info("WebCrawlerKan.crawlPodcasts => Starting retrieval of podcasts");
         Document doc = fetchPage(constantsMap.get("PODCASTS_URL"));
         
         Elements genres = doc.select("div.podcast-row");
-        logger.info("WebCrawler.crawlPodcasts => Found " + genres.size() + " genres");
+        logger.info("WebCrawlerKan.crawlPodcasts => Found " + genres.size() + " genres");
         for (Element genre : genres) { //iterate over podcasts rows by genre
             String[] genresName = {genre.select("h4.title-elem.category-name").text().trim()};
-            logger.debug("WebCrawler.crawlPodcasts => Genre " + genresName[0]);
+            logger.debug("WebCrawlerKan.crawlPodcasts => Genre " + genresName[0]);
             Elements podcasts = genre.select("a.podcast-item");
  
             for (Element podcast : podcasts) { //iterate over podcasts series
@@ -497,7 +496,7 @@ public class WebCrawler {
         //get last element in paging if there is one
         String lastPageNo = podcastSeriesPageDoc.select("li[class=pagination-page__item][title=Last page]").attr("data-num");
 
-        logger.debug("WebCrawler.addPodcastMeta => Number of pages " + lastPageNo);
+        logger.debug("WebCrawlerKan.addPodcastMeta => Number of pages " + lastPageNo);
 
         if ((! lastPageNo.isEmpty()) && (Integer.parseInt(lastPageNo) > 0) ){
             int intLastPageNo = Integer.parseInt(lastPageNo);
@@ -522,7 +521,7 @@ public class WebCrawler {
             episodeNo--;
         }
         addToJsonObject(id, seriesTitle,  podcastSeriesLink, podcastImageUrl, seriesDecription, genresName, videosListArr, "p", "Podcasts");
-        logger.info("WebCrawler.addPodcastMeta =>    Podcast added " + seriesTitle + " ID: " + id);
+        logger.info("WebCrawlerKan.addPodcastMeta =>    Podcast added " + seriesTitle + " ID: " + id);
     }
 
     /**
@@ -540,9 +539,9 @@ public class WebCrawler {
         } else {
             if (episode.select("a.card-body").size() > 0){
                 episodeLink = episode.select("a.card-body").attr("href");
-                logger.info("WebCrawler.getpodcastVideo =>        href card image empty. Using card href");
+                logger.info("WebCrawlerKan.getpodcastVideo =>        href card image empty. Using card href");
             } else {
-                logger.info("WebCrawler.getpodcastVideo =>        No episode link found, skipping.");
+                logger.info("WebCrawlerKan.getpodcastVideo =>        No episode link found, skipping.");
                 return podcastVideo;
             }
         }
@@ -555,7 +554,7 @@ public class WebCrawler {
         String episodeTitle = episode.select("h2.card-title").text().trim();
         String episodeDescription = episode.select("div.description").text().trim();
         String released = episode.select("li.date-local").attr("data-date-utc").trim();
-        logger.debug("WebCrawler.getpodcastVideo =>   Podcast episode " + episodeTitle + "\n           link:" + episodeLink + "\n            episode no. " + episodeNo);
+        logger.debug("WebCrawlerKan.getpodcastVideo =>   Podcast episode " + episodeTitle + "\n           link:" + episodeLink + "\n            episode no. " + episodeNo);
         JSONObject streams = getPodcastStreams(episodeLink);
         if (streams.isEmpty()) { 
             return podcastVideo;
@@ -571,7 +570,7 @@ public class WebCrawler {
         podcastVideo.put("streams",streams);
         podcastVideo.put("released", released);
 
-        logger.info("WebCrawler.getpodcastVideo =>        Adding video  " + " ID: " + id + ", Title: " + episodeTitle + ", episode: " + episodeNo);
+        logger.info("WebCrawlerKan.getpodcastVideo =>        Adding video  " + " ID: " + id + ", Title: " + episodeTitle + ", episode: " + episodeNo);
 
         return podcastVideo;
     }
@@ -607,7 +606,7 @@ public class WebCrawler {
             return streams;
         }
         String url = urlRaw.substring(0,urlRaw.indexOf("?"));
-        logger.debug("WebCrawler.getPodcastStreams =>       Podcast stream name: " + name + "\n     description: "+description+"\n      link: " + url);
+        logger.debug("WebCrawlerKan.getPodcastStreams =>       Podcast stream name: " + name + "\n     description: "+description+"\n      link: " + url);
 
         streams.put("url", url);
         streams.put("type", "series");
@@ -635,16 +634,16 @@ public class WebCrawler {
                 return doc;
             }
             catch ( final IOException e ){
-                logger.error("WebCrawler.fetchPage => Failed to retrieve page: " + url );
+                logger.error("WebCrawlerKan.fetchPage => Failed to retrieve page: " + url );
                 if ( ++count >= maxRetries )
                 {
-                    logger.error("WebCrawler.fetchPage => Waiting 2 seconds and retrying...");
+                    logger.error("WebCrawlerKan.fetchPage => Waiting 2 seconds and retrying...");
                     try {
                         Thread.sleep(2 * 1000);
                         fetchPage(url);
                     } catch (InterruptedException ex){
                         ex.printStackTrace();
-                        logger.error("WebCrawler.fetchPage => error: " + ex);
+                        logger.error("WebCrawlerKan.fetchPage => error: " + ex);
                     }
                 } else {
                     e.printStackTrace();
@@ -987,7 +986,7 @@ public class WebCrawler {
         joSeries.put("metas", joSeriesMeta);    
 
         jo.put(id, joSeries);
-        logger.info("WebCrawler.addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + "\n  Link: " + seriesPage);
+        logger.info("WebCrawlerKan.addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + "\n  Link: " + seriesPage);
     }
 
     //+===================================================================================
@@ -1038,7 +1037,7 @@ public class WebCrawler {
         joKanLive.put("metas", metaKanLiveJSONObj);    
 
         jo.put(idKanLive, joKanLive);
-        logger.info("WebCrawler.crawlDigitalLive => Added  Kan 11 Live TV");
+        logger.info("WebCrawlerKan.crawlDigitalLive => Added  Kan 11 Live TV");
 
         /* Kids Live */
         JSONArray streamsKidsLiveArr = new JSONArray();
@@ -1079,7 +1078,7 @@ public class WebCrawler {
         joKidsLive.put("metas", metaKidsLiveJSONObj);    
 
         jo.put(idKanKidsLive, joKidsLive);
-        logger.info("WebCrawler.crawlDigitalLive => Added Kan Kids Live TV");
+        logger.info("WebCrawlerKan.crawlDigitalLive => Added Kan Kids Live TV");
 
         /* Knesset Live */
         JSONArray streamsKnessetLiveArr = new JSONArray();
@@ -1119,7 +1118,7 @@ public class WebCrawler {
         joKnessetLive.put("metas", metaKnessetLiveJSONObj);    
 
         jo.put(idKanKnesset, joKnessetLive);
-        logger.info("WebCrawler.crawlDigitalLive => Added Kan Kids Live TV");
+        logger.info("WebCrawlerKan.crawlDigitalLive => Added Kan Kids Live TV");
 
         /* Makan Live */
         JSONObject streamKMakanLiveObj = new JSONObject();
@@ -1158,7 +1157,7 @@ public class WebCrawler {
         joMakanLive.put("metas", metaMakanLiveJSONObj);    
 
         jo.put(idMakanLive, joMakanLive);
-        logger.info("WebCrawler.crawlDigitalLive => Added Makan Live TV");
+        logger.info("WebCrawlerKan.crawlDigitalLive => Added Makan Live TV");
     }
     
     //+===================================================================================
