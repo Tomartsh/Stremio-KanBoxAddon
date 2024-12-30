@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="DEBUG">
+<Configuration status="INFO">
     <!-- Define the appenders -->
     <Appenders>
         <!-- Console Appender -->
@@ -16,7 +16,7 @@
         <!-- Root Logger -->
         <Root level="info">
             <AppenderRef ref="ConsoleAppender" />
-            <AppenderRef ref="FileAppender" />
+            <!--AppenderRef ref="FileAppender" /-->
         </Root>
         <!-- Logger for specific package -->
         <Logger name="WebCrawler" level="debug">
