@@ -180,12 +180,12 @@ var jsonFileExist = "";
                     // Clean up temporary file        fs.unlinkSync(tempZipPath);
                     console.log('Temporary ZIP file deleted.');
                 } else {
-                    writeLog("INFO","Cannot find the JSON data. Generating it.");
+                    writeLog("ERROR","Cannot find the JSON data. Please report this issue.");
                     jsonFileExist = "n";
-                    setLiveTVToList();
-                    getSeriesLinks();
-                    getHinuchitSeriesLinksTiny();
-                    getHinuchitSeriesLinksTeens();                    
+                    //setLiveTVToList();
+                    //getSeriesLinks();
+                    //getHinuchitSeriesLinksTiny();
+                    //getHinuchitSeriesLinksTeens();                    
                 }
             })
     } catch (e) {
@@ -1104,6 +1104,9 @@ function padWithLeadingZeros(num, totalLength) {
 }*/
 
 function writeLog(level, msg){
+    if (level =="ERROR"){
+            console.log(level + ": " + msg);
+    } 
     if (logLevel == "INFO"){
         if (level =="INFO"){
             console.log(level + ": " + msg);
