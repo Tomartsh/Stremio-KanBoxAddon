@@ -6,7 +6,7 @@ const AdmZip = require("adm-zip");
 const srList = require("./classes/srList");
 const constants = require("./classes/constants");
 
-const logLevel = "DEBUG";
+const logLevel = "INFO";
 const listSeries = new srList();
 
  
@@ -104,10 +104,13 @@ builder.defineCatalogHandler(({type, id, extra}) => {
                 metas = listSeries.getMetasBySubtypeAndName("k",search);
             } else if (id == "KanTeens"){
                 metas = listSeries.getMetasBySubtypeAndName("n",search);
-            } else if (id == "KanPodcasts"){
-                metas = listSeries.getMetasBySubtypeAndName("p",search);
             } else {
                 metas = listSeries.getMetasBySubtypeAndName("d", search);
+            }
+            break;
+        case "Podcasts":
+            if (id == "KanPodcasts"){
+                metas = listSeries.getMetasBySubtypeAndName("p",search);
             }
             break;
 		case "tv":
@@ -131,9 +134,6 @@ builder.defineMetaHandler(({type, id}) => {
 	writeLog("INFO","defineMetaHandler=> request for meta: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	var meta = listSeries.getMetaById(id);
-    //var videos = meta.videos;
-    //var streams = videos[0].streams;
-    //writeLog("INFO","defineMetaHandler=> Stream name:" + streams[0].name );
     return Promise.resolve({ meta: meta })
 })
 
@@ -194,15 +194,9 @@ var jsonFileExist = "";
     }
 }
 
-function downloadFile(url, outputPath) {
-    return fetch(url)
-        .then(x => x.arrayBuffer())
-        .then(x => writeFile(outputPath, Buffer.from(x)));
-  }
-
 /**
 * Fetch the list of VOD series
-*/
+*//*
 async function getSeriesLinks(){
 
         const root = await fetchPage(constants.url_kanbox);
@@ -231,14 +225,14 @@ async function getSeriesLinks(){
 
             getMetasSeriesPages(link, imgUrl, b)
         }
-}
+}*/
 
 /**
      * Sets meta object for each series and also trigger the generation of the video and stream list
      * @param link
      * @param imgUrl
      * @param root
-     */
+     *//*
 function getMetasSeriesPages(link, imgUrl, root){
     var seriesID = setID(link);
     var subtype = "";
@@ -287,14 +281,14 @@ function getMetasSeriesPages(link, imgUrl, root){
         getMovie(root, seriesID, subtype)
     }
     writeLog("DEBUG"," getMetasSeriesPages=> added " + name + " ID: " + seriesID + ", link: " + link + "name: " + name);   
-}
+}*/
 
 /**
  * Get the videos list and streams object for a single episode
  * @param root 
  * @param seriesID 
  * @param subType 
- */
+ *//*
 async function getMovie(root, seriesID,subType){
     var videosList = [];
     var title = "";
@@ -341,13 +335,13 @@ async function getMovie(root, seriesID,subType){
         episodelink: episodeLink
     });
     listSeries.setVideosById(seriesID, videosList);
-}
+}*/
 
 /**
  * Get videos and streams objects for single series
  * @param elemSeasons 
  * @param seriesID 
- */
+ *//*
 async function getVideos(elemSeasons, seriesID){
     var videosList = [];
 
@@ -415,7 +409,7 @@ async function getVideos(elemSeasons, seriesID){
  * @param link 
  * @param videoId 
  * @returns 
- */
+ *//*
 async function getStream(link, videoId){
     var streamsList = [];
     var released;
@@ -459,8 +453,8 @@ async function getStream(link, videoId){
         }
     }
     return streamsList;
-}
-
+}*/
+/*
 function getEpisodeUrl(str){
     var rtn = "";
     if ((str != undefined) && (str != null)){
@@ -471,8 +465,8 @@ function getEpisodeUrl(str){
     }
 
     return rtn;
-}
-
+}*/
+/*
 async function fetchPage(link){
     writeLog("DEBUG","fetchPage => " + link)
     var root = "";
@@ -485,8 +479,8 @@ async function fetchPage(link){
     }
 
     return root;
-}
-
+}*/
+/*
 function setDescription(descArr){
     var description = "";
     if (descArr < 1) {return description;}
@@ -495,8 +489,8 @@ function setDescription(descArr){
     }
 
     return description;
-}
-
+}*/
+/*
 function setGenre(genresDiv) {
     if ((genresDiv == undefined) || (genresDiv == null)){ return "Kan";}
     
@@ -574,8 +568,8 @@ function setGenre(genresDiv) {
         } 
     }
     return genres;
-}
-
+}*/
+/*
 function setGenreFromString(str) {
     if (str == "") { return "Kan";}
     
@@ -652,8 +646,8 @@ function setGenreFromString(str) {
         } 
     }
     return genres;
-}
-
+}*/
+/*
 function setID(link){
     var retVal = ""
     if (link.substring(link.length -1,link.length) == "/"){
@@ -662,8 +656,8 @@ function setID(link){
     retVal = retVal.substring(retVal.lastIndexOf("/") + 1, retVal.length)
     retVal = constants.prefix_kanbox + retVal;
     return retVal;
-}
-
+}*/
+/*
 function getNameFromSeriesPage(name){
     if (name != "") {
         if (name.indexOf("|") > 0){
@@ -698,12 +692,13 @@ function getNameFromSeriesPage(name){
         }
         return name.trim();
     }
-}
+}*/
 
 //+===================================================================================
 //
 //  Kan Podcasts functions
 //+===================================================================================
+/*
 async function getPodcasts(){
     const root = await fetchPage(constants.url_podcasts);
 
@@ -725,8 +720,8 @@ async function getPodcasts(){
 
             getPodcastPage(link, imgUrl, b)
         }    
-}
-
+}*/
+/*
 async function getPodcastPage(link, imgUrl, b){
     var seriesID = setID(link);
     var subtype = "p";
@@ -800,14 +795,13 @@ async function getPodcastPage(link, imgUrl, b){
 
     var pageSourceHTML = await page.content(); 
     writeLog("DEBUG"," getPodcastPage=> added " + name + " ID: " + seriesID + ", link: " + link + "name: " + name);   
-}
-
-
+}*/
 
 //+===================================================================================
 //
 //  Kan Live functions
 //+===================================================================================
+/*
 function setLiveTVToList(){
 
     var idKan = "kanTV_04";
@@ -949,13 +943,13 @@ function setLiveTVToList(){
         "ערוץ השידורים הערבי", "", "https://www.makan.org.il/media/d3if2qoj/%D7%9C%D7%95%D7%92%D7%95-%D7%A8%D7%90%D7%A9%D7%99-%D7%9E%D7%9B%D7%90%D7%9F.png",
         "", metasMakan, "tv", "t"
     );
-}
+}*/
 
 //+===================================================================================
 //
 //  Kan Hinuchit functions
 //+===================================================================================
-
+/*
 async function getHinuchitSeriesLinksTiny(){
     const root = await fetchPage(constants.url_hiuchit_tiny);
 
@@ -967,8 +961,8 @@ async function getHinuchitSeriesLinksTiny(){
     var hinuchitTiny = JSON.parse(kidsJsonStr);
     
     addMetasForKids(hinuchitTiny, "k");
-}
-
+}*/
+/*
 async function getStreamsKids(linkEpisode, nameEpisode){
     //get stream
     var streamDoc = await fetchPage(linkEpisode);
@@ -995,8 +989,8 @@ async function getStreamsKids(linkEpisode, nameEpisode){
             return streamsList;
         }
     }
-}
-
+}*/
+/*
 async function getHinuchitSeriesLinksTeens(){
     const root = await fetchPage(constants.url_hiuchit_teen);
     seriesTeenStr = root.toString();
@@ -1007,8 +1001,8 @@ async function getHinuchitSeriesLinksTeens(){
     var hinuchitTeen = JSON.parse(seriesJson);
 
     addMetasForKids(hinuchitTeen, "n");
-}
-
+}*/
+/*
 async function addMetasForKids(jsonObj, subType){
     var idIterator = 1;
     
@@ -1099,14 +1093,15 @@ async function addMetasForKids(jsonObj, subType){
         listSeries.addItemByDetails(id, name, imgUrl,desc, seriesPage, imgUrl,genres, meta, "series",subType);
         idIterator++;
     }
-}
+}*/
 //+===================================================================================
 //
 //  Utility functions
 //+===================================================================================
+/*
 function padWithLeadingZeros(num, totalLength) {
     return String(num).padStart(totalLength, '0');
-}
+}*/
 
 function writeLog(level, msg){
     if (logLevel == "INFO"){
