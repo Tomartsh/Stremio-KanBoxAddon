@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
@@ -43,15 +44,14 @@ public class WebCrawler {
         jo = new JSONObject();
         constantsMap.put("LOGLEVEL", "DEBUG");
         constantsMap.put("URL_ADDRESS", "https://www.kan.org.il/lobby/kan-box");
-        constantsMap.put("PODCASTS_URL", "https://www.kan.org.il/lobby/podcasts-lobby/");
-        //constantsMap.put("CONTENT_PREFIX", "https://www.kan.org.il/content");
         constantsMap.put("DIGITAL_IMAGE_PREFIX", "https://www.kan.org.il");
         constantsMap.put("SITE_PREFIX", "https://www.kan.org.il/content");
         constantsMap.put("MEDIA_PREFIX","https://www.kan.org.il/media");
         constantsMap.put("url_hiuchit_tiny", "https://www.kankids.org.il/lobby-kids/tiny");
         constantsMap.put("url_hiuchit_teen", "https://www.kankids.org.il/lobby-kids/kids-teens");
         constantsMap.put("url_hinuchit_kids_content_prefix","https://www.kankids.org.il");
-        constantsMap.put("PODCASTS_URL","https://www.kan.org.il/lobby/aod/");
+        constantsMap.put("PODCASTS_URL","https://www.kan.org.il/lobby/aod");
+        constantsMap.put("URL_12_VOD","https://www.mako.co.il/tv");
         constantsMap.put("OUTPUT_PATH","output/");
         constantsMap.put("JSON_FILENAME","stremio-kanbox.json");
         constantsMap.put("ZIP_FILENAME","stremio-kanbox.zip");
@@ -76,7 +76,7 @@ public class WebCrawler {
         crawlDigital();
         crawlHinuchitTiny();
         crawlHinuchitTeen();
-        //crawlPodcasts();
+        crawlPodcasts();
         //crawlRadioStations();
 
         //export to file
@@ -244,22 +244,10 @@ public class WebCrawler {
                         if ((elemImage != null) && (elemImage.select("img.img-full") != null)) {
                             Element elemEpisodeLogo = elemImage.select("img.img-full").get(0);
                             
-                            if ((elemEpisodeLogo != null) && (elemEpisodeLogo.attr("src").indexOf('?') > 0)) {
-                                episodeLogoUrl = elemEpisodeLogo.attr("src").substring(0,
-                                        elemEpisodeLogo.attr("src").indexOf("?"));
+                            if (elemEpisodeLogo != null) {
+                                episodeLogoUrl = getImageFromUrl(elemEpisodeLogo.attr("src"),"d");
                             }
-                            logger.debug("WebCrawler.getVideos => link before modifications: " + episodeLogoUrl);
-                            if (episodeLogoUrl.startsWith("/")) {
-                                if ("d".equals(subType)) {
-                                    episodeLogoUrl = "https://www.kan.org.il" + episodeLogoUrl;
-                                } else if ("k".equals(subType)){
-                                    episodeLogoUrl = "https://www.kankids.org.il" + episodeLogoUrl;
-                                } else if ("a".equals(subType)){
-                                    episodeLogoUrl = "https://www.kan.org.il" + episodeLogoUrl;
-                                } else if ("p".equals(subType)){
-                                    episodeLogoUrl = "https://www.kan.org.il" + episodeLogoUrl;
-                                }   
-                            }                           
+                            logger.debug("WebCrawler.getVideos =>   episodeLogoUrl location: " + episodeLogoUrl);                           
                         }
                     } catch(Exception ex) {
                         logger.error("WebCrawler.getVideos => " + ex);
@@ -365,10 +353,7 @@ public class WebCrawler {
     private void addMetasForKids(JSONArray jsonArr, String subType){
         for (int i = 0; i < jsonArr.length(); ++i) { //iterate over series    
             JSONObject jsonObj = jsonArr.getJSONObject(i);
-                        
-            String imgUrl = constantsMap.get("url_hinuchit_kids_content_prefix") 
-                + jsonObj.getString("Image").substring(0,
-                jsonObj.getString("Image").indexOf("?"));
+            String imgUrl = getImageFromUrl(jsonObj.getString("Image"), subType);      
             
             String seriesPage = constantsMap.get("url_hinuchit_kids_content_prefix") + jsonObj.getString("Url");
             String[] genres = setGenreFromString(jsonObj.getString("Genres"));
@@ -390,14 +375,14 @@ public class WebCrawler {
             String seriesDescription = doc.select("div.info-description").text();
             //get the number of seasons
             Elements seasons = doc.select("div.seasons-item.kids");
-            JSONArray videosListArr = getKidsVideos(seasons, id);
+            JSONArray videosListArr = getKidsVideos(seasons, id, subType);
        
             addToJsonObject(id, seriesTitle, seriesPage, imgUrl, seriesDescription, genres, videosListArr, subType, "series");
             logger.debug("WebCrawler.addMetasForKids => Added  series, ID: " + id + " Name: " + seriesTitle + " subtype: " + subType);
         }
     }
 
-    private JSONArray getKidsVideos(Elements seasons, String id){
+    private JSONArray getKidsVideos(Elements seasons, String id, String subType){
         JSONArray videosListArr = new JSONArray();
         int noOfSeasons = seasons.size();
 
@@ -424,8 +409,7 @@ public class WebCrawler {
                 
                 String episodeImgUrl = "";
                 if (episode.select("img.img-full").attr("src").indexOf("?") > 0){
-                    episodeImgUrl = episode.select("img.img-full").attr("src");
-                    episodeImgUrl = constantsMap.get("url_hinuchit_kids_content_prefix") + episodeImgUrl.substring(0,episodeImgUrl.indexOf("?"));
+                    episodeImgUrl = getImageFromUrl(episode.select("img.img-full").attr("src"), subType);
                 }
                 
                 String episodeDescription = episode.select("div.card-text").text();
@@ -457,36 +441,182 @@ public class WebCrawler {
     //  Kan podcasts methods
     //+===================================================================================
     private void crawlPodcasts(){
+        logger.info("WebCrawler.crawlPodcasts => Starting retrieval of podcasts");
         Document doc = fetchPage(constantsMap.get("PODCASTS_URL"));
-        Elements podcasts = doc.select("a.podcast-item");
-        for (Element podcast : podcasts) { //iterate over podcasts series
-            if (podcasts == null)  {
-                continue;
-            }
+        
+        Elements genres = doc.select("div.podcast-row");
+        logger.info("WebCrawler.crawlPodcasts => Found " + genres.size() + " genres");
+        for (Element genre : genres) { //iterate over podcasts rows by genre
+            String[] genresName = {genre.select("h4.title-elem.category-name").text().trim()};
+            logger.debug("WebCrawler.crawlPodcasts => Genre " + genresName[0]);
+            Elements podcasts = genre.select("a.podcast-item");
+ 
+            for (Element podcast : podcasts) { //iterate over podcasts series
+                if ((podcast == null) || (podcast.attr("href") == null )) {
+                    continue;
+                }
 
-            String podcastLink = podcast.attr("href");
-
-            String id = generateId(podcastLink);
-            
-            String podcastImageUrl = podcast.select("img").get(0).attr("src");
-            if (podcastImageUrl.contains("?")){
-                podcastImageUrl = podcastImageUrl.substring(0,podcastImageUrl.indexOf("?"));
+                if (podcast.attr("href").endsWith("podcasts/kan88/")){
+                    //Kan 8 8podcasts lay in on level deeper. So we have to initiate an additional fetch
+                    Document kan88Doc = fetchPage(podcast.attr("href")); 
+                    Elements kan88pods = kan88Doc.select("div.card.card-row");
+                    for (Element podcastKan88 : kan88pods){
+                        addPodcastMeta(podcastKan88,genresName);
+                    }
+                    continue;
+                }
+                addPodcastMeta(podcast,genresName);
             }
-            if (podcastImageUrl.startsWith("/")){
-                podcastImageUrl = constantsMap.get("MEDIA_PREFIX") + podcastImageUrl;
-            }
-
-            Document podcastPageDoc = fetchPage(podcastLink);
-            String podcastTitle = getNameFromSeriesPage(podcastPageDoc.select("h1.title-elem").text());
-            String description = setDescription(podcastPageDoc.select("div.block-text.div.p"));
-            
         }
     }
 
-    /* private void getPoscasts(Element podcastPageDoc, String id){
-        Elements podcastEpisodes = podcastPageDoc.select("div.card.card-row");
-        for (int i = 0; iter< noOfSeasons; i++)
-    } */
+    /**
+     * Create the meta object for podcasts
+     * @param podcast
+     * @param genresName
+     */
+    private void addPodcastMeta(Element podcast, String[] genresName){
+
+        String id = "";
+        String seriesTitle = "";
+        String seriesDecription = "";
+        String podcastSeriesLink = "";
+        String podcastImageUrl = "";
+
+        JSONArray videosListArr = new JSONArray();
+
+        podcastSeriesLink = podcast.select("a").attr("href");
+        podcastImageUrl = getImageFromUrl(podcast.select("img.img-full").attr("src"),"p");
+        id = generateId(podcastSeriesLink);
+
+        Document podcastSeriesPageDoc = fetchPage(podcastSeriesLink); //get the series episodes             
+        seriesTitle = podcastSeriesPageDoc.select("h1.title-elem").text().trim();
+        seriesDecription = podcastSeriesPageDoc.select("div.section-header div.block-text div p").text().trim();
+        
+        Elements episodes = podcastSeriesPageDoc.select("div.card.card-row");
+        //get last element in paging if there is one
+        String lastPageNo = podcastSeriesPageDoc.select("li[class=pagination-page__item][title=Last page]").attr("data-num");
+
+        logger.debug("WebCrawler.addPodcastMeta => Number of pages " + lastPageNo);
+
+        if ((! lastPageNo.isEmpty()) && (Integer.parseInt(lastPageNo) > 0) ){
+            int intLastPageNo = Integer.parseInt(lastPageNo);
+            for (int i = 2 ; i < intLastPageNo ; i++){
+                Document episodesAdditionalPages = fetchPage(podcastSeriesLink + "?page=" + i);
+                Elements additionalEpisodes = episodesAdditionalPages.select("div.card.card-row");
+                //If there are more elements add them to the episodes elements element
+                for (int iter = 0; iter < additionalEpisodes.size(); iter ++){
+                    episodes.add(additionalEpisodes.get(iter));
+                }
+            }
+        }
+        int episodeNo = episodes.size();
+        for (Element episode : episodes) {//iterate over the episodes
+
+            JSONObject videoJSONObj = getpodcastVideo(episode, episodeNo, id);
+            if (videoJSONObj.isEmpty()){
+                continue;
+            }
+
+            videosListArr.put(videoJSONObj);
+            episodeNo--;
+        }
+        addToJsonObject(id, seriesTitle,  podcastSeriesLink, podcastImageUrl, seriesDecription, genresName, videosListArr, "p", "Podcasts");
+        logger.info("WebCrawler.addPodcastMeta =>    Podcast added " + seriesTitle + " ID: " + id);
+    }
+
+    /**
+     * Process each episode individually
+     * @param episode
+     * @param episodeId
+     * @return JSON Object 
+     */
+    private JSONObject getpodcastVideo(Element episode, int episodeNo, String id){
+        JSONObject podcastVideo = new JSONObject();
+        String episodeId = id + ":" + episodeNo;
+        String episodeLink = "";
+        if (episode.select("a.card-img.card-media").size() > 0){
+            episodeLink = episode.select("a.card-img.card-media").attr("href");
+        } else {
+            if (episode.select("a.card-body").size() > 0){
+                episodeLink = episode.select("a.card-body").attr("href");
+                logger.info("WebCrawler.getpodcastVideo =>        href card image empty. Using card href");
+            } else {
+                logger.info("WebCrawler.getpodcastVideo =>        No episode link found, skipping.");
+                return podcastVideo;
+            }
+        }
+        
+        String episodeImgUrl = "";
+        if (episode.select("img.img-full") != null){
+            episodeImgUrl = getImageFromUrl(episode.select("img.img-full").attr("src"), "p");
+        }
+
+        String episodeTitle = episode.select("h2.card-title").text().trim();
+        String episodeDescription = episode.select("div.description").text().trim();
+        String released = episode.select("li.date-local").attr("data-date-utc").trim();
+        logger.debug("WebCrawler.getpodcastVideo =>   Podcast episode " + episodeTitle + "\n           link:" + episodeLink + "\n            episode no. " + episodeNo);
+        JSONObject streams = getPodcastStreams(episodeLink);
+        if (streams.isEmpty()) { 
+            return podcastVideo;
+        }
+
+        podcastVideo.put("id", episodeId);
+        podcastVideo.put("title",episodeTitle);
+        podcastVideo.put("season",1);
+        podcastVideo.put("episode",episodeNo);
+        podcastVideo.put("description",episodeDescription);
+        podcastVideo.put("thumbnail",episodeImgUrl);
+        podcastVideo.put("episodeLink",episodeLink);
+        podcastVideo.put("streams",streams);
+        podcastVideo.put("released", released);
+
+        logger.info("WebCrawler.getpodcastVideo =>        Adding video  " + " ID: " + id + ", Title: " + episodeTitle + ", episode: " + episodeNo);
+
+        return podcastVideo;
+    }
+
+    private String getImageFromUrl(String url, String subType){
+        String retVal = url;
+        if (retVal.contains("?")){
+            retVal = retVal.substring(0,retVal.indexOf("?"));
+        }
+        if (retVal.startsWith("/")){
+            if ("d".equals(subType)) {
+                retVal = "https://www.kan.org.il" + retVal;
+            } else if ("k".equals(subType)){
+                retVal = "https://www.kankids.org.il" + retVal;
+            } else if ("n".equals(subType)){
+                retVal = "https://www.kankids.org.il" + retVal;
+            } else if ("a".equals(subType)){
+                retVal = "https://www.kan.org.il" + retVal;
+            } else if ("p".equals(subType)){
+                retVal = "https://www.kan.org.il" + retVal;
+            } 
+        }
+        return retVal;
+    }
+
+    private JSONObject getPodcastStreams(String episodeLink){
+        JSONObject streams = new JSONObject();
+        Document doc = fetchPage(episodeLink);    
+        String name = doc.select("h2.title").text().trim();
+        String description = doc.select("div.item-content.hide-content").text().trim();
+        String urlRaw = doc.select("figure").attr("data-player-src");
+        if (urlRaw.length() == 0){
+            return streams;
+        }
+        String url = urlRaw.substring(0,urlRaw.indexOf("?"));
+        logger.debug("WebCrawler.getPodcastStreams =>       Podcast stream name: " + name + "\n     description: "+description+"\n      link: " + url);
+
+        streams.put("url", url);
+        streams.put("type", "series");
+        streams.put("name", name);
+        streams.put("description", description);
+
+        return streams;
+    }
+
     //+===================================================================================
     //
     //  Kan general methods
@@ -866,6 +996,11 @@ public class WebCrawler {
     //+===================================================================================
 
     private void crawlDigitalLive(){
+        String idKanLive = "kanTV_04";
+        String idKanKidsLive = "kanTV_05";
+        String idKanKnesset = "kanTV_06";
+        String idMakanLive = "kanTV_07";
+        
         /* Kan 11 Live */
         JSONArray streamsKanLiveArr = new JSONArray();
         JSONObject streamKanLiveObj = new JSONObject();
@@ -876,7 +1011,7 @@ public class WebCrawler {
         streamsKanLiveArr.put(streamKanLiveObj);
 
         JSONObject videoKanObj = new JSONObject();
-        videoKanObj.put("id","kanTV_04");
+        videoKanObj.put("id",idKanLive);
         videoKanObj.put("title","Kan 11 Live Stream");
         videoKanObj.put("description","Kan 11 Live Stream From Israel");
         videoKanObj.put("released",LocalDate.now());
@@ -885,7 +1020,7 @@ public class WebCrawler {
         videosKanLiveJSONArr.put(videoKanObj);
         
         JSONObject metaKanLiveJSONObj = new JSONObject();
-        metaKanLiveJSONObj.put("id", "kanTV_04");
+        metaKanLiveJSONObj.put("id", idKanLive);
         metaKanLiveJSONObj.put("name", "כאן 11");
         metaKanLiveJSONObj.put("type", "tv");
         metaKanLiveJSONObj.put("genres", "Actuality");
@@ -896,27 +1031,29 @@ public class WebCrawler {
         metaKanLiveJSONObj.put("videos", videosKanLiveJSONArr);
 
         JSONObject joKanLive = new JSONObject();
-        joKanLive.put("id", "kanTV_04");
+        joKanLive.put("id", idKanLive);
         joKanLive.put("type", "tv");           
         joKanLive.put("subtype", "t");
         joKanLive.put("title", "כאן 11");
         joKanLive.put("metas", metaKanLiveJSONObj);    
 
-        jo.put("kanTV_04", joKanLive);
+        jo.put(idKanLive, joKanLive);
         logger.info("WebCrawler.crawlDigitalLive => Added  Kan 11 Live TV");
 
         /* Kids Live */
         JSONArray streamsKidsLiveArr = new JSONArray();
         JSONObject streamKidsLiveObj = new JSONObject();
+        //Create the stream
         streamKidsLiveObj.put("url", "https://kan23.media.kan.org.il/hls/live/2024691-b/2024691/source1_4k/chunklist.m3u8");
         streamKidsLiveObj.put("type", "tv");
         streamKidsLiveObj.put("name", "שידור חי חינוכית");
         streamKidsLiveObj.put("description", "Live stream from Kids Channel in Israel");
         streamsKidsLiveArr.put(streamKidsLiveObj);
 
+        //Create video object
         JSONObject videoKidsObj = new JSONObject();
         JSONArray videosKidsLiveJSONArr = new JSONArray();
-        videoKidsObj.put("id","kanTV_05");
+        videoKidsObj.put("id",idKanKidsLive);
         videoKidsObj.put("title","Kids Live Stream");
         videoKidsObj.put("description","Live stream from Kids Channel in Israel");
         videoKidsObj.put("released",LocalDate.now());
@@ -924,24 +1061,24 @@ public class WebCrawler {
         videosKidsLiveJSONArr.put(videoKidsObj);
         
         JSONObject metaKidsLiveJSONObj = new JSONObject();
-        metaKidsLiveJSONObj.put("id", "kanTV_05");
+        metaKidsLiveJSONObj.put("id", idKanKidsLive);
         metaKidsLiveJSONObj.put("name", "חינוכית");
         metaKidsLiveJSONObj.put("type", "tv");
         metaKidsLiveJSONObj.put("genres", "Kids,ילדים ונוער");
-        metaKidsLiveJSONObj.put("background", "https://directorsguild.org.il/wp-content/uploads/2022/04/share_kan_hinuchit.jpeg");
-        metaKidsLiveJSONObj.put("poster", "https://directorsguild.org.il/wp-content/uploads/2022/04/share_kan_hinuchit.jpeg");
+        metaKidsLiveJSONObj.put("background", "https://tomartsh.github.io/Stremio_Addon_Files/assets/Kan/KanHinuchit.jpg");
+        metaKidsLiveJSONObj.put("poster", "https://tomartsh.github.io/Stremio_Addon_Files/assets/Kan/KanHinuchit.jpg");
         metaKidsLiveJSONObj.put("posterShape", "landscape");
         metaKidsLiveJSONObj.put("description", "שידורי הטלויזיה החינוכית");
         metaKidsLiveJSONObj.put("videos", videosKidsLiveJSONArr);
 
         JSONObject joKidsLive = new JSONObject();
-        joKidsLive.put("id", "kanTV_05");
+        joKidsLive.put("id", idKanKidsLive);
         joKidsLive.put("type", "tv");           
         joKidsLive.put("subtype", "t");
         joKidsLive.put("title", "חינוכית");
         joKidsLive.put("metas", metaKidsLiveJSONObj);    
 
-        jo.put("kanTV_05", joKidsLive);
+        jo.put(idKanKidsLive, joKidsLive);
         logger.info("WebCrawler.crawlDigitalLive => Added Kan Kids Live TV");
 
         /* Knesset Live */
@@ -955,7 +1092,7 @@ public class WebCrawler {
 
         JSONObject videoKnessetObj = new JSONObject();
         JSONArray videosKnessetLiveJSONArr = new JSONArray();
-        videoKnessetObj.put("id","kanTV_06");
+        videoKnessetObj.put("id",idKanKnesset);
         videoKnessetObj.put("title","ערוץ הכנסת 99");
         videoKnessetObj.put("description","שידורי ערוץ הכנסת 99");
         videoKnessetObj.put("released",LocalDate.now());
@@ -963,7 +1100,7 @@ public class WebCrawler {
         videosKnessetLiveJSONArr.put(videoKnessetObj);
         
         JSONObject metaKnessetLiveJSONObj = new JSONObject();
-        metaKnessetLiveJSONObj.put("id", "kanTV_06");
+        metaKnessetLiveJSONObj.put("id", idKanKnesset);
         metaKnessetLiveJSONObj.put("name", "שידורי ערוץ הכנסת 99");
         metaKnessetLiveJSONObj.put("genres", "Actuality,אקטואליה");
         metaKnessetLiveJSONObj.put("type", "tv");
@@ -975,18 +1112,18 @@ public class WebCrawler {
         metaKnessetLiveJSONObj.put("videos", videosKnessetLiveJSONArr);
 
         JSONObject joKnessetLive = new JSONObject();
-        joKnessetLive.put("id", "kanTV_06");
+        joKnessetLive.put("id", idKanKnesset);
         joKnessetLive.put("type", "tv");           
         joKnessetLive.put("subtype", "t");
         joKnessetLive.put("title", "שידורי ערוץ הכנסת 99");
         joKnessetLive.put("metas", metaKnessetLiveJSONObj);    
 
-        jo.put("kanTV_05", joKidsLive);
+        jo.put(idKanKnesset, joKnessetLive);
         logger.info("WebCrawler.crawlDigitalLive => Added Kan Kids Live TV");
 
         /* Makan Live */
-        JSONArray streamsMakanLiveArr = new JSONArray();
         JSONObject streamKMakanLiveObj = new JSONObject();
+        JSONArray streamsMakanLiveArr = new JSONArray();
         streamKMakanLiveObj.put("url", "https://makan.media.kan.org.il/hls/live/2024680/2024680/master.m3u8");
         streamKMakanLiveObj.put("type", "tv");
         streamKMakanLiveObj.put("name", "ערוץ השידור הערבי");
@@ -1003,7 +1140,7 @@ public class WebCrawler {
         videosMakanLiveJSONArr.put(videoMakanObj);
         
         JSONObject metaMakanLiveJSONObj = new JSONObject();
-        metaMakanLiveJSONObj.put("id", "kanTV_07");
+        metaMakanLiveJSONObj.put("id", idMakanLive);
         metaMakanLiveJSONObj.put("name", "שידורי ערוץ השידור הערבי");
         metaMakanLiveJSONObj.put("type", "tv");
         metaMakanLiveJSONObj.put("genres", "Actuality,אקטואליה");
@@ -1014,13 +1151,13 @@ public class WebCrawler {
         metaMakanLiveJSONObj.put("videos", videosMakanLiveJSONArr);
 
         JSONObject joMakanLive = new JSONObject();
-        joMakanLive.put("id", "kanTV_07");
+        joMakanLive.put("id", idMakanLive);
         joMakanLive.put("type", "tv");           
         joMakanLive.put("subtype", "t");
         joMakanLive.put("title", "שידורי ערוץ השידור הערבי");
-        joKnessetLive.put("metas", metaMakanLiveJSONObj);    
+        joMakanLive.put("metas", metaMakanLiveJSONObj);    
 
-        jo.put("kanTV_07", joMakanLive);
+        jo.put(idMakanLive, joMakanLive);
         logger.info("WebCrawler.crawlDigitalLive => Added Makan Live TV");
     }
     
