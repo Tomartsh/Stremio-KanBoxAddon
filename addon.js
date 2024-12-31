@@ -15,7 +15,7 @@ new Promise(j => getJSONFile(j));
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md
 const manifest = {
 	"id": "community.StremioKan",
-	"version": "0.0.9",
+	"version": "1.0.0",
     "logo": "https://i.imgur.com/rw5Vxad.png",
 	"catalogs": [
 		{
@@ -77,8 +77,8 @@ const manifest = {
 		"tv",
         "Podcasts"
 	],
-	"name": "Kan 11",
-	"description": "Kan Digital and live broadcast"
+	"name": "Israel Broadcasting",
+	"description": "Israel digital broadcasting"
 }
 const builder = new addonBuilder(manifest)
 
@@ -176,12 +176,12 @@ var jsonFileExist = "";
                         listSeries.addItemByDetails(value.id, value.title, value.poster, value.description, value.link, value.background, value.genres, value.metas, value.type, value.subtype);
                         writeLog("DEBUG", "getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.title)
                     }
-                    jsonFileExist = "y";
+                    //jsonFileExist = "y";
                     // Clean up temporary file        fs.unlinkSync(tempZipPath);
                     console.log('Temporary ZIP file deleted.');
                 } else {
                     writeLog("ERROR","Cannot find the JSON data. Please report this issue.");
-                    jsonFileExist = "n";
+                    //jsonFileExist = "n";
                     //setLiveTVToList();
                     //getSeriesLinks();
                     //getHinuchitSeriesLinksTiny();
@@ -190,7 +190,6 @@ var jsonFileExist = "";
             })
     } catch (e) {
         console.log("Something went wrong. " + e);
-        jsonFileExist = "n";
     }
 }
 

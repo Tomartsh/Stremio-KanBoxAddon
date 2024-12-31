@@ -85,8 +85,9 @@ class srList {
         var meta = this.getMetaById(seriesId);
         var videos = meta["videos"];
         var streams = [];
-        for (var video in videos){
-            if (video.id == id) {streams = video.streams;}
+        //for (var video in videos){
+        for (var i = 0; i < videos.length; i++){
+            if (videos[i].id == id) {streams = videos[i].streams;}
         }
         return streams;
     }
@@ -104,9 +105,9 @@ class srList {
         var seriesId = id.substring(0,id.indexOf(":"));
         var meta = this.getMetaById(seriesId);
         var videos = meta.videos;
-        for (var video of videos){
-            if (video.id == id){
-                video.streams = streams;
+        for (var i = 0; i < videos.length; i++){
+            if (videos[i].id == id){
+                videos[i].streams = streams;
             }
 
         }
