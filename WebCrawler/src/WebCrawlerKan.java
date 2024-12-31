@@ -55,8 +55,7 @@ public class WebCrawlerKan {
         constantsMap.put("JSON_FILENAME","stremio-kanbox.json");
         constantsMap.put("ZIP_FILENAME","stremio-kanbox.zip");
         constantsMap.put("USERAGENT", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0");
-        constantsMap.put("PREFIX", "kanbox_");
-        //constantsMap.put("USERAGENT", "UTF-8");
+        constantsMap.put("PREFIX", "il_");
         
         SimpleDateFormat ft = new SimpleDateFormat("dd-MM-yyyy_HH-mm"); 
         String formattedDate = ft.format(new Date());
@@ -532,7 +531,7 @@ public class WebCrawlerKan {
      */
     private JSONObject getpodcastVideo(Element episode, int episodeNo, String id){
         JSONObject podcastVideo = new JSONObject();
-        String episodeId = id + ":" + episodeNo;
+        String episodeId = id + ":1:"  + episodeNo;
         String episodeLink = "";
         if (episode.select("a.card-img.card-media").size() > 0){
             episodeLink = episode.select("a.card-img.card-media").attr("href");
@@ -609,7 +608,7 @@ public class WebCrawlerKan {
         logger.debug("WebCrawlerKan.getPodcastStreams =>       Podcast stream name: " + name + "\n     description: "+description+"\n      link: " + url);
 
         streams.put("url", url);
-        streams.put("type", "series");
+        streams.put("type", "Podcast");
         streams.put("name", name);
         streams.put("description", description);
 
