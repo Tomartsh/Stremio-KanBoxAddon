@@ -14,7 +14,7 @@
             "type": "java",
             "name": "Mako WebCrawler",
             "request": "launch",
-            "mainClass": "WebCrawlerKanMako"
+            "mainClass": "WebCrawlerMako"
         },
         {
             "type": "node",
