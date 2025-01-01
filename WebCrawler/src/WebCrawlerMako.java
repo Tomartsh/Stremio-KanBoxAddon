@@ -42,16 +42,17 @@ public class WebCrawlerMako {
         constantsMap.put("ZIP_FILENAME","stremio-mako.zip");
         constantsMap.put("PREFIX","il_");
         constantsMap.put("VOD_CONTENT_PREFIX","https://www.mako.co.il");
+        constantsMap.put("USERAGENT", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0");
 
         SimpleDateFormat ft = new SimpleDateFormat("dd-MM-yyyy_HH-mm"); 
         String formattedDate = ft.format(new Date());
-        logger.info("WebCrawler.crawl => Started @ " + formattedDate);
+        logger.info("main => Started @ " + formattedDate);
         WebCrawlerMako webCrawlerMako = new WebCrawlerMako();
         
         webCrawlerMako.crawl();
         
         String formattedEndDate = ft.format(new Date());
-        logger.info("WebCrawlerMako.crawl = > Stopped @ " + formattedEndDate);
+        logger.info("main = > Stopped @ " + formattedEndDate);
 
     }
 
@@ -102,30 +103,30 @@ public class WebCrawlerMako {
         joMakoLive.put("metas", metaMakoLiveJSONObj);    
 
         jo.put(idMakoLive, joMakoLive);
-        logger.info("WebCrawler.crawlDigitalLive => Added  Kan 11 Live TV");
+        logger.info("crawlLive => Added  Kan 11 Live TV");
     }
 
     private void crawlVOD(){
         Document doc = fetchPage(constantsMap.get("URL_ADDRESS"));
-        Elements series = doc.select("ul.sc-fe9b9e0b-0 bdzjCG");
+        Elements series = doc.select("ul.sc-fe9b9e0b-0.ffSuTE li");
         int iter = 1;
         for (Element seriesElem : series) {
             if ((seriesElem == null) || (seriesElem.select("a[href]") == null )) {
                 continue;
             }
-            String linkSeries = seriesElem.attr("href");
+            String linkSeries = seriesElem.select("a").attr("href");
             if (linkSeries.startsWith("/")) {
                 linkSeries = constantsMap.get("VOD_CONTENT_PREFIX") + linkSeries;
             }
             String subtype = "m";
             String id = constantsMap.get("PREFIX") + String.format("%05d", iter);
             //set series image link
-            String imgUrl = seriesElem.select("img").attr("src").trim();
-            
+            String imgUrl = seriesElem.select("img").get(1).attr("src").trim();
+
             Document seriesPageDoc = fetchPage(linkSeries);
-            String seriesTitle = seriesPageDoc.select("h1.sc-3367e39f-6.dXArim img").attr("alt").trim();
+            String seriesTitle = getNameFromSeriesPage(seriesPageDoc.select("title").text().trim());
             String seriesBackground = seriesPageDoc.select("h1.sc-3367e39f-6.dXArim img").attr("src");
-            String seriesDescription = seriesPageDoc.select("div.sc-3367e39f-8.hlcoAZ").text().trim();
+            String seriesDescription = seriesPageDoc.select("meta[name=description]").attr("content").trim();
             String[] genres = {"mako"};
             
             Elements seasonsLinks = doc.select("div#seasonDropdown ul.sc-655a2e4d-2 jaPKFx dropdown li ul li");
@@ -194,6 +195,30 @@ public class WebCrawlerMako {
 
     }
 
+    private String getNameFromSeriesPage(String name){
+        if (name != "") {
+            if (name.indexOf("|") > 0){
+                name = name.substring(0,name.indexOf("|") -1).trim();
+            }
+            if (name.contains("לצפייה ישירה")){
+                name = name.replace("לצפייה ישירה","").trim();
+            }
+            if (name.contains("| 12")){
+                name = name.replace("| 12","").trim();
+            }
+            if (name.contains("|")){
+                name = name.replace("|","").trim();
+            }
+            if (name.endsWith("-")){
+                name = name.replace("-","");
+            }
+            if (name.startsWith("-")){
+                name = name.replace("-","");
+            }
+
+        }
+        return name.trim();
+    }
     //+===================================================================================
     //
     //  General methods
@@ -212,16 +237,16 @@ public class WebCrawlerMako {
                 return doc;
             }
             catch ( final IOException e ){
-                logger.error("WebCrawlerKan.fetchPage => Failed to retrieve page: " + url );
+                logger.error("fetchPage => Failed to retrieve page: " + url );
                 if ( ++count >= maxRetries )
                 {
-                    logger.error("WebCrawlerMako.fetchPage => Waiting 2 seconds and retrying...");
+                    logger.error("fetchPage => Waiting 2 seconds and retrying...");
                     try {
                         Thread.sleep(2 * 1000);
                         fetchPage(url);
                     } catch (InterruptedException ex){
                         ex.printStackTrace();
-                        logger.error("WebCrawlerMako.fetchPage => error: " + ex);
+                        logger.error("fetchPage => error: " + ex);
                     }
                 } else {
                     e.printStackTrace();
@@ -249,17 +274,17 @@ public class WebCrawlerMako {
             // Write the JSON object to the file
             String joOutput = jo.toString(4);
             file.write(jo.toString(4));  // Pretty print with an indentation level of 4
-            logger.info("Successfully wrote JSON to file.");
+            logger.info("writeToFile => Successfully wrote JSON to file.");
             
             InputStream in = new ByteArrayInputStream(joOutput.getBytes());
             //copy the file to a generic name
             Files.copy(in, shortOutputFilePath,StandardCopyOption.REPLACE_EXISTING);
-            logger.info("Successfully copied file to generic name.");
+            logger.info("writeToFile => Successfully copied file to generic name.");
 
             //if there is a zip file,delete it
             String zipPathName = constantsMap.get("OUTPUT_PATH") + constantsMap.get("ZIP_FILENAME");
             if (IsFileExist(zipPathName, false)){
-                logger.error("Zip file exists and was not deleted. We will try to rename it");
+                logger.error("writeToFile => Zip file exists and was not deleted. We will try to rename it");
                 try{
                     Path sourcePath = Paths.get(zipPathName);
                     Path targetPath = Paths.get(zipPathName + "." + formattedDate);
@@ -280,7 +305,7 @@ public class WebCrawlerMako {
             while((length = fis.read(bytes)) >= 0) {
                 zipOut.write(bytes, 0, length);
             }
-            logger.info("Successfully generated zip file.");
+            logger.info("writeToFile => Successfully generated zip file.");
 
             zipOut.close();
             fis.close();
@@ -309,17 +334,17 @@ public class WebCrawlerMako {
             logger.info("File " + filePath + " Exists");
             if (delete){// The file exists and we want to delete
                 if (file.delete()) {
-                    logger.info("File '{}' deleted successfully", filePath);
+                    logger.info("IsFileExist => File '{}' deleted successfully", filePath);
                     return false;
                 }else {
-                    logger.error("Failed to delete the file '{}", filePath);
+                    logger.error("IsFileExist => Failed to delete the file '{}", filePath);
                     return true;
                 }
             } else {// The file exists and we do not want to delete
                 return true;
             }
         } else { // file does not exist
-            logger.info("File '{}' does not Exist.", filePath);
+            logger.info("IsFileExist => File '{}' does not Exist.", filePath);
             return false;
         }
     }
