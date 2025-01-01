@@ -59,13 +59,13 @@ public class WebCrawlerKan {
         
         SimpleDateFormat ft = new SimpleDateFormat("dd-MM-yyyy_HH-mm"); 
         String formattedDate = ft.format(new Date());
-        logger.info("WebCrawlerKan.crawl => Started @ " + formattedDate);
+        logger.info("main => Started @ " + formattedDate);
         WebCrawlerKan WebCrawlerKan = new WebCrawlerKan();
         
         WebCrawlerKan.crawl();
         
         String formattedEndDate = ft.format(new Date());
-        logger.info("WebCrawlerKan.crawl = > Stopped @ " + formattedEndDate);
+        logger.info("main => Stopped @ " + formattedEndDate);
 
       }
 
@@ -79,7 +79,7 @@ public class WebCrawlerKan {
 
         //export to file
         String uglyString = jo.toString(4);
-        logger.info("WebCrawlerKan.crawl =>      Ugly String\n" + uglyString);
+        logger.info("main =>      Ugly String\n" + uglyString);
         writeToFile(uglyString);
     }
 
@@ -165,7 +165,7 @@ public class WebCrawlerKan {
             } else {
                 if (seriesPageDoc.select("div.seasons-item").size() > 0) {
                     //System.out.println("crawlDigital => link: " + linkSeries );
-                    logger.debug("WebCrawlerKan.crawlDigital => link: " + linkSeries);
+                    logger.debug("crawlDigital => link: " + linkSeries);
                     videosListArr = getVideos(seriesPageDoc.select("div.seasons-item"), id, subType);
                 } else {
                     videosListArr = getMovies(seriesPageDoc, id, subType);
@@ -245,10 +245,10 @@ public class WebCrawlerKan {
                             if (elemEpisodeLogo != null) {
                                 episodeLogoUrl = getImageFromUrl(elemEpisodeLogo.attr("src"),"d");
                             }
-                            logger.debug("WebCrawlerKan.getVideos =>   episodeLogoUrl location: " + episodeLogoUrl);                           
+                            logger.debug("getVideos =>   episodeLogoUrl location: " + episodeLogoUrl);                           
                         }
                     } catch(Exception ex) {
-                        logger.error("WebCrawlerKan.getVideos => " + ex);
+                        logger.error("getVideos => " + ex);
                         
                     }
                 }
@@ -269,7 +269,7 @@ public class WebCrawlerKan {
                 episodeVideoJSONObj.put("streams",streamsJSONArray);
 
                 videosArr.put(episodeVideoJSONObj);
-                logger.debug("WebCrawlerKan.getVideos => Added videos for episode : " + title + " " + seasonNo + ":" + (iter +1) + " subtype: " + subType);
+                logger.debug("getVideos => Added videos for episode : " + title + " " + seasonNo + ":" + (iter +1) + " subtype: " + subType);
             }
         }
         return videosArr;        
@@ -376,7 +376,7 @@ public class WebCrawlerKan {
             JSONArray videosListArr = getKidsVideos(seasons, id, subType);
        
             addToJsonObject(id, seriesTitle, seriesPage, imgUrl, seriesDescription, genres, videosListArr, subType, "series");
-            logger.debug("WebCrawlerKan.addMetasForKids => Added  series, ID: " + id + " Name: " + seriesTitle + " subtype: " + subType);
+            logger.debug("addMetasForKids => Added  series, ID: " + id + " Name: " + seriesTitle + " subtype: " + subType);
         }
     }
 
@@ -429,7 +429,7 @@ public class WebCrawlerKan {
                 episodeVideoJSONObj.put("streams",streamsArr);
 
                 videosListArr.put(episodeVideoJSONObj);
-                logger.debug("WebCrawlerKan.getKidsVideos => Added videos for episode : " + episodeTitle + " " + videoId);
+                logger.debug("getKidsVideos => Added videos for episode : " + episodeTitle + " " + videoId);
             }
         }
         return videosListArr;
@@ -439,14 +439,14 @@ public class WebCrawlerKan {
     //  Kan podcasts methods
     //+===================================================================================
     private void crawlPodcasts(){
-        logger.info("WebCrawlerKan.crawlPodcasts => Starting retrieval of podcasts");
+        logger.info("crawlPodcasts => Starting retrieval of podcasts");
         Document doc = fetchPage(constantsMap.get("PODCASTS_URL"));
         
         Elements genres = doc.select("div.podcast-row");
-        logger.info("WebCrawlerKan.crawlPodcasts => Found " + genres.size() + " genres");
+        logger.info("crawlPodcasts => Found " + genres.size() + " genres");
         for (Element genre : genres) { //iterate over podcasts rows by genre
             String[] genresName = {genre.select("h4.title-elem.category-name").text().trim()};
-            logger.debug("WebCrawlerKan.crawlPodcasts => Genre " + genresName[0]);
+            logger.debug("crawlPodcasts => Genre " + genresName[0]);
             Elements podcasts = genre.select("a.podcast-item");
  
             for (Element podcast : podcasts) { //iterate over podcasts series
@@ -495,7 +495,7 @@ public class WebCrawlerKan {
         //get last element in paging if there is one
         String lastPageNo = podcastSeriesPageDoc.select("li[class=pagination-page__item][title=Last page]").attr("data-num");
 
-        logger.debug("WebCrawlerKan.addPodcastMeta => Number of pages " + lastPageNo);
+        logger.debug("addPodcastMeta => Number of pages " + lastPageNo);
 
         if ((! lastPageNo.isEmpty()) && (Integer.parseInt(lastPageNo) > 0) ){
             int intLastPageNo = Integer.parseInt(lastPageNo);
@@ -520,7 +520,7 @@ public class WebCrawlerKan {
             episodeNo--;
         }
         addToJsonObject(id, seriesTitle,  podcastSeriesLink, podcastImageUrl, seriesDecription, genresName, videosListArr, "p", "Podcasts");
-        logger.info("WebCrawlerKan.addPodcastMeta =>    Podcast added " + seriesTitle + " ID: " + id);
+        logger.info("addPodcastMeta =>    Podcast added " + seriesTitle + " ID: " + id);
     }
 
     /**
@@ -538,9 +538,9 @@ public class WebCrawlerKan {
         } else {
             if (episode.select("a.card-body").size() > 0){
                 episodeLink = episode.select("a.card-body").attr("href");
-                logger.info("WebCrawlerKan.getpodcastVideo =>        href card image empty. Using card href");
+                logger.info("getpodcastVideo =>        href card image empty. Using card href");
             } else {
-                logger.info("WebCrawlerKan.getpodcastVideo =>        No episode link found, skipping.");
+                logger.info("getpodcastVideo =>        No episode link found, skipping.");
                 return podcastVideo;
             }
         }
@@ -553,7 +553,7 @@ public class WebCrawlerKan {
         String episodeTitle = episode.select("h2.card-title").text().trim();
         String episodeDescription = episode.select("div.description").text().trim();
         String released = episode.select("li.date-local").attr("data-date-utc").trim();
-        logger.debug("WebCrawlerKan.getpodcastVideo =>   Podcast episode " + episodeTitle + "\n           link:" + episodeLink + "\n            episode no. " + episodeNo);
+        logger.debug("getpodcastVideo =>   Podcast episode " + episodeTitle + "\n           link:" + episodeLink + "\n            episode no. " + episodeNo);
         JSONObject streams = getPodcastStreams(episodeLink);
         if (streams.isEmpty()) { 
             return podcastVideo;
@@ -569,7 +569,7 @@ public class WebCrawlerKan {
         podcastVideo.put("streams",streams);
         podcastVideo.put("released", released);
 
-        logger.info("WebCrawlerKan.getpodcastVideo =>        Adding video  " + " ID: " + id + ", Title: " + episodeTitle + ", episode: " + episodeNo);
+        logger.info("getpodcastVideo =>        Adding video  " + " ID: " + id + ", Title: " + episodeTitle + ", episode: " + episodeNo);
 
         return podcastVideo;
     }
@@ -605,7 +605,7 @@ public class WebCrawlerKan {
             return streams;
         }
         String url = urlRaw.substring(0,urlRaw.indexOf("?"));
-        logger.debug("WebCrawlerKan.getPodcastStreams =>       Podcast stream name: " + name + "\n     description: "+description+"\n      link: " + url);
+        logger.debug("getPodcastStreams =>       Podcast stream name: " + name + "\n     description: "+description+"\n      link: " + url);
 
         streams.put("url", url);
         streams.put("type", "Podcast");
@@ -633,16 +633,16 @@ public class WebCrawlerKan {
                 return doc;
             }
             catch ( final IOException e ){
-                logger.error("WebCrawlerKan.fetchPage => Failed to retrieve page: " + url );
+                logger.error("fetchPage => Failed to retrieve page: " + url );
                 if ( ++count >= maxRetries )
                 {
-                    logger.error("WebCrawlerKan.fetchPage => Waiting 2 seconds and retrying...");
+                    logger.error("fetchPage => Waiting 2 seconds and retrying...");
                     try {
                         Thread.sleep(2 * 1000);
                         fetchPage(url);
                     } catch (InterruptedException ex){
                         ex.printStackTrace();
-                        logger.error("WebCrawlerKan.fetchPage => error: " + ex);
+                        logger.error("fetchPage => error: " + ex);
                     }
                 } else {
                     e.printStackTrace();
@@ -985,7 +985,7 @@ public class WebCrawlerKan {
         joSeries.put("metas", joSeriesMeta);    
 
         jo.put(id, joSeries);
-        logger.info("WebCrawlerKan.addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + "\n  Link: " + seriesPage);
+        logger.info("addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + "\n  Link: " + seriesPage);
     }
 
     //+===================================================================================
@@ -1036,7 +1036,7 @@ public class WebCrawlerKan {
         joKanLive.put("metas", metaKanLiveJSONObj);    
 
         jo.put(idKanLive, joKanLive);
-        logger.info("WebCrawlerKan.crawlDigitalLive => Added  Kan 11 Live TV");
+        logger.info("crawlDigitalLive => Added  Kan 11 Live TV");
 
         /* Kids Live */
         JSONArray streamsKidsLiveArr = new JSONArray();
@@ -1077,7 +1077,7 @@ public class WebCrawlerKan {
         joKidsLive.put("metas", metaKidsLiveJSONObj);    
 
         jo.put(idKanKidsLive, joKidsLive);
-        logger.info("WebCrawlerKan.crawlDigitalLive => Added Kan Kids Live TV");
+        logger.info("crawlDigitalLive => Added Kan Kids Live TV");
 
         /* Knesset Live */
         JSONArray streamsKnessetLiveArr = new JSONArray();
@@ -1117,7 +1117,7 @@ public class WebCrawlerKan {
         joKnessetLive.put("metas", metaKnessetLiveJSONObj);    
 
         jo.put(idKanKnesset, joKnessetLive);
-        logger.info("WebCrawlerKan.crawlDigitalLive => Added Kan Kids Live TV");
+        logger.info("crawlDigitalLive => Added Kan Kids Live TV");
 
         /* Makan Live */
         JSONObject streamKMakanLiveObj = new JSONObject();
@@ -1156,7 +1156,7 @@ public class WebCrawlerKan {
         joMakanLive.put("metas", metaMakanLiveJSONObj);    
 
         jo.put(idMakanLive, joMakanLive);
-        logger.info("WebCrawlerKan.crawlDigitalLive => Added Makan Live TV");
+        logger.info("crawlDigitalLive => Added Makan Live TV");
     }
     
     //+===================================================================================
@@ -1180,17 +1180,17 @@ public class WebCrawlerKan {
             logger.info("File " + filePath + " Exists");
             if (delete){// The file exists and we want to delete
                 if (file.delete()) {
-                    logger.info("File '{}' deleted successfully", filePath);
+                    logger.info("IsFileExist => File '{}' deleted successfully", filePath);
                     return false;
                 }else {
-                    logger.error("Failed to delete the file '{}", filePath);
+                    logger.error("IsFileExist => Failed to delete the file '{}", filePath);
                     return true;
                 }
             } else {// The file exists and we do not want to delete
                 return true;
             }
         } else { // file does not exist
-            logger.info("File '{}' does not Exist.", filePath);
+            logger.info("IsFileExist =>File '{}' does not Exist.", filePath);
             return false;
         }
     }
@@ -1212,17 +1212,17 @@ public class WebCrawlerKan {
             // Write the JSON object to the file
             String joOutput = jo.toString(4);
             file.write(jo.toString(4));  // Pretty print with an indentation level of 4
-            logger.info("Successfully wrote JSON to file.");
+            logger.info("writeToFile => Successfully wrote JSON to file.");
             
             InputStream in = new ByteArrayInputStream(joOutput.getBytes());
             //copy the file to a generic name
             Files.copy(in, shortOutputFilePath,StandardCopyOption.REPLACE_EXISTING);
-            logger.info("Successfully copied file to generic name.");
+            logger.info("writeToFile => Successfully copied file to generic name.");
 
             //if there is a zip file,delete it
             String zipPathName = constantsMap.get("OUTPUT_PATH") + constantsMap.get("ZIP_FILENAME");
             if (IsFileExist(zipPathName, false)){
-                logger.error("Zip file exists and was not deleted. We will try to rename it");
+                logger.error("writeToFile => Zip file exists and was not deleted. We will try to rename it");
                 try{
                     Path sourcePath = Paths.get(zipPathName);
                     Path targetPath = Paths.get(zipPathName + "." + formattedDate);
@@ -1243,7 +1243,7 @@ public class WebCrawlerKan {
             while((length = fis.read(bytes)) >= 0) {
                 zipOut.write(bytes, 0, length);
             }
-            logger.info("Successfully generated zip file.");
+            logger.info("writeToFile => Successfully generated zip file.");
 
             zipOut.close();
             fis.close();
