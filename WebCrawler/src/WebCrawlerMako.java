@@ -38,6 +38,7 @@ public class WebCrawlerMako {
     public static void main(String[] args) {  
         jo = new JSONObject();
         constantsMap.put("URL_ADDRESS", "https://www.mako.co.il/mako-vod-index");
+        constantsMap.put("OUTPUT_PATH","output/");
         constantsMap.put("JSON_FILENAME","stremio-mako.json");
         constantsMap.put("ZIP_FILENAME","stremio-mako.zip");
         constantsMap.put("PREFIX","il_");
@@ -53,13 +54,16 @@ public class WebCrawlerMako {
         
         String formattedEndDate = ft.format(new Date());
         logger.info("main = > Stopped @ " + formattedEndDate);
-
     }
 
     private void crawl(){
-
         crawlLive();
         crawlVOD();
+
+        //export to file
+        String uglyString = jo.toString(4);
+        logger.info("main =>      Ugly String\n" + uglyString);
+        writeToFile(uglyString);
 
     }
 
@@ -125,11 +129,12 @@ public class WebCrawlerMako {
 
             Document seriesPageDoc = fetchPage(linkSeries);
             String seriesTitle = getNameFromSeriesPage(seriesPageDoc.select("title").text().trim());
-            String seriesBackground = seriesPageDoc.select("h1.sc-3367e39f-6.dXArim img").attr("src");
+            //String seriesBackground = seriesPageDoc.select("div.sc-3367e39f-3.eLXxdK picture img").attr("src");
             String seriesDescription = seriesPageDoc.select("meta[name=description]").attr("content").trim();
             String[] genres = {"mako"};
             
-            Elements seasonsLinks = doc.select("div#seasonDropdown ul.sc-655a2e4d-2 jaPKFx dropdown li ul li");
+            Elements seasonsLinks = seriesPageDoc.select("div#seasonDropdown ul[class] li ul li");
+            if (seasonsLinks.size() == 0){continue;}
             JSONArray videosJSONArr = getVideos(seasonsLinks, id);
             
             
@@ -138,17 +143,18 @@ public class WebCrawlerMako {
         }
     }
 
-    private JSONArray getVideos(Elements seasonsLinks, String id){
+    private JSONArray getVideos(Elements seasonsArray, String id){
         JSONArray videosJSONArr = new JSONArray();
 
         int currentSeason = 1;
-        for (Element seasonLink : seasonsLinks){//iterate over the seasons
-            String seasonLinkUrl = seasonLink.select("a").attr("href");
+        for (Element season : seasonsArray){//iterate over the seasons
+            String seasonLinkUrl = season.select("a").attr("href");
             Document seasonDoc = fetchPage(seasonLinkUrl);
-            Elements episodes = seasonDoc.select("ul.sc-183804b8-0.dXQhOJ li");
+            Elements episodes = seasonDoc.select("ul.sc-e5519efa-0.cAa-duK li");
+            int currentEpisodeNo = 1;
             for (Element episode : episodes){
                 JSONObject video = new JSONObject();
-                String[] episodeNoStr = episode.attr(id).split(":");
+                String[] episodeNoStr = episode.attr("id").split(":");
                 String episodeNo = episodeNoStr[1];
                 String seasonNo = episodeNoStr[0];
                 String vidoeId = id + ":" + seasonNo + ":" + episodeNo;
@@ -172,6 +178,7 @@ public class WebCrawlerMako {
                 video.put("thumbnail",episodeImgUrl);
                 video.put("streams",streams);
 
+                currentEpisodeNo++;
             }
             currentSeason++;
         } 
