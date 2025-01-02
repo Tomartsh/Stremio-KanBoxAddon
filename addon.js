@@ -56,8 +56,8 @@ const manifest = {
 		},
 		{
 			type: "tv",
-			id: "kanLive",
-			name: "כאן שידור חי",
+			id: "TV_Broadcast",
+			name: "שידורים חיים",
 			extra: [ {name: "search", isRequired: false }]
 		},
         {
