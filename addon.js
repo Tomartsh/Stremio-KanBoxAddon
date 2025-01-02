@@ -6,7 +6,7 @@ const AdmZip = require("adm-zip");
 const srList = require("./classes/srList");
 const constants = require("./classes/constants");
 
-const logLevel = "INFO";
+const logLevel = "DEBUG";
 const listSeries = new srList();
 
  
