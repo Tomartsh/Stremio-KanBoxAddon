@@ -88,8 +88,8 @@ public class WebCrawlerVariousTV {
         metaYnetLiveJSONObj.put("name", "שידור חי ynet");
         metaYnetLiveJSONObj.put("type", "tv");
         metaYnetLiveJSONObj.put("genres", "News");
-        metaYnetLiveJSONObj.put("background", "https://stremio-kanboxaddon.onrender.com/assets/ynet_logo_gif_ynet.gif");
-        metaYnetLiveJSONObj.put("poster", "https://stremio-kanboxaddon.onrender.com/assets/ynet_logo_gif_ynet.gif");
+        metaYnetLiveJSONObj.put("background", "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/ynet_logo_gif_ynet.gif");
+        metaYnetLiveJSONObj.put("poster", "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/ynet_logo_gif_ynet.gif");
         metaYnetLiveJSONObj.put("posterShape", "landscape");
         metaYnetLiveJSONObj.put("description", "שידור חי ynet");
         metaYnetLiveJSONObj.put("videos", videosYnetLiveJSONArr);
@@ -128,8 +128,8 @@ public class WebCrawlerVariousTV {
         metaI24EngLiveJSONObj.put("name", "שידור חי באנגלית i24");
         metaI24EngLiveJSONObj.put("type", "tv");
         metaI24EngLiveJSONObj.put("genres", "News");
-        metaI24EngLiveJSONObj.put("background", "https://stremio-kanboxaddon.onrender.com/assets/i24new_english.png");
-        metaI24EngLiveJSONObj.put("poster", "ahttps://stremio-kanboxaddon.onrender.com/assets/i24new_english.png");
+        metaI24EngLiveJSONObj.put("background", "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/i24new_english.png");
+        metaI24EngLiveJSONObj.put("poster", "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/i24new_english.png");
         metaI24EngLiveJSONObj.put("posterShape", "landscape");
         metaI24EngLiveJSONObj.put("description", "שידור חי באנגלית i24");
         metaI24EngLiveJSONObj.put("videos", videosI24EngLiveJSONArr);
@@ -167,8 +167,8 @@ public class WebCrawlerVariousTV {
         metaI24HebLiveJSONObj .put("name", "שידור חי בעיברית i24");
         metaI24HebLiveJSONObj .put("type", "tv");
         metaI24HebLiveJSONObj.put("genres", "News");
-        metaI24HebLiveJSONObj.put("background", "https://stremio-kanboxaddon.onrender.com/assets/i24new_hebrew.png");
-        metaI24HebLiveJSONObj.put("poster", "https://stremio-kanboxaddon.onrender.com/assets/i24new_hebrew.png");
+        metaI24HebLiveJSONObj.put("background", "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/i24new_hebrew.png");
+        metaI24HebLiveJSONObj.put("poster", "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/i24new_hebrew.png");
         metaI24HebLiveJSONObj.put("posterShape", "landscape");
         metaI24HebLiveJSONObj.put("description", "שידור חי בעיברית i24");
         metaI24HebLiveJSONObj.put("videos", videosI24HebLiveJSONArr);
@@ -206,8 +206,8 @@ public class WebCrawlerVariousTV {
         metaI24FrnLiveJSONObj .put("name", "שידור חי בצרפתית i24");
         metaI24FrnLiveJSONObj .put("type", "tv");
         metaI24FrnLiveJSONObj.put("genres", "News");
-        metaI24FrnLiveJSONObj.put("background", "https://stremio-kanboxaddon.onrender.com/assets/i24new_french.png");
-        metaI24FrnLiveJSONObj.put("poster", "https://stremio-kanboxaddon.onrender.com/assets/i24new_french.png");
+        metaI24FrnLiveJSONObj.put("background", "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/i24new_french.png");
+        metaI24FrnLiveJSONObj.put("poster", "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/i24new_french.png");
         metaI24FrnLiveJSONObj.put("posterShape", "landscape");
         metaI24FrnLiveJSONObj.put("description", "שידור חי בצרפתית i24");
         metaI24FrnLiveJSONObj.put("videos", videosI24FrnLiveJSONArr);
@@ -246,8 +246,8 @@ public class WebCrawlerVariousTV {
         metaI24ArbLiveJSONObj .put("name", "שידור חי בערבית i24");
         metaI24ArbLiveJSONObj .put("type", "tv");
         metaI24ArbLiveJSONObj.put("genres", "News");
-        metaI24ArbLiveJSONObj.put("background", "https://stremio-kanboxaddon.onrender.com/assets/i24new_arabic.png");
-        metaI24ArbLiveJSONObj.put("poster", "https://stremio-kanboxaddon.onrender.com/assets/i24new_arabic.png");
+        metaI24ArbLiveJSONObj.put("background", "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/i24new_arabic.png");
+        metaI24ArbLiveJSONObj.put("poster", "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/i24new_arabic.png");
         metaI24ArbLiveJSONObj.put("posterShape", "landscape");
         metaI24ArbLiveJSONObj.put("description", "שידור חי בערבית i24");
         metaI24ArbLiveJSONObj.put("videos", videosI24ArbLiveJSONArr);
@@ -286,8 +286,8 @@ public class WebCrawlerVariousTV {
         meta24LiveJSONObj .put("name", "שידור חי 24");
         meta24LiveJSONObj .put("type", "tv");
         meta24LiveJSONObj.put("genres", "News");
-        meta24LiveJSONObj.put("background", "https://stremio-kanboxaddon.onrender.com/assets/channel_24.jpg");
-        meta24LiveJSONObj.put("poster", "https://stremio-kanboxaddon.onrender.com/assets/channel_24.jpg");
+        meta24LiveJSONObj.put("background", "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/channel_24.jpg");
+        meta24LiveJSONObj.put("poster", "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/channel_24.jpg");
         meta24LiveJSONObj.put("posterShape", "landscape");
         meta24LiveJSONObj.put("description", "שידור חי 24");
         meta24LiveJSONObj.put("videos", videos24LiveJSONArr);
@@ -326,8 +326,8 @@ public class WebCrawlerVariousTV {
         metaSport5LiveJSONObj .put("name", "שידור חי Sport 5");
         metaSport5LiveJSONObj .put("type", "tv");
         metaSport5LiveJSONObj.put("genres", "News");
-        metaSport5LiveJSONObj.put("background", "https://stremio-kanboxaddon.onrender.com/assets/sport_5");
-        metaSport5LiveJSONObj.put("poster", "https://stremio-kanboxaddon.onrender.com/assets/sport_5");
+        metaSport5LiveJSONObj.put("background", "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/sport_5.jpg");
+        metaSport5LiveJSONObj.put("poster", "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/assets/sport_5.jpg");
         metaSport5LiveJSONObj.put("posterShape", "landscape");
         metaSport5LiveJSONObj.put("description", "שידור חי Sport 5");
         metaSport5LiveJSONObj.put("videos", videosSport5LiveJSONArr);
