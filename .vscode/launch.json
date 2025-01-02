@@ -17,6 +17,12 @@
             "mainClass": "WebCrawlerMako"
         },
         {
+            "type": "java",
+            "name": "Various TV WebCrawler",
+            "request": "launch",
+            "mainClass": "WebCrawlerVariousTV"
+        },
+        {
             "type": "node",
             "request": "launch",
             "name": "Stremio - Install",
