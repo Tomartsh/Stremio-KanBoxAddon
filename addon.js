@@ -187,12 +187,12 @@ var jsonFileExist = "";
     
     var jsonStr;
     try {
-        axios.get(zipFile, {
+        axios.get(constants.url_JSON_File, {
             responseType: 'arraybuffer'
         }).then((body) =>  {
             const data = body.data;
             const zip = new AdmZip(data);
-            jsonStr = zip.readAsText(jsonFile);
+            jsonStr = zip.readAsText("stremio-kanbox.json");
             if ((jsonStr != undefined) && (jsonStr != '')){
 
                     var jsonObj = JSON.parse(jsonStr);
@@ -203,7 +203,7 @@ var jsonFileExist = "";
                         writeLog("DEBUG", "getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.title)
                     }
 
-                    writeLog("INFO","Temporary ZIP " + zipFile + " file deleted.");
+                    writeLog("INFO","Temporary ZIP " + constants.url_JSON_File + " file deleted.");
                 } else {
                     writeLog("ERROR","Cannot find the JSON data. Please report this issue.");               
                 }
