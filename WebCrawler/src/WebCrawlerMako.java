@@ -107,7 +107,7 @@ public class WebCrawlerMako {
         joMakoLive.put("metas", metaMakoLiveJSONObj);    
 
         jo.put(idMakoLive, joMakoLive);
-        logger.info("crawlLive => Added  Kan 11 Live TV");
+        logger.info("crawlLive => Added Mako 12 Live TV");
     }
 
     private void crawlVOD(){
@@ -122,7 +122,7 @@ public class WebCrawlerMako {
             if (linkSeries.startsWith("/")) {
                 linkSeries = constantsMap.get("VOD_CONTENT_PREFIX") + linkSeries;
             }
-            String subtype = "m";
+            String subType = "m";
             String id = constantsMap.get("PREFIX") + String.format("%05d", iter);
             //set series image link
             String imgUrl = seriesElem.select("img").get(1).attr("src").trim();
@@ -137,7 +137,7 @@ public class WebCrawlerMako {
             if (seasonsLinks.size() == 0){continue;}
             JSONArray videosJSONArr = getVideos(seasonsLinks, id);
             
-            
+            addToJsonObject(id, seriesTitle,  linkSeries, imgUrl, seriesDescription, genres, videosJSONArr, subType, "series");            
 
             iter ++;
         }
@@ -226,6 +226,48 @@ public class WebCrawlerMako {
         }
         return name.trim();
     }
+
+    /**
+     * Add the JSON objectto the overall JSON object that will ultimately go into the .json and .zip file
+     * @param id - ID of the series. Starts with the prefix of il_
+     * @param seriesTitle - Title of the serlies
+     * @param seriesPage - the page in which all the episodes are at
+     * @param imgUrl - Image of the series to be displayed in the catalog
+     * @param seriesDescription - Description of the series
+     * @param genres - The genre of the series. If abscent the wod mako is entered
+     * @param videosList - JSONArray of the video chapters and in it the reference to the streams
+     * @param subType string, for Mako, channel 12 it is always set to m
+     * @param type - Always set to 'series'.
+     */
+    private void addToJsonObject(String id, String seriesTitle, String seriesPage, String imgUrl,
+        String seriesDescription, String[] genres, JSONArray videosList, String subType, String type){
+         
+        JSONObject joSeriesMeta = new JSONObject();
+        joSeriesMeta.put("id", id);
+        joSeriesMeta.put("name", seriesTitle);
+        joSeriesMeta.put("type", type);
+        joSeriesMeta.put("link", seriesPage);
+        joSeriesMeta.put("background", imgUrl);
+        joSeriesMeta.put("poster", imgUrl);
+        joSeriesMeta.put("posterShape", "poster");
+        joSeriesMeta.put("logo", imgUrl);
+        joSeriesMeta.put("description", seriesDescription);
+        joSeriesMeta.put("genres", genres);
+        joSeriesMeta.put("videos", videosList);
+
+
+        JSONObject joSeries = new JSONObject();
+        joSeries.put("id", id);
+        joSeries.put("link", seriesPage);
+        joSeries.put("type", type);           
+        joSeries.put("subtype", subType);
+        joSeries.put("title", seriesTitle);
+        joSeries.put("metas", joSeriesMeta);    
+
+        jo.put(id, joSeries);
+        logger.info("addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + "\n  Link: " + seriesPage);
+    }
+
     //+===================================================================================
     //
     //  General methods
