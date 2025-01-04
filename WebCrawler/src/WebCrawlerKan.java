@@ -959,6 +959,18 @@ public class WebCrawlerKan {
         return str;
     }
 
+    /**
+     * Add the JSON objectto the overall JSON object that will ultimately go into the .json and .zip file
+     * @param id - ID of the series. Starts with the prefix of il_
+     * @param seriesTitle - Title of the serlies
+     * @param seriesPage - the page in which all the episodes are at
+     * @param imgUrl - Image of the series to be displayed in the catalog
+     * @param seriesDescription - Description of the series
+     * @param genres - The genre of the series. If abscent the wod mako is entered
+     * @param videosList - JSONArray of the video chapters and in it the reference to the streams
+     * @param subType string, for Mako, for Kan it can be d for digital, a for archive series, k for kids and n for teensw
+     * @param type - Always set to 'series'.
+     */
     private void addToJsonObject(String id, String seriesTitle, String seriesPage, String imgUrl,
         String seriesDescription, String[] genres, JSONArray videosList, String subType, String type){
          
