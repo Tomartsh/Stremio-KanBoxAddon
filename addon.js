@@ -6,23 +6,23 @@ const AdmZip = require("adm-zip");
 const srList = require("./classes/srList");
 const constants = require("./classes/constants");
 
-const logLevel = "INFO";
+const logLevel = "DEBUG";
 const listSeries = new srList();
 
 var filesToRetrieve = constants.url_JSON_File.split(",");
-for (var i = 0; i < filesToRetrieve.length; i++) {
-    var fileName = filesToRetrieve[i].split(".")[0];
-    var zipFile = constants.URL_JSON_BASE + filesToRetrieve[i];
-    var jsonFile = fileName + ".json";
-    new Promise(j => getJSONFile(j));
+//for (var i = 0; i < filesToRetrieve.length; i++) {
+//    var fileName = filesToRetrieve[i].split(".")[0];
+//    var zipFile = constants.URL_JSON_BASE + filesToRetrieve[i];
+//    var jsonFile = fileName + ".json";
+//    new Promise(j => getJSONFile(j));
     
-}
+//}
 
-//new Promise(j => getJSONFile(j));
+new Promise(j => getJSONFile(j));
 
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md
 const manifest = {
-	"id": "community.StremioKan",
+	"id": "community.StremioIsraeliTV",
 	"version": "1.0.0",
     "logo": "https://i.imgur.com/rw5Vxad.png",
 	"catalogs": [
