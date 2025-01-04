@@ -18,6 +18,12 @@
         },
         {
             "type": "java",
+            "name": "Reshet WebCrawler",
+            "request": "launch",
+            "mainClass": "WebCrawlerReshet"
+        },
+        {
+            "type": "java",
             "name": "Various TV WebCrawler",
             "request": "launch",
             "mainClass": "WebCrawlerVariousTV"
