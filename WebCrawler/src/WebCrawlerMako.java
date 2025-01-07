@@ -93,8 +93,8 @@ public class WebCrawlerMako {
         metaMakoLiveJSONObj.put("name", "Mako 12");
         metaMakoLiveJSONObj.put("type", "tv");
         metaMakoLiveJSONObj.put("genres", "Actuality");
-        metaMakoLiveJSONObj.put("background", "https://img.mako.co.il/2024/10/08/Logo_12_Live_Hero.png");
-        metaMakoLiveJSONObj.put("poster", "https://img.mako.co.il/2024/10/08/Logo_12_Live_Hero.png");
+        metaMakoLiveJSONObj.put("background", "https://tomartsh.github.io/Stremio_Addon_Files//assets/Mako/LIVE_push_mako_tv.jpg");
+        metaMakoLiveJSONObj.put("poster", "https://tomartsh.github.io/Stremio_Addon_Files//assets/Mako/LIVE_push_mako_tv.jpg");
         metaMakoLiveJSONObj.put("posterShape", "landscape");
         metaMakoLiveJSONObj.put("description", "Mako channel 12 Live Stream From Israel");
         metaMakoLiveJSONObj.put("videos", videosMakoLiveJSONArr);
@@ -114,10 +114,13 @@ public class WebCrawlerMako {
         Document doc = fetchPage(constantsMap.get("URL_ADDRESS"));
         Elements series = doc.select("ul.sc-fe9b9e0b-0.ffSuTE li");
         int iter = 1;
-        for (Element seriesElem : series) {
+        for (Element seriesElem : series) {//iterate over series
             if ((seriesElem == null) || (seriesElem.select("a[href]") == null )) {
                 continue;
             }
+            String metaReleaseInfo = "";
+
+            JSONArray videosArray = new JSONArray();
             String linkSeries = seriesElem.select("a").attr("href");
             if (linkSeries.startsWith("/")) {
                 linkSeries = constantsMap.get("VOD_CONTENT_PREFIX") + linkSeries;
@@ -132,6 +135,50 @@ public class WebCrawlerMako {
             //String seriesBackground = seriesPageDoc.select("div.sc-3367e39f-3.eLXxdK picture img").attr("src");
             String seriesDescription = seriesPageDoc.select("meta[name=description]").attr("content").trim();
             String[] genres = {"mako"};
+            JSONObject makoJO = new JSONObject(seriesPageDoc.select("script#__NEXT_DATA__").dataNodes().get(0).getWholeData());
+            JSONObject props = makoJO.getJSONObject("props");
+            JSONObject pageProps = props.getJSONObject("pageProps");
+            JSONObject makoDataJO = pageProps.getJSONObject("data");
+            JSONArray seasonsJArr = makoDataJO.getJSONArray("seasons");
+
+            for (int i = 0 ; i < seasonsJArr.length() ; i++) {
+                JSONObject season = seasonsJArr.getJSONObject(i);
+                String  seasonId = season.getString("seasonTitle");
+                String seasonPage = season.getString("pageUrl");
+                if (seasonPage.startsWith("/")){
+                    seasonPage =  constantsMap.get("VOD_CONTENT_PREFIX") + seasonPage;
+                }
+                
+                Document seasonDoc = fetchPage(seasonPage);
+                JSONObject seasonJO = new JSONObject(seasonDoc.select("script#__NEXT_DATA__").dataNodes().get(0).getWholeData());
+                JSONObject seasonProps = seasonJO.getJSONObject("props");
+                JSONObject seasonPageProps = seasonProps.getJSONObject("pageProps");
+                JSONObject seasonMakoDataJO = seasonPageProps.getJSONObject("data");
+                JSONArray seasonMakoMenuJAr = seasonMakoDataJO.getJSONArray("menu");
+                JSONObject seasonMenuJO = seasonMakoMenuJAr.getJSONObject(0);
+                JSONArray seasonVODsJArr = seasonMenuJO.getJSONArray("vods");
+
+                for (int episodeIter = 0 ; episodeIter < seasonVODsJArr.length() ; episodeIter ++){
+                    JSONObject episode = seasonVODsJArr.getJSONObject(episodeIter);
+                    String episodeId = id + ":" + seasonId +":" + (episodeIter +1);
+                    String released = episode.getString("extraInfo");
+                    if (released.contains("@")){
+                        released = released.substring(0, released.indexOf("@") -1);
+                    }
+                    String episodeLink = episode.getString("pageUrl");
+                    if (episodeLink.startsWith("/")){
+                        episodeLink =  constantsMap.get("VOD_CONTENT_PREFIX") + episodeLink;
+                    }
+                    JSONArray picJArr = (JSONArray)episode.getJSONArray("pics");
+                    JSONObject espidoeImgJO = picJArr.getJSONObject(0);
+                    String episodeImg = espidoeImgJO.getString("picUrl");
+                    String episodeTitle = espidoeImgJO.getString("altText");
+
+                    //get the stream
+                    Document episodePageDoc = fetchPage(episodeLink);
+                    JSONObject episodeJO = new JSONObject(episodePageDoc.select("script#__NEXT_DATA__").dataNodes().get(0).getWholeData());
+                }
+            }
             
             Elements seasonsLinks = seriesPageDoc.select("div#seasonDropdown ul[class] li ul li");
             if (seasonsLinks.size() == 0){continue;}
