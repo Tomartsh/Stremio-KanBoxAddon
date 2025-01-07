@@ -85,7 +85,7 @@ class srList {
         var meta = this.getMetaById(seriesId);
         var videos = meta["videos"];
         var streams = [];
-        //for (var video in videos){
+        if ((meta == undefined) || (videos == undefined)){ return null;}
         for (var i = 0; i < videos.length; i++){
             if (videos[i].id == id) {streams = videos[i].streams;}
         }
