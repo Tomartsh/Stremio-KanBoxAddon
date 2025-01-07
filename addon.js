@@ -2,23 +2,29 @@ const { addonBuilder } = require("stremio-addon-sdk");
 const { parse } = require('node-html-parser');
 const axios = require('axios');
 const AdmZip = require("adm-zip");
+const https = require("https");
 
 const srList = require("./classes/srList");
 const constants = require("./classes/constants");
+const { write } = require("fs");
 
 const logLevel = "DEBUG";
 const listSeries = new srList();
 
-var filesToRetrieve = constants.url_JSON_File.split(",");
-//for (var i = 0; i < filesToRetrieve.length; i++) {
-//    var fileName = filesToRetrieve[i].split(".")[0];
-//    var zipFile = constants.URL_JSON_BASE + filesToRetrieve[i];
-//    var jsonFile = fileName + ".json";
-//    new Promise(j => getJSONFile(j));
-    
-//}
+//var filesToRetrieve = constants.url_JSON_File.split(",");
 
-new Promise(j => getJSONFile(j));
+// Main program
+(async () => {
+    try {
+        const jsonData = await getJSONFile();
+        writeLog("DEBUG","Files read successfully");
+    } catch (error) {
+        writeLog("DEBUG","An unexpected error occurred: " + error.message);
+        process.exit(1); // Exit with an error code
+    }
+})();
+
+//new Promise(j => getJSONFile(j));
 
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md
 const manifest = {
@@ -103,8 +109,8 @@ const manifest = {
 		"tv",
         "Podcasts"
 	],
-	"name": "Israel Broadcasting",
-	"description": "Israel digital broadcasting"
+	"name": "Israel Channels",
+	"description": "ISrael channels live and VOD"
 }
 const builder = new addonBuilder(manifest)
 
@@ -182,6 +188,44 @@ var jsonFileExist = "";
 /**
  * Retrieve the zip file, extract the .json file and then convert it to the seriesList object
  */
+function getJSONFile(){
+    writeLog("DEBUG","getJSONFile = > Entered JSON");
+    var jsonStr;
+    var filesArray = constants.url_ZIP_Files.split(",");
+    for (var url of filesArray) {
+        writeLog("DEBUG","Handling file " + url);
+        var zipFileName = constants.URL_JSON_BASE + url;
+        var jsonFileName = url.split(".")[0] + ".json";
+        try {
+            axios.get(zipFileName, {
+                responseType: 'arraybuffer'
+            }).then((body) =>  {
+                const data = body.data;
+                const zip = new AdmZip(data);
+                jsonStr = zip.readAsText(jsonFileName);
+                if ((jsonStr != undefined) && (jsonStr != '')){
+    
+                        var jsonObj = JSON.parse(jsonStr);
+                        for (var key in jsonObj){
+                            var value = jsonObj[key]
+                
+                            listSeries.addItemByDetails(value.id, value.title, value.poster, value.description, value.link, value.background, value.genres, value.metas, value.type, value.subtype);
+                            writeLog("DEBUG", "getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.title)
+                        }
+    
+                        writeLog("INFO","Temporary ZIP " + zipFileName + " file deleted.");
+                    } else {
+                        writeLog("ERROR","Cannot find the JSON data. Please report this issue.");               
+                    }
+                })
+        } catch (e) {
+            console.log("Something went wrong. " + e);
+        }
+    }
+    
+    
+}
+/*
  async function getJSONFile(){
     writeLog("DEUBG","getJSONFile = > Entered JSON");
     
@@ -211,7 +255,7 @@ var jsonFileExist = "";
     } catch (e) {
         console.log("Something went wrong. " + e);
     }
-}
+}*/
 
 function writeLog(level, msg){
     if (level =="ERROR"){
