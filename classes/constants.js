@@ -1,7 +1,6 @@
 module.exports = {
-    url_kanbox: "https://www.kan.org.il/lobby/kan-box/",
-    url_live: "https://www.kan.org.il/live/",
-    prefix_kanbox: "kanbox_",
-    debugState: "true",
-    image_prefix: "https://www.kan.org.il"
+    URL_JSON_BASE: "https://tomartsh.github.io/Stremio_Addon_Files/",
+    //url_JSON_File: "stremio-kanbox.zip,stremio-mako.zip,stremio-variousTV"
+    url_JSON_File: "https://tomartsh.github.io/Stremio_Addon_Files/stremio-kanbox.zip",
+    url_ZIP_Files: "stremio-kanbox.zip,stremio-variousTV.zip,stremio-mako.zip"
 };
