@@ -154,6 +154,7 @@ public class WebCrawlerReshet {
     }
 
     private void crawlVOD(){
+        String subType = "r";
         Document doc = fetchPage(constantsMap.get("URL_ADDRESS"));
         //Elements series = doc.select("div.RailItemProgramstyle__RailItemWrap-sc-1291072-0 cKWJLS");
         JSONObject reshetJO = new JSONObject(doc.select("script#__NEXT_DATA__").dataNodes().get(0).getWholeData());
@@ -178,7 +179,7 @@ public class WebCrawlerReshet {
             JSONObject pagePropsEpisode = (JSONObject)propsEpisode.get("pageProps");
             JSONObject programEpisode = (JSONObject)pagePropsEpisode.get("program");
             JSONArray episodesAr = (JSONArray)programEpisode.get("episodes");
-            for (int iter = 0; 1iter < episodesAr.length() ; iter++){
+            for (int iter = 0; iter < episodesAr.length() ; iter++){
                 JSONObject episode = (JSONObject)episodesAr.get(iter);
                 JSONObject metas = (JSONObject)episode.get("metas");
                 String released = epochToStringDate((String)episode.get("createDate"));
@@ -222,7 +223,6 @@ public class WebCrawlerReshet {
         //}
         
         Object seriesObj = reshetJO.get("props"); 
-        String subType = "r";
         
         
 
