@@ -17,7 +17,7 @@ const listSeries = new srList();
 (async () => {
     try {
         const jsonData = await getJSONFile();
-        writeLog("DEBUG","Files read successfully");
+//        writeLog("DEBUG","Files read successfully");
     } catch (error) {
         writeLog("DEBUG","An unexpected error occurred: " + error.message);
         process.exit(1); // Exit with an error code
@@ -205,19 +205,19 @@ function getJSONFile(){
                 jsonStr = zip.readAsText(jsonFileName);
                 if ((jsonStr != undefined) && (jsonStr != '')){
     
-                        var jsonObj = JSON.parse(jsonStr);
-                        for (var key in jsonObj){
-                            var value = jsonObj[key]
-                
-                            listSeries.addItemByDetails(value.id, value.title, value.poster, value.description, value.link, value.background, value.genres, value.metas, value.type, value.subtype);
-                            writeLog("DEBUG", "getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.title)
-                        }
-    
-                        writeLog("INFO","Temporary ZIP " + zipFileName + " file deleted.");
-                    } else {
-                        writeLog("ERROR","Cannot find the JSON data. Please report this issue.");               
+                    var jsonObj = JSON.parse(jsonStr);
+                    for (var key in jsonObj){
+                        var value = jsonObj[key]
+            
+                        listSeries.addItemByDetails(value.id, value.title, value.poster, value.description, value.link, value.background, value.genres, value.metas, value.type, value.subtype);
+                        writeLog("DEBUG", "getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.title)
                     }
-                })
+
+                    writeLog("INFO","Temporary ZIP " + zipFileName + " file deleted.");
+                } else {
+                    writeLog("ERROR","Cannot find the JSON data " + jsonFileName + ". Please report this issue.");               
+                }
+            })
         } catch (e) {
             console.log("Something went wrong. " + e);
         }
