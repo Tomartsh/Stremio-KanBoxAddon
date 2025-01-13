@@ -70,7 +70,7 @@ public class WebCrawlerMako {
     private void crawlLive(){
         String idMakoLive = "makoTV_01";
         
-        /* Kan 11 Live */
+        /* Msko 12 Live */
         JSONArray streamsMakoLiveArr = new JSONArray();
         JSONObject streamMakoLiveObj = new JSONObject();
         streamMakoLiveObj.put("url", "https://mako-streaming.akamaized.net/stream/hls/live/2033791/k12dvr/profile/2/hdntl=exp=1735669372~acl=%2f*~data=hdntl~hmac=b6e2493f547c81407d110fd0e7cf5ffc5cc6229721846c9908181b25a541a6e3/profileManifest.m3u8?_uid=a09bd8e7-f52a-4d5c-83a5-ebb3c664e7d8&rK=a3&_did=22bc6d40-f8a7-43c4-b1e0-ca555e4bc0cb");
