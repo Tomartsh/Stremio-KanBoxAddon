@@ -228,37 +228,6 @@ async function getJSONFile(){
     
     
 }
-/*
- async function getJSONFile(){
-    utils.writeLog("DEUBG","getJSONFile = > Entered JSON");
-    
-    var jsonStr;
-    try {
-        axios.get(constants.url_JSON_File, {
-            responseType: 'arraybuffer'
-        }).then((body) =>  {
-            const data = body.data;
-            const zip = new AdmZip(data);
-            jsonStr = zip.readAsText("stremio-kanbox.json");
-            if ((jsonStr != undefined) && (jsonStr != '')){
-
-                    var jsonObj = JSON.parse(jsonStr);
-                    for (var key in jsonObj){
-                        var value = jsonObj[key]
-            
-                        listSeries.addItemByDetails(value.id, value.title, value.poster, value.description, value.link, value.background, value.genres, value.metas, value.type, value.subtype);
-                        utils.writeLog("DEBUG", "getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.title)
-                    }
-
-                    utils.writeLog("INFO","Temporary ZIP " + constants.url_JSON_File + " file deleted.");
-                } else {
-                    utils.writeLog("ERROR","Cannot find the JSON data. Please report this issue.");               
-                }
-            })
-    } catch (e) {
-        console.log("Something went wrong. " + e);
-    }
-}*/
 
 function writeLog(level, msg){
     if (level =="ERROR"){
@@ -279,4 +248,4 @@ function writeLog(level, msg){
     }
 }
 
-module.exports = builder.getInterface()
+module.exports = builder.getInterface() 

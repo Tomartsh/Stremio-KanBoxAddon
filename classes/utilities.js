@@ -29,6 +29,9 @@ function padWithLeadingZeros(num, totalLength) {
 function writeLog(level, msg){
     var logLevel = constants.LOG_LEVEL;
     
+    if (level =="ERROR"){
+        console.log(level + ": " + msg);
+    } 
     if (logLevel == "INFO"){
         if (level =="INFO"){
             console.log(level + ": " + msg);
