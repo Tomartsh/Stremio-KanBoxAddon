@@ -5,11 +5,14 @@ const AdmZip = require("adm-zip");
 const https = require("https");
 
 const srList = require("./classes/srList");
-const constants = require("./classes/constants");
+const constants = require("./classes/constants.js");
+const utils = require("./classes/utilities.js");
+const Kanscraper = require("./classes/KanScraper.js");
 const { write } = require("fs");
 
-const logLevel = "DEBUG";
+
 const listSeries = new srList();
+//const kanScraper = new Kanscraper();
 
 //var filesToRetrieve = constants.url_JSON_File.split(",");
 
@@ -17,9 +20,9 @@ const listSeries = new srList();
 (async () => {
     try {
         const jsonData = await getJSONFile();
-//        writeLog("DEBUG","Files read successfully");
+//        utils.writeLog("DEBUG","Files read successfully");
     } catch (error) {
-        writeLog("DEBUG","An unexpected error occurred: " + error.message);
+        utils.writeLog("DEBUG","An unexpected error occurred: " + error.message);
         process.exit(1); // Exit with an error code
     }
 })();
@@ -116,7 +119,7 @@ const builder = new addonBuilder(manifest)
 
 builder.defineCatalogHandler(({type, id, extra}) => {
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineCatalogHandler.md
-	writeLog("INFO","request for catalogs: "+type+" "+id + " search: " + extra.search)
+	utils.writeLog("INFO","request for catalogs: "+type+" "+id + " search: " + extra.search)
 	var metas = [];
     var search;
     if ((extra.search == "undefined") || (extra.search == null)){
@@ -165,14 +168,14 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 })
 
 builder.defineMetaHandler(({type, id}) => {
-	writeLog("INFO","defineMetaHandler=> request for meta: "+type+" "+id);
+	utils.writeLog("INFO","defineMetaHandler=> request for meta: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	var meta = listSeries.getMetaById(id);
     return Promise.resolve({ meta: meta })
 })
 
 builder.defineStreamHandler(({type, id}) => {
-	writeLog("INFO","defineStreamHandler=> request for streams: "+type+" "+id);
+	utils.writeLog("INFO","defineStreamHandler=> request for streams: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineStreamHandler.md
 	var streams = listSeries.getStreamsById(id)
     
@@ -188,16 +191,16 @@ var jsonFileExist = "";
 /**
  * Retrieve the zip file, extract the .json file and then convert it to the seriesList object
  */
-function getJSONFile(){
-    writeLog("DEBUG","getJSONFile = > Entered JSON");
+async function getJSONFile(){
+    utils.writeLog("DEBUG","getJSONFile = > Entered JSON");
     var jsonStr;
-    var filesArray = constants.url_ZIP_Files.split(",");
-    for (var url of filesArray) {
-        writeLog("DEBUG","Handling file " + url);
-        var zipFileName = constants.URL_JSON_BASE + url;
-        var jsonFileName = url.split(".")[0] + ".json";
+    var filesArray = constants.url_ZIP_Files;
+    for (var urlIndex in filesArray) {
+        utils.writeLog("DEBUG","Handling file " + filesArray[urlIndex]);
+        var zipFileName = constants.URL_JSON_BASE + filesArray[urlIndex];
+        var jsonFileName = filesArray[urlIndex].split(".")[0] + ".json";
         try {
-            axios.get(zipFileName, {
+            await axios.get(zipFileName, {
                 responseType: 'arraybuffer'
             }).then((body) =>  {
                 const data = body.data;
@@ -210,12 +213,12 @@ function getJSONFile(){
                         var value = jsonObj[key]
             
                         listSeries.addItemByDetails(value.id, value.title, value.poster, value.description, value.link, value.background, value.genres, value.metas, value.type, value.subtype);
-                        writeLog("DEBUG", "getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.title)
+                        utils.writeLog("DEBUG", "getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.title)
                     }
 
-                    writeLog("INFO","Temporary ZIP " + zipFileName + " file deleted.");
+                    utils.writeLog("INFO","Temporary ZIP " + zipFileName + " file deleted.");
                 } else {
-                    writeLog("ERROR","Cannot find the JSON data " + jsonFileName + ". Please report this issue.");               
+                    utils.writeLog("ERROR","Cannot find the JSON data " + jsonFileName + ". Please report this issue.");               
                 }
             })
         } catch (e) {
@@ -227,7 +230,7 @@ function getJSONFile(){
 }
 /*
  async function getJSONFile(){
-    writeLog("DEUBG","getJSONFile = > Entered JSON");
+    utils.writeLog("DEUBG","getJSONFile = > Entered JSON");
     
     var jsonStr;
     try {
@@ -244,12 +247,12 @@ function getJSONFile(){
                         var value = jsonObj[key]
             
                         listSeries.addItemByDetails(value.id, value.title, value.poster, value.description, value.link, value.background, value.genres, value.metas, value.type, value.subtype);
-                        writeLog("DEBUG", "getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.title)
+                        utils.writeLog("DEBUG", "getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.title)
                     }
 
-                    writeLog("INFO","Temporary ZIP " + constants.url_JSON_File + " file deleted.");
+                    utils.writeLog("INFO","Temporary ZIP " + constants.url_JSON_File + " file deleted.");
                 } else {
-                    writeLog("ERROR","Cannot find the JSON data. Please report this issue.");               
+                    utils.writeLog("ERROR","Cannot find the JSON data. Please report this issue.");               
                 }
             })
     } catch (e) {
