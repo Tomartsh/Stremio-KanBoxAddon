@@ -1,2 +1,8 @@
 # ignore the modules folder
 node_modules
+
+#ignore output folder
+output
+
+#Ignore logs folder
+logs
