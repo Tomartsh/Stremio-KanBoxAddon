@@ -1,8 +1,6 @@
 const constants = require("./constants.js");
 const utils = require("./utilities.js");
 
-
-
 class KanScraper {
 
     constructor() {
@@ -12,8 +10,20 @@ class KanScraper {
         this._teenComplete = false;
         this._kanJSONObj = {};
 
+        //this.crawlDigitalLive();
+        //this.crawlKanVOD();
+        //this.crawlHinukhitKids();
+        //this.crawlHinuchitTeen();
+        this.crawlPodcasts();
+        this.writeJSON();
+    }
+
+    crawl(){
         this.crawlDigitalLive();
-        this.kanVOD();
+        this.crawlKanVOD();
+        this.crawlHinukhitKids();
+        this.crawlHinuchitTeen();
+        this.crawlPodcasts();
         this.writeJSON();
     }
 
@@ -22,7 +32,7 @@ class KanScraper {
      * Kan VOD handling
      * 
      ***********************************************************/
-    async kanVOD(){
+    async crawlKanVOD(){
         utils.writeLog("DEBUG", "kanVOD => Entered");
 
         const doc = await utils.fetchPage(constants.KAN_URL_ADDRESS);
@@ -80,7 +90,7 @@ class KanScraper {
                 if ((seriesTitle == "-") || (seriesTitle.trim() == "")){
                     seriesTitle = this.getNameFromSeriesPage(imageElem.getAttribute("alt"));
                     if ((seriesTitle == "-") || (seriesTitle.trim() == "")){
-                        var scriptElems = doc.querySelector("script");
+                        var scriptElems = seriesPageDoc.querySelectorAll("script");
                         for (var scriptElem of scriptElems){
             
                             if (scriptElem.toString().includes("position\": 5,")) {
@@ -127,6 +137,14 @@ class KanScraper {
         utils.writeLog("DEBUG", "kanVOD => Leaving");
     }
 
+    /**********************************************************
+     * receive the video elements with ID of series and the 
+     * subtype, and retrieve the list of videos and streams
+     * @param {*} videosElems 
+     * @param {*} id 
+     * @param {*} subType 
+     * @returns 
+     *********************************************************/
     getVideos(videosElems, id, subType){
         var videosArr = [];
 
@@ -180,13 +198,13 @@ class KanScraper {
                     released: streams.released,
                     thumbnail: episodeLogoUrl,
                     episodeLink: episodePageLink,
+                    released: streams.released,
                     streams:[
                         {
                             url: streams.url,
                             type: streams.type,
                             name: streams.name,
-                            description: streams.description,
-                            released: streams.released
+                            description: streams.description
                         }
                     ]
                 }
@@ -238,7 +256,8 @@ class KanScraper {
     }
 
     async getStreams(link){
-        utils.writeLog("DEBUG","getStreams =>   Link: " + link)
+        utils.writeLog("TRACE","getStreams => Entering: ");
+        utils.writeLog("TRACE","getStreams =>   Link: " + link)
         var doc = await utils.fetchPage(link);
         var released = "";
         var videoUrl = "";
@@ -276,9 +295,14 @@ class KanScraper {
             description: descVideo,
             released: released
         };
+        utils.writeLog("TRACE","getStreams => Exiting: ");
         return streamsJSONObj;
     }
 
+    /*************************************************************
+     * Get the URL of the indivifual Episode
+     * @link
+     *************************************************************/
     getEpisodeUrl(link){
         var startPoint = link.indexOf("contentUrl");
         link = link.substring(startPoint + 14);
@@ -452,22 +476,345 @@ class KanScraper {
         utils.writeLog("DEBUG", "crawlDigitalLive => Leaving");
     }
     
-    writeJSON(){
-        utils.writeLog("DEBUG", "writeJSON => Entered");
-        utils.writeLog("DEBUG", "writeJSON =>   VOD Complete flag is: " + this._vodComplete);
-        utils.writeLog("DEBUG", "writeJSON =>   Hinukhit Complete flag is: " + this._hinukhitComplete);
-        utils.writeLog("DEBUG", "writeJSON =>   Teens Complete flag is: " + this._teenComplete);
-        utils.writeLog("DEBUG", "writeJSON =>   Podcasts Complete flag is: " + this._podcastComplete);
-        
-        if ((this._vodComplete) && (this._hinukhitComplete) && (this._teenComplete) && (this._podcastComplete)){
-            utils.writeLog("DEBUG", "writeJSON => All tasks completed - writing");
-            utils.writeJSONToFile(this._kanJSONObj, "stremio-kan");
-            return;
-        }
-        utils.writeLog("DEBUG", "writeJSON => Not all tasks completed, NO WRITING DONE!");
-        utils.writeLog("DEBUG", "writeJSON => Leaving");
-    }
     
+    
+    /****************************************************************
+     * 
+     * Hinukhit functions
+     * 
+     ****************************************************************/
+    
+    async crawlHinukhitKids(){
+        utils.writeLog("TRACE", "hinukhitComplete => Entering");
+        var doc = await utils.fetchPage(constants.URL_HINUKHIT_TINY);
+        var series = doc.querySelectorAll("div.umb-block-list div script");
+        var kidsScriptStr = series[4].toString();
+        var startIndex = kidsScriptStr.indexOf("[{");
+        var lastIndex = kidsScriptStr.lastIndexOf("}]") +2 ;
+        var kidsJsonStr = kidsScriptStr.substring(startIndex, lastIndex);
+        var kidsJsonArr = JSON.parse(kidsJsonStr);
+            
+        this.addMetasForKids(kidsJsonArr, "k");
+
+        this._hinukhitComplete = true;
+        utils.writeLog("TRACE", "crawlHinukhitKids => Exiting");
+    }
+
+    async crawlHinuchitTeen(){
+        utils.writeLog("TRACE", "crawlHinuchitTeen => Entering");
+        var doc = await utils.fetchPage(constants.URL_HINUKHIT_TEENS);
+        var series = doc.querySelectorAll("div.umb-block-list div script");
+        var kidsScriptStr = series[4].toString();
+        var startIndex = kidsScriptStr.indexOf("[{");
+        var lastIndex = kidsScriptStr.lastIndexOf("}]") +2 ;
+        var kidsJsonStr = kidsScriptStr.substring(startIndex, lastIndex);
+        var jsonObjectTeen = JSON.parse(kidsJsonStr);
+            
+        this.addMetasForKids(jsonObjectTeen, "n");
+
+        this._teenComplete = true;
+        utils.writeLog("TRACE", "crawlHinuchitTeen => Exiting");
+    }
+
+    /****************************************************************************
+     * Create new meta object for each series
+     * @param {*} jsonArr JSON object from the page containing all the series
+     * @param {*} subType 
+     ***************************************************************************/
+    async addMetasForKids(jsonArr, subType){
+        utils.writeLog("TRACE", "addMetasForKids => Entering");
+        for (var i = 0; i < jsonArr.length; ++i) { //iterate over series    
+            var jsonObj = jsonArr[i];
+            var imgUrl = this.getImageFromUrl(jsonObj.Image, subType);      
+            
+            var seriesPage = constants.URL_HINUKHIT_KIDS_CONTENT_PREFIX + jsonObj.Url;
+            var genres = this.setGenreFromString(jsonObj.Genres);
+            
+            var id;
+            id = this.generateId(seriesPage);
+
+            var doc = await utils.fetchPage(seriesPage + "?currentPage=2&itemsToShow=100");
+            //set the series name
+            var seriesTitle = "";
+            if (doc.querySelector("title") != undefined){
+                seriesTitle = doc.querySelector("title").text.trim();
+            }
+            if (!seriesTitle){
+                if (doc.querySelector("h2.title.h1") != undefined){
+                    var h2Title = doc.querySelector("h2.title.h1").text.trim();
+                    seriesTitle = this.getNameFromSeriesPage(h2Title);
+                }
+                if (!seriesTitle){
+                    var titleAlt = doc.querySelector("span.logo.d-none.d-md-inline img.img-fluid").getAttribute("alt");
+                    seriesTitle = this.getNameFromSeriesPage(titleAlt);
+                    if (!seriesTitle){
+                        seriesTitle = this.getNameFromSeriesPage(jsonObj.ImageAlt).trim();
+                    }
+                }
+            }
+
+            var seriesDescription = "";
+            if (doc.querySelector("meta[name=description]") != undefined){
+                seriesDescription = doc.querySelector("meta[name=description]").getAttribute("content").trim();
+                seriesDescription = seriesDescription.replace("<p>","");
+                seriesDescription = seriesDescription.replace("</p>","");
+            } else {
+                seriesDescription = doc.querySelector("div.info-description").text.trim();
+            }
+            //get the number of seasons
+            var seasons = doc.querySelectorAll("div.seasons-item.kids");
+            var videosListArr = this.getKidsVideos(seasons, id, subType);
+       
+            this.addToJsonObject(id, seriesTitle, seriesPage, imgUrl, seriesDescription, genres, videosListArr, subType, "series");
+            utils.writeLog("TRACE", "addMetasForKids => Added  series, ID: " + id + " Name: " + seriesTitle + " subtype: " + subType);
+        }
+        utils.writeLog("TRACE", "addMetasForKids => Exiting");
+    }
+ 
+    
+    /*****************************************************************************
+     * Get the episodes of each season (video object and streams)
+     * @param {*} seasons 
+     * @param {*} id 
+     * @param {*} subType 
+     * @returns JSON object
+     *****************************************************************************/
+    getKidsVideos(seasons, id, subType){
+        var videosListArr =[];
+        var noOfSeasons = seasons.length;
+
+        for (var iter = 0; iter< noOfSeasons; iter++){//iterate over seasons
+            var season = seasons[iter];
+            var seasonNo = noOfSeasons - iter;
+            var episodes = season.querySelectorAll("li.border-item");
+
+            var episodeNo = 0;
+            for (var n = 0; n < episodes.length; n++){ //iterate over season episodes
+                episodeNo++;
+                var episode = episodes[n];
+                var episodeLink = episode.querySelector("a.card-link").getAttribute("href");
+                if (episodeLink.startsWith("/")){
+                    episodeLink = constants.URL_HINUKHIT_KIDS_CONTENT_PREFIX + episodeLink;
+                }
+                var episodeTitle = episode.querySelector("a.card-link").getAttribute("title");
+                if (episodeTitle.indexOf("|") > 0){
+                    episodeTitle = episodeTitle.substring(episodeTitle.indexOf("|") + 1).trim();
+                }
+                if (episodeTitle.startsWith("עונה")){
+                    episodeTitle = episodeTitle.substring(episodeTitle.indexOf("|") + 1).trim();
+                }
+                
+                var episodeImgUrl = "";
+                if ((episode.querySelector("img.img-full") != undefined) &&  
+                    (episode.querySelector("img.img-full").getAttribute("src").indexOf("?") > 0)){
+                    episodeImgUrl = this.getImageFromUrl(episode.querySelector("img.img-full").getAttribute("src"), subType);
+                }
+                
+                var episodeDescription = episode.querySelector("div.card-text").text;
+
+                var streams = this.getStreams(episodeLink);
+                var videoId = id + ":" + seasonNo + ":" + episodeNo;
+                                
+                var videosListArr =[
+                    {
+                        id: videoId,
+                        title: episodeTitle,
+                        season: seasonNo,
+                        episode: episodeNo,
+                        description: episodeDescription,
+                        released: streams.released,
+                        thumbnail: episodeImgUrl,
+                        episodeLink: episodeLink,
+                        streams: [
+                            {
+                                url: streams.url,
+                                type: streams.type,
+                                name: streams.name,
+                                description: streams.description
+
+                            }
+                        ]
+
+                    }
+                ];
+                utils.writeLog("DEBUG","getKidsVideos => Added videos for episode : " + episodeTitle + " " + videoId);
+            }
+        }
+        
+        return videosListArr;
+    }
+
+    /***************************************************************************************************************
+     * 
+     * Podcasts Section
+     *
+    ***************************************************************************************************************/
+
+    async crawlPodcasts(){
+        utils.writeLog("TRACE","crawlPodcasts => Entering");
+        utils.writeLog("DEBUG","crawlP`odcasts =>    Starting retrieval of podcasts");
+        var doc = await utils.fetchPage(constants.PODCASTS_URL);
+        
+        var genres = doc.querySelectorAll("div.podcast-row");
+        utils.writeLog("DEBUG","crawlPodcasts => Found " + genres.length + " genres");
+        for (var genre of genres) { //iterate over podcasts rows by genre
+            var genresName = genre.querySelector("h4.title-elem.category-name").text.trim();
+            utils.writeLog("DEBUG","crawlPodcasts => Genre " + genresName);
+            var podcasts = genre.querySelectorAll("a.podcast-item");
+ 
+            for (var podcast of podcasts) { //iterate over podcasts series
+                if ((podcast == undefined) || (podcast.getAttribute("href") == undefined )) {
+                    continue;
+                }
+
+                if (podcast.getAttribute("href").endsWith("podcasts/kan88/")){
+                    //Kan 88 podcasts lay in on level deeper. So we have to initiate an additional fetch
+                    var kan88Doc = await utils.fetchPage(podcast.getAttribute("href")); 
+                    var kan88pods = kan88Doc.querySelectorAll("div.card.card-row");
+                    for (var podcastKan88 of kan88pods){
+                        this.addPodcastMeta(podcastKan88,genresName);
+                    }
+                    continue;
+                }
+                this.addPodcastMeta(podcast,genresName);
+            }
+        }
+        this._podcastComplete = true;
+        utils.writeLog("TRACE","crawlPodcasts => Exiting");
+    }
+
+    /**********************************************************
+     * Create the meta object for podcasts
+     * @param podcast
+     * @param genresName
+     ***********************************************************/
+    async addPodcastMeta(podcast, genresName){
+
+        var id = "";
+        var seriesTitle = "";
+        var seriesDecription = "";
+        var podcastSeriesLink = "";
+        var podcastImageUrl = "";
+
+        var videosListArr = [];
+
+        podcastSeriesLink = podcast.getAttribute("href");
+        podcastImageUrl = this.getImageFromUrl(podcast.querySelector("img.img-full").getAttribute("src"),"p");
+        id = this.generateId(podcastSeriesLink);
+
+        var podcastSeriesPageDoc = await utils.fetchPage(podcastSeriesLink); //get the series episodes             
+        seriesTitle = podcastSeriesPageDoc.querySelector("h1.title-elem").text.trim();
+        seriesDecription = podcastSeriesPageDoc.querySelector("div.section-header div.block-text div p").text.trim();
+        
+        var episodes = podcastSeriesPageDoc.querySelectorAll("div.card.card-row");
+        //get last element in paging if there is one
+        var lastPageNo = podcastSeriesPageDoc.querySelector("li[pagination-page__item][title=Last page]").getAttribute("data-num");
+
+        utils.writeLog("DEBUG","addPodcastMeta => Number of pages " + lastPageNo);
+
+        if ((lastPageNo) && (Integer.parseInt(lastPageNo) > 0) ){
+            var intLastPageNo = Integer.parseInt(lastPageNo);
+            for (var i = 2 ; i < intLastPageNo ; i++){
+                var episodesAdditionalPages = await utils.fetchPage(podcastSeriesLink + "?page=" + i);
+                var additionalEpisodes = episodesAdditionalPages.querySelectorAll("div.card.card-row");
+                //If there are more elements add them to the episodes elements element
+                for (var iter = 0; iter < additionalEpisodes.length; iter ++){
+                    episodes.add(additionalEpisodes[iter]);
+                }
+            }
+        }
+        var episodeNo = episodes.length;
+        for (var episode of episodes) {//iterate over the episodes
+
+            var videoJSONObj = this.getpodcastVideo(episode, episodeNo, id);
+            if (! videoJSONObj){ continue; }
+
+            videosListArr.push(videoJSONObj);
+            episodeNo--;
+        }
+        this.addToJsonObject(id, seriesTitle,  podcastSeriesLink, podcastImageUrl, seriesDecription, genresName, videosListArr, "p", "Podcasts");
+        utils.writeLog("DEBUG","addPodcastMeta =>    Podcast added " + seriesTitle + " ID: " + id);
+    }
+
+    /**
+     * Process each episode individually
+     * @param episode
+     * @param episodeId
+     * @return JSON Object 
+     */
+   getpodcastVideo(episode, episodeNo, id){
+        utils.writeLog("TRACE","getpodcastVideo => Entering");
+        var podcastVideo = "";
+        var episodeId = id + ":1:"  + episodeNo;
+        var episodeLink = "";
+        if (episode.querySelector("a.card-img.card-media").length > 0){
+            episodeLink = episode.querySelector("a.card-img.card-media").getAttribute("href");
+        } else {
+            if (episode.select("a.card-body").length > 0){
+                episodeLink = episode.querySelector("a.card-body").getAttribute("href");
+                utils.writeLog("DEBUG","getpodcastVideo =>        href card image empty. Using card href");
+            } else {
+                utils.writeLog("DEBUG","getpodcastVideo =>        No episode link found, skipping.");
+                return podcastVideo;
+            }
+        }
+        
+        var episodeImgUrl = "";
+        if (episode.querySelector("img.img-full") != null){
+            episodeImgUrl = this.getImageFromUrl(episode.querySelector("img.img-full").getAttribute("src"), "p");
+        }
+
+        var episodeTitle = episode.querySelector("h2.card-title").text.trim();
+        var episodeDescription = episode.querySelector("div.description").text.trim();
+        var released = episode.querySelector("li.date-local").getAttribute("data-date-utc").trim();
+        utils.writeLog("DEBUG","getpodcastVideo =>   Podcast episode " + episodeTitle + "\n           link:" + episodeLink + "\n            episode no. " + episodeNo);
+        var streams = this.getPodcastStreams(episodeLink);
+        if (! streams) { 
+            return podcastVideo;
+        }
+
+        var podcastVideo = {
+            id: episodeId,
+            title: episodeTitle,
+            season: "1",
+            episode: episodeNo,
+            description: episodeDescription,
+            thumbnail: episodeImgUrl,
+            episodeLink: episodeLink,
+            released: released,
+            streams: streams
+        }
+
+        utils.writeLog("DEBUG","getpodcastVideo =>        Adding video  " + " ID: " + id + ", Title: " + episodeTitle + ", episode: " + episodeNo);
+        utils.writeLog("TRACE","getpodcastVideo => Exiting");
+        return podcastVideo;
+    }
+
+    async getPodcastStreams(episodeLink){
+        utils.writeLog("TRACE","getPodcastStreams => Entering");
+        var doc = await utils.fetchPage(episodeLink);    
+        var episodeName = doc.querySelector("h2.title").text.trim();
+        var description = doc.querySelector("div.item-content.hide-content").text.trim();
+        var urlRaw = doc.querySelector("figure").getAttribute("data-player-src").trim();
+        if (urlRaw.length() == 0){
+            return streams;
+        }
+        var url = urlRaw.substring(0,urlRaw.indexOf("?"));
+        utils.writeLog("DEBUG","getPodcastStreams =>       Podcast stream name: " + episodeName + "\n     description: "+description+"\n      link: " + url);
+
+        var streams = [
+            {
+                url: url,
+                type: "Podcast",
+                name: episodeName,
+                description: description
+            }
+        ];
+
+        utils.writeLog("TRACE","getPodcastStreams => Exiting");
+        return streams;
+    }
+
     /***************************************************************
      * 
      * Data handling functions
@@ -555,6 +902,7 @@ class KanScraper {
             if (name.endsWith("לוגו")){
                 name = name.replace("לוגו","");
             }
+            name = name.replace("_", " ");
         }
         return name.trim();
     }
@@ -592,9 +940,6 @@ class KanScraper {
 
     setGenreFromString(str) {
         if (str == "") { return "Kan";}
-        
-        //var genresArr = str.split(",");
-        //if (genresArr.length < 1) {return "Kan";}
         
         var genres = [];
         //for (var check of genresArr){
@@ -690,25 +1035,24 @@ class KanScraper {
                     break;
             } 
         }
-       //return genres.split(",");
        return genres;
     }
 
     getImageFromUrl(url, subType){
         var retVal = url;
-        if (retVal.contains("?")){
+        if (retVal.includes("?")){
             retVal = retVal.substring(0,retVal.indexOf("?"));
         }
         if (retVal.startsWith("/")){
-            if ("d".equals(subType)) {
+            if (subType == "d") {
                 retVal = "https://www.kan.org.il" + retVal;
-            } else if ("k".equals(subType)){
+            } else if (subType == "k"){
                 retVal = "https://www.kankids.org.il" + retVal;
-            } else if ("n".equals(subType)){
+            } else if (subType == "n"){
                 retVal = "https://www.kankids.org.il" + retVal;
-            } else if ("a".equals(subType)){
+            } else if (subType == "a"){
                 retVal = "https://www.kan.org.il" + retVal;
-            } else if ("p".equals(subType)){
+            } else if (subType == "p"){
                 retVal = "https://www.kan.org.il" + retVal;
             } 
         }
@@ -737,7 +1081,23 @@ class KanScraper {
         }
 
         this._kanJSONObj[id] = jsonObj;
-        utils.writeLog("DEBUG","addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + "\n  Link: " + seriesPage);
+        utils.writeLog("INFO","addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + "\n  Link: " + seriesPage + " subtype: " + subType);
+    }
+
+    writeJSON(){
+        utils.writeLog("DEBUG", "writeJSON => Entered");
+        utils.writeLog("DEBUG", "writeJSON =>   VOD Complete flag is: " + this._vodComplete);
+        utils.writeLog("DEBUG", "writeJSON =>   Hinukhit Complete flag is: " + this._hinukhitComplete);
+        utils.writeLog("DEBUG", "writeJSON =>   Teens Complete flag is: " + this._teenComplete);
+        utils.writeLog("DEBUG", "writeJSON =>   Podcasts Complete flag is: " + this._podcastComplete);
+        
+        if ((this._vodComplete) && (this._hinukhitComplete) && (this._teenComplete) && (this._podcastComplete)){
+            utils.writeLog("DEBUG", "writeJSON => All tasks completed - writing");
+            utils.writeJSONToFile(this._kanJSONObj, "stremio-kan");
+            return;
+        }
+        utils.writeLog("DEBUG", "writeJSON => Not all tasks completed, NO WRITING DONE!");
+        utils.writeLog("DEBUG", "writeJSON => Leaving");
     }
 }
 
