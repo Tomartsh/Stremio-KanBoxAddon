@@ -6,16 +6,41 @@ const { parse } = require('node-html-parser');
 
 async function fetchPage(link){
     writeLog("TRACE","fetchPage => " + link)
+    
+    var count = 0;
+    var maxRetries = 10;
     var root = "";
-    try{
-        var response = await fetch(link);
-        var html = await response.text();
-        var root = parse(html);
-    } catch(error){
-        console.log("Error fetching page:" + link, error);
-    }
+    var headers = new Headers({
+        "Content-Type" : "text/html; charset=utf-8",
+        "User-Agent"   : "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0",
+        "Charset": "UTF-8"
+    });
 
-    return root;
+    while ( count < maxRetries ) {
+        try{
+            var response = await fetch(link,
+                { header : headers}
+            );
+            var html = await response.text();
+            var root = parse(html);
+            return root;
+
+        } catch(error){
+            writeLog("DEBUG","fetchPage => Failed to retrieve page: " + link)
+            if (++count >= maxRetries) {
+                writeLog("DEBUG","fetchPage => Waiting 2 seconds before retrying ...")
+                try {
+                    await sleep(2000); // Sleep for 2 seconds
+                    fetchPage(link)
+                } catch(ex){
+                    writeLog("DEBUG","fetchPage => error fetching page")
+                }   
+            } else {
+                writeLog("DEBUG","fetchPage => error: " + error);
+            }   
+        }
+    }
+    return null;
 }
 
 //+===================================================================================
