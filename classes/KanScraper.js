@@ -702,24 +702,50 @@ class KanScraper {
         podcastImageUrl = this.getImageFromUrl(podcast.querySelector("img.img-full").getAttribute("src"),"p");
         id = this.generateId(podcastSeriesLink);
 
-        var podcastSeriesPageDoc = await utils.fetchPage(podcastSeriesLink); //get the series episodes             
-        seriesTitle = podcastSeriesPageDoc.querySelector("h1.title-elem").text.trim();
-        seriesDecription = podcastSeriesPageDoc.querySelector("div.section-header div.block-text div p").text.trim();
+        var podcastSeriesPageDoc = await utils.fetchPage(podcastSeriesLink); //get the series episodes 
+        if(!podcastSeriesPageDoc)
+        {
+            return {}
+        }
+        let seriesTitleElem = podcastSeriesPageDoc.querySelector("h1.title-elem")
+        if(seriesTitleElem)
+        {
+            seriesTitle = seriesTitleElem.text.trim();
+        }
+        let seriesDescriptionEntry = podcastSeriesPageDoc.querySelector("div.section-header div.block-text div p");
+        if(seriesDescriptionEntry)
+            seriesDecription = podcastSeriesPageDoc.querySelector("div.section-header div.block-text div p").text.trim();
         
         var episodes = podcastSeriesPageDoc.querySelectorAll("div.card.card-row");
+        if(!episodes)
+        {
+            return {};
+        }
         //get last element in paging if there is one
-        var lastPageNo = podcastSeriesPageDoc.querySelector("li[pagination-page__item][title=Last page]").getAttribute("data-num");
+        var lastPageNo = ''
+        try 
+        {
+            lastPageNo = podcastSeriesPageDoc.querySelector('li[class*="pagination-page__item"][title*="Last page"]').getAttribute('data-num');
+        }
+        catch
+        {
+            lastPageNo = String(podcastSeriesPageDoc.querySelectorAll('li[class*="pagination-page__item"]').length);
+            if(lastPageNo==='0')
+            {
+                return {};
+            }
+        }
   
-        utils.writeLog("DEBUG","addPodcastMeta => Number of pages " + lastPageNo);
+        utils.writeLog("DEBUG","addPodcastMeta => Number of pages " + String(lastPageNo));
 
-        if ((lastPageNo) && (Integer.parseInt(lastPageNo) > 0) ){
-            var intLastPageNo = Integer.parseInt(lastPageNo);
+        if ((lastPageNo) && (parseInt(lastPageNo) > 0) ){
+            var intLastPageNo = parseInt(lastPageNo);
             for (var i = 2 ; i < intLastPageNo ; i++){
                 var episodesAdditionalPages = await utils.fetchPage(podcastSeriesLink + "?page=" + i);
                 var additionalEpisodes = episodesAdditionalPages.querySelectorAll("div.card.card-row");
                 //If there are more elements add them to the episodes elements element
                 for (var iter = 0; iter < additionalEpisodes.length; iter ++){
-                    episodes.add(additionalEpisodes[iter]);
+                    episodes.push(additionalEpisodes[iter]);
                 }
             }
         }
@@ -747,10 +773,12 @@ class KanScraper {
         var podcastVideo = "";
         var episodeId = id + ":1:"  + episodeNo;
         var episodeLink = "";
-        if (episode.querySelector("a.card-img.card-media").length > 0){
+        let episodes_media = episode.querySelector("a.card-img.card-media")
+        if (episodes_media && episodes_media.length > 0){
             episodeLink = episode.querySelector("a.card-img.card-media").getAttribute("href");
         } else {
-            if (episode.select("a.card-body").length > 0){
+            let episodes_body = episode.querySelector("a.card-body")
+            if (episodes_body && episodes_body.length > 0){
                 episodeLink = episode.querySelector("a.card-body").getAttribute("href");
                 utils.writeLog("DEBUG","getpodcastVideo =>        href card image empty. Using card href");
             } else {
@@ -838,6 +866,10 @@ class KanScraper {
 
     generateId( link){
         var retId = "";
+        if(!link)
+        {
+            return retId;
+        }
         if (link.substring(link.length -1) == "/"){
             retId = link.substring(0,link.length -1);
         } else {
