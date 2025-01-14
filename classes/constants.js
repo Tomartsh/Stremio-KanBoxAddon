@@ -9,8 +9,11 @@ module.exports = {
     //Kan constants
     KAN_URL_ADDRESS: "https://www.kan.org.il/lobby/kan-box",
     KAN_DIGITAL_IMAGE_PREFIX: "https://www.kan.org.il",
-    LOG_LEVEL: "DEBUG"
-
+    LOG_LEVEL: "DEBUG",
+    URL_HINUKHIT_TINY: "https://www.kankids.org.il/lobby-kids/tiny",
+    URL_HINUKHIT_TEENS: "https://www.kankids.org.il/lobby-kids/kids-teens",
+    URL_HINUKHIT_KIDS_CONTENT_PREFIX: "https://www.kankids.org.il",
+    PODCASTS_URL: "https://www.kan.org.il/lobby/aod"
 
     //Mako constants (Keshet channel 12)
 
