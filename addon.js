@@ -10,11 +10,8 @@ const utils = require("./classes/utilities.js");
 const Kanscraper = require("./classes/KanScraper.js");
 const { write } = require("fs");
 
-
 const listSeries = new srList();
-//const kanScraper = new Kanscraper();
-
-//var filesToRetrieve = constants.url_JSON_File.split(",");
+const kanScraper = new Kanscraper();
 
 // Main program
 (async () => {
