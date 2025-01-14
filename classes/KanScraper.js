@@ -709,7 +709,7 @@ class KanScraper {
         var episodes = podcastSeriesPageDoc.querySelectorAll("div.card.card-row");
         //get last element in paging if there is one
         var lastPageNo = podcastSeriesPageDoc.querySelector("li[pagination-page__item][title=Last page]").getAttribute("data-num");
-
+  
         utils.writeLog("DEBUG","addPodcastMeta => Number of pages " + lastPageNo);
 
         if ((lastPageNo) && (Integer.parseInt(lastPageNo) > 0) ){
