@@ -652,7 +652,8 @@ class KanScraper {
 
     async crawlPodcasts(){
         utils.writeLog("TRACE","crawlPodcasts => Entering");
-        utils.writeLog("DEBUG","crawlP`odcasts =>    Starting retrieval of podcasts");
+        utils.writeLog("DEBUG","crawlPodcasts =>    Starting retrieval of podcasts");
+        utils.writeLog("TRACE","crawlPodcasts =>    calling fetchPage with " + constants.PODCASTS_URL);
         var doc = await utils.fetchPage(constants.PODCASTS_URL);
         
         var genres = doc.querySelectorAll("div.podcast-row");
@@ -669,6 +670,7 @@ class KanScraper {
 
                 if (podcast.getAttribute("href").endsWith("podcasts/kan88/")){
                     //Kan 88 podcasts lay in on level deeper. So we have to initiate an additional fetch
+                    utils.writeLog("TRACE","crawlPodcasts =>    Kan 88 calling fetchPage with " + podcast.getAttribute("href"));
                     var kan88Doc = await utils.fetchPage(podcast.getAttribute("href")); 
                     var kan88pods = kan88Doc.querySelectorAll("div.card.card-row");
                     for (var podcastKan88 of kan88pods){
@@ -689,7 +691,7 @@ class KanScraper {
      * @param genresName
      ***********************************************************/
     async addPodcastMeta(podcast, genresName){
-
+        utils.writeLog("TRACE","addPodcastMeta => Entering");
         var id = "";
         var seriesTitle = "";
         var seriesDecription = "";
@@ -697,16 +699,15 @@ class KanScraper {
         var podcastImageUrl = "";
 
         var videosListArr = [];
-
         podcastSeriesLink = podcast.getAttribute("href");
+        utils.writeLog("TRACE","addPodcastMeta => podcast link: " + podcastSeriesLink);
         podcastImageUrl = this.getImageFromUrl(podcast.querySelector("img.img-full").getAttribute("src"),"p");
         id = this.generateId(podcastSeriesLink);
 
+        utils.writeLog("TRACE","addPodcastMeta => calling fetchPage with URL: " + podcastSeriesLink);
         var podcastSeriesPageDoc = await utils.fetchPage(podcastSeriesLink); //get the series episodes 
-        if(!podcastSeriesPageDoc)
-        {
-            return {}
-        }
+        if(!podcastSeriesPageDoc) { return {} ;}
+
         let seriesTitleElem = podcastSeriesPageDoc.querySelector("h1.title-elem")
         if(seriesTitleElem)
         {
@@ -717,23 +718,14 @@ class KanScraper {
             seriesDecription = podcastSeriesPageDoc.querySelector("div.section-header div.block-text div p").text.trim();
         
         var episodes = podcastSeriesPageDoc.querySelectorAll("div.card.card-row");
-        if(!episodes)
-        {
-            return {};
-        }
+        if(!episodes) {return {};}
         //get last element in paging if there is one
         var lastPageNo = ''
-        try 
-        {
+        try {
             lastPageNo = podcastSeriesPageDoc.querySelector('li[class*="pagination-page__item"][title*="Last page"]').getAttribute('data-num');
-        }
-        catch
-        {
+        }catch{
             lastPageNo = String(podcastSeriesPageDoc.querySelectorAll('li[class*="pagination-page__item"]').length);
-            if(lastPageNo==='0')
-            {
-                return {};
-            }
+            if(lastPageNo==='0'){return {}; }
         }
   
         utils.writeLog("DEBUG","addPodcastMeta => Number of pages " + String(lastPageNo));
@@ -741,6 +733,7 @@ class KanScraper {
         if ((lastPageNo) && (parseInt(lastPageNo) > 0) ){
             var intLastPageNo = parseInt(lastPageNo);
             for (var i = 2 ; i < intLastPageNo ; i++){
+                utils.writeLog("TRACE","addPodcastMeta => calling fetchPage with URL: " + podcastSeriesLink + "?page=" + i);
                 var episodesAdditionalPages = await utils.fetchPage(podcastSeriesLink + "?page=" + i);
                 var additionalEpisodes = episodesAdditionalPages.querySelectorAll("div.card.card-row");
                 //If there are more elements add them to the episodes elements element
