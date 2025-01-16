@@ -28,12 +28,12 @@ async function fetchPage(link){
         } catch(error){
             writeLog("DEBUG","fetchPage => Failed to retrieve page: " + link)
             if (++count >= maxRetries) {
-                writeLog("DEBUG","fetchPage => Waiting 2 seconds before retrying ...")
+                writeLog("DEBUG","fetchPage => Waiting 2 seconds before retry no." + count);
                 try {
                     await sleep(2000); // Sleep for 2 seconds
-                    fetchPage(link)
+                    fetchPage(link);
                 } catch(ex){
-                    writeLog("DEBUG","fetchPage => error fetching page")
+                    writeLog("DEBUG","fetchPage => error fetching page on attempt " + count);
                 }   
             } else {
                 writeLog("DEBUG","fetchPage => error: " + error);
