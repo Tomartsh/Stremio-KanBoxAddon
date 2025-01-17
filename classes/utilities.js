@@ -53,29 +53,29 @@ function padWithLeadingZeros(num, totalLength) {
 
 function writeLog(level, msg){
     var logLevel = constants.LOG_LEVEL;
-    
+    var dateStr = getCurrentDateStr();
+
     if (level =="ERROR"){
-        console.log(level + ": " + msg);
+        console.log("[" + dateStr + "]" + level +": " + msg);
     } 
     if (logLevel == "INFO"){
         if (level =="INFO"){
-            console.log(level + ": " + msg);
+            console.log("[" + dateStr + "]" + level + ": " + msg);
         } 
     } else if (logLevel == "DEBUG"){
         if ((level == "DEBUG")|| (level == "INFO")){
-            console.log(level + ": " + msg);
+            console.log("[" + dateStr + "]" + level + ": " + msg);
         }
     } else if (logLevel == "TRACE"){
         if ((level == "TRACE") || (level == "DEBUG")|| (level == "INFO")){
-            console.log(level + ": " + msg);
+            console.log("[" + dateStr + "]" + level + ": " + msg);
         }
     }
 }
 
 function writeJSONToFile(jsonObj, fileName){
     var json = JSON.stringify(jsonObj, null, 2);
-    var currDate = new Date();
-    var dateStr = currDate.getDate() + "-" + currDate.getMonth() + "-" + currDate.getFullYear() + "_" + currDate.getHours() + "-" + currDate.getMinutes();
+    var dateStr = getCurrentDateStr();
     var path = constants.SAVE_FOLDER + fileName + "_" + dateStr + ".json";
 
 
@@ -92,4 +92,10 @@ function writeJSONToFile(jsonObj, fileName){
 
 }
 
-module.exports = {padWithLeadingZeros, fetchPage, writeLog, writeJSONToFile};
+function getCurrentDateStr(){
+    var currDate = new Date();
+    var dateStr = currDate.getDate() + "-" + currDate.getMonth() + "-" + currDate.getFullYear() + "_" + currDate.getHours() + "-" + currDate.getMinutes();
+    return dateStr;
+}
+
+module.exports = {padWithLeadingZeros, fetchPage, writeLog, writeJSONToFile, getCurrentDateStr};
