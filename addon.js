@@ -8,10 +8,12 @@ const srList = require("./classes/srList");
 const constants = require("./classes/constants.js");
 const utils = require("./classes/utilities.js");
 const Kanscraper = require("./classes/KanScraper.js");
+const LiveTV = require("./classes/LiveTV");
 const { write } = require("fs");
 
 const listSeries = new srList();
 const kanScraper = new Kanscraper();
+const liveTV = new LiveTV();
 
 // Main program
 (async () => {
