@@ -473,6 +473,13 @@ class LiveTV {
         this._liveTVJSONObj[idSport5Live] = sport5LiveObj;
         utils.writeLog("DEBUG", "crawlDigitalLive =>    Added Sport 5 Live");
     }
+
+    writeJSON(){
+            utils.writeLog("DEBUG", "writeJSON => Entered");
+            utils.writeJSONToFile(this._liveTVJSONObj, "stremio-livetv");
+            
+            utils.writeLog("DEBUG", "writeJSON => Leaving");
+        }
 }
 
 
