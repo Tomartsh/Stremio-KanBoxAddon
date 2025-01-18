@@ -1,4 +1,3 @@
-const constants = require("./constants.js");
 const utils = require("./utilities.js");
 
 class LiveTV {
@@ -475,3 +474,9 @@ class LiveTV {
         utils.writeLog("DEBUG", "crawlDigitalLive =>    Added Sport 5 Live");
     }
 }
+
+
+/**********************************************************
+ * Module Exports
+ **********************************************************/
+module.exports = LiveTV;
