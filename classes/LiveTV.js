@@ -18,6 +18,14 @@ class LiveTV {
      * 
      ********************************************************************/
     
+    crawl(){
+        utils.writeLog("INFO", "LiveTV=> Start Crawling ");
+        this.crawlDigitalLive();
+        this.crawlMakoLive()
+
+        utils.writeLog("INFO", "LiveTV=> Done Crawling");
+        this.writeJSON();
+    }
     crawlDigitalLive(){        
         utils.writeLog("DEBUG", "crawlDigitalLive => Entered");
         var idKanLive = "il_kanTV_04";

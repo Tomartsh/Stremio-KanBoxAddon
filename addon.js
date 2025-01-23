@@ -8,12 +8,12 @@ const srList = require("./classes/srList");
 const constants = require("./classes/constants.js");
 const utils = require("./classes/utilities.js");
 const Kanscraper = require("./classes/KanScraper.js");
-const LiveTV = require("./classes/LiveTV");
+const LiveTV = require("./classes/LiveTV.js");
 const { write } = require("fs");
 
 const listSeries = new srList();
 const kanScraper = new Kanscraper();
-const liveTV = new LiveTV();
+//const liveTV = new LiveTV();
 
 // Main program
 (async () => {
@@ -228,23 +228,8 @@ async function getJSONFile(){
     
 }
 
-function writeLog(level, msg){
-    if (level =="ERROR"){
-            console.log(level + ": " + msg);
-    } 
-    if (logLevel == "INFO"){
-        if (level =="INFO"){
-            console.log(level + ": " + msg);
-        } 
-    } else if (logLevel == "DEBUG"){
-        if ((level == "DEBUG")|| (level == "INFO")){
-            console.log(level + ": " + msg);
-        }
-    } else if (logLevel == "TRACE"){
-        if ((level == "TRACE") || (level == "DEBUG")|| (level == "INFO")){
-            console.log(level + ": " + msg);
-        }
-    }
+function updateSeriesList(item){
+
 }
 
-module.exports = builder.getInterface() 
+module.exports = builder.getInterface();
