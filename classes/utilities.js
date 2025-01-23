@@ -7,8 +7,8 @@ const { parse } = require('node-html-parser');
 async function fetchPage(link){
     writeLog("TRACE","fetchPage => " + link)
     
-    var count = 0;
-    var maxRetries = 10;
+    //var count = 0;
+    //var maxRetries = 10;
     var root = "";
     var headers = new Headers({
         "Content-Type" : "text/html; charset=utf-8",
@@ -16,7 +16,7 @@ async function fetchPage(link){
         "Charset": "UTF-8"
     });
 
-    while ( count < maxRetries ) {
+    //while ( count < maxRetries ) {
         try{
             var response = await fetch(link,
                 { header : headers}
@@ -26,20 +26,20 @@ async function fetchPage(link){
             return root;
 
         } catch(error){
-            writeLog("DEBUG","fetchPage => Failed to retrieve page: " + link)
-            if (++count >= maxRetries) {
-                writeLog("DEBUG","fetchPage => Waiting 2 seconds before retry no." + count);
-                try {
-                    await sleep(2000); // Sleep for 2 seconds
-                    fetchPage(link);
-                } catch(ex){
-                    writeLog("DEBUG","fetchPage => error fetching page on attempt " + count);
-                }   
-            } else {
+            writeLog("DEBUG","fetchPage => Failed to retrieve page: " + link);
+            //if (++count >= maxRetries) {
+            //    writeLog("DEBUG","fetchPage => Waiting 2 seconds before retry no." + count);
+            //    try {
+            //        setTimeout(() => console.log("Waiting 2 seconds"), 2000); // Sleep for 2 seconds; // Sleep for 2 seconds
+            //        fetchPage(link);
+            //    } catch(ex){
+            //        writeLog("DEBUG","fetchPage => error fetching page on attempt " + count);
+            //    }   
+            //} else {
                 writeLog("DEBUG","fetchPage => error: " + error);
-            }   
+            //}   
         }
-    }
+    //}
     return null;
 }
 
