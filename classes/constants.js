@@ -2,7 +2,7 @@ module.exports = {
     URL_JSON_BASE: "https://tomartsh.github.io/Stremio_Addon_Files/",
     //url_JSON_File: "stremio-kanbox.zip,stremio-mako.zip,stremio-variousTV"
     url_JSON_File: "https://tomartsh.github.io/Stremio_Addon_Files/stremio-kanbox.zip",
-    url_ZIP_Files: ["stremio-kanbox.zip","stremio-variousTV.zip","stremio-mako.zip"],
+    url_ZIP_Files: ["stremio-kanbox.zip","stremio-variousTV.zip"],
     SAVE_FOLDER: "output/",
     PREFIX: "il_",
 
@@ -13,7 +13,8 @@ module.exports = {
 
     URL_HINUKHIT_TEENS: "https://www.kankids.org.il/lobby-kids/kids-teens",
     URL_HINUKHIT_KIDS_CONTENT_PREFIX: "https://www.kankids.org.il",
-    PODCASTS_URL: "https://www.kan.org.il/lobby/aod"
+    PODCASTS_URL: "https://www.kan.org.il/lobby/aod",
+    KAN88_POCASTS_URL: "https://www.kan.org.il/content/kan/podcasts/kan88/"
 
     //Mako constants (Keshet channel 12)
 
