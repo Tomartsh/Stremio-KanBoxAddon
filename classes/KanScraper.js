@@ -1,29 +1,27 @@
 const constants = require("./constants.js");
 const utils = require("./utilities.js");
+const addon = require("../addon.js");
 
 class KanScraper {
 
     constructor() {
-        this._vodComplete = false;
-        this._hinukhitComplete = false;
-        this._podcastComplete = false;
-        this._teenComplete = false;
         this._kanJSONObj = {};
-
-        //this.crawlDigitalLive();
+        utils.writeLog("INFO", "Start Crawling");
         //this.crawlKanVOD();
         //this.crawlHinukhitKids();
         //this.crawlHinuchitTeen();
         this.crawlPodcasts();
+        utils.writeLog("INFO", "Done Crawling");
         this.writeJSON();
     }
 
     crawl(){
-        this.crawlDigitalLive();
+        utils.writeLog("INFO", "Start Crawling");
         this.crawlKanVOD();
         this.crawlHinukhitKids();
         this.crawlHinuchitTeen();
         this.crawlPodcasts();
+        utils.writeLog("INFO", "Done Crawling");
         this.writeJSON();
     }
 
@@ -33,7 +31,7 @@ class KanScraper {
      * 
      ***********************************************************/
     async crawlKanVOD(){
-        utils.writeLog("DEBUG", "kanVOD => Entered");
+        utils.writeLog("TRACE", "kanVOD => Entered");
 
         const doc = await utils.fetchPage(constants.KAN_URL_ADDRESS);
 
@@ -134,7 +132,7 @@ class KanScraper {
         }
 
         this._vodComplete = true;
-        utils.writeLog("DEBUG", "kanVOD => Leaving");
+        utils.writeLog("TRACE", "kanVOD => Leaving");
     }
 
     /**********************************************************
@@ -177,7 +175,7 @@ class KanScraper {
                             if (elemEpisodeLogo != null) {
                                 episodeLogoUrl = this.getImageFromUrl(elemEpisodeLogo.attr("src"),"d");
                             }
-                            utils.writeLog("DEBUG","getVideos =>   episodeLogoUrl location: " + episodeLogoUrl);                           
+                            utils.writeLog("TRACE","getVideos => episodeLogoUrl location: " + episodeLogoUrl);                           
                         }
                     } catch(ex) {
                         utils.writeLog("getVideos => " + ex);
@@ -257,7 +255,7 @@ class KanScraper {
 
     async getStreams(link){
         utils.writeLog("TRACE","getStreams => Entering: ");
-        utils.writeLog("TRACE","getStreams =>   Link: " + link)
+        utils.writeLog("TRACE","getStreams => Link: " + link)
         var doc = await utils.fetchPage(link);
         var released = "";
         var videoUrl = "";
@@ -320,164 +318,7 @@ class KanScraper {
         str = str.trim();
         return str;
     }
-
-    /********************************************************************
-     * 
-     * Kan Live channels handling
-     * 
-     ********************************************************************/
- 
-    crawlDigitalLive(){        
-        utils.writeLog("DEBUG", "crawlDigitalLive => Entered");
-        var idKanLive = "kanTV_04";
-        var kanLiveObj = {
-            id: idKanLive,
-            type: "tv",
-            subtype: "t",
-            title: "כאן 11",
-            metas: {
-                id: idKanLive,
-                name: "כאן 11",
-                type: "tv",
-                genres: ["actuality", "news", "חדשות", "אקטואליה"],
-                background: "https://efitriger.com/wp-content/uploads/2022/11/%D7%9B%D7%90%D7%9F-BOX-660x330.jpg",
-                poster: "https://octopus.org.il/wp-content/uploads/2022/01/logo_ogImageKan.jpg",
-                posterShape: "landscape",
-                description: "Kan 11 Live Stream From Israel",
-                videos: [
-                    {
-                        id: idKanLive,
-                        title: "כאן 11",
-                        description: "שידור חי כאן 11",
-                        released: Date.now(),
-                        streams: [
-                            {
-                                url: "https://kan11w.media.kan.org.il/hls/live/2105694/2105694/source1_600/chunklist.m3u8",
-                                type: "tv",
-                                name: "שידור חי כאן 11",
-                                description: "שידור חי כאן 11"
-                            }
-                        ]
-                    }
-
-                ]
-            }
-        }
-        this._kanJSONObj[idKanLive] = kanLiveObj;
-        utils.writeLog("DEBUG", "crawlDigitalLive =>    Added Kan 11 Live TV");
-
-        var idKanKidsLive = "kanTV_05";
-        var kanKidsObj = {
-            id: idKanKidsLive,
-            type: "tv",
-            subtype: "t",
-            title: "חינוכית",
-            metas: {
-                id: idKanKidsLive,
-                name: "חינוכית",
-                type: "tv",
-                genres: ["Kids","ילדים ונוער"],
-                background: "https://tomartsh.github.io/Stremio_Addon_Files/assets/Kan/KanHinuchit.jpg",
-                posterShape: "landscape",
-                description: "שידורי הטלויזיה החינוכית",
-                videos: [
-                    {
-                        id: idKanKidsLive,
-                        title: "חינוכית שידור חי",
-                        description: "חינוכית שידור חי",
-                        released: Date.now(),
-                        streams: [
-                            {
-                                url: "https://kan23.media.kan.org.il/hls/live/2024691-b/2024691/source1_4k/chunklist.m3u8",
-                                type: "tv",
-                                name: "חינוכית שידור חי",
-                                description: "חינוכית שידור חי"
-                            }
-                        ]
-                    }
-                ]
-            }
-        }
-        this._kanJSONObj[idKanKidsLive] = kanKidsObj;
-        utils.writeLog("DEBUG", "crawlDigitalLive =>    Added Hinukhit Live TV");
-
-        var idKanKnesset = "kanTV_06";
-        var knessetLiveObj = {
-            id: idKanKnesset,
-            type: "tv",
-            subtype: "t",
-            title: "שידורי ערוץ הכנסת 99",
-            metas: {
-                id: idKanKnesset,
-                name: "שידורי ערוץ הכנסת 99",
-                genres: ["Actuality","אקטואליה"],
-                type: "tv",
-                background: "https://www.knesset.tv/media/20004/logo-new.png",
-                poster: "https://www.knesset.tv/media/20004/logo-new.png",
-                posterShape: "landscape",
-                description: "שידורי ערוץ הכנסת - 99",
-                videos: [
-                    {
-                        id: idKanKnesset,
-                        title: "ערוץ הכנסת 99",
-                        description: "שידורי ערוץ הכנסת 99",
-                        released: Date.now(),
-                        streams: [
-                            {
-                                url: "https://contactgbs.mmdlive.lldns.net/contactgbs/a40693c59c714fecbcba2cee6e5ab957/manifest.m3u8",
-                                type: "tv",
-                                name: "ערוץ הכנסת 99",
-                                description: "שידורי ערוץ הכנסת 99"
-                            }
-                        ]
-                    }
-                ]
-            }
-        }
-        this._kanJSONObj[idKanKnesset] = knessetLiveObj;
-        utils.writeLog("DEBUG", "crawlDigitalLive =>    Added Knesset Live TV");
-
-        var idMakanLive = "kanTV_07";
-        var MakanLiveObj = {
-            id: idMakanLive,
-            type: "tv",
-            subtype: "t",
-            title: "שידורי ערוץ השידור הערבי",
-            metas: {
-                id: idMakanLive,
-                name: "שידורי ערוץ השידור הערבי",
-                type: "tv",
-                genres: ["Actuality","אקטואליה"],
-                background: "https://www.makan.org.il/media/d3if2qoj/לוגו-ראשי-מכאן.png",
-                poster: "https://www.makan.org.il/media/d3if2qoj/לוגו-ראשי-מכאן.png",
-                posterShape: "landscape",
-                description: "שידורי ערוץ השידור הערבי",
-                videos: [
-                    {
-                        id: idMakanLive,
-                        title: "ערוץ השידור הערבי",
-                        description: "שידורי ערוץ השידור הערבי",
-                        released: Date.now(),
-                        streams: [
-                            {
-                                url: "https://makan.media.kan.org.il/hls/live/2024680/2024680/master.m3u8",
-                                type: "tv",
-                                name: "ערוץ השידור הערבי",
-                                description: "שידורי ערוץ השידור הערבי"
-                            }
-                        ]
-                    }
-                ]
-            }
-        }
-        this._kanJSONObj[idMakanLive] = MakanLiveObj;
-        utils.writeLog("DEBUG", "crawlDigitalLive =>    Added Makan Live TV");
-
-        utils.writeLog("DEBUG", "crawlDigitalLive => Leaving");
-    }
-    
-    
-    
+   
     /****************************************************************
      * 
      * Hinukhit functions
@@ -485,7 +326,7 @@ class KanScraper {
      ****************************************************************/
     
     async crawlHinukhitKids(){
-        utils.writeLog("TRACE", "hinukhitComplete => Entering");
+        utils.writeLog("TRACE", "crawlHinukhitKids => Entering");
         var doc = await utils.fetchPage(constants.URL_HINUKHIT_TINY);
         var series = doc.querySelectorAll("div.umb-block-list div script");
         var kidsScriptStr = series[4].toString();
@@ -637,7 +478,7 @@ class KanScraper {
 
                     }
                 ];
-                utils.writeLog("DEBUG","getKidsVideos => Added videos for episode : " + episodeTitle + " " + videoId);
+                utils.writeLog("TRACE","getKidsVideos => Added videos for episode : " + episodeTitle + " " + videoId);
             }
         }
         
@@ -652,74 +493,68 @@ class KanScraper {
 
     async crawlPodcasts(){
         utils.writeLog("TRACE","crawlPodcasts => Entering");
-        utils.writeLog("DEBUG","crawlPodcasts =>    Starting retrieval of podcasts");
-        utils.writeLog("TRACE","crawlPodcasts =>    calling fetchPage with " + constants.PODCASTS_URL);
-        var doc = await utils.fetchPage(constants.PODCASTS_URL);
-        
-        var genres = doc.querySelectorAll("div.podcast-row");
-        utils.writeLog("DEBUG","crawlPodcasts => Found " + genres.length + " genres");
+        //get the podcasts series genre list
+        utils.writeLog("DEBUG","crawlPodcasts => Starting retrieval of podcast series");
+        var docPodcastSeries = await utils.fetchPage(constants.PODCASTS_URL);
+        var genres = docPodcastSeries.querySelectorAll("div.podcast-row");
+        utils.writeLog("TRACE","crawlPodcasts => Found " + genres.length + " genres");
+
+        //var podcastSeries = {};
+        //go over the genres and add podcast series by genre
         for (var genre of genres) { //iterate over podcasts rows by genre
             var genresName = genre.querySelector("h4.title-elem.category-name").text.trim();
             utils.writeLog("DEBUG","crawlPodcasts => Genre " + genresName);
-            var podcasts = genre.querySelectorAll("a.podcast-item");
- 
-            for (var podcast of podcasts) { //iterate over podcasts series
-                if ((podcast == undefined) || (podcast.getAttribute("href") == undefined )) {
-                    continue;
-                }
+            var podcastsSeriesElements = genre.querySelectorAll("a.podcast-item");
 
-                if (podcast.getAttribute("href").endsWith("podcasts/kan88/")){
-                    //Kan 88 podcasts lay in on level deeper. So we have to initiate an additional fetch
-                    utils.writeLog("TRACE","crawlPodcasts =>    Kan 88 calling fetchPage with " + podcast.getAttribute("href"));
-                    var kan88Doc = await utils.fetchPage(podcast.getAttribute("href")); 
-                    var kan88pods = kan88Doc.querySelectorAll("div.card.card-row");
-                    for (var podcastKan88 of kan88pods){
-                        this.addPodcastMeta(podcastKan88,genresName);
-                    }
-                    continue;
-                }
-                this.addPodcastMeta(podcast,genresName);
+            for (var podcastElement of podcastsSeriesElements){// iterate of the podcast series
+                await this.addPodcastSeries(podcastElement, genre);
             }
+            
         }
-        this._podcastComplete = true;
         utils.writeLog("TRACE","crawlPodcasts => Exiting");
+        //Handle Kan 88
+        utils.writeLog("DEBUG","crawlPodcasts => Starting retrieval of kan88 podcast series");
+        var docKan88PodcastSeries = await utils.fetchPage(constants.KAN88_POCASTS_URL);
+
+        utils.writeLog("DEBUG","crawlPodcasts => Processing Kan 88 Podcasts");
+        var podcastsKan88SeriesElements = docKan88PodcastSeries.querySelectorAll("div.card.card-row");
+        for (var podcastKan88SeriesElement of podcastsKan88SeriesElements){//iterate of the podcast series
+            await this.addPodcastSeries(podcastKan88SeriesElement, ["music","מוסיקה"]);
+        }
     }
 
-    /**********************************************************
-     * Create the meta object for podcasts
-     * @param podcast
-     * @param genresName
-     ***********************************************************/
-    async addPodcastMeta(podcast, genresName){
-        utils.writeLog("TRACE","addPodcastMeta => Entering");
-        var id = "";
-        var seriesTitle = "";
-        var seriesDecription = "";
+    async addPodcastSeries(podcastElement, genre){
         var podcastSeriesLink = "";
-        var podcastImageUrl = "";
-
-        var videosListArr = [];
-        podcastSeriesLink = podcast.getAttribute("href");
-        utils.writeLog("TRACE","addPodcastMeta => podcast link: " + podcastSeriesLink);
-        podcastImageUrl = this.getImageFromUrl(podcast.querySelector("img.img-full").getAttribute("src"),"p");
-        id = this.generateId(podcastSeriesLink);
-
-        utils.writeLog("TRACE","addPodcastMeta => calling fetchPage with URL: " + podcastSeriesLink);
-        var podcastSeriesPageDoc = await utils.fetchPage(podcastSeriesLink); //get the series episodes 
-        if(!podcastSeriesPageDoc) { return {} ;}
-
-        let seriesTitleElem = podcastSeriesPageDoc.querySelector("h1.title-elem")
-        if(seriesTitleElem)
-        {
-            seriesTitle = seriesTitleElem.text.trim();
+        if (podcastElement.getAttribute("href") != null){
+            podcastSeriesLink = podcastElement.getAttribute("href");
+        } else{
+            var podcastAnchorElem = podcastElement.querySelector("a");
+            podcastSeriesLink = podcastAnchorElem.getAttribute("href");
         }
-        let seriesDescriptionEntry = podcastSeriesPageDoc.querySelector("div.section-header div.block-text div p");
-        if(seriesDescriptionEntry)
-            seriesDecription = podcastSeriesPageDoc.querySelector("div.section-header div.block-text div p").text.trim();
+
+        //set ID
+        var id = this.generateId(podcastSeriesLink);
+
+        //set thumbnail image
+        var podcastImageUrl = "";
+        podcastImageUrl = this.getImageFromUrl(podcastElement.querySelector("img.img-full").getAttribute("src"),"p");
+
+        //set title
+        var seriesTitleElem = podcastElement.getAttribute("title").trim();
+
+        //set description
+        var seriesDescription = podcastElement.querySelector("div.overlay div.text").text.trim();
+
+        //get the episodes details
+        var podcastVideosArr = await this.getpodcastEpisodeVideos(podcastSeriesLink, id);
         
-        var episodes = podcastSeriesPageDoc.querySelectorAll("div.card.card-row");
-        if(!episodes) {return {};}
-        //get last element in paging if there is one
+        this.addToJsonObject(id, seriesTitleElem, podcastSeriesLink, podcastImageUrl, seriesDescription, genre, podcastVideosArr, "p", "series");
+
+    } 
+    async getpodcastEpisodeVideos(podcastSeriesLink, id){
+        utils.writeLog("TRACE","getpodcastEpisodeVideos => Entering");
+        
+        var podcastSeriesPageDoc = await utils.fetchPage(podcastSeriesLink); //get the series episodes 
         var lastPageNo = ''
         try {
             lastPageNo = podcastSeriesPageDoc.querySelector('li[class*="pagination-page__item"][title*="Last page"]').getAttribute('data-num');
@@ -727,103 +562,205 @@ class KanScraper {
             lastPageNo = String(podcastSeriesPageDoc.querySelectorAll('li[class*="pagination-page__item"]').length);
             if(lastPageNo==='0'){return {}; }
         }
-  
-        utils.writeLog("DEBUG","addPodcastMeta => Number of pages " + String(lastPageNo));
-
-        if ((lastPageNo) && (parseInt(lastPageNo) > 0) ){
+        var podcastEpisodes = []; //list of podcast episodes
+        if ((lastPageNo) && (parseInt(lastPageNo) >= 0) ){
             var intLastPageNo = parseInt(lastPageNo);
-            for (var i = 2 ; i < intLastPageNo ; i++){
-                utils.writeLog("TRACE","addPodcastMeta => calling fetchPage with URL: " + podcastSeriesLink + "?page=" + i);
-                var episodesAdditionalPages = await utils.fetchPage(podcastSeriesLink + "?page=" + i);
-                var additionalEpisodes = episodesAdditionalPages.querySelectorAll("div.card.card-row");
-                //If there are more elements add them to the episodes elements element
-                for (var iter = 0; iter < additionalEpisodes.length; iter ++){
-                    episodes.push(additionalEpisodes[iter]);
+            for (var i = 0 ; i < intLastPageNo ; i++){
+                if (i == 0){
+                    var podcastEpisodesToCheck = podcastSeriesPageDoc.querySelectorAll("div.card.card-row");
+                    for (var episodeChecked of podcastEpisodesToCheck){
+                        var hrefObj = episodeChecked.querySelector("a.card-body")
+                        var episodeLink = hrefObj.getAttribute("href");
+
+                        var docToCheck = await utils.fetchPage(episodeLink);//check if there is an episode on the oher side or more episodes
+                        var card = docToCheck.querySelector("h2.title");
+                        if (card != undefined){ //this is an episode so let's get the  stream while we have the data
+                            var streams = this.getPodcastStream(docToCheck);
+                                podcastEpisodes.push({
+                                episode: episodeChecked,
+                                stream: streams
+                            });
+                        } else {
+                            //var subPageHref = podcastEpisodesToCheck.querySelector("a.card-body").etAttribute("href");
+                            var docSubPage = await utils.fetchPage(episodeLink);
+                            var episodesToCheck = docSubPage.querySelectorAll("div.card.card-row");
+                            for (var episodeToCheck of episodesToCheck){
+                                var streams = this.getPodcastStream(episodeToCheck);
+                                podcastEpisodes.push({
+                                    episode: episodeToCheck,
+                                    stream: streams
+                            });
+                            }
+                        }
+                        
+                    }
+                    i = 1;
+                    continue
+                }
+                utils.writeLog("TRACE","getpodcastEpisodeVideos => calling fetchPage with URL: " + podcastSeriesLink + "?page=" + i);
+                var podcastsAdditionalPages = await utils.fetchPage(podcastSeriesLink + "?page=" + i);
+                var podcastElems = podcastsAdditionalPages.querySelectorAll("div.card.card-row");
+
+                for (var additionalPodcast of podcastElems){
+                    var hrefObj = additionalPodcast.querySelector("a.card-body")
+                    var episodeLink = hrefObj.getAttribute("href");
+
+                    var docToCheck = await utils.fetchPage(episodeLink);//check if there is an episode on the oher side or more episodes
+                    var card = docToCheck.querySelector("h2.title");
+                    if (card != undefined){ //this is an episode so let's get the  stream while we have the data
+                        var streams =  this.getPodcastStream(docToCheck);
+                            podcastEpisodes.push({
+                            episode: additionalPodcast,
+                            stream: streams
+                        });
+                    } else {
+                        //var subPageHref = podcastEpisodesToCheck.querySelector("a.card-body").etAttribute("href");
+                        var docSubPage = await utils.fetchPage(episodeLink);
+                        var episodesToCheck = docSubPage.querySelectorAll("div.card.card-row");
+                        for (var episodeToCheck of episodesToCheck){
+                            var streams = this.getPodcastStream(episodeToCheck);
+                            podcastEpisodes.push({
+                                episode: episodeToCheck,
+                                stream: streams
+                        });
+                        }
+                    }
                 }
             }
         }
-        var episodeNo = episodes.length;
-        for (var episode of episodes) {//iterate over the episodes
 
-            var videoJSONObj = this.getpodcastVideo(episode, episodeNo, id);
-            if (! videoJSONObj){ continue; }
+        var podcastEpisodesVideos = [];
+        var podcastEpisodeNo = podcastEpisodes.length;
+        for (var podcastEpisode of podcastEpisodes){ //iterate over episodes and get the video and stream
+            var episodeElement = podcastEpisode.episode;
+            var streams = podcastEpisode.stream;
 
-            videosListArr.push(videoJSONObj);
-            episodeNo--;
-        }
-        this.addToJsonObject(id, seriesTitle,  podcastSeriesLink, podcastImageUrl, seriesDecription, genresName, videosListArr, "p", "Podcasts");
-        utils.writeLog("DEBUG","addPodcastMeta =>    Podcast added " + seriesTitle + " ID: " + id);
-    }
-
-    /**
-     * Process each episode individually
-     * @param episode
-     * @param episodeId
-     * @return JSON Object 
-     */
-   getpodcastVideo(episode, episodeNo, id){
-        utils.writeLog("TRACE","getpodcastVideo => Entering");
-        var podcastVideo = "";
-        var episodeId = id + ":1:"  + episodeNo;
-        var episodeLink = "";
-        let episodes_media = episode.querySelector("a.card-img.card-media")
-        if (episodes_media && episodes_media.length > 0){
-            episodeLink = episode.querySelector("a.card-img.card-media").getAttribute("href");
-        } else {
-            let episodes_body = episode.querySelector("a.card-body")
-            if (episodes_body && episodes_body.length > 0){
-                episodeLink = episode.querySelector("a.card-body").getAttribute("href");
-                utils.writeLog("DEBUG","getpodcastVideo =>        href card image empty. Using card href");
+            var episodeLink = "";
+            var episodes_media = episodeElement.querySelector("a.card-img.card-media")
+            if (episodes_media != undefined){
+                var episodeLinkElem = episodeElement.querySelector("a.card-img.card-media")
+                episodeLink = episodeLinkElem.getAttribute("href");
             } else {
-                utils.writeLog("DEBUG","getpodcastVideo =>        No episode link found, skipping.");
-                return podcastVideo;
+                var episodes_body = episodeElement.querySelector("a.card-body")
+                if (episodes_body != undefined){
+                    episodeLink = episodes_body.getAttribute("href");
+                    utils.writeLog("DEBUG","getPodcastEpisodeVideoArray => href card image empty. Using card href");
+                } else {
+                    utils.writeLog("DEBUG","getPodcastEpisodeVideoArray => No episode link found, skipping. Link" );
+                    
+                }
             }
-        }
-        
-        var episodeImgUrl = "";
-        if (episode.querySelector("img.img-full") != null){
-            episodeImgUrl = this.getImageFromUrl(episode.querySelector("img.img-full").getAttribute("src"), "p");
+
+            var episodeImgUrl = "";
+            if (episodeElement.querySelector("img.img-full") != null){
+                episodeImgUrl = this.getImageFromUrl(episodeElement.querySelector("img.img-full").getAttribute("src"), "p");
+            }
+
+            var episodeTitle = episodeElement.querySelector("h2.card-title").text.trim();
+            var episodeDescription = episodeElement.querySelector("div.description").text.trim();
+            var released = "";
+            if (episodeElement.querySelector("li.date-local") != undefined){
+                released = episodeElement.querySelector("li.date-local").getAttribute("data-date-utc").trim();
+            }
+            utils.writeLog("DEBUG","getpodcastEpisodeVideos => Calling streams with URL: " + episodeLink + " for episode: " + episodeTitle + " released:" + released);
+            //var streams = await this.getPodcastStreams(episodeLink);
+            podcastEpisodesVideos.push({
+                id: id + ":1:" + podcastEpisodeNo,
+                title: episodeTitle,
+                season: "1",
+                episode: podcastEpisodeNo ,
+                description: episodeDescription,
+                thumbnail: episodeImgUrl,
+                episodeLink: episodeLink,
+                released: released,
+                streams: streams
+            });
+            utils.writeLog("DEBUG","getpodcastEpisodeVideos => Added episode: " + id + ":1:" + podcastEpisodeNo);
+            podcastEpisodeNo--
         }
 
-        var episodeTitle = episode.querySelector("h2.card-title").text.trim();
-        var episodeDescription = episode.querySelector("div.description").text.trim();
-        var released = episode.querySelector("li.date-local").getAttribute("data-date-utc").trim();
-        utils.writeLog("DEBUG","getpodcastVideo =>   Podcast episode " + episodeTitle + "\n           link:" + episodeLink + "\n            episode no. " + episodeNo);
-        var streams = this.getPodcastStreams(episodeLink);
-        if (! streams) { 
-            return podcastVideo;
-        }
-
-        var podcastVideo = {
-            id: episodeId,
-            title: episodeTitle,
-            season: "1",
-            episode: episodeNo,
-            description: episodeDescription,
-            thumbnail: episodeImgUrl,
-            episodeLink: episodeLink,
-            released: released,
-            streams: streams
-        }
-
-        utils.writeLog("DEBUG","getpodcastVideo =>        Adding video  " + " ID: " + id + ", Title: " + episodeTitle + ", episode: " + episodeNo);
-        utils.writeLog("TRACE","getpodcastVideo => Exiting");
-        return podcastVideo;
+        utils.writeLog("TRACE","getpodcastEpisodeVideos => Exiting");
+        return podcastEpisodesVideos;
     }
 
-    async getPodcastStreams(episodeLink){
-        utils.writeLog("TRACE","getPodcastStreams => Entering");
-        var doc = await utils.fetchPage(episodeLink);    
-        var episodeName = doc.querySelector("h2.title").text.trim();
-        var description = doc.querySelector("div.item-content.hide-content").text.trim();
-        var urlRaw = doc.querySelector("figure").getAttribute("data-player-src").trim();
-        if (urlRaw.length() == 0){
+    getPodcastStream(streamElement){
+        utils.writeLog("TRACE","getPodcastStream => Entering");
+        var episodeName = "";
+        if (streamElement.querySelector("h2.title") != undefined){
+            episodeName = streamElement.querySelector("h2.title").text.trim();
+        } else {
+            utils.writeLog("TRACE","getPodcastStreams => No name for the episode !");
+        }
+        var description = "";
+        if (streamElement.querySelector("div.item-content.hide-content") != null) {
+            streamElement.querySelector("div.item-content.hide-content").text.trim();
+        }else {
+            utils.writeLog("TRACE","getPodcastStreams => No description for the episode !");
+        }
+        var urlRawElem = streamElement.querySelector("figure");
+        var urlRaw
+        if (urlRawElem != undefined ){
+            urlRaw = urlRawElem.getAttribute("data-player-src");
+            urlRaw = urlRaw.trim();
+        } 
+        if ((urlRaw == undefined) ||(urlRaw.length == 0)){
             return streams;
         }
         var url = urlRaw.substring(0,urlRaw.indexOf("?"));
-        utils.writeLog("DEBUG","getPodcastStreams =>       Podcast stream name: " + episodeName + "\n     description: "+description+"\n      link: " + url);
+        utils.writeLog("TRACE","getPodcastStreams => Podcast stream name: " + episodeName + " description: " + description);
 
         var streams = [
+            {
+                url: url,
+                type: "Podcast",
+                name: episodeName,
+                description: description
+            }
+        ];
+
+        utils.writeLog("TRACE","getPodcastStream => Exiting");
+        return streams;
+
+    }
+
+/*
+    async getPodcastStreams(episodeLink){
+        utils.writeLog("TRACE","getPodcastStreams => Entering");
+        var streams = "";
+        var doc = await utils.fetchPage(episodeLink);    
+        if (doc.querySelector("span.inline-block") && 
+        doc.querySelector("span.inline-block").text == "Web server is down"){
+            doc = await utils.fetchPage(episodeLink);
+            if (doc.querySelector("span.inline-block") && 
+                doc.querySelector("span.inline-block").text == "Web server is down"){
+                    return streams;
+            }
+        }
+        var episodeName = "";
+        if (doc.querySelector("h2.title") != undefined){
+            episodeName = doc.querySelector("h2.title").text.trim();
+        } else {
+            utils.writeLog("TRACE","getPodcastStreams => No name for the episode !");
+        }
+        var description = "";
+        if (doc.querySelector("div.item-content.hide-content") != null) {
+            doc.querySelector("div.item-content.hide-content").text.trim();
+        }else {
+            utils.writeLog("TRACE","getPodcastStreams => No description for the episode !");
+        }
+        var urlRawElem = doc.querySelector("figure");
+        var urlRaw
+        if (urlRawElem != undefined ){
+            urlRaw = urlRawElem.getAttribute("data-player-src");
+            urlRaw = urlRaw.trim();
+        } 
+        if ((urlRaw == undefined) ||(urlRaw.length == 0)){
+            return streams;
+        }
+        var url = urlRaw.substring(0,urlRaw.indexOf("?"));
+        utils.writeLog("TRACE","getPodcastStreams => Podcast stream name: " + episodeName + " description: " + description);
+
+         streams = [
             {
                 url: url,
                 type: "Podcast",
@@ -835,7 +772,7 @@ class KanScraper {
         utils.writeLog("TRACE","getPodcastStreams => Exiting");
         return streams;
     }
-
+*/
     /***************************************************************
      * 
      * Data handling functions
@@ -1106,27 +1043,18 @@ class KanScraper {
         }
 
         this._kanJSONObj[id] = jsonObj;
-        utils.writeLog("INFO","addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + "\n  Link: " + seriesPage + " subtype: " + subType);
+        utils.writeLog("INFO","addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + " Link: " + seriesPage + " subtype: " + subType);
+        
     }
 
     writeJSON(){
-        utils.writeLog("DEBUG", "writeJSON => Entered");
-        utils.writeLog("DEBUG", "writeJSON =>   VOD Complete flag is: " + this._vodComplete);
-        utils.writeLog("DEBUG", "writeJSON =>   Hinukhit Complete flag is: " + this._hinukhitComplete);
-        utils.writeLog("DEBUG", "writeJSON =>   Teens Complete flag is: " + this._teenComplete);
-        utils.writeLog("DEBUG", "writeJSON =>   Podcasts Complete flag is: " + this._podcastComplete);
-        
-        if ((this._vodComplete) && (this._hinukhitComplete) && (this._teenComplete) && (this._podcastComplete)){
-            utils.writeLog("DEBUG", "writeJSON => All tasks completed - writing");
-            utils.writeJSONToFile(this._kanJSONObj, "stremio-kan");
-            return;
-        }
-        utils.writeLog("DEBUG", "writeJSON => Not all tasks completed, NO WRITING DONE!");
-        utils.writeLog("DEBUG", "writeJSON => Leaving");
+        utils.writeLog("TRACE", "writeJSON => Entered");
+        utils.writeLog("DEBUG", "writeJSON => All tasks completed - writing");
+        utils.writeJSONToFile(this._kanJSONObj, "stremio-kan");
+
+        utils.writeLog("TRACE", "writeJSON => Leaving");
     }
 }
-
-
 
 
 /**********************************************************
