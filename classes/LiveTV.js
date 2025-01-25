@@ -4,12 +4,6 @@ class LiveTV {
 
     constructor() {
         this._liveTVJSONObj = {};
-        utils.writeLog("INFO", "LiveTV=> Start Crawling ");
-        this.crawlDigitalLive();
-        this.crawlMakoLive()
-
-        utils.writeLog("INFO", "LiveTV=> Done Crawling");
-        this.writeJSON();
     }
 
     /********************************************************************
