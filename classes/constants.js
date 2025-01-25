@@ -14,11 +14,12 @@ module.exports = {
     URL_HINUKHIT_TEENS: "https://www.kankids.org.il/lobby-kids/kids-teens",
     URL_HINUKHIT_KIDS_CONTENT_PREFIX: "https://www.kankids.org.il",
     PODCASTS_URL: "https://www.kan.org.il/lobby/aod",
-    KAN88_POCASTS_URL: "https://www.kan.org.il/content/kan/podcasts/kan88/"
+    KAN88_POCASTS_URL: "https://www.kan.org.il/content/kan/podcasts/kan88/",
 
     //Mako constants (Keshet channel 12)
-
-
+    URL_MAKO_VOD: "https://www.mako.co.il/mako-vod-index",
+    URL_MAKO_VOD_JSON: "https://www.mako.co.il/mako-vod-index?type=service",
+    URL_MAKO_BASE: "http://www.mako.co.il"
 
     //Channel 13 (Reshet) constants
 
