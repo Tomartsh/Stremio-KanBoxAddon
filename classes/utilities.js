@@ -3,6 +3,7 @@ const constants = require("./constants");
 
 const write = require("fs");
 const { parse } = require('node-html-parser');
+const axios = require('axios');
 
 async function fetchPage(link){
     writeLog("TRACE","fetchPage => " + link)
@@ -41,6 +42,58 @@ async function fetchPage(link){
         }
     //}
     return null;
+}
+
+async function fetchJSONPage(link){
+    writeLog("TRACE","fetchJSONPage => " + link);
+    var root = "";
+    try {
+        const response = await axios.get(link);
+        writeLog("TRACE","fetchJSONPage => Response:\n" + response.data);
+        root = response.data;
+        return root;
+    } catch (error) {
+        writeLog("TRACE","fetchJSONPage => Error:\n" + error.message);
+    }
+    /*
+    // Configure axios-retry
+    axiosRetry(axios, {
+        retries: 6, // Number of retries
+        //retryDelay: axiosRetry.exponentialDelay, // Use exponential backoff
+        retryDelay: (retryCount) => {
+            return Math.pow(2, retryCount) * 1000; // 1s, 2s, 4s, 8s, etc.
+          },
+        // attach callback to each retry to handle logging or tracking
+        onRetry: (err) => utils.writeLog("INFO","fetchJSONPage => Retrying request: ${err.message}"),
+        // Specify conditions to retry on, this is the default
+        // which will retry on network errors or idempotent requests (5xx)
+        retryCondition: (error) => axiosRetry.isNetworkOrIdempotentRequestError(error)
+    });
+    
+    var config = {
+        
+         // Headers for the request, indicating that the request body is in JSON format
+        "headers": {
+            "Content-Type" : "application/json; charset=utf-8",
+            "User-Agent"   : "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0",
+            "Charset": "UTF-8"
+        },
+
+        // Setting a timeout for the request (in milliseconds)
+        timeout: 10000
+    };
+    var root = "";
+
+    axios.get(link)
+        .then(response => {
+            root = JSON.parse(response.data);
+            utils.writeLog("Trace", "fetchJSONPage => " + response.data);
+        })
+        .catch(error => {
+            utils.writeLog("DEBUG", "fetchJSONPage => Error fetching data: " +  error);
+        });
+    return null;
+    */
 }
 
 //+===================================================================================
@@ -98,4 +151,5 @@ function getCurrentDateStr(){
     return dateStr;
 }
 
-module.exports = {padWithLeadingZeros, fetchPage, writeLog, writeJSONToFile, getCurrentDateStr};
+
+module.exports = {padWithLeadingZeros, fetchPage, fetchJSONPage, writeLog, writeJSONToFile, getCurrentDateStr};
