@@ -1,6 +1,39 @@
-const { formToJSON } = require("axios");
-const axios = require("axios");
-const fetch = require('node-fetch');
+//const { formToJSON } = require("axios");
+const constants = require("./constants.js");
+const utils = require("./utilities.js");
+//const axios = require("axios");
+//const fetch = require('node-fetch');
+
+class MakoScraper{
+    cosntructor(){
+        this._makoJSONObj = {};
+    }
+
+    async crawl(){
+        var jsonPage = await utils.fetchJSONPage(constants.URL_MAKO_VOD_JSON);
+        var i = 100;4
+        for (var series of jsonPage["root"]["allPrograms"]){
+            var name = series["title"];
+            var id = constants.PREFIX + "_mako" + utils.padWithLeadingZeros(i,5);
+            var link = constants.URL_MAKO_BASE + series["url"];
+            var genres = ['series["genres"]'];
+            var description = series["brief"];
+            var background = series["picVOD"];
+            var poster = series["logoPicVOD"]
+        }
+    }
+    
+
+}
+
+/**********************************************************
+ * Module Exports
+ **********************************************************/
+module.exports = MakoScraper;
+
+
+
+/*
 let urlBase1 = "http://www.mako.co.il"
 let urlBase = urlBase1+"/"
 let url = urlBase + "mako-vod-index?type=service";
@@ -55,5 +88,5 @@ fetch(url, settings)
                 break;
             }
         }
-    );
+    );*/
 /* http://www.mako.co.il/mako-vod-keshet/hafuch*/
