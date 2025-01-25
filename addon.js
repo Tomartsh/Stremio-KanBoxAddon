@@ -1,6 +1,7 @@
 const { addonBuilder } = require("stremio-addon-sdk");
 const { parse } = require('node-html-parser');
 const axios = require('axios');
+const axiosRetry = require("axios-retry");
 const AdmZip = require("adm-zip");
 const https = require("https");
 
@@ -8,12 +9,16 @@ const srList = require("./classes/srList");
 const constants = require("./classes/constants.js");
 const utils = require("./classes/utilities.js");
 const Kanscraper = require("./classes/KanScraper.js");
+const Makoscraper = require("./classes/MakoScraper.js");
 const LiveTV = require("./classes/LiveTV.js");
 const { write } = require("fs");
 
 const listSeries = new srList();
+const makoScraper = new Makoscraper();
+makoScraper.crawl();
 const kanScraper = new Kanscraper();
-//const liveTV = new LiveTV();
+const liveTV = new LiveTV();
+liveTV.crawl();
 
 // Main program
 (async () => {
@@ -228,8 +233,12 @@ async function getJSONFile(){
     
 }
 
-function updateSeriesList(item){
+function addToSeriesList(item){
+	utils.writeLog("TRACE","updateSeriesList => Entering");
+	listSeries.addItemByDetails(item.id, item.name,item.poster,item.description,item.link, item.background, item.genres, item.metas,item.type, item.subtype);
 
+
+	utils.writeLog("TRACE","updateSeriesList => Exiting");
 }
 
 module.exports = builder.getInterface();
