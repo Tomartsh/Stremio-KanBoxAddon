@@ -806,7 +806,7 @@ class KanScraper {
             retId = link;
         }
         retId = retId.substring(retId.lastIndexOf("/") + 1, retId.length);
-        retId = constants.PREFIX + retId;
+        retId = constants.PREFIX + "_kan_" + retId;
 
         return retId;
     }
@@ -1044,7 +1044,7 @@ class KanScraper {
 
         this._kanJSONObj[id] = jsonObj;
         utils.writeLog("INFO","addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + " Link: " + seriesPage + " subtype: " + subType);
-        
+
     }
 
     writeJSON(){
