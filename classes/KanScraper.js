@@ -6,13 +6,6 @@ class KanScraper {
 
     constructor() {
         this._kanJSONObj = {};
-        utils.writeLog("INFO", "Start Crawling");
-        //this.crawlKanVOD();
-        //this.crawlHinukhitKids();
-        //this.crawlHinuchitTeen();
-        this.crawlPodcasts();
-        utils.writeLog("INFO", "Done Crawling");
-        this.writeJSON();
     }
 
     crawl(){
@@ -115,11 +108,12 @@ class KanScraper {
                 continue;
             } else {
                 var seasons = seriesPageDoc.querySelectorAll("div.seasons-item");
+                utils.writeLog("DEBUG","crawlKanVOD => seasons length: " + seasons.length);
                 if (seasons.length > 0) {
-                    utils.writeLog("DEBUG","kanVOD =>   getVideo link: " + linkSeries);
+                    utils.writeLog("DEBUG","kanVOD =>   getVideo link easons.length > 0: " + linkSeries);
                     videosListArr = this.getVideos(seasons, id, subType);
                 } else {
-                    utils.writeLog("DEBUG","kanVOD =>   getVMovie link: " + linkSeries);
+                    utils.writeLog("DEBUG","kanVOD =>   getVMovies link easons.length <> 0: " + linkSeries);
                     videosListArr = this.getMovies(seriesPageDoc, id, subType);
                 }
             }
@@ -400,7 +394,10 @@ class KanScraper {
                 seriesDescription = seriesDescription.replace("<p>","");
                 seriesDescription = seriesDescription.replace("</p>","");
             } else {
-                seriesDescription = doc.querySelector("div.info-description").text.trim();
+                if (doc.querySelector("div.info-description") != undefined){
+                    seriesDescription = doc.querySelector("div.info-description").text.trim();
+                }
+                
             }
             //get the number of seasons
             var seasons = doc.querySelectorAll("div.seasons-item.kids");
@@ -518,6 +515,7 @@ class KanScraper {
 
         utils.writeLog("DEBUG","crawlPodcasts => Processing Kan 88 Podcasts");
         var podcastsKan88SeriesElements = docKan88PodcastSeries.querySelectorAll("div.card.card-row");
+        utils.writeLog("DEBUG","crawlPodcasts => No. of Kan 88 podcasts: " + podcastsKan88SeriesElements.length);
         for (var podcastKan88SeriesElement of podcastsKan88SeriesElements){//iterate of the podcast series
             await this.addPodcastSeries(podcastKan88SeriesElement, ["music","מוסיקה"]);
         }
@@ -606,6 +604,7 @@ class KanScraper {
                     var episodeLink = hrefObj.getAttribute("href");
 
                     var docToCheck = await utils.fetchPage(episodeLink);//check if there is an episode on the oher side or more episodes
+                    if (docToCheck == undefined){ continue; }
                     var card = docToCheck.querySelector("h2.title");
                     if (card != undefined){ //this is an episode so let's get the  stream while we have the data
                         var streams =  this.getPodcastStream(docToCheck);
