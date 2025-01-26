@@ -147,7 +147,7 @@ function writeJSONToFile(jsonObj, fileName){
 
 function getCurrentDateStr(){
     var currDate = new Date();
-    var dateStr = currDate.getDate() + "-" + currDate.getMonth() + "-" + currDate.getFullYear() + "_" + currDate.getHours() + "-" + currDate.getMinutes();
+    var dateStr = currDate.getDate() + "-" + (currDate.getMonth() + 1).toString().padStart(2,'0') + "-" + currDate.getFullYear() + "_" + currDate.getHours() + "-" + currDate.getMinutes();
     return dateStr;
 }
 
