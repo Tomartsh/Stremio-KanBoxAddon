@@ -251,6 +251,9 @@ class KanScraper {
         utils.writeLog("TRACE","getStreams => Entering: ");
         utils.writeLog("TRACE","getStreams => Link: " + link)
         var doc = await utils.fetchPage(link);
+        if (doc == undefined){
+            utils.writeLog("DEBUG","getStreams => Error retrieving do from " + link);
+        }
         var released = "";
         var videoUrl = "";
         var nameVideo = "";
@@ -537,8 +540,14 @@ class KanScraper {
         var podcastImageUrl = "";
         podcastImageUrl = this.getImageFromUrl(podcastElement.querySelector("img.img-full").getAttribute("src"),"p");
 
-        //set title
-        var seriesTitleElem = podcastElement.getAttribute("title").trim();
+        //set title;
+        var seriesTitleElem = ""
+        if (podcastElement.getAttribute("title") != undefined){ 
+            seriesTitleElem = podcastElement.getAttribute("title").trim();
+        } else { //Kan 88 Podcast episodes
+            var imgElem = podcastElement.querySelector("img.img-full");
+            imgElem.getAttribute("title").trim();
+        }
 
         //set description
         var seriesDescription = podcastElement.querySelector("div.overlay div.text").text.trim();
@@ -722,56 +731,6 @@ class KanScraper {
 
     }
 
-/*
-    async getPodcastStreams(episodeLink){
-        utils.writeLog("TRACE","getPodcastStreams => Entering");
-        var streams = "";
-        var doc = await utils.fetchPage(episodeLink);    
-        if (doc.querySelector("span.inline-block") && 
-        doc.querySelector("span.inline-block").text == "Web server is down"){
-            doc = await utils.fetchPage(episodeLink);
-            if (doc.querySelector("span.inline-block") && 
-                doc.querySelector("span.inline-block").text == "Web server is down"){
-                    return streams;
-            }
-        }
-        var episodeName = "";
-        if (doc.querySelector("h2.title") != undefined){
-            episodeName = doc.querySelector("h2.title").text.trim();
-        } else {
-            utils.writeLog("TRACE","getPodcastStreams => No name for the episode !");
-        }
-        var description = "";
-        if (doc.querySelector("div.item-content.hide-content") != null) {
-            doc.querySelector("div.item-content.hide-content").text.trim();
-        }else {
-            utils.writeLog("TRACE","getPodcastStreams => No description for the episode !");
-        }
-        var urlRawElem = doc.querySelector("figure");
-        var urlRaw
-        if (urlRawElem != undefined ){
-            urlRaw = urlRawElem.getAttribute("data-player-src");
-            urlRaw = urlRaw.trim();
-        } 
-        if ((urlRaw == undefined) ||(urlRaw.length == 0)){
-            return streams;
-        }
-        var url = urlRaw.substring(0,urlRaw.indexOf("?"));
-        utils.writeLog("TRACE","getPodcastStreams => Podcast stream name: " + episodeName + " description: " + description);
-
-         streams = [
-            {
-                url: url,
-                type: "Podcast",
-                name: episodeName,
-                description: description
-            }
-        ];
-
-        utils.writeLog("TRACE","getPodcastStreams => Exiting");
-        return streams;
-    }
-*/
     /***************************************************************
      * 
      * Data handling functions
@@ -805,7 +764,7 @@ class KanScraper {
             retId = link;
         }
         retId = retId.substring(retId.lastIndexOf("/") + 1, retId.length);
-        retId = constants.PREFIX + "_kan_" + retId;
+        retId = constants.PREFIX + "kan_" + retId;
 
         return retId;
     }
@@ -836,7 +795,10 @@ class KanScraper {
             if (name.indexOf (" - תכניות מלאות לצפייה ישירה") > 0){
                 name = name.substring(0,name.indexOf("-") - 1).trim();
             }
-             if (name.indexOf ("- סרטונים מלאים לצפייה ישירה") > 0){
+            if (name.indexOf ("- סרטונים מלאים לצפייה ישירה") > 0){
+                name = name.substring(0,name.indexOf("-") - 1).trim();
+            }
+            if (name.indexOf ("- פרקים מלאים לצפייה ישירה")){
                 name = name.substring(0,name.indexOf("-") - 1).trim();
             }
             if (name.indexOf ("239 360") > 0){
@@ -862,6 +824,9 @@ class KanScraper {
             }
             if (name.endsWith("לוגו")){
                 name = name.replace("לוגו","");
+            }
+            if (name.endsWith("-")){
+                name = name.replace("-","");
             }
             name = name.replace("_", " ");
         }
