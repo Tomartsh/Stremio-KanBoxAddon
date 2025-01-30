@@ -1,4 +1,6 @@
 const utils = require("./utilities.js");
+const addon = require("../addon.js");
+const {UPDATE_LIST} = require("./constants.js");
 
 class LiveTV {
 
@@ -57,6 +59,21 @@ class LiveTV {
             }
         }
         this._liveTVJSONObj[idKanLive] = kanLiveObj;
+        if (UPDATE_LIST){
+            var item = {
+                id: idKanLive, 
+                name: kanLiveObj.title, 
+                poster: kanLiveObj.metas.poster, 
+                description: kanLiveObj.metas.description, 
+                link: "",
+                background: kanLiveObj.metas.background, 
+                genres: kanLiveObj.metas.genres,
+                metas: kanLiveObj.metas,
+                type: "tv", 
+                subtype: "t"
+            }
+            addon.addToSeriesList(item);
+        }
         utils.writeLog("DEBUG", "crawlDigitalLive =>    Added Kan 11 Live TV");
 
         var idKanKidsLive = "il_kanTV_05";
@@ -92,6 +109,21 @@ class LiveTV {
             }
         }
         this._liveTVJSONObj[idKanKidsLive] = kanKidsObj;
+        if (UPDATE_LIST){
+            var item = {
+                id: idKanKidsLive, 
+                name: kanKidsObj.title, 
+                poster: kanKidsObj.metas.poster, 
+                description: kanKidsObj.metas.description, 
+                link: "",
+                background: kanKidsObj.metas.background, 
+                genres: kanKidsObj.metas.genres,
+                metas: kanKidsObj.metas,
+                type: "tv", 
+                subtype: "t"
+            }
+            addon.addToSeriesList(item);
+        }
         utils.writeLog("DEBUG", "crawlDigitalLive =>    Added Hinukhit Live TV");
 
         var idKanKnesset = "il_kanTV_06";
@@ -128,6 +160,20 @@ class LiveTV {
             }
         }
         this._liveTVJSONObj[idKanKnesset] = knessetLiveObj;
+        if (UPDATE_LIST){
+            var item = {
+                id: idKanKnesset, 
+                name: knessetLiveObj.title, 
+                poster: knessetLiveObj.metas.poster, 
+                description: knessetLiveObj.metas.description, 
+                link: "",
+                background: knessetLiveObj.metas.background, 
+                genres: knessetLiveObj.metas.genres,
+                metas: knessetLiveObj.metas,
+                type: "tv", 
+                subtype: "t"
+            }
+        }
         utils.writeLog("DEBUG", "crawlDigitalLive =>    Added Knesset Live TV");
 
         var idMakanLive = "il_kanTV_07";
@@ -164,8 +210,22 @@ class LiveTV {
             }
         }
         this._liveTVJSONObj[idMakanLive] = MakanLiveObj;
+        if (UPDATE_LIST){
+            var item = {
+                id: idMakanLive, 
+                name: MakanLiveObj.title, 
+                poster: MakanLiveObj.metas.poster, 
+                description: MakanLiveObj.metas.description, 
+                link: "",
+                background: MakanLiveObj.metas.background, 
+                genres: MakanLiveObj.metas.genres,
+                metas: MakanLiveObj.metas,
+                type: "tv", 
+                subtype: "t"
+            }
+        }
         utils.writeLog("DEBUG", "crawlDigitalLive =>    Added Makan Live TV");
-        utils.writeLog("DEBUG", "crawlDigitalLive => Leaving");
+        utils.writeLog("TRACE", "crawlDigitalLive => Leaving");
     }
 
     /********************************************************************
@@ -209,6 +269,20 @@ class LiveTV {
             }
         }
         this._liveTVJSONObj[idMakoLive] = makoLiveObj;
+        if (UPDATE_LIST){
+            var item = {
+                id: idMakoLive, 
+                name: makoLiveObj.title, 
+                poster: makoLiveObj.metas.poster, 
+                description: makoLiveObj.metas.description, 
+                link: "",
+                background: makoLiveObj.metas.background, 
+                genres: makoLiveObj.metas.genres,
+                metas: makoLiveObj.metas,
+                type: "tv", 
+                subtype: "t"
+            }
+        }
         utils.writeLog("DEBUG", "crawlMakoLive =>    Added Mako Live TV");
     }
 
@@ -249,6 +323,20 @@ class LiveTV {
 
         }
         this._liveTVJSONObj[idYnetLive] = idYnetLiveObj;
+        if (UPDATE_LIST){
+            var item = {
+                id: idYnetLive, 
+                name: idYnetLiveObj.title, 
+                poster: idYnetLiveObj.metas.poster, 
+                description: idYnetLiveObj.metas.description, 
+                link: "",
+                background: idYnetLiveObj.metas.background, 
+                genres: idYnetLiveObj.metas.genres,
+                metas: idYnetLiveObj.metas,
+                type: "tv", 
+                subtype: "t"
+            }
+        }
         utils.writeLog("DEBUG", "crawlMakoLive =>    Added YNet Live TV");
 
 
@@ -288,6 +376,20 @@ class LiveTV {
 
         }
         this._liveTVJSONObj[idI24EngLive] = idI24EngObj;
+        if (UPDATE_LIST){
+            var item = {
+                id: idI24EngLive, 
+                name: idI24EngObj.title, 
+                poster: idI24EngObj.metas.poster, 
+                description: idI24EngObj.metas.description, 
+                link: "",
+                background: idI24EngObj.metas.background, 
+                genres: idI24EngObj.metas.genres,
+                metas: idI24EngObj.metas,
+                type: "tv", 
+                subtype: "t"
+            }
+        }
         utils.writeLog("DEBUG", "crawlMakoLive =>    Added i24 English Live TV");
 
         /* i24 News Hebrew Live */
@@ -325,6 +427,20 @@ class LiveTV {
             }
         }
         this._liveTVJSONObj[idI24HebLive] = i24HebLiveObj;
+        if (UPDATE_LIST){
+            var item = {
+                id: idI24HebLive, 
+                name: i24HebLiveObj.title, 
+                poster: i24HebLiveObj.metas.poster, 
+                description: i24HebLiveObj.metas.description, 
+                link: "",
+                background: i24HebLiveObj.metas.background, 
+                genres: i24HebLiveObj.metas.genres,
+                metas: i24HebLiveObj.metas,
+                type: "tv", 
+                subtype: "t"
+            }
+        }
         utils.writeLog("DEBUG", "crawlDigitalLive =>    Added i24 Hebrew Live TV");
         
         /* i24 News French Live */
@@ -362,6 +478,20 @@ class LiveTV {
             }
         }
         this._liveTVJSONObj[idI24FrnLive] = i24FrnLiveObj;
+        if (UPDATE_LIST){
+            var item = {
+                id: idI24FrnLive, 
+                name: i24FrnLiveObj.title, 
+                poster: i24FrnLiveObj.metas.poster, 
+                description: i24FrnLiveObj.metas.description, 
+                link: "",
+                background: i24FrnLiveObj.metas.background, 
+                genres: i24FrnLiveObj.metas.genres,
+                metas: i24FrnLiveObj.metas,
+                type: "tv", 
+                subtype: "t"
+            }
+        }
         utils.writeLog("DEBUG", "crawlDigitalLive =>    Added i24 French Live TV");
 
         /* i24 News Arabic Live */
@@ -399,6 +529,20 @@ class LiveTV {
             }
         }
         this._liveTVJSONObj[idI24ArbLive] = i24ArbLiveObj;
+        if (UPDATE_LIST){
+            var item = {
+                id: idI24ArbLive, 
+                name: i24ArbLiveObj.title, 
+                poster: i24ArbLiveObj.metas.poster, 
+                description: i24ArbLiveObj.metas.description, 
+                link: "",
+                background: i24ArbLiveObj.metas.background, 
+                genres: i24ArbLiveObj.metas.genres,
+                metas: i24ArbLiveObj.metas,
+                type: "tv", 
+                subtype: "t"
+            }
+        }
         utils.writeLog("DEBUG", "crawlDigitalLive =>    Added i24 Arabic Live TV");
 
         /* 24 Live */
@@ -436,6 +580,20 @@ class LiveTV {
             }
         }
         this._liveTVJSONObj[id24Live] = jo24LiveObj;
+        if (UPDATE_LIST){
+            var item = {
+                id: id24Live, 
+                name: jo24LiveObj.title, 
+                poster: jo24LiveObj.metas.poster, 
+                description: jo24LiveObj.metas.description, 
+                link: "",
+                background: jo24LiveObj.metas.background, 
+                genres: jo24LiveObj.metas.genres,
+                metas: jo24LiveObj.metas,
+                type: "tv", 
+                subtype: "t"
+            }
+        }
         utils.writeLog("DEBUG", "crawlDigitalLive =>    Added 24 Live");
 
         /* Sport 5 Live */
@@ -473,15 +631,46 @@ class LiveTV {
             }
         }
         this._liveTVJSONObj[idSport5Live] = sport5LiveObj;
+        if (UPDATE_LIST){
+            var item = {
+                id: idSport5Live, 
+                name: sport5LiveObj.title, 
+                poster: sport5LiveObj.metas.poster, 
+                description: sport5LiveObj.metas.description, 
+                link: "",
+                background: sport5LiveObj.metas.background, 
+                genres: sport5LiveObj.metas.genres,
+                metas: sport5LiveObj.metas,
+                type: "tv", 
+                subtype: "t"
+            }
+        }
         utils.writeLog("DEBUG", "crawlDigitalLive =>    Added Sport 5 Live");
     }
 
     writeJSON(){
-            utils.writeLog("DEBUG", "writeJSON => Entered");
-            utils.writeJSONToFile(this._liveTVJSONObj, "stremio-livetv");
-            
-            utils.writeLog("DEBUG", "writeJSON => Leaving");
-        }
+        utils.writeLog("DEBUG", "writeJSON => Entered");
+        utils.writeJSONToFile(this._liveTVJSONObj, "stremio-livetv");
+        
+        utils.writeLog("DEBUG", "writeJSON => Leaving");
+    }
+
+    addToAddonList(jsonObj){
+        if (UPDATE_LIST){
+            var item = {
+                id: jsonObj.id, 
+                name: kanLiveObj.title, 
+                poster: kanLiveObj.metas.poster, 
+                description: kanLiveObj.metas.description, 
+                link: "",
+                background: kanLiveObj.metas.background, 
+                genres: kanLiveObj.metas.genres,
+                metas: kanLiveObj.metas,
+                type: "tv", 
+                subtype: "t"
+            }
+            addon.addToSeriesList(item);
+    }
 }
 
 
