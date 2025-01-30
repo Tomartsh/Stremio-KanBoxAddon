@@ -1,4 +1,9 @@
 module.exports = {
+    DEFAULT_DELAY: 5555,//default delay between requests
+    DEFAULT_CONN_TIMEOUT: 5000,
+    DEFAULT_CONN_RETRY: 3,  
+    MAX_CONCURRENT_CONNS: 8,
+    UPDATE_LIST: true, // update the series list as well as creating the JSON object  
     URL_JSON_BASE: "https://tomartsh.github.io/Stremio_Addon_Files/",
     //url_JSON_File: "stremio-kanbox.zip,stremio-mako.zip,stremio-variousTV"
     url_JSON_File: "https://tomartsh.github.io/Stremio_Addon_Files/stremio-kanbox.zip",
@@ -6,6 +11,11 @@ module.exports = {
     SAVE_FOLDER: "output/",
     PREFIX: "il_",
     LOG_LEVEL: "DEBUG",
+    HEADERS: {
+        "Content-Type" : "text/html; charset=utf-8",
+        "User-Agent"   : "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0",
+        "Charset": "UTF-8"
+    },
 
     //Kan constants
     KAN_URL_ADDRESS: "https://www.kan.org.il/lobby/kan-box",
@@ -20,7 +30,8 @@ module.exports = {
     //Mako constants (Keshet channel 12)
     URL_MAKO_VOD: "https://www.mako.co.il/mako-vod-index",
     URL_MAKO_VOD_JSON: "https://www.mako.co.il/mako-vod-index?type=service",
-    URL_MAKO_BASE: "http://www.mako.co.il"
+    URL_MAKO_BASE: "http://www.mako.co.il",
+    URL_MAKO_SUFFIX: "?type=service"
 
     //Channel 13 (Reshet) constants
 
