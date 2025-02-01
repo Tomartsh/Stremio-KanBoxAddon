@@ -1,8 +1,9 @@
-//const { formToJSON } = require("axios");
+
 const constants = require("./constants.js");
 const utils = require("./utilities.js");
-//const axios = require("axios");
-//const fetch = require('node-fetch');
+const {URL_MAKO_SUFFIX, URL_MAKO_VOD_JSON, URL_MAKO_BASE, URL_MAKO_VOD } = require ("./constants");
+const {fetchData, writeLog} = require("./utilities.js");
+const {UPDATE_LIST} = require("./constants.js");
 
 class MakoScraper{
     cosntructor(){
@@ -10,19 +11,75 @@ class MakoScraper{
     }
 
     async crawl(){
-        var jsonPage = await utils.fetchJSONPage(constants.URL_MAKO_VOD_JSON);
-        var i = 100;4
+        writeLog("TRACE","crawl() => Entering");
+        var jsonPage = await fetchData(URL_MAKO_VOD_JSON, true) ;
+        
+        var i = 100;
         for (var series of jsonPage["root"]["allPrograms"]){
             var name = series["title"];
-            var id = constants.PREFIX + "_mako" + utils.padWithLeadingZeros(i,5);
+            var id = constants.PREFIX + "mako" + utils.padWithLeadingZeros(i,5);
             var link = constants.URL_MAKO_BASE + series["url"];
-            var genres = ['series["genres"]'];
+            var genres = series["genres"].split(",");
             var description = series["brief"];
             var background = series["picVOD"];
-            var poster = series["logoPicVOD"]
+            var poster = series["logoPicVOD"];
+ 
+            writeLog("DEBUG","crawl() => calling addSeriesEpisodes for " + name + " URL: " + link);
+            var videos = this.addSeriesEpisodes(link, id);
         }
+        this.addToJsonObject(id,name,link,background,description,genres,videos,"m", "series"); 
+        writeLog("TRACE","crawl() => Exiting");
     }
     
+    async addSeriesEpisodes(link, id){
+        writeLog("TRACE","addSeriesEpisodes => Entering");
+        var podcastSeriesPage = await fetchData(link + URL_MAKO_SUFFIX, true);
+        //get the seasons and get the episodes for each season
+        //var seasons = podcastSeriesPage.querySelectorAll("div#seasonDropdown ul.dropdown li ul li");
+        for (var season of podcastSeriesPage["root"]["programData"]["seasons"]){
+            var seasonId = season["name"];
+            var noOfSeasonEpisodes = season["vods"].length;
+            writeLog("DEBUG","addSeriesEpisodes => Season " + seasonId + " has " + noOfSeasonEpisodes + " episodes");
+            for (var episode of season["vods"]){
+                var episodeId = id + ":" + seasonId + ":" + noOfSeasonEpisodes;
+                var released = episode["date"];
+                var thumbnail = episode["picI"];
+                var title = episode["title"];
+                var description = episode["subtitle"];
+                var episodeLink = URL_MAKO_BASE + episode["link"];
+                var streams = [];
+            }
+            
+        }
+    }
+
+    addToJsonObject(id, seriesTitle, seriesPage, imgUrl, seriesDescription, genres, videosList, subType, type){
+        var jsonObj = {
+            id: id,
+            link: seriesPage,
+            type: type,
+            subtype: subType,
+            title: seriesTitle,
+            metas: {
+                id: id,
+                name: seriesTitle,
+                link: seriesPage,
+                background: imgUrl,
+                poster: imgUrl,
+                posterShape: "poster",
+                logo: imgUrl,
+                description: seriesDescription,
+                genres: genres,
+                videos: videosList
+            }
+        }
+
+        this._kanJSONObj[id] = jsonObj;
+        if (UPDATE_LIST){
+            addon.addToSeriesList(id, seriesTitle, imgUrl, seriesDescription, seriesPage, imgUrl, genres,jsonObj.metas,type, subType);
+        }
+        writeLog("INFO","addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + " Link: " + seriesPage + " subtype: " + subType);
+    }
 
 }
 
