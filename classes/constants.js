@@ -2,7 +2,7 @@ module.exports = {
     DEFAULT_DELAY: 5555,//default delay between requests
     DEFAULT_CONN_TIMEOUT: 5000,
     DEFAULT_CONN_RETRY: 3,  
-    MAX_CONCURRENT_CONNS: 8,
+    MAX_CONCURRENT_CONNS: 14,
     UPDATE_LIST: true, // update the series list as well as creating the JSON object  
     URL_JSON_BASE: "https://tomartsh.github.io/Stremio_Addon_Files/",
     //url_JSON_File: "stremio-kanbox.zip,stremio-mako.zip,stremio-variousTV"
