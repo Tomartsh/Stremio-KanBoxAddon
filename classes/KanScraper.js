@@ -1,21 +1,27 @@
 const constants = require("./constants.js");
 const utils = require("./utilities.js");
 const addon = require("../addon.js");
+const {fetchData, writeLog} = require("./utilities.js");
+const {UPDATE_LIST} = require("./constants.js");
 
 class KanScraper {
 
     constructor() {
         this._kanJSONObj = {};
+        this._podcastsFinished = false;
+        this._vodFinished = false;
+        this._tinyFinished = false;
+        this._teenFinished = false;
     }
 
     crawl(){
-        utils.writeLog("INFO", "Start Crawling");
+        writeLog("INFO", "Start Crawling");
         this.crawlKanVOD();
         this.crawlHinukhitKids();
         this.crawlHinuchitTeen();
         this.crawlPodcasts();
-        utils.writeLog("INFO", "Done Crawling");
-        this.writeJSON();
+        writeLog("INFO", "Done Crawling");
+        //this.writeJSON();
     }
 
     /***********************************************************
@@ -24,9 +30,9 @@ class KanScraper {
      * 
      ***********************************************************/
     async crawlKanVOD(){
-        utils.writeLog("TRACE", "kanVOD => Entered");
-
-        const doc = await utils.fetchPage(constants.KAN_URL_ADDRESS);
+        writeLog("TRACE", "kanVOD => Entered");
+        writeLog("DEBUG","kanVOD => Starting retrieval of VOD series");
+        const doc = await fetchData(constants.KAN_URL_ADDRESS);
 
         var series = doc.querySelectorAll("a.card-link");
         for (var seriesElem of series) {// iterate over series
@@ -65,7 +71,7 @@ class KanScraper {
             //Start individual series section
             //retrieve series page. We are adding to the link in order to get all the seasons in pne page
             var retrieveLink = linkSeries + "?page=1&itemsToShow=1000";
-            var seriesPageDoc = await utils.fetchPage(retrieveLink);
+            var seriesPageDoc = await fetchData(retrieveLink);
             //set series title (name)
             var seriesTitle = "";
             var seriesTitleStr
@@ -108,12 +114,12 @@ class KanScraper {
                 continue;
             } else {
                 var seasons = seriesPageDoc.querySelectorAll("div.seasons-item");
-                utils.writeLog("DEBUG","crawlKanVOD => seasons length: " + seasons.length);
+                writeLog("DEBUG","crawlKanVOD => seasons length: " + seasons.length);
                 if (seasons.length > 0) {
-                    utils.writeLog("DEBUG","kanVOD =>   getVideo link easons.length > 0: " + linkSeries);
+                    writeLog("DEBUG","kanVOD =>   getVideo link easons.length > 0: " + linkSeries);
                     videosListArr = this.getVideos(seasons, id, subType);
                 } else {
-                    utils.writeLog("DEBUG","kanVOD =>   getVMovies link easons.length <> 0: " + linkSeries);
+                    writeLog("DEBUG","kanVOD =>   getVMovies link easons.length <> 0: " + linkSeries);
                     videosListArr = this.getMovies(seriesPageDoc, id, subType);
                 }
             }
@@ -125,8 +131,8 @@ class KanScraper {
            
         }
 
-        this._vodComplete = true;
-        utils.writeLog("TRACE", "kanVOD => Leaving");
+        this._vodFinished = true;
+        writeLog("TRACE", "kanVOD => Leaving");
     }
 
     /**********************************************************
@@ -146,7 +152,7 @@ class KanScraper {
             var seasonEpisodesElems = videosElems[i].querySelectorAll("a.card-link");
             
             for (var iter = 0; iter < seasonEpisodesElems.length; iter ++) {//iterate over episodes
-                utils.writeLog("DEBUG","season: " + seasonNo + " episode: " + (iter +1));
+                writeLog("DEBUG","season: " + seasonNo + " episode: " + (iter +1));
                 var seasonEpisodesElem = seasonEpisodesElems[iter];
                 var episodePageLink = seasonEpisodesElem.getAttribute("href");
                 if (episodePageLink.startsWith("/")){
@@ -169,10 +175,10 @@ class KanScraper {
                             if (elemEpisodeLogo != null) {
                                 episodeLogoUrl = this.getImageFromUrl(elemEpisodeLogo.attr("src"),"d");
                             }
-                            utils.writeLog("TRACE","getVideos => episodeLogoUrl location: " + episodeLogoUrl);                           
+                            writeLog("TRACE","getVideos => episodeLogoUrl location: " + episodeLogoUrl);                           
                         }
                     } catch(ex) {
-                        utils.writeLog("getVideos => " + ex);
+                        writeLog("getVideos => " + ex);
                         
                     }
                 }
@@ -202,7 +208,7 @@ class KanScraper {
                 }
 
                 videosArr.push(videoJsonObj);
-                utils.writeLog("DEBUG","getVideos => Added videos for episode : " + title + " " + seasonNo + ":" + (iter +1) + " subtype: " + subType);
+                writeLog("DEBUG","getVideos => Added videos for episode : " + title + " " + seasonNo + ":" + (iter +1) + " subtype: " + subType);
             }
         }
         return videosArr;        
@@ -248,11 +254,11 @@ class KanScraper {
     }
 
     async getStreams(link){
-        utils.writeLog("TRACE","getStreams => Entering: ");
-        utils.writeLog("TRACE","getStreams => Link: " + link)
-        var doc = await utils.fetchPage(link);
+        writeLog("TRACE","getStreams => Entering: ");
+        writeLog("TRACE","getStreams => Link: " + link)
+        var doc = await fetchData(link);
         if (doc == undefined){
-            utils.writeLog("DEBUG","getStreams => Error retrieving do from " + link);
+            writeLog("DEBUG","getStreams => Error retrieving do from " + link);
         }
         var released = "";
         var videoUrl = "";
@@ -290,7 +296,7 @@ class KanScraper {
             description: descVideo,
             released: released
         };
-        utils.writeLog("TRACE","getStreams => Exiting: ");
+        writeLog("TRACE","getStreams => Exiting: ");
         return streamsJSONObj;
     }
 
@@ -323,8 +329,9 @@ class KanScraper {
      ****************************************************************/
     
     async crawlHinukhitKids(){
-        utils.writeLog("TRACE", "crawlHinukhitKids => Entering");
-        var doc = await utils.fetchPage(constants.URL_HINUKHIT_TINY);
+        writeLog("TRACE", "crawlHinukhitKids => Entering");
+        writeLog("DEBUG","crawlHinukhitKids => Starting retrieval of Tiny series");
+        var doc = await fetchData(constants.URL_HINUKHIT_TINY);
         var series = doc.querySelectorAll("div.umb-block-list div script");
         var kidsScriptStr = series[4].toString();
         var startIndex = kidsScriptStr.indexOf("[{");
@@ -334,13 +341,14 @@ class KanScraper {
             
         this.addMetasForKids(kidsJsonArr, "k");
 
-        this._hinukhitComplete = true;
-        utils.writeLog("TRACE", "crawlHinukhitKids => Exiting");
+        this._tinyFinished = true;
+        writeLog("TRACE", "crawlHinukhitKids => Exiting");
     }
 
     async crawlHinuchitTeen(){
-        utils.writeLog("TRACE", "crawlHinuchitTeen => Entering");
-        var doc = await utils.fetchPage(constants.URL_HINUKHIT_TEENS);
+        writeLog("TRACE", "crawlHinuchitTeen => Entering");
+        writeLog("DEBUG","crawlHinuchitTeen => Starting retrieval of Teen series");
+        var doc = await fetchData(constants.URL_HINUKHIT_TEENS);
         var series = doc.querySelectorAll("div.umb-block-list div script");
         var kidsScriptStr = series[4].toString();
         var startIndex = kidsScriptStr.indexOf("[{");
@@ -350,8 +358,8 @@ class KanScraper {
             
         this.addMetasForKids(jsonObjectTeen, "n");
 
-        this._teenComplete = true;
-        utils.writeLog("TRACE", "crawlHinuchitTeen => Exiting");
+        this._teenFinished = true;
+        writeLog("TRACE", "crawlHinuchitTeen => Exiting");
     }
 
     /****************************************************************************
@@ -360,7 +368,7 @@ class KanScraper {
      * @param {*} subType 
      ***************************************************************************/
     async addMetasForKids(jsonArr, subType){
-        utils.writeLog("TRACE", "addMetasForKids => Entering");
+        writeLog("TRACE", "addMetasForKids => Entering");
         for (var i = 0; i < jsonArr.length; ++i) { //iterate over series    
             var jsonObj = jsonArr[i];
             var imgUrl = this.getImageFromUrl(jsonObj.Image, subType);      
@@ -371,7 +379,7 @@ class KanScraper {
             var id;
             id = this.generateId(seriesPage);
 
-            var doc = await utils.fetchPage(seriesPage + "?currentPage=2&itemsToShow=100");
+            var doc = await fetchData(seriesPage + "?currentPage=2&itemsToShow=100");
             //set the series name
             var seriesTitle = "";
             if (doc.querySelector("title") != undefined){
@@ -406,10 +414,10 @@ class KanScraper {
             var seasons = doc.querySelectorAll("div.seasons-item.kids");
             var videosListArr = this.getKidsVideos(seasons, id, subType);
        
-            this.addToJsonObject(id, seriesTitle, seriesPage, imgUrl, seriesDescription, genres, videosListArr, subType, "series");
-            utils.writeLog("TRACE", "addMetasForKids => Added  series, ID: " + id + " Name: " + seriesTitle + " subtype: " + subType);
+            //this.addToJsonObject(id, seriesTitle, seriesPage, imgUrl, seriesDescription, genres, videosListArr, subType, "series");
+            writeLog("TRACE", "addMetasForKids => Added  series, ID: " + id + " Name: " + seriesTitle + " subtype: " + subType);
         }
-        utils.writeLog("TRACE", "addMetasForKids => Exiting");
+        writeLog("TRACE", "addMetasForKids => Exiting");
     }
  
     
@@ -478,7 +486,7 @@ class KanScraper {
 
                     }
                 ];
-                utils.writeLog("TRACE","getKidsVideos => Added videos for episode : " + episodeTitle + " " + videoId);
+                writeLog("TRACE","getKidsVideos => Added videos for episode : " + episodeTitle + " " + videoId);
             }
         }
         
@@ -492,18 +500,18 @@ class KanScraper {
     ***************************************************************************************************************/
 
     async crawlPodcasts(){
-        utils.writeLog("TRACE","crawlPodcasts => Entering");
+        writeLog("TRACE","crawlPodcasts => Entering");
         //get the podcasts series genre list
-        utils.writeLog("DEBUG","crawlPodcasts => Starting retrieval of podcast series");
-        var docPodcastSeries = await utils.fetchPage(constants.PODCASTS_URL);
+        writeLog("DEBUG","crawlPodcasts => Starting retrieval of podcast series");
+        var docPodcastSeries = await fetchData(constants.PODCASTS_URL);
         var genres = docPodcastSeries.querySelectorAll("div.podcast-row");
-        utils.writeLog("TRACE","crawlPodcasts => Found " + genres.length + " genres");
+        writeLog("TRACE","crawlPodcasts => Found " + genres.length + " genres");
 
         //var podcastSeries = {};
         //go over the genres and add podcast series by genre
         for (var genre of genres) { //iterate over podcasts rows by genre
             var genresName = genre.querySelector("h4.title-elem.category-name").text.trim();
-            utils.writeLog("DEBUG","crawlPodcasts => Genre " + genresName);
+            writeLog("DEBUG","crawlPodcasts => Genre " + genresName);
             var podcastsSeriesElements = genre.querySelectorAll("a.podcast-item");
 
             for (var podcastElement of podcastsSeriesElements){// iterate of the podcast series
@@ -511,17 +519,21 @@ class KanScraper {
             }
             
         }
-        utils.writeLog("TRACE","crawlPodcasts => Exiting");
+        
         //Handle Kan 88
-        utils.writeLog("DEBUG","crawlPodcasts => Starting retrieval of kan88 podcast series");
-        var docKan88PodcastSeries = await utils.fetchPage(constants.KAN88_POCASTS_URL);
+        writeLog("DEBUG","crawlPodcasts => Starting retrieval of kan88 podcast series");
+        var docKan88PodcastSeries = await fetchData(constants.KAN88_POCASTS_URL);
 
-        utils.writeLog("DEBUG","crawlPodcasts => Processing Kan 88 Podcasts");
+        writeLog("DEBUG","crawlPodcasts => Processing Kan 88 Podcasts");
         var podcastsKan88SeriesElements = docKan88PodcastSeries.querySelectorAll("div.card.card-row");
-        utils.writeLog("DEBUG","crawlPodcasts => No. of Kan 88 podcasts: " + podcastsKan88SeriesElements.length);
+        writeLog("DEBUG","crawlPodcasts => No. of Kan 88 podcasts: " + podcastsKan88SeriesElements.length);
         for (var podcastKan88SeriesElement of podcastsKan88SeriesElements){//iterate of the podcast series
+            writeLog("DEBUG","crawlPodcasts => Kan 88 " + podcastKan88SeriesElement);
             await this.addPodcastSeries(podcastKan88SeriesElement, ["music","מוסיקה"]);
         }
+        writeLog("DEBUG","crawlPodcasts => setting _podcastsFinished to true");
+        this._podcastsFinished = true;
+        writeLog("TRACE","crawlPodcasts => Exiting");
     }
 
     async addPodcastSeries(podcastElement, genre){
@@ -546,11 +558,17 @@ class KanScraper {
             seriesTitleElem = podcastElement.getAttribute("title").trim();
         } else { //Kan 88 Podcast episodes
             var imgElem = podcastElement.querySelector("img.img-full");
-            imgElem.getAttribute("title").trim();
+            seriesTitleElem = imgElem.getAttribute("title").trim();
         }
 
         //set description
-        var seriesDescription = podcastElement.querySelector("div.overlay div.text").text.trim();
+        var seriesDescription = "";
+        if (podcastElement.querySelector("div.overlay div.text") != undefined){
+            seriesDescription = podcastElement.querySelector("div.overlay div.text").text.trim();
+        } else {
+            seriesDescription = podcastElement.querySelector("div.description").text.trim(); //Kan 88 Podcast episodes
+        }
+            
 
         //get the episodes details
         var podcastVideosArr = await this.getpodcastEpisodeVideos(podcastSeriesLink, id);
@@ -559,9 +577,9 @@ class KanScraper {
 
     } 
     async getpodcastEpisodeVideos(podcastSeriesLink, id){
-        utils.writeLog("TRACE","getpodcastEpisodeVideos => Entering");
+        writeLog("TRACE","getpodcastEpisodeVideos => Entering");
         
-        var podcastSeriesPageDoc = await utils.fetchPage(podcastSeriesLink); //get the series episodes 
+        var podcastSeriesPageDoc = await fetchData(podcastSeriesLink); //get the series episodes 
         var lastPageNo = ''
         try {
             lastPageNo = podcastSeriesPageDoc.querySelector('li[class*="pagination-page__item"][title*="Last page"]').getAttribute('data-num');
@@ -579,7 +597,7 @@ class KanScraper {
                         var hrefObj = episodeChecked.querySelector("a.card-body")
                         var episodeLink = hrefObj.getAttribute("href");
 
-                        var docToCheck = await utils.fetchPage(episodeLink);//check if there is an episode on the oher side or more episodes
+                        var docToCheck = await fetchData(episodeLink);//check if there is an episode on the oher side or more episodes
                         var card = docToCheck.querySelector("h2.title");
                         if (card != undefined){ //this is an episode so let's get the  stream while we have the data
                             var streams = this.getPodcastStream(docToCheck);
@@ -589,7 +607,7 @@ class KanScraper {
                             });
                         } else {
                             //var subPageHref = podcastEpisodesToCheck.querySelector("a.card-body").etAttribute("href");
-                            var docSubPage = await utils.fetchPage(episodeLink);
+                            var docSubPage = await fetchData(episodeLink);
                             var episodesToCheck = docSubPage.querySelectorAll("div.card.card-row");
                             for (var episodeToCheck of episodesToCheck){
                                 var streams = this.getPodcastStream(episodeToCheck);
@@ -598,21 +616,20 @@ class KanScraper {
                                     stream: streams
                             });
                             }
-                        }
-                        
+                        }                 
                     }
                     i = 1;
                     continue
                 }
-                utils.writeLog("TRACE","getpodcastEpisodeVideos => calling fetchPage with URL: " + podcastSeriesLink + "?page=" + i);
-                var podcastsAdditionalPages = await utils.fetchPage(podcastSeriesLink + "?page=" + i);
+                writeLog("TRACE","getpodcastEpisodeVideos => calling fetchPage with URL: " + podcastSeriesLink + "?page=" + i);
+                var podcastsAdditionalPages = await fetchData(podcastSeriesLink + "?page=" + i);
                 var podcastElems = podcastsAdditionalPages.querySelectorAll("div.card.card-row");
 
                 for (var additionalPodcast of podcastElems){
                     var hrefObj = additionalPodcast.querySelector("a.card-body")
                     var episodeLink = hrefObj.getAttribute("href");
 
-                    var docToCheck = await utils.fetchPage(episodeLink);//check if there is an episode on the oher side or more episodes
+                    var docToCheck = await fetchData(episodeLink);//check if there is an episode on the oher side or more episodes
                     if (docToCheck == undefined){ continue; }
                     var card = docToCheck.querySelector("h2.title");
                     if (card != undefined){ //this is an episode so let's get the  stream while we have the data
@@ -623,7 +640,7 @@ class KanScraper {
                         });
                     } else {
                         //var subPageHref = podcastEpisodesToCheck.querySelector("a.card-body").etAttribute("href");
-                        var docSubPage = await utils.fetchPage(episodeLink);
+                        var docSubPage = await fetchData(episodeLink);
                         var episodesToCheck = docSubPage.querySelectorAll("div.card.card-row");
                         for (var episodeToCheck of episodesToCheck){
                             var streams = this.getPodcastStream(episodeToCheck);
@@ -652,9 +669,9 @@ class KanScraper {
                 var episodes_body = episodeElement.querySelector("a.card-body")
                 if (episodes_body != undefined){
                     episodeLink = episodes_body.getAttribute("href");
-                    utils.writeLog("DEBUG","getPodcastEpisodeVideoArray => href card image empty. Using card href");
+                    writeLog("DEBUG","getPodcastEpisodeVideoArray => href card image empty. Using card href");
                 } else {
-                    utils.writeLog("DEBUG","getPodcastEpisodeVideoArray => No episode link found, skipping. Link" );
+                    writeLog("DEBUG","getPodcastEpisodeVideoArray => No episode link found, skipping. Link" );
                     
                 }
             }
@@ -670,7 +687,7 @@ class KanScraper {
             if (episodeElement.querySelector("li.date-local") != undefined){
                 released = episodeElement.querySelector("li.date-local").getAttribute("data-date-utc").trim();
             }
-            utils.writeLog("DEBUG","getpodcastEpisodeVideos => Calling streams with URL: " + episodeLink + " for episode: " + episodeTitle + " released:" + released);
+            writeLog("DEBUG","getpodcastEpisodeVideos => Calling streams with URL: " + episodeLink + " for episode: " + episodeTitle + " released:" + released);
             //var streams = await this.getPodcastStreams(episodeLink);
             podcastEpisodesVideos.push({
                 id: id + ":1:" + podcastEpisodeNo,
@@ -683,27 +700,27 @@ class KanScraper {
                 released: released,
                 streams: streams
             });
-            utils.writeLog("DEBUG","getpodcastEpisodeVideos => Added episode: " + id + ":1:" + podcastEpisodeNo);
+            writeLog("DEBUG","getpodcastEpisodeVideos => Added episode: " + id + ":1:" + podcastEpisodeNo);
             podcastEpisodeNo--
         }
 
-        utils.writeLog("TRACE","getpodcastEpisodeVideos => Exiting");
+        writeLog("TRACE","getpodcastEpisodeVideos => Exiting");
         return podcastEpisodesVideos;
     }
 
     getPodcastStream(streamElement){
-        utils.writeLog("TRACE","getPodcastStream => Entering");
+        writeLog("TRACE","getPodcastStream => Entering");
         var episodeName = "";
         if (streamElement.querySelector("h2.title") != undefined){
             episodeName = streamElement.querySelector("h2.title").text.trim();
         } else {
-            utils.writeLog("TRACE","getPodcastStreams => No name for the episode !");
+            writeLog("TRACE","getPodcastStreams => No name for the episode !");
         }
         var description = "";
         if (streamElement.querySelector("div.item-content.hide-content") != null) {
             streamElement.querySelector("div.item-content.hide-content").text.trim();
         }else {
-            utils.writeLog("TRACE","getPodcastStreams => No description for the episode !");
+            writeLog("TRACE","getPodcastStreams => No description for the episode !");
         }
         var urlRawElem = streamElement.querySelector("figure");
         var urlRaw
@@ -715,7 +732,7 @@ class KanScraper {
             return streams;
         }
         var url = urlRaw.substring(0,urlRaw.indexOf("?"));
-        utils.writeLog("TRACE","getPodcastStreams => Podcast stream name: " + episodeName + " description: " + description);
+        writeLog("TRACE","getPodcastStreams => Podcast stream name: " + episodeName + " description: " + description);
 
         var streams = [
             {
@@ -726,7 +743,7 @@ class KanScraper {
             }
         ];
 
-        utils.writeLog("TRACE","getPodcastStream => Exiting");
+        writeLog("TRACE","getPodcastStream => Exiting");
         return streams;
 
     }
@@ -1007,16 +1024,34 @@ class KanScraper {
         }
 
         this._kanJSONObj[id] = jsonObj;
-        utils.writeLog("INFO","addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + " Link: " + seriesPage + " subtype: " + subType);
-
+        if (UPDATE_LIST){
+            var item = {
+                id: id, 
+                name: seriesTitle, 
+                poster: imgUrl, 
+                description: seriesDescription, 
+                link: seriesPage,
+                background: imgUrl, 
+                genres: genres,
+                metas: jsonObj.metas,
+                type: type, 
+                subtype: subType
+            }
+            addon.addToSeriesList(item);
+        }
+        writeLog("INFO","addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + " Link: " + seriesPage + " subtype: " + subType);
     }
 
     writeJSON(){
-        utils.writeLog("TRACE", "writeJSON => Entered");
-        utils.writeLog("DEBUG", "writeJSON => All tasks completed - writing");
+        if ((! this._podcastsFinished)) {
+            writeLog("INFO", "writeJSON => Not all modules completed. Cannot write JSON file: \n  Podcasts: " + this._podcastsFinished + "\n    VOD: " + this._vodFinished + "\n  Tiny" + this._tinyFinished + "\n    Teen: " +this._teenFinished);
+            return;
+        }
+        writeLog("TRACE", "writeJSON => Entered");
+        writeLog("DEBUG", "writeJSON => All tasks completed - writing file");
         utils.writeJSONToFile(this._kanJSONObj, "stremio-kan");
 
-        utils.writeLog("TRACE", "writeJSON => Leaving");
+        writeLog("TRACE", "writeJSON => Leaving");
     }
 }
 
@@ -1024,4 +1059,4 @@ class KanScraper {
 /**********************************************************
  * Module Exports
  **********************************************************/
-module.exports = KanScraper;
+module.exports = {KanScraper, writeJSON, crawl};
