@@ -118,7 +118,8 @@ function writeLog(level, msg){
 function writeJSONToFile(jsonObj, fileName){
     var json = JSON.stringify(jsonObj, null, 2);
     var dateStr = getCurrentDateStr();
-    dateStr = dateStr.replace(":","-");
+    dateStr = dateStr.split(":").join("_");
+    //dateStr = dateStr.replace(':','-');
     var path = constants.SAVE_FOLDER + fileName + "_" + dateStr + ".json";
 
 
