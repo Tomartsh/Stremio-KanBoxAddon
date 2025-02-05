@@ -13,12 +13,12 @@ const Makoscraper = require("./classes/MakoScraper.js");
 const LiveTV = require("./classes/LiveTV.js");
 
 const listSeries = new srList();
-//const makoScraper = new Makoscraper();
-//makoScraper.crawl();
+const makoScraper = new Makoscraper();
+makoScraper.crawl();
 const kanScraper = new Kanscraper();
 kanScraper.crawl();
-//const liveTV = new LiveTV();
-//liveTV.crawl();
+const liveTV = new LiveTV();
+liveTV.crawl();
 
 // Main program
 (async () => {
@@ -241,5 +241,4 @@ function addToSeriesList(item){
 }
 
 module.exports = builder.getInterface();
-//module.exports = addToSeriesList
 exports.addToSeriesList = addToSeriesList;
