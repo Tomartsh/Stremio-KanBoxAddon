@@ -1,2 +1,12 @@
 # ignore the modules folder
 node_modules
+package-lock.json
+stremio-kanbox.json
+
+#ignore the logs folder
+logs
+
+#ignore output folders
+output/*.zip
+output/*.json
+output/backup
