@@ -5,7 +5,7 @@ const { parse } = require('node-html-parser');
 const fetch = require('node-fetch');
 const axios = require('axios');
 
-const {DEFAULT_CONN_RETRY, DEFAULT_CONN_TIMEOUT, HEADERS, MAX_CONCURRENT_CONNS, DEFAULT_DELAY } = require ("./constants");
+const {DEFAULT_CONN_RETRY, DEFAULT_CONN_TIMEOUT, HEADERS, MAX_CONCURRENT_CONNS, DEFAULT_DELAY, SAVE_FOLDER, LOG_LEVEL } = require ("./constants");
 
 class Throttler {
     constructor(limit) {
@@ -94,7 +94,7 @@ function padWithLeadingZeros(num, totalLength) {
 }
 
 function writeLog(level, msg){
-    var logLevel = constants.LOG_LEVEL;
+    var logLevel = LOG_LEVEL;
     var dateStr = getCurrentDateStr();
 
     if (level =="ERROR"){
@@ -120,7 +120,7 @@ function writeJSONToFile(jsonObj, fileName){
     var dateStr = getCurrentDateStr();
     dateStr = dateStr.split(":").join("_");
     //dateStr = dateStr.replace(':','-');
-    var path = constants.SAVE_FOLDER + fileName + "_" + dateStr + ".json";
+    var path = SAVE_FOLDER + fileName + "_" + dateStr + ".json";
 
 
     write.writeFile(path, json, (err) => {
@@ -130,7 +130,18 @@ function writeJSONToFile(jsonObj, fileName){
         }
     
         console.log("Saved data to file " + path);
-    })
+    });
+
+    //zip the file
+    var zipFileName = fileName + ".zip";
+    var zipFileFullPath = SAVE_FOLDER + zipFileName; 
+    var zip = new AdmZip();
+    zip.addLocalFile(path);
+    // get everything as a buffer
+    var willSendthis = zip.toBuffer();
+    // or write everything to disk
+    zip.writeZip(fileName, zipFileFullPath);
+
 }
 
 function getCurrentDateStr(){

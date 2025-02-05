@@ -7,4 +7,6 @@ stremio-kanbox.json
 logs
 
 #ignore output folders
-output
+output/*.zip
+output/*.json
+output/backup
