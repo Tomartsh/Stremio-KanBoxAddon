@@ -1,0 +1,6 @@
+2025-01-01 13:00:31 [main] INFO  WebCrawlerMako - main => Started @ 01-01-2025_13-00
+2025-01-01 13:00:31 [main] INFO  WebCrawlerMako - crawlLive => Added  Kan 11 Live TV
+2025-01-01 13:02:40 [main] INFO  WebCrawlerMako - main = > Stopped @ 01-01-2025_13-02
+2025-01-01 13:04:22 [main] INFO  WebCrawlerMako - main => Started @ 01-01-2025_13-04
+2025-01-01 13:04:29 [main] INFO  WebCrawlerMako - crawlLive => Added  Kan 11 Live TV
+2025-01-01 13:05:10 [main] ERROR WebCrawlerMako - fetchPage => Failed to retrieve page: https://www.mako.co.il/mako-vod-index
