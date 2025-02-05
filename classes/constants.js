@@ -2,7 +2,7 @@ module.exports = {
     DEFAULT_DELAY: 5555,//default delay between requests
     DEFAULT_CONN_TIMEOUT: 5000,
     DEFAULT_CONN_RETRY: 3,  
-    MAX_CONCURRENT_CONNS: 14,
+    MAX_CONCURRENT_CONNS: 8,
     UPDATE_LIST: true, // update the series list as well as creating the JSON object  
     URL_JSON_BASE: "https://tomartsh.github.io/Stremio_Addon_Files/",
     //url_JSON_File: "stremio-kanbox.zip,stremio-mako.zip,stremio-variousTV"
@@ -28,11 +28,11 @@ module.exports = {
     KAN88_POCASTS_URL: "https://www.kan.org.il/content/kan/podcasts/kan88/",
 
     //Mako constants (Keshet channel 12)
-    URL_MAKO_VOD: "https://www.mako.co.il/mako-vod-index",
+    URL_MAKO_VOD: "https://www.mako.co.il/mako-vod-index?platform=responsive",
     URL_MAKO_VOD_JSON: "https://www.mako.co.il/mako-vod-index?type=service",
     URL_MAKO_BASE: "http://www.mako.co.il",
-    URL_MAKO_SUFFIX: "?type=service"
+    URL_MAKO_SUFFIX: "?platform=responsive",
 
     //Channel 13 (Reshet) constants
-
+    URL_RESHET_VOD: "https://13tv.co.il/all-shows/all-shows-list/"
 };
