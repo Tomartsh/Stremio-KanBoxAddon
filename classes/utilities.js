@@ -4,9 +4,26 @@ const write = require("fs");
 const { parse } = require('node-html-parser');
 const fetch = require('node-fetch');
 const axios = require('axios');
+const AdmZip = require("adm-zip");
+const fs = require('fs');
+const log4js = require("log4js");
+const {MAX_RETRIES, REQUEST_TIMEOUT,HEADERS, MAX_CONCURRENT_REQUESTS, RETRY_DELAY, SAVE_FOLDER, LOG_LEVEL } = require ("./constants");
 
-const {DEFAULT_CONN_RETRY, DEFAULT_CONN_TIMEOUT, HEADERS, MAX_CONCURRENT_CONNS, DEFAULT_DELAY, SAVE_FOLDER, LOG_LEVEL } = require ("./constants");
+log4js.configure({
+    appenders: { 
+        out: { type: "stdout" },
+        Stremio: 
+        { 
+            type: "file", 
+            filename: "logs/Stremio_addon.log", 
+            maxLogSize: 10 * 1024 * 1024, // = 10Mb 
+            backups: 5, // keep five backup files
+        }
+    },
+    categories: { default: { appenders: ['Stremio','out'], level: "debug" } },
+});
 
+/*
 class Throttler {
     constructor(limit) {
         this.limit = limit;
@@ -47,15 +64,17 @@ class Throttler {
 
 const throttler = new Throttler(MAX_CONCURRENT_CONNS);
 
-async function fetchWithRetries(url, asJson = false) {
+async function fetchWithRetries(url, asJson = false, params = {}, headers) {
     writeLog("TRACE","fetchWithRetries => Entering");
+    writeLog("TRACE","fetchWithRetries => URL: " + url + "\n    asJson: " + asJson + "\n    Params: " + "params: " + params + "\n   headers: " + headers);
     return throttler.schedule(async () => {
         for (let attempt = 1; attempt <= DEFAULT_CONN_RETRY; attempt++) {
             try {
                 writeLog("DEBUG","fetchWithRetries => Attempting retrieval from " + url +", try no. " + attempt);
                 const response = await axios.get(url, {
                     timeout: DEFAULT_CONN_TIMEOUT,
-                    headers: HEADERS,
+                    headers: headers,
+                    params: params,
                     responseType: asJson ? 'json' : 'text' // Ensure correct response type
                 });
 
@@ -71,11 +90,12 @@ async function fetchWithRetries(url, asJson = false) {
         }
     });
 }
-
+*/
 // Wrapper function for fetching data
-async function fetchData(url , asJson = false) {
+/*
+async function fetchData(url , asJson = false, params={}, headers = HEADERS ) {
     try {
-        const data = await fetchWithRetries(url, asJson);
+        const data = await fetchWithRetries(url, asJson, params, headers);
         //console.log('Fetched data:', data);
         return asJson ? data : parse(data);
 
@@ -83,6 +103,57 @@ async function fetchData(url , asJson = false) {
         console.error('Failed to fetch:', error.message);
     }
 }
+*/
+
+var logger = log4js.getLogger("utilities");
+
+// Utility function to add delay
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+let pendingRequests = 0; // Global counter for tracking pending requests
+
+// Function to fetch data with retries and throttling
+async function fetchData(url, retrieveJson = false, params = {}, headers = HEADERS) {
+    logger.trace("fetchData => Entering");
+    //writeLog("TRACE","fetchData => Entering");
+    logger.trace("fetchData => URL: " + url + "\n   retrieveJson: " + retrieveJson + "\n   params:" + params);
+    //writeLog("TRACE","fetchData => URL: " + url + "\n   retrieveJson: " + retrieveJson + "\n   params:" + params);
+    
+    const { default: pLimit } = await import('p-limit'); // Dynamic import
+    const limit = pLimit(MAX_CONCURRENT_REQUESTS); // Use pLimit
+
+    return limit(async () => {
+        pendingRequests++; // Increment pending request count
+        //writeLog("DEBUG","Requests in queue: " + pendingRequests);
+
+        let attempt = 0;
+        while (attempt < MAX_RETRIES) {
+            try {
+                const response = await axios.get(url, {
+                    params,
+                    headers: headers || HEADERS,
+                    timeout: REQUEST_TIMEOUT,
+                    responseType: retrieveJson ? 'json' : 'text' // Ensure correct response type
+                });
+
+                pendingRequests--;
+                //writeLog("DEBUG","Requests in queue after completion: " + pendingRequests);
+                return retrieveJson ? response.data : parse(response.data.toString());
+            } catch (error) {
+                attempt++;
+                if (attempt >= MAX_RETRIES) {
+                    pendingRequests--; // Ensure counter decreases even on failure
+                    throw new Error(`Failed to fetch data after ${MAX_RETRIES} attempts: ${error.message}`);
+                }
+                const backoffTime = constants.RETRY_DELAY * Math.pow(2, attempt - 1); // Exponential backoff
+                console.warn(`Attempt ${attempt} failed. Retrying in ${backoffTime}ms...`);
+                await delay(backoffTime);
+            }
+        }
+    });
+}
+
+
 
 
 //+===================================================================================
@@ -116,7 +187,7 @@ function writeLog(level, msg){
 }
 
 function writeJSONToFile(jsonObj, fileName){
-    var json = JSON.stringify(jsonObj, null, 2);
+    var json = JSON.stringify(jsonObj, null, 4);
     var dateStr = getCurrentDateStr();
     dateStr = dateStr.split(":").join("_");
     //dateStr = dateStr.replace(':','-');
@@ -128,10 +199,18 @@ function writeJSONToFile(jsonObj, fileName){
           console.error(err)
           throw err
         }
-    
-        console.log("Saved data to file " + path);
+        logger.debug("writeJSONToFile=> Saved data to file " + path);
+        //writeLog("DEBUG","Utitlties=writeJSONToFile=> Saved data to file " + path);
+        logger.debug("Saved data to file " + path);
+        //console.log("Saved data to file " + path);
     });
-
+    // copy json file without timestamp
+    fs.copyFile(path, fileName, (err) => {
+        if (err) {
+            logger.debug("writeJSONToFile=> Error Found: " + err);
+            //writeLog("DEBUG","Utitlties=writeJSONToFile=> Error Found:", err);
+        }
+    });
     //zip the file
     var zipFileName = fileName + ".zip";
     var zipFileFullPath = SAVE_FOLDER + zipFileName; 
@@ -140,7 +219,7 @@ function writeJSONToFile(jsonObj, fileName){
     // get everything as a buffer
     var willSendthis = zip.toBuffer();
     // or write everything to disk
-    zip.writeZip(fileName, zipFileFullPath);
+    zip.writeZip(zipFileFullPath);
 
 }
 
@@ -149,6 +228,5 @@ function getCurrentDateStr(){
     var dateStr = currDate.getDate() + "-" + (currDate.getMonth() + 1).toString().padStart(2,'0') + "-" + currDate.getFullYear() + "_" + currDate.getHours() + ":" + currDate.getMinutes() + ":" + currDate.getSeconds();
     return dateStr;
 }
-
 
 module.exports = {padWithLeadingZeros, fetchData, writeLog, writeJSONToFile, getCurrentDateStr};
