@@ -1,6 +1,23 @@
 const utils = require("./utilities.js");
 const addon = require("../addon.js");
 const {UPDATE_LIST} = require("./constants.js");
+const log4js = require("log4js");
+
+log4js.configure({
+    appenders: { 
+        out: { type: "stdout" },
+        Stremio: 
+        { 
+            type: "file", 
+            filename: "logs/Stremio_addon.log", 
+            maxLogSize: 10 * 1024 * 1024, // = 10Mb 
+            backups: 5, // keep five backup files
+        }
+    },
+    categories: { default: { appenders: ['Stremio','out'], level: "debug" } },
+});
+
+var logger = log4js.getLogger("LiveTV");
 
 class LiveTV {
 
@@ -15,15 +32,22 @@ class LiveTV {
      ********************************************************************/
     
     crawl(){
-        utils.writeLog("INFO", "LiveTV=> Start Crawling ");
+        logger.info("Start Crawling");
+        //utils.writeLog("INFO", "LiveTV=> Start Crawling ");
         this.crawlDigitalLive();
-        this.crawlMakoLive()
+        this.crawlMakoLive();
+        this.crawYnetlLive();
+        this.crawlI24();
+        this.crawl24();
+        this.crawlSport5();
 
-        utils.writeLog("INFO", "LiveTV=> Done Crawling");
-        this.writeJSON();
+        logger.info("Done Crawling");
+        //utils.writeLog("INFO", "LiveTV=> Done Crawling");
+        //this.writeJSON();
     }
-    crawlDigitalLive(){        
-        utils.writeLog("DEBUG", "crawlDigitalLive => Entered");
+    crawlDigitalLive(){   
+        logger.trace("crawlDigitalLive => Entered");     
+        //utils.writeLog("DEBUG", "crawlDigitalLive => Entered");
         var idKanLive = "il_kanTV_04";
         var kanLiveObj = {
             id: idKanLive,
@@ -60,7 +84,7 @@ class LiveTV {
         }
         this._liveTVJSONObj[idKanLive] = kanLiveObj;
         if (UPDATE_LIST){
-            addToAddonList({
+            var itemKanLive = {
                 id: idKanLive, 
                 name: kanLiveObj.title, 
                 poster: kanLiveObj.metas.poster, 
@@ -71,9 +95,11 @@ class LiveTV {
                 metas: kanLiveObj.metas,
                 type: "tv", 
                 subtype: "t"
-            });
+            };
+            addon.addToSeriesList(itemKanLive);
         }
-        utils.writeLog("DEBUG", "crawlDigitalLive =>    Added Kan 11 Live TV");
+        logger.debug("crawlDigitalLive => Added Kan 11 Live TV");
+        //utils.writeLog("DEBUG", "crawlDigitalLive => Added Kan 11 Live TV");
 
         var idKanKidsLive = "il_kanTV_05";
         var kanKidsObj = {
@@ -109,7 +135,7 @@ class LiveTV {
         }
         this._liveTVJSONObj[idKanKidsLive] = kanKidsObj;
         if (UPDATE_LIST){
-            addToAddonList({
+            var itemKanKidsLive ={
                 id: idKanKidsLive, 
                 name: kanKidsObj.title, 
                 poster: kanKidsObj.metas.poster, 
@@ -120,9 +146,11 @@ class LiveTV {
                 metas: kanKidsObj.metas,
                 type: "tv", 
                 subtype: "t"
-            });
+            };
+            addon.addToSeriesList(itemKanKidsLive)
         }
-        utils.writeLog("DEBUG", "crawlDigitalLive =>    Added Hinukhit Live TV");
+        logger.debug("crawlDigitalLive => Added Hinukhit Live TV");
+        //utils.writeLog("DEBUG", "crawlDigitalLive => Added Hinukhit Live TV");
 
         var idKanKnesset = "il_kanTV_06";
         var knessetLiveObj = {
@@ -159,7 +187,7 @@ class LiveTV {
         }
         this._liveTVJSONObj[idKanKnesset] = knessetLiveObj;
         if (UPDATE_LIST){
-            addToAddonList({
+            var itemKnesset ={
                 id: idKanKnesset, 
                 name: knessetLiveObj.title, 
                 poster: knessetLiveObj.metas.poster, 
@@ -170,9 +198,11 @@ class LiveTV {
                 metas: knessetLiveObj.metas,
                 type: "tv", 
                 subtype: "t"
-            });
+            };
+            addon.addToSeriesList(itemKnesset);
         }
-        utils.writeLog("DEBUG", "crawlDigitalLive =>    Added Knesset Live TV");
+        logger.debug("crawlDigitalLive => Added Knesset Live TV");
+        //utils.writeLog("DEBUG", "crawlDigitalLive => Added Knesset Live TV");
 
         var idMakanLive = "il_kanTV_07";
         var MakanLiveObj = {
@@ -209,7 +239,7 @@ class LiveTV {
         }
         this._liveTVJSONObj[idMakanLive] = MakanLiveObj;
         if (UPDATE_LIST){
-            addToAddonList({
+            var itemMakan = {
                 id: idMakanLive, 
                 name: MakanLiveObj.title, 
                 poster: MakanLiveObj.metas.poster, 
@@ -220,10 +250,13 @@ class LiveTV {
                 metas: MakanLiveObj.metas,
                 type: "tv", 
                 subtype: "t"
-            });
+            };
+            addon.addToSeriesList(itemMakan);
         }
-        utils.writeLog("DEBUG", "crawlDigitalLive =>    Added Makan Live TV");
-        utils.writeLog("TRACE", "crawlDigitalLive => Leaving");
+        logger.debug("crawlDigitalLive => Added Makan Live TV");
+        logger.trace("crawlDigitalLive => Leaving");
+        //utils.writeLog("DEBUG", "crawlDigitalLive => Added Makan Live TV");
+        //utils.writeLog("TRACE", "crawlDigitalLive => Leaving");
     }
 
     /********************************************************************
@@ -233,6 +266,7 @@ class LiveTV {
      ********************************************************************/
 
     crawlMakoLive(){
+            logger.trace("crawlMakoLive => Entering");
         var idMakoLive = "il_makoTV_01";
         var makoLiveObj = {
             id: idMakoLive,
@@ -268,7 +302,7 @@ class LiveTV {
         }
         this._liveTVJSONObj[idMakoLive] = makoLiveObj;
         if (UPDATE_LIST){
-            addToAddonList({
+            var item12Live = {
                 id: idMakoLive, 
                 name: makoLiveObj.title, 
                 poster: makoLiveObj.metas.poster, 
@@ -279,12 +313,14 @@ class LiveTV {
                 metas: makoLiveObj.metas,
                 type: "tv", 
                 subtype: "t"
-            });
+            };
+            addon.addToSeriesList(item12Live);
         }
-        utils.writeLog("DEBUG", "crawlMakoLive =>    Added Mako Live TV");
+        logger.debug("crawlMakoLive => Added Mako Live TV");
+        //utils.writeLog("DEBUG", "crawlMakoLive => Added Mako Live TV");
     }
 
-    crawlLive(){
+    crawYnetlLive(){
         /* ynet Live */
         var idYnetLive = "il_ynetTv_01";
         var idYnetLiveObj = {
@@ -322,7 +358,7 @@ class LiveTV {
         }
         this._liveTVJSONObj[idYnetLive] = idYnetLiveObj;
         if (UPDATE_LIST){
-            addToAddonList({
+            var itemYnet = {
                 id: idYnetLive, 
                 name: idYnetLiveObj.title, 
                 poster: idYnetLiveObj.metas.poster, 
@@ -333,11 +369,14 @@ class LiveTV {
                 metas: idYnetLiveObj.metas,
                 type: "tv", 
                 subtype: "t"
-            });
+            };
+            addon.addToSeriesList (itemYnet);
         }
-        utils.writeLog("DEBUG", "crawlMakoLive =>    Added YNet Live TV");
+        logger.debug("crawlMakoLive => Added YNet Live TV");
+        //utils.writeLog("DEBUG", "crawlMakoLive => Added YNet Live TV");
+    }
 
-
+    crawlI24(){
         /* i24 News English Live */
         var idI24EngLive = "il_24newsEng_01";
         var idI24EngObj = {
@@ -375,7 +414,7 @@ class LiveTV {
         }
         this._liveTVJSONObj[idI24EngLive] = idI24EngObj;
         if (UPDATE_LIST){
-            addToAddonList({
+            var item24Eng = {
                 id: idI24EngLive, 
                 name: idI24EngObj.title, 
                 poster: idI24EngObj.metas.poster, 
@@ -386,9 +425,11 @@ class LiveTV {
                 metas: idI24EngObj.metas,
                 type: "tv", 
                 subtype: "t"
-            });
+            };
+            addon.addToSeriesList(item24Eng);
         }
-        utils.writeLog("DEBUG", "crawlMakoLive =>    Added i24 English Live TV");
+        logger.debug("crawlMakoLive => Added i24 English Live TV");
+        //utils.writeLog("DEBUG", "crawlMakoLive => Added i24 English Live TV");
 
         /* i24 News Hebrew Live */
         var idI24HebLive = "il_24newsHeb_01";
@@ -426,7 +467,7 @@ class LiveTV {
         }
         this._liveTVJSONObj[idI24HebLive] = i24HebLiveObj;
         if (UPDATE_LIST){
-            addToAddonList({
+            var item24Heb = {
                 id: idI24HebLive, 
                 name: i24HebLiveObj.title, 
                 poster: i24HebLiveObj.metas.poster, 
@@ -437,9 +478,10 @@ class LiveTV {
                 metas: i24HebLiveObj.metas,
                 type: "tv", 
                 subtype: "t"
-            });
-        }
-        utils.writeLog("DEBUG", "crawlDigitalLive =>    Added i24 Hebrew Live TV");
+            };
+            addon.addToSeriesList(item24Heb);
+        }logger.debug("crawlDigitalLive => Added i24 Hebrew Live TV");
+        //utils.writeLog("DEBUG", "crawlDigitalLive => Added i24 Hebrew Live TV");
         
         /* i24 News French Live */
         var idI24FrnLive = "il_24newsFrn_01";
@@ -477,7 +519,7 @@ class LiveTV {
         }
         this._liveTVJSONObj[idI24FrnLive] = i24FrnLiveObj;
         if (UPDATE_LIST){
-            addToAddonList({
+            var item24Frn = {
                 id: idI24FrnLive, 
                 name: i24FrnLiveObj.title, 
                 poster: i24FrnLiveObj.metas.poster, 
@@ -488,9 +530,11 @@ class LiveTV {
                 metas: i24FrnLiveObj.metas,
                 type: "tv", 
                 subtype: "t"
-            });
+            };
+            addon.addToSeriesList(item24Frn);
         }
-        utils.writeLog("DEBUG", "crawlDigitalLive =>    Added i24 French Live TV");
+        logger.debug("crawlDigitalLive => Added i24 French Live TV");
+        //utils.writeLog("DEBUG", "crawlDigitalLive => Added i24 French Live TV");
 
         /* i24 News Arabic Live */
         var idI24ArbLive = "il_24newsArb_01";
@@ -528,7 +572,7 @@ class LiveTV {
         }
         this._liveTVJSONObj[idI24ArbLive] = i24ArbLiveObj;
         if (UPDATE_LIST){
-            addToAddonList({
+            var item24Arb = {
                 id: idI24ArbLive, 
                 name: i24ArbLiveObj.title, 
                 poster: i24ArbLiveObj.metas.poster, 
@@ -539,10 +583,15 @@ class LiveTV {
                 metas: i24ArbLiveObj.metas,
                 type: "tv", 
                 subtype: "t"
-            });
+            };
+            logger.debug();
+            addon.addToSeriesList(item24Arb);
         }
-        utils.writeLog("DEBUG", "crawlDigitalLive =>    Added i24 Arabic Live TV");
+        logger.debug("crawlDigitalLive => Added i24 Arabic Live TV");
+        //utils.writeLog("DEBUG", "crawlDigitalLive => Added i24 Arabic Live TV");
+    }
 
+    crawl24(){
         /* 24 Live */
         var id24Live = "il_24_01";
         var jo24LiveObj = {
@@ -579,7 +628,7 @@ class LiveTV {
         }
         this._liveTVJSONObj[id24Live] = jo24LiveObj;
         if (UPDATE_LIST){
-            addToAddonList({
+            var item24 = {
                 id: id24Live, 
                 name: jo24LiveObj.title, 
                 poster: jo24LiveObj.metas.poster, 
@@ -590,10 +639,14 @@ class LiveTV {
                 metas: jo24LiveObj.metas,
                 type: "tv", 
                 subtype: "t"
-            });
+            };
+            addon.addToSeriesList(item24);
         }
-        utils.writeLog("DEBUG", "crawlDigitalLive =>    Added 24 Live");
+        logger.debug("crawlDigitalLive => Added 24 Live");
+        //utils.writeLog("DEBUG", "crawlDigitalLive => Added 24 Live");
+    }
 
+    crawlSport5(){
         /* Sport 5 Live */
         var idSport5Live = "il_Sprt5_01";
         var sport5LiveObj = {
@@ -630,7 +683,7 @@ class LiveTV {
         }
         this._liveTVJSONObj[idSport5Live] = sport5LiveObj;
         if (UPDATE_LIST){
-            addToAddonList({
+            var itemSport5 = {
                 id: idSport5Live, 
                 name: sport5LiveObj.title, 
                 poster: sport5LiveObj.metas.poster, 
@@ -641,34 +694,20 @@ class LiveTV {
                 metas: sport5LiveObj.metas,
                 type: "tv", 
                 subtype: "t"
-            })
+            }
+            addon.addToSeriesList(itemSport5);
         }
-        utils.writeLog("DEBUG", "crawlDigitalLive =>    Added Sport 5 Live");
+        logger.debug("crawlDigitalLive => Added Sport 5 Live");
+        //utils.writeLog("DEBUG", "crawlDigitalLive => Added Sport 5 Live");
     }
 
     writeJSON(){
-        utils.writeLog("DEBUG", "writeJSON => Entered");
+        logger.debug("writeJSON => Entered");
+        //utils.writeLog("DEBUG", "writeJSON => Entered");
         utils.writeJSONToFile(this._liveTVJSONObj, "stremio-livetv");
         
-        utils.writeLog("DEBUG", "writeJSON => Leaving");
-    }
-
-    addToAddonList(jsonObj){
-        if (UPDATE_LIST){
-            var item = {
-                id: jsonObj.id, 
-                name: jsonObj.title, 
-                poster: jsonObj.metas.poster, 
-                description: jsonObj.metas.description, 
-                link: "",
-                background: jsonObj.metas.background, 
-                genres: jsonObj.metas.genres,
-                metas: jsonObj.metas,
-                type: "tv", 
-                subtype: "t"
-            }
-            addon.addToSeriesList(item);
-        }
+        logger.debug("writeJSON => Leaving");
+        //utils.writeLog("DEBUG", "writeJSON => Leaving");
     }
 }
 
