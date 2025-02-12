@@ -32,6 +32,7 @@
             "type": "node",
             "request": "launch",
             "name": "Stremio - Install",
+            "outputCapture": "std",
             "skipFiles": [
                 "<node_internals>/**"
             ],
@@ -42,6 +43,7 @@
             "type": "node",
             "request": "launch",
             "name": "Stremio - start",
+            "outputCapture": "std",
             "skipFiles": [
                 "<node_internals>/**"
             ],
@@ -54,6 +56,7 @@
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "runtimeExecutable": "npm",
+            "outputCapture": "std",
             "runtimeArgs": ["run-script", "debug"],
             "program": "${workspaceFolder}/server.js",
             "skipFiles": [
