@@ -11,6 +11,7 @@ module.exports = {
     SAVE_FOLDER: "output/",
     PREFIX: "il_",
     LOG_LEVEL: "DEBUG",
+    LOG4JS_LEVEL: "debug",
     HEADERS: {
         "Content-Type" : "text/html; charset=utf-8",
         "User-Agent"   : "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0",
