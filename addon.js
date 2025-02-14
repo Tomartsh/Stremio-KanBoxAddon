@@ -1,37 +1,85 @@
 const { addonBuilder } = require("stremio-addon-sdk");
-const { parse } = require('node-html-parser');
-const axios = require('axios');
 const AdmZip = require("adm-zip");
 const https = require("https");
-const { write } = require("fs");
+const axios = require('axios');
+const cron = require('node-cron');
+const log4js = require("log4js");
 
 const srList = require("./classes/srList");
-const constants = require("./classes/constants.js");
 const utils = require("./classes/utilities.js");
+const {writeLog} = require("./classes/utilities.js");
 const Kanscraper = require("./classes/KanScraper.js");
 const Makoscraper = require("./classes/MakoScraper.js");
-const LiveTV = require("./classes/LiveTV.js");
+const Reshetscraper = require("./classes/ReshetScraper.js");
+const LiveTV = require("./classes/LiveTV.js"); 
+const constants = require("./classes/constants.js");
+const {URL_ZIP_FILES, URL_JSON_BASE, LOG4JS_LEVEL} = require("./classes/constants.js");
+
+log4js.configure({
+	appenders: { 
+		out: { type: "stdout" },
+		Stremio: 
+		{ 
+			type: "file", 
+			filename: "logs/Stremio_addon.log", 
+			maxLogSize: 10 * 1024 * 1024, // = 10Mb 
+			backups: 5, // keep five backup files
+		}
+	},
+	categories: { default: { appenders: ['Stremio','out'], level: constants.LOG4JS_LEVEL } },
+});
+
+var logger = log4js.getLogger("addon");
 
 const listSeries = new srList();
-const makoScraper = new Makoscraper();
-makoScraper.crawl();
-const kanScraper = new Kanscraper();
-kanScraper.crawl();
-const liveTV = new LiveTV();
-liveTV.crawl();
+//const makoScraper = new Makoscraper();
+//makoScraper.crawl();
+const reshetScraper = new Reshetscraper();
+//reshetScraper.crawl();
+//reshetScraper.writeJSON();
+const kanScraper = new Kanscraper()
+//kanScraper.crawl();
+//const liveTV = new LiveTV();
+//liveTV.crawl();
+
+/**
+ * Set cron jobs for Reshet generating json and zip file. 
+ * run eavery day at 1 AM
+ */
+var taskReshetJson = cron.schedule('0 1 * * 0,1,2,3,4,5,6', () => {
+	logger.debug('Running schedule for scraping Reshet without zip file');
+	reshetScraper.crawl();
+  }, {
+	scheduled: true,
+	timezone: "Asia/Jerusalem"
+});
+taskReshetJson.start();
+
+/**
+ * Set cron jobs for Kan generating json and zip file. 
+ * run eavery day at 3 AM
+ */
+var taskKanJson = cron.schedule('0 3 * * 0,1,2,3,4,5,6', () => {
+	logger.debug('Running schedule for scraping Kan without zip file');
+	kanScraper.crawl();
+  }, {
+	scheduled: true,
+	timezone: "Asia/Jerusalem"
+});
+taskKanJson.start();
+
 
 // Main program
 (async () => {
     try {
         const jsonData = await getJSONFile();
-//        utils.writeLog("DEBUG","Files read successfully");
+//        writeLog("DEBUG","Files read successfully");
     } catch (error) {
-        utils.writeLog("DEBUG","An unexpected error occurred: " + error.message);
+		logger.debug("An unexpected error occurred: " + error.message);
+        //writeLog("DEBUG","An unexpected error occurred: " + error.message);
         process.exit(1); // Exit with an error code
     }
 })();
-
-//new Promise(j => getJSONFile(j));
 
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md
 const manifest = {
@@ -123,7 +171,8 @@ const builder = new addonBuilder(manifest)
 
 builder.defineCatalogHandler(({type, id, extra}) => {
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineCatalogHandler.md
-	utils.writeLog("INFO","request for catalogs: "+type+" "+id + " search: " + extra.search)
+	logger.debug("request for catalogs: "+type+" "+id + " search: " + extra.search);
+	//writeLog("INFO","request for catalogs: "+type+" "+id + " search: " + extra.search)
 	var metas = [];
     var search;
     if ((extra.search == "undefined") || (extra.search == null)){
@@ -172,14 +221,16 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 })
 
 builder.defineMetaHandler(({type, id}) => {
-	utils.writeLog("INFO","defineMetaHandler=> request for meta: "+type+" "+id);
+	logger.debug("defineMetaHandler=> request for meta: "+type+" "+id);
+	//writeLog("INFO","defineMetaHandler=> request for meta: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	var meta = listSeries.getMetaById(id);
     return Promise.resolve({ meta: meta })
 })
 
 builder.defineStreamHandler(({type, id}) => {
-	utils.writeLog("INFO","defineStreamHandler=> request for streams: "+type+" "+id);
+	logger.debug("defineStreamHandler=> request for streams: "+type+" "+id);
+	//writeLog("INFO","defineStreamHandler=> request for streams: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineStreamHandler.md
 	var streams = listSeries.getStreamsById(id)
     
@@ -195,13 +246,28 @@ var jsonFileExist = "";
 /**
  * Retrieve the zip file, extract the .json file and then convert it to the seriesList object
  */
+
+
+function addToSeriesList(item){
+	logger.trace("updateSeriesList => Entering");
+	logger.debug("updateSeriesList => Updating / Adding new entry to list: " + item.id + " " + item.name);
+	//writeLog("TRACE","updateSeriesList => Entering");
+	//writeLog("DEBUG","updateSeriesList => Updating / Adding new entry to list: " + item.id + " " + item.name);
+	listSeries.addItemByDetails(item.id, item.name,item.poster,item.description,item.link, item.background, item.genres, item.metas,item.type, item.subtype);
+
+	logger.trace("updateSeriesList => Exiting");
+	//writeLog("TRACE","updateSeriesList => Exiting");
+}
+
 async function getJSONFile(){
-    utils.writeLog("DEBUG","getJSONFile = > Entered JSON");
+    logger.trace("getJSONFile => Entered JSON");
+	//writeLog("TRACE","getJSONFile = > Entered JSON");
     var jsonStr;
-    var filesArray = constants.url_ZIP_Files;
+    var filesArray = URL_ZIP_FILES;
     for (var urlIndex in filesArray) {
-        utils.writeLog("DEBUG","Handling file " + filesArray[urlIndex]);
-        var zipFileName = constants.URL_JSON_BASE + filesArray[urlIndex];
+		logger.debug("getJSONFile => Handling file " + filesArray[urlIndex]);
+        //writeLog("DEBUG","Handling file " + filesArray[urlIndex]);
+        var zipFileName = URL_JSON_BASE + filesArray[urlIndex];
         var jsonFileName = filesArray[urlIndex].split(".")[0] + ".json";
         try {
             await axios.get(zipFileName, {
@@ -217,27 +283,21 @@ async function getJSONFile(){
                         var value = jsonObj[key]
             
                         listSeries.addItemByDetails(value.id, value.title, value.poster, value.description, value.link, value.background, value.genres, value.metas, value.type, value.subtype);
-                        utils.writeLog("DEBUG", "getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.title)
+                        logger.debug("getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.title);
+						//writeLog("DEBUG", "getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.title)
                     }
 
-                    utils.writeLog("INFO","Temporary ZIP " + zipFileName + " file deleted.");
+                    //writeLog("INFO","Temporary ZIP " + zipFileName + " file deleted.");
                 } else {
-                    utils.writeLog("ERROR","Cannot find the JSON data " + jsonFileName + ". Please report this issue.");               
+					logger.error("getJSONFile => Cannot find the JSON data " + jsonFileName + ". Please report this issue.");
+                    //writeLog("ERROR","Cannot find the JSON data " + jsonFileName + ". Please report this issue.");               
                 }
             })
         } catch (e) {
-            console.log("Something went wrong. " + e);
+			logger.error("getJSONFile => Something went wrong. " + e);
+            //console.log("Something went wrong. " + e);
         }
     }
-    
-    
-}
-
-function addToSeriesList(item){
-	utils.writeLog("TRACE","updateSeriesList => Entering");
-	listSeries.addItemByDetails(item.id, item.name,item.poster,item.description,item.link, item.background, item.genres, item.metas,item.type, item.subtype);
-
-	utils.writeLog("TRACE","updateSeriesList => Exiting");
 }
 
 module.exports = builder.getInterface();
