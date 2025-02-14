@@ -7,7 +7,7 @@ const axios = require('axios');
 const AdmZip = require("adm-zip");
 const fs = require('fs');
 const log4js = require("log4js");
-const {MAX_RETRIES, REQUEST_TIMEOUT,HEADERS, MAX_CONCURRENT_REQUESTS, RETRY_DELAY, SAVE_FOLDER, LOG_LEVEL } = require ("./constants");
+const {MAX_RETRIES, REQUEST_TIMEOUT,HEADERS, MAX_CONCURRENT_REQUESTS, RETRY_DELAY, SAVE_FOLDER, LOG_LEVEL, LOG4JS_LEVEL } = require ("./constants");
 
 log4js.configure({
     appenders: { 
@@ -20,7 +20,7 @@ log4js.configure({
             backups: 5, // keep five backup files
         }
     },
-    categories: { default: { appenders: ['Stremio','out'], level: "debug" } },
+    categories: { default: { appenders: ['Stremio','out'], level: LOG4JS_LEVEL } },
 });
 
 /*
@@ -146,7 +146,8 @@ async function fetchData(url, retrieveJson = false, params = {}, headers = HEADE
                     throw new Error(`Failed to fetch data after ${MAX_RETRIES} attempts: ${error.message}`);
                 }
                 const backoffTime = constants.RETRY_DELAY * Math.pow(2, attempt - 1); // Exponential backoff
-                console.warn(`Attempt ${attempt} failed. Retrying in ${backoffTime}ms...`);
+                logger.warn(`Attempt ${attempt} failed. Retrying in ${backoffTime}ms...` + url);
+                //console.warn(`Attempt ${attempt} failed. Retrying in ${backoffTime}ms...` + url);
                 await delay(backoffTime);
             }
         }
@@ -192,7 +193,7 @@ function writeJSONToFile(jsonObj, fileName){
     dateStr = dateStr.split(":").join("_");
     //dateStr = dateStr.replace(':','-');
     var path = SAVE_FOLDER + fileName + "_" + dateStr + ".json";
-
+    var simpleFile = SAVE_FOLDER + fileName + ".json";
 
     write.writeFile(path, json, (err) => {
         if (err) {
@@ -204,18 +205,22 @@ function writeJSONToFile(jsonObj, fileName){
         logger.debug("Saved data to file " + path);
         //console.log("Saved data to file " + path);
     });
-    // copy json file without timestamp
-    fs.copyFile(path, fileName, (err) => {
+
+    write.writeFile(simpleFile, json, (err) => {
         if (err) {
-            logger.debug("writeJSONToFile=> Error Found: " + err);
-            //writeLog("DEBUG","Utitlties=writeJSONToFile=> Error Found:", err);
+          console.error(err)
+          throw err
         }
+        logger.debug("writeJSONToFile=> Saved data to file " + simpleFile);
+        logger.debug("Saved data to file " + simpleFile);
     });
+
+
     //zip the file
     var zipFileName = fileName + ".zip";
     var zipFileFullPath = SAVE_FOLDER + zipFileName; 
     var zip = new AdmZip();
-    zip.addLocalFile(path);
+    zip.addLocalFile(simpleFile);
     // get everything as a buffer
     var willSendthis = zip.toBuffer();
     // or write everything to disk
