@@ -1,7 +1,7 @@
 const utils = require("./utilities.js");
 const {UPDATE_LIST, MAX_LOG_SIZE, LOG_BACKUP_FILES} = require("./constants.js");
 const log4js = require("log4js");
-const addon = require("../addon");
+const addon = require("../addon.js");
 
 log4js.configure({
     appenders: { 
@@ -98,7 +98,7 @@ class LiveTV {
                 type: "tv", 
                 subtype: "t"
             }
-            //addon.addToSeriesList(itemKanLive);
+            addon.addToSeriesList(itemKanLive);
         }
         logger.debug("crawlDigitalLive => Added Kan 11 Live TV");
         //utils.writeLog("DEBUG", "crawlDigitalLive => Added Kan 11 Live TV");
