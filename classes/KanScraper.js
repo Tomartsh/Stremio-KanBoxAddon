@@ -2,7 +2,7 @@ const constants = require("./constants.js");
 const utils = require("./utilities.js");
 const addon = require("../addon.js");
 const {fetchData, writeLog} = require("./utilities.js");
-const {UPDATE_LIST, LOG4JS_LEVEL} = require("./constants.js");
+const {UPDATE_LIST, LOG4JS_LEVEL, MAX_LOG_SIZE, LOG_BACKUP_FILES} = require("./constants.js");
 const log4js = require("log4js");
 
 log4js.configure({
@@ -12,8 +12,8 @@ log4js.configure({
         { 
             type: "file", 
             filename: "logs/Stremio_addon.log", 
-            maxLogSize: 10 * 1024 * 1024, // = 10Mb 
-            backups: 5, // keep five backup files
+            maxLogSize: MAX_LOG_SIZE, 
+            backups: LOG_BACKUP_FILES, 
         }
     },
     categories: { default: { appenders: ['Stremio','out'], level: LOG4JS_LEVEL } },
@@ -28,16 +28,18 @@ class KanScraper {
         this._kanJSONObj = {};
     }
 
-    async crawl(){
-        logger.info("KanScraper Crawling");
+    async crawl(isDoWriteFile = false){
+        logger.info("Started Crawling");
         //writeLog("INFO", "KanScraper Crawling");
         await this.crawlKanVOD();
         await this.crawlHinukhitKids();
         await this.crawlHinuchitTeen();
         await this.crawlPodcasts();
-        logger.info("KanScraper-Done Crawling");
+        logger.info("Done Crawling");
         //writeLog("INFO", "KanScraper-Done Crawling");
-        this.writeJSON();
+        if (isDoWriteFile){
+            this.writeJSON();
+        }
     }
 
     /***********************************************************
