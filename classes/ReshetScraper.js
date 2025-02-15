@@ -1,8 +1,6 @@
-
-
 const utils = require("./utilities.js");
 const addon = require("../addon.js");
-const {URL_RESHET_VOD, URL_RESHET_ARCHIVE, URL_RESHET_BASE,PREFIX, RESHET_HEADERS,RESHET_PARTNER_ID, RESHET_URL_STREAM,LOG4JS_LEVEL} = require ("./constants");
+const {URL_RESHET_VOD, URL_RESHET_BASE,PREFIX, RESHET_HEADERS,RESHET_PARTNER_ID, RESHET_URL_STREAM,LOG4JS_LEVEL,MAX_LOG_SIZE, LOG_BACKUP_FILES} = require ("./constants");
 const {fetchData, writeLog} = require("./utilities.js");
 const {UPDATE_LIST} = require("./constants.js");
 const log4js = require("log4js");
@@ -14,8 +12,8 @@ log4js.configure({
         { 
             type: "file", 
             filename: "logs/Stremio_addon.log", 
-            maxLogSize: 10 * 1024 * 1024, // = 10Mb 
-            backups: 5, // keep five backup files
+            maxLogSize: MAX_LOG_SIZE, 
+            backups: LOG_BACKUP_FILES,
         }
     },
     categories: { default: { appenders: ['Stremio','out'], level: LOG4JS_LEVEL } },
@@ -32,9 +30,11 @@ class ReshetScraper {
         
     }
 
-    async crawl(){
+    async crawl(isDoWriteFile = false){
         await this.crawlVOD();
-        this.writeJSON();
+        if (isDoWriteFile){
+            this.writeJSON();
+        }
     }
 
 
