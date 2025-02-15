@@ -1,7 +1,7 @@
 const utils = require("./utilities.js");
-const addon = require("../addon.js");
-const {UPDATE_LIST} = require("./constants.js");
+const {UPDATE_LIST, MAX_LOG_SIZE, LOG_BACKUP_FILES} = require("./constants.js");
 const log4js = require("log4js");
+const addon = require("../addon");
 
 log4js.configure({
     appenders: { 
@@ -10,8 +10,8 @@ log4js.configure({
         { 
             type: "file", 
             filename: "logs/Stremio_addon.log", 
-            maxLogSize: 10 * 1024 * 1024, // = 10Mb 
-            backups: 5, // keep five backup files
+            maxLogSize: MAX_LOG_SIZE, 
+            backups: LOG_BACKUP_FILES
         }
     },
     categories: { default: { appenders: ['Stremio','out'], level: "debug" } },
@@ -31,7 +31,7 @@ class LiveTV {
      * 
      ********************************************************************/
     
-    crawl(){
+    crawl(isDoWriteFile = false){
         logger.info("Start Crawling");
         //utils.writeLog("INFO", "LiveTV=> Start Crawling ");
         this.crawlDigitalLive();
@@ -41,9 +41,11 @@ class LiveTV {
         this.crawl24();
         this.crawlSport5();
 
-        logger.info("Done Crawling");
+        logger.info("LiveTV=> Done Crawling");
         //utils.writeLog("INFO", "LiveTV=> Done Crawling");
-        //this.writeJSON();
+        if (isDoWriteFile = false){
+            this.writeJSON();
+        }
     }
     crawlDigitalLive(){   
         logger.trace("crawlDigitalLive => Entered");     
@@ -95,8 +97,8 @@ class LiveTV {
                 metas: kanLiveObj.metas,
                 type: "tv", 
                 subtype: "t"
-            };
-            addon.addToSeriesList(itemKanLive);
+            }
+            //addon.addToSeriesList(itemKanLive);
         }
         logger.debug("crawlDigitalLive => Added Kan 11 Live TV");
         //utils.writeLog("DEBUG", "crawlDigitalLive => Added Kan 11 Live TV");
@@ -147,7 +149,7 @@ class LiveTV {
                 type: "tv", 
                 subtype: "t"
             };
-            addon.addToSeriesList(itemKanKidsLive)
+            //addon.addToSeriesList(itemKanKidsLive)
         }
         logger.debug("crawlDigitalLive => Added Hinukhit Live TV");
         //utils.writeLog("DEBUG", "crawlDigitalLive => Added Hinukhit Live TV");
@@ -199,7 +201,7 @@ class LiveTV {
                 type: "tv", 
                 subtype: "t"
             };
-            addon.addToSeriesList(itemKnesset);
+            //addon.addToSeriesList(itemKnesset);
         }
         logger.debug("crawlDigitalLive => Added Knesset Live TV");
         //utils.writeLog("DEBUG", "crawlDigitalLive => Added Knesset Live TV");
@@ -251,7 +253,7 @@ class LiveTV {
                 type: "tv", 
                 subtype: "t"
             };
-            addon.addToSeriesList(itemMakan);
+            //addon.addToSeriesList(itemMakan);
         }
         logger.debug("crawlDigitalLive => Added Makan Live TV");
         logger.trace("crawlDigitalLive => Leaving");
@@ -266,7 +268,7 @@ class LiveTV {
      ********************************************************************/
 
     crawlMakoLive(){
-            logger.trace("crawlMakoLive => Entering");
+        logger.trace("crawlMakoLive => Entering");
         var idMakoLive = "il_makoTV_01";
         var makoLiveObj = {
             id: idMakoLive,
@@ -314,7 +316,7 @@ class LiveTV {
                 type: "tv", 
                 subtype: "t"
             };
-            addon.addToSeriesList(item12Live);
+            //addon.addToSeriesList(item12Live);
         }
         logger.debug("crawlMakoLive => Added Mako Live TV");
         //utils.writeLog("DEBUG", "crawlMakoLive => Added Mako Live TV");
@@ -354,7 +356,6 @@ class LiveTV {
                     }
                 ]
             }
-
         }
         this._liveTVJSONObj[idYnetLive] = idYnetLiveObj;
         if (UPDATE_LIST){
@@ -370,7 +371,7 @@ class LiveTV {
                 type: "tv", 
                 subtype: "t"
             };
-            addon.addToSeriesList (itemYnet);
+            //addon.addToSeriesList (itemYnet);
         }
         logger.debug("crawlMakoLive => Added YNet Live TV");
         //utils.writeLog("DEBUG", "crawlMakoLive => Added YNet Live TV");
@@ -426,7 +427,7 @@ class LiveTV {
                 type: "tv", 
                 subtype: "t"
             };
-            addon.addToSeriesList(item24Eng);
+            //addon.addToSeriesList(item24Eng);
         }
         logger.debug("crawlMakoLive => Added i24 English Live TV");
         //utils.writeLog("DEBUG", "crawlMakoLive => Added i24 English Live TV");
@@ -479,7 +480,7 @@ class LiveTV {
                 type: "tv", 
                 subtype: "t"
             };
-            addon.addToSeriesList(item24Heb);
+            //addon.addToSeriesList(item24Heb);
         }logger.debug("crawlDigitalLive => Added i24 Hebrew Live TV");
         //utils.writeLog("DEBUG", "crawlDigitalLive => Added i24 Hebrew Live TV");
         
@@ -531,7 +532,7 @@ class LiveTV {
                 type: "tv", 
                 subtype: "t"
             };
-            addon.addToSeriesList(item24Frn);
+            //addon.addToSeriesList(item24Frn);
         }
         logger.debug("crawlDigitalLive => Added i24 French Live TV");
         //utils.writeLog("DEBUG", "crawlDigitalLive => Added i24 French Live TV");
@@ -585,7 +586,7 @@ class LiveTV {
                 subtype: "t"
             };
             logger.debug();
-            addon.addToSeriesList(item24Arb);
+            //addon.addToSeriesList(item24Arb);
         }
         logger.debug("crawlDigitalLive => Added i24 Arabic Live TV");
         //utils.writeLog("DEBUG", "crawlDigitalLive => Added i24 Arabic Live TV");
@@ -640,7 +641,7 @@ class LiveTV {
                 type: "tv", 
                 subtype: "t"
             };
-            addon.addToSeriesList(item24);
+            //addon.addToSeriesList(item24);
         }
         logger.debug("crawlDigitalLive => Added 24 Live");
         //utils.writeLog("DEBUG", "crawlDigitalLive => Added 24 Live");
@@ -695,7 +696,7 @@ class LiveTV {
                 type: "tv", 
                 subtype: "t"
             }
-            addon.addToSeriesList(itemSport5);
+            //addon.addToSeriesList(itemSport5);
         }
         logger.debug("crawlDigitalLive => Added Sport 5 Live");
         //utils.writeLog("DEBUG", "crawlDigitalLive => Added Sport 5 Live");
@@ -704,7 +705,7 @@ class LiveTV {
     writeJSON(){
         logger.debug("writeJSON => Entered");
         //utils.writeLog("DEBUG", "writeJSON => Entered");
-        utils.writeJSONToFile(this._liveTVJSONObj, "stremio-livetv");
+        utils.writeJSONToFile(this._liveTVJSONObj, "stremio-live");
         
         logger.debug("writeJSON => Leaving");
         //utils.writeLog("DEBUG", "writeJSON => Leaving");
