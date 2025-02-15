@@ -2,23 +2,24 @@ module.exports = {
     RETRY_DELAY: 10000,//default delay between requests
     REQUEST_TIMEOUT: 5000,
     MAX_RETRIES: 5,  
-    MAX_CONCURRENT_REQUESTS: 4,
+    MAX_CONCURRENT_REQUESTS: 2,
     UPDATE_LIST: true, // update the series list as well as creating the JSON object  
-    URL_JSON_BASE: "https://tomartsh.github.io/Stremio_Addon_Files/",
-    //url_JSON_File: "stremio-kanbox.zip,stremio-mako.zip,stremio-variousTV"
-    url_JSON_File: "https://tomartsh.github.io/Stremio_Addon_Files/stremio-kanbox.zip",
-    URL_ZIP_FILES: ["stremio-kanbox.zip","stremio-variousTV.zip"],
+    URL_ZIP_FILES: ["stremio-kanbox.zip","stremio-live.zip","stremio-reshet.zip"],
     SAVE_FOLDER: "output/",
     PREFIX: "il_",
     LOG_LEVEL: "DEBUG",
     LOG4JS_LEVEL: "debug",
+    MAX_LOG_SIZE: 5  * 1024 * 1024, // = 5Mb
+    LOG_BACKUP_FILES: 5, // keep 5 backup files
     HEADERS: {
         "Content-Type" : "text/html; charset=utf-8",
         "User-Agent"   : "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0",
         "Charset": "UTF-8"
     },
+    URL_JSON_BASE: "https://tomartsh.github.io/Stremio_Addon_Files/",
 
     //Kan constants
+    url_JSON_File: "https://tomartsh.github.io/Stremio_Addon_Files/stremio-kanbox.zip",
     KAN_URL_ADDRESS: "https://www.kan.org.il/lobby/kan-box",
     KAN_DIGITAL_IMAGE_PREFIX: "https://www.kan.org.il",
 
@@ -38,7 +39,6 @@ module.exports = {
     //Channel 13 (Reshet) constants
     URL_RESHET_VOD: "https://13tv.co.il/all-shows/all-shows-list/",
     URL_RESHET_BASE: "https://13tv.co.il",
-    URL_RESHET_ARCHIVE: "https://13tv.co.il/general/programs/",
     RESHET_HEADERS: {
 		"accept": "*/*",
 		"accept-language": "en",
