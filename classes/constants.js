@@ -34,6 +34,7 @@ module.exports = {
     URL_MAKO_VOD_JSON: "https://www.mako.co.il/mako-vod-index?type=service",
     URL_MAKO_BASE: "http://www.mako.co.il",
     URL_MAKO_SUFFIX: "?platform=responsive",
+    URL_MAKO_ENTITLEMENT_SERVICES: "https://mass.mako.co.il/ClicksStatistics/entitlementsServicesV2.jsp",
     URL_MAKO_SEASONS: "https://www.mako.co.il/_next/data/5.9.0/${channelName}/${seriesName}.json?mako_vod_channel=${channelName}&program=${seriesName}",
 
     //Channel 13 (Reshet) constants
