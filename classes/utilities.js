@@ -195,7 +195,7 @@ function writeJSONToFile(jsonObj, fileName){
     var path = SAVE_FOLDER + fileName + "_" + dateStr + ".json";
     var simpleFile = SAVE_FOLDER + fileName + ".json";
 
-    write.writeFile(path, json, (err) => {
+     write.writeFile(path, json, (err) => {
         if (err) {
           console.error(err)
           throw err
@@ -206,27 +206,26 @@ function writeJSONToFile(jsonObj, fileName){
         //console.log("Saved data to file " + path);
     });
 
-    write.writeFile(simpleFile, json, (err) => {
+     write.writeFile(simpleFile, json, (err) => {
         if (err) {
           console.error(err)
           throw err
+        } else {
+            logger.debug("writeJSONToFile=> Saved data to file " + simpleFile);
+            logger.debug("Saved data to file " + simpleFile);
+            //zip the file
+            var zipFileName = fileName + ".zip";
+            var zipFileFullPath = SAVE_FOLDER + zipFileName; 
+            var zip = new AdmZip();
+            zip.addLocalFile(simpleFile);
+            // get everything as a buffer
+            var willSendthis = zip.toBuffer();
+            // or write everything to disk
+            zip.writeZip(zipFileFullPath);
         }
-        logger.debug("writeJSONToFile=> Saved data to file " + simpleFile);
-        logger.debug("Saved data to file " + simpleFile);
     });
-
-
-    //zip the file
-    var zipFileName = fileName + ".zip";
-    var zipFileFullPath = SAVE_FOLDER + zipFileName; 
-    var zip = new AdmZip();
-    zip.addLocalFile(simpleFile);
-    // get everything as a buffer
-    var willSendthis = zip.toBuffer();
-    // or write everything to disk
-    zip.writeZip(zipFileFullPath);
-
 }
+
 
 function getCurrentDateStr(){
     var currDate = new Date();
