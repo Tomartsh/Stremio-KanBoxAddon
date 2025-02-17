@@ -32,15 +32,14 @@ log4js.configure({
 var logger = log4js.getLogger("addon");
 
 const listSeries = new srList();
-//const makoScraper = new Makoscraper();
-//makoScraper.crawl();
-const reshetScraper = new Reshetscraper();
-//reshetScraper.crawl();
-//reshetScraper.writeJSON();
-const kanScraper = new Kanscraper()
-//kanScraper.crawl();
-//const liveTV = new LiveTV();
-//liveTV.crawl();
+const liveTV = new LiveTV(addToSeriesList);
+liveTV.crawl(true);
+const makoScraper = new Makoscraper(addToSeriesList);
+makoScraper.crawl();
+const reshetScraper = new Reshetscraper(addToSeriesList);
+//reshetScraper.crawl(true);
+const kanScraper = new Kanscraper(addToSeriesList)
+//kanScraper.crawl(true);
 
 /**
  * Set cron jobs for Reshet generating json and zip file. 
@@ -301,4 +300,3 @@ async function getJSONFile(){
 }
 
 module.exports = builder.getInterface();
-exports.addToSeriesList = addToSeriesList;
