@@ -2,10 +2,10 @@
 const constants = require("./constants");
 const write = require("fs");
 const { parse } = require('node-html-parser');
-const fetch = require('node-fetch');
+//const fetch = require('node-fetch');
 const axios = require('axios');
 const AdmZip = require("adm-zip");
-const fs = require('fs');
+//const fs = require('fs');
 const log4js = require("log4js");
 const {MAX_RETRIES, REQUEST_TIMEOUT,HEADERS, MAX_CONCURRENT_REQUESTS, RETRY_DELAY, SAVE_FOLDER, LOG_LEVEL, LOG4JS_LEVEL } = require ("./constants");
 
@@ -23,7 +23,9 @@ log4js.configure({
     categories: { default: { appenders: ['Stremio','out'], level: LOG4JS_LEVEL } },
 });
 
-/*
+var logger = log4js.getLogger("utilities");
+
+
 class Throttler {
     constructor(limit) {
         this.limit = limit;
@@ -41,7 +43,8 @@ class Throttler {
 
                 this.activeRequests++;
                 try {
-                    writeLog("TRACE","Throttler-schedule => running task");
+                    logger.trace("Throttler-schedule => running task");
+                    //writeLog("TRACE","Throttler-schedule => running task");
                     const result = await task();
                     resolve(result);
                 } catch (error) {
@@ -49,10 +52,12 @@ class Throttler {
                 } finally {
                     this.activeRequests--;
                     if (this.queue.length > 0) {
-                        writeLog("TRACEepic","Throttler-schedule => Moving next in queue");
+                        logger.trace("Throttler-schedule => Moving next in queue");
+                        //writeLog("TRACE","Throttler-schedule => Moving next in queue");
                         const nextTask = this.queue.shift();
                         nextTask();
-                        writeLog("DEBUG","Throttler-schedule => waiting in queue: " + this.queue.length);
+                        logger.debug("Throttler-schedule => waiting in queue: " + this.queue.length);
+                        //writeLog("DEBUG","Throttler-schedule => waiting in queue: " + this.queue.length);
                     }
                 }
             };
@@ -62,17 +67,20 @@ class Throttler {
     }
 }
 
-const throttler = new Throttler(MAX_CONCURRENT_CONNS);
+const throttler = new Throttler(MAX_CONCURRENT_REQUESTS);
 
 async function fetchWithRetries(url, asJson = false, params = {}, headers) {
-    writeLog("TRACE","fetchWithRetries => Entering");
-    writeLog("TRACE","fetchWithRetries => URL: " + url + "\n    asJson: " + asJson + "\n    Params: " + "params: " + params + "\n   headers: " + headers);
+    logger.trace("fetchWithRetries => Entering");
+    logger.trace("URL: " + url + "\n    asJson: " + asJson + "\n    Params: " + "params: " + params + "\n   headers: " + headers);
+    //writeLog("TRACE","fetchWithRetries => Entering");
+    //writeLog("TRACE","fetchWithRetries => URL: " + url + "\n    asJson: " + asJson + "\n    Params: " + "params: " + params + "\n   headers: " + headers);
     return throttler.schedule(async () => {
-        for (let attempt = 1; attempt <= DEFAULT_CONN_RETRY; attempt++) {
+        for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
             try {
-                writeLog("DEBUG","fetchWithRetries => Attempting retrieval from " + url +", try no. " + attempt);
+                logger.debug("fetchWithRetries => Attempting retrieval from " + url +", try no. " + attempt);
+                //writeLog("DEBUG","fetchWithRetries => Attempting retrieval from " + url +", try no. " + attempt);
                 const response = await axios.get(url, {
-                    timeout: DEFAULT_CONN_TIMEOUT,
+                    timeout: REQUEST_TIMEOUT,
                     headers: headers,
                     params: params,
                     responseType: asJson ? 'json' : 'text' // Ensure correct response type
@@ -80,19 +88,20 @@ async function fetchWithRetries(url, asJson = false, params = {}, headers) {
 
                 return asJson ? response.data : response.data.toString(); // Convert to string for HTML
             } catch (error) {
-                if (attempt === DEFAULT_CONN_RETRY) throw error;
+                if (attempt === MAX_RETRIES) throw error;
                 
-                const delay = DEFAULT_DELAY * Math.pow(2, attempt - 1); // Exponential backoff
-                writeLog("DEBUG","fetchWithRetries => Attempt " + attempt + " failed: " + error.message + ". Retrying in " + delay + " ms...");
+                const delay = RETRY_DELAY * Math.pow(2, attempt - 1); // Exponential backoff
+                logger.debug("fetchWithRetries => Attempt " + attempt + " failed: " + error.message + ". Retrying in " + delay + " ms...");
+                //writeLog("DEBUG","fetchWithRetries => Attempt " + attempt + " failed: " + error.message + ". Retrying in " + delay + " ms...");
                 
                 await new Promise(resolve => setTimeout(resolve, delay));
             }
         }
     });
 }
-*/
+
 // Wrapper function for fetching data
-/*
+
 async function fetchData(url , asJson = false, params={}, headers = HEADERS ) {
     try {
         const data = await fetchWithRetries(url, asJson, params, headers);
@@ -100,13 +109,13 @@ async function fetchData(url , asJson = false, params={}, headers = HEADERS ) {
         return asJson ? data : parse(data);
 
     } catch (error) {
-        console.error('Failed to fetch:', error.message);
+        logger.error('Failed to fetch:', error.message);
     }
 }
-*/
 
-var logger = log4js.getLogger("utilities");
 
+
+/*
 // Utility function to add delay
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -143,7 +152,7 @@ async function fetchData(url, retrieveJson = false, params = {}, headers = HEADE
                 attempt++;
                 if (attempt >= MAX_RETRIES) {
                     pendingRequests--; // Ensure counter decreases even on failure
-                    throw new Error(`Failed to fetch data after ${MAX_RETRIES} attempts: ${error.message}`);
+                    throw Error(`Failed to fetch data after ${MAX_RETRIES} attempts: ${error.message}`);
                 }
                 const backoffTime = constants.RETRY_DELAY * Math.pow(2, attempt - 1); // Exponential backoff
                 logger.warn(`Attempt ${attempt} failed. Retrying in ${backoffTime}ms...` + url);
@@ -153,10 +162,7 @@ async function fetchData(url, retrieveJson = false, params = {}, headers = HEADE
         }
     });
 }
-
-
-
-
+*/
 //+===================================================================================
 //
 //  Utility functions
@@ -194,7 +200,7 @@ function writeJSONToFile(jsonObj, fileName){
     //dateStr = dateStr.replace(':','-');
     var path = SAVE_FOLDER + fileName + "_" + dateStr + ".json";
     var simpleFile = SAVE_FOLDER + fileName + ".json";
-
+/*
      write.writeFile(path, json, (err) => {
         if (err) {
           console.error(err)
@@ -205,7 +211,7 @@ function writeJSONToFile(jsonObj, fileName){
         logger.debug("Saved data to file " + path);
         //console.log("Saved data to file " + path);
     });
-
+*/
      write.writeFile(simpleFile, json, (err) => {
         if (err) {
           console.error(err)
@@ -219,7 +225,7 @@ function writeJSONToFile(jsonObj, fileName){
             var zip = new AdmZip();
             zip.addLocalFile(simpleFile);
             // get everything as a buffer
-            var willSendthis = zip.toBuffer();
+            //var willSendthis = zip.toBuffer();
             // or write everything to disk
             zip.writeZip(zipFileFullPath);
         }
