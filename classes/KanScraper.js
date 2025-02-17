@@ -1,6 +1,5 @@
 const constants = require("./constants.js");
 const utils = require("./utilities.js");
-const addon = require("../addon.js");
 const {fetchData, writeLog} = require("./utilities.js");
 const {UPDATE_LIST, LOG4JS_LEVEL, MAX_LOG_SIZE, LOG_BACKUP_FILES} = require("./constants.js");
 const log4js = require("log4js");
@@ -24,8 +23,9 @@ var logger = log4js.getLogger("KanScraper");
 
 class KanScraper {
 
-    constructor() {
+    constructor(addToSeriesList) {
         this._kanJSONObj = {};
+        this.addToSeriesList = addToSeriesList
     }
 
     async crawl(isDoWriteFile = false){
@@ -1092,7 +1092,7 @@ class KanScraper {
                 type: type, 
                 subtype: subType
             }
-            addon.addToSeriesList(item);
+            this.addToSeriesList(item);
         }
         logger.info("addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + " Link: " + seriesPage + " subtype: " + subType);
         //writeLog("INFO","addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + " Link: " + seriesPage + " subtype: " + subType);
