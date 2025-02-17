@@ -1,5 +1,5 @@
 const utils = require("./utilities.js");
-const {UPDATE_LIST, MAX_LOG_SIZE, LOG_BACKUP_FILES} = require("./constants.js");
+const {UPDATE_LIST, MAX_LOG_SIZE, LOG_BACKUP_FILES, URLS_ASSETS_BASE} = require("./constants.js");
 const log4js = require("log4js");
 
 log4js.configure({
@@ -61,8 +61,8 @@ class LiveTV {
                 name: "כאן 11",
                 type: "tv",
                 genres: ["actuality", "news", "חדשות", "אקטואליה"],
-                background: "https://tomartsh.github.io/Stremio_Addon_Files/assets/kan.jpg",
-                poster: "https://tomartsh.github.io/Stremio_Addon_Files/assets/kan.jpg",
+                background: URLS_ASSETS_BASE + "kan.jpg",
+                poster: URLS_ASSETS_BASE + "kan.jpg",
                 posterShape: "square",
                 description: "Kan 11 Live Stream From Israel",
                 videos: [
@@ -114,7 +114,8 @@ class LiveTV {
                 name: "חינוכית",
                 type: "tv",
                 genres: ["Kids","ילדים ונוער"],
-                background: "https://tomartsh.github.io/Stremio_Addon_Files/assets/hinuchit.jpg",
+                background: URLS_ASSETS_BASE + "hinuchit.jpg",
+                poster: URLS_ASSETS_BASE + "hinuchit.jpg",
                 posterShape: "landscape",
                 description: "שידורי הטלויזיה החינוכית",
                 videos: [
@@ -280,8 +281,8 @@ class LiveTV {
                 name: "שידור חי מאקו ערוץ 12",
                 genres: ["Actuality","אקטואליה"],
                 type: "tv",
-                background: "https://tomartsh.github.io/Stremio_Addon_Files//assets/Mako/LIVE_push_mako_tv.jpg",
-                poster: "https://tomartsh.github.io/Stremio_Addon_Files//assets/Mako/LIVE_push_mako_tv.jpg",
+                background: URLS_ASSETS_BASE + "LIVE_push_mako_tv.jpg",
+                poster: URLS_ASSETS_BASE + "LIVE_push_mako_tv.jpg",
                 posterShape: "landscape",
                 description: "שידור חי מאקו ערוץ 12",
                 videos: [
@@ -341,8 +342,8 @@ class LiveTV {
                 name: "שידור חי רשת ערוץ 13",
                 genres: ["Actuality","אקטואליה"],
                 type: "tv",
-                background: "https://tomartsh.github.io/Stremio_Addon_Files/assets/13.jpg",
-                poster: "https://tomartsh.github.io/Stremio_Addon_Files/assets/13.jpg",
+                background: URLS_ASSETS_BASE + "13.jpg",
+                poster: URLS_ASSETS_BASE + "13.jpg",
                 posterShape: "square",
                 description: "שידור חי רשת ערוץ 13",
                 videos: [
@@ -396,8 +397,8 @@ class LiveTV {
                 name: "שידור חי ynet",
                 genres: ["Actuality","אקטואליה","news"],
                 type: "tv",
-                background: "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/ynet_logo_gif_ynet.gif",
-                poster: "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/ynet_logo_gif_ynet.gif",
+                background: URLS_ASSETS_BASE + "ynet_logo_gif_ynet.gif",
+                poster: URLS_ASSETS_BASE + "ynet_logo_gif_ynet.gif",
                 posterShape: "landscape",
                 description: "שידור חי ynet",
                 videos: [
@@ -451,8 +452,8 @@ class LiveTV {
                 name: "שידור חי באנגלית i24",
                 genres: ["Actuality","אקטואליה","news"],
                 type: "tv",
-                background: "https://tomartsh.github.io/Stremio_Addon_Files/assets/i24new_english_square.png",
-                poster: "https://tomartsh.github.io/Stremio_Addon_Files/assets/i24new_english_square.png",
+                background: URLS_ASSETS_BASE + "i24new_english_square.png",
+                poster: URLS_ASSETS_BASE + "i24new_english_square.png",
                 posterShape: "landscape",
                 description: "שידור חי באנגלית i24",
                 videos: [
@@ -505,8 +506,8 @@ class LiveTV {
                 name: "שידור חי בעיברית i24",
                 type: "tv",
                 genres: ["Actuality","אקטואליה","news"],
-                background: "https://tomartsh.github.io/Stremio_Addon_Files/assets/i24news_hebrew_square.png",
-                poster: "https://tomartsh.github.io/Stremio_Addon_Files/assets/i24news_hebrew_sqaure.png",
+                background: URLS_ASSETS_BASE + "i24news_hebrew_square.png",
+                poster: URLS_ASSETS_BASE + "i24news_hebrew_sqaure.png",
                 posterShape: "square",
                 description: "שידור חי בעיברית i24",
                 videos: [
@@ -557,8 +558,8 @@ class LiveTV {
                 name: "שידור חי בצרפתית i24",
                 type: "tv",
                 genres: ["Actuality","אקטואליה","news"],
-                background: "https://tomartsh.github.io/Stremio_Addon_Files/assets/i24new_french_square.png",
-                poster: "https://tomartsh.github.io/Stremio_Addon_Files/assets/i24new_french_square.png",
+                background: URLS_ASSETS_BASE + "i24new_french_square.png",
+                poster: URLS_ASSETS_BASE + "i24new_french_square.png",
                 posterShape: "landscape",
                 description: "שידור חי בצרפתית i24",
                 videos: [
@@ -610,8 +611,8 @@ class LiveTV {
                 name: "שידור חי בערבית i24",
                 type: "tv",
                 genres: ["Actuality","אקטואליה","news"],
-                background: "https://tomartsh.github.io/Stremio_Addon_Files/assets/i24news_arabic_square.png",
-                poster: "https://tomartsh.github.io/Stremio_Addon_Files/assets/i24news_arabic_square.png",
+                background: URLS_ASSETS_BASE + "i24news_arabic_square.png",
+                poster: URLS_ASSETS_BASE + "i24news_arabic_square.png",
                 posterShape: "landscape",
                 description: "שידור חי בערבית i24",
                 videos: [
@@ -666,8 +667,8 @@ class LiveTV {
                 name: "שידור חי 24",
                 type: "tv",
                 genres: ["Actuality","אקטואליה","news"],
-                background: "https://tomartsh.github.io/Stremio_Addon_Files/assets/channel_24_square.jpg",
-                poster: "https://tomartsh.github.io/Stremio_Addon_Files/assets/channel_24_square.jpg",
+                background: URLS_ASSETS_BASE + "channel_24_square.jpg",
+                poster: URLS_ASSETS_BASE + "channel_24_square.jpg",
                 posterShape: "landscape",
                 description: "שידור חי 24",
                 videos: [
@@ -721,8 +722,8 @@ class LiveTV {
                 name: "שידור חי Sport 5",
                 type: "tv",
                 genres: ["Actuality","אקטואליה","news"],
-                background: "https://tomartsh.github.io/Stremio_Addon_Files/assets/Sport5_square.png",
-                poster: "https://tomartsh.github.io/Stremio_Addon_Files/assets/Sport5_square.png",
+                background: URLS_ASSETS_BASE + "Sport5_square.png",
+                poster: URLS_ASSETS_BASE + "Sport5_square.png",
                 posterShape: "square",
                 description: "שידור חי Sport 5",
                 videos: [
