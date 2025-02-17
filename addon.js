@@ -35,7 +35,7 @@ const listSeries = new srList();
 const liveTV = new LiveTV(addToSeriesList);
 liveTV.crawl();
 const makoScraper = new Makoscraper(addToSeriesList);
-makoScraper.crawl();
+//makoScraper.crawl();
 const reshetScraper = new Reshetscraper(addToSeriesList);
 //reshetScraper.crawl(true);
 const kanScraper = new Kanscraper(addToSeriesList)
