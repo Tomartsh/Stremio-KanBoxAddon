@@ -27,6 +27,9 @@ class srList {
         this._addItem(item);
     }
 
+    getList(){
+        return this._seriesList;
+    }
     getMetasByType(type) {
         var metas = [];
         for (var [key, value] of Object.entries(this._seriesList)) {
