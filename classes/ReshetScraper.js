@@ -1,5 +1,4 @@
 const utils = require("./utilities.js");
-const addon = require("../addon.js");
 const {URL_RESHET_VOD, URL_RESHET_BASE,PREFIX, RESHET_HEADERS,RESHET_PARTNER_ID, RESHET_URL_STREAM,LOG4JS_LEVEL,MAX_LOG_SIZE, LOG_BACKUP_FILES} = require ("./constants");
 const {fetchData, writeLog} = require("./utilities.js");
 const {UPDATE_LIST} = require("./constants.js");
@@ -23,10 +22,11 @@ var logger = log4js.getLogger("ReshetScraper");
 
 class ReshetScraper {
 
-    constructor(){
+    constructor(addToSeriesList){
         this._reshetJSONObj = {};
         this._buildId = "";
         this._videos = [];
+        this.addToSeriesList = addToSeriesList;
         
     }
 
@@ -253,7 +253,7 @@ class ReshetScraper {
                 type: type, 
                 subtype: subType
             }
-            addon.addToSeriesList(item);
+            this.addToSeriesList(item);
         }
         logger.info("addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + " Link: " + seriesPage + " subtype: " + subType);
         //writeLog("INFO","ReshetScraper-addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + " Link: " + seriesPage + " subtype: " + subType);
