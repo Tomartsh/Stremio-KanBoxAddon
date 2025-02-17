@@ -1,7 +1,6 @@
 const utils = require("./utilities.js");
 const {UPDATE_LIST, MAX_LOG_SIZE, LOG_BACKUP_FILES} = require("./constants.js");
 const log4js = require("log4js");
-const addon = require("../addon.js");
 
 log4js.configure({
     appenders: { 
@@ -21,8 +20,9 @@ var logger = log4js.getLogger("LiveTV");
 
 class LiveTV {
 
-    constructor() {
+    constructor(addToSeriesList) {
         this._liveTVJSONObj = {};
+        this.addToSeriesList = addToSeriesList;
     }
 
     /********************************************************************
@@ -43,7 +43,7 @@ class LiveTV {
 
         logger.info("LiveTV=> Done Crawling");
         //utils.writeLog("INFO", "LiveTV=> Done Crawling");
-        if (isDoWriteFile = false){
+        if (isDoWriteFile){
             this.writeJSON();
         }
     }
@@ -61,9 +61,9 @@ class LiveTV {
                 name: "כאן 11",
                 type: "tv",
                 genres: ["actuality", "news", "חדשות", "אקטואליה"],
-                background: "https://efitriger.com/wp-content/uploads/2022/11/%D7%9B%D7%90%D7%9F-BOX-660x330.jpg",
-                poster: "https://octopus.org.il/wp-content/uploads/2022/01/logo_ogImageKan.jpg",
-                posterShape: "landscape",
+                background: "https://tomartsh.github.io/Stremio_Addon_Files/assets/kan.jpg",
+                poster: "https://tomartsh.github.io/Stremio_Addon_Files/assets/kan.jpg",
+                posterShape: "square",
                 description: "Kan 11 Live Stream From Israel",
                 videos: [
                     {
@@ -98,7 +98,7 @@ class LiveTV {
                 type: "tv", 
                 subtype: "t"
             }
-            addon.addToSeriesList(itemKanLive);
+            this.addToSeriesList(itemKanLive);
         }
         logger.debug("crawlDigitalLive => Added Kan 11 Live TV");
         //utils.writeLog("DEBUG", "crawlDigitalLive => Added Kan 11 Live TV");
@@ -114,7 +114,7 @@ class LiveTV {
                 name: "חינוכית",
                 type: "tv",
                 genres: ["Kids","ילדים ונוער"],
-                background: "https://tomartsh.github.io/Stremio_Addon_Files/assets/Kan/KanHinuchit.jpg",
+                background: "https://tomartsh.github.io/Stremio_Addon_Files/assets/hinuchit.jpg",
                 posterShape: "landscape",
                 description: "שידורי הטלויזיה החינוכית",
                 videos: [
@@ -149,7 +149,7 @@ class LiveTV {
                 type: "tv", 
                 subtype: "t"
             };
-            //addon.addToSeriesList(itemKanKidsLive)
+            this.addToSeriesList(itemKanKidsLive)
         }
         logger.debug("crawlDigitalLive => Added Hinukhit Live TV");
         //utils.writeLog("DEBUG", "crawlDigitalLive => Added Hinukhit Live TV");
@@ -201,7 +201,7 @@ class LiveTV {
                 type: "tv", 
                 subtype: "t"
             };
-            //addon.addToSeriesList(itemKnesset);
+            this.addToSeriesList(itemKnesset);
         }
         logger.debug("crawlDigitalLive => Added Knesset Live TV");
         //utils.writeLog("DEBUG", "crawlDigitalLive => Added Knesset Live TV");
@@ -253,7 +253,7 @@ class LiveTV {
                 type: "tv", 
                 subtype: "t"
             };
-            //addon.addToSeriesList(itemMakan);
+            this.addToSeriesList(itemMakan);
         }
         logger.debug("crawlDigitalLive => Added Makan Live TV");
         logger.trace("crawlDigitalLive => Leaving");
@@ -316,7 +316,68 @@ class LiveTV {
                 type: "tv", 
                 subtype: "t"
             };
-            //addon.addToSeriesList(item12Live);
+            this.addToSeriesList(item12Live);
+        }
+        logger.debug("crawlMakoLive => Added Mako Live TV");
+        //utils.writeLog("DEBUG", "crawlMakoLive => Added Mako Live TV");
+    }
+
+    /********************************************************************
+     * 
+     * Reshet 13 Live channel handling
+     * 
+     ********************************************************************/
+
+    crawlReshetLive(){
+        logger.trace("crawlReshetLive => Entering");
+        var idReshetLive = "il_reshetTV_01";
+        var reshetLiveObj = {
+            id: idReshetLive,
+            type: "tv",
+            subtype: "t",
+            title: "רשת ערוץ 13",
+            metas: {
+                id: idReshetLive,
+                name: "שידור חי רשת ערוץ 13",
+                genres: ["Actuality","אקטואליה"],
+                type: "tv",
+                background: "https://tomartsh.github.io/Stremio_Addon_Files/assets/13.jpg",
+                poster: "https://tomartsh.github.io/Stremio_Addon_Files/assets/13.jpg",
+                posterShape: "square",
+                description: "שידור חי רשת ערוץ 13",
+                videos: [
+                    {
+                        id: idReshetLive,
+                        title: "ערוץ רשת 13",
+                        description: "שידור חי רשת ערוץ 13",
+                        released: Date.now(),
+                        streams: [
+                            {
+                                url: "https://mako-streaming.akamaized.net/stream/hls/live/2033791/k12dvr/profile/2/hdntl=exp=1735669372~acl=%2f*~data=hdntl~hmac=b6e2493f547c81407d110fd0e7cf5ffc5cc6229721846c9908181b25a541a6e3/profileManifest.m3u8?_uid=a09bd8e7-f52a-4d5c-83a5-ebb3c664e7d8&rK=a3&_did=22bc6d40-f8a7-43c4-b1e0-ca555e4bc0cb",
+                                type: "tv",
+                                name: "שידור חי רשת ערוץ 13",
+                                description: "שידור חי רשת ערוץ 13"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+        this._liveTVJSONObj[idReshetLive] = reshetLiveObj;
+        if (UPDATE_LIST){
+            var item12Live = {
+                id: idReshetLive, 
+                name: reshetLiveObj.title, 
+                poster: reshetLiveObj.metas.poster, 
+                description: reshetLiveObj.metas.description, 
+                link: "",
+                background: reshetLiveObj.metas.background, 
+                genres: reshetLiveObj.metas.genres,
+                metas: reshetLiveObj.metas,
+                type: "tv", 
+                subtype: "t"
+            };
+            this.addToSeriesList(item12Live);
         }
         logger.debug("crawlMakoLive => Added Mako Live TV");
         //utils.writeLog("DEBUG", "crawlMakoLive => Added Mako Live TV");
@@ -371,7 +432,7 @@ class LiveTV {
                 type: "tv", 
                 subtype: "t"
             };
-            //addon.addToSeriesList (itemYnet);
+            this.addToSeriesList (itemYnet);
         }
         logger.debug("crawlMakoLive => Added YNet Live TV");
         //utils.writeLog("DEBUG", "crawlMakoLive => Added YNet Live TV");
@@ -390,8 +451,8 @@ class LiveTV {
                 name: "שידור חי באנגלית i24",
                 genres: ["Actuality","אקטואליה","news"],
                 type: "tv",
-                background: "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/i24new_english.png",
-                poster: "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/i24new_english.png",
+                background: "https://tomartsh.github.io/Stremio_Addon_Files/assets/i24new_english_square.png",
+                poster: "https://tomartsh.github.io/Stremio_Addon_Files/assets/i24new_english_square.png",
                 posterShape: "landscape",
                 description: "שידור חי באנגלית i24",
                 videos: [
@@ -427,7 +488,7 @@ class LiveTV {
                 type: "tv", 
                 subtype: "t"
             };
-            //addon.addToSeriesList(item24Eng);
+            this.addToSeriesList(item24Eng);
         }
         logger.debug("crawlMakoLive => Added i24 English Live TV");
         //utils.writeLog("DEBUG", "crawlMakoLive => Added i24 English Live TV");
@@ -444,9 +505,9 @@ class LiveTV {
                 name: "שידור חי בעיברית i24",
                 type: "tv",
                 genres: ["Actuality","אקטואליה","news"],
-                background: "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/i24new_hebrew.png",
-                poster: "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/i24new_hebrew.png",
-                posterShape: "landscape",
+                background: "https://tomartsh.github.io/Stremio_Addon_Files/assets/i24news_hebrew_square.png",
+                poster: "https://tomartsh.github.io/Stremio_Addon_Files/assets/i24news_hebrew_sqaure.png",
+                posterShape: "square",
                 description: "שידור חי בעיברית i24",
                 videos: [
                     {
@@ -480,7 +541,7 @@ class LiveTV {
                 type: "tv", 
                 subtype: "t"
             };
-            //addon.addToSeriesList(item24Heb);
+            this.addToSeriesList(item24Heb);
         }logger.debug("crawlDigitalLive => Added i24 Hebrew Live TV");
         //utils.writeLog("DEBUG", "crawlDigitalLive => Added i24 Hebrew Live TV");
         
@@ -496,8 +557,8 @@ class LiveTV {
                 name: "שידור חי בצרפתית i24",
                 type: "tv",
                 genres: ["Actuality","אקטואליה","news"],
-                background: "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/i24new_french.png",
-                poster: "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/i24new_french.png",
+                background: "https://tomartsh.github.io/Stremio_Addon_Files/assets/i24new_french_square.png",
+                poster: "https://tomartsh.github.io/Stremio_Addon_Files/assets/i24new_french_square.png",
                 posterShape: "landscape",
                 description: "שידור חי בצרפתית i24",
                 videos: [
@@ -532,7 +593,7 @@ class LiveTV {
                 type: "tv", 
                 subtype: "t"
             };
-            //addon.addToSeriesList(item24Frn);
+            this.addToSeriesList(item24Frn);
         }
         logger.debug("crawlDigitalLive => Added i24 French Live TV");
         //utils.writeLog("DEBUG", "crawlDigitalLive => Added i24 French Live TV");
@@ -549,8 +610,8 @@ class LiveTV {
                 name: "שידור חי בערבית i24",
                 type: "tv",
                 genres: ["Actuality","אקטואליה","news"],
-                background: "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/i24new_arabic.png",
-                poster: "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/i24new_arabic.png",
+                background: "https://tomartsh.github.io/Stremio_Addon_Files/assets/i24news_arabic_square.png",
+                poster: "https://tomartsh.github.io/Stremio_Addon_Files/assets/i24news_arabic_square.png",
                 posterShape: "landscape",
                 description: "שידור חי בערבית i24",
                 videos: [
@@ -586,7 +647,7 @@ class LiveTV {
                 subtype: "t"
             };
             logger.debug();
-            //addon.addToSeriesList(item24Arb);
+            this.addToSeriesList(item24Arb);
         }
         logger.debug("crawlDigitalLive => Added i24 Arabic Live TV");
         //utils.writeLog("DEBUG", "crawlDigitalLive => Added i24 Arabic Live TV");
@@ -605,8 +666,8 @@ class LiveTV {
                 name: "שידור חי 24",
                 type: "tv",
                 genres: ["Actuality","אקטואליה","news"],
-                background: "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/channel_24.jpg",
-                poster: "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/channel_24.jpg",
+                background: "https://tomartsh.github.io/Stremio_Addon_Files/assets/channel_24_square.jpg",
+                poster: "https://tomartsh.github.io/Stremio_Addon_Files/assets/channel_24_square.jpg",
                 posterShape: "landscape",
                 description: "שידור חי 24",
                 videos: [
@@ -641,7 +702,7 @@ class LiveTV {
                 type: "tv", 
                 subtype: "t"
             };
-            //addon.addToSeriesList(item24);
+            this.addToSeriesList(item24);
         }
         logger.debug("crawlDigitalLive => Added 24 Live");
         //utils.writeLog("DEBUG", "crawlDigitalLive => Added 24 Live");
@@ -660,9 +721,9 @@ class LiveTV {
                 name: "שידור חי Sport 5",
                 type: "tv",
                 genres: ["Actuality","אקטואליה","news"],
-                background: "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/sport_5.jpg",
-                poster: "https://tomartsh.github.io/Stremio_Addon_Files//assets/various/sport_5.jpg",
-                posterShape: "landscape",
+                background: "https://tomartsh.github.io/Stremio_Addon_Files/assets/Sport5_square.png",
+                poster: "https://tomartsh.github.io/Stremio_Addon_Files/assets/Sport5_square.png",
+                posterShape: "square",
                 description: "שידור חי Sport 5",
                 videos: [
                     {
@@ -696,7 +757,7 @@ class LiveTV {
                 type: "tv", 
                 subtype: "t"
             }
-            //addon.addToSeriesList(itemSport5);
+            this.addToSeriesList(itemSport5);
         }
         logger.debug("crawlDigitalLive => Added Sport 5 Live");
         //utils.writeLog("DEBUG", "crawlDigitalLive => Added Sport 5 Live");
