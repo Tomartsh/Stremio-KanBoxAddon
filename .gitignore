@@ -8,8 +8,8 @@ logs
 logs/*.*
 
 #ignore output folders
-output/*.zip
-output/*.json
+#output/*.zip
+#output/*.json
 output/backup
 
 #ignore java sction of project as it is already obsolete

@@ -4,7 +4,7 @@ module.exports = {
     MAX_RETRIES: 5,  
     MAX_CONCURRENT_REQUESTS: 1,
     UPDATE_LIST: true, // update the series list as well as creating the JSON object  
-    URL_ZIP_FILES: ["stremio-kanbox.zip","stremio-live.zip","stremio-reshet.zip"],
+    URL_ZIP_FILES: ["stremio-kan.zip","stremio-live.zip","stremio-reshet.zip"],
     SAVE_FOLDER: "output/",
     PREFIX: "il_",
     LOG_LEVEL: "DEBUG",
@@ -18,7 +18,8 @@ module.exports = {
         "Accept-Encoding": "gzip, deflate, br",
         "Charset": "UTF-8"
     },
-    URL_JSON_BASE: "https://tomartsh.github.io/Stremio_Addon_Files/",
+    URL_JSON_BASE: "https://tomartsh.github.io/Stremio-KanBoxAddon/output/",
+    URLS_ASSETS_BASE: "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/",
 
     //Kan constants
     url_JSON_File: "https://tomartsh.github.io/Stremio_Addon_Files/stremio-kanbox.zip",
