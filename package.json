@@ -8,12 +8,10 @@
 	"dependencies": {
 		"adm-zip": "^0.5.16",
 		"axios": "^1.7.9",
-		"axios-retry": "^4.5.0",
 		"fs": "^0.0.1-security",
 		"log4js": "^6.9.1",
 		"node-cron": "^3.0.3",
 		"node-html-parser": "^6.1.13",
-		"p-limit": "^6.2.0",
 		"stremio-addon-sdk": "1.1.x",
 		"uuid": "^11.0.5"
 	}
