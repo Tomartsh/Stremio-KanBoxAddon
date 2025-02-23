@@ -7,7 +7,18 @@ const axios = require('axios');
 const AdmZip = require("adm-zip");
 //const fs = require('fs');
 const log4js = require("log4js");
-const {MAX_RETRIES, REQUEST_TIMEOUT,HEADERS, MAX_CONCURRENT_REQUESTS, RETRY_DELAY, SAVE_FOLDER, LOG_LEVEL, LOG4JS_LEVEL } = require ("./constants");
+const {
+    MAX_RETRIES, 
+    REQUEST_TIMEOUT,
+    HEADERS, 
+    MAX_CONCURRENT_REQUESTS, 
+    RETRY_DELAY, 
+    SAVE_FOLDER, 
+    LOG_LEVEL, 
+    LOG4JS_LEVEL,
+    MAX_LOG_SIZE, 
+    LOG_BACKUP_FILES 
+} = require ("./constants");
 
 log4js.configure({
     appenders: { 
@@ -16,14 +27,14 @@ log4js.configure({
         { 
             type: "file", 
             filename: "logs/Stremio_addon.log", 
-            maxLogSize: 10 * 1024 * 1024, // = 10Mb 
-            backups: 5, // keep five backup files
+            maxLogSize: MAX_LOG_SIZE, 
+            backups: LOG_BACKUP_FILES
         }
     },
     categories: { default: { appenders: ['Stremio','out'], level: LOG4JS_LEVEL } },
 });
 
-var logger = log4js.getLogger("utilities");
+var logger = log4js.getLogger("utillities");
 
 
 class Throttler {
@@ -77,7 +88,7 @@ async function fetchWithRetries(url, asJson = false, params = {}, headers) {
     return throttler.schedule(async () => {
         for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
             try {
-                logger.debug("fetchWithRetries => Attempting retrieval from " + url +", try no. " + attempt);
+                logger.trace("fetchWithRetries => Attempting retrieval from " + url +", try no. " + attempt);
                 //writeLog("DEBUG","fetchWithRetries => Attempting retrieval from " + url +", try no. " + attempt);
                 const response = await axios.get(url, {
                     timeout: REQUEST_TIMEOUT,
@@ -86,7 +97,7 @@ async function fetchWithRetries(url, asJson = false, params = {}, headers) {
                     responseType: asJson ? 'json' : 'text' // Ensure correct response type
                 });
 
-                return asJson ? response.data : response.data.toString(); // Convert to string for HTML
+                return asJson ? response.data : parse(response.data.toString()); // Convert to string for HTML
             } catch (error) {
                 if (attempt === MAX_RETRIES) throw error;
                 
@@ -104,15 +115,15 @@ async function fetchWithRetries(url, asJson = false, params = {}, headers) {
 
 async function fetchData(url , asJson = false, params={}, headers = HEADERS ) {
     try {
+        logger.trace("fetchData => For URL: " + url);
         const data = await fetchWithRetries(url, asJson, params, headers);
         //console.log('Fetched data:', data);
-        return asJson ? data : parse(data);
+        return asJson ? data : parse(data.toString());
 
     } catch (error) {
         logger.error('Failed to fetch:', error.message);
     }
 }
-
 
 
 /*
@@ -125,7 +136,7 @@ let pendingRequests = 0; // Global counter for tracking pending requests
 async function fetchData(url, retrieveJson = false, params = {}, headers = HEADERS) {
     logger.trace("fetchData => Entering");
     //writeLog("TRACE","fetchData => Entering");
-    logger.trace("fetchData => URL: " + url + "\n   retrieveJson: " + retrieveJson + "\n   params:" + params);
+    logger.debug("fetchData => URL: " + url + "\n   retrieveJson: " + retrieveJson + "\n   params:" + params);
     //writeLog("TRACE","fetchData => URL: " + url + "\n   retrieveJson: " + retrieveJson + "\n   params:" + params);
     
     const { default: pLimit } = await import('p-limit'); // Dynamic import
@@ -194,6 +205,8 @@ function writeLog(level, msg){
 }
 
 function writeJSONToFile(jsonObj, fileName){
+    if (jsonObj == undefined){ return;}
+
     var json = JSON.stringify(jsonObj, null, 4);
     var dateStr = getCurrentDateStr();
     dateStr = dateStr.split(":").join("_");
