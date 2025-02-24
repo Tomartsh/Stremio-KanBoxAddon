@@ -1,124 +1,294 @@
 
 const constants = require("./constants.js");
 const utils = require("./utilities.js");
-const {URL_MAKO_SUFFIX, URL_MAKO_VOD_JSON, URL_MAKO_BASE, URL_MAKO_VOD } = require ("./constants");
+const {
+    URL_MAKE_EPISODE,
+    URL_MAKO_ENTITLEMENT_SERVICES,
+    URL_MAKO_SUFFIX, 
+    MAX_LOG_SIZE, 
+    LOG_BACKUP_FILES, 
+    LOG4JS_LEVEL, 
+    URL_MAKO_BASE, 
+    URL_MAKO_VOD, 
+    UPDATE_LIST, 
+    PREFIX} = require ("./constants");
 const {fetchData, writeLog} = require("./utilities.js");
-const {UPDATE_LIST} = require("./constants.js");
+const { v1: uuidv1 } = require('uuid');
+const log4js = require("log4js");
+
+log4js.configure({
+    appenders: { 
+        out: { type: "stdout" },
+        Stremio: 
+        { 
+            type: "file", 
+            filename: "logs/Stremio_addon.log", 
+            maxLogSize: MAX_LOG_SIZE, 
+            backups: LOG_BACKUP_FILES,
+        }
+    },
+    categories: { default: { appenders: ['Stremio','out'], level: LOG4JS_LEVEL } },
+});
+
+var logger = log4js.getLogger("MakoScraper");
 
 class MakoScraper{
-    cosntructor(){
+    constructor(addToSeriesList){
         this._makoJSONObj = {};
+        this._devideId = "";
+        this.addToSeriesList = addToSeriesList;
     }
 
-    async crawl(){
-        writeLog("TRACE","crawl() => Entering");
-        
-        var jsonPage = await fetchData(URL_MAKO_VOD_JSON, true);        
+    async crawl(isDoWriteFile = false){
+        logger.trace("crawl() => Entering");
+        //writeLog("TRACE","crawl() => Entering");
+        this.generateDeviceID();
+        logger.debug("crawl() => setting devide ID to: " + this._devideId);
+
+        //var seriesDic = {};
+        //var jsonPage = await fetchData(URL_MAKO_VOD_JSON, true);   
+        var jsonPage = await fetchData(URL_MAKO_VOD, true);     
         var i = 100;
-        for (var series of jsonPage["root"]["allPrograms"]){
-            if (series["url"].split('/').length <2){
-                continue;
+        for (var series of jsonPage["items"]){
+            var title = series["title"];
+            var seriesUrl = URL_MAKO_BASE + series["pageUrl"];
+            var id = PREFIX + "mako_" + i;
+            //var tempRetVal = this.addSeriesSeasons(seriesUrl, id);
+            this._makoJSONObj[id] = {
+                id: id, 
+                link: seriesUrl,
+                name: title,
+                type: "series",
+                subtype: "m",
+                metas:{
+                    id: id,
+                    type: "series",
+                    link: seriesUrl,
+                    background: "",
+                    poster: "",
+                    posterShape: "poster",
+                    logo: "",
+                    description: "",
+                    genres: "",
+                    videos: []
+                }
             }
-            var name = series["title"];
-            var id = constants.PREFIX + "mako_" + utils.padWithLeadingZeros(i,5);
-            var link = constants.URL_MAKO_BASE + series["url"];
-            var genres = series["genres"].split(",");
-            var description = series["brief"];
-            var background = series["picVOD"];
-            var poster = series["logoPicVOD"];
- 
-            writeLog("DEBUG","crawl() => calling addSeriesEpisodes for " + name + " URL: " + link);
-            var videos = this.addSeriesEpisodes(link, id);
+            i++;
         }
-        //this.addToJsonObject(id,name,link,background,description,genres,videos,"m", "series"); 
-        writeLog("TRACE","crawl() => Exiting");
+        await this.getSeasons()
+
+        this.addToJsonObject();
+
+        if (isDoWriteFile){
+            this.writeJSON();
+        }
+        logger.trace("crawl() => Exiting");
+        //writeLog("TRACE","crawl() => Exiting");
+    }
+
+    async getSeasons(){
+        logger.trace("getSeasons => Entering");
+        for (const key in this._makoJSONObj) {
+            logger.debug("getSeasons => Key: " + key + "\n    value:");
+            var videos = []
+            var seasons = await fetchData(this._makoJSONObj[key]["link"] + URL_MAKO_SUFFIX, true);
+            if (seasons["seasons"] == undefined){
+                if (seasons["menu"][0]["vods"]){
+                    videos = this.getEpisodes(seasons["menu"], key, "-1")
+                    return;
+                } else {
+                    logger.error("addSeriesEpisodes => Cannot get series at url: " + link + " . Exiting "); 
+                    return;
+                }
+            }
+            this._makoJSONObj[key]["metas"]["genres"] = seasons["seo"]["schema"]["genre"]; //get the genres
+            this._makoJSONObj[key]["metas"]["description"] = seasons["seo"]["description"];
+
+            for (var season of seasons["seasons"]){
+                var seasonUrl = URL_MAKO_BASE + season["pageUrl"];
+                var seasonId = this.setSeasonId(season["seasonTitle"]);
+                
+                //for each season get the episodes
+                var seasonEpisodesPage = await fetchData(seasonUrl + URL_MAKO_SUFFIX, true); 
+                videos = await this.getEpisodes(seasonEpisodesPage, key, seasonId);
+                this._makoJSONObj[key]["metas"]["videos"] = videos;
+            }
+        }
     }
     
-    async addSeriesEpisodes(link, id){
-        writeLog("TRACE","addSeriesEpisodes => Entering");
-        //get seasons
-        var seasons = await fetchData(link + URL_MAKO_SUFFIX, true);
+    async addSeriesSeasons(link, id){
+        logger.trace("addSeriesEpisodes => Entering");
         var videos = [];
         
+        //writeLog("TRACE","addSeriesEpisodes => Entering");
+        //get seasons
+        var seasons = await fetchData(link + URL_MAKO_SUFFIX, true);
+        if (seasons["seasons"] == undefined){
+            if (seasons["menu"][0]["vods"]){
+                seasonId = 1;
+                videos = this.getEpisodes(seasons["menu"], id, "-1")
+                return;
+            } else {
+                logger.error("addSeriesEpisodes => Cannot get series at url: " + link + " . Exiting "); 
+                return;
+            }
+        }      
+        var genres = seasons["seo"]["schema"]["genre"]; //get the genres
+        
+        //if there is no seasons section, perhaps there is one season an dwe need to jump to the episodes 
+        // extraction
+        
         for (var season of seasons["seasons"]){
-            var seasonUrl = season["pageUrl"];
+            var seasonUrl = URL_MAKO_BASE + season["pageUrl"];
             var seasonId = season["seasonTitle"];
-            //for each season get the episodes
-            var seasonEpisodesVideosArr = this.addSeasonEpisodes(seasonUrl, id, seasonId);
-            //iterate over the videos list of the season and add it to the overall videos list
-            for (var i =0; i < seasonEpisodesVideosArr; i++) {videos.push(seasonEpisodesVideosArr[i])}
-
             
-
+            //for each season get the episodes
+            var seasonEpisodesPage = await fetchData(seasonUrl + URL_MAKO_SUFFIX, true); 
+            videos = this.getEpisodes(seasonEpisodesPage, id, seasonId);
         }
-        return videos
+        return [videos, genres];
     }
 
-    async addSeasonEpisodes(link, id, seasonId){
-        var seasons = await fetchData(link + URL_MAKO_SUFFIX, true);
-        var i = 1;
-        var videosArr = [];
-        for (var episode of seasons["menu"]["vod"]){
-            var episodeId = id + ":" + seasonId + ":" + i;
+    async getEpisodes(season, id, seasonId = "0"){
+        var videos = [];
+        var episodes;
+        var channelId
+        //var seasonUrl = URL_MAKO_BASE + season["pageUrl"];
+        if (seasonId == "-1"){
+            seasonId = 1;
+            episodes = season[0]["vods"];
+            channelId = season[0]["channelId"];
+        } else {
+            episodes = season["menu"][0]["vods"];
+            channelId = season["channelId"];
+        }
+          
+        var noOfEpisodes = episodes.length;
+        for (var episode of episodes){
+            if (episode["componentLayout"] != "vod") {continue;}
+            var episodePic = episode["pics"][0]["picUrl"];
+            var episodeReleased = "";
+            if (episode["extraInfo"] != undefined){
+                episodeReleased = this.getReleaseDate(episode["extraInfo"]);
+            } 
+
+            if (episode["extraInfo"] == "") { 
+                episodeReleased = episode["title"]; 
+            }
+            var episodeTitle = episode["title"];
+
+            var tempEpisodeId = this.getEpisodeIdFromTitle(episodeTitle,noOfEpisodes)
+            var episodeId = id + ":" + seasonId +":" + tempEpisodeId;
+            var vcmid = episode["itemVcmId"];
+            var episodePage = URL_MAKO_BASE + episode["pageUrl"];
+
+            var episodeAjax = await fetchData(URL_MAKE_EPISODE(vcmid, channelId), true);
+            var streams = [];
+            var cdns = episodeAjax["media"]
+            for (var cdn of cdns){
+                var link = URL_MAKO_ENTITLEMENT_SERVICES + "?et=gt&lp=" + cdn["url"] + "&rv=" + cdn["cdn"];
+                var ticketPage = await fetchData(link, true);
+                //decode the ticket
+                //var ticketRaw = ticketPage["tickets"][0]["ticket"];
+                //var ticket = decodeURIComponent(ticketRaw);
+                var url = "";
+                if (ticketPage["tickets"][0]["url"].startsWith("/")){
+                    url = cdn["url"];
+                } else {
+                    url = ticketPage["tickets"][0]["url"];
+                }
+                var vendor = ticketPage["tickets"][0]["vendor"];
+                var stream = {
+                    /*
+                    Mako has a time dependant ticket in order to play the stream, so we need to store the URL to create the stream
+                    and get the ticket when the stream is accessed
+                    */
+                    url: {link: link, vendor: ticketPage["tickets"][0]["vendor"]}, url: cdn["url"]
+                }
+                streams.push(stream);
+            }
             var videoJsonObj = {
                 id: episodeId,
-                channelId: episode["channelId"],
-                vcmId: episode["itemVcmId"],
-                title: episode["title"],
+                title: episodeTitle,
                 season: seasonId,
-                episode: i,
-                released: episode["extraInfo"],
-                thumbnail: episode["pics"][0]["picUrl"],
-                episodeLink: episode["pageUrl"],
-                //streams:[
-                //    {
-                //        url: streams.url,
-                //        type: streams.type,
-                //        name: streams.name,
-                //        description: streams.description
-                //    }
-                //]
+                episode: noOfEpisodes,
+                released: episodeReleased,
+                thumbnail: episodePic,
+                episodeLink: episodePage,
+                streams: streams
             }
-            videosArr.push(videoJsonObj);
-            
+            videos.push(videoJsonObj);
+            noOfEpisodes--;
         }
-        return videosArr;
-
+        return videos;
     }
 
-    addToJsonObject(id, seriesTitle, seriesPage, imgUrl, seriesDescription, genres, videosList, subType, type){
-        var jsonObj = {
-            id: id,
-            link: seriesPage,
-            type: type,
-            subtype: subType,
-            title: seriesTitle,
-            metas: {
-                id: id,
-                name: seriesTitle,
-                link: seriesPage,
-                background: imgUrl,
-                poster: imgUrl,
-                posterShape: "poster",
-                logo: imgUrl,
-                description: seriesDescription,
-                genres: genres,
-                videos: videosList
-            }
+    addToJsonObject(){
+        for (const key in this._makoJSONObj) {
+            this.addToSeriesList({
+                id: key,
+                name: this._makoJSONObj[key]["title"],
+                poster: this._makoJSONObj[key]["metas"]["poster"], 
+                description: this._makoJSONObj[key]["metas"]["description"], 
+                link: this._makoJSONObj[key]["link"], 
+                background: this._makoJSONObj[key]["metas"]["background"], 
+                genres: this._makoJSONObj[key]["metas"]["genres"],
+                metas: this._makoJSONObj[key]["metas"],
+                type: "series", 
+                subtype: "m"
+        });
+            logger.debug("addToJsonObject => Added  series, ID: " + key + " Name: " + this._makoJSONObj[key]["title"]);
+            //writeLog("INFO","addToJsonObject => Added  series, ID: " + key + " Name: " + this._makoJSONObj[key]["title"]);
         }
+        
+        
+    }
+    
+    generateDeviceID(){
+        // Generate a UUID (version 1)
+        const uuidStr = uuidv1().toUpperCase();
+        var deviceID = `W${uuidStr.slice(0, 8)}${uuidStr.slice(9)}`;
+        this._devideId = deviceID;
+    }
 
-        this._kanJSONObj[id] = jsonObj;
-        if (UPDATE_LIST){
-            addon.addToSeriesList(id, seriesTitle, imgUrl, seriesDescription, seriesPage, imgUrl, genres,jsonObj.metas,type, subType);
+    setSeasonId(seasonName, seasonKey){
+        if (seasonName != undefined){
+            if (seasonName.startsWith("עונה ")){
+                seasonName = seasonName.replace("עונה ","");
+            }
+            return seasonName;
+        } else {
+            return seasonKey;
         }
-        writeLog("INFO","addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + " Link: " + seriesPage + " subtype: " + subType);
+    }
+
+    getReleaseDate(str){
+        if (str.indexOf("@") < 1){
+            return str;
+        }
+        var released = str.split("@")[0];
+
+        
+        return released;
+    }
+
+    getEpisodeIdFromTitle(str, tempEpisodeId){
+        if (str.indexOf("@") < 1){
+            return tempEpisodeId;
+        }
+        var episodeId = str.split("@")[1];
+        if (episodeId.startsWith("פרק ")){
+            episodeId = episodeId.replace("פרק ","");
+            return episodeId;
+        } 
+        return tempEpisodeId
     }
 
     writeJSON(){
     
         writeLog("TRACE", "writeJSON => Entered");
         writeLog("DEBUG", "writeJSON => All tasks completed - writing file");
-        utils.writeJSONToFile(this._kanJSONObj, "stremio-mako");
+        utils.writeJSONToFile(this._makoJSONObj, "stremio-mako");
 
         writeLog("TRACE", "writeJSON => Leaving");
     }
@@ -129,63 +299,3 @@ class MakoScraper{
  * Module Exports
  **********************************************************/
 module.exports = MakoScraper;
-
-
-
-/*
-let urlBase1 = "http://www.mako.co.il"
-let urlBase = urlBase1+"/"
-let url = urlBase + "mako-vod-index?type=service";
-
-let settings = { method: "Get" };
-let __properties = { 'consumer':'android4', 'appId':'0c4f6ec6-9194-450e-a963-e524bb6404g2', 'appVer':'3.0.3' }
-fetch(url, settings)
-    .then(res => res.json())
-        .then((json) => {
-            for (i in json.root.allPrograms)
-            {
-                console.log(urlBase1 + json.root.allPrograms[i].url+"?type=service");
-                fetch(urlBase1 + json.root.allPrograms[i].url+"?type=service", settings)
-                .then(res => res.json())
-                .then((json) => {
-                    for(s in json.root.programData.seasons)
-                    {
-                        fetch(urlBase1 + json.root.programData.seasons[s].url+"?type=service", settings)
-                        .then(res => res.json())
-                            .then((json) => {
-                                for(v in urlBase + json.root.programData.seasons[s].vods)
-                                {
-                                    if(!json.root.programData.seasons[s].vods[v])
-                                    {
-                                        continue;
-                                    }
-                                    fetch(urlBase1 + json.root.programData.seasons[s].vods[v].link+'&consumer=' + __properties.consumer + "&type=service", settings)
-                                    .then(res => res.json())
-                                    .then(json => {
-                                        let vcmid = json.root.video.guid;
-                                        let videoChannelId = json.root.video.chId;
-                                        episodeUrl = "http://www.mako.co.il/VodPlaylist?vcmid="+vcmid+"&videoChannelId="+videoChannelId
-                            
-                                        console.log(episodeUrl)
-                                        
-                                        fetch(urlBase1 + json.root.video.url+"&type=service", settings)
-                                        .then(res => res.json())
-                                        .then(json => {
-                                            fetch(urlBase1 + json.root.video.url, settings)
-                                            .then(res => res.text())
-                                            .then(body => {
-                                                console.log(body);
-                                            });
-                                        });
-                                    });
-                                    //break
-                                }  
-                        });
-                        break  
-                    }
-                });
-                break;
-            }
-        }
-    );*/
-/* http://www.mako.co.il/mako-vod-keshet/hafuch*/
