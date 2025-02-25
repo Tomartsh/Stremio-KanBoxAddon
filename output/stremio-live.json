@@ -391,41 +391,5 @@
                 }
             ]
         }
-    },
-    "il_Sprt5_01": {
-        "id": "il_Sprt5_01",
-        "type": "tv",
-        "subtype": "t",
-        "title": "שידור חי Sport 5",
-        "metas": {
-            "id": "il_Sprt5_01",
-            "name": "שידור חי Sport 5",
-            "type": "tv",
-            "genres": [
-                "Actuality",
-                "אקטואליה",
-                "news"
-            ],
-            "background": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/Sport5_square.png",
-            "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/Sport5_square.png",
-            "posterShape": "square",
-            "description": "שידור חי Sport 5",
-            "videos": [
-                {
-                    "id": "il_Sprt5_01",
-                    "title": "שידור חי Sport 5",
-                    "description": "שידור חי Sport 5",
-                    "released": 1739807198632,
-                    "streams": [
-                        {
-                            "url": "https://rgelive.akamaized.net/hls/live/2043095/live3/playlist.m3u8",
-                            "type": "tv",
-                            "name": "שידור חי Sport 5",
-                            "description": "שידור חי Sport 5"
-                        }
-                    ]
-                }
-            ]
-        }
     }
 }
