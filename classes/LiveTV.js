@@ -39,7 +39,7 @@ class LiveTV {
         this.crawYnetlLive();
         this.crawlI24();
         this.crawl24();
-        this.crawlSport5();
+        //this.crawlSport5();
 
         logger.info("LiveTV=> Done Crawling");
         //utils.writeLog("INFO", "LiveTV=> Done Crawling");
