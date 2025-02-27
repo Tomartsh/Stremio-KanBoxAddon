@@ -10,7 +10,6 @@ const {
     LOG4JS_LEVEL, 
     URL_MAKO_BASE, 
     URL_MAKO_VOD, 
-    UPDATE_LIST, 
     PREFIX} = require ("./constants");
 const {fetchData, writeLog} = require("./utilities.js");
 const { v1: uuidv1 } = require('uuid');
@@ -41,19 +40,17 @@ class MakoScraper{
 
     async crawl(isDoWriteFile = false){
         logger.trace("crawl() => Entering");
-        //writeLog("TRACE","crawl() => Entering");
         this.generateDeviceID();
         logger.debug("crawl() => setting devide ID to: " + this._devideId);
 
-        //var seriesDic = {};
-        //var jsonPage = await fetchData(URL_MAKO_VOD_JSON, true);   
         var jsonPage = await fetchData(URL_MAKO_VOD, true);     
         var i = 100;
         for (var series of jsonPage["items"]){
             var title = series["title"];
+            var poster = series["pic"];
             var seriesUrl = URL_MAKO_BASE + series["pageUrl"];
             var id = PREFIX + "mako_" + i;
-            //var tempRetVal = this.addSeriesSeasons(seriesUrl, id);
+
             this._makoJSONObj[id] = {
                 id: id, 
                 link: seriesUrl,
@@ -65,7 +62,7 @@ class MakoScraper{
                     type: "series",
                     link: seriesUrl,
                     background: "",
-                    poster: "",
+                    poster: poster,
                     posterShape: "poster",
                     logo: "",
                     description: "",
@@ -80,16 +77,16 @@ class MakoScraper{
         this.addToJsonObject();
 
         if (isDoWriteFile){
-            this.writeJSON();
+            this.writeJSON(this._makoJSONObj);
         }
-        logger.trace("crawl() => Exiting");
-        //writeLog("TRACE","crawl() => Exiting");
+        logger.debug("crawl() => Exiting");
+
     }
 
     async getSeasons(){
         logger.trace("getSeasons => Entering");
         for (const key in this._makoJSONObj) {
-            logger.debug("getSeasons => Key: " + key + "\n    value:");
+            logger.debug("getSeasons => Key: " + key);
             var videos = []
             var seasons = await fetchData(this._makoJSONObj[key]["link"] + URL_MAKO_SUFFIX, true);
             if (seasons["seasons"] == undefined){
@@ -97,56 +94,25 @@ class MakoScraper{
                     videos = this.getEpisodes(seasons["menu"], key, "-1")
                     return;
                 } else {
-                    logger.error("addSeriesEpisodes => Cannot get series at url: " + link + " . Exiting "); 
+                    logger.error("getSeasons => Cannot get series at url: " + link + " . Exiting "); 
                     return;
                 }
             }
             this._makoJSONObj[key]["metas"]["genres"] = seasons["seo"]["schema"]["genre"]; //get the genres
             this._makoJSONObj[key]["metas"]["description"] = seasons["seo"]["description"];
+            this._makoJSONObj[key]["metas"]["background"] = seasons["hero"]["pics"][0]["picUrl"];
 
             for (var season of seasons["seasons"]){
                 var seasonUrl = URL_MAKO_BASE + season["pageUrl"];
                 var seasonId = this.setSeasonId(season["seasonTitle"]);
-                
+                logger.debug("getSeasons => Season ID: " + seasonId + ". URL: " + seasonUrl); 
                 //for each season get the episodes
                 var seasonEpisodesPage = await fetchData(seasonUrl + URL_MAKO_SUFFIX, true); 
                 videos = await this.getEpisodes(seasonEpisodesPage, key, seasonId);
                 this._makoJSONObj[key]["metas"]["videos"] = videos;
+                logger.debug("getSeasons => Videos: " + videos.length ); 
             }
         }
-    }
-    
-    async addSeriesSeasons(link, id){
-        logger.trace("addSeriesEpisodes => Entering");
-        var videos = [];
-        
-        //writeLog("TRACE","addSeriesEpisodes => Entering");
-        //get seasons
-        var seasons = await fetchData(link + URL_MAKO_SUFFIX, true);
-        if (seasons["seasons"] == undefined){
-            if (seasons["menu"][0]["vods"]){
-                seasonId = 1;
-                videos = this.getEpisodes(seasons["menu"], id, "-1")
-                return;
-            } else {
-                logger.error("addSeriesEpisodes => Cannot get series at url: " + link + " . Exiting "); 
-                return;
-            }
-        }      
-        var genres = seasons["seo"]["schema"]["genre"]; //get the genres
-        
-        //if there is no seasons section, perhaps there is one season an dwe need to jump to the episodes 
-        // extraction
-        
-        for (var season of seasons["seasons"]){
-            var seasonUrl = URL_MAKO_BASE + season["pageUrl"];
-            var seasonId = season["seasonTitle"];
-            
-            //for each season get the episodes
-            var seasonEpisodesPage = await fetchData(seasonUrl + URL_MAKO_SUFFIX, true); 
-            videos = this.getEpisodes(seasonEpisodesPage, id, seasonId);
-        }
-        return [videos, genres];
     }
 
     async getEpisodes(season, id, seasonId = "0"){
@@ -163,19 +129,22 @@ class MakoScraper{
             channelId = season["channelId"];
         }
           
+        logger.debug("getEpisodes => Season ID: " + seasonId + ". channelId: " + channelId);
         var noOfEpisodes = episodes.length;
         for (var episode of episodes){
             if (episode["componentLayout"] != "vod") {continue;}
             var episodePic = episode["pics"][0]["picUrl"];
             var episodeReleased = "";
-            if (episode["extraInfo"] != undefined){
-                episodeReleased = this.getReleaseDate(episode["extraInfo"]);
-            } 
+            var episodeTitle = "";
 
-            if (episode["extraInfo"] == "") { 
-                episodeReleased = episode["title"]; 
+            if (episode["title"] != ""){
+                episodeTitle = episode["title"];
             }
-            var episodeTitle = episode["title"];
+            if ((episode["extraInfo"] != undefined) || (episode["extraInfo"] == "")){
+                episodeReleased = this.getReleaseDate(episode["extraInfo"]);
+            } else {
+                episodeReleased = this.getReleaseDate(episode["title"]);
+            }
 
             var tempEpisodeId = this.getEpisodeIdFromTitle(episodeTitle,noOfEpisodes)
             var episodeId = id + ":" + seasonId +":" + tempEpisodeId;
@@ -184,7 +153,9 @@ class MakoScraper{
 
             var episodeAjax = await fetchData(URL_MAKE_EPISODE(vcmid, channelId), true);
             var streams = [];
-            var cdns = episodeAjax["media"]
+            var cdns = episodeAjax["media"];
+
+            logger.trace("getEpisodes => episode ID: " + episodeId + ". released: " + episodeReleased + " Episode Title: " + episodeTitle);
             for (var cdn of cdns){
                 var link = URL_MAKO_ENTITLEMENT_SERVICES + "?et=gt&lp=" + cdn["url"] + "&rv=" + cdn["cdn"];
                 var ticketPage = await fetchData(link, true);
@@ -207,6 +178,7 @@ class MakoScraper{
                 }
                 streams.push(stream);
             }
+
             var videoJsonObj = {
                 id: episodeId,
                 title: episodeTitle,
@@ -227,7 +199,7 @@ class MakoScraper{
         for (const key in this._makoJSONObj) {
             this.addToSeriesList({
                 id: key,
-                name: this._makoJSONObj[key]["title"],
+                name: this._makoJSONObj[key]["name"],
                 poster: this._makoJSONObj[key]["metas"]["poster"], 
                 description: this._makoJSONObj[key]["metas"]["description"], 
                 link: this._makoJSONObj[key]["link"], 
@@ -237,8 +209,7 @@ class MakoScraper{
                 type: "series", 
                 subtype: "m"
         });
-            logger.debug("addToJsonObject => Added  series, ID: " + key + " Name: " + this._makoJSONObj[key]["title"]);
-            //writeLog("INFO","addToJsonObject => Added  series, ID: " + key + " Name: " + this._makoJSONObj[key]["title"]);
+            logger.debug("addToJsonObject => Added  series, ID: " + key + " Name: " + this._makoJSONObj[key]["name"]);
         }
         
         
@@ -263,11 +234,15 @@ class MakoScraper{
     }
 
     getReleaseDate(str){
-        if (str.indexOf("@") < 1){
-            return str;
+        if (str.indexOf("@") > 0){
+            var releasedTemp = str.split("@")[1];
+        } else {
+            releasedTemp = str;
         }
-        var released = str.split("@")[0];
 
+        //the format is dd.MM.yyyy. Stremio is Expecting MM.dd.yyyy
+        var releasedArr = releasedTemp.split(".");
+        var released = releasedArr[1] + "." + releasedArr[0] + "." + releasedArr[2];
         
         return released;
     }
@@ -284,13 +259,12 @@ class MakoScraper{
         return tempEpisodeId
     }
 
-    writeJSON(){
-    
-        writeLog("TRACE", "writeJSON => Entered");
-        writeLog("DEBUG", "writeJSON => All tasks completed - writing file");
-        utils.writeJSONToFile(this._makoJSONObj, "stremio-mako");
+    writeJSON(makoJSONObj){
+        logger.trace("writeJSON => Entered");
+        logger.debug("writeJSON => All tasks completed - writing file");
+        utils.writeJSONToFile(makoJSONObj, "stremio-mako");
 
-        writeLog("TRACE", "writeJSON => Leaving");
+        logger.trace("writeJSON => Leaving");
     }
 
 }
