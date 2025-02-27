@@ -230,8 +230,7 @@ function writeJSONToFile(jsonObj, fileName){
           console.error(err)
           throw err
         } else {
-            logger.debug("writeJSONToFile=> Saved data to file " + simpleFile);
-            logger.debug("Saved data to file " + simpleFile);
+            logger.debug("writeJSONToFile => Saved data to file " + simpleFile);
             //zip the file
             var zipFileName = fileName + ".zip";
             var zipFileFullPath = SAVE_FOLDER + zipFileName; 
