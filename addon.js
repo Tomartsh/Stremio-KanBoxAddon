@@ -7,13 +7,13 @@ const log4js = require("log4js");
 
 const srList = require("./classes/srList");
 const utils = require("./classes/utilities.js");
-const {writeLog} = require("./classes/utilities.js");
+const {fetchData} = require("./classes/utilities.js");
 const Kanscraper = require("./classes/KanScraper.js");
 const Makoscraper = require("./classes/MakoScraper.js");
 const Reshetscraper = require("./classes/ReshetScraper.js");
 const LiveTV = require("./classes/LiveTV.js"); 
 const constants = require("./classes/constants.js");
-const {URL_ZIP_FILES, URL_JSON_BASE, LOG4JS_LEVEL} = require("./classes/constants.js");
+const {URL_ZIP_FILES, URL_JSON_BASE, LOG4JS_LEVEL, MAX_LOG_SIZE, LOG_BACKUP_FILES} = require("./classes/constants.js");
 
 log4js.configure({
 	appenders: { 
@@ -22,8 +22,8 @@ log4js.configure({
 		{ 
 			type: "file", 
 			filename: "logs/Stremio_addon.log", 
-			maxLogSize: 10 * 1024 * 1024, // = 10Mb 
-			backups: 5, // keep five backup files
+			maxLogSize: MAX_LOG_SIZE,
+			backups: LOG_BACKUP_FILES, // keep five backup files
 		}
 	},
 	categories: { default: { appenders: ['Stremio','out'], level: constants.LOG4JS_LEVEL } },
@@ -35,18 +35,18 @@ const listSeries = new srList();
 const liveTV = new LiveTV(addToSeriesList);
 //liveTV.crawl();
 const makoScraper = new Makoscraper(addToSeriesList);
-//makoScraper.crawl();
+//makoScraper.crawl(true);
 const reshetScraper = new Reshetscraper(addToSeriesList);
 //reshetScraper.crawl(true);
 const kanScraper = new Kanscraper(addToSeriesList)
-//kanScraper.crawl(true);
+kanScraper.crawl(true);
 
 /**
  * Set cron jobs for Reshet generating json and zip file. 
  * run eavery day at 1 AM
  */
 var taskReshetJson = cron.schedule('0 1 * * 0,1,2,3,4,5,6', () => {
-	logger.debug('Running schedule for scraping Reshet without zip file');
+	logger.debug('Running schedule for updating Reshet list');
 	reshetScraper.crawl();
   }, {
 	scheduled: true,
@@ -59,8 +59,13 @@ taskReshetJson.start();
  * run eavery day at 3 AM
  */
 var taskKanJson = cron.schedule('0 3 * * 0,1,2,3,4,5,6', () => {
-	logger.debug('Running schedule for scraping Kan without zip file');
-	kanScraper.crawl();
+	logger.debug('Running schedule for updating Kan list');
+	if (!kanScraper.isRunning){
+		kanScraper.crawl();
+	} else {
+		logger.info('KanScraper is alraedy running. Aborting !!!');
+	}
+	
   }, {
 	scheduled: true,
 	timezone: "Asia/Jerusalem"
@@ -72,10 +77,8 @@ taskKanJson.start();
 (async () => {
     try {
         const jsonData = await getJSONFile();
-//        writeLog("DEBUG","Files read successfully");
     } catch (error) {
 		logger.debug("An unexpected error occurred: " + error.message);
-        //writeLog("DEBUG","An unexpected error occurred: " + error.message);
         process.exit(1); // Exit with an error code
     }
 })();
@@ -231,7 +234,28 @@ builder.defineStreamHandler(({type, id}) => {
 	logger.debug("defineStreamHandler=> request for streams: "+type+" "+id);
 	//writeLog("INFO","defineStreamHandler=> request for streams: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineStreamHandler.md
-	var streams = listSeries.getStreamsById(id)
+	var streams = [];
+	if (id.startsWith("il_mako")){
+		//retrieve the url
+		var urlList = listSeries.getStreamsById(id);
+		//Usually we will have one URL for AKAMAI and one for AWS.
+		//We need to construct the URL for both
+		for (var entry of urlList){
+			var link = entry["link"];
+			//issue the request
+			var ticketObj = fetchData(link, true);
+			var ticketRaw = ticketObj["tickets"][0]["ticket"];
+			var ticket = decodeURIComponent(ticketRaw);
+			var streamUrl = entry["url"]["url"] + "?" + ticket;
+			//issue the request
+			streams.push({
+				url: {streamUrl}
+			});
+		}	
+
+	} else {
+		var streams = listSeries.getStreamsById(id)
+	}
     
     //return Promise.resolve({ streams: [streams] });
     return Promise.resolve({ streams: [streams] });
@@ -250,12 +274,9 @@ var jsonFileExist = "";
 function addToSeriesList(item){
 	logger.trace("updateSeriesList => Entering");
 	logger.debug("updateSeriesList => Updating / Adding new entry to list: " + item.id + " " + item.name);
-	//writeLog("TRACE","updateSeriesList => Entering");
-	//writeLog("DEBUG","updateSeriesList => Updating / Adding new entry to list: " + item.id + " " + item.name);
 	listSeries.addItemByDetails(item.id, item.name,item.poster,item.description,item.link, item.background, item.genres, item.metas,item.type, item.subtype);
 
 	logger.trace("updateSeriesList => Exiting");
-	//writeLog("TRACE","updateSeriesList => Exiting");
 }
 
 async function getJSONFile(){
