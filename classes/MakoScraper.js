@@ -109,7 +109,7 @@ class MakoScraper{
                 //for each season get the episodes
                 var seasonEpisodesPage = await fetchData(seasonUrl + URL_MAKO_SUFFIX, true); 
                 videos = await this.getEpisodes(seasonEpisodesPage, key, seasonId);
-                this._makoJSONObj[key]["metas"]["videos"] = videos;
+                this._makoJSONObj[key]["metas"]["videos"] = this._makoJSONObj[key]["metas"]["videos"].concat(videos);
                 logger.debug("getSeasons => Videos: " + videos.length ); 
             }
         }
@@ -174,7 +174,9 @@ class MakoScraper{
                     Mako has a time dependant ticket in order to play the stream, so we need to store the URL to create the stream
                     and get the ticket when the stream is accessed
                     */
-                    url: {link: link, vendor: ticketPage["tickets"][0]["vendor"]}, url: cdn["url"]
+                    url: cdn["url"],
+                    link: link,
+                    vendor: ticketPage["tickets"][0]["vendor"]
                 }
                 streams.push(stream);
             }
