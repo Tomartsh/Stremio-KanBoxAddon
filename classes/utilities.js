@@ -102,7 +102,7 @@ async function fetchWithRetries(url, asJson = false, params = {}, headers) {
                 if (attempt === MAX_RETRIES) throw error;
                 
                 const delay = RETRY_DELAY * Math.pow(2, attempt - 1); // Exponential backoff
-                logger.debug("fetchWithRetries => Attempt " + attempt + " failed: " + error.message + ". Retrying in " + delay + " ms...");
+                logger.debug("fetchWithRetries => URL: " + url + ". Attempt " + attempt + " failed: " + error.message + ". Retrying in " + delay + " ms...");
                 //writeLog("DEBUG","fetchWithRetries => Attempt " + attempt + " failed: " + error.message + ". Retrying in " + delay + " ms...");
                 
                 await new Promise(resolve => setTimeout(resolve, delay));
