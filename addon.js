@@ -229,11 +229,7 @@ builder.defineMetaHandler(({type, id}) => {
 	var meta = listSeries.getMetaById(id);
     return Promise.resolve({ meta: meta })
 })
-
-builder.defineStreamHandler(({type, id}) => {
-	logger.debug("defineStreamHandler=> request for streams: "+type+" "+id);
-	//writeLog("INFO","defineStreamHandler=> request for streams: "+type+" "+id);
-	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineStreamHandler.md
+async function tuki(type, id){
 	var streams = [];
 	if (id.startsWith("il_mako")){
 		//retrieve the url
@@ -243,7 +239,40 @@ builder.defineStreamHandler(({type, id}) => {
 		for (var entry of urlList){
 			var link = entry["link"];
 			//issue the request
-			var ticketObj = fetchData(link, true);
+			var ticketObj = await fetchData(link, true);
+			var ticketRaw = ticketObj["tickets"][0]["ticket"];
+			var ticket = decodeURIComponent(ticketRaw);
+			var streamUrl = entry["url"] + "?" + ticket;
+			//issue the request
+			streams.push({
+				url: {streamUrl}
+			});
+		}	
+
+	} else { 
+		var streams = listSeries.getStreamsById(id)
+	}
+    
+    //return Promise.resolve({ streams: [streams] });
+    return Promise.resolve({ streams: [streams] });
+}
+
+builder.defineStreamHandler(({type, id}) => {
+	logger.debug("defineStreamHandler=> request for streams: "+type+" "+id);
+	//writeLog("INFO","defineStreamHandler=> request for streams: "+type+" "+id);
+	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineStreamHandler.md
+	return tuki(type, id);
+	/*
+	var streams = [];
+	if (id.startsWith("il_mako")){
+		//retrieve the url
+		var urlList = listSeries.getStreamsById(id);
+		//Usually we will have one URL for AKAMAI and one for AWS.
+		//We need to construct the URL for both
+		for (var entry of urlList){
+			var link = entry["link"];
+			//issue the request
+			var ticketObj = await fetchData(link, true);
 			var ticketRaw = ticketObj["tickets"][0]["ticket"];
 			var ticket = decodeURIComponent(ticketRaw);
 			var streamUrl = entry["url"]["url"] + "?" + ticket;
@@ -253,12 +282,13 @@ builder.defineStreamHandler(({type, id}) => {
 			});
 		}	
 
-	} else {
+	} else { 
 		var streams = listSeries.getStreamsById(id)
 	}
     
     //return Promise.resolve({ streams: [streams] });
     return Promise.resolve({ streams: [streams] });
+	*/
 })
 
 var jsonFileExist = "";

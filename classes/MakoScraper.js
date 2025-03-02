@@ -236,8 +236,10 @@ class MakoScraper{
     }
 
     getReleaseDate(str){
+        var releasedTemp = "";
+
         if (str.indexOf("@") > 0){
-            var releasedTemp = str.split("@")[1];
+            releasedTemp = str.split("@")[1];
         } else {
             releasedTemp = str;
         }
