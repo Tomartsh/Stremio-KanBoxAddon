@@ -7,7 +7,8 @@ const {
     URL_MAKO_SUFFIX, 
     MAX_LOG_SIZE, 
     LOG_BACKUP_FILES, 
-    LOG4JS_LEVEL, 
+    LOG4JS_LEVEL,
+    LOG_FILENAME, 
     URL_MAKO_BASE, 
     URL_MAKO_VOD, 
     PREFIX} = require ("./constants");
@@ -21,7 +22,7 @@ log4js.configure({
         Stremio: 
         { 
             type: "file", 
-            filename: "logs/Stremio_addon.log", 
+            filename: LOG_FILENAME, 
             maxLogSize: MAX_LOG_SIZE, 
             backups: LOG_BACKUP_FILES,
         }
@@ -60,6 +61,7 @@ class MakoScraper{
                 metas:{
                     id: id,
                     type: "series",
+                    name: title,
                     link: seriesUrl,
                     background: "",
                     poster: poster,
