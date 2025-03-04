@@ -2,15 +2,16 @@ module.exports = {
     RETRY_DELAY: 10000,//default delay between requests
     REQUEST_TIMEOUT: 5000,
     MAX_RETRIES: 5,  
-    MAX_CONCURRENT_REQUESTS: 2,
+    MAX_CONCURRENT_REQUESTS: 4,
     UPDATE_LIST: true, // update the series list as well as creating the JSON object  
     URL_ZIP_FILES: ["stremio-kan.zip","stremio-live.zip","stremio-reshet.zip","stremio-mako.zip"],
     SAVE_FOLDER: "output/",
     PREFIX: "il_",
     LOG_LEVEL: "DEBUG",
     LOG4JS_LEVEL: "debug",
-    MAX_LOG_SIZE: 5  * 1024 * 1024, // = 5Mb
-    LOG_BACKUP_FILES: 5, // keep 5 backup files
+    MAX_LOG_SIZE: 10  * 1024 * 1024, // = 5Mb
+    LOG_BACKUP_FILES: 3, // keep 5 backup files'
+    LOG_FILENAME: "logs/Stremio_addon.log",
     HEADERS: {
         "Content-Type": "text/html; charset=utf-8",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0",
@@ -34,12 +35,12 @@ module.exports = {
 
     //Mako constants (Keshet channel 12)
     URL_MAKO_VOD: "https://www.mako.co.il/mako-vod-index?platform=responsive",
-    URL_MAKO_VOD_JSON: "https://www.mako.co.il/mako-vod-index?type=service",
+    //URL_MAKO_VOD_JSON: "https://www.mako.co.il/mako-vod-index?type=service",
     URL_MAKO_BASE: "http://www.mako.co.il",
     URL_MAKO_SUFFIX: "?platform=responsive",
     URL_MAKE_EPISODE: (vcmid, channelId) => `https://www.mako.co.il/AjaxPage?jspName=playlist.jsp&vcmid=${vcmid}&videoChannelId=${channelId}&galleryChannelId=${vcmid}&isGallery=false&consumer=web_html5&encryption=no`,
     URL_MAKO_ENTITLEMENT_SERVICES: "https://mass.mako.co.il/ClicksStatistics/entitlementsServicesV2.jsp",
-    URL_MAKO_SEASONS: "https://www.mako.co.il/_next/data/5.9.0/${channelName}/${seriesName}.json?mako_vod_channel=${channelName}&program=${seriesName}",
+    //URL_MAKO_SEASONS: "https://www.mako.co.il/_next/data/5.9.0/${channelName}/${seriesName}.json?mako_vod_channel=${channelName}&program=${seriesName}",
 
     //Channel 13 (Reshet) constants
     URL_RESHET_VOD: "https://13tv.co.il/all-shows/all-shows-list/",
