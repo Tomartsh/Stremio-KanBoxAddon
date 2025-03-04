@@ -46,20 +46,20 @@ kanScraper.crawl(true);
  * run eavery day at 1 AM
  */
 var taskReshetJson = cron.schedule('0 1 * * 0,1,2,3,4,5,6', () => {
-	logger.debug('Running schedule for updating Reshet list');
+	logger.info('Running schedule for updating Reshet list');
 	reshetScraper.crawl();
   }, {
 	scheduled: true,
 	timezone: "Asia/Jerusalem"
 });
-taskReshetJson.start();
+//taskReshetJson.start();
 
 /**
  * Set cron jobs for Kan generating json and zip file. 
  * run eavery day at 3 AM
  */
 var taskKanJson = cron.schedule('0 3 * * 0,1,2,3,4,5,6', () => {
-	logger.debug('Running schedule for updating Kan list');
+	logger.info('Running schedule for updating Kan list');
 	if (!kanScraper.isRunning){
 		kanScraper.crawl();
 	} else {
@@ -70,8 +70,32 @@ var taskKanJson = cron.schedule('0 3 * * 0,1,2,3,4,5,6', () => {
 	scheduled: true,
 	timezone: "Asia/Jerusalem"
 });
-taskKanJson.start();
+//taskKanJson.start();
 
+/**
+ * Set cron jobs for Mako generating json and zip file. 
+ * run eavery day at 3 AM
+ */
+var taskMakoJson = cron.schedule('0 2 * * 0,1,2,3,4,5,6', () => {
+	logger.info('Running schedule for updating Mako list');
+		makoScraper.crawl();
+  }, {
+	scheduled: true,
+	timezone: "Asia/Jerusalem"
+});
+//taskMakoJson.start();
+
+/**
+ * Set cron jobs keep alive for on-render every 10 minutes
+ */
+var onRender = cron.schedule('1-59/10 * * * *', () => {
+	logger.info('Running keep alive for onRender');
+	fetchData("https://stremio-kanboxaddon.onrender.com/manifest.json",false)	
+  }, {
+	scheduled: true,
+	timezone: "Asia/Jerusalem"
+});
+//onRender.start();
 
 // Main program
 (async () => {
