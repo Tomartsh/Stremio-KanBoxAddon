@@ -198,7 +198,6 @@ const builder = new addonBuilder(manifest)
 builder.defineCatalogHandler(({type, id, extra}) => {
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineCatalogHandler.md
 	logger.debug("request for catalogs: "+type+" "+id + " search: " + extra.search);
-	//writeLog("INFO","request for catalogs: "+type+" "+id + " search: " + extra.search)
 	var metas = [];
     var search;
     if ((extra.search == "undefined") || (extra.search == null)){
@@ -248,7 +247,6 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 
 builder.defineMetaHandler(({type, id}) => {
 	logger.debug("defineMetaHandler=> request for meta: "+type+" "+id);
-	//writeLog("INFO","defineMetaHandler=> request for meta: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	var meta = listSeries.getMetaById(id);
     return Promise.resolve({ meta: meta })
@@ -283,7 +281,6 @@ async function tuki(type, id){
 
 builder.defineStreamHandler(({type, id}) => {
 	logger.debug("defineStreamHandler=> request for streams: "+type+" "+id);
-	//writeLog("INFO","defineStreamHandler=> request for streams: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineStreamHandler.md
 	return tuki(type, id);
 	/*
@@ -335,12 +332,10 @@ function addToSeriesList(item){
 
 async function getJSONFile(){
     logger.trace("getJSONFile => Entered JSON");
-	//writeLog("TRACE","getJSONFile = > Entered JSON");
-    var jsonStr;
+	var jsonStr;
     var filesArray = URL_ZIP_FILES;
     for (var urlIndex in filesArray) {
 		logger.debug("getJSONFile => Handling file " + filesArray[urlIndex]);
-        //writeLog("DEBUG","Handling file " + filesArray[urlIndex]);
         var zipFileName = URL_JSON_BASE + filesArray[urlIndex];
         var jsonFileName = filesArray[urlIndex].split(".")[0] + ".json";
         try {
@@ -356,20 +351,15 @@ async function getJSONFile(){
                     for (var key in jsonObj){
                         var value = jsonObj[key]
             
-                        listSeries.addItemByDetails(value.id, value.title, value.poster, value.description, value.link, value.background, value.genres, value.metas, value.type, value.subtype);
-                        logger.debug("getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.title);
-						//writeLog("DEBUG", "getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.title)
-                    }
-
-                    //writeLog("INFO","Temporary ZIP " + zipFileName + " file deleted.");
+                        listSeries.addItemByDetails(value.id, value.name, value.poster, value.description, value.link, value.background, value.genres, value.metas, value.type, value.subtype);
+                        logger.debug("getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.name);
+					}
                 } else {
 					logger.error("getJSONFile => Cannot find the JSON data " + jsonFileName + ". Please report this issue.");
-                    //writeLog("ERROR","Cannot find the JSON data " + jsonFileName + ". Please report this issue.");               
                 }
             })
         } catch (e) {
 			logger.error("getJSONFile => Something went wrong. " + e);
-            //console.log("Something went wrong. " + e);
         }
     }
 }
