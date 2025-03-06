@@ -1,11 +1,12 @@
 
-const constants = require("./constants");
 const write = require("fs");
 const { parse } = require('node-html-parser');
-//const fetch = require('node-fetch');
+
 const axios = require('axios');
 const AdmZip = require("adm-zip");
-//const fs = require('fs');
+const fs = require('fs');
+const { GITHUB_TOKEN, GITHUB_OWNER, GITHUB_REPO, GITHUB_BRANCH, SAVE_MODE, OUTPUT_FOLDER } = process.env;
+
 const log4js = require("log4js");
 const {
     MAX_RETRIES, 
@@ -204,15 +205,20 @@ function writeLog(level, msg){
     }
 }
 
-function writeJSONToFile(jsonObj, fileName){
+async function writeJSONToFile(jsonObj, fileName){
     if (jsonObj == undefined){ return;}
 
-    var json = JSON.stringify(jsonObj, null, 4);
+    //var json = JSON.stringify(jsonObj, null, 4);
     var dateStr = getCurrentDateStr();
     dateStr = dateStr.split(":").join("_");
     //dateStr = dateStr.replace(':','-');
-    var path = SAVE_FOLDER + fileName + "_" + dateStr + ".json";
-    var simpleFile = SAVE_FOLDER + fileName + ".json";
+    //var path = SAVE_FOLDER + fileName + "_" + dateStr + ".json";
+    //var simpleFile = SAVE_FOLDER + fileName + ".json";
+    //var jsonFileName = fileName + ".json";
+    //var zipFileName;
+    //var commitMessage = "Upload file + " + dateStr;
+    //const url = `${GITHUB_API_URL}/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/output/${jsonFileName}`;
+    const zip = new AdmZip()
 /*
      write.writeFile(path, json, (err) => {
         if (err) {
@@ -225,6 +231,7 @@ function writeJSONToFile(jsonObj, fileName){
         //console.log("Saved data to file " + path);
     });
 */
+/*
      write.writeFile(simpleFile, json, (err) => {
         if (err) {
           console.error(err)
@@ -232,7 +239,7 @@ function writeJSONToFile(jsonObj, fileName){
         } else {
             logger.debug("writeJSONToFile => Saved data to file " + simpleFile);
             //zip the file
-            var zipFileName = fileName + ".zip";
+            zipFileName = fileName + ".zip";
             var zipFileFullPath = SAVE_FOLDER + zipFileName; 
             var zip = new AdmZip();
             zip.addLocalFile(simpleFile);
@@ -240,8 +247,86 @@ function writeJSONToFile(jsonObj, fileName){
             //var willSendthis = zip.toBuffer();
             // or write everything to disk
             zip.writeZip(zipFileFullPath);
+            logger.debug("writeJSONToFile => Saved data to file " + zipFileFullPath);
         }
     });
+*/
+    logger.debug("writeJSONToFile => handling repository files");
+    const OUTPUT_DIR = path.join(__dirname, OUTPUT_FOLDER);
+
+    // Ensure output directory exists inside the function
+    if (!fs.existsSync(OUTPUT_DIR)) {
+        fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+    }
+
+    const jsonContent = JSON.stringify(jsonObj, null, 4);
+    const jsonFileName = `${fileName}.json`;
+    const zipFileName = `${fileName}.zip`;
+
+    const jsonFilePath = path.join(OUTPUT_DIR, jsonFileName);
+    const zipFilePath = path.join(OUTPUT_DIR, zipFileName);
+
+    // Save JSON and ZIP files locally if needed
+    if (SAVE_MODE === "local" || SAVE_MODE === "both") {
+        //save .json file 
+        fs.writeFileSync(jsonFilePath, jsonContent);
+        logger.debug(`writeJSONToFile => Saved locally .json file: ${jsonFilePath}`);
+
+    // Create ZIP file
+    //const zip = new AdmZip();
+    zip.addFile(jsonFileName, Buffer.from(jsonContent, "utf8"));
+
+    if (SAVE_MODE === "local" || SAVE_MODE === "both") {
+        zip.writeZip(zipFilePath);
+        logger.debug(`writeJSONToFile => Saved locally .zip file: ${zipFileName}`);
+    }
+    }
+
+
+    // Upload to GitHub if needed
+    if (SAVE_MODE === "github" || SAVE_MODE === "both") {
+        await uploadToGitHub(Buffer.from(jsonContent, "utf8"), jsonFileName, `Adding ${jsonFileName} ${dateStr}`);
+        await uploadToGitHub(zip.toBuffer(), zipFileName, `Adding ${zipFileName} ${dateStr}`);
+    }
+}
+
+async function uploadToGitHub(fileContent, fileName, commitMessage) {
+    const GITHUB_API_URL = 'https://api.github.com';
+    const githubFilePath = `output/${fileName}`;
+    const url = `${GITHUB_API_URL}/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${githubFilePath}`;
+
+    try {
+        // Check if the file exists to get SHA
+        let sha = null;
+        try {
+            const response = await axios.get(url, {
+                headers: { Authorization: `token ${GITHUB_TOKEN}` },
+            });
+            sha = response.data.sha;
+        } catch (error) {
+            if (error.response && error.response.status !== 404) {
+                logger.error("uploadToGitHub => Error checking file existence:", error.response.data);
+                return;
+            }
+        }
+
+        // Upload or update the file
+        const response = await axios.put(url, {
+            message: commitMessage,
+            content: fileContent.toString('base64'),
+            branch: GITHUB_BRANCH,
+            ...(sha ? { sha } : {}),
+        }, {
+            headers: {
+                Authorization: `token ${GITHUB_TOKEN}`,
+                Accept: 'application/vnd.github.v3+json',
+            },
+        });
+
+        logger.debug(`uploadToGitHub => Uploaded: ${githubFilePath} → ${response.data.content.html_url}`);
+    } catch (error) {
+        logger.error("uploadToGitHub => Error uploading file:", error.response ? error.response.data : error.message);
+    }
 }
 
 
