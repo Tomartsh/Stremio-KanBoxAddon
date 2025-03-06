@@ -1,7 +1,22 @@
+
 const constants = require("./constants.js");
 const utils = require("./utilities.js");
+
+require('dotenv').config();
+const fs = require('fs');
+const path = require('path');
+const GITHUB_API_URL = 'https://api.github.com';
+const { GITHUB_TOKEN, GITHUB_OWNER, GITHUB_REPO, GITHUB_BRANCH } = process.env;
+
 const {fetchData, writeLog} = require("./utilities.js");
-const {UPDATE_LIST, LOG4JS_LEVEL, MAX_LOG_SIZE, LOG_BACKUP_FILES, KAN88_POCASTS_URL} = require("./constants.js");
+const {
+    LOG4JS_LEVEL, 
+    MAX_LOG_SIZE, 
+    LOG_BACKUP_FILES,
+    LOG_FILENAME, 
+    PODCASTS_URL,
+    KAN88_POCASTS_URL
+} = require("./constants.js");
 const log4js = require("log4js");
 
 log4js.configure({
@@ -10,7 +25,7 @@ log4js.configure({
         Stremio: 
         { 
             type: "file", 
-            filename: "logs/Stremio_addon.log", 
+            filename: LOG_FILENAME, 
             maxLogSize: MAX_LOG_SIZE, 
             backups: LOG_BACKUP_FILES, 
         }
@@ -34,9 +49,9 @@ class KanScraper {
         logger.info("Started Crawling");
         this.isRunning = true;
         await this.crawlVod();
-        //await this.crawlEducational();
-        //await this.crawlPodcasts();
-        //await this.crawlKan88();
+        await this.crawlEducational();
+        await this.crawlPodcasts();
+        await this.crawlKan88();
         logger.info("Done Crawling");
         
         logger.info("crawl => writing series to master list");
@@ -102,25 +117,7 @@ class KanScraper {
                 imgUrl = constants.KAN_DIGITAL_IMAGE_PREFIX + imgUrl;
             }
 
-            this._kanJSONObj[id] = {
-                id: id, 
-                link: seriesUrl,
-                name: "",
-                type: "series",
-                subtype: subType,
-                metas:{
-                    id: id,
-                    type: "series",
-                    link: seriesUrl,
-                    background: imgUrl,
-                    poster: imgUrl,
-                    posterShape: "poster",
-                    logo: "",
-                    description: "",
-                    genres: "",
-                    videos: []
-                }
-            }
+            this.addToJsonObject(id, "",seriesUrl,imgUrl,"","",[],subType,"series");
         }
 
         //start working on each series
@@ -145,8 +142,10 @@ class KanScraper {
             //set series genres
             this._kanJSONObj[key]["metas"]["genres"] = this.setGenre(seriesPageDoc.querySelector("div.info-genre"));
             //set series name
-            var title = seriesPageDoc.querySelector("title").text;
-            this._kanJSONObj[key]["metas"]["name"] = this.getNameFromSeriesPage(title);
+            var titleTemp = seriesPageDoc.querySelector("title").text;
+            var title = this.getNameFromSeriesPage(titleTemp);
+            this._kanJSONObj[key]["metas"]["name"] = title;
+            this._kanJSONObj[key]["name"] = title;
 
             var seasons = seriesPageDoc.querySelectorAll("div.seasons-item");
             logger.debug("getSeries => seasons length: " + seasons.length);
@@ -170,15 +169,14 @@ class KanScraper {
                 if (imgUrl.indexOf("?") <1) { continue;}
                 imgUrl = imgUrl.substring(0, imgUrl.indexOf("?"));
                 if (imgUrl.startsWith("/")){
-                    this._kanJSONObj[key]["metas"]["poster"] = "https://www.kan.org.il" + imgUrl;
-                } else {
-                    this._kanJSONObj[key]["metas"]["poster"] = imgUrl;
-                }
+                    imgUrl = "https://www.kan.org.il" + imgUrl;
+                } 
+                
 
                 var episodeLink = seriesPageDoc.querySelector("a.btn.with-arrow.info-link.btn-gradient").getAttribute("href");
                 this._kanJSONObj[key]["metas"]["link"] = episodeLink;
-                this._kanJSONObj[key]["name"] = title;
-                this._kanJSONObj[key]["metas"]["description"]
+                this._kanJSONObj[key]["metas"]["description"] = description;
+                this._kanJSONObj[key]["metas"]["poster"] = imgUrl;
                 //get streams
                 var streams = this.getStreams(episodeLink);
                 
@@ -223,7 +221,12 @@ class KanScraper {
                 if (episodePageLink.startsWith("/")){
                     episodePageLink = constants.KAN_DIGITAL_IMAGE_PREFIX;
                 }
-                var title = seasonEpisodesElem.querySelector("div.card-title").text.trim();
+                var title = "";
+                if (seasonEpisodesElem.querySelector("div.card-title")) {
+                    title = seasonEpisodesElem.querySelector("div.card-title").text.trim();
+                } else {
+                    title = seasonEpisodesElem.attrs("title");
+                }
                 var description = "";
                 if (seasonEpisodesElem.querySelector("div.card-text") != undefined) {
                     description = seasonEpisodesElem.querySelector("div.card-text").text.trim();
@@ -231,25 +234,22 @@ class KanScraper {
                 var  videoId = id + ":" + seasonNo + ":" + (iter + 1);
 
                 var episodeLogoUrl = "";
-                if (seasonEpisodesElem.querySelector("div.card-img").length > 0){
-                    var elemImage = seasonEpisodesElem.querySelector("div.card-img")[0];
+                if (seasonEpisodesElem.querySelector("div.card-img")){
+                    var elemImage = seasonEpisodesElem.querySelector("div.card-img");
                     try {
                         if ((elemImage != null) && (elemImage.querySelector("img.img-full") != null)) {
-                            var elemEpisodeLogo = elemImage.querySelector("img.img-full")[0];
+                            var elemEpisodeLogo = elemImage.querySelector("img.img-full");
                             
                             if (elemEpisodeLogo != null) {
-                                episodeLogoUrl = this.getImageFromUrl(elemEpisodeLogo.attr("src"),"d");
+                                episodeLogoUrl = this.getImageFromUrl(elemEpisodeLogo.attrs["src"],subType);
                             }
-                            logger.trace("KanScraper-getVideos => episodeLogoUrl location: " + episodeLogoUrl);
-                            //writeLog("TRACE","KanScraper-getVideos => episodeLogoUrl location: " + episodeLogoUrl);                           
+                            logger.trace("getVideos => episodeLogoUrl location: " + episodeLogoUrl);                          
                         }
                     } catch(ex) {
-                        logger.error("getVideos => " + ex);
-                        //writeLog("ERROR","KanScraper-getVideos => " + ex);
-                        
+                        logger.error("getVideos => episodeLogoUrl:" + ex);                       
                     }
                 }
-                
+                logger.debug ("getVideos => episodeLogoUrl: " + episodeLogoUrl + " Title: " + title); 
                 //get streams
                 var streams = await this.getStreams(episodePageLink);
                 var episodeNo = iter +1;
@@ -298,7 +298,7 @@ class KanScraper {
         var descVideo = "";
 
         if (doc.querySelector("li.date-local") != undefined){
-            released = doc.querySelector("li.date-local").getAttribute("data-date-utc");
+            released = this.getReleaseDate(doc.querySelector("li.date-local").getAttribute("data-date-utc"));
         } 
         var scriptElems = doc.querySelectorAll("script");
         
@@ -361,8 +361,8 @@ class KanScraper {
      * 
      ****************************************************************/
     async crawlEducational(){
-        this.crawlKids("k");
-        this.crawlKids("n");
+        await this.crawlKids("k");
+        await this.crawlKids("n");
     }
     async crawlKids(subType){
         logger.trace("crawlKids => Entering");
@@ -400,26 +400,11 @@ class KanScraper {
                     seriesDescription = doc2.querySelector("div.info-description").text.trim();
                 } 
             }
+            seriesDescription = seriesDescription.replace("\r\n","").trim();
+            seriesDescription = seriesDescription.trim();
+
             var seasons = doc2.querySelectorAll("div.seasons-item.kids");
-            this._kanJSONObj[id] = {
-                id: id, 
-                link: seriesPage,
-                title: seriesTitle,
-                type: "series",
-                subtype: subType,
-                metas:{
-                    id: id,
-                    type: "series",
-                    link: seriesPage,
-                    background: imgUrl,
-                    poster: imgUrl,
-                    posterShape: "poster",
-                    logo: "",
-                    description: seriesDescription,
-                    genres: genres,
-                    videos: []
-                }
-            }
+            this.addToJsonObject(id, seriesTitle,seriesPage,imgUrl,seriesDescription,genres,[],subType,"series");
             this.getKidsVideos(seasons, id, subType);
         }
     }
@@ -457,7 +442,7 @@ class KanScraper {
      * @param {*} subType 
      * @returns JSON object
      *****************************************************************************/
-    getKidsVideos(seasons, id, subType){
+    async getKidsVideos(seasons, id, subType){
         var noOfSeasons = seasons.length;
 
         for (var iter = 0; iter< noOfSeasons; iter++){ //iterate over seasons
@@ -486,10 +471,12 @@ class KanScraper {
                     (episode.querySelector("img.img-full").getAttribute("src").indexOf("?") > 0)){
                     episodeImgUrl = this.getImageFromUrl(episode.querySelector("img.img-full").getAttribute("src"), subType);
                 }
-                
-                var episodeDescription = episode.querySelector("div.card-text").text;
+                logger.trace("getKidsVideos => episodeImgUrl: " + episodeImgUrl + " Title: " + episodeTitle)
 
-                var streams = this.getStreams(episodeLink);
+                var episodeDescription = episode.querySelector("div.card-text").text;
+                episodeDescription = episodeDescription.replace(/[\r\n]+/gm, "").trim();;
+
+                var streams = await this.getStreams(episodeLink);
                 var videoId = id + ":" + seasonNo + ":" + episodeNo;
                                 
                 this._kanJSONObj[id]["metas"]["videos"].push({
@@ -510,7 +497,7 @@ class KanScraper {
                         }
                     ]
                 });
-                logger.debug("getKidsVideos => Added videos for episode : " + episodeTitle + " " + videoId);
+                logger.debug("getKidsVideos => Added videos for episode : " + episodeTitle + " " + videoId + " Description: " + episodeDescription);
             }
         }
     }
@@ -526,14 +513,14 @@ class KanScraper {
         //get the podcasts series genre list
         logger.debug("crawlPods => Starting retrieval of podcast series");
         
-        var docPodcastSeries = await fetchData(constants.PODCASTS_URL);
+        var docPodcastSeries = await fetchData(PODCASTS_URL);
         var genres = docPodcastSeries.querySelectorAll("div.podcast-row");
         logger.trace("crawlPods => Found " + genres.length + " genres");
         
         //go over the genres and add podcast series by genre
         for (var genre of genres) { //iterate over podcasts rows by genre
             var genresName = genre.querySelector("h4.title-elem.category-name").text.trim();
-            logger.debug("crawlPods => Genre " + genresName);
+            logger.debug("crawlPodcasts => Genre " + genresName);
             
             var podcastsSeriesElements = genre.querySelectorAll("a.podcast-item");
 
@@ -544,16 +531,13 @@ class KanScraper {
                 //set ID
                 var id = this.generateSeriesId(podcastSeriesLink);
 
+                //set title;
+                var seriesTitle = this.getPodcastTitle(podcastElement,"");
+
                 //set thumbnail image
                 var podcastImageUrl = "";
                 podcastImageUrl = this.getImageFromUrl(podcastElement.querySelector("img.img-full").getAttribute("src"),"p");
-
-                //set title;
-                var seriesTitle = this.getPodcastTitle(podcastElement,"");
-                //var seriesTitle = ""
-                //if (podcastElement.getAttribute("title") != undefined){ 
-                //    seriesTitle = podcastElement.getAttribute("title").trim();
-                //}
+                logger.debug("crawlPodcasts => podcastImageUrl: " + podcastImageUrl + " Title: " + seriesTitle);
 
                 //set description
                 var seriesDescription = "";
@@ -563,30 +547,12 @@ class KanScraper {
                     seriesDescription = podcastElement.querySelector("div.description").text.trim(); //Kan 88 Podcast episodes
                 }
                 
-                this._kanJSONObj[id] = {
-                    id: id, 
-                    link: podcastSeriesLink,
-                    title: seriesTitle,
-                    type: "series",
-                    subtype: "p",
-                    metas:{
-                        id: id,
-                        type: "series",
-                        link: podcastSeriesLink,
-                        background: podcastImageUrl,
-                        poster: podcastImageUrl,
-                        posterShape: "poster",
-                        logo: "",
-                        description: seriesDescription,
-                        genres: genre,
-                        videos: []
-                    }
-                }            
+                this.addToJsonObject(id,seriesTitle,podcastSeriesLink,podcastImageUrl,seriesDescription,genresName,[],"p","series");     
                 await this.getpodcastEpisodeVideos(podcastSeriesLink, id);
-                logger.trace("crawlKan88 => Added podcast " + seriesTitle);
+                logger.debug("crawlPodcasts => Added podcast " + seriesTitle);
             }    
         }
-        logger.trace("crawlPods => Exiting");
+        logger.trace("crawlPodcasts => Exiting");
     }    
 
     async crawlKan88(){
@@ -621,14 +587,6 @@ class KanScraper {
             
             //set title;
             var seriesTitle = this.getPodcastTitle(podcastKan88SeriesElement, imgElem.getAttribute("title").trim());
-            /*var seriesTitle = ""
-            if (podcastKan88SeriesElement.getAttribute("title") != undefined){ 
-                seriesTitle = podcastKan88SeriesElement.getAttribute("title").trim();
-            } else { //Kan 88 Podcast episodes
-                var imgElem = podcastKan88SeriesElement.querySelector("img.img-full");
-                seriesTitle = imgElem.getAttribute("title").trim();
-            }*/
-
             //set description
             var seriesDescription = "";
             if (podcastKan88SeriesElement.querySelector("div.overlay div.text") != undefined){
@@ -637,29 +595,10 @@ class KanScraper {
                 seriesDescription = podcastKan88SeriesElement.querySelector("div.description").text.trim(); //Kan 88 Podcast episodes
             }
 
-            this._kanJSONObj[id] = {
-                id: id, 
-                link: podcastLink,
-                title: seriesTitle,
-                type: "series",
-                subtype: "p",
-                metas:{
-                    id: id,
-                    type: "series",
-                    link: podcastLink,
-                    background: podcastImageUrl,
-                    poster: podcastImageUrl,
-                    posterShape: "poster",
-                    logo: "",
-                    description: seriesDescription,
-                    genres: genres,
-                    videos: []
-                }
-            }
-            
+            this.addToJsonObject(id,seriesTitle,podcastLink,podcastImageUrl,seriesDescription,genres,[],"p","series");
             await this.getpodcastEpisodeVideos(podcastLink, id);
             
-            logger.trace("crawlKan88 => Added Kan 88 podcast " + seriesTitle);
+            logger.debug("crawlKan88 => Added Kan 88 podcast " + seriesTitle);
         }
         logger.trace("crawlKan88 => Exiting");
     }
@@ -698,8 +637,11 @@ class KanScraper {
             lastPageNo = podcastSeriesPageDoc.querySelector('li[class*="pagination-page__item"][title*="Last page"]').getAttribute('data-num');
         }catch{
             lastPageNo = String(podcastSeriesPageDoc.querySelectorAll('li[class*="pagination-page__item"]').length);
-            if(lastPageNo==='0'){return {}; }
+            //if(lastPageNo==='0'){return {}; }
+            lastPageNo = 1;
+            logger.trace("getpodcastEpisodeVideos => URL: " + podcastSeriesLink + " has only 1 page");
         }
+        logger.debug("getpodcastEpisodeVideos => podcast ID: " + id + " last page number: " + lastPageNo);
         var podcastEpisodes = []; //list of podcast episodes
         if ((lastPageNo) && (parseInt(lastPageNo) >= 0) ){
             var intLastPageNo = parseInt(lastPageNo);
@@ -714,7 +656,7 @@ class KanScraper {
                         var card = docToCheck.querySelector("h2.title");
                         if (card != undefined){ //this is an episode so let's get the  stream while we have the data
                             var streams = this.getPodcastStream(docToCheck);
-                                podcastEpisodes.push({
+                            podcastEpisodes.push({
                                 episode: episodeChecked,
                                 stream: streams
                             });
@@ -735,7 +677,6 @@ class KanScraper {
                     continue
                 }
                 logger.trace("getpodcastEpisodeVideos => calling fetchPage with URL: " + podcastSeriesLink + "?page=" + i);
-                //writeLog("TRACE","KanScraper-getpodcastEpisodeVideos => calling fetchPage with URL: " + podcastSeriesLink + "?page=" + i);
                 var podcastsAdditionalPages = await fetchData(podcastSeriesLink + "?page=" + i);
                 var podcastElems = podcastsAdditionalPages.querySelectorAll("div.card.card-row");
 
@@ -748,12 +689,11 @@ class KanScraper {
                     var card = docToCheck.querySelector("h2.title");
                     if (card != undefined){ //this is an episode so let's get the  stream while we have the data
                         var streams =  this.getPodcastStream(docToCheck);
-                            podcastEpisodes.push({
+                        podcastEpisodes.push({
                             episode: additionalPodcast,
                             stream: streams
                         });
                     } else {
-                        //var subPageHref = podcastEpisodesToCheck.querySelector("a.card-body").etAttribute("href");
                         var docSubPage = await fetchData(episodeLink);
                         var episodesToCheck = docSubPage.querySelectorAll("div.card.card-row");
                         for (var episodeToCheck of episodesToCheck){
@@ -769,6 +709,7 @@ class KanScraper {
         }
 
         var podcastEpisodesVideos = [];
+        //podcastEpisodes = podcastSeriesPageDoc.querySelectorAll("div.card.card-row");
         var podcastEpisodeNo = podcastEpisodes.length;
 
         for (var podcastEpisode of podcastEpisodes){ //iterate over episodes and get the video and stream
@@ -792,18 +733,24 @@ class KanScraper {
                 }
             }
 
+            var episodeTitle = episodeElement.querySelector("h2.card-title").text.trim();
+            var episodeTitle = episodeTitle.replace(/^פרק \d+:/, '').trim();;
+
+
             var episodeImgUrl = "";
             if (episodeElement.querySelector("img.img-full") != null){
                 episodeImgUrl = this.getImageFromUrl(episodeElement.querySelector("img.img-full").getAttribute("src"), "p");
             }
-
-            var episodeTitle = episodeElement.querySelector("h2.card-title").text.trim();
+            logger.debug("getpodcastEpisodeVideos => episodeImgUrl" + episodeImgUrl + " Title: " + episodeTitle);
+            
             var episodeDescription = episodeElement.querySelector("div.description").text.trim();
             var released = "";
+            var releasedTemp = ""
             if (episodeElement.querySelector("li.date-local") != undefined){
-                released = episodeElement.querySelector("li.date-local").getAttribute("data-date-utc").trim();
+                releasedTemp = episodeElement.querySelector("li.date-local").getAttribute("data-date-utc").trim();
+                released = this.getReleaseDate(releasedTemp);
             }
-            logger.debug("getpodcastEpisodeVideos => Calling streams with URL: " + episodeLink + " for episode: " + episodeTitle + " released:" + released);
+            logger.debug("getpodcastEpisodeVideos => Calling streams with URL: " + episodeLink + " for episode: " + episodeTitle + " released: " + released);
             //writeLog("DEBUG","KanScraper-getpodcastEpisodeVideos => Calling streams with URL: " + episodeLink + " for episode: " + episodeTitle + " released:" + released);
             //var streams = await this.getPodcastStream(episodeLink);
             var episodeId = id + ":1:" + podcastEpisodeNo;
@@ -833,7 +780,9 @@ class KanScraper {
         //writeLog("TRACE","KanScraper-getPodcastStream => Entering");
         var episodeName = "";
         if (streamElement.querySelector("h2.title") != undefined){
+            //episodeName = streamElement.querySelector("h2.title").text.trim();
             episodeName = streamElement.querySelector("h2.title").text.trim();
+            episodeName = episodeName.replace(/^פרק \d+:/, '').trim();
         } else {
             logger.trace("getPodcastStreams => No name for the episode !");
             //writeLog("TRACE","KanScraper-getPodcastStreams => No name for the episode !");
@@ -868,7 +817,6 @@ class KanScraper {
         ];
 
         logger.trace("getPodcastStream => Exiting");
-        writeLog("TRACE","KanScraper-getPodcastStream => Exiting");
         return streams;
 
     }
@@ -905,18 +853,15 @@ class KanScraper {
             retId = link.substring(link.lastIndexOf("/") + 1, link.length);
             retId = retId.replace(/\D/g,'');
 
-            //check this is not an empty string
-            if (retId == ""){
-                retId = constants.PREFIX + "kan_" + this.seriesIdIterator;
-                this.seriesIdIterator++;
-            }
-            
-            //check if the id does not already exists
+            //check this is not an empty string or if key already exist
             var testKey = retId in this._kanJSONObj;
-            if (testKey){//key exist, apply iterator
+            if ((retId == "") || (testKey)){
                 retId = constants.PREFIX + "kan_" + this.seriesIdIterator;
                 this.seriesIdIterator++;
             }
+
+            retId = constants.PREFIX + "kan_" + retId;
+            
         } else {
             retId = constants.PREFIX + "kan_" + this.seriesIdIterator;
             this.seriesIdIterator++;
@@ -1158,13 +1103,31 @@ class KanScraper {
         return retVal;
     }
 
+    getReleaseDate(str){
+        var released = "";
+
+        if (str.length > 0) {
+            //the format is dd.MM.yyyy. Stremio is Expecting MM.dd.yyyy
+            var releasedArr = str.split(".");
+            if (releasedArr.length > 0){
+                released = releasedArr[1] + "." + releasedArr[0] + "." + releasedArr[2];
+                return released;
+            }
+        }
+        return str;
+    }
+
     addToJsonObject(id, seriesTitle, seriesPage, imgUrl, seriesDescription, genres, videosList, subType, type){
-        var jsonObj = {
-            id: id,
+        this._kanJSONObj[id] =  {
+            id: id, 
+            name: seriesTitle, 
+            poster: imgUrl, 
+            description: seriesDescription, 
             link: seriesPage,
-            type: type,
+            background: imgUrl, 
+            genres: genres,
+            type: type, 
             subtype: subType,
-            title: seriesTitle,
             metas: {
                 id: id,
                 type: type,
@@ -1179,36 +1142,18 @@ class KanScraper {
                 videos: videosList
             }
         }
+        //this.addToSeriesList(item);
 
-        this._kanJSONObj[id] = jsonObj;
-        if (UPDATE_LIST){
-            var item = {
-                id: id, 
-                name: seriesTitle, 
-                poster: imgUrl, 
-                description: seriesDescription, 
-                link: seriesPage,
-                background: imgUrl, 
-                genres: genres,
-                metas: jsonObj.metas,
-                type: type, 
-                subtype: subType
-            }
-            this.addToSeriesList(item);
-        }
         logger.info("addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + " Link: " + seriesPage + " subtype: " + subType);
-        //writeLog("INFO","addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + " Link: " + seriesPage + " subtype: " + subType);
     }
 
     writeJSON(){
         logger.trace("writeJSON => Entered");
         logger.debug("writeJSON => All tasks completed - writing file");
-        //writeLog("TRACE", "writeJSON => Entered");
-        //writeLog("DEBUG", "KanScraperwriteJSON => All tasks completed - writing file");
         utils.writeJSONToFile(this._kanJSONObj, "stremio-kan");
 
         logger.trace("writeJSON => Leaving");
-        //writeLog("TRACE", "writeJSON => Leaving");
+
     }
 }
 
