@@ -13,6 +13,7 @@
 		"log4js": "^6.9.1",
 		"node-cron": "^3.0.3",
 		"node-html-parser": "^6.1.13",
+		"path": "^0.12.7",
 		"stremio-addon-sdk": "1.1.x",
 		"uuid": "^11.0.5"
 	}
