@@ -89,8 +89,6 @@ const throttler = new Throttler(MAX_CONCURRENT_REQUESTS);
 async function fetchWithRetries(url, asJson = false, params = {}, headers) {
     logger.trace("fetchWithRetries => Entering");
     logger.trace("URL: " + url + "\n    asJson: " + asJson + "\n    Params: " + "params: " + params + "\n   headers: " + headers);
-    //writeLog("TRACE","fetchWithRetries => Entering");
-    //writeLog("TRACE","fetchWithRetries => URL: " + url + "\n    asJson: " + asJson + "\n    Params: " + "params: " + params + "\n   headers: " + headers);
     return throttler.schedule(async () => {
         for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
             try {
@@ -118,7 +116,6 @@ async function fetchWithRetries(url, asJson = false, params = {}, headers) {
 }
 
 // Wrapper function for fetching data
-
 async function fetchData(url , asJson = false, params={}, headers = HEADERS ) {
     try {
         logger.trace("fetchData => For URL: " + url);
@@ -131,55 +128,6 @@ async function fetchData(url , asJson = false, params={}, headers = HEADERS ) {
     }
 }
 
-
-/*
-// Utility function to add delay
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-let pendingRequests = 0; // Global counter for tracking pending requests
-
-// Function to fetch data with retries and throttling
-async function fetchData(url, retrieveJson = false, params = {}, headers = HEADERS) {
-    logger.trace("fetchData => Entering");
-    //writeLog("TRACE","fetchData => Entering");
-    logger.debug("fetchData => URL: " + url + "\n   retrieveJson: " + retrieveJson + "\n   params:" + params);
-    //writeLog("TRACE","fetchData => URL: " + url + "\n   retrieveJson: " + retrieveJson + "\n   params:" + params);
-    
-    const { default: pLimit } = await import('p-limit'); // Dynamic import
-    const limit = pLimit(MAX_CONCURRENT_REQUESTS); // Use pLimit
-
-    return limit(async () => {
-        pendingRequests++; // Increment pending request count
-        //writeLog("DEBUG","Requests in queue: " + pendingRequests);
-
-        let attempt = 0;
-        while (attempt < MAX_RETRIES) {
-            try {
-                const response = await axios.get(url, {
-                    params,
-                    headers: headers || HEADERS,
-                    timeout: REQUEST_TIMEOUT,
-                    responseType: retrieveJson ? 'json' : 'text' // Ensure correct response type
-                });
-
-                pendingRequests--;
-                //writeLog("DEBUG","Requests in queue after completion: " + pendingRequests);
-                return retrieveJson ? response.data : parse(response.data.toString());
-            } catch (error) {
-                attempt++;
-                if (attempt >= MAX_RETRIES) {
-                    pendingRequests--; // Ensure counter decreases even on failure
-                    throw Error(`Failed to fetch data after ${MAX_RETRIES} attempts: ${error.message}`);
-                }
-                const backoffTime = constants.RETRY_DELAY * Math.pow(2, attempt - 1); // Exponential backoff
-                logger.warn(`Attempt ${attempt} failed. Retrying in ${backoffTime}ms...` + url);
-                //console.warn(`Attempt ${attempt} failed. Retrying in ${backoffTime}ms...` + url);
-                await delay(backoffTime);
-            }
-        }
-    });
-}
-*/
 //+===================================================================================
 //
 //  Utility functions
