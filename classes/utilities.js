@@ -213,49 +213,11 @@ function writeLog(level, msg){
 async function writeJSONToFile(jsonObj, fileName){
     if (jsonObj == undefined){ return;}
 
-    //var json = JSON.stringify(jsonObj, null, 4);
     var dateStr = getCurrentDateStr();
     dateStr = dateStr.split(":").join("_");
-    //dateStr = dateStr.replace(':','-');
-    //var path = SAVE_FOLDER + fileName + "_" + dateStr + ".json";
-    //var simpleFile = SAVE_FOLDER + fileName + ".json";
-    //var jsonFileName = fileName + ".json";
-    //var zipFileName;
-    //var commitMessage = "Upload file + " + dateStr;
-    //const url = `${GITHUB_API_URL}/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/output/${jsonFileName}`;
+
     const zip = new AdmZip()
-/*
-     write.writeFile(path, json, (err) => {
-        if (err) {
-          console.error(err)
-          throw err
-        }
-        logger.debug("writeJSONToFile=> Saved data to file " + path);
-        //writeLog("DEBUG","Utitlties=writeJSONToFile=> Saved data to file " + path);
-        logger.debug("Saved data to file " + path);
-        //console.log("Saved data to file " + path);
-    });
-*/
-/*
-     write.writeFile(simpleFile, json, (err) => {
-        if (err) {
-          console.error(err)
-          throw err
-        } else {
-            logger.debug("writeJSONToFile => Saved data to file " + simpleFile);
-            //zip the file
-            zipFileName = fileName + ".zip";
-            var zipFileFullPath = SAVE_FOLDER + zipFileName; 
-            var zip = new AdmZip();
-            zip.addLocalFile(simpleFile);
-            // get everything as a buffer
-            //var willSendthis = zip.toBuffer();
-            // or write everything to disk
-            zip.writeZip(zipFileFullPath);
-            logger.debug("writeJSONToFile => Saved data to file " + zipFileFullPath);
-        }
-    });
-*/
+
     logger.debug("writeJSONToFile => handling repository files");
     const OUTPUT_DIR = path.join(__dirname, `../${SAVE_FOLDER}`); // Ensure correct relative path
 
@@ -278,7 +240,6 @@ async function writeJSONToFile(jsonObj, fileName){
         logger.debug(`writeJSONToFile => Saved locally .json file: ${jsonFilePath}`);
 
         // Create ZIP file
-        //const zip = new AdmZip();
         zip.addFile(jsonFileName, Buffer.from(jsonContent, "utf8"));
         zip.writeZip(zipFilePath);
         logger.debug(`writeJSONToFile => Saved locally .zip file: ${zipFileName}`);
