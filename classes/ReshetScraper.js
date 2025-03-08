@@ -130,7 +130,7 @@ class ReshetScraper {
                         seasonVideos.push(video);
                     }
                     //sort the video items so we can set the correct episode numbers
-                    logger.debug("getEpisodes() => Sorting teh episodes of the season");
+                    logger.debug("getEpisodes() => Sorting the episodes of the season");
                     seasonVideos.sort((a, b) => a.reshetEpisodeId - b.reshetEpisodeId);
 
                     //push the video items to the over all meta videos array
@@ -151,7 +151,6 @@ class ReshetScraper {
 
     async getStream(kalturaId, streamName){
         logger.trace("getStream() => Entering");
-        //writeLog("TRACE","ReshetScraper-getStream() => Entering");
         var streams = [];
         var user_data = {
             "1":{
@@ -196,8 +195,7 @@ class ReshetScraper {
             "clientTag":"html5:v0.56.1",
             "partnerId": RESHET_PARTNER_ID
         }
-        logger.debug("getStream() => link: " + RESHET_URL_STREAM + ", Kaltura ID: " + kalturaId);
-        //writeLog("DEBUG","ReshetScraper-getStream() => link: " + RESHET_URL_STREAM + ", Kaltura ID: " + kalturaId);
+        logger.trace("getStream() => Kaltura ID: " + kalturaId);
         var streamJsonObj = await fetchData(RESHET_URL_STREAM, true, user_data, RESHET_HEADERS);
         if (streamJsonObj != undefined) {
             var sources = streamJsonObj[2]["sources"];
@@ -223,7 +221,7 @@ class ReshetScraper {
             link: seriesPage,
             type: type,
             subtype: subType,
-            title: seriesTitle,
+            name: seriesTitle,
             metas: {
                 id: id,
                 type: type,
@@ -240,7 +238,6 @@ class ReshetScraper {
         }
 
         this._reshetJSONObj[id] = jsonObj;
-        if (UPDATE_LIST){
             var item = {
                 id: id, 
                 name: seriesTitle, 
@@ -253,32 +250,25 @@ class ReshetScraper {
                 type: type, 
                 subtype: subType
             }
-            this.addToSeriesList(item);
-        }
+
+        this.addToSeriesList(item);
         logger.info("addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + " Link: " + seriesPage + " subtype: " + subType);
-        //writeLog("INFO","ReshetScraper-addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + " Link: " + seriesPage + " subtype: " + subType);
     }
 
     async getJson(link){
         logger.trace("getJson() => Entering");
-        //writeLog("TRACE","ReshetScraper-getJson() => Entering");
         logger.debug("getJson() => link: " + link);
-        //writeLog("DEBUG","ReshetScraper-getJson() => link: " + link);
         var retPage = await fetchData(link);
         var jsonElem = retPage.querySelector("script#__NEXT_DATA__").text;
         var retJson = JSON.parse(jsonElem);
         logger.trace("getJson() => JSON: " + retJson);
-        //writeLog("TRACE","ReshetScraper-getJson() => JSON: " + retJson);
         return retJson;
     }
     writeJSON(){
         logger.trace("writeJSON => Entered");
-        //writeLog("TRACE", "ReshetScraper-writeJSON => Entered");
         logger.debug("writeJSON => writing file");
-        //writeLog("DEBUG", "ReshetScraper-writeJSON => writing file");
         utils.writeJSONToFile(this._reshetJSONObj, "stremio-reshet");
         logger.trace("writeJSON => Leaving");
-        //writeLog("TRACE", "ReshetScraper-writeJSON => Leaving");
     }
 
     setSeasonId(seasonName, seasonKey){
