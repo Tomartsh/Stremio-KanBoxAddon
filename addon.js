@@ -26,7 +26,7 @@ log4js.configure({
 			backups: LOG_BACKUP_FILES, // keep five backup files
 		}
 	},
-	categories: { default: { appenders: ['Stremio','out'], level: constants.LOG4JS_LEVEL } },
+	categories: { default: { appenders: ['Stremio','out'], level: LOG4JS_LEVEL } },
 });
 
 var logger = log4js.getLogger("addon");
@@ -47,12 +47,12 @@ const kanScraper = new Kanscraper(addToSeriesList)
  */
 var taskReshetJson = cron.schedule('0 1 * * 0,1,2,3,4,5,6', () => {
 	logger.info('Running schedule for updating Reshet list');
-	reshetScraper.crawl();
+	reshetScraper.crawl(true);
   }, {
 	scheduled: true,
 	timezone: "Asia/Jerusalem"
 });
-//taskReshetJson.start();
+taskReshetJson.start();
 
 /**
  * Set cron jobs for Kan generating json and zip file. 
@@ -61,7 +61,7 @@ var taskReshetJson = cron.schedule('0 1 * * 0,1,2,3,4,5,6', () => {
 var taskKanJson = cron.schedule('0 3 * * 0,1,2,3,4,5,6', () => {
 	logger.info('Running schedule for updating Kan list');
 	if (!kanScraper.isRunning){
-		kanScraper.crawl();
+		kanScraper.crawl(true);
 	} else {
 		logger.info('KanScraper is alraedy running. Aborting !!!');
 	}
@@ -70,7 +70,7 @@ var taskKanJson = cron.schedule('0 3 * * 0,1,2,3,4,5,6', () => {
 	scheduled: true,
 	timezone: "Asia/Jerusalem"
 });
-//taskKanJson.start();
+taskKanJson.start();
 
 /**
  * Set cron jobs for Mako generating json and zip file. 
@@ -78,7 +78,7 @@ var taskKanJson = cron.schedule('0 3 * * 0,1,2,3,4,5,6', () => {
  */
 var taskMakoJson = cron.schedule('0 2 * * 0,1,2,3,4,5,6', () => {
 	logger.info('Running schedule for updating Mako list');
-		makoScraper.crawl();
+		makoScraper.crawl(true);
   }, {
 	scheduled: true,
 	timezone: "Asia/Jerusalem"
@@ -95,7 +95,7 @@ var onRender = cron.schedule('1-59/10 * * * *', () => {
 	scheduled: true,
 	timezone: "Asia/Jerusalem"
 });
-//onRender.start();
+onRender.start();
 
 // Main program
 (async () => {

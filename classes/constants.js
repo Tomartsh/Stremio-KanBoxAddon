@@ -4,7 +4,7 @@ module.exports = {
     MAX_RETRIES: 5,  
     MAX_CONCURRENT_REQUESTS: 4,
     UPDATE_LIST: true, // update the series list as well as creating the JSON object  
-    URL_ZIP_FILES: ["stremio-kan.zip","stremio-live.zip","stremio-reshet.zip","stremio-mako.zip"],
+    URL_ZIP_FILES: ["stremio-kan.zip","stremio-live.zip","stremio-reshet.zip"],
     SAVE_MODE: "both", // "local", "github", or "both"
     SAVE_FOLDER: "output",
     PREFIX: "il_",
