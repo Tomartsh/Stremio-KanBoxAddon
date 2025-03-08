@@ -39,7 +39,7 @@ const makoScraper = new Makoscraper(addToSeriesList);
 const reshetScraper = new Reshetscraper(addToSeriesList);
 //reshetScraper.crawl(true);
 const kanScraper = new Kanscraper(addToSeriesList)
-kanScraper.crawl(true);
+//kanScraper.crawl(true);
 
 /**
  * Set cron jobs for Reshet generating json and zip file. 
