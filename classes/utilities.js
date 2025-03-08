@@ -1,11 +1,15 @@
 
 const write = require("fs");
 const { parse } = require('node-html-parser');
-
+const path = require("path");
 const axios = require('axios');
 const AdmZip = require("adm-zip");
 const fs = require('fs');
-const { GITHUB_TOKEN, GITHUB_OWNER, GITHUB_REPO, GITHUB_BRANCH, SAVE_MODE, OUTPUT_FOLDER } = process.env;
+require("dotenv").config({ path: path.resolve(__dirname, "../config/.env") }); // Load .env from config folder
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const GITHUB_BRANCH = process.env.GITHUB_BRANCH;
+const REPO_OWNER = process.env.REPO_OWNER;
+const REPO_NAME = process.env.REPO_NAME;
 
 const log4js = require("log4js");
 const {
@@ -14,11 +18,12 @@ const {
     HEADERS, 
     MAX_CONCURRENT_REQUESTS, 
     RETRY_DELAY, 
-    SAVE_FOLDER, 
     LOG_LEVEL, 
     LOG4JS_LEVEL,
     MAX_LOG_SIZE, 
-    LOG_BACKUP_FILES 
+    LOG_BACKUP_FILES,
+    SAVE_MODE,
+    SAVE_FOLDER 
 } = require ("./constants");
 
 log4js.configure({
@@ -252,7 +257,7 @@ async function writeJSONToFile(jsonObj, fileName){
     });
 */
     logger.debug("writeJSONToFile => handling repository files");
-    const OUTPUT_DIR = path.join(__dirname, OUTPUT_FOLDER);
+    const OUTPUT_DIR = path.join(__dirname, `../${SAVE_FOLDER}`); // Ensure correct relative path
 
     // Ensure output directory exists inside the function
     if (!fs.existsSync(OUTPUT_DIR)) {
@@ -272,16 +277,12 @@ async function writeJSONToFile(jsonObj, fileName){
         fs.writeFileSync(jsonFilePath, jsonContent);
         logger.debug(`writeJSONToFile => Saved locally .json file: ${jsonFilePath}`);
 
-    // Create ZIP file
-    //const zip = new AdmZip();
-    zip.addFile(jsonFileName, Buffer.from(jsonContent, "utf8"));
-
-    if (SAVE_MODE === "local" || SAVE_MODE === "both") {
+        // Create ZIP file
+        //const zip = new AdmZip();
+        zip.addFile(jsonFileName, Buffer.from(jsonContent, "utf8"));
         zip.writeZip(zipFilePath);
         logger.debug(`writeJSONToFile => Saved locally .zip file: ${zipFileName}`);
     }
-    }
-
 
     // Upload to GitHub if needed
     if (SAVE_MODE === "github" || SAVE_MODE === "both") {
@@ -292,15 +293,15 @@ async function writeJSONToFile(jsonObj, fileName){
 
 async function uploadToGitHub(fileContent, fileName, commitMessage) {
     const GITHUB_API_URL = 'https://api.github.com';
-    const githubFilePath = `output/${fileName}`;
-    const url = `${GITHUB_API_URL}/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${githubFilePath}`;
+    const githubFilePath = `${SAVE_FOLDER}/${fileName}`;
+    const url = `${GITHUB_API_URL}/repos/${REPO_OWNER}/${REPO_NAME}/contents/${githubFilePath}`;
 
     try {
         // Check if the file exists to get SHA
         let sha = null;
         try {
             const response = await axios.get(url, {
-                headers: { Authorization: `token ${GITHUB_TOKEN}` },
+                headers: { Authorization: `Bearer ${GITHUB_TOKEN}` },
             });
             sha = response.data.sha;
         } catch (error) {
@@ -318,7 +319,8 @@ async function uploadToGitHub(fileContent, fileName, commitMessage) {
             ...(sha ? { sha } : {}),
         }, {
             headers: {
-                Authorization: `token ${GITHUB_TOKEN}`,
+                Authorization: `Bearer ${GITHUB_TOKEN}`,
+                "User-Agent": "Node.js",
                 Accept: 'application/vnd.github.v3+json',
             },
         });

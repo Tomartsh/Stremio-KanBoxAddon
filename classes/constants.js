@@ -6,7 +6,7 @@ module.exports = {
     UPDATE_LIST: true, // update the series list as well as creating the JSON object  
     URL_ZIP_FILES: ["stremio-kan.zip","stremio-live.zip","stremio-reshet.zip","stremio-mako.zip"],
     SAVE_MODE: "both", // "local", "github", or "both"
-    //SAVE_FOLDER: "output/",
+    SAVE_FOLDER: "output",
     PREFIX: "il_",
     LOG_LEVEL: "DEBUG",
     LOG4JS_LEVEL: "debug",
