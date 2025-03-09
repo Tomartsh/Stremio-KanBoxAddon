@@ -41,6 +41,20 @@ const reshetScraper = new Reshetscraper(addToSeriesList);
 const kanScraper = new Kanscraper(addToSeriesList)
 //kanScraper.crawl(true);
 
+
+/**
+ * Set cron jobs for Mako generating json and zip file for live tv. 
+ * Run once a month on 5th day at 5 minutes past midnight
+ */
+var taskLiveJson = cron.schedule('05 00 5 * *', () => {
+	logger.info('Running schedule for updating Live list');
+		liveTV.crawl(true);
+  }, {
+	scheduled: true,
+	timezone: "Asia/Jerusalem"
+});
+taskLiveJson.start();
+
 /**
  * Set cron jobs for Reshet generating json and zip file. 
  * run eavery day at 1 AM
