@@ -33,7 +33,7 @@ var logger = log4js.getLogger("addon");
 
 const listSeries = new srList();
 const liveTV = new LiveTV(addToSeriesList);
-//liveTV.crawl();
+//liveTV.crawl(true);
 const makoScraper = new Makoscraper(addToSeriesList);
 //makoScraper.crawl(true);
 const reshetScraper = new Reshetscraper(addToSeriesList);

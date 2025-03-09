@@ -3,14 +3,14 @@ node_modules
 package-lock.json
 stremio-kanbox.json
 
+#ignore output folders
+output/stremio-live.json
+output/stremio-live.zip
+output
+
 #ignore the logs folder
 logs
 logs/*.*
-
-#ignore output folders
-output
-output/*.*
-output/backup
 
 #ignore java sction of project as it is already obsolete
 WebCrawler

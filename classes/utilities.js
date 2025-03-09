@@ -1,5 +1,5 @@
 
-const write = require("fs");
+//const write = require("fs");
 const { parse } = require('node-html-parser');
 const path = require("path");
 const axios = require('axios');
@@ -159,6 +159,7 @@ function writeLog(level, msg){
 }
 
 async function writeJSONToFile(jsonObj, fileName){
+    logger.debug("writeJSONToFile => Entering");
     if (jsonObj == undefined){ return;}
 
     var dateStr = getCurrentDateStr();
@@ -198,9 +199,11 @@ async function writeJSONToFile(jsonObj, fileName){
         await uploadToGitHub(Buffer.from(jsonContent, "utf8"), jsonFileName, `Adding ${jsonFileName} ${dateStr}`);
         await uploadToGitHub(zip.toBuffer(), zipFileName, `Adding ${zipFileName} ${dateStr}`);
     }
+    logger.debug("writeJSONToFile => Exiting");
 }
 
 async function uploadToGitHub(fileContent, fileName, commitMessage) {
+    logger.debug("uploadToGitHub => Entering");
     const GITHUB_API_URL = 'https://api.github.com';
     const githubFilePath = `${SAVE_FOLDER}/${fileName}`;
     const url = `${GITHUB_API_URL}/repos/${REPO_OWNER}/${REPO_NAME}/contents/${githubFilePath}`;
@@ -238,6 +241,7 @@ async function uploadToGitHub(fileContent, fileName, commitMessage) {
     } catch (error) {
         logger.error("uploadToGitHub => Error uploading file:", error.response ? error.response.data : error.message);
     }
+    logger.debug("uploadToGitHub => Exiting");
 }
 
 
