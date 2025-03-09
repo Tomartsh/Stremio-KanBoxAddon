@@ -261,11 +261,13 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 
 builder.defineMetaHandler(({type, id}) => {
 	logger.debug("defineMetaHandler=> request for meta: "+type+" "+id);
-	logger.info("defineMetaHandler=> request for meta: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	var meta = listSeries.getMetaById(id);
+	delete meta.videos;
     return Promise.resolve({ meta: meta })
 })
+
+
 async function tuki(type, id){
 	logger.debug("tuki=> request for stream: "+type+" "+id);
 	var streams = [];
