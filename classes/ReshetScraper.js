@@ -1,7 +1,6 @@
 const utils = require("./utilities.js");
 const {URL_RESHET_VOD, URL_RESHET_BASE,PREFIX, RESHET_HEADERS,RESHET_PARTNER_ID, RESHET_URL_STREAM,LOG4JS_LEVEL,MAX_LOG_SIZE, LOG_BACKUP_FILES} = require ("./constants");
 const {fetchData, writeLog} = require("./utilities.js");
-const {UPDATE_LIST} = require("./constants.js");
 const log4js = require("log4js");
 
 log4js.configure({

@@ -37,7 +37,7 @@ const liveTV = new LiveTV(addToSeriesList);
 const makoScraper = new Makoscraper(addToSeriesList);
 //makoScraper.crawl(true);
 const reshetScraper = new Reshetscraper(addToSeriesList);
-//reshetScraper.crawl(true);
+reshetScraper.crawl(true);
 const kanScraper = new Kanscraper(addToSeriesList)
 //kanScraper.crawl(true);
 
@@ -220,7 +220,6 @@ builder.defineCatalogHandler(({type, id, extra}) => {
         search = extra.search.trim();
     }
 
-
 	switch(type) {
         case "series":
 			if (id == "kanDigital"){              
@@ -263,11 +262,7 @@ builder.defineMetaHandler(({type, id}) => {
 	logger.debug("defineMetaHandler=> request for meta: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	var meta = listSeries.getMetaById(id);
-	/*for (i =0; i < meta.videos.length ; i++){
-		delete meta.videos[i].streams;
-	}*/
-
-	delete meta.videos;
+	
     return Promise.resolve({ meta: meta })
 })
 

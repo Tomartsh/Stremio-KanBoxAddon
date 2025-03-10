@@ -186,7 +186,7 @@ async function writeJSONToFile(jsonObj, fileName){
     if (SAVE_MODE === "local" || SAVE_MODE === "both") {
         //save .json file 
         fs.writeFileSync(jsonFilePath, jsonContent);
-        logger.debug(`writeJSONToFile => Saved locally .json file: ${jsonFilePath}`);
+        logger.debug(`writeJSONToFile => Saved locally .json file: ${jsonFileName}`);
 
         // Create ZIP file
         zip.addFile(jsonFileName, Buffer.from(jsonContent, "utf8"));
@@ -203,7 +203,7 @@ async function writeJSONToFile(jsonObj, fileName){
 }
 
 async function uploadToGitHub(fileContent, fileName, commitMessage) {
-    logger.debug("uploadToGitHub => Entering");
+    logger.trace("uploadToGitHub => Entering");
     const GITHUB_API_URL = 'https://api.github.com';
     const githubFilePath = `${SAVE_FOLDER}/${fileName}`;
     const url = `${GITHUB_API_URL}/repos/${REPO_OWNER}/${REPO_NAME}/contents/${githubFilePath}`;
@@ -241,7 +241,7 @@ async function uploadToGitHub(fileContent, fileName, commitMessage) {
     } catch (error) {
         logger.error("uploadToGitHub => Error uploading file:", error.response ? error.response.data : error.message);
     }
-    logger.debug("uploadToGitHub => Exiting");
+    logger.trace("uploadToGitHub => Exiting");
 }
 
 

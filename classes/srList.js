@@ -22,7 +22,7 @@ class srList {
             link: link, 
             background: background, 
             genres: genres, 
-            meta: metas
+            meta: metas,
         }
         this._addItem(item);
     }

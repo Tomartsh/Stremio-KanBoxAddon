@@ -3,9 +3,11 @@ node_modules
 package-lock.json
 stremio-kanbox.json
 
+config/*.env
+
 #ignore output folders
-output/stremio-live.json
-output/stremio-live.zip
+output/*.json
+output/*.zip
 output
 
 #ignore the logs folder

@@ -58,5 +58,7 @@ module.exports = {
 		"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0"
 	},
     RESHET_PARTNER_ID: "2748741",
-    RESHET_URL_STREAM: "https://cdnapisec.kaltura.com/api_v3/service/multirequest"
+    RESHET_URL_STREAM: "https://cdnapisec.kaltura.com/api_v3/service/multirequest",
+    //Sport5
+    URL_SPORT5_VOD: "https://vod.sport5.co.il/HTML/External/VodCentertDS.txt"
 };

@@ -180,9 +180,10 @@ class KanScraper {
                 //get streams
                 var streams = this.getStreams(episodeLink);
                 
-                var videoJsonObj = {
+                this.addVideoToMeta(id, videoId, title, "1", "1", description, imgUrl, episodeLink, streams.released, streams);
+                /*var videoJsonObj = {
                     id: videoId,
-                    title: title,
+                    name: title,
                     season: "1",
                     episode: "1",
                     description: description,
@@ -192,7 +193,7 @@ class KanScraper {
                     streams: streams
                 }
                 
-                this._kanJSONObj[key]["metas"]["videos"].push(videoJsonObj)
+                this._kanJSONObj[key]["metas"]["videos"].push(videoJsonObj)*/
             }
         }
     }
@@ -252,30 +253,32 @@ class KanScraper {
                 logger.debug ("getVideos => episodeLogoUrl: " + episodeLogoUrl + " Title: " + title); 
                 //get streams
                 var streams = await this.getStreams(episodePageLink);
-                var episodeNo = iter +1;
 
-                var videoJsonObj = {
+                var episodeNo = iter +1;
+                var streamsArr = [
+                    {
+                        url: streams.url,
+                        type: streams.type,
+                        name: streams.name,
+                        description: streams.description
+                    }
+                ];
+
+                this.addVideoToMeta(id, videoId, title, seasonNo, episodeNo, description, episodeLogoUrl, episodePageLink, streams.released, streamsArr);
+                /*var videoJsonObj = {
                     id: videoId,
-                    title: title,
+                    name: title,
                     season: seasonNo,
                     episode: episodeNo,
                     description: description,
                     released: streams.released,
                     thumbnail: episodeLogoUrl,
                     episodeLink: episodePageLink,
-                    streams:[
-                        {
-                            url: streams.url,
-                            type: streams.type,
-                            name: streams.name,
-                            description: streams.description
-                        }
-                    ]
+                    streams: streamsArr
                 }
 
-                videosArr.push(videoJsonObj);
+                videosArr.push(videoJsonObj);*/
                 logger.debug("getVideos => Added videos for episode : " + title + "\n    season:" + seasonNo + ", episode: " + (iter +1) + ", subtype: " + subType);
-                //writeLog("DEBUG","KanScraper-getVideos => Added videos for episode : " + title + " " + seasonNo + ":" + (iter +1) + " subtype: " + subType);
             }
         }
         return videosArr;        
@@ -477,9 +480,18 @@ class KanScraper {
                 episodeDescription = episodeDescription.replace(/[\r\n]+/gm, "").trim();;
 
                 var streams = await this.getStreams(episodeLink);
+                var streamsArr = [
+                    {
+                        url: streams.url,
+                        type: streams.type,
+                        name: streams.name,
+                        description: streams.description
+                    }
+                ];
                 var videoId = id + ":" + seasonNo + ":" + episodeNo;
-                                
-                this._kanJSONObj[id]["metas"]["videos"].push({
+                
+                this.addVideoToMeta(id, videoId, episodeTitle,seasonNo, episodeNo, episodeDescription, episodeImgUrl, episodeLink, streams.released, streamsArr);
+                /*this._kanJSONObj[id]["metas"]["videos"].push({
                     id: videoId,
                     title: episodeTitle,
                     season: seasonNo,
@@ -496,7 +508,7 @@ class KanScraper {
                             description: streams.description
                         }
                     ]
-                });
+                });*/
                 logger.debug("getKidsVideos => Added videos for episode : " + episodeTitle + " " + videoId + " Description: " + episodeDescription);
             }
         }
@@ -751,10 +763,10 @@ class KanScraper {
                 released = this.getReleaseDate(releasedTemp);
             }
             logger.debug("getpodcastEpisodeVideos => Calling streams with URL: " + episodeLink + " for episode: " + episodeTitle + " released: " + released);
-            //writeLog("DEBUG","KanScraper-getpodcastEpisodeVideos => Calling streams with URL: " + episodeLink + " for episode: " + episodeTitle + " released:" + released);
             //var streams = await this.getPodcastStream(episodeLink);
             var episodeId = id + ":1:" + podcastEpisodeNo;
-            this._kanJSONObj[id]["metas"]["videos"].push({
+            this.addVideoToMeta(id,episodeId, episodeTitle,"1",podcastEpisodeNo,episodeDescription,episodeImgUrl,episodeLink,released,streams);
+            /*this._kanJSONObj[id]["metas"]["videos"].push({
                 id: episodeId,
                 title: episodeTitle,
                 season: "1",
@@ -764,9 +776,8 @@ class KanScraper {
                 episodeLink: episodeLink,
                 released: released,
                 streams: streams
-            });
+            });*/
             logger.debug("getpodcastEpisodeVideos => Added episode: " + episodeId);
-            //writeLog("DEBUG","KanScraper-getpodcastEpisodeVideos => Added episode: " + episodeId);
             podcastEpisodeNo--
         }
 
@@ -1115,6 +1126,21 @@ class KanScraper {
             }
         }
         return str;
+    }
+
+    addVideoToMeta(key, episodeId, name, seasonNo, episodeNo, desc, thumb, episodeLink, released, streams){
+        this._kanJSONObj[key]["metas"]["videos"].push({
+            id: episodeId,
+            title: name,
+            season: seasonNo,
+            episode: episodeNo ,
+            description: desc,
+            thumbnail: thumb,
+            episodeLink: episodeLink,
+            released: released,
+            streams: streams
+        });
+
     }
 
     addToJsonObject(id, seriesTitle, seriesPage, imgUrl, seriesDescription, genres, videosList, subType, type){
