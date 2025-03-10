@@ -8,11 +8,11 @@ config/*.env
 #ignore output folders
 output/*.json
 output/*.zip
-output
+output/
 
 #ignore the logs folder
 logs
 logs/*.*
 
 #ignore java sction of project as it is already obsolete
-WebCrawler
+WebCrawler/
