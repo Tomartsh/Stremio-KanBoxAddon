@@ -262,7 +262,10 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 builder.defineMetaHandler(({type, id}) => {
 	logger.debug("defineMetaHandler=> request for meta: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
-	delete meta.videos;
+	var meta = listSeries.getMetaById(id);
+	for (i =0; i < meta.videos.length ; i++){
+		delete meta.videos[i].streams;
+	}
     return Promise.resolve({ meta: meta })
 })
 
