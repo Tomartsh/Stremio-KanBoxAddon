@@ -18,14 +18,14 @@
             "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/kan.jpg",
             "posterShape": "square",
             "description": "Kan 11 Live Stream From Israel",
-            "videos": [
+            "videos": 
                 {
                     "id": "il_kanTV_04",
                     "name": "כאן 11",
                     "description": "שידור חי כאן 11",
                     "released": 1741613499260,
                 }
-            ]
+            
         }
     },
     "il_kanTV_05": {
@@ -45,14 +45,14 @@
             "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/hinuchit.jpg",
             "posterShape": "landscape",
             "description": "שידורי הטלויזיה החינוכית",
-            "videos": [
+            "videos": 
                 {
                     "id": "il_kanTV_05",
                     "name": "חינוכית שידור חי",
                     "description": "חינוכית שידור חי",
                     "released": 1741613499261,
                 }
-            ]
+            
         }
     },
     "il_kanTV_06": {
@@ -72,7 +72,7 @@
             "poster": "https://www.knesset.tv/media/20004/logo-new.png",
             "posterShape": "landscape",
             "description": "שידורי ערוץ הכנסת - 99",
-            "videos": [
+            "videos": 
                 {
                     "id": "il_kanTV_06",
                     "name": "ערוץ הכנסת 99",
@@ -80,7 +80,7 @@
                     "released": 1741613499261,
                     
                 }
-            ]
+            
         }
     },
     "il_kanTV_07": {
@@ -100,7 +100,7 @@
             "poster": "https://www.makan.org.il/media/d3if2qoj/לוגו-ראשי-מכאן.png",
             "posterShape": "landscape",
             "description": "שידורי ערוץ השידור הערבי",
-            "videos": [
+            "videos": 
                 {
                     "id": "il_kanTV_07",
                     "name": "ערוץ השידור הערבי",
@@ -108,7 +108,7 @@
                     "released": 1741613499261,
                     
                 }
-            ]
+            
         }
     },
     "il_makoTV_01": {
@@ -128,7 +128,7 @@
             "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/LIVE_push_mako_tv.jpg",
             "posterShape": "landscape",
             "description": "שידור חי מאקו ערוץ 12",
-            "videos": [
+            "videos": 
                 {
                     "id": "il_makoTV_01",
                     "name": "ערוץ מאקו 12",
@@ -136,7 +136,7 @@
                     "released": 1741613499261,
                     
                 }
-            ]
+            
         }
     },
     "il_ynetTv_01": {
@@ -157,7 +157,7 @@
             "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/ynet_logo_gif_ynet.gif",
             "posterShape": "landscape",
             "description": "שידור חי ynet",
-            "videos": [
+            "videos": 
                 {
                     "id": "il_ynetTv_01",
                     "name": "שידור חי ynet",
@@ -165,7 +165,7 @@
                     "released": 1741613499262,
                     
                 }
-            ]
+            
         }
     },
     "il_24newsEng_01": {
@@ -186,7 +186,7 @@
             "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/i24new_english_square.png",
             "posterShape": "landscape",
             "description": "שידור חי באנגלית i24",
-            "videos": [
+            "videos": 
                 {
                     "id": "il_24newsEng_01",
                     "name": "שידור חי באנגלית i24",
@@ -194,7 +194,7 @@
                     "released": 1741613499262,
                     
                 }
-            ]
+            
         }
     },
     "il_24newsHeb_01": {
@@ -215,7 +215,7 @@
             "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/i24news_hebrew_sqaure.png",
             "posterShape": "square",
             "description": "שידור חי בעיברית i24",
-            "videos": [
+            "videos": 
                 {
                     "id": "il_24newsHeb_01",
                     "name": "שידור חי בעיברית i24",
@@ -223,7 +223,7 @@
                     "released": 1741613499262,
                     
                 }
-            ]
+            
         }
     },
     "il_24newsFrn_01": {
@@ -244,7 +244,7 @@
             "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/i24new_french_square.png",
             "posterShape": "landscape",
             "description": "שידור חי בצרפתית i24",
-            "videos": [
+            "videos": 
                 {
                     "id": "il_24newsFrn_01",
                     "name": "שידור חי בצרפתית i24",
@@ -252,7 +252,7 @@
                     "released": 1741613499262,
                     
                 }
-            ]
+            
         }
     },
     "il_24newsArb_01": {
@@ -273,7 +273,7 @@
             "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/i24news_arabic_square.png",
             "posterShape": "landscape",
             "description": "שידור חי בערבית i24",
-            "videos": [
+            "videos": 
                 {
                     "id": "il_24newsArb_01",
                     "name": "שידור חי בערבית i24",
@@ -281,7 +281,7 @@
                     "released": 1741613499262,
                     
                 }
-            ]
+            
         }
     },
     "il_24_01": {
@@ -302,7 +302,7 @@
             "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/channel_24_square.jpg",
             "posterShape": "landscape",
             "description": "שידור חי 24",
-            "videos": [
+            "videos": 
                 {
                     "id": "il_24_01",
                     "name": "שידור חי 24",
@@ -310,7 +310,7 @@
                     "released": 1741613499262,
                     
                 }
-            ]
+            
         }
     }
 }
