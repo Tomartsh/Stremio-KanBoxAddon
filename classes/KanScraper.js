@@ -141,6 +141,7 @@ class KanScraper {
             }
             //set series genres
             this._kanJSONObj[key]["metas"]["genres"] = this.setGenre(seriesPageDoc.querySelector("div.info-genre"));
+            
             //set series name
             var titleTemp = seriesPageDoc.querySelector("title").text;
             var title = this.getNameFromSeriesPage(titleTemp);
@@ -148,14 +149,15 @@ class KanScraper {
             this._kanJSONObj[key]["name"] = title;
 
             var seasons = seriesPageDoc.querySelectorAll("div.seasons-item");
-            logger.debug("getSeries => seasons length: " + seasons.length);
-            //writeLog("DEBUG", "KanScraper-crawlKanVOD => seasons length: " + seasons.length);
-            if (seasons.length > 0) { // ther eare multiple seasons and episodes
-                var videosListArr = await this.getVideos(seasons, id, subType);
+            logger.debug("getSeries => seasons " + title + " length: " + seasons.length);
+
+            if (seasons.length > 0) { // there are multiple seasons and episodes
+                await this.getVideos(seasons, id, subType);
+                /*var videosListArr = await this.getVideos(seasons, id, subType);
                 for (var i = 0;  i< videosListArr.length; i++){
                     this._kanJSONObj[key]["metas"]["videos"].push(videosListArr[i])
-                }
-            } else { // ther eis only one episode and one season. It is not realy a series but a movie
+                }*/
+            } else { // there is only one episode and one season. It is not realy a series but a movie
                 var title = seriesPageDoc.querySelector("h2").text.trim(); //getting the title from the series page
                 var description = "";
                 if (seriesPageDoc.querySelector("div.info-description p") != undefined){
@@ -281,19 +283,17 @@ class KanScraper {
                 logger.debug("getVideos => Added videos for episode : " + title + "\n    season:" + seasonNo + ", episode: " + (iter +1) + ", subtype: " + subType);
             }
         }
-        return videosArr;        
+        //return videosArr;        
     }
 
     async getStreams(link){
         logger.trace("getStreams => Entering");
         logger.trace("getStreams => Link: " + link);
-        //writeLog("TRACE","KanScraper-getStreams => Entering");
-        //writeLog("TRACE","KanScraper-getStreams => Link: " + link)
+
         var doc = await fetchData(link);
         
         if (doc == undefined){
             logger.debug("getStreams => Error retrieving do from " + link);
-            //writeLog("DEBUG","KanScraper-getStreams => Error retrieving do from " + link);
         }
         var released = "";
         var videoUrl = "";
@@ -738,10 +738,8 @@ class KanScraper {
                 if (episodes_body != undefined){
                     episodeLink = episodes_body.getAttribute("href");
                     logger.debug("getPodcastEpisodeVideoArray => href card image empty. Using card href");
-                    //writeLog("DEBUG","KanScraper-getPodcastEpisodeVideoArray => href card image empty. Using card href");
                 } else {
                     logger.debug("getPodcastEpisodeVideoArray => No episode link found, skipping. Link");
-                    //writeLog("DEBUG","KanScraper-getPodcastEpisodeVideoArray => No episode link found, skipping. Link" );
                 }
             }
 
