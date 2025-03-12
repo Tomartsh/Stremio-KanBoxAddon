@@ -5,6 +5,9 @@ stremio-kanbox.json
 
 config/*.env
 
+# ignore output folder
+output/*.*
+
 #ignore the logs folder
 logs
 logs/*.*
