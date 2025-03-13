@@ -53,7 +53,7 @@ class LiveTV {
             type: "tv",
             subtype: "t",
             name: "כאן 11",
-            metas: {
+            meta: {
                 id: idKanLive,
                 name: "כאן 11",
                 type: "tv",
@@ -89,7 +89,7 @@ class LiveTV {
             link: "",
             background: kanLiveObj.metas.background, 
             genres: kanLiveObj.metas.genres,
-            metas: kanLiveObj.metas,
+            meta: kanLiveObj.metas,
             type: "tv", 
             subtype: "t"
         }
@@ -102,7 +102,7 @@ class LiveTV {
             type: "tv",
             subtype: "t",
             name: "חינוכית",
-            metas: {
+            meta: {
                 id: idKanKidsLive,
                 name: "חינוכית",
                 type: "tv",
@@ -137,7 +137,7 @@ class LiveTV {
             link: "",
             background: kanKidsObj.metas.background, 
             genres: kanKidsObj.metas.genres,
-            metas: kanKidsObj.metas,
+            meta: kanKidsObj.metas,
             type: "tv", 
             subtype: "t"
         };
@@ -150,7 +150,7 @@ class LiveTV {
             type: "tv",
             subtype: "t",
             name: "שידורי ערוץ הכנסת 99",
-            metas: {
+            meta: {
                 id: idKanKnesset,
                 name: "שידורי ערוץ הכנסת 99",
                 genres: ["Actuality","אקטואליה"],
@@ -185,7 +185,7 @@ class LiveTV {
             link: "",
             background: knessetLiveObj.metas.background, 
             genres: knessetLiveObj.metas.genres,
-            metas: knessetLiveObj.metas,
+            meta: knessetLiveObj.metas,
             type: "tv", 
             subtype: "t"
         };
@@ -199,7 +199,7 @@ class LiveTV {
             type: "tv",
             subtype: "t",
             name: "שידורי ערוץ השידור הערבי",
-            metas: {
+            meta: {
                 id: idMakanLive,
                 name: "שידורי ערוץ השידור הערבי",
                 type: "tv",
@@ -234,7 +234,7 @@ class LiveTV {
             link: "",
             background: MakanLiveObj.metas.background, 
             genres: MakanLiveObj.metas.genres,
-            metas: MakanLiveObj.metas,
+            meta: MakanLiveObj.metas,
             type: "tv", 
             subtype: "t"
         };
@@ -257,7 +257,7 @@ class LiveTV {
             type: "tv",
             subtype: "t",
             name: "מאקו ערוץ 12",
-            metas: {
+            meta: {
                 id: idMakoLive,
                 name: "שידור חי מאקו ערוץ 12",
                 genres: ["Actuality","אקטואליה"],
@@ -292,7 +292,7 @@ class LiveTV {
             link: "",
             background: makoLiveObj.metas.background, 
             genres: makoLiveObj.metas.genres,
-            metas: makoLiveObj.metas,
+            meta: makoLiveObj.metas,
             type: "tv", 
             subtype: "t"
         };
@@ -314,7 +314,7 @@ class LiveTV {
             type: "tv",
             subtype: "t",
             name: "רשת ערוץ 13",
-            metas: {
+            meta: {
                 id: idReshetLive,
                 name: "שידור חי רשת ערוץ 13",
                 genres: ["Actuality","אקטואליה"],
@@ -349,7 +349,7 @@ class LiveTV {
             link: "",
             background: reshetLiveObj.metas.background, 
             genres: reshetLiveObj.metas.genres,
-            metas: reshetLiveObj.metas,
+            meta: reshetLiveObj.metas,
             type: "tv", 
             subtype: "t"
         };
@@ -366,7 +366,7 @@ class LiveTV {
             type: "tv",
             subtype: "t",
             name: "שידור חי ynet",
-            metas: {
+            meta: {
                 id: idYnetLive,
                 name: "שידור חי ynet",
                 genres: ["Actuality","אקטואליה","news"],
@@ -401,7 +401,7 @@ class LiveTV {
             link: "",
             background: idYnetLiveObj.metas.background, 
             genres: idYnetLiveObj.metas.genres,
-            metas: idYnetLiveObj.metas,
+            meta: idYnetLiveObj.metas,
             type: "tv", 
             subtype: "t"
         };
@@ -417,7 +417,7 @@ class LiveTV {
             type: "tv",
             subtype: "t",
             name: "שידור חי באנגלית i24",
-            metas: {
+            meta: {
                 id: idI24EngLive,
                 name: "שידור חי באנגלית i24",
                 genres: ["Actuality","אקטואליה","news"],
@@ -453,7 +453,7 @@ class LiveTV {
             link: "",
             background: idI24EngObj.metas.background, 
             genres: idI24EngObj.metas.genres,
-            metas: idI24EngObj.metas,
+            meta: idI24EngObj.metas,
             type: "tv", 
             subtype: "t"
         };
@@ -467,7 +467,7 @@ class LiveTV {
             type: "tv",
             subtype: "t",
             name: "שידור חי בעיברית i24",
-            metas: {
+            meta: {
                 id: idI24HebLive,
                 name: "שידור חי בעיברית i24",
                 type: "tv",
@@ -502,7 +502,7 @@ class LiveTV {
             link: "",
             background: i24HebLiveObj.metas.background, 
             genres: i24HebLiveObj.metas.genres,
-            metas: i24HebLiveObj.metas,
+            meta: i24HebLiveObj.metas,
             type: "tv", 
             subtype: "t"
         };
@@ -517,7 +517,7 @@ class LiveTV {
             type: "tv",
             subtype: "t",
             name: "שידור חי בצרפתית i24",
-            metas: {
+            meta: {
                 id: idI24FrnLive,
                 name: "שידור חי בצרפתית i24",
                 type: "tv",
@@ -552,7 +552,7 @@ class LiveTV {
             link: "",
             background: i24FrnLiveObj.metas.background, 
             genres: i24FrnLiveObj.metas.genres,
-            metas: i24FrnLiveObj.metas,
+            meta: i24FrnLiveObj.metas,
             type: "tv", 
             subtype: "t"
         };
@@ -566,7 +566,7 @@ class LiveTV {
             type: "tv",
             subtype: "t",
             name: "שידור חי בערבית i24",
-            metas: {
+            meta: {
                 id: idI24ArbLive,
                 name: "שידור חי בערבית i24",
                 type: "tv",
@@ -601,7 +601,7 @@ class LiveTV {
             link: "",
             background: i24ArbLiveObj.metas.background, 
             genres: i24ArbLiveObj.metas.genres,
-            metas: i24ArbLiveObj.metas,
+            meta: i24ArbLiveObj.metas,
             type: "tv", 
             subtype: "t"
         };
@@ -618,7 +618,7 @@ class LiveTV {
             type: "tv",
             subtype: "t",
             name: "שידור חי 24",
-            metas: {
+            meta: {
                 id: id24Live,
                 name: "שידור חי 24",
                 type: "tv",
@@ -653,7 +653,7 @@ class LiveTV {
             link: "",
             background: jo24LiveObj.metas.background, 
             genres: jo24LiveObj.metas.genres,
-            metas: jo24LiveObj.metas,
+            meta: jo24LiveObj.metas,
             type: "tv", 
             subtype: "t"
         };
@@ -669,7 +669,7 @@ class LiveTV {
             type: "tv",
             subtype: "t",
             name: "שידור חי Sport 5",
-            metas: {
+            meta: {
                 id: idSport5Live,
                 name: "שידור חי Sport 5",
                 type: "tv",
@@ -704,7 +704,7 @@ class LiveTV {
             link: "",
             background: sport5LiveObj.metas.background, 
             genres: sport5LiveObj.metas.genres,
-            metas: sport5LiveObj.metas,
+            meta: sport5LiveObj.metas,
             type: "tv", 
             subtype: "t"
         }
