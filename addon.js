@@ -177,6 +177,9 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 			metas = listSeries.getMetasByType("tv");
 			break;
     }
+	if (metas == undefined){
+		logger.debug("defineCatalogHandler => empty metas object!");
+	}
 	return Promise.resolve({metas});
     /*
     return Promise.resolve({ metas: [
@@ -302,7 +305,7 @@ async function getJSONFile(){
                     for (var key in jsonObj){
                         var value = jsonObj[key]
             
-                        listSeries.addItemByDetails(value.id, value.name, value.poster, value.description, value.link, value.background, value.genres, value.metas, value.type, value.subtype);
+                        listSeries.addItemByDetails(value.id, value.name, value.poster, value.meta.description, value.link, value.background, value.meta.genres, value.meta, value.type, value.subtype);
                         logger.debug("getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.name);
 					}
                 } else {
