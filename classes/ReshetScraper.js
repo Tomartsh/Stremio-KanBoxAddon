@@ -221,7 +221,7 @@ class ReshetScraper {
             type: type,
             subtype: subType,
             name: seriesTitle,
-            metas: {
+            meta: {
                 id: id,
                 type: type,
                 name: seriesTitle,
@@ -245,7 +245,7 @@ class ReshetScraper {
                 link: seriesPage,
                 background: imgUrl, 
                 genres: genres,
-                metas: jsonObj.metas,
+                meta: jsonObj.meta,
                 type: type, 
                 subtype: subType
             }

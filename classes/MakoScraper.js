@@ -58,7 +58,7 @@ class MakoScraper{
                 name: title,
                 type: "series",
                 subtype: "m",
-                metas:{
+                meta:{
                     id: id,
                     type: "series",
                     name: title,
@@ -100,9 +100,9 @@ class MakoScraper{
                     return;
                 }
             }
-            this._makoJSONObj[key]["metas"]["genres"] = seasons["seo"]["schema"]["genre"]; //get the genres
-            this._makoJSONObj[key]["metas"]["description"] = seasons["seo"]["description"];
-            this._makoJSONObj[key]["metas"]["background"] = seasons["hero"]["pics"][0]["picUrl"];
+            this._makoJSONObj[key]["meta"]["genres"] = seasons["seo"]["schema"]["genre"]; //get the genres
+            this._makoJSONObj[key]["meta"]["description"] = seasons["seo"]["description"];
+            this._makoJSONObj[key]["meta"]["background"] = seasons["hero"]["pics"][0]["picUrl"];
 
             for (var season of seasons["seasons"]){
                 var seasonUrl = URL_MAKO_BASE + season["pageUrl"];
@@ -111,7 +111,7 @@ class MakoScraper{
                 //for each season get the episodes
                 var seasonEpisodesPage = await fetchData(seasonUrl + URL_MAKO_SUFFIX, true); 
                 videos = await this.getEpisodes(seasonEpisodesPage, key, seasonId);
-                this._makoJSONObj[key]["metas"]["videos"] = this._makoJSONObj[key]["metas"]["videos"].concat(videos);
+                this._makoJSONObj[key]["meta"]["videos"] = this._makoJSONObj[key]["meta"]["videos"].concat(videos);
                 logger.debug("getSeasons => Videos: " + videos.length ); 
             }
         }
@@ -204,19 +204,17 @@ class MakoScraper{
             this.addToSeriesList({
                 id: key,
                 name: this._makoJSONObj[key]["name"],
-                poster: this._makoJSONObj[key]["metas"]["poster"], 
-                description: this._makoJSONObj[key]["metas"]["description"], 
+                poster: this._makoJSONObj[key]["meta"]["poster"], 
+                description: this._makoJSONObj[key]["meta"]["description"], 
                 link: this._makoJSONObj[key]["link"], 
-                background: this._makoJSONObj[key]["metas"]["background"], 
-                genres: this._makoJSONObj[key]["metas"]["genres"],
-                metas: this._makoJSONObj[key]["metas"],
+                background: this._makoJSONObj[key]["meta"]["background"], 
+                genres: this._makoJSONObj[key]["meta"]["genres"],
+                meta: this._makoJSONObj[key]["meta"],
                 type: "series", 
                 subtype: "m"
         });
             logger.debug("addToJsonObject => Added  series, ID: " + key + " Name: " + this._makoJSONObj[key]["name"]);
-        }
-        
-        
+        } 
     }
     
     generateDeviceID(){

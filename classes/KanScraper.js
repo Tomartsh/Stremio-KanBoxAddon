@@ -35,7 +35,6 @@ log4js.configure({
 
 var logger = log4js.getLogger("KanScraper");
 
-
 class KanScraper {
 
     constructor(addToSeriesList) {
@@ -60,12 +59,12 @@ class KanScraper {
             this.addToSeriesList({
                 id: key,
                 name: this._kanJSONObj[key]["name"],
-                poster: this._kanJSONObj[key]["metas"]["poster"], 
-                description: this._kanJSONObj[key]["metas"]["description"], 
+                poster: this._kanJSONObj[key]["meta"]["poster"], 
+                description: this._kanJSONObj[key]["meta"]["description"], 
                 link: this._kanJSONObj[key]["link"], 
-                background: this._kanJSONObj[key]["metas"]["background"], 
-                genres: this._kanJSONObj[key]["metas"]["genres"],
-                metas: this._kanJSONObj[key]["metas"],
+                background: this._kanJSONObj[key]["meta"]["background"], 
+                genres: this._kanJSONObj[key]["meta"]["genres"],
+                meta: this._kanJSONObj[key]["meta"],
                 type: "series", 
                 subtype: "m"
             });
@@ -92,6 +91,7 @@ class KanScraper {
         for (var seriesElem of series) {// iterate over series
             if (seriesElem == undefined) { continue;} //if we do not have an element, skip
 
+            //set the series URL
             var seriesUrl = seriesElem.getAttribute("href");
             if (seriesUrl == undefined) { continue;} // if there is not link to the series then skip
             if (seriesUrl.startsWith("/")) { seriesUrl = constants.KAN_URL_ADDRESS + seriesUrl; }
@@ -107,7 +107,6 @@ class KanScraper {
             // i ncase the id is not numbers only we need to invent an ID. We will start with 5,000
             // the generateId will return also the incremented series iterator
             var id = this.generateSeriesId(seriesUrl);
-            //set series page link
             
             //set series image link
             var imageElem = seriesElem.querySelector("img");
@@ -121,15 +120,15 @@ class KanScraper {
         }
 
         //start working on each series
-        await this.getSeries(id, subType)
-
+        await this.getSeries()
         logger.trace("crawl() => Exiting");
-
     }
 
-    async getSeries(id, subType){
+    async getSeries(){
         logger.trace("getSeries => Entering");
         for (const key in this._kanJSONObj) {
+            var id = this._kanJSONObj[key]["id"];
+            var subType = this._kanJSONObj[key]["subtype"];
 
             var retrieveLink = this._kanJSONObj[key]["link"]  + "?page=1&itemsToShow=1000";
             var seriesPageDoc = await fetchData(retrieveLink);  
@@ -137,26 +136,23 @@ class KanScraper {
             //set series Description
             var description = "";
             if (seriesPageDoc.querySelector("div.info-description p") != undefined){
-                this._kanJSONObj[key]["metas"]["description"]  = this.setDescription(seriesPageDoc.querySelector("div.info-description p"));
+                this._kanJSONObj[key]["meta"]["description"]  = this.setDescription(seriesPageDoc.querySelector("div.info-description p"));
             }
             //set series genres
-            this._kanJSONObj[key]["metas"]["genres"] = this.setGenre(seriesPageDoc.querySelector("div.info-genre"));
+            this._kanJSONObj[key]["meta"]["genres"] = this.setGenre(seriesPageDoc.querySelector("div.info-genre"));
             
             //set series name
             var titleTemp = seriesPageDoc.querySelector("title").text;
             var title = this.getNameFromSeriesPage(titleTemp);
-            this._kanJSONObj[key]["metas"]["name"] = title;
+            this._kanJSONObj[key]["meta"]["name"] = title;
             this._kanJSONObj[key]["name"] = title;
 
             var seasons = seriesPageDoc.querySelectorAll("div.seasons-item");
             logger.debug("getSeries => seasons " + title + " length: " + seasons.length);
 
             if (seasons.length > 0) { // there are multiple seasons and episodes
+
                 await this.getVideos(seasons, id, subType);
-                /*var videosListArr = await this.getVideos(seasons, id, subType);
-                for (var i = 0;  i< videosListArr.length; i++){
-                    this._kanJSONObj[key]["metas"]["videos"].push(videosListArr[i])
-                }*/
             } else { // there is only one episode and one season. It is not realy a series but a movie
                 var title = seriesPageDoc.querySelector("h2").text.trim(); //getting the title from the series page
                 var description = "";
@@ -176,26 +172,13 @@ class KanScraper {
                 
 
                 var episodeLink = seriesPageDoc.querySelector("a.btn.with-arrow.info-link.btn-gradient").getAttribute("href");
-                this._kanJSONObj[key]["metas"]["link"] = episodeLink;
-                this._kanJSONObj[key]["metas"]["description"] = description;
-                this._kanJSONObj[key]["metas"]["poster"] = imgUrl;
+                this._kanJSONObj[key]["meta"]["link"] = episodeLink;
+                this._kanJSONObj[key]["meta"]["description"] = description;
+                this._kanJSONObj[key]["meta"]["poster"] = imgUrl;
                 //get streams
                 var streams = this.getStreams(episodeLink);
                 
                 this.addVideoToMeta(id, videoId, title, "1", "1", description, imgUrl, episodeLink, streams.released, streams);
-                /*var videoJsonObj = {
-                    id: videoId,
-                    name: title,
-                    season: "1",
-                    episode: "1",
-                    description: description,
-                    released: streams.released,
-                    thumbnail: imgUrl,
-                    episodeLink: episodeLink,
-                    streams: streams
-                }
-                
-                this._kanJSONObj[key]["metas"]["videos"].push(videoJsonObj)*/
             }
         }
     }
@@ -277,9 +260,9 @@ class KanScraper {
                     thumbnail: episodeLogoUrl,
                     episodeLink: episodePageLink,
                     streams: streamsArr
-                }
+                }*/
 
-                videosArr.push(videoJsonObj);*/
+                //videosArr.push(videoJsonObj);
                 logger.debug("getVideos => Added videos for episode : " + title + "\n    season:" + seasonNo + ", episode: " + (iter +1) + ", subtype: " + subType);
             }
         }
@@ -491,7 +474,7 @@ class KanScraper {
                 var videoId = id + ":" + seasonNo + ":" + episodeNo;
                 
                 this.addVideoToMeta(id, videoId, episodeTitle,seasonNo, episodeNo, episodeDescription, episodeImgUrl, episodeLink, streams.released, streamsArr);
-                /*this._kanJSONObj[id]["metas"]["videos"].push({
+                /*this._kanJSONObj[id]["meta"]["videos"].push({
                     id: videoId,
                     title: episodeTitle,
                     season: seasonNo,
@@ -1127,7 +1110,7 @@ class KanScraper {
     }
 
     addVideoToMeta(key, episodeId, name, seasonNo, episodeNo, desc, thumb, episodeLink, released, streams){
-        this._kanJSONObj[key]["metas"]["videos"].push({
+        this._kanJSONObj[key]["meta"]["videos"].push({
             id: episodeId,
             title: name,
             season: seasonNo,
@@ -1152,7 +1135,7 @@ class KanScraper {
             genres: genres,
             type: type, 
             subtype: subType,
-            metas: {
+            meta: {
                 id: id,
                 type: type,
                 name: seriesTitle,

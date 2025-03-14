@@ -4,7 +4,7 @@
         "type": "tv",
         "subtype": "t",
         "name": "כאן 11",
-        "metas": {
+        "meta": {
             "id": "il_kanTV_04",
             "name": "כאן 11",
             "type": "tv",
@@ -40,7 +40,7 @@
         "type": "tv",
         "subtype": "t",
         "name": "חינוכית",
-        "metas": {
+        "meta": {
             "id": "il_kanTV_05",
             "name": "חינוכית",
             "type": "tv",
@@ -74,7 +74,7 @@
         "type": "tv",
         "subtype": "t",
         "name": "שידורי ערוץ הכנסת 99",
-        "metas": {
+        "meta": {
             "id": "il_kanTV_06",
             "name": "שידורי ערוץ הכנסת 99",
             "genres": [
@@ -108,7 +108,7 @@
         "type": "tv",
         "subtype": "t",
         "name": "שידורי ערוץ השידור הערבי",
-        "metas": {
+        "meta": {
             "id": "il_kanTV_07",
             "name": "שידורי ערוץ השידור הערבי",
             "type": "tv",
@@ -142,7 +142,7 @@
         "type": "tv",
         "subtype": "t",
         "name": "מאקו ערוץ 12",
-        "metas": {
+        "meta": {
             "id": "il_makoTV_01",
             "name": "שידור חי מאקו ערוץ 12",
             "genres": [
@@ -176,7 +176,7 @@
         "type": "tv",
         "subtype": "t",
         "name": "שידור חי ynet",
-        "metas": {
+        "meta": {
             "id": "il_ynetTv_01",
             "name": "שידור חי ynet",
             "genres": [
@@ -211,7 +211,7 @@
         "type": "tv",
         "subtype": "t",
         "name": "שידור חי באנגלית i24",
-        "metas": {
+        "meta": {
             "id": "il_24newsEng_01",
             "name": "שידור חי באנגלית i24",
             "genres": [
@@ -246,7 +246,7 @@
         "type": "tv",
         "subtype": "t",
         "name": "שידור חי בעיברית i24",
-        "metas": {
+        "meta": {
             "id": "il_24newsHeb_01",
             "name": "שידור חי בעיברית i24",
             "type": "tv",
@@ -281,7 +281,7 @@
         "type": "tv",
         "subtype": "t",
         "name": "שידור חי בצרפתית i24",
-        "metas": {
+        "meta": {
             "id": "il_24newsFrn_01",
             "name": "שידור חי בצרפתית i24",
             "type": "tv",
@@ -316,7 +316,7 @@
         "type": "tv",
         "subtype": "t",
         "name": "שידור חי בערבית i24",
-        "metas": {
+        "meta": {
             "id": "il_24newsArb_01",
             "name": "שידור חי בערבית i24",
             "type": "tv",
@@ -351,7 +351,7 @@
         "type": "tv",
         "subtype": "t",
         "name": "שידור חי 24",
-        "metas": {
+        "meta": {
             "id": "il_24_01",
             "name": "שידור חי 24",
             "type": "tv",
