@@ -39,7 +39,7 @@ const makoScraper = new Makoscraper(addToSeriesList);
 const reshetScraper = new Reshetscraper(addToSeriesList);
 //reshetScraper.crawl(true);
 const kanScraper = new Kanscraper(addToSeriesList)
-//kanScraper.crawl(true);
+kanScraper.crawl(true);
 
 runCrons();
 
@@ -131,6 +131,9 @@ const manifest = {
 		"stream",
 		"meta"
 	],
+	"idPrefixes": [
+		"il_"
+	],
 	"types": [
 		"series",
 		"tv",
@@ -140,10 +143,8 @@ const manifest = {
 	"description": "Israel channels live and VOD"
 }
 
-// "idPrefixes": [
-// "il_"
-//],
-//
+
+
 
 const builder = new addonBuilder(manifest)
 
