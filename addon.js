@@ -139,6 +139,12 @@ const manifest = {
 	"name": "Israel Channels",
 	"description": "Israel channels live and VOD"
 }
+
+// "idPrefixes": [
+// "il_"
+//],
+//
+
 const builder = new addonBuilder(manifest)
 
 builder.defineCatalogHandler(({type, id, extra}) => {
@@ -198,8 +204,8 @@ builder.defineMetaHandler(({type, id}) => {
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	var meta = listSeries.getMetaById(id);
 	//iterate over each videos JSON object and remove streams
-	for (var i = 0 ; i < meta["videos"].length ; i++) {
-		delete meta["videos"][i]["streams"];
+	for (var video of meta["videos"]) {
+		delete video["streams"];
 	}
     return Promise.resolve({ meta: meta })
 })
