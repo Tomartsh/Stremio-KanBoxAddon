@@ -17,12 +17,15 @@ class srList {
             type: type,
             subtype: subType,
             name: name, 
-            poster: poster, 
-            description: description, 
+            poster: poster,  
             link: link, 
             background: background, 
             genres: genres, 
             meta: metas,
+        }
+
+        if (description != undefined) {
+            item.description = description;
         }
         this._addItem(item);
     }
