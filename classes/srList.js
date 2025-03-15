@@ -26,6 +26,8 @@ class srList {
 
         if (description != undefined) {
             item.description = description;
+        } else {
+            item.description = "";
         }
         this._addItem(item);
     }
