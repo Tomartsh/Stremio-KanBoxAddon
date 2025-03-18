@@ -8,7 +8,12 @@ const log4js = require("log4js");
 const srList = require("./classes/srList");
 const utils = require("./classes/utilities.js");
 const {fetchData} = require("./classes/utilities.js");
-const Kanscraper = require("./classes/KanScraper.js");
+//const Kanscraper = require("./classes/KanScraper.js");
+const KanDigitalscraper = require("./classes/KanDigitalScraper.js");
+const KanArchivescraper = require("./classes/KanArchiveScraper.js");
+const KanKidscraper = require("./classes/KanKidsScraper.js");
+const KanTeensscraper = require("./classes/KanTeensScraper.js");
+const KanPodcastsscraper = require("./classes/KanPodcastsScraper.js");
 const Makoscraper = require("./classes/MakoScraper.js");
 const Reshetscraper = require("./classes/ReshetScraper.js");
 const LiveTV = require("./classes/LiveTV.js"); 
@@ -38,8 +43,16 @@ const makoScraper = new Makoscraper(addToSeriesList);
 //makoScraper.crawl(true);
 const reshetScraper = new Reshetscraper(addToSeriesList);
 //reshetScraper.crawl(true);
-const kanScraper = new Kanscraper(addToSeriesList)
-kanScraper.crawl(true);
+const kanDigitalScraper = new KanDigitalscraper(addToSeriesList)
+//kanDigitalScraper.crawl(true);
+const kanArchiveScraper = new KanArchivescraper(addToSeriesList)
+//kanArchiveScraper.crawl(true);
+const kanKidsScraper = new KanKidscraper(addToSeriesList)
+//kanKidsScraper.crawl(true);
+const kanTeensScraper = new KanTeensscraper(addToSeriesList)
+//kanTeensScraper.crawl(true);
+const kanPodcastsScraper = new KanPodcastsscraper(addToSeriesList)
+//kanPodcastsScraper.crawl(true);
 
 runCrons();
 
@@ -142,9 +155,6 @@ const manifest = {
 	"name": "Israel Channels",
 	"description": "Israel channels live and VOD"
 }
-
-
-
 
 const builder = new addonBuilder(manifest)
 
@@ -282,7 +292,6 @@ var jsonFileExist = "";
  * Retrieve the zip file, extract the .json file and then convert it to the seriesList object
  */
 
-
 function addToSeriesList(item){
 	logger.trace("updateSeriesList => Entering");
 	logger.debug("updateSeriesList => Updating / Adding new entry to list: " + item.id + " " + item.name);
@@ -331,7 +340,7 @@ function runCrons(){
 	 * Set cron jobs for Mako generating json and zip file for live tv. 
 	 * Run once a month on 5th day at 5 minutes past midnight
 	 */
-	var taskLiveJson = cron.schedule('05 00 5 * *', () => {
+	var taskLiveJson = cron.schedule('05 00 5 * 6', () => {
 		logger.info('Running schedule for updating Live list');
 			liveTV.crawl();
 	}, {
@@ -342,10 +351,10 @@ function runCrons(){
 	logger.info("runCrons => started Live TV cron");
 
 	/**
-	 * Set cron jobs for Reshet generating json and zip file. 
+	 * Set cron jobs for Reshet generating json aentries only. 
 	 * run eavery day at 1 AM
 	 */
-	var taskReshetJson = cron.schedule('0 1 * * 0,1,2,3,4,5,6', () => {
+	var taskReshetJson = cron.schedule('0 1 * * 0,1,2,3,4,5', () => {
 		logger.info('Running schedule for updating Reshet list');
 		reshetScraper.crawl();
 	}, {
@@ -356,29 +365,214 @@ function runCrons(){
 	logger.info("runCrons => started Ch 13 cron");
 
 	/**
-	 * Set cron jobs for Kan generating json and zip file. 
-	 * run eavery day at 3 AM
+	 * Set cron jobs for Reshet generating json and zip file. 
+	 * run eavery Saturday at 1 AM
 	 */
-	var taskKanJson = cron.schedule('0 3 * * 0,1,2,3,4,5,6', () => {
-		logger.info('Running schedule for updating Kan list');
-		if (!kanScraper.isRunning){
-			kanScraper.crawl();
+	var taskReshetJsonZip = cron.schedule('0 1 * * 6', () => {
+		logger.info('Running schedule for updating Reshet list with zip file');
+		reshetScraper.crawl(true);
+	}, {
+		scheduled: true,
+		timezone: "Asia/Jerusalem"
+	});
+	taskReshetJsonZip.start();
+	logger.info("runCrons => started Ch 13 cron with zip file");
+
+	/**
+	 * Set cron jobs for Kan Digital generating json entries only. 
+	 * run eavery day at 3 AM except Saturday
+	 */
+	var taskKanDigitalJson = cron.schedule('0 2 * * 0,1,2,3,4,5', () => {
+		logger.info('Running schedule for updating Kan Digital list');
+		if (!kanDigitalScraper.isRunning){
+			kanDigitalScraper.crawl();
 		} else {
-			logger.info('KanScraper is alraedy running. Aborting !!!');
+			logger.info('KanDigitalScraper is alraedy running. Aborting !!!');
 		}
 		
 	}, {
 		scheduled: true,
 		timezone: "Asia/Jerusalem"
 	});
-	taskKanJson.start();
-	logger.info("runCrons => started Kan 11 cron");
+	taskKanDigitalJson.start();
+	logger.info("runCrons => started Kan 11 Digital cron");
 
 	/**
-	 * Set cron jobs for Mako generating json and zip file. 
+	 * Set cron jobs for Kan Digital generating json and zip file. 
+	 * run eavery Saturday at 3 AM
+	 */
+	var taskKanDigitalJsonZip = cron.schedule('0 2 * * 6', () => {
+		logger.info('Running schedule for updating Kan Digital list with zip file');
+		if (!kanDigitalScraper.isRunning){
+			kanDigitalScraper.crawl(true);
+		} else {
+			logger.info('KanDigitalScraper is alraedy running. Aborting !!!');
+		}
+		
+	}, {
+		scheduled: true,
+		timezone: "Asia/Jerusalem"
+	});
+	taskKanDigitalJsonZip.start();
+	logger.info("runCrons => started Kan 11 Digital cron with zip file");
+
+	/**
+	 * Set cron jobs for Kan Archive generating json entries only. 
+	 * run eavery day at 4 AM except Saturday
+	 */
+	var taskKanArchiveJson = cron.schedule('0 4 * * 0,1,2,3,4,5', () => {
+		logger.info('Running schedule for updating Kan Archive list');
+		if (!kanArchiveScraper.isRunning){
+			kanArchiveScraper.crawl();
+		} else {
+			logger.info('KanArchiveScraper is alraedy running. Aborting !!!');
+		}
+		
+	}, {
+		scheduled: true,
+		timezone: "Asia/Jerusalem"
+	});
+	taskKanArchiveJson.start();
+	logger.info("runCrons => started Kan 11 Archive cron");
+
+	/**
+	 * Set cron jobs for Kan Archive generating json and zip file. 
+	 * run eavery Saturday at 4 AM
+	 */
+	var taskKanArchiveJsonZip = cron.schedule('0 4 * * 6', () => {
+		logger.info('Running schedule for updating Kan Archive list and zip file');
+		if (!kanArchiveScraper.isRunning){
+			kanArchiveScraper.crawl(true);
+		} else {
+			logger.info('KanArchiveScraper is alraedy running. Aborting !!!');
+		}
+		
+	}, {
+		scheduled: true,
+		timezone: "Asia/Jerusalem"
+	});
+	taskKanArchiveJsonZip.start();
+	logger.info("runCrons => started Kan 11 Archive cron and zip file");
+
+	/**
+	 * Set cron jobs for Kan Kids generating json entries only. 
+	 * run eavery day at 6:00 AM
+	 */
+	var taskKanKidsJson = cron.schedule('0 6 * * 0,1,2,3,4,5', () => {
+		logger.info('Running schedule for updating Kan Kids list');
+		if (!kanKidsScraper.isRunning){
+			kanKidsScraper.crawl();
+		} else {
+			logger.info('KanKidsScraper is alraedy running. Aborting !!!');
+		}
+		
+	}, {
+		scheduled: true,
+		timezone: "Asia/Jerusalem"
+	});
+	taskKanKidsJson.start();
+	logger.info("runCrons => started Kan 11 Kids cron");
+
+	/**
+	 * Set cron jobs for Kan Kids generating json and zip file. 
+	 * run eavery Saturday at 6:00 AM
+	 */
+	var taskKanKidsJsonZip = cron.schedule('0 6 * * 6', () => {
+		logger.info('Running schedule for updating Kan Kids list with zip file');
+		if (!kanKidsScraper.isRunning){
+			kanKidsScraper.crawl(true);
+		} else {
+			logger.info('KanKidsScraper is alraedy running. Aborting !!!');
+		}
+		
+	}, {
+		scheduled: true,
+		timezone: "Asia/Jerusalem"
+	});
+	taskKanKidsJsonZip.start();
+	logger.info("runCrons => started Kan 11 Kids cron with zip file");
+
+	/**
+	 * Set cron jobs for Kan Teens generating json entries only. 
+	 * run eavery day at 6:30 AM
+	 */
+	var taskKanTeensJson = cron.schedule('30 6 * * 0,1,2,3,4,5', () => {
+		logger.info('Running schedule for updating Kan Teens list');
+		if (!kanTeensScraper.isRunning){
+			kanTeensScraper.crawl();
+		} else {
+			logger.info('KanTeensScraper is alraedy running. Aborting !!!');
+		}
+		
+	}, {
+		scheduled: true,
+		timezone: "Asia/Jerusalem"
+	});
+	taskKanTeensJson.start();
+	logger.info("runCrons => started Kan 11 Teens cron");
+
+	/**
+	 * Set cron jobs for Kan Teens generating json and zip file. 
+	 * run eavery Saturday at 6:30 AM
+	 */
+	var taskKanTeensJsonZip = cron.schedule('30 6 * * 6', () => {
+		logger.info('Running schedule for updating Kan Teens list with zip file');
+		if (!kanTeensScraper.isRunning){
+			kanTeensScraper.crawl(true);
+		} else {
+			logger.info('KanTeensScraper is alraedy running. Aborting !!!');
+		}
+		
+	}, {
+		scheduled: true,
+		timezone: "Asia/Jerusalem"
+	});
+	taskKanTeensJsonZip.start();
+	logger.info("runCrons => started Kan 11 Teens cron with zip file");
+
+	/**
+	 * Set cron jobs for Kan Podcasts generating json entries only. 
 	 * run eavery day at 3 AM
 	 */
-	var taskMakoJson = cron.schedule('0 2 * * 0,1,2,3,4,5,6', () => {
+	var taskKanPodcastsJson = cron.schedule('0 7 * * 0,1,2,3,4,5', () => {
+		logger.info('Running schedule for updating Kan Podcasts list');
+		if (!kanPodcastsScraper.isRunning){
+			kanPodcastsScraper.crawl();
+		} else {
+			logger.info('KanPodcastsScraper is alraedy running. Aborting !!!');
+		}
+		
+	}, {
+		scheduled: true,
+		timezone: "Asia/Jerusalem"
+	});
+	taskKanPodcastsJson.start();
+	logger.info("runCrons => started Kan 11 Podcasts cron");
+
+	/**
+	 * Set cron jobs for Kan Podcasts generating json entries with zip file. 
+	 * run eavery Saturday at 7 AM
+	 */
+	var taskKanPodcastsJsonZip = cron.schedule('0 7 * * 6', () => {
+		logger.info('Running schedule for updating Kan Podcasts list with zip file');
+		if (!kanPodcastsScraper.isRunning){
+			kanPodcastsScraper.crawl(true);
+		} else {
+			logger.info('KanPodcastsScraper is alraedy running. Aborting !!!');
+		}
+		
+	}, {
+		scheduled: true,
+		timezone: "Asia/Jerusalem"
+	});
+	taskKanPodcastsJsonZip.start();
+	logger.info("runCrons => started Kan 11 Podcasts cron");
+
+	/**
+	 * Set cron jobs for Mako generating json entries only. 
+	 * run eavery day at 1 AM
+	 */
+	var taskMakoJson = cron.schedule('0 1 * * 0,1,2,3,4,5', () => {
 		logger.info('Running schedule for updating Mako list');
 			makoScraper.crawl();
 	}, {
@@ -387,6 +581,20 @@ function runCrons(){
 	});
 	//taskMakoJson.start();
 	//logger.info("runCrons => started 12 CH cron");
+
+	/**
+	 * Set cron jobs for Mako generating json and zip file. 
+	 * run eavery Saaturday at 1 AM 
+	 */
+	var taskMakoJsonZip = cron.schedule('0 1 * * 6', () => {
+		logger.info('Running schedule for updating Mako list wit .zip');
+			makoScraper.crawl(true);
+	}, {
+		scheduled: true,
+		timezone: "Asia/Jerusalem"
+	});
+	//taskMakoJsonZip.start();
+	//logger.info("runCrons => started 12 CH cron with zip");
 
 	/**
 	 * Set cron jobs keep alive for on-render every 10 minutes

@@ -4,11 +4,18 @@ module.exports = {
     MAX_RETRIES: 5,  
     MAX_CONCURRENT_REQUESTS: 4,
     UPDATE_LIST: true, // update the series list as well as creating the JSON object  
-    URL_ZIP_FILES: ["stremio-kan.zip","stremio-live.zip","stremio-reshet.zip"],
-    SAVE_MODE: "local", // "local", "github", or "both"
+    URL_ZIP_FILES: [
+        "stremio-kandigital.zip",
+        "stremio-kanarchive.zip",
+        "stremio-kankids.zip",
+        "stremio-kanteens.zip",
+        "stremio-kanpodcasts.zip",
+        "stremio-live.zip",
+        "stremio-reshet.zip"
+    ],
+    SAVE_MODE: "both", // "local", "github", or "both"
     SAVE_FOLDER: "output",
     PREFIX: "il_",
-    LOG_LEVEL: "DEBUG",
     LOG4JS_LEVEL: "debug",
     MAX_LOG_SIZE: 10  * 1024 * 1024, // = 5Mb
     LOG_BACKUP_FILES: 3, // keep 5 backup files'

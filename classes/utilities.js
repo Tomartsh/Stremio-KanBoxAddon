@@ -124,7 +124,8 @@ async function fetchData(url , asJson = false, params={}, headers = HEADERS ) {
         return asJson ? data : parse(data.toString());
 
     } catch (error) {
-        logger.error('Failed to fetch:', error.message);
+        logger.error(`Failed to fetch URL ${url} :`, error.message);
+        return;
     }
 }
 
@@ -134,28 +135,6 @@ async function fetchData(url , asJson = false, params={}, headers = HEADERS ) {
 //+===================================================================================
 function padWithLeadingZeros(num, totalLength) {
     return String(num).padStart(totalLength, '0');
-}
-
-function writeLog(level, msg){
-    var logLevel = LOG_LEVEL;
-    var dateStr = getCurrentDateStr();
-
-    if (level =="ERROR"){
-        console.log("[" + dateStr + "]" + level +": " + msg);
-    } 
-    if (logLevel == "INFO"){
-        if (level =="INFO"){
-            console.log("[" + dateStr + "]" + level + ": " + msg);
-        } 
-    } else if (logLevel == "DEBUG"){
-        if ((level == "DEBUG")|| (level == "INFO")){
-            console.log("[" + dateStr + "]" + level + ": " + msg);
-        }
-    } else if (logLevel == "TRACE"){
-        if ((level == "TRACE") || (level == "DEBUG")|| (level == "INFO")){
-            console.log("[" + dateStr + "]" + level + ": " + msg);
-        }
-    }
 }
 
 async function writeJSONToFile(jsonObj, fileName){
@@ -244,6 +223,19 @@ async function uploadToGitHub(fileContent, fileName, commitMessage) {
     logger.trace("uploadToGitHub => Exiting");
 }
 
+function getReleaseDate(str){
+    var released = "";
+
+    if (str.length > 0) {
+        //the format is dd.MM.yyyy. Stremio is Expecting MM.dd.yyyy
+        var releasedArr = str.split(".");
+        if (releasedArr.length > 0){
+            released = releasedArr[1] + "." + releasedArr[0] + "." + releasedArr[2];
+            return released;
+        }
+    }
+    return str;
+}
 
 function getCurrentDateStr(){
     var currDate = new Date();
@@ -251,4 +243,194 @@ function getCurrentDateStr(){
     return dateStr;
 }
 
-module.exports = {padWithLeadingZeros, fetchData, writeLog, writeJSONToFile, getCurrentDateStr};
+function getImageFromUrl(url, subType){
+    var retVal = url;
+    if (retVal.includes("?")){
+        retVal = retVal.substring(0,retVal.indexOf("?"));
+    }
+    if (retVal.startsWith("/")){
+        if (subType == "d") {
+            retVal = "https://www.kan.org.il" + retVal;
+        } else if (subType == "k"){
+            retVal = "https://www.kankids.org.il" + retVal;
+        } else if (subType == "n"){
+            retVal = "https://www.kankids.org.il" + retVal;
+        } else if (subType == "a"){
+            retVal = "https://www.kan.org.il" + retVal;
+        } else if (subType == "p"){
+            retVal = "https://www.kan.org.il" + retVal;
+        } 
+    }
+    return retVal;
+}
+
+/**
+ * Get the series genre
+ * @param {*} str 
+ * @returns array of genres of series
+ */
+function setGenreFromString(str) {
+    if (str == "") { return "Kan";}
+    
+    var genres = [];
+    //for (var check of genresArr){
+    for (var check of str){
+        check = check.trim();
+
+        switch(check) {
+            case "דרמה":
+                genres.push("Drama");
+                genres.push("דרמה");
+                break;
+            case "מתח":
+                genres.push("Thriller");
+                genres.push("מתח");
+                break;
+            case "פעולה":
+                genres.push("Action");
+                genres.push("פעולה");
+                break;
+            case "אימה":
+                genres.push("Horror");
+                genres.push("אימה");
+                break;
+            case "דוקו":
+                genres.push("Documentary");
+                genres.push("דוקו");
+                break;
+            case "אקטואליה":
+                genres.push("Documentary");
+                genres.push("אקטואליה");
+                break;
+            case "ארכיון":
+                genres.push("Archive");
+                genres.push("ארכיון");
+                break;
+            case "תרבות":
+                genres.push("Culture");
+                genres.push("תרבות");
+                break;
+            case "היסטוריה":
+                genres.push("History");
+                genres.push("היסטוריה");
+                break;
+            case "מוזיקה":
+                genres.push("Music");
+                genres.push("מוזיקה");
+                break;
+            case "תעודה":
+                genres.push("Documentary");
+                break;
+            case "ספורט":
+                genres.push("Sport");
+                genres.push("ספורט");
+                break;
+            case "קומדיה":
+                genres.push("Comedy");
+                genres.push("קומדיה");
+                break;
+            case "ילדים":
+                genres.push("Kids");
+                genres.push("ילדים");
+                break;
+            case "ילדים ונוער":
+                if (! genres.includes("Kids")) { genres.push("Kids"); }
+                if (! genres.includes("ילדים ונוער")) { genres.push("ילדים ונוער"); }
+                break;
+            case "בישול":
+                genres.push("Cooking");
+                genres.push("בישול");
+                break;
+            case "קומדיה וסאטירה":
+                if (! genres.includes("Comedy")) { genres.push("Comedy"); }
+                if (! genres.includes("קומדיה וסאטירה")) { genres.push("קומדיה וסאטירה"); }
+                break;
+            case "אנימציה":
+                if (! genres.includes("Animation")) { genres.push("Animation"); }
+                if (! genres.includes("אנימציה")) { genres.push("אנימציה"); }
+                break;
+            case "מצוירים":
+                if (! genres.includes("Animation")) { genres.push("Animation"); }
+                if (! genres.includes("מצוירים")) { genres.push("מצוירים"); }
+                genres.push("Animation");
+                break;
+            case "קטנטנים":
+                if (! genres.includes("Kids")) { genres.push("Kids"); }
+                if (! genres.includes("קטנטנים")) { genres.push("קטנטנים"); }
+                break;      
+            default:
+                if (! genres.includes("Kan")) {
+                    genres.push("Kan");
+                    genres.push("כאן");
+                }
+                break;
+        } 
+    }
+   return genres;
+}
+
+function getNameFromSeriesPage(name){
+    if (name != "") {
+        name = name.replace("כאן חינוכית | ","").trim();
+        
+        if (name.indexOf (" - פרקים מלאים לצפייה ישירה") > 0){
+            name = name.substring(0,name.indexOf("-") - 1).trim();
+        }
+        if (name.indexOf (" - פרקים לצפייה ישירה") > 0){
+            name = name.substring(0,name.indexOf("-") - 1).trim();
+        }
+        if (name.indexOf (" - פרקים מלאים") > 0){
+            name = name.substring(0,name.indexOf("-") - 1).trim();
+        }
+        if (name.indexOf ("- לצפייה ישירה") > 0){
+            name = name.substring(0,name.indexOf("-")).trim();
+        }
+        if (name.indexOf (" - סרט דוקו לצפייה") > 0){
+            name = name.substring(0,name.indexOf("-") - 1).trim();
+        }
+        if (name.indexOf (" - הסרט המלא לצפייה ישיר") > 0){
+            name = name.substring(0,name.indexOf("-") - 1).trim();
+        }
+        if (name.indexOf (" - תכניות מלאות לצפייה ישירה") > 0){
+            name = name.substring(0,name.indexOf("-") - 1).trim();
+        }
+        if (name.indexOf ("- סרטונים מלאים לצפייה ישירה") > 0){
+            name = name.substring(0,name.indexOf("-") - 1).trim();
+        }
+
+        if (name.indexOf ("239 360") > 0){
+            name = name.replace("Poster 239 360","");
+        }
+        if (name.includes("Image Small 239X360")){
+            name = name.replace("Image Small 239X360","");
+        }
+        if (name.includes("פוסטר קטן")){
+            name = name.replace("פוסטר קטן","");
+        }
+        if (name.includes("Poster")){
+            name = name.replace("Poster","");
+        }
+        if (name.includes("Title Logo")){
+            name = name.replace("Title Logo","");
+        }
+        if (name.includes("1920X1080")){
+            name = name.replace("1920X1080","");
+        }
+        if (name.startsWith("לוגו")){
+            name = name.replace("לוגו","");
+        }
+        if (name.endsWith("לוגו")){
+            name = name.replace("לוגו","");
+        }
+        if (name.endsWith("-")){
+            name = name.replace("-","");
+        }
+        if (name.indexOf("|") > 0){
+            name = name.substring(0,name.indexOf("|") -1).trim();
+        }
+        name = name.replace("_", " ");
+    }
+    return name.trim();
+}
+
+module.exports = {padWithLeadingZeros, fetchData, writeJSONToFile, getCurrentDateStr, getReleaseDate, getImageFromUrl, setGenreFromString, getNameFromSeriesPage};
