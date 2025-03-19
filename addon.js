@@ -233,9 +233,9 @@ builder.defineMetaHandler(({type, id}) => {
 	var videoId = id + ":1:1";
 	var meta = {
 		id: id,
-		background: "https://www.kan.org.il/media/x0qlwr5e/poster-image_small_239x360_מגרש-הרוסים.jpg",
+		background: "https://cdn.pixabay.com/photo/2020/01/28/15/43/church-4800099_960_720.jpg",
 		name: "Tokemouta",
-		poster: "https://www.kan.org.il/media/x0qlwr5e/poster-image_small_239x360_מגרש-הרוסים.jpg",
+		poster: "https://cdn.pixabay.com/photo/2020/01/28/15/43/church-4800099_960_720.jpg",
 		posterShape: "poster",
 		type: "series",
 		videos: [
@@ -244,10 +244,9 @@ builder.defineMetaHandler(({type, id}) => {
                 episode: 1,
                 episodeLink: "https://www.kan.org.il/content/kan/kan-11/p-829567/s1/840303/",
                 id: videoId,
-                released: "2.24.2025 19:30:00",
                 season: 1,
-                thumbnail: "https://www.kan.org.il/media/5xjnelze/פרק-1-לאתר_.jpg",
-                name: "Name ffor cahapter 1"
+                thumbnail: "https://cdn.pixabay.com/photo/2012/11/28/10/30/men-67636_960_720.jpg",
+                name: "Name for cahapter 1"
             }
 		]
 	};
