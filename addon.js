@@ -255,7 +255,8 @@ builder.defineMetaHandler(({type, id}) => {
                 "id": videoId,
                 "season": 1,
                 "thumbnail": "https://www.kan.org.il/media/5xjnelze/פרק-1-לאתר_.jpg",
-                "name": "פרק 1 - גזר דין"
+                "name": "פרק 1 - גזר דין",
+				"released": "2.24.2025 19:30:00"
             }
 		]
 	};
