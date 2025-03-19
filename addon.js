@@ -233,9 +233,9 @@ builder.defineMetaHandler(({type, id}) => {
 	var videoId = id + ":1:1";
 	var meta = {
 		id: id,
-		background: "https://cdn.pixabay.com/photo/2020/01/28/15/43/church-4800099_960_720.jpg",
+		background: "https://www.kan.org.il/media/x0qlwr5e/poster-image_small_239x360_מגרש-הרוסים.jpg",
 		name: "Tokemouta",
-		poster: "https://cdn.pixabay.com/photo/2020/01/28/15/43/church-4800099_960_720.jpg",
+		poster: "https://www.kan.org.il/media/x0qlwr5e/poster-image_small_239x360_מגרש-הרוסים.jpg",
 		posterShape: "poster",
 		type: "series",
 		videos: [
@@ -599,7 +599,7 @@ function runCrons(){
 		timezone: "Asia/Jerusalem"
 	});
 	taskKanPodcastsJsonZip.start();
-	logger.info("runCrons => started Kan Podcasts cron");
+	logger.info("runCrons => started Kan Podcasts cron with zip file");
 
 	/**
 	 * Set cron jobs for Kan 88 Podcasts generating json entries only. 
@@ -637,7 +637,7 @@ function runCrons(){
 		timezone: "Asia/Jerusalem"
 	});
 	taskKan88JsonZip.start();
-	logger.info("runCrons => started Kan 88 Podcasts cron");
+	logger.info("runCrons => started Kan 88 Podcasts cron with zip file");
 
 	/**
 	 * Set cron jobs for Mako generating json entries only. 
