@@ -234,10 +234,19 @@ builder.defineMetaHandler(({type, id}) => {
 	var meta = {
 		id: id,
 		background: "https://www.kan.org.il/media/x0qlwr5e/poster-image_small_239x360_מגרש-הרוסים.jpg",
-		name: "Tokemouta",
+		name: "מגרש הרוסים",
+		genres: [
+            "Drama",
+            "דרמה",
+            "Thriller",
+            "מתח",
+            "Kan",
+            "כאן"
+        ],
 		poster: "https://www.kan.org.il/media/x0qlwr5e/poster-image_small_239x360_מגרש-הרוסים.jpg",
 		posterShape: "poster",
 		type: "series",
+		description: "יהודה, בלש ירושלמי, חוקר רצח אכזרי של עולה חדשה בשנות ה-90 בירושלים. אליו מצטרף אנדריי, אביו של צעיר שעומד להיות מוצא להורג בברית המועצות בגין רציחות דומות.\n",
 		videos: [
             {
                 description: "Generic description here",
