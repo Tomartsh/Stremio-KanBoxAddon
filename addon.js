@@ -232,10 +232,10 @@ builder.defineMetaHandler(({type, id}) => {
 	//}
 	var videoId = id + ":1:1";
 	var meta = {
-		id: id,
-		background: "https://www.kan.org.il/media/x0qlwr5e/poster-image_small_239x360_מגרש-הרוסים.jpg",
-		name: "מגרש הרוסים",
-		genres: [
+		"id": id,
+		"background": "https://www.kan.org.il/media/x0qlwr5e/poster-image_small_239x360_מגרש-הרוסים.jpg",
+		"name": "מגרש הרוסים",
+		"genres": [
             "Drama",
             "דרמה",
             "Thriller",
@@ -243,19 +243,19 @@ builder.defineMetaHandler(({type, id}) => {
             "Kan",
             "כאן"
         ],
-		poster: "https://www.kan.org.il/media/x0qlwr5e/poster-image_small_239x360_מגרש-הרוסים.jpg",
-		posterShape: "poster",
-		type: "series",
-		description: "יהודה, בלש ירושלמי, חוקר רצח אכזרי של עולה חדשה בשנות ה-90 בירושלים. אליו מצטרף אנדריי, אביו של צעיר שעומד להיות מוצא להורג בברית המועצות בגין רציחות דומות.\n",
-		videos: [
+		"poster": "https://www.kan.org.il/media/x0qlwr5e/poster-image_small_239x360_מגרש-הרוסים.jpg",
+		"posterShape": "poster",
+		"type": "series",
+		"description": "יהודה, בלש ירושלמי, חוקר רצח אכזרי של עולה חדשה בשנות ה-90 בירושלים. אליו מצטרף אנדריי, אביו של צעיר שעומד להיות מוצא להורג בברית המועצות בגין רציחות דומות.\n",
+		"videos": [
             {
-                description: "Generic description here",
-                episode: 1,
-                episodeLink: "https://www.kan.org.il/content/kan/kan-11/p-829567/s1/840303/",
-                id: videoId,
-                season: 1,
-                thumbnail: "https://www.kan.org.il/media/5xjnelze/פרק-1-לאתר_.jpg",
-                name: "Name for cahapter 1"
+                "description": "עולה חדשה נרצחת בירושלים. יהודה ג'רסי, הבלש, מטיל ספק באשמתו של בעלה",
+                "episode": 1,
+                "episodeLink": "https://www.kan.org.il/content/kan/kan-11/p-829567/s1/840303/",
+                "id": videoId,
+                "season": 1,
+                "thumbnail": "https://www.kan.org.il/media/5xjnelze/פרק-1-לאתר_.jpg",
+                "name": "פרק 1 - גזר דין"
             }
 		]
 	};
