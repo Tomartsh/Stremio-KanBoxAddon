@@ -245,7 +245,7 @@ builder.defineMetaHandler(({type, id}) => {
                 episodeLink: "https://www.kan.org.il/content/kan/kan-11/p-829567/s1/840303/",
                 id: videoId,
                 season: 1,
-                thumbnail: "https://cdn.pixabay.com/photo/2012/11/28/10/30/men-67636_960_720.jpg",
+                thumbnail: "https://www.kan.org.il/media/5xjnelze/פרק-1-לאתר_.jpg",
                 name: "Name for cahapter 1"
             }
 		]
