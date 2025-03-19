@@ -76,7 +76,22 @@ class srList {
     getMetaById(id){
         var meta = {};
         if (this._seriesList[id] == undefined){ return meta;}
-        else {return this._seriesList[id].meta;}
+        else {
+            meta = {
+                "id": this._seriesList[id].meta.id,
+                "name": this._seriesList[id].meta.name,
+                "type": this._seriesList[id].meta.type,
+                "description": this._seriesList[id].meta.description,
+                "genres": this._seriesList[id].meta.genres,
+                "poster": this._seriesList[id].meta.poster,
+                "background": this._seriesList[id].meta.background,
+                "description": this._seriesList[id].meta.description,
+                "videos": this._seriesList[id].meta.videos
+            };
+
+            //return this._seriesList[id].meta;
+            return meta;
+        }
     }
     
     getStreamsById(id){
