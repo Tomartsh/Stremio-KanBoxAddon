@@ -225,11 +225,33 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 builder.defineMetaHandler(({type, id}) => {
 	logger.debug("defineMetaHandler=> request for meta: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
-	var meta = listSeries.getMetaById(id);
+	//var meta = listSeries.getMetaById(id);
 	//iterate over each videos JSON object and remove streams
-	for (var video of meta["videos"]) {
-		delete video["streams"];
-	}
+	//for (var video of meta["videos"]) {
+		//delete video["streams"];
+	//}
+	var videoId = id + ":1:1";
+	var meta = {
+		id: id,
+		background: "https://www.kan.org.il/media/x0qlwr5e/poster-image_small_239x360_מגרש-הרוסים.jpg",
+		name: "Tokemouta",
+		poster: "https://www.kan.org.il/media/x0qlwr5e/poster-image_small_239x360_מגרש-הרוסים.jpg",
+		posterShape: "poster",
+		type: "series",
+		videos: [
+            {
+                description: "Generic description here",
+                episode: 1,
+                episodeLink: "https://www.kan.org.il/content/kan/kan-11/p-829567/s1/840303/",
+                id: videoId,
+                released: "2.24.2025 19:30:00",
+                season: 1,
+                thumbnail: "https://www.kan.org.il/media/5xjnelze/פרק-1-לאתר_.jpg",
+                name: "Name ffor cahapter 1"
+            }
+		]
+	};
+
     return Promise.resolve({ meta: meta })
 })
 
