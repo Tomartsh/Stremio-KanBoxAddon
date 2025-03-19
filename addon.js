@@ -483,7 +483,7 @@ function runCrons(){
 		timezone: "Asia/Jerusalem"
 	});
 	taskKanKidsJson.start();
-	logger.info("runCrons => started Kan 11 Kids cron");
+	logger.info("runCrons => started Kan Kids cron");
 
 	/**
 	 * Set cron jobs for Kan Kids generating json and zip file. 
@@ -502,7 +502,7 @@ function runCrons(){
 		timezone: "Asia/Jerusalem"
 	});
 	taskKanKidsJsonZip.start();
-	logger.info("runCrons => started Kan 11 Kids cron with zip file");
+	logger.info("runCrons => started Kan Kids cron with zip file");
 
 	/**
 	 * Set cron jobs for Kan Teens generating json entries only. 
@@ -521,7 +521,7 @@ function runCrons(){
 		timezone: "Asia/Jerusalem"
 	});
 	taskKanTeensJson.start();
-	logger.info("runCrons => started Kan 11 Teens cron");
+	logger.info("runCrons => started Kan Teens cron");
 
 	/**
 	 * Set cron jobs for Kan Teens generating json and zip file. 
@@ -540,7 +540,7 @@ function runCrons(){
 		timezone: "Asia/Jerusalem"
 	});
 	taskKanTeensJsonZip.start();
-	logger.info("runCrons => started Kan 11 Teens cron with zip file");
+	logger.info("runCrons => started Kan Teens cron with zip file");
 
 	/**
 	 * Set cron jobs for Kan Podcasts generating json entries only. 
@@ -559,7 +559,7 @@ function runCrons(){
 		timezone: "Asia/Jerusalem"
 	});
 	taskKanPodcastsJson.start();
-	logger.info("runCrons => started Kan 11 Podcasts cron");
+	logger.info("runCrons => started Kan Podcasts cron");
 
 	/**
 	 * Set cron jobs for Kan Podcasts generating json entries with zip file. 
@@ -578,7 +578,45 @@ function runCrons(){
 		timezone: "Asia/Jerusalem"
 	});
 	taskKanPodcastsJsonZip.start();
-	logger.info("runCrons => started Kan 11 Podcasts cron");
+	logger.info("runCrons => started Kan Podcasts cron");
+
+	/**
+	 * Set cron jobs for Kan 88 Podcasts generating json entries only. 
+	 * run eavery day at 3 AM
+	 */
+	var taskKan88Json = cron.schedule('50 6 * * 0,1,2,3,4,5', () => {
+		logger.info('Running schedule for updating Kan 88 Podcasts list');
+		if (!kanPodcastsScraper.isRunning){
+			kanPodcastsScraper.crawl();
+		} else {
+			logger.info('Kan88Scraper is alraedy running. Aborting !!!');
+		}
+		
+	}, {
+		scheduled: true,
+		timezone: "Asia/Jerusalem"
+	});
+	taskKan88Json.start();
+	logger.info("runCrons => started Kan 88 Podcasts cron");
+
+	/**
+	 * Set cron jobs for Kan 88 Podcasts generating json entries with zip file. 
+	 * run eavery Saturday at 7 AM
+	 */
+	var taskKan88JsonZip = cron.schedule('50 6 * * 6', () => {
+		logger.info('Running schedule for updating Kan 88 Podcasts list with zip file');
+		if (!kanPodcastsScraper.isRunning){
+			kanPodcastsScraper.crawl(true);
+		} else {
+			logger.info('KanPodcastsScraper is alraedy running. Aborting !!!');
+		}
+		
+	}, {
+		scheduled: true,
+		timezone: "Asia/Jerusalem"
+	});
+	taskKan88JsonZip.start();
+	logger.info("runCrons => started Kan 88 Podcasts cron");
 
 	/**
 	 * Set cron jobs for Mako generating json entries only. 
