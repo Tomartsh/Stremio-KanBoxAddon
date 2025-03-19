@@ -25,22 +25,22 @@ log4js.configure({
     categories: { default: { appenders: ['Stremio','out'], level: LOG4JS_LEVEL } },
 });
 
-const EXPORT_FILENAME = "stremio-kanpodcasts";
-var logger = log4js.getLogger("KanPodcastsScraper");
+const EXPORT_FILENAME = "stremio-kan88";
+var logger = log4js.getLogger("Kan88Scraper");
 
-class KanPodcastsScraper {
+class Kan88Scraper {
 
     constructor(addToSeriesList) {
         this._kanPodcastsJSONObj = {};
         this.addToSeriesList = addToSeriesList
-        this.seriesIdIterator = 10000;
+        this.seriesIdIterator = 11000;
         this.isRunning = false;
     }
 
     async crawl(isDoWriteFile = false){
         logger.info("Started Crawling");
         this.isRunning = true;
-        await this.crawlPodcasts();
+        await this.crawlKan88();
         logger.info("Done Crawling");
         
         logger.info("crawl => writing series to master list");
@@ -64,60 +64,56 @@ class KanPodcastsScraper {
             this.writeJSON();
         }
         this.isRunning = false;
-    }
+    } 
 
-    /***************************************************************************************************************
-     * 
-     * Podcasts Section
-     *
-    ***************************************************************************************************************/   
+    async crawlKan88(){
+        logger.trace("crawlKan88 => Entering");
+        var kan88Series = await fetchData(KAN88_POCASTS_URL);
 
-    async crawlPodcasts(){
-        logger.trace("crawlPods => Entering");
-        //get the podcasts series genre list
-        logger.debug("crawlPods => Starting retrieval of podcast series");
+        //get the last page of Kan 88 serise
+        var lastPageNo = kan88Series.querySelector('li[class*="pagination-page__item"][title*="Last page"]').getAttribute('data-num')
         
-        var docPodcastSeries = await fetchData(PODCASTS_URL);
-        var genres = docPodcastSeries.querySelectorAll("div.podcast-row");
-        logger.trace("crawlPods => Found " + genres.length + " genres");
-        
-        //go over the genres and add podcast series by genre
-        for (var genre of genres) { //iterate over podcasts rows by genre
-            var genresName = genre.querySelector("h4.title-elem.category-name").text.trim();
-            logger.debug("crawlPodcasts => Genre " + genresName);
-            
-            var podcastsSeriesElements = genre.querySelectorAll("a.podcast-item");
-
-            for (var podcastElement of podcastsSeriesElements){// iterate of the podcast series
-                var podcastSeriesLink = this.getPodcastLink(podcastElement);
-                if (podcastSeriesLink.includes("kan88")){continue; }
-                
-                //set ID
-                var id = this.generateSeriesId(podcastSeriesLink);
-
-                //set title;
-                var seriesTitle = this.getPodcastTitle(podcastElement,"");
-
-                //set thumbnail image
-                var podcastImageUrl = "";
-                podcastImageUrl = utils.getImageFromUrl(podcastElement.querySelector("img.img-full").getAttribute("src"),"p");
-                logger.debug("crawlPodcasts => podcastImageUrl: " + podcastImageUrl + " Name: " + seriesTitle);
-
-                //set description
-                var seriesDescription = "";
-                if (podcastElement.querySelector("div.overlay div.text") != undefined){
-                    seriesDescription = podcastElement.querySelector("div.overlay div.text").text.trim();
-                } else {
-                    seriesDescription = podcastElement.querySelector("div.description").text.trim(); //Kan 88 Podcast episodes
-                }
-                
-                this.addToJsonObject(id,seriesTitle,podcastSeriesLink,podcastImageUrl,seriesDescription,genresName,[],"p","series");     
-                await this.getpodcastEpisodeVideos(podcastSeriesLink, id);
-                logger.debug("crawlPodcasts => Added podcast " + seriesTitle);
-            }    
+        //first page is already retrieved. We need to continue from page 2 an on
+        var podcastsKan88SeriesElements = kan88Series.querySelectorAll("div.card.card-row");
+       
+        for (var i = 1 ; i < lastPageNo ; i++ ){
+            var tempKanDoc = await fetchData(KAN88_POCASTS_URL + "?page=" + (i + 1));
+            var podcastsKan88AdditionalPageSeriesElements = tempKanDoc.querySelectorAll("div.card.card-row");
+            for( var podcast of podcastsKan88AdditionalPageSeriesElements){
+                podcastsKan88SeriesElements.push(podcast);
+            } 
         }
-        logger.trace("crawlPodcasts => Exiting");
-    }   
+
+        for (var podcastKan88SeriesElement of podcastsKan88SeriesElements){//iterate of the podcast series
+            var podcastLink = this.getPodcastLink(podcastKan88SeriesElement);
+            var genres = ["music","מוסיקה"];
+            
+            //set ID
+            var id = this.generateSeriesId(podcastLink);
+
+            //set thumbnail image
+            var podcastImageUrl = "";
+            podcastImageUrl = utils.getImageFromUrl(podcastKan88SeriesElement.querySelector("img.img-full").getAttribute("src"),"p");
+            var imgElem = podcastKan88SeriesElement.querySelector("img.img-full");
+            
+            //set title;
+            var seriesTitle = this.getPodcastTitle(podcastKan88SeriesElement, imgElem.getAttribute("title").trim());
+            
+            //set description
+            var seriesDescription = "";
+            if (podcastKan88SeriesElement.querySelector("div.overlay div.text") != undefined){
+                seriesDescription = podcastKan88SeriesElement.querySelector("div.overlay div.text").text.trim();
+            } else {
+                seriesDescription = podcastKan88SeriesElement.querySelector("div.description").text.trim(); //Kan 88 Podcast episodes
+            }
+
+            this.addToJsonObject(id,seriesTitle,podcastLink,podcastImageUrl,seriesDescription,genres,[],"8","series");
+            await this.getpodcastEpisodeVideos(podcastLink, id);
+            
+            logger.debug("crawlKan88 => Added Kan 88 podcast " + seriesTitle);
+        }
+        logger.trace("crawlKan88 => Exiting");
+    }
 
     getPodcastTitle(podcastElement, seriesTempTitle){
         var seriesTitle = ""
@@ -345,14 +341,6 @@ class KanPodcastsScraper {
         return retId;
     }
 
-    setDescription(seriesElems){
-        var description = "";
-        if (seriesElems.length < 1) {return description;}
-        description = seriesElems.text.trim() +".\n";
-
-        return description;
-    }
-
     addVideoToMeta(key, episodeId, name, seasonNo, episodeNo, desc, thumb, episodeLink, released, streams){
         this._kanPodcastsJSONObj[key]["meta"]["videos"].push({
             id: episodeId,
@@ -410,7 +398,7 @@ class KanPodcastsScraper {
 /**********************************************************
  * Module Exports
  **********************************************************/
-module.exports = KanPodcastsScraper;
+module.exports = Kan88Scraper;
 exports.crawl = this.crawl;
 exports.isRunning = this.isRunning;
 exports.writeJSON = this.writeJSON;

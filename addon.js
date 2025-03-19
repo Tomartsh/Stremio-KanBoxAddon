@@ -14,6 +14,7 @@ const KanArchivescraper = require("./classes/KanArchiveScraper.js");
 const KanKidscraper = require("./classes/KanKidsScraper.js");
 const KanTeensscraper = require("./classes/KanTeensScraper.js");
 const KanPodcastsscraper = require("./classes/KanPodcastsScraper.js");
+const Kan88scraper = require("./classes/Kan88Scraper.js");
 const Makoscraper = require("./classes/MakoScraper.js");
 const Reshetscraper = require("./classes/ReshetScraper.js");
 const LiveTV = require("./classes/LiveTV.js"); 
@@ -53,6 +54,9 @@ const kanTeensScraper = new KanTeensscraper(addToSeriesList)
 //kanTeensScraper.crawl(true);
 const kanPodcastsScraper = new KanPodcastsscraper(addToSeriesList)
 //kanPodcastsScraper.crawl(true);
+const kan88Scraper = new Kan88scraper(addToSeriesList)
+//kan88Scraper.crawl(true);
+
 
 runCrons();
 
@@ -137,6 +141,12 @@ const manifest = {
 			id: "KanPodcasts",
 			name: "כאן הסכתים",
 			extra: [ {name: "search", isRequired: false }]
+		},
+		{
+			type: "Podcasts",
+			id: "Kan88",
+			name: "כאן 88 הסכתים",
+			extra: [ {name: "search", isRequired: false }]
 		}
 	],
 	"resources": [
@@ -188,6 +198,8 @@ builder.defineCatalogHandler(({type, id, extra}) => {
         case "Podcasts":
             if (id == "KanPodcasts"){
                 metas = listSeries.getMetasBySubtypeAndName("p",search);
+            } else if (id == "Kan88"){
+                metas = listSeries.getMetasBySubtypeAndName("8",search);
             }
             break;
 		case "tv":

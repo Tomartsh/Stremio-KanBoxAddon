@@ -77,7 +77,6 @@ class srList {
         var meta = {};
         if (this._seriesList[id] == undefined){ return meta;}
         else {
-            console.log("Supplying meta: " + meta.id);
             meta = this._seriesList[id].meta;
             return meta;
         }

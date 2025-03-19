@@ -339,7 +339,7 @@ class KanDigitalScraper {
             //check this is not an empty string or if key already exist
             var testKey = retId in this._kanDigitalJSONObj;
             if ((retId == "") || (testKey)){
-                retId = PREFIX + "kan_" + this.seriesIdIterator;
+                retId = this.seriesIdIterator;
                 this.seriesIdIterator++;
             }
 
