@@ -225,14 +225,48 @@ async function uploadToGitHub(fileContent, fileName, commitMessage) {
 
 function getReleaseDate(str){
     var released = "";
+    var releasedArr = [];
+    var year = "";
+    var month = "";
+    var day = "";
 
     if (str.length > 0) {
-        //the format is dd.MM.yyyy. Stremio is Expecting MM.dd.yyyy
-        var releasedArr = str.split(".");
-        if (releasedArr.length > 0){
-            released = releasedArr[1] + "." + releasedArr[0] + "." + releasedArr[2];
-            return released;
+        //check existing format
+        const regexReshet = /^(\d{2})\/(\d{2})\/(\d{4})/;
+        const regexKanPodcasts = /^(\d{1,2})\.(\d{1,2})\.(\d{4}) (\d{1,2}):(\d{1,2}):(\d{2})/;
+        const regexMako = /^(\d{2})\.(\d{2})\.(\d{2})/;
+        
+        if (regexReshet.test(str)) {//example 03/06/2024
+            releasedArr = str.split("/"); 
+            year = releasedArr[2];
+            month = releasedArr[1];
+            day = releasedArr[0];
+
+        } else if (regexKanPodcasts.test(str)) {
+            releasedArr = str.split(".");
+            year = releasedArr[2].split(" ")[0];
+            month = releasedArr[1];
+            day = releasedArr[0];
+
+            if (month.length = 1){ month = "0" + month;}
+            if (day.length = 1){ day = "0" + day;}
+            
+        } else if (regexMako.test(str)){
+            releasedArr = str.split(".");
+            year = releasedArr[2];
+            month = releasedArr[1];
+            day = releasedArr[0];
         }
+
+        released = year + "-" + month + "-" + day + "T00:00:00.000Z";
+
+        //final check to see date format validity
+        if (isNaN(Date.parse(released))){
+            return released;
+        } else {
+            return "";
+        }
+        
     }
     return str;
 }

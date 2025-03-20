@@ -143,9 +143,9 @@ class MakoScraper{
                 episodeTitle = episode["title"];
             }
             if ((episode["extraInfo"] != undefined) || (episode["extraInfo"] == "")){
-                episodeReleased = this.getReleaseDate(episode["extraInfo"]);
+                episodeReleased = utils.getReleaseDate(episode["extraInfo"]);
             } else {
-                episodeReleased = this.getReleaseDate(episode["title"]);
+                episodeReleased = utils.getReleaseDate(episode["title"]);
             }
 
             var tempEpisodeId = this.getEpisodeIdFromTitle(episodeTitle,noOfEpisodes)
@@ -234,7 +234,7 @@ class MakoScraper{
             return seasonKey;
         }
     }
-
+/*
     getReleaseDate(str){
         var releasedTemp = "";
 
@@ -250,7 +250,7 @@ class MakoScraper{
         
         return released;
     }
-
+*/
     getEpisodeIdFromTitle(str, tempEpisodeId){
         if (str.indexOf("@") < 1){
             return tempEpisodeId;

@@ -109,18 +109,19 @@ class ReshetScraper {
                         var kalturaId = episodes[i]["video"]["kalturaId"];
                         if (kalturaId == undefined){return "-1";}
                         var streams = await this.getStream(kalturaId, episodes[i]["title"]);
-                        var episodeId = episodes.length - i ;
-
+                        var episodeId = episodes.length - i;
+                        var released = utils.getReleaseDate(episodes[i]["air_date"]);
+                        
                         var video = {
                             reshetEpisodeId: episodes[i]["id"],
                             id: id + ":" + seasonId + ":" ,
-                            title: episodes[i]["title"],
+                            name: episodes[i]["title"],
                             season: seasonId,
                             episode: "",
                             description: episodes[i]["secondaryTitle"],
                             thumbnail: episodes[i]["video"]["poster"],
                             episodeLink: URL_RESHET_BASE + episodes[i]["link"],
-                            released: episodes[i]["air_date"],
+                            released: released,
                             streams: streams
                         }
                         //noOfEpisodes--;
