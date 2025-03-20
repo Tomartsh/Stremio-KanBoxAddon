@@ -53,7 +53,7 @@ const kanKidsScraper = new KanKidscraper(addToSeriesList)
 const kanTeensScraper = new KanTeensscraper(addToSeriesList)
 //kanTeensScraper.crawl(true);
 const kanPodcastsScraper = new KanPodcastsscraper(addToSeriesList)
-//kanPodcastsScraper.crawl(true);
+kanPodcastsScraper.crawl(true);
 const kan88Scraper = new Kan88scraper(addToSeriesList)
 //kan88Scraper.crawl(true);
 
@@ -225,11 +225,12 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 builder.defineMetaHandler(({type, id}) => {
 	logger.debug("defineMetaHandler=> request for meta: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
-	//var meta = listSeries.getMetaById(id);
+	var meta = listSeries.getMetaById(id);
 	//iterate over each videos JSON object and remove streams
 	//for (var video of meta["videos"]) {
 		//delete video["streams"];
 	//}
+	/*
 	var videoId = id + ":1:1";
 	var meta = {
 		"id": id,
@@ -259,7 +260,7 @@ builder.defineMetaHandler(({type, id}) => {
 				"released": "2025-02-24T19:30:00.000Z"
             }
 		]
-	};
+	};*/
 
     return Promise.resolve({ meta: meta })
 })
@@ -296,26 +297,26 @@ async function tuki(type, id){
 builder.defineStreamHandler(({type, id}) => {
 	logger.debug("defineStreamHandler=> request for streams: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineStreamHandler.md
-	return tuki(type, id);
-	/*
+	//return tuki(type, id);
+	
 	var streams = [];
 	if (id.startsWith("il_mako")){
-		//retrieve the url
-		var urlList = listSeries.getStreamsById(id);
-		//Usually we will have one URL for AKAMAI and one for AWS.
-		//We need to construct the URL for both
-		for (var entry of urlList){
-			var link = entry["link"];
-			//issue the request
-			var ticketObj = await fetchData(link, true);
-			var ticketRaw = ticketObj["tickets"][0]["ticket"];
-			var ticket = decodeURIComponent(ticketRaw);
-			var streamUrl = entry["url"]["url"] + "?" + ticket;
-			//issue the request
-			streams.push({
-				url: {streamUrl}
-			});
-		}	
+		// //retrieve the url
+		// var urlList = listSeries.getStreamsById(id);
+		// //Usually we will have one URL for AKAMAI and one for AWS.
+		// //We need to construct the URL for both
+		// for (var entry of urlList){
+		// 	var link = entry["link"];
+		// 	//issue the request
+		// 	var ticketObj = await fetchData(link, true);
+		// 	var ticketRaw = ticketObj["tickets"][0]["ticket"];
+		// 	var ticket = decodeURIComponent(ticketRaw);
+		// 	var streamUrl = entry["url"]["url"] + "?" + ticket;
+		// 	//issue the request
+		// 	streams.push({
+		// 		url: {streamUrl}
+		// 	});
+		// }	
 
 	} else { 
 		var streams = listSeries.getStreamsById(id)
@@ -323,7 +324,7 @@ builder.defineStreamHandler(({type, id}) => {
     
     //return Promise.resolve({ streams: [streams] });
     return Promise.resolve({ streams: [streams] });
-	*/
+	
 })
 
 var jsonFileExist = "";
@@ -617,8 +618,8 @@ function runCrons(){
 	 */
 	var taskKan88Json = cron.schedule('50 6 * * 0,1,2,3,4,5', () => {
 		logger.info('Running schedule for updating Kan 88 Podcasts list');
-		if (!kanPodcastsScraper.isRunning){
-			kanPodcastsScraper.crawl();
+		if (!kan88Scraper.isRunning){
+			kan88Scraper.crawl();
 		} else {
 			logger.info('Kan88Scraper is alraedy running. Aborting !!!');
 		}
@@ -636,8 +637,8 @@ function runCrons(){
 	 */
 	var taskKan88JsonZip = cron.schedule('50 6 * * 6', () => {
 		logger.info('Running schedule for updating Kan 88 Podcasts list with zip file');
-		if (!kanPodcastsScraper.isRunning){
-			kanPodcastsScraper.crawl(true);
+		if (!kan88Scraper.isRunning){
+			kan88Scraper.crawl(true);
 		} else {
 			logger.info('KanPodcastsScraper is alraedy running. Aborting !!!');
 		}
