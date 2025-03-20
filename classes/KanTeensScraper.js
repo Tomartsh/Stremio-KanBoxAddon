@@ -64,6 +64,8 @@ class KanTeensScraper {
             this.writeJSON();
         }
         this.isRunning = false;
+
+        logger.info("crawl => Done crawling. Exiting");
     }
 
     /*************************************************************

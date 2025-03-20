@@ -255,6 +255,42 @@
                             "description": "אנטונלה מארגנת ארוחת טעימות לכבוד אלה ואדם. כשהיא מבינה שהשכנים תכננו משהו אחר מאחורי הגב שלה היא מחליטה ללמד אותם לקח. אלה סקרנית לגבי ילד ושמו אדיסו ורועי מתבייש להגיד לה שזהו שמו האתיופי"
                         }
                     ]
+                },
+                {
+                    "id": "il_kan_863865:1:3",
+                    "name": "פרק 3 - שרשרת של ריבים",
+                    "season": 1,
+                    "episode": 3,
+                    "description": "שוש רבה עם חזי. עמליה רבה עם תולי. ויוסי מחפש שרשרת יקרת ערך שאבדה",
+                    "thumbnail": "https://www.kankids.org.il/media/dxdnz1q3/שכונת-חיים-פרק-3.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-863865/s1/871622/",
+                    "released": "",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_af5lxdis/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 3 - שרשרת של ריבים",
+                            "description": "טעות במשלוח מהמכולת גורם לשוש להכריז שהיא לא קונה שם יותר! חזי נעלב עד עמקי נשמתו ומכריז על ריב גם מהצד שלו. תולי נותנת לעמליה שרשרת חברות. כשעמליה מגלה שהיא מצאה אותה על הרצפה היא נעלבת נורא"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_863865:1:4",
+                    "name": "פרק 4 - מי יותר טוב?",
+                    "season": 1,
+                    "episode": 4,
+                    "description": "הילדים מתחרים מי טוב יותר, הבנים או הבנות. אילנה חושדת שנור קונה בסופר",
+                    "thumbnail": "https://www.kankids.org.il/media/br4dnsr2/שכונת-חיים-פרק-4.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-863865/s1/871968/",
+                    "released": "",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_t9d6vfjl/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 4 - מי יותר טוב?",
+                            "description": "המדריכים של הקייטנה מתחרים מי מדריך טוב יותר, הבנים או הבנות? אדם תקוע באמצע. אילנה חושדת שנור קונה פירות בסופר במקום במכולת. היא וחזי משווים בין הפירות שלהם לאלה של הסופר ומגיעים למסקנה לא נכונה"
+                        }
+                    ]
                 }
             ]
         }
@@ -2200,6 +2236,24 @@
                             "type": "series",
                             "name": "פרק 6 - מחוננים",
                             "description": "מתי גילית שאתה מחונן? מרגיש לפעמים יותר חכם מהמורים שלך? מעדיפה ספרים או חברים? ילדות וילדים מחוננים עונים על השאלות הכי מסקרנות"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_855842:1:7",
+                    "name": "פרק 7 - ילדים במעגל האלימות",
+                    "season": 1,
+                    "episode": 7,
+                    "description": "את מי איבדת? מה עוזר לך להתמודד עם האובדן?",
+                    "thumbnail": "https://www.kankids.org.il/media/ru0fltbx/orphan-01_11461.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-855842/s1/872403/",
+                    "released": "",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_vmdfr1tq/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 7 - ילדים במעגל האלימות",
+                            "description": "את מי איבדת? מה עוזר לך להתמודד עם האובדן? ילדות וילדים מדברים לראשונה באומץ יוצא דופן על בני משפחה או חברים שנרצחו במסגרת מעגל האלימות והפשיעה בחברה הערבית"
                         }
                     ]
                 }
@@ -8028,6 +8082,24 @@
                             "type": "series",
                             "name": "פרק 2",
                             "description": "דור דואני היא הילדה החדשה בכיתה. כל הילדים מתלהבים ומקבלים אותה בחום. רק יולי לא מרוצה. אפילו אפי, החברה הכי טובה של יולי נופלת בפח, ויולי רבה איתה. כתוצאה מכך, דור דואני לא מזמינה את יולי למסיבה"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_il_kan_8008:1:3",
+                    "name": "מבחן אומץ | פרק 3",
+                    "season": 1,
+                    "episode": 3,
+                    "description": "הבגד החדש של יולי מכניס אותה לצרות, בעוד דותן תקוע על גג המקלט",
+                    "thumbnail": "https://www.kankids.org.il/media/wczlbn2f/https-kanstaticazureedgenet-download-pictures-2021-2-21-imgid-47793_aa.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/shakshuka/s1/127866/",
+                    "released": "",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_kpqm68u3/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 3",
+                            "description": "יולי מחליטה ללבוש בגד צבעוני ונועז במיוחד לכיתה ומגלה שזו טעות נוראית. דותן מטפס על גג המקלט הכי מפחיד בבית הספר, והשומרת מתמודדת עם הפחד מהחושך. האומץ לא בא בקלות לאף אחד"
                         }
                     ]
                 }
@@ -16689,24 +16761,6 @@
                             "description": "לירי מחליטה להפסיק להיות תינוקות ולהתנהג בצורה יותר בוגרת ואפרים לא מסכים שיעשו צחוק מהחי והצומח"
                         }
                     ]
-                },
-                {
-                    "id": "il_kan_il_kan_8016:3:11",
-                    "name": "גיבור על | פרק 11",
-                    "season": 3,
-                    "episode": 11,
-                    "description": "צ'ופי מחליט להיות גיבור על ומבין שגיבור אמיתי לא חייב להשתמש בכוח",
-                    "thumbnail": "https://www.kankids.org.il/media/dkal0cl2/https-kanstaticazureedgenet-download-pictures-2019-12-16-imgid-25239_aa.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/tree_house_kids/s3/107800/",
-                    "released": "",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_xi0nb5fu/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 11",
-                            "description": "צ'ופי מחליט להיות גיבור על ומבין שגיבור אמיתי לא חייב להשתמש בכוח"
-                        }
-                    ]
                 }
             ]
         }
@@ -23847,24 +23901,6 @@
                             "description": "בעונת האביב, הגיע לבית החולים בז עם פגיעת ראש קשה, שסירב להחלים ולעזוב את בעית החולים. האורח השני הוא כרוון, ששכח איך מתנהגים כרוונים, וצוות בית החולים לימד אותו הכל מחדש"
                         }
                     ]
-                },
-                {
-                    "id": "il_kan_11416:1:13",
-                    "name": "הצב והחסידה | פרק 13",
-                    "season": 1,
-                    "episode": 13,
-                    "description": "צב יבשה עם סדק בשריון וחסידה שלא מצליחה לעמוד על הרגליים",
-                    "thumbnail": "https://www.kankids.org.il/media/yxbgrd3h/https-kanstaticazureedgenet-download-pictures-2020-10-6-imgid-39977_aa.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-11416/s1/90841/",
-                    "released": "",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_hvxyj6r5/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "הצב והחסידה - פרק 13",
-                            "description": "צב יבשה עם סדק בשריון הגיע לבית החולים במצב אנוש. שם הוא פוגש פרחון של חסידה, שלא מצליח לעמוד על הרגליים"
-                        }
-                    ]
                 }
             ]
         }
@@ -26321,24 +26357,6 @@
                             "type": "series",
                             "name": "מומיות, גלמים ופרפרים |",
                             "description": "שוסטר ושוסטר, צמד חוקרים מסוכנות הקשרים הלאומית, יוצאים לחקור נושאים שונים ולפצח את הקשרים ביניהם. הפעם: מהם הקשרים בין מומיות, גלמים ופרפרים וביאליק."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_11955:2:19",
-                    "name": "פסנתר, הקול האנושי, מטוס סילון | פרק 19",
-                    "season": 2,
-                    "episode": 19,
-                    "description": "שוסטר ושוסטר חוקרים מהם הקשרים בין פסנתר, הקול האנושי ומטוס סילון.",
-                    "thumbnail": "https://www.kankids.org.il/media/kihkchx3/https-kanstaticazureedgenet-download-pictures-2021-5-18-imgid-53298_aa.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-11955/s2/90682/",
-                    "released": "",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_f29aitcz/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פסנתר, הקול האנושי, מטוס סילו",
-                            "description": "שוסטר ושוסטר, צמד חוקרים מסוכנות הקשרים הלאומית, יוצאים לחקור נושאים שונים ולפצח את הקשרים ביניהם. הפעם: מהם הקשרים בין פסנתר, הקול האנושי ומטוס סילון."
                         }
                     ]
                 }
@@ -37997,6 +38015,114 @@
                             "type": "series",
                             "name": "חיות במה צוחקות 1 - יובל המבולבל - פרק 24",
                             "description": "מיכאל הנגבי מנסה להשתלב בתחום המופעים לילדים ללא הצלחה ויובל המבולבל משוחח איתו ועם הילדים על הומור לקטנטנים"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_12567:1:25",
+                    "name": "אורנה בנאי | פרק 25",
+                    "season": 1,
+                    "episode": 25,
+                    "description": "מיכאל הנגבי מנסה להצטרף למשפחת בנאי בכל מחיר",
+                    "thumbnail": "https://www.kankids.org.il/media/i3el1zb2/cat39315_img_cover199281090.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12567/s1/91824/",
+                    "released": "",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_eauxucto/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "חיות במה צוחקות 1 - אורנה בנאי - פרק 25",
+                            "description": "מיכאל הנגבי מנסה להצטרף למשפחת בנאי בכל מחיר בזמן שאורנה בנאי משוחחת עם הילדים על עבודתה כקומיקאית ועל דמותה המיתולוגית של לימור"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_12567:1:26",
+                    "name": "צביקה הדר | פרק 26",
+                    "season": 1,
+                    "episode": 26,
+                    "description": "היוצר והכוכב המיתולוגי של \"שמש\" משוחח עם מיכאל הנגבי והילדים",
+                    "thumbnail": "https://www.kankids.org.il/media/izwhuzyo/cat39316_img_cover533924163.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12567/s1/91827/",
+                    "released": "",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_cwv6jhyg/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "חיות במה צוחקות 1 - צביקה הדר - פרק 26",
+                            "description": "היוצר והכוכב המיתולוגי של \"שמש\" משוחח עם מיכאל הנגבי והילדים על השינוי שעבר ההומור הישראלי במעבר לטלוויזיה המסחרית ולרשת האינטרנט, וגם חושף מיהו המעריץ האובססיבי והמסתורי שלו."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_12567:1:27",
+                    "name": "ציפורלה | פרק 27",
+                    "season": 1,
+                    "episode": 27,
+                    "description": "מיכאל הנגבי והילדים מארחים את חברי האנסמבל המצליח ציפורלה",
+                    "thumbnail": "https://www.kankids.org.il/media/kyyf0crg/cat39317_img_cover552458116.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12567/s1/91830/",
+                    "released": "",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_zoxu60fg/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "חיות במה צוחקות 1 - ציפורלה - פרק 27",
+                            "description": "מיכאל הנגבי והילדים מארחים את חברי האנסמבל המצליח ציפורלה ומקבלים מהם הצצה אל מאחורי הקלעים של ההומור הייחודי שלהם. אורחים:  (חברי האנסמבל) אפרת אביב, בן פרי, לוטוס אתרוג"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_12567:1:28",
+                    "name": "גלית חוגי | פרק 28",
+                    "season": 1,
+                    "episode": 28,
+                    "description": "גלית חוגי מגיעה לחיות במה וקוראת לכל הבנות בעולם לא לפחד להיות מצחיקות",
+                    "thumbnail": "https://www.kankids.org.il/media/5dghhmk1/2019-5-26-imgid-13429_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12567/s1/91833/",
+                    "released": "",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_bmj3gvrg/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "גלית חוגי | פרק 28",
+                            "description": "מיכאל הנגבי והילדים מארחים את הקומיקאית המצליחה שמגיעה לחיות במה כדי לקרוא לכל הבנות בעולם לא לפחד לצחוק ולהיות מצחיקות!"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_12567:1:29",
+                    "name": "אורי גוטליב | פרק 29",
+                    "season": 1,
+                    "episode": 29,
+                    "description": "מיכאל הנגבי והילדים מארחים את אורי גוטליב",
+                    "thumbnail": "https://www.kankids.org.il/media/hsydy2su/https-kanstaticazureedgenet-download-pictures-2021-10-9-imgid-3504_aa.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12567/s1/91836/",
+                    "released": "",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_zpgijo0j/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "חיות במה צוחקות 1 - אורי גוטליב - פרק 29",
+                            "description": "מיכאל הנגבי והילדים מארחים את אורי גוטליב שמשוחח איתם על למה כל כך חשוב לדעת לצחוק גם על עצמנו"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_12567:1:30",
+                    "name": "לני רביץ | פרק 30",
+                    "season": 1,
+                    "episode": 30,
+                    "description": "פרק 30: מיכאל הנגבי והילדים לומדים מהדוקטור לצחוק, לני רביץ",
+                    "thumbnail": "https://www.kankids.org.il/media/eihga2mm/https-kanstaticazureedgenet-download-pictures-2021-10-9-imgid-3504_aa.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12567/s1/91839/",
+                    "released": "",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_66sqnl19/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "חיות במה צוחקות 1 - לני רביץ - פרק 30",
+                            "description": "מיכאל הנגבי והילדים לומדים מהדוקטור לצחוק, לני רביץ, למה חשוב לצחוק (ואז לצחוק עוד קצת) ועל איך הומור הופך את החיים שלנו להרבה יותר נעימים"
                         }
                     ]
                 }

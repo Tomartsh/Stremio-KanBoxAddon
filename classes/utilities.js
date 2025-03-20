@@ -250,7 +250,7 @@ function getReleaseDate(str){
 
             if (month.length = 1){ month = "0" + month;}
             if (day.length = 1){ day = "0" + day;}
-            
+
         } else if (regexMako.test(str)){
             releasedArr = str.split(".");
             year = releasedArr[2];
@@ -261,11 +261,13 @@ function getReleaseDate(str){
         released = year + "-" + month + "-" + day + "T00:00:00.000Z";
 
         //final check to see date format validity
-        if (isNaN(Date.parse(released))){
-            return released;
-        } else {
-            return "";
-        }
+        // if (isNaN(Date.parse(released))){
+        //     return released;
+        // } else {
+        //     return "";
+        // }
+
+        return released;
         
     }
     return str;

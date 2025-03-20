@@ -55,7 +55,7 @@ class KanKidsScraper {
                 genres: this._kanKidsJSONObj[key]["meta"]["genres"],
                 meta: this._kanKidsJSONObj[key]["meta"],
                 type: "series", 
-                subtype: "m"
+                subtype: "k"
             });
         }
 
@@ -63,6 +63,8 @@ class KanKidsScraper {
             this.writeJSON();
         }
         this.isRunning = false;
+
+        logger.info("crawl => Exiting");
     }
 
     /*************************************************************
