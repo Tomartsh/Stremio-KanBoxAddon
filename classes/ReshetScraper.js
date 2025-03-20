@@ -65,7 +65,7 @@ class ReshetScraper {
             reshetId++;
 
         }
-        logger.trace("crawl() => Exiting");
+        logger.info("crawl() => Exiting");
         //writeLog("TRACE","ReshetScraper-crawl() => Exiting");
     }
 
