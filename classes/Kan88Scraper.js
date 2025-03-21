@@ -342,7 +342,7 @@ class Kan88Scraper {
     }
 
     addVideoToMeta(key, episodeId, name, seasonNo, episodeNo, desc, thumb, episodeLink, released, streams){
-        this._kanPodcastsJSONObj[key]["meta"]["videos"].push({
+        var video = {
             id: episodeId,
             name: name,
             season: seasonNo,
@@ -350,8 +350,12 @@ class Kan88Scraper {
             description: desc,
             thumbnail: thumb,
             episodeLink: episodeLink,
-            released: released,
             streams: streams
+        };
+        if (released != "") { video["released"] = released;}
+
+        this._kanPodcastsJSONObj[key]["meta"]["videos"].push({
+            video
         });
 
     }
@@ -360,11 +364,7 @@ class Kan88Scraper {
         this._kanPodcastsJSONObj[id] =  {
             id: id, 
             name: seriesTitle, 
-            poster: imgUrl, 
-            description: seriesDescription, 
             link: seriesPage,
-            background: imgUrl, 
-            genres: genres,
             type: type, 
             subtype: subType,
             meta: {

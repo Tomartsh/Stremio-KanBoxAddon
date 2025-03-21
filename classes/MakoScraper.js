@@ -188,11 +188,12 @@ class MakoScraper{
                 title: episodeTitle,
                 season: seasonId,
                 episode: noOfEpisodes,
-                released: episodeReleased,
                 thumbnail: episodePic,
                 episodeLink: episodePage,
                 streams: streams
             }
+            if (episodeReleased != "") {videoJsonObj["released"] = episodeReleased;}
+            
             videos.push(videoJsonObj);
             noOfEpisodes--;
         }

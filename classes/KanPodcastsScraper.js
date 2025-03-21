@@ -354,7 +354,7 @@ class KanPodcastsScraper {
     }
 
     addVideoToMeta(key, episodeId, name, seasonNo, episodeNo, desc, thumb, episodeLink, released, streams){
-        this._kanPodcastsJSONObj[key]["meta"]["videos"].push({
+        var video = {
             id: episodeId,
             name: name,
             season: seasonNo,
@@ -362,9 +362,11 @@ class KanPodcastsScraper {
             description: desc,
             thumbnail: thumb,
             episodeLink: episodeLink,
-            released: released,
             streams: streams
-        });
+        };
+        if (released != "") {video["released"] = released;}
+
+        this._kanPodcastsJSONObj[key]["meta"]["videos"].push(video);
 
     }
 

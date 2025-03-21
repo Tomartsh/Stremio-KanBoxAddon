@@ -311,7 +311,7 @@ class KanTeensScraper {
     }
 
     addVideoToMeta(key, episodeId, name, seasonNo, episodeNo, desc, thumb, episodeLink, released, streams){
-        this._kanTeenJSONObj[key]["meta"]["videos"].push({
+        var video = {
             id: episodeId,
             name: name,
             season: seasonNo,
@@ -319,9 +319,11 @@ class KanTeensScraper {
             description: desc,
             thumbnail: thumb,
             episodeLink: episodeLink,
-            released: released,
             streams: streams
-        });
+        };
+        if (released != "") {video["released"] = released;}
+
+        this._kanTeenJSONObj[key]["meta"]["videos"].push({video});
 
     }
 
@@ -329,11 +331,7 @@ class KanTeensScraper {
         this._kanTeenJSONObj[id] =  {
             id: id, 
             name: seriesTitle, 
-            poster: imgUrl, 
-            description: seriesDescription, 
             link: seriesPage,
-            background: imgUrl, 
-            genres: genres,
             type: type, 
             subtype: subType,
             meta: {
@@ -350,8 +348,6 @@ class KanTeensScraper {
                 videos: videosList
             }
         }
-        //this.addToSeriesList(item);
-
         logger.info("addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + " Link: " + seriesPage + " subtype: " + subType);
     }
 

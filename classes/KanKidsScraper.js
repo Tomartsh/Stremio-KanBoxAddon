@@ -266,8 +266,8 @@ class KanKidsScraper {
             type: "series",
             name: nameVideo,
             description: descVideo,
-            released: released
         };
+        if (released != "") { streamsJSONObj["released"] = released;}
         logger.trace("getStreams => Exiting");
         return streamsJSONObj;
     }
@@ -327,11 +327,7 @@ class KanKidsScraper {
         this._kanKidsJSONObj[id] =  {
             id: id, 
             name: seriesTitle, 
-            poster: imgUrl, 
-            description: seriesDescription, 
             link: seriesPage,
-            background: imgUrl, 
-            genres: genres,
             type: type, 
             subtype: subType,
             meta: {
@@ -348,7 +344,6 @@ class KanKidsScraper {
                 videos: videosList
             }
         }
-
         logger.info("addToJsonObject => Added  series, ID: " + id + " Name: " + seriesTitle + " Link: " + seriesPage + " subtype: " + subType);
     }
 

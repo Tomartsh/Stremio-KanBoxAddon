@@ -377,7 +377,7 @@ class KanArchiveScraper {
     }
 
     addVideoToMeta(key, episodeId, name, seasonNo, episodeNo, desc, thumb, episodeLink, released, streams){
-        this._kanArchiveJSONObj[key]["meta"]["videos"].push({
+        var video  = {
             id: episodeId,
             name: name,
             season: seasonNo,
@@ -385,9 +385,11 @@ class KanArchiveScraper {
             description: desc,
             thumbnail: thumb,
             episodeLink: episodeLink,
-            released: released,
             streams: streams
-        });
+        };
+        if (released != "") {video["released"] = released;}
+
+        this._kanArchiveJSONObj[key]["meta"]["videos"].push(video);
 
     }
 

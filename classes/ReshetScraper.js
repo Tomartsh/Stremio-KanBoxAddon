@@ -121,9 +121,10 @@ class ReshetScraper {
                             description: episodes[i]["secondaryTitle"],
                             thumbnail: episodes[i]["video"]["poster"],
                             episodeLink: URL_RESHET_BASE + episodes[i]["link"],
-                            released: released,
                             streams: streams
                         }
+                        if (released != "") {video["released"] = released;}
+                        
                         //noOfEpisodes--;
                         logger.debug("getEpisodes() => pushed episode  " + episodeId + " of season " + seasonId);
                         //writeLog("DEBUG","ReshetScraper-getEpisodes() => pushed episode  " + episodeId + " of season " + seasonId);
