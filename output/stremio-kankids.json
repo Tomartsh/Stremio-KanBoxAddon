@@ -2,14 +2,7 @@
     "il_kan_5000": {
         "id": "il_kan_5000",
         "name": "בלואי",
-        "poster": "https://www.kankids.org.il/media/ayvbpigh/poster_239_360_בלואי.jpg",
-        "description": "בלואי היא כלבת בקר אוסטרלית בלתי נדלית בת שש, שאוהבת לשחק ולהפוך את חיי היומיום של המשפחה להרפתקאות יוצאות מן הכלל, מפתחת את דמיונה ואת החוסן הנפשי, הגופני והרגשי שלה",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/",
-        "background": "https://www.kankids.org.il/media/ayvbpigh/poster_239_360_בלואי.jpg",
-        "genres": [
-            "Kan",
-            "כאן"
-        ],
         "type": "series",
         "subtype": "k",
         "meta": {
@@ -35,7 +28,6 @@
                     "description": "מכשיר השליטה במבוגרים מתקלקל כשבינגו מפסיקה לשחק במשחק הריגול של בלואי",
                     "thumbnail": "https://www.kankids.org.il/media/rjgkvubi/בלואי-פרק-13.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/830165/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_d694sfm9/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -53,7 +45,6 @@
                     "description": "בלואי ובינגו מחפשות איך לבדר את עצמן ותוך כדי בודקות את הסבלנות של אבא",
                     "thumbnail": "https://www.kankids.org.il/media/zdrbnqk0/בלואי-פרק-14.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/830169/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_9fh59bs2/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -71,7 +62,6 @@
                     "description": "כיף לשחק \"פרפרים\" בחצר, עד שבלואי בורחת עם ג'ודו ומשאירה את בינגו לבד",
                     "thumbnail": "https://www.kankids.org.il/media/sccbm144/בלואי-פרק-15.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/830175/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_im9zu1fi/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -89,7 +79,6 @@
                     "description": "אימא מלמדת את בינגו להשתמש בנביחה הבוגרת שלה כדי להציב גבולות במשחקים",
                     "thumbnail": "https://www.kankids.org.il/media/vwfjjmro/בלואי-פרק-16.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/832781/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_grz5zg7g/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -107,7 +96,6 @@
                     "description": "בלואי וחבריה משחקים בביה\"ס במגוון משחקים, כולם מלבד פרצל המסתורי",
                     "thumbnail": "https://www.kankids.org.il/media/fyxavmyq/בלואי-פרק-17.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/832784/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_nq40q5c9/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -125,7 +113,6 @@
                     "description": "האני תקועה בתור לד\"ר בינגו, בלואי פקידת הקבלה אומרת לה להתאזר בסבלנות",
                     "thumbnail": "https://www.kankids.org.il/media/mafcfzij/בלואי-פרק-18.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/832787/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_rpgdvubu/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -143,7 +130,6 @@
                     "description": "אימא ואבא יוצרים מכונת מזל בבית, אבל אבא לא מתכוון להקל על הזכייה",
                     "thumbnail": "https://www.kankids.org.il/media/jgdaasbv/בלואי-פרק-19.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/832789/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_80dvbnbj/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -161,7 +147,6 @@
                     "description": "בלואי ואינדי מבקרות בשוק. הן מגלות שהבחירה לרכישה המושלמת קשה למדי",
                     "thumbnail": "https://www.kankids.org.il/media/2gdb2jtp/בלואי-פרק-20.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/836784/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_rxe9blno/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -179,7 +164,6 @@
                     "description": "כל המשפחה משחקת במשחק בובות ידיים וחוקרת את הארץ מעבר להרים הכחולים",
                     "thumbnail": "https://www.kankids.org.il/media/5kvofvby/בלואי-פרק-21.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/836788/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_x4mcwzfy/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -197,7 +181,6 @@
                     "description": "בלואי ואבא מקניטים את אמא שהיא מגזימה עם האריזה לבילוי בבריכה",
                     "thumbnail": "https://www.kankids.org.il/media/zplhucua/בלואי-פרק-22.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/836791/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_tpr7d6jd/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -215,7 +198,6 @@
                     "description": "אין כמו משחק \"חנויות\" בשביל בלואי וחבריה, אם הם יצליחו להתחיל!",
                     "thumbnail": "https://www.kankids.org.il/media/zt4jaxy2/בלואי-פרק-23.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/836797/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_ynbnup9u/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -233,7 +215,6 @@
                     "description": "בלואי מתה להגיע למתקנים בפארק. סבלנותה עומדת במבחן כשאבא עוצר לשיחה",
                     "thumbnail": "https://www.kankids.org.il/media/ynunouyp/בלואי-פרק-24.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/836808/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_jy977rao/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -249,14 +230,7 @@
     "il_kan_5001": {
         "id": "il_kan_5001",
         "name": "צ'רלי ולולה",
-        "poster": "https://www.kankids.org.il/media/kk2jabh0/poster_239_360.jpg",
-        "description": "צ'רלי הוא אחיה הגדול של לולה המצחיקה שאוהבת להסתבך בצרות ולהיעזר באחיה",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/",
-        "background": "https://www.kankids.org.il/media/kk2jabh0/poster_239_360.jpg",
-        "genres": [
-            "Kan",
-            "כאן"
-        ],
         "type": "series",
         "subtype": "k",
         "meta": {
@@ -282,7 +256,6 @@
                     "description": "לולה לא אוהבת עגבניות בעצם היא לא אוהבת ירקות כלל",
                     "thumbnail": "https://www.kankids.org.il/media/qbln2odn/פרק-1.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777856/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_iwt44ido/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -300,7 +273,6 @@
                     "description": "לולה הקטנה מתעקשת לעשות הכל בעצמה.",
                     "thumbnail": "https://www.kankids.org.il/media/4d5lmggy/פרק-2.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777857/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_zaxzaw3e/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -318,7 +290,6 @@
                     "description": "לולה לא רוצה לשכב לישון, וממציאה כל מיני משחקים.",
                     "thumbnail": "https://www.kankids.org.il/media/pj1npo0y/פרק-3.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777859/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_lprwl1u4/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -336,7 +307,6 @@
                     "description": "לולה מבקרת בספרייה אבל רוצה לקחת בכל פעם אותו ספר.",
                     "thumbnail": "https://www.kankids.org.il/media/3cocxrnz/פרק-4.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777861/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_wh7py4h8/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -354,7 +324,6 @@
                     "description": "לולה רוצה מאוד לקבל את תפקיד השמש בהצגה של בי\"ס.",
                     "thumbnail": "https://www.kankids.org.il/media/ovip24kp/פרק-5.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777864/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_l8smrc5z/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -372,7 +341,6 @@
                     "description": "לולה ולוטה רוצות לשמור על הכלב של מארב כשהם מטיילים בפארק.",
                     "thumbnail": "https://www.kankids.org.il/media/1xrj5cvb/פרק-6.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777866/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_jnhzur2q/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -390,7 +358,6 @@
                     "description": "לולה רוצה לנצח בכול. גם במחיר רמאויות והמצאות של חוקים חדשים.",
                     "thumbnail": "https://www.kankids.org.il/media/nxjewc2o/פרק-7.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777867/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_0inzavq1/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -408,7 +375,6 @@
                     "description": "לולה וצ'רלי הולכים לספר כדי להסתפר.",
                     "thumbnail": "https://www.kankids.org.il/media/eeobjq21/פרק-8.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777908/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_druqeeoo/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -426,7 +392,6 @@
                     "description": "לולה הקטנה הצטננה. היא רוצה שצ'רלי ישעשע אותה בכל זמן מחלתה,",
                     "thumbnail": "https://www.kankids.org.il/media/o2bdci2o/פרק-9.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777909/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "",
@@ -444,7 +409,6 @@
                     "description": "בבוקר, בהכנות ליציאה לבה\"ס, לולה עושה המון דברים,",
                     "thumbnail": "https://www.kankids.org.il/media/rxybu2ix/פרק-10.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777911/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_iouhd6ug/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -462,7 +426,6 @@
                     "description": "לולה רוצה להבהיל את צ'רלי, ולא מצליחה.",
                     "thumbnail": "https://www.kankids.org.il/media/5drlokcf/פרק-11.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777912/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_5o7lapu2/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -480,7 +443,6 @@
                     "description": "צ'רלי, לולה, מארב ולוטה יוצאים יחד לפיקניק.",
                     "thumbnail": "https://www.kankids.org.il/media/me3pzrkq/פרק-12.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777913/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_ef5h3yi1/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -498,7 +460,6 @@
                     "description": "צ'רלי בונה חללית מקופסאות קרטון, ומקבל עליה פרס ראשון בכיתה.",
                     "thumbnail": "https://www.kankids.org.il/media/ltjnfbuj/פרק-13.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778326/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_5t8a7goo/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -516,7 +477,6 @@
                     "description": "אבא ואמא מכינים לצ'רלי הפתעה ליום הולדתו .",
                     "thumbnail": "https://www.kankids.org.il/media/1uhnyzyr/פרק-14.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778327/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_0dwi8y8v/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -534,7 +494,6 @@
                     "description": "צ'רלי ולולה מתכוננים לנסוע לסבא וסבתא ולולה עושה הכול כדי לא לצאת.",
                     "thumbnail": "https://www.kankids.org.il/media/1nqn1fxg/פרק-15.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778328/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_jt621zo3/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -552,7 +511,6 @@
                     "description": "ללולה יש שן מתנדנדת.",
                     "thumbnail": "https://www.kankids.org.il/media/hm0lk3iu/פרק-16.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778330/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_jkv0j35m/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -570,7 +528,6 @@
                     "description": "צלם מגיע לבית הספר ואמא מבקשת מלולה להישאר נקיה ומסודרת עד לצילום.",
                     "thumbnail": "https://www.kankids.org.il/media/lqpinpw4/פרק-17.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778332/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_dl5fwxkg/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -588,7 +545,6 @@
                     "description": "לולה פוחדת מעכבישים.",
                     "thumbnail": "https://www.kankids.org.il/media/e4ph40ov/פרק-18.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778333/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_oq0catih/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -606,7 +562,6 @@
                     "description": "לולה מחכה בקוצר רוח לשלג.",
                     "thumbnail": "https://www.kankids.org.il/media/idnasbdw/פרק-19.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778334/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_zcopjmem/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -624,7 +579,6 @@
                     "description": "לולה קונה ללוטה ליום הולדתה תיק של רופא.",
                     "thumbnail": "https://www.kankids.org.il/media/4i1nssx5/פרק-20.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778335/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_m6zl7p6r/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -642,7 +596,6 @@
                     "description": "לולה הולכת לישון אצל לוטה, והיא אורזת המון דברים.",
                     "thumbnail": "https://www.kankids.org.il/media/3wins2nj/פרק-21.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778337/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_x8zsas47/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -660,31 +613,12 @@
                     "description": "צ'רלי ומארב מכינים קטע מוסיקלי למופע של בית הספר.",
                     "thumbnail": "https://www.kankids.org.il/media/15dlxqra/פרק-22.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778338/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_2x5551a4/format/applehttp/protocol/https/desiredFileName.m3u8",
                             "type": "series",
                             "name": "פרק 22-  גם אני רוצה לנגן",
                             "description": "צ'רלי ומארב מכינים קטע מוסיקלי למופע של בית הספר.לולה מפריעה להם כי היא גם רוצה לנגן, וצ'רלי מלמד אותה להכין כלי נגינה מחפצים בבית."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_5001:1:23",
-                    "name": "פרק 23- אני יותר מדי עסוקה",
-                    "season": 1,
-                    "episode": 23,
-                    "description": "לולה מדמיינת שהיא עובדת,.",
-                    "thumbnail": "https://www.kankids.org.il/media/i3yhpdsi/פרק-23.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778340/",
-                    "released": "",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_3o04jm59/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 23- אני יותר מדי עסוקה",
-                            "description": "לולה מדמיינת שהיא עובדת, פעם כמנהלת, פעם כמלצרית, ופעם כפקידת קבלה של רופא שיניים. צ'רלי רוצה לשחק עם לולה במשחק קלפים חדש, אבל לולה לא מתפנה אליו בגלל עיסוקיה הרבים."
                         }
                     ]
                 }
@@ -694,14 +628,7 @@
     "il_kan_727908": {
         "id": "il_kan_727908",
         "name": "הנסיך הקטן וחברים",
-        "poster": "https://www.kankids.org.il/media/2z2jftxd/poster_239_360.jpg",
-        "description": "סדרה בהשראת רב המכר של אנטואן דה סנט-אכזופרי. הנסיך הקטן וחבריו יוצאים למסעות בין כוכבים ולומדים יחד לקחים חשובים לחיים. הצטרפו אל שרלוט ואלישע לביקוריהם את הנסיך הקטן, השועל והשושנה, ולהרפתקאותיהם בחלל.",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/p-727908/",
-        "background": "https://www.kankids.org.il/media/2z2jftxd/poster_239_360.jpg",
-        "genres": [
-            "Kan",
-            "כאן"
-        ],
         "type": "series",
         "subtype": "k",
         "meta": {
@@ -727,7 +654,6 @@
                     "description": "אלישע חושש לבקש קינוח בקפיטריה. הנסיך הקטן מלמד אותו איך להשתמש בקולו",
                     "thumbnail": "https://www.kankids.org.il/media/hotlugvv/הנסיך-פרק-1.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-727908/727912/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_oyaclj51/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -745,7 +671,6 @@
                     "description": "הנסיך הקטן והילדים פוגשים בכוכבת לכת בצורת קובייה, שרוצה להיות עגולה",
                     "thumbnail": "https://www.kankids.org.il/media/cm4kh5xj/הנסיך-פרק-2.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-727908/727916/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_o5mrftww/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -763,7 +688,6 @@
                     "description": "אלישע לא אוהב לרקוד מול כולם. הנסיך הקטן עוזר לו להביע את עצמו.",
                     "thumbnail": "https://www.kankids.org.il/media/ljoeege4/הנסיך-פרק-3.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-727908/727920/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_p5n3t53s/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -781,7 +705,6 @@
                     "description": "אלישע מבקש ללמוד לשרוק, ובעזרת הנסיך הקטן המשאלה שלו מתגשמת.",
                     "thumbnail": "https://www.kankids.org.il/media/tz1ni4ce/הנסיך-פרק-4.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-727908/727926/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_3vnewkv3/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -799,7 +722,6 @@
                     "description": "שרלוט פוחדת מלטאה שמצאה, מתגברת על הפחד בעזרת הנסיך הקטן והאוקטובומים",
                     "thumbnail": "https://www.kankids.org.il/media/p0gl0efk/הנסיך-פרק-5.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-727908/727973/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_sg89vica/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -817,7 +739,6 @@
                     "description": "הנסיך הקטן ואיש העסקים עוזרים לשרלוט לותר על המסך לטובת בילוי עם חבריה",
                     "thumbnail": "https://www.kankids.org.il/media/3jcpqo02/הנסיך-פרק-6.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-727908/739602/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_mlm25mcf/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -835,7 +756,6 @@
                     "description": "הנסיך הקטן והנחש עוזרים לאלישע להבין שכדאי לחלוק עם חברים",
                     "thumbnail": "https://www.kankids.org.il/media/1afp3x1s/הנסיך-פרק-7.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-727908/739605/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_2p06mcpk/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -853,7 +773,6 @@
                     "description": "שרלוט עצובה כי עשתה טעות. בעזרת הנסיך הקטן לומדת להתגבר על טעויות",
                     "thumbnail": "https://www.kankids.org.il/media/g2infnri/הנסיך-פרק-8.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-727908/739609/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_1kkjryzh/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -871,7 +790,6 @@
                     "description": "הנסיך הקטן והמוזיקאי עוזרים לאלישע להתגבר על הפחד מציפורים",
                     "thumbnail": "https://www.kankids.org.il/media/j1cog0qr/הנסיך-פרק-9.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-727908/739614/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_fsf1v1sj/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -889,7 +807,6 @@
                     "description": "אלישע לומד לסמוך על עצמו ולא רק על המזל שלו",
                     "thumbnail": "https://www.kankids.org.il/media/kckpsxu0/הנסיך-פרק-10.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-727908/739617/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_47f3o1gc/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -905,14 +822,7 @@
     "il_kan_5002": {
         "id": "il_kan_5002",
         "name": "פרפר נחמד",
-        "poster": "https://www.kankids.org.il/media/f1mgjvik/239x360_qb.jpg",
-        "description": "אוזה,שבי,בץ ונולי חוזרים בסדרת בובות חכמה ומוסיקלית לילדי הגן",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/",
-        "background": "https://www.kankids.org.il/media/f1mgjvik/239x360_qb.jpg",
-        "genres": [
-            "Kan",
-            "כאן"
-        ],
         "type": "series",
         "subtype": "k",
         "meta": {
@@ -938,7 +848,6 @@
                     "description": "הצריח של המבצר נשבר, ובלי צריח זה לא כמו תמיד ואוזה לא מוכנה לשחק",
                     "thumbnail": "https://www.kankids.org.il/media/jg4fjavr/2023-1-22-imgid-91852_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158012/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_kz8g9d5l/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -956,7 +865,6 @@
                     "description": "אורח שמחפש מטמון לפי מפה עתיקה, בטוח שהאוצר שם. מה הוא ימצא?",
                     "thumbnail": "https://www.kankids.org.il/media/v0gdtuti/2023-1-23-imgid-91944_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158015/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_7vsh3ibh/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -974,7 +882,6 @@
                     "description": "שבי מקבל את תפקיד החנווני במשחק מכולת. הוא לא יודע מה זה ומתבייש לשאול",
                     "thumbnail": "https://www.kankids.org.il/media/gradania/2023-1-23-imgid-91948_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158018/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_eztapr8x/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -992,7 +899,6 @@
                     "description": "מפגש עם דוכן גלידה מעורר אצל כולם געגוע למשהו. רק בץ נשאר בלי געגוע",
                     "thumbnail": "https://www.kankids.org.il/media/anldirlp/2023-1-23-imgid-91951_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158021/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_vbckymje/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1010,7 +916,6 @@
                     "description": "עץ התות עליו אסתר שיחקה בילדותה בסכנה, והחברים מתגייסים להצילו",
                     "thumbnail": "https://www.kankids.org.il/media/3replw0z/2023-1-23-imgid-91953_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158024/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_ytlcebnm/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1028,7 +933,6 @@
                     "description": "החברים מתרגשים לקראת טיול. שבי מתבייש להגיד שהוא לא אוהב לינה בחוץ",
                     "thumbnail": "https://www.kankids.org.il/media/jzedmqcy/2023-1-23-imgid-91975_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158027/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_ntx59fbg/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1046,7 +950,6 @@
                     "description": "למשי יש חברה חדשה, שבי ונולי מקנאים ובטוחים שהיא גונבת להם את משי",
                     "thumbnail": "https://www.kankids.org.il/media/t3rbtduz/2023-1-25-imgid-92218_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158030/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_uouw2tb1/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1064,7 +967,6 @@
                     "description": "נולי ואורי מאוכזבים כי מה שרצו, לא קרה. זה לא פשוט להתגבר על אכזבה",
                     "thumbnail": "https://www.kankids.org.il/media/uc4duote/2023-2-2-imgid-92897_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158033/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_jz33rz28/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1082,7 +984,6 @@
                     "description": "בץ לא מאמין שילמד לשחות, ומחביא את ציוד הבריכה כדי שאף אחד לא ילך",
                     "thumbnail": "https://www.kankids.org.il/media/4dbn0gtk/2023-2-6-imgid-93164_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158036/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_k8564nea/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1100,7 +1001,6 @@
                     "description": "בשנה שעברה שבי החליט שלעולם לא יחגוג יותר את פורים. האם יעמוד בהחלטתו?",
                     "thumbnail": "https://www.kankids.org.il/media/xqblzwen/2023-2-6-imgid-93166_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158039/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_z2xmvba7/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1118,7 +1018,6 @@
                     "description": "למשי חסר בית בשיר. שבי ואוזה שומעים שאין לה בית ומבקשים מאורי לבנות לה",
                     "thumbnail": "https://www.kankids.org.il/media/efrfau1i/2023-4-3-imgid-97439_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158042/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_ekszsert/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1136,7 +1035,6 @@
                     "description": "שבי ונולי רוצים להעיר למחלק העיתונים שמגיע מוקדם. האם יצליחו לקום?",
                     "thumbnail": "https://www.kankids.org.il/media/bs2cnevv/2023-4-13-imgid-98030_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158048/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_oo7nwyzw/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1154,7 +1052,6 @@
                     "description": "החברים הכינו מתנה ליום ההולדת של המדינה- שיר חדש שישירו עם ירדנה ארזי",
                     "thumbnail": "https://www.kankids.org.il/media/gvpeby1u/2023-3-27-imgid-96925_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158045/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_yf5j3ket/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1172,7 +1069,6 @@
                     "description": "אוזה מבינה שחיקוי זו דרך ללמוד, וגם שכדאי לבדוק מה לומדים מכל חיקוי",
                     "thumbnail": "https://www.kankids.org.il/media/dmuhkjuf/2023-4-27-imgid-99092_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/327697/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_sx7e5lg8/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1190,7 +1086,6 @@
                     "description": "משי ובן מארגנים הפתעות לאסתר. שבי ונולי לא בטוחים שאלו הפתעות טובות",
                     "thumbnail": "https://www.kankids.org.il/media/5wvn5de2/2023-4-27-imgid-99095_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/327700/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_4xtr42f6/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1208,7 +1103,6 @@
                     "description": "מה עושים כשכועסים? אורי חושב שסופרים ואסתר חושבת שנושמים",
                     "thumbnail": "https://www.kankids.org.il/media/bzei42f4/2023-4-27-imgid-99099_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/327703/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_uykrmuye/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1226,7 +1120,6 @@
                     "description": "החברים עורכים תחרות כדי לגלות מה היא הצורה הכי טובה. איזו צורה תנצח?",
                     "thumbnail": "https://www.kankids.org.il/media/erbfm0kg/2023-5-4-imgid-99671_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/360917/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_9jbarjgv/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1244,7 +1137,6 @@
                     "description": "אוזה מארגנת לבד ובעצמה תאטרון צלליות ומרגישה קצת בודדה בדרך",
                     "thumbnail": "https://www.kankids.org.il/media/flxhctxc/2023-5-4-imgid-99675_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/360922/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_3173kjv2/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1262,7 +1154,6 @@
                     "description": "החברים הופכים שדה בור לגינת ירק ורק את ציפי השכנה זה לא משמח",
                     "thumbnail": "https://www.kankids.org.il/media/3y4ggq0k/2023-5-4-imgid-99679_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/360927/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_q54uehsn/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1280,7 +1171,6 @@
                     "description": "אוזה ונולי מתבלבלות וחושבות שנעם, אחותה הקטנה של משי, היא קטנה בגודל",
                     "thumbnail": "https://www.kankids.org.il/media/gqgd2svl/untitled_11551.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/489614/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_89ormyqm/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1296,14 +1186,7 @@
     "il_kan_390426": {
         "id": "il_kan_390426",
         "name": "הדרדסים",
-        "poster": "https://www.kankids.org.il/media/cvtnelsr/239x360_qb.jpg",
-        "description": "סדרת האנימציה האהובה חוזרת בעונה כחולה",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/p-390426/",
-        "background": "https://www.kankids.org.il/media/cvtnelsr/239x360_qb.jpg",
-        "genres": [
-            "Kan",
-            "כאן"
-        ],
         "type": "series",
         "subtype": "k",
         "meta": {
@@ -1329,7 +1212,6 @@
                     "description": "דרדס טבע מנסה להפוך כמה דרדסים שמתקשים במשימה ביער, לדרדסי יער אמיתיים",
                     "thumbnail": "https://www.kankids.org.il/media/vxepnjgi/הדרדסים-2-פרק-11.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-390426/עונה-2/768264/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_yfdgfp7e/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1347,7 +1229,6 @@
                     "description": "גרגמל מתחפש לחילזון כדי להסתנן לכפר הדרדסים ולא מצליח לחזור לדמותו.",
                     "thumbnail": "https://www.kankids.org.il/media/4jcfvh3x/הדרדסים-2-פרק-12.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-390426/עונה-2/768267/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_iw14k9n8/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1365,7 +1246,6 @@
                     "description": "לבלובית רבה עם חברותיה והולכת לגור עם דרדס פרא ומגלה שזה לא פשוט",
                     "thumbnail": "https://www.kankids.org.il/media/v42of0s1/הדרדסים-2-פרק-13.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-390426/עונה-2/768270/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_iv7mhhjd/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1383,7 +1263,6 @@
                     "description": "בניסוי שמשתבש בר מח מאבד את החוכמה שלו וחובר לטפשוני",
                     "thumbnail": "https://www.kankids.org.il/media/bulopcco/הדרדסים-2-פרק-14.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-390426/עונה-2/768275/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_q2e0ms0x/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1401,7 +1280,6 @@
                     "description": "דרדס טבח וזללני מתמודדים בדרך לפסטיבל האביב עם קרסול נקוע, וסופלה ענק",
                     "thumbnail": "https://www.kankids.org.il/media/5ljaaj1d/הדרדסים-2-פרק-15.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-390426/עונה-2/768277/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_56g5vckr/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1417,11 +1295,7 @@
     "il_kan_762163": {
         "id": "il_kan_762163",
         "name": "אפצ'י וסיפור",
-        "poster": "https://www.kankids.org.il/media/pibb2bur/poster-image_small_239x360_פוסטר-קטן.jpg",
-        "description": "צ'ילי פטרוצ'ילי היא מכשפה קטנה ושובבה אשר אוהבת לשמוע סיפורים, בכל פעם שהיא מתעטשת היא מביאה את לירון והוא מספר לה סיפור והפעם תני הלויתן הקטן. תני הלויתן הקטן נולד לאמא לויתנה ולאבא לויתן בים הגדול. בפעם הראשונה בחייו מוצא תני את עצמו לבדו בלי אמא בשדה האצות הגדול. הוא פוגש חברים חדשים ובסופו של יום זוכה להזמנה מיוחדת. תני הלויותן הקטן הוא סיפור על ההתמודדות עם הרצון להיות בוגר ועצמאי והקושי להפרד מאמא",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/p-762163/",
-        "background": "https://www.kankids.org.il/media/pibb2bur/poster-image_small_239x360_פוסטר-קטן.jpg",
-        "genres": "Kan",
         "type": "series",
         "subtype": "k",
         "meta": {
@@ -1444,7 +1318,6 @@
                     "description": "תני הלויתן מוצא את עצמו לבדו בשדה אצות. הוא זוכה בחברים ובהזמנה מיוחדת",
                     "thumbnail": "https://www.kankids.org.il/media/2u3ptzbo/s0342265_1.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-762163/762173/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_mm87acwr/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1462,7 +1335,6 @@
                     "description": "צ'ילי היא מכשפה שאוהבת סיפורים. כל פעם שהיא מתעטשת לירון מספר לה סיפור",
                     "thumbnail": "https://www.kankids.org.il/media/powki5s4/s0342266_1.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-762163/762180/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_6piiap6o/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1480,7 +1352,6 @@
                     "description": "לירון מספר צ'ילי על הברון מינכהאוזן שהיה שקרן, בדאי וגוזמאי",
                     "thumbnail": "https://www.kankids.org.il/media/llujy3uq/s0342267_1.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-762163/762182/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_luaz89ob/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1498,7 +1369,6 @@
                     "description": "שצ'ילי מתעטשת ולירון מספר סיפור על משפחת כיס, משפחת קנגורים חמה ואוהבת",
                     "thumbnail": "https://www.kankids.org.il/media/cdwjpcq5/s0342268_1.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-762163/762188/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_hopykatw/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1516,7 +1386,6 @@
                     "description": "לירון מספר לצ'ילי אגדה  על המלך ששכח איך לחייך",
                     "thumbnail": "https://www.kankids.org.il/media/opneimdf/s0342270_1.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-762163/762190/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_5knnpvv8/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1534,7 +1403,6 @@
                     "description": "לירון מספר לצ'ילי מעשה באגוזים שבזכותם ניצלים סנאי, עצי היער ולב שנשבר",
                     "thumbnail": "https://www.kankids.org.il/media/advn5uyz/s0342271_1.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-762163/762203/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_42duw7wi/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1552,7 +1420,6 @@
                     "description": "לירון מספר לצ'ילי על שני פילים קטנים שהם חברים מאד טובים",
                     "thumbnail": "https://www.kankids.org.il/media/42hmfxdk/s0342272_1.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-762163/762204/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_8s3m64ks/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1570,7 +1437,6 @@
                     "description": "לירון מספר לצ'ילי סיפור עם אפריקאי על איש עיוור שחי ביער עם אחותו",
                     "thumbnail": "https://www.kankids.org.il/media/f1qg1jlc/s0342273_1.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-762163/762205/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_j19nbeic/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1588,7 +1454,6 @@
                     "description": "לירון מספר לצ'ילי פנדה הקטן שמתקשה להירדם ומבקש מאבא עזרה",
                     "thumbnail": "https://www.kankids.org.il/media/sbsfw4r2/s0342274_1.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-762163/762207/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_91jk2c9o/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1606,7 +1471,6 @@
                     "description": "לירון מספר לצ'ילי על קפוצ'ינה שיכולה לדבר בשפת החיות",
                     "thumbnail": "https://www.kankids.org.il/media/v3mc3nbh/s0342275_1.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-762163/762208/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_k271a8cb/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1624,7 +1488,6 @@
                     "description": "דן מתארח באולפן ובן מספר להם על אבנר החפוש שמתעורר ומגלה שנעליו נעלמו",
                     "thumbnail": "https://www.kankids.org.il/media/hfte4du4/s0342276_1.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-762163/762209/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_azermjhs/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1642,7 +1505,6 @@
                     "description": "צ'ילי היא מכשפה קטנה שאוהבת לשמוע סיפורים והפעם דן מתארח באולפן",
                     "thumbnail": "https://www.kankids.org.il/media/yasojua3/s0342277_1.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-762163/762463/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_4cwrki7n/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1660,7 +1522,6 @@
                     "description": "\"אנה מחפשת גבולות\" סיפור על אנה שמחליטה לצאת למסע כדי להבין מהם גבולות",
                     "thumbnail": "https://www.kankids.org.il/media/b3uejtv5/s0342278.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-762163/762637/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_zyl51t1a/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1678,7 +1539,6 @@
                     "description": "סיפור על דברים שאוהבים לעשות ועל כך שלכל דבר יש זמן",
                     "thumbnail": "https://www.kankids.org.il/media/iu5prjvk/s0342279.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-762163/762638/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_ha696b12/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1696,7 +1556,6 @@
                     "description": "הפעם מעשה בגיל הפיל שרצה להגיע להרי הגליל. לאן יגיע גיל הפיל?",
                     "thumbnail": "https://www.kankids.org.il/media/2ixn31la/s0342280.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-762163/762639/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_n17dn1ha/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1714,7 +1573,6 @@
                     "description": "והפעם עורב קטן ודי נחמד, שכל דבר שמוצא חן בעיניו מוכרח להיות שלו",
                     "thumbnail": "https://www.kankids.org.il/media/afwf4ksd/s0342281.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-762163/762654/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_fh2gj65n/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1732,7 +1590,6 @@
                     "description": "לצ'ילי יוצאים לה מילים בצ'די. אורי לא יכול לעזור לה עד שדן מגיע",
                     "thumbnail": "https://www.kankids.org.il/media/outh0y1q/s0382993.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-762163/762919/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_m20434ux/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1750,7 +1607,6 @@
                     "description": "הפעם הסיפור \"בינה נוסעת מבנימינה\"",
                     "thumbnail": "https://www.kankids.org.il/media/itga2mbg/s0342283.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-762163/762661/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_8d5xqad0/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1766,14 +1622,7 @@
     "il_kan_11195": {
         "id": "il_kan_11195",
         "name": "קפה עמליה",
-        "poster": "https://www.kankids.org.il/media/0zmib0e0/https-cdnbackstage-apicom-key-backstage-cms-production-uploads-1200x1800-1653bcb0-f2c7-11ec-87e7-b1d975722ca7-assets-images-c6c3666b-4d18-4cb8-8169-3c5a2c11a81b.jpg",
-        "description": "משפחת לוצאטו, משפחה של בובות, הם הבעלים של \"קפה עמליה\". מבוסס על המופע המצליח \"שירים לעמליה\". בהשתתפות: אלון נוימן, עלמה זק ואיילת רובינסון",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11195/",
-        "background": "https://www.kankids.org.il/media/0zmib0e0/https-cdnbackstage-apicom-key-backstage-cms-production-uploads-1200x1800-1653bcb0-f2c7-11ec-87e7-b1d975722ca7-assets-images-c6c3666b-4d18-4cb8-8169-3c5a2c11a81b.jpg",
-        "genres": [
-            "Kan",
-            "כאן"
-        ],
         "type": "series",
         "subtype": "k",
         "meta": {
@@ -1799,7 +1648,6 @@
                     "description": "סאלי, שאוהבת את האוכל שלה מדויק, ומתעצבנת כשרפי מזמין בדיוק כמוה",
                     "thumbnail": "https://www.kankids.org.il/media/4aghch4z/2021-3-21-imgid-49456_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11195/s2/128750/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_fwa14zh1/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1817,7 +1665,6 @@
                     "description": "אדי השוטר והשותפה משתתפים במבצע שפר את השוטר, סבא ויוני מחפשים גנבת.",
                     "thumbnail": "https://www.kankids.org.il/media/3w2d3kcs/2021-3-22-imgid-49512_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11195/s2/128753/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_1u70fmpu/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1835,7 +1682,6 @@
                     "description": "בן ונולה, מלהקת \"השימפנזים\" שיוני מעריץ, מגיעים לקפה עמליה",
                     "thumbnail": "https://www.kankids.org.il/media/qpqozlqm/2021-3-22-imgid-49534_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11195/s2/128756/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_d19eiuc5/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1853,7 +1699,6 @@
                     "description": "גברת האוזנר העשירה ורוברט, העוזר האישי שלה, מגיעים לקפה עמליה",
                     "thumbnail": "https://www.kankids.org.il/media/ex5dznbz/2021-3-24-imgid-49694_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11195/s2/128759/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_tmwskqi8/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1871,7 +1716,6 @@
                     "description": "אפרים, מילדי בית העץ, מביא קציצות ירבוז לקפה עמליה",
                     "thumbnail": "https://www.kankids.org.il/media/eeapsefn/2021-3-25-imgid-49765_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11195/s2/128762/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_yk1cbf36/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1889,7 +1733,6 @@
                     "description": "עמליה מפענחת את תעלומת הטירמיסו",
                     "thumbnail": "https://www.kankids.org.il/media/txcfxclv/2021-3-25-imgid-49774_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11195/s2/128765/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_ayu78iez/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1907,7 +1750,6 @@
                     "description": "מה הקשר בין געגוע לעוגת בננות, ובין טלפון לדוכן גלידה?",
                     "thumbnail": "https://www.kankids.org.il/media/rrhpggzu/2021-3-29-imgid-49922_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11195/s2/128768/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_l4q04x0s/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1925,7 +1767,6 @@
                     "description": "יוני ועמליה ברוגז, וסבא פוגש אויבת מהעבר",
                     "thumbnail": "https://www.kankids.org.il/media/weabjobz/2021-3-29-imgid-49924_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11195/s2/128771/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_rdwa5nsl/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1943,7 +1784,6 @@
                     "description": "המורה חובבת הבריאות של עמליה מזמינה עוגת קרם ועמליה מרגישה מבולבלת.",
                     "thumbnail": "https://www.kankids.org.il/media/g4dfdojj/2021-3-29-imgid-49928_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11195/s2/128774/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_xtfe3w6x/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1961,7 +1801,6 @@
                     "description": "אריק מאמן את יוני בהורדות ידיים. לליאת קשה להחליט איזו עוגה להזמין",
                     "thumbnail": "https://www.kankids.org.il/media/a0ooctdf/2021-3-29-imgid-49931_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11195/s2/128777/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_6j8wuggq/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1979,7 +1818,6 @@
                     "description": "יעל הספרנית מגיעה לקפה עמליה לפגישה עיוורת",
                     "thumbnail": "https://www.kankids.org.il/media/tmeoflsh/2021-4-5-imgid-50356_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11195/s2/128780/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_k2smn6tg/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1997,7 +1835,6 @@
                     "description": "עמליה עושה את עצמה חולה כדי להצטרף להפלגה עם גומז ושמשון, חברים של סבא",
                     "thumbnail": "https://www.kankids.org.il/media/qr1npzeq/2021-4-7-imgid-50480_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11195/s2/128783/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_rt4bc3rt/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2015,7 +1852,6 @@
                     "description": "עמליה רוצה אוגר ומקבלת טרנטולה, ויוני מחליף דבר בדבר כדי להשיג דבר אחר",
                     "thumbnail": "https://www.kankids.org.il/media/ql3jbaq3/2021-4-7-imgid-50483_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11195/s2/128786/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_se6u51c6/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2033,7 +1869,6 @@
                     "description": "יוני מאבד גרבי מזל, עמליה פוגשת שחקנית, וסבא ואלברטו רואים את המשחק",
                     "thumbnail": "https://www.kankids.org.il/media/4qkpzhyf/2021-4-7-imgid-50486_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11195/s2/128789/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_w1j5tug5/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2051,7 +1886,6 @@
                     "description": "איציק המציל מנסה להוכיח לעצמו שהוא יכול גם בלי עוגת גבינה",
                     "thumbnail": "https://www.kankids.org.il/media/fshjxdqe/2021-4-12-imgid-50800_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11195/s2/128792/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_7pibqoda/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2069,7 +1903,6 @@
                     "description": "גולן הדייג כותב מכתב אהבה לוורדה הדוורית, ויוני שואל מה זו אהבה",
                     "thumbnail": "https://www.kankids.org.il/media/wd4fburf/2021-4-12-imgid-50804_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11195/s2/128795/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_lz12i192/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2087,31 +1920,12 @@
                     "description": "עמליה מבשלת לבד בפעם הראשונה. האם זה יוצא טעים?",
                     "thumbnail": "https://www.kankids.org.il/media/5zsfzqok/2021-4-12-imgid-50819_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11195/s2/128798/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_3j2ooa01/format/applehttp/protocol/https/desiredFileName.m3u8",
                             "type": "series",
                             "name": "פרק 17",
                             "description": "עמליה רוצה לבשל לבד בלי עזרה, היא מכינה פסטה ברוטב עגבניות וזה יוצא ככה ככה. סבא יוני ושוקי הירקן עושים כאילו זה טעים להם כדי לא להעליב את עמליה. מה יהיה כשקליינטה רוצה להזמין את הפסטה של עמליה?"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_11195:2:18",
-                    "name": "שמות | פרק 18",
-                    "season": 2,
-                    "episode": 18,
-                    "description": "המורה הראשון של יוני לגיטרה מגיע לביקור ויוני לא זוכר איך קוראים לו",
-                    "thumbnail": "https://www.kankids.org.il/media/z0bgxepx/2021-4-12-imgid-50820_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11195/s2/128801/",
-                    "released": "",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_0nk6ohkf/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 18",
-                            "description": "המורה הראשון של יוני לגיטרה מגיע לביקור מפתיע, הבעיה היא שיוני לא זוכר איך קוראים לו ולא נעים לו לשאול. למלי, שמחפשת שם לבן שעומד להיוולד לה, לא נעים להגיד שהפשטידה לא טעימה לה"
                         }
                     ]
                 }
@@ -2121,14 +1935,7 @@
     "il_kan_11101": {
         "id": "il_kan_11101",
         "name": "עיר המספרים",
-        "poster": "https://www.kankids.org.il/media/t5vdxp4e/https-kanstaticazureedgenet-download-pictures-2021-9-29-imgid-37017_k.jpeg",
-        "description": "סדרת הרפתקאות מתמטית על עיר שכל תושביה הם מספרים ומכל הרפתקה מתחברים",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11101/",
-        "background": "https://www.kankids.org.il/media/t5vdxp4e/https-kanstaticazureedgenet-download-pictures-2021-9-29-imgid-37017_k.jpeg",
-        "genres": [
-            "Kan",
-            "כאן"
-        ],
         "type": "series",
         "subtype": "k",
         "meta": {
@@ -2154,7 +1961,6 @@
                     "description": "החברים מגלים מכונת חילוק מסתורית, ומכניסים אלה ברגע של כעס צעצוע שלם",
                     "thumbnail": "https://www.kankids.org.il/media/x5qlro4g/2020-12-27-imgid-44320_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11101/s2/118854/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_4i9vwtrp/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2172,7 +1978,6 @@
                     "description": "ביום החתונה של תשע ועשר הכל משתבש כששי הכלב של עשר מקנא ובורח עם הטבעת",
                     "thumbnail": "https://www.kankids.org.il/media/cy1php5w/2020-12-27-imgid-44324_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11101/s2/118881/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_goqr2ojh/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2190,7 +1995,6 @@
                     "description": "מכירה פומבית בעיר המספרים. מי ינצח ויגשים את חלומו חמחמש או ארבע'לה?",
                     "thumbnail": "https://www.kankids.org.il/media/gxjcbgn1/2020-12-27-imgid-44325_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11101/s2/118860/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_4kcdyqpk/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2208,7 +2012,6 @@
                     "description": "שלושי חוששת שיצחקו עליה ולכן לא מוכנה להודות שהיא צריכה משקפיים",
                     "thumbnail": "https://www.kankids.org.il/media/3uylajov/2020-12-27-imgid-44326_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11101/s2/118863/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_g6q97qo6/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2226,7 +2029,6 @@
                     "description": "הפסקת חשמל מסתורית מפשטת ברחבי העיר. האם זה קשור למר מינוס?",
                     "thumbnail": "https://www.kankids.org.il/media/pjvjiach/2021-1-4-imgid-44759_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11101/s2/118866/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_txwx6q41/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2244,7 +2046,6 @@
                     "description": "שלושי לוקחת את יום המחזור השנתי קצת יותר מדי ברצינות",
                     "thumbnail": "https://www.kankids.org.il/media/vz0hjzcn/2021-1-4-imgid-44767_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11101/s2/118869/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_33hqfp2a/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2262,7 +2063,6 @@
                     "description": "ארבע'לה זוכה בתואר אלופת המתמטיקה, ומפחדת שיגלו שהיא לא כזאת חכמה",
                     "thumbnail": "https://www.kankids.org.il/media/rvkjx5wx/2021-1-4-imgid-44783_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11101/s2/118872/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_01vyrpi5/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2280,7 +2080,6 @@
                     "description": "לנומרו הדג נגמרו כל המים בבריכה. החברים עושים הכל כדי להציל אותו",
                     "thumbnail": "https://www.kankids.org.il/media/prtgvrdd/2021-1-4-imgid-44785_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11101/s2/118875/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_rot6tgas/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2298,7 +2097,6 @@
                     "description": "שלושי נוגעת ללא רשות בשרביט של אינסוף הקוסם, והחבורה נשאבת לתוך המראה",
                     "thumbnail": "https://www.kankids.org.il/media/4kdmdorw/2022-10-18-imgid-83535_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11101/s2/118878/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_i8jp7w98/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2316,7 +2114,6 @@
                     "description": "שלושי מנסה לשבור שיא גינס, וחמחמש נחוש לשבור שיא גדול יותר",
                     "thumbnail": "https://www.kankids.org.il/media/ludp4swu/2021-1-11-imgid-45220_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11101/s2/118884/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_0gpcnxjn/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2334,7 +2131,6 @@
                     "description": "מירוץ עיר המספרים יוצא לדרך. מי המספר שיביא את הניצחון?",
                     "thumbnail": "https://www.kankids.org.il/media/kf2l35pl/2021-1-11-imgid-45225_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11101/s2/118887/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_vlykgsg5/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2352,7 +2148,6 @@
                     "description": "זהו יום המעשים הטובים וכדי לעשות מעשה טוב, חמחמש עושה מעשה רע",
                     "thumbnail": "https://www.kankids.org.il/media/icil4zco/2022-10-18-imgid-83536_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11101/s2/118890/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_vbuaic8z/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2370,7 +2165,6 @@
                     "description": "אפס הכלב מרגיש שלא סופרים אותו. שלושי מנסה לגרום לו להרגיש אחרת",
                     "thumbnail": "https://www.kankids.org.il/media/4ordrjjq/2021-1-18-imgid-45706_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11101/s2/118893/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_uur6imrc/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2388,7 +2182,6 @@
                     "description": "שלושי צריכה לבחור את הגיבור שלה. מסתבר שזה לא כזה קל",
                     "thumbnail": "https://www.kankids.org.il/media/orun3sef/2021-1-18-imgid-45712_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11101/s2/118896/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_dlnc381j/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2406,7 +2199,6 @@
                     "description": "החברים מתנדבים לעזור לשמונה עם כמה משלוחים קטנים ומצליחים להסתבך",
                     "thumbnail": "https://www.kankids.org.il/media/x2tldmhi/2021-1-18-imgid-45715_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11101/s2/118902/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_sy9zw8x4/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2424,7 +2216,6 @@
                     "description": "כשחמחמש מוצא קופסת אוצר מסתורית הוא יוצא במשימה בלשית לגלות את בעליה",
                     "thumbnail": "https://www.kankids.org.il/media/uvapeheu/2021-1-25-imgid-46165_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11101/s2/118899/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_wv18xk6l/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2440,14 +2231,7 @@
     "il_kan_11429": {
         "id": "il_kan_11429",
         "name": "הפלנטונים - סדרת אנימציה לילדים",
-        "poster": "https://www.kankids.org.il/media/byhpgvhj/https-kanstaticazureedgenet-download-pictures-2021-9-29-imgid-21118_k.jpeg",
-        "description": "סדרת אנימציה לילדים העוסקת בארבעה עולמות שונים שבהם מגוון רחב של יצורים: תלולית הגעש, אוקיינוס השלולית, גינת הג'ונגל, וארמון החול. כל הפרקים זמינים לצפייה.",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/",
-        "background": "https://www.kankids.org.il/media/byhpgvhj/https-kanstaticazureedgenet-download-pictures-2021-9-29-imgid-21118_k.jpeg",
-        "genres": [
-            "Kan",
-            "כאן"
-        ],
         "type": "series",
         "subtype": "k",
         "meta": {
@@ -2473,7 +2257,6 @@
                     "description": "בס הרעב מאיץ בעצים שיגדלו פירות מהר יותר",
                     "thumbnail": "https://www.kankids.org.il/media/bbpl3bws/2019-6-27-imgid-15438_a.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91115/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_4lzvi5p0/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2491,7 +2274,6 @@
                     "description": "פלור דוחה את סידור גינת הג'ונגל עד כדי כך שצומח אצלה האנדרלמוס",
                     "thumbnail": "https://www.kankids.org.il/media/v1cn21f3/2019-6-27-imgid-15439_a.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91120/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_l4pgmrwg/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2509,7 +2291,6 @@
                     "description": "לסולינה נתקע קוץ ביד והחברים מנסים להוציא לה אותו",
                     "thumbnail": "https://www.kankids.org.il/media/ngdd2t4n/2019-6-27-imgid-15440_a.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91123/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_17l23zoo/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2527,7 +2308,6 @@
                     "description": "גולי חושב שהחברים לעגו לשיר שלו ומאבד את הביטחון העצמי",
                     "thumbnail": "https://www.kankids.org.il/media/naclybp5/2019-6-27-imgid-15441_a.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91126/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_gg6ousus/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2545,7 +2325,6 @@
                     "description": "בס משחק עם כוכב ים בתלולית הגעש, אך סולינה אומרת שבס לקח אותו בלי רשות",
                     "thumbnail": "https://www.kankids.org.il/media/42ia01nu/2019-6-27-imgid-15442_a.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91129/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_g1vipk3g/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2563,7 +2342,6 @@
                     "description": "בס מלמד את חבריו שיר שיעזור להם לישון בשקט בלי הרעשים שמסביב",
                     "thumbnail": "https://www.kankids.org.il/media/2fmfbjpw/2019-6-27-imgid-15443_a.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91132/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_iwqi24mm/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2581,7 +2359,6 @@
                     "description": "סולינה מתביישת כשאינה מצליחה לשרוק ומסרבת להתאמן עם החברים",
                     "thumbnail": "https://www.kankids.org.il/media/1vphiiix/2019-6-27-imgid-15444_a.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91135/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_2sg0rsrj/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2599,7 +2376,6 @@
                     "description": "ספינת הצעצוע של גולי נעלמת במים",
                     "thumbnail": "https://www.kankids.org.il/media/2kihctj0/2019-6-27-imgid-15446_a.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91138/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_8g624b5n/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2617,7 +2393,6 @@
                     "description": "לגולי משעמם אבל לאף אחד אין זמן בשבילו",
                     "thumbnail": "https://www.kankids.org.il/media/cswgo4ue/2019-6-27-imgid-15447_a.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91141/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_syj97oda/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2635,7 +2410,6 @@
                     "description": "פלור חולה בפהקת, היא מרגישה לא טוב והיא לא מצליחה להפסיק לפהק",
                     "thumbnail": "https://www.kankids.org.il/media/4ipbs1e4/2019-6-27-imgid-15449_a.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91144/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_4prt7npi/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2653,7 +2427,6 @@
                     "description": "פלור מפחדת ללכת לישון עקב חלום רע שחלמה, החברים נפגשים ומספרים חלומות",
                     "thumbnail": "https://www.kankids.org.il/media/0jljxaq5/2019-6-27-imgid-15451_a.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91147/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_7bsorwfd/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2671,7 +2444,6 @@
                     "description": "רעש מפחיד מעיר את פלור באמצע הלילה",
                     "thumbnail": "https://www.kankids.org.il/media/f52j5tzz/2019-6-27-imgid-15452_a.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91150/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_qn3zu9w5/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2689,7 +2461,6 @@
                     "description": "בס מוצא מפת מטמון עתיקה ומחליט לנסוע בעקבותיה לכוכב המטמון",
                     "thumbnail": "https://www.kankids.org.il/media/duvf0qep/2019-6-27-imgid-15453_a.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91153/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_4pylwcup/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2707,31 +2478,12 @@
                     "description": "לכבוד יום הולדתה, סולינה מבקשת מכל אחד מחבריה להכין קטע ממיטב כישרונו",
                     "thumbnail": "https://www.kankids.org.il/media/t4cow0yc/2019-6-27-imgid-15455_a.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91156/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_kb8onn1p/format/applehttp/protocol/https/desiredFileName.m3u8",
                             "type": "series",
                             "name": "הפלנטונים - הכישרון של בס - פרק 14",
                             "description": "לכבוד יום הולדתה, סולינה מבקשת מכל אחד מחבריה להכין קטע ממיטב כישרונו. בס מחפש את הכישרון שלו, ומוצא..."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_11429:1:15",
-                    "name": "תחרות גלגלונים - פרק 15",
-                    "season": 1,
-                    "episode": 15,
-                    "description": "סולינה מעליבה את בס, אבל מתקשה לבקש סליחה",
-                    "thumbnail": "https://www.kankids.org.il/media/tz1dvn3k/2019-6-27-imgid-15456_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91159/",
-                    "released": "",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_fibjaood/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "הפלנטונים - תחרות גלגלונים - פרק 15",
-                            "description": "סולינה מעליבה את בס, אבל מתקשה לבקש סליחה. בס כועס על סולינה ולבסוף מבין, שלבקש סליחה זה אולי הכרחי אבל לא תמיד קל"
                         }
                     ]
                 }
@@ -2741,14 +2493,7 @@
     "il_kan_11362": {
         "id": "il_kan_11362",
         "name": "סיפורימפו",
-        "poster": "https://www.kankids.org.il/media/pofl1n2v/https-cdnbackstage-apicom-key-backstage-cms-production-uploads-1200x1800-1653bcb0-f2c7-11ec-87e7-b1d975722ca7-assets-images-04135051-cf3d-42cf-8446-9fa5677f5c23.jpg",
-        "description": "גרסה חדשה לסדרת הילדים האהובה והנוסטלגית",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11362/",
-        "background": "https://www.kankids.org.il/media/pofl1n2v/https-cdnbackstage-apicom-key-backstage-cms-production-uploads-1200x1800-1653bcb0-f2c7-11ec-87e7-b1d975722ca7-assets-images-04135051-cf3d-42cf-8446-9fa5677f5c23.jpg",
-        "genres": [
-            "Kan",
-            "כאן"
-        ],
         "type": "series",
         "subtype": "k",
         "meta": {
@@ -2774,7 +2519,6 @@
                     "description": "גברת חסידה מזמינה את כל החיות לפיקניק. בוריס הזאב לא קיבל הזמנה",
                     "thumbnail": "https://www.kankids.org.il/media/jxzn0nyh/2020-7-29-imgid-37280_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11362/115262/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_ns19fs2r/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2792,7 +2536,6 @@
                     "description": "פיטר פנדה, הדודן של הדוב הארולד, מגיע לבקר ביער וכל החיות מתרגשות",
                     "thumbnail": "https://www.kankids.org.il/media/retj4mtl/2020-8-4-imgid-36868_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11362/115362/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_zj7cmgjv/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2810,7 +2553,6 @@
                     "description": "הגיע הזמן לתחרות משחקי היער. חיות היער מתחלקות לשני צוותים מתחרים",
                     "thumbnail": "https://www.kankids.org.il/media/b4pmth1c/2020-8-11-imgid-37283_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11362/115555/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_nn34wi96/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2828,7 +2570,6 @@
                     "description": "שלי הצב רוצה לעוף. חלק מחבריו מאמינים שיצליח ועוזרים לו",
                     "thumbnail": "https://www.kankids.org.il/media/ibxcgr2n/2020-8-18-imgid-37515_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11362/115558/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_103tcbdv/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2844,14 +2585,7 @@
     "il_kan_11279": {
         "id": "il_kan_11279",
         "name": "משפחה באוטו",
-        "poster": "https://www.kankids.org.il/media/nwalgsc1/https-kanstaticazureedgenet-download-pictures-2021-9-29-imgid-38708_k.jpeg",
-        "description": "בכל חג נרגשים, מצפים ושרים נוסעים יעלי ויויו עם הוריהם לחגוג את החג",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11279/",
-        "background": "https://www.kankids.org.il/media/nwalgsc1/https-kanstaticazureedgenet-download-pictures-2021-9-29-imgid-38708_k.jpeg",
-        "genres": [
-            "Kan",
-            "כאן"
-        ],
         "type": "series",
         "subtype": "k",
         "meta": {
@@ -2877,7 +2611,6 @@
                     "description": "לכבוד ראש השנה המשפחה יוצאת לקמפינג ובדרך כל אחד מאחל לעצמו איחולים",
                     "thumbnail": "https://www.kankids.org.il/media/0jio0jpn/2020-9-10-imgid-38785_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11279/116355/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_cikixdxj/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2895,7 +2628,6 @@
                     "description": "לבקש סליחה יכול להיות כיף אבל מה עושים אם לא מוצאים על מה לבקש?",
                     "thumbnail": "https://www.kankids.org.il/media/noejoa5r/2020-9-17-imgid-39142_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11279/116358/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_dqt85cxr/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2913,7 +2645,6 @@
                     "description": "בעזרת המברגה של דוד עזרא אבא חולם  שהשנה יצליח לבנות סוכה",
                     "thumbnail": "https://www.kankids.org.il/media/bt2gd53s/2020-9-29-imgid-39599_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11279/116361/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_cfqhfn2n/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2931,7 +2662,6 @@
                     "description": "בדרך להדלקת נרות אצל סבתא עם מגש לביבות שרופות המשפחה מקווה לנס",
                     "thumbnail": "https://www.kankids.org.il/media/ibujwpfa/2020-11-19-imgid-42341_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11279/116387/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_mhkyfkvj/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2949,7 +2679,6 @@
                     "description": "בדרך חזרה מהמשתלה מגלים שתיל שאף אחד לא יודע של מה הוא",
                     "thumbnail": "https://www.kankids.org.il/media/wevbfdaq/2021-1-18-imgid-45702_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11279/116390/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_k0unngeg/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2967,7 +2696,6 @@
                     "description": "בפורים לא תמיד הכל רק ליצנים וחיוכים, לפעמים יש גם אוי ואופים וגרודים",
                     "thumbnail": "https://www.kankids.org.il/media/rw3hgbdy/2021-2-17-imgid-47576_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11279/116393/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_fn1po3iz/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2985,7 +2713,6 @@
                     "description": "הכל כמעט מוכן לליל הסדר, לילדים נשאר רק להחליט על סדר הישיבה, קל זה לא",
                     "thumbnail": "https://www.kankids.org.il/media/itjkbt4j/2021-3-16-imgid-49181_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11279/116396/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_e61kpxgi/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3003,7 +2730,6 @@
                     "description": "יעלי ויויו מתכננים בזאת את הקמתה של מדינת המושב האחורי",
                     "thumbnail": "https://www.kankids.org.il/media/fvfdbwvw/2021-4-7-imgid-50508_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11279/116399/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_3y8vm5rv/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3021,7 +2747,6 @@
                     "description": "יויו ויעלי רוצים שתהייה להם חווה כדי שיהיה להם טקס ביכורים כמו בקיבוץ",
                     "thumbnail": "https://www.kankids.org.il/media/xsgmzvjo/2021-5-6-imgid-52417_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11279/116402/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_4iziv0di/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3037,14 +2762,7 @@
     "il_kan_519791": {
         "id": "il_kan_519791",
         "name": "שירי פרפר נחמד",
-        "poster": "https://www.kankids.org.il/media/plbivoas/5_poster-image_small_239x360_פרפר-נחמד-השירים.jpg",
-        "description": "השירים האהובים מתוך סדרת הקאלט לילדים ולפעוטות",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519791/",
-        "background": "https://www.kankids.org.il/media/plbivoas/5_poster-image_small_239x360_פרפר-נחמד-השירים.jpg",
-        "genres": [
-            "Kan",
-            "כאן"
-        ],
         "type": "series",
         "subtype": "k",
         "meta": {
@@ -3070,7 +2788,6 @@
                     "description": "שיר הפתיחה של התוכנית \"פרפר נחמד\"",
                     "thumbnail": "https://www.kankids.org.il/media/dy1le2hx/untitled-1.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519791/818117/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_9g8rgcs4/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3088,7 +2805,6 @@
                     "description": "מילים ולחן: זמירה חן ונורית הירש",
                     "thumbnail": "https://www.kankids.org.il/media/3xyjrcpj/1_nag9g92b.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519791/521053/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_mv7nntyk/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3106,7 +2822,6 @@
                     "description": "מילים ולחן: דתיה בן דור",
                     "thumbnail": "https://www.kankids.org.il/media/shzf4emv/1_6mbgmvsa.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519791/521063/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_pl6w7w1z/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3124,7 +2839,6 @@
                     "description": "מילים ולחן: שלומית כהן אסיף ודידי שחר",
                     "thumbnail": "https://www.kankids.org.il/media/4mqjou4e/1_ofv8yhym.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519791/521064/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_pwufroju/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3142,7 +2856,6 @@
                     "description": "מילים ולחן: לאה נאור ונורית הירש",
                     "thumbnail": "https://www.kankids.org.il/media/2swpq5ig/1_e49wtnib.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519791/521065/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_20j4pz07/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3160,7 +2873,6 @@
                     "description": "מילים ולחן: מיריק שניר ונורית הירש",
                     "thumbnail": "https://www.kankids.org.il/media/qwxdz45s/1_k25g1cg5.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519791/521068/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_a5i5z9ez/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3178,7 +2890,6 @@
                     "description": "מילים ולחן: דתיה בן דור",
                     "thumbnail": "https://www.kankids.org.il/media/o12hqicp/1_9u5d9gyn.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519791/521071/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_acq1bkrx/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3196,7 +2907,6 @@
                     "description": "מילים ולחן: דידי שחר",
                     "thumbnail": "https://www.kankids.org.il/media/vtshp3qy/1_ddpm3gqx.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519791/521072/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_2fmbh7wr/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3214,7 +2924,6 @@
                     "description": "מילים ולחן: דתיה בן דור",
                     "thumbnail": "https://www.kankids.org.il/media/jurl0jn0/1_3d5jolgk.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519791/521085/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_ygjr4s48/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3232,7 +2941,6 @@
                     "description": "מילים ולחן: רונית קנו",
                     "thumbnail": "https://www.kankids.org.il/media/blnjz0v4/1_yshijqxp.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519791/521117/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_pospbwv5/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3250,7 +2958,6 @@
                     "description": "מילים ולחן: רינת הופר ואלון עדר",
                     "thumbnail": "https://www.kankids.org.il/media/jarnvh5i/1_qbrr1c8t.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519791/521137/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_1s9bgsea/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3268,7 +2975,6 @@
                     "description": "מילים ולחן: יהונתן גפן ודידי שחר",
                     "thumbnail": "https://www.kankids.org.il/media/c44nk0jy/1_4worwjco.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519791/521141/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_2o8v7hpa/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3284,14 +2990,7 @@
     "il_kan_519728": {
         "id": "il_kan_519728",
         "name": "פרפר נחמד - הסיפורים",
-        "poster": "https://www.kankids.org.il/media/hhsfpfc2/5_poster-image_small_239x360_פרפר-נחמד-הסיפורים.jpg",
-        "description": "כל הסיפורים האהובים מתוך תוכנית הקאלט המחודשת לילדים ולפעוטות",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519728/",
-        "background": "https://www.kankids.org.il/media/hhsfpfc2/5_poster-image_small_239x360_פרפר-נחמד-הסיפורים.jpg",
-        "genres": [
-            "Kan",
-            "כאן"
-        ],
         "type": "series",
         "subtype": "k",
         "meta": {
@@ -3317,7 +3016,6 @@
                     "description": "מאת: רונית חכם",
                     "thumbnail": "https://www.kankids.org.il/media/evchw2qk/1.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519728/519731/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_r1glpj70/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3335,7 +3033,6 @@
                     "description": "מאת: שירי צוק",
                     "thumbnail": "https://www.kankids.org.il/media/st2hi4m5/2.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519728/519816/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_w35uqm7l/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3353,7 +3050,6 @@
                     "description": "מאת: דנה כהן-סדלינסקי",
                     "thumbnail": "https://www.kankids.org.il/media/233cosa2/3.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519728/521125/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_obgrj4a6/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3371,7 +3067,6 @@
                     "description": "מאת: מיריק שניר",
                     "thumbnail": "https://www.kankids.org.il/media/tnaeadyw/4.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519728/521139/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_rc510vy5/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3389,7 +3084,6 @@
                     "description": "מאת: רועי שגב",
                     "thumbnail": "https://www.kankids.org.il/media/rg3bmtpl/5.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519728/521140/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_njh8eslj/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3407,7 +3101,6 @@
                     "description": "מאת: יהונתן גפן",
                     "thumbnail": "https://www.kankids.org.il/media/0rjdrvv2/6.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519728/521142/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_30l2hwoc/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3425,7 +3118,6 @@
                     "description": "מאת: דנה כהן-סדלינסקי",
                     "thumbnail": "https://www.kankids.org.il/media/qcxlrdku/7.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519728/521144/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_zzshmdks/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3443,7 +3135,6 @@
                     "description": "דנה כהן-סלדינסקי",
                     "thumbnail": "https://www.kankids.org.il/media/h4lk3yue/8.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519728/521146/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_p6n5u2qt/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3461,7 +3152,6 @@
                     "description": "מאת: שחר סטינר",
                     "thumbnail": "https://www.kankids.org.il/media/ogqndg1z/9.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519728/521152/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_yhm876w4/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3479,7 +3169,6 @@
                     "description": "מאת: דנה כהן-סדלינסקי",
                     "thumbnail": "https://www.kankids.org.il/media/pm1gafvv/10.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519728/521155/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_8xvs6htr/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3495,14 +3184,7 @@
     "il_kan_11482": {
         "id": "il_kan_11482",
         "name": "אולי פיל",
-        "poster": "https://www.kankids.org.il/media/szkaka2m/https-cdnbackstage-apicom-key-backstage-cms-production-uploads-1200x1800-1653bcb0-f2c7-11ec-87e7-b1d975722ca7-assets-images-28774093-a767-4be8-8524-a6bea60ad3ff.jpg",
-        "description": "דרמה מוסיקלית משולבת אנימציה, העוקבת בעלילותיהן של איילת וגלי, שתי אחיות שחולקות חדר ותחביבים משותפים אך שונות מאוד באופיין",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11482/",
-        "background": "https://www.kankids.org.il/media/szkaka2m/https-cdnbackstage-apicom-key-backstage-cms-production-uploads-1200x1800-1653bcb0-f2c7-11ec-87e7-b1d975722ca7-assets-images-28774093-a767-4be8-8524-a6bea60ad3ff.jpg",
-        "genres": [
-            "Kan",
-            "כאן"
-        ],
         "type": "series",
         "subtype": "k",
         "meta": {
@@ -3528,7 +3210,6 @@
                     "description": "גלי מגלה שטוש הזהב שלה הלך לאיבוד",
                     "thumbnail": "https://www.kankids.org.il/media/txuadyyk/2019-9-25-imgid-21113_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11482/s1/91063/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_9a6k0ptr/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3546,7 +3227,6 @@
                     "description": "לגלי יש יום גרוע, וכשהיא נפצעת ביד הוא הופך לגרוע יותר",
                     "thumbnail": "https://www.kankids.org.il/media/f25bscr1/2019-9-25-imgid-21113_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11482/s1/91066/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_s3jgttfb/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3564,7 +3244,6 @@
                     "description": "אבא סובל מפריחה. גלי הולכת לקנות משחה עבורו, ואיילת כועסת",
                     "thumbnail": "https://www.kankids.org.il/media/mnudyot2/2019-9-25-imgid-21113_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11482/s1/91069/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_tdsk9sqg/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3582,13 +3261,114 @@
                     "description": "גלי מלמדת את איילת לשחק במחבואים, אך היא מתקשה ללמוד",
                     "thumbnail": "https://www.kankids.org.il/media/dc1hwewv/2019-9-25-imgid-21113_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11482/s1/91072/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_otszxs63/format/applehttp/protocol/https/desiredFileName.m3u8",
                             "type": "series",
                             "name": "אולי פיל - אוגר סיבירי - פרק 4",
                             "description": "גלי מלמדת את איילת לשחק במחבואים, אך היא מתקשה ללמוד. כשאמא מביאה הביתה אוגר שטיפלה בו במרפאה, אולי פיל ולא גמור מציעים לאיילת לשחק מחבואים עם האוגר. מסתבר שהוא יודע להתחבא מצוין"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_11482:1:5",
+                    "name": "כלוב של נמר | פרק 5",
+                    "season": 1,
+                    "episode": 5,
+                    "description": "גלי ואיילת מגלות בסלון כלוב של נמר, שהגיע בטעות",
+                    "thumbnail": "https://www.kankids.org.il/media/os3hdt2t/2019-9-25-imgid-21113_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11482/s1/91075/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_n7ztsb58/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "אולי פיל - כלוב של נמר - פרק 5",
+                            "description": "גלי ואיילת מגלות בסלון כלוב של נמר, שהגיע בטעות. איילת מתנדבת לענות לטלפונים ולרשום הודעה על החלפת הכלוב, אבל היא לא יודעת לכתוב. כשהטלפון מצלצל, אולי פיל ולא גמור מציעים לה לצייר את ההודעה"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_11482:1:6",
+                    "name": "צב יענה | פרק 6",
+                    "season": 1,
+                    "episode": 6,
+                    "description": "יואבי מהגן של איילת העליב אותה ואמר שהיא מציירת מכוער",
+                    "thumbnail": "https://www.kankids.org.il/media/qupf2iqs/2019-9-25-imgid-21113_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11482/s1/91078/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_3zvkylo6/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "אולי פיל - צב יענה - פרק 6",
+                            "description": "יואבי מהגן של איילת העליב אותה ואמר שהיא מציירת מכוער, ואיילת מחליטה לא לצייר יותר כלום לעולם. אולי פיל ולא גמור נחרדים. אם איילת לא תצייר יותר, איזה עתיד יש להם? ליעלי יש פתרון מקורי"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_11482:1:7",
+                    "name": "תמונה משפחתית | פרק 7",
+                    "season": 1,
+                    "episode": 7,
+                    "description": "אבא ואמא רבים, ואיילת וגלי מנסות לגרום להם לחזור לאהוב אחד את השנייה",
+                    "thumbnail": "https://www.kankids.org.il/media/mckfgkcc/2019-9-25-imgid-21113_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11482/s1/91081/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_ojrufbhq/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "אולי פיל - תמונה משפחתית - פרק 7",
+                            "description": "אבא ואמא רבים, ואיילת וגלי מנסות לגרום להם לחזור לאהוב אחד את השנייה. צילום ישן מהחתונה של ההורים נותן להן רעיון, להכין לאמא ולאבא חתונה. אולי פיל ולא גמור מתלהבים מאוד מהאירוע"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_11482:1:8",
+                    "name": "מסיבת פיג'מות | פרק 8",
+                    "season": 1,
+                    "episode": 8,
+                    "description": "גלי הולכת למסיבת פיג׳מות, ואיילת מאושרת, החדר כולו יעמוד לרשותה",
+                    "thumbnail": "https://www.kankids.org.il/media/akhi0xak/2019-9-25-imgid-21113_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11482/s1/91084/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_cad0u1ny/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "אולי פיל - מסיבת פיג'מות - פרק 8",
+                            "description": "גלי הולכת למסיבת פיג׳מות, ואיילת מאושרת, החדר כולו יעמוד לרשותה עד הבוקר. אבל ככל שהלילה יורד, גם השמחה מתמעטת, עד שאולי פיל ולא גמור מחליטים לערוך גם הם מסיבת פיג׳מות"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_11482:1:9",
+                    "name": "אחיות לא דומות | פרק 9",
+                    "season": 1,
+                    "episode": 9,
+                    "description": "איילת וגלי מוטרדות מאוד מהעובדה שהן לא דומות כלל",
+                    "thumbnail": "https://www.kankids.org.il/media/kiqhzjzw/2019-9-25-imgid-21113_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11482/s1/91087/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_77dkrcv2/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "אולי פיל - אחיות לא דומות - פרק 9",
+                            "description": "איילת וגלי מוטרדות מאוד מהעובדה שהן לא דומות כלל. איך ידעו שהן אחיות? הן אפילו לא מציירות אותו דבר. לאולי פיל ולא גמור יש רעיון איך להפוך את הציורים שלהן לדומים"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_11482:1:10",
+                    "name": "סוד | פרק 10",
+                    "season": 1,
+                    "episode": 10,
+                    "description": "לגלי יש סוד בקופסה",
+                    "thumbnail": "https://www.kankids.org.il/media/tjkfwo2y/2019-9-25-imgid-21113_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11482/s1/91090/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_saahqvc5/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "אולי פיל - סוד - פרק 10",
+                            "description": "לגלי יש סוד בקופסה. איילת משתגעת מזה שגלי לא מגלה בשום פנים ואופן מה הסוד. אולי פיל ולא גמור מחליטים גם למצוא סוד משלהם עם קופסה משלהם. הם רק לא בטוחים איזה סוד יש להם"
                         }
                     ]
                 }
@@ -3598,14 +3378,7 @@
     "il_kan_11267": {
         "id": "il_kan_11267",
         "name": "דן ומוזלי",
-        "poster": "https://www.kankids.org.il/media/cp2cyxuw/https-kanstaticazureedgenet-download-pictures-2021-9-29-imgid-21139_k.jpeg",
-        "description": "דןדן השובב לומד להתנהג בעזרת הבובה מוזלי עם ירדן בר כוכבא ועידן אלתרמן",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11267/",
-        "background": "https://www.kankids.org.il/media/cp2cyxuw/https-kanstaticazureedgenet-download-pictures-2021-9-29-imgid-21139_k.jpeg",
-        "genres": [
-            "Kan",
-            "כאן"
-        ],
         "type": "series",
         "subtype": "k",
         "meta": {
@@ -3631,7 +3404,6 @@
                     "description": "דןדן מסרב ללכת לגן השעשועים אחרי שנעקץ שם על ידי דבורה",
                     "thumbnail": "https://www.kankids.org.il/media/lmjb0dl5/cat39417_img_cover303328447.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11267/s4/92111/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_vcpbe42a/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3649,7 +3421,6 @@
                     "description": "דןדן לא מבין למה כועסים עליו שהוא חיבק את אחותו",
                     "thumbnail": "https://www.kankids.org.il/media/dlblmprn/cat39418_img_cover717192292.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11267/s4/92114/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_zlgpl62j/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3667,7 +3438,6 @@
                     "description": "דןדן מתגעגע לשילה, הכלבה שלו שמתה",
                     "thumbnail": "https://www.kankids.org.il/media/3yol0bw3/cat39419_img_cover865482804.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11267/s4/92117/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_m38favyz/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3685,7 +3455,6 @@
                     "description": "דןדן לא יודע האם להאמין בפיית השיניים",
                     "thumbnail": "https://www.kankids.org.il/media/xrpbny5i/cat39420_img_cover578179443.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11267/s4/92120/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_wp56prbo/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3703,7 +3472,6 @@
                     "description": "דןדן שבר את הרגל ונאלץ להשתמש בקביים שמאוד לא נוחים לו",
                     "thumbnail": "https://www.kankids.org.il/media/qkzjzcjk/cat39421_img_cover3942751.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11267/s4/92123/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_myce6t3d/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3721,7 +3489,6 @@
                     "description": "דןדן מתעצבן כי מתייחסים אליו כמו לילד קטן",
                     "thumbnail": "https://www.kankids.org.il/media/h4oduqil/cat39422_img_cover777803269.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11267/s4/92126/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_093oa90x/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3739,7 +3506,6 @@
                     "description": "דןדן אוהב להאזין לאופרה אבל מתבייש בכך",
                     "thumbnail": "https://www.kankids.org.il/media/y4gotrcv/cat39423_img_cover971988400.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11267/s4/92129/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_2npcrj05/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3757,13 +3523,29 @@
                     "description": "לדןדן קשה לבחור בין שני אירועים שמתרחשים באותו הזמן",
                     "thumbnail": "https://www.kankids.org.il/media/elmexebk/cat39424_img_cover424388337.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11267/s4/92132/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_05qqy3tt/format/applehttp/protocol/https/desiredFileName.m3u8",
                             "type": "series",
                             "name": "דן ומוזלי 4 - שני קלופס - פרק 8",
                             "description": "לדןדן קשה לבחור בין שני אירועים שמתרחשים באותו הזמן. בקונפיטורה קלופס נתקל באתה הבעיה בדיוק ופותר אותה בעזרת מרקחת משכפלת שהופכת אותו לשני קלופס. הבעיה היא שכל אחד מהקלופסים חושב שהקלופס השני נהנה יותר."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_11267:4:9",
+                    "name": "ספויילר | פרק 9",
+                    "season": 4,
+                    "episode": 9,
+                    "description": "דןדן לא מצליח להתאפק ומגלה את התשובות לשאלות שאמא שואלת את רוני",
+                    "thumbnail": "https://www.kankids.org.il/media/tx1hwpzm/cat39425_img_cover466226170.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11267/s4/92135/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_52b1g9kg/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "דן ומוזלי 4 - ספויילר - פרק 9",
+                            "description": "דןדן לא מצליח להתאפק ומגלה את התשובות לשאלות שאמא שואלת את רוני. בקונפיטורה מסתבר שפרצל קרא את כל הספרים בינשופיה והוא מגלה לכולם את הסופים של הספרים שהם קוראים. דןדן מוצא שיטה איך לשלוט בלשון הקופצנית."
                         }
                     ]
                 }
@@ -3773,14 +3555,7 @@
     "il_kan_11548": {
         "id": "il_kan_11548",
         "name": "עולם הבובות של גלי",
-        "poster": "https://www.kankids.org.il/media/hdobarwn/https-kanstaticazureedgenet-download-pictures-2021-9-29-imgid-21142_k.jpeg",
-        "description": "סדרה לילדים אשר מביאה בכל פרק אגדה ממקום אחר בעולם המוצגת על ידי גלי הבובנאית, אותה מגלמת אניה בוקשטיין. מקום ההתרחשות העיקרי בסדרה הוא הסטודיו של גלי, שעו",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11548/",
-        "background": "https://www.kankids.org.il/media/hdobarwn/https-kanstaticazureedgenet-download-pictures-2021-9-29-imgid-21142_k.jpeg",
-        "genres": [
-            "Kan",
-            "כאן"
-        ],
         "type": "series",
         "subtype": "k",
         "meta": {
@@ -3806,7 +3581,6 @@
                     "description": "גלי מספרת אגדה הודית בשם \"הזמיר והאוח\"",
                     "thumbnail": "https://www.kankids.org.il/media/sy5jtt1v/cat42574_img_cover156778413.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11548/s1/97108/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_x50e7nlg/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3824,7 +3598,6 @@
                     "description": "גלי מספרת את סיפור האגדה \"הדייג ודג הזהב\"",
                     "thumbnail": "https://www.kankids.org.il/media/oqdojasr/cat42575_img_cover549134872.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11548/s1/97111/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_1pdwqv8i/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3842,7 +3615,6 @@
                     "description": "גלי על האגדה של \"השועל והעורב\"",
                     "thumbnail": "https://www.kankids.org.il/media/uhvlwda2/cat42553_img_cover182062016.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11548/s1/97045/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_2403xtjd/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3860,7 +3632,6 @@
                     "description": "גלי מספרת לו על האגדה \"העציץ הריק\"",
                     "thumbnail": "https://www.kankids.org.il/media/pjzgt1kx/cat42576_img_cover304353509.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11548/s1/97114/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_3d08t0hi/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3878,7 +3649,6 @@
                     "description": "גלי מספרת על האגדה על האריה והחסידה",
                     "thumbnail": "https://www.kankids.org.il/media/5vxdt0d1/cat42577_img_cover331505746.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11548/s1/97117/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_3z1i350s/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3896,7 +3666,6 @@
                     "description": "גלי מספרת את האגדה \"השועל והכרם\".",
                     "thumbnail": "https://www.kankids.org.il/media/ul3hzoul/cat42555_img_cover266359469.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11548/s1/97051/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_zxd6g967/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3914,13 +3683,29 @@
                     "description": "גלי מספרת את האגדה \"שני נזירים וגבירה\"",
                     "thumbnail": "https://www.kankids.org.il/media/tyzhvxpx/cat42556_img_cover339895294.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11548/s1/97054/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_cmdl0qe9/format/applehttp/protocol/https/desiredFileName.m3u8",
                             "type": "series",
                             "name": "שני נזירים וגבירה",
                             "description": "טוני הדג מבקש מגלי אקווריום חדש כמו של בן דודו מוסא דג. אדם מחליף את חולצתו הצהובה לחולצה אדומה כאות מחאה נגד דידי שוויצר שקיבל את פרס \"ארנב השבוע\". גלי מנחמת אותו ומספרת לו את האגדה \"שני נזירים וגבירה\", שמוסר ההשכל שלה הוא שאין צורך לכעוס לשווא."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_11548:1:8",
+                    "name": "עכבר העיר ועכבר הכפר | פרק 8",
+                    "season": 1,
+                    "episode": 8,
+                    "description": "גלי מספרת את האגדה על \"עכבר העיר ועכבר הכפר\"",
+                    "thumbnail": "https://www.kankids.org.il/media/uyzfaax1/cat42563_img_cover808524491.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11548/s1/97075/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_pn3pekcd/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "עכבר העיר ועכבר הכפר",
+                            "description": "טוני הדג לוקח יום חופש, גלי מזמינה זנבות עכברים לבובות החדשות שלה ואדם מנסה להתקבל לתזמורת חברות השליחויות. הוא מציג בפני גלי כמות של כלי נגינה איתם הוא רוצה להיבחן. גלי מסבירה לו שעדיף לו להיבחן כשהוא מנגן על כלי נגינה אחד. גלי מספרת לו את האגדה על \"עכבר העיר ועכבר הכפר\", שמוסר ההשכל שלה הוא שעדיף ציפור אחת ביד משתיים על העץ."
                         }
                     ]
                 }
@@ -3930,14 +3715,7 @@
     "il_kan_11689": {
         "id": "il_kan_11689",
         "name": "צמר ויעלי",
-        "poster": "https://www.kankids.org.il/media/nmonctxm/https-kanstaticazureedgenet-download-pictures-2021-9-29-imgid-21145_k.jpeg",
-        "description": "סידרה לעידוד קריאה, שמתרחשת בבניין בו גרים הילדה יעלי, הכלב שלה צמר, השכנה והמורה לפסנתר טלי, והשכן בועז. כל הפרקים זמינים באתר לצפייה ישירה.",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11689/",
-        "background": "https://www.kankids.org.il/media/nmonctxm/https-kanstaticazureedgenet-download-pictures-2021-9-29-imgid-21145_k.jpeg",
-        "genres": [
-            "Kan",
-            "כאן"
-        ],
         "type": "series",
         "subtype": "k",
         "meta": {
@@ -3963,7 +3741,6 @@
                     "description": "מהו תפקידו של הפחד? האם יש בו גם דברים טובים? האם גם מבוגרים פוחדים?",
                     "thumbnail": "https://www.kankids.org.il/media/3rhlluld/cat38899_img_cover86324271.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11689/s1/90748/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_1lal9zy6/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3981,7 +3758,6 @@
                     "description": "ליעלי יש ילקוט חדש. היא מתוסכלת מכך שאף אחד לא שם לב לתיק החדש שלה",
                     "thumbnail": "https://www.kankids.org.il/media/kn4g54xt/cat38900_img_cover866485025.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11689/s1/90751/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_zvy2ihbq/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -3999,7 +3775,6 @@
                     "description": "יעלי רוצה לבטל שיעור פסנתר, היא רוצה ללכת לראות את הכלב החדש של נעמה",
                     "thumbnail": "https://www.kankids.org.il/media/43ffhykh/cat38902_img_cover171864754.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11689/s1/90754/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_y7itv0nx/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4017,7 +3792,6 @@
                     "description": "צמר נעלם, יעלי מחפשת אותו ופוחדת שקרה לו משהו",
                     "thumbnail": "https://www.kankids.org.il/media/ghxjx2zr/cat38903_img_cover771473928.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11689/s1/90757/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_llx66wij/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4035,7 +3809,6 @@
                     "description": "אורי, אחיה הגדול של יעלי, קיבל אופניים חדשים ומשוכללים",
                     "thumbnail": "https://www.kankids.org.il/media/c3gmsuz0/2020-10-12-imgid-40376_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11689/s1/90760/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_zyfq5k7y/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4053,7 +3826,6 @@
                     "description": "יעלי מקבלת חבילה מלונדון, ובה מכתב וכדור שלג מחברתה ענתי",
                     "thumbnail": "https://www.kankids.org.il/media/nxojxuwa/cat38905_img_cover571402456.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11689/s1/90763/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_36upxdbv/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4071,7 +3843,6 @@
                     "description": "צמר מספר ליעלי שלטלי יש תלמידה חדשה, ושניהם הולכים לטלי כדי להכיר אותה",
                     "thumbnail": "https://www.kankids.org.il/media/spzbmdl3/cat38906_img_cover397307519.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11689/s1/90766/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_tll4uxep/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4087,14 +3858,7 @@
     "il_kan_11660": {
         "id": "il_kan_11660",
         "name": "פילו וסופי",
-        "poster": "https://www.kankids.org.il/media/iyfoqczq/https-kanstaticazureedgenet-download-pictures-2021-9-29-imgid-21144_k.jpeg",
-        "description": "סדרת העשרה לילדים העוסקת בנושאים פילוסופיים. בכל פרק נתקלים החברים בבעיה שמעוררת אצלם שאלות שמעודדות חשיבה מחוץ לקופסא והפעלת הדמיון בדרך לפתרונות",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11660/",
-        "background": "https://www.kankids.org.il/media/iyfoqczq/https-kanstaticazureedgenet-download-pictures-2021-9-29-imgid-21144_k.jpeg",
-        "genres": [
-            "Kan",
-            "כאן"
-        ],
         "type": "series",
         "subtype": "k",
         "meta": {
@@ -4120,7 +3884,6 @@
                     "description": "פילו רוצה להיות לבד וסופי חושבת שזה כי היא העליבה אותו",
                     "thumbnail": "https://www.kankids.org.il/media/4tjdkxq3/cat38962_img38321555.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11660/s1/90925/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_3tskz4p0/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4138,7 +3901,6 @@
                     "description": "פילו מחליט שהוא רוצה להיות משורר כי לא צריך לזוז מהכורסא שלו",
                     "thumbnail": "https://www.kankids.org.il/media/ojyddcl4/cat38963_img830068456.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11660/s1/90928/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_0wq2th8k/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4156,7 +3918,6 @@
                     "description": "סופי מאושרת כי הזמינו אותם למסיבת תחפושות בפח הגדול",
                     "thumbnail": "https://www.kankids.org.il/media/lx5cmupt/cat38965_img973529821.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11660/s1/90931/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_cxhmldfz/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4174,7 +3935,6 @@
                     "description": "סופי חושבת שמיילו הכלב כועס עליה ומכינה לו שיקוי אהבה",
                     "thumbnail": "https://www.kankids.org.il/media/3wyjdnsp/cat38966_img556094114.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11660/s1/90934/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_69c3agnu/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4192,7 +3952,6 @@
                     "description": "סופי חושקת במרק כדורי פלאפל והיא מתחילה להכין אותו מבלי שיש לה כדורים",
                     "thumbnail": "https://www.kankids.org.il/media/kgmcuig2/cat38967_img812961510.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11660/s1/90937/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_a7b5z2qr/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4210,7 +3969,6 @@
                     "description": "לאיכסה נעלם הקול. האם אפשר לתקשר גם בלי שפה?",
                     "thumbnail": "https://www.kankids.org.il/media/amniiwmg/cat38968_img706128802.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11660/s1/90940/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_4js3fu5k/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4226,14 +3984,7 @@
     "il_kan_11724": {
         "id": "il_kan_11724",
         "name": "כנסת נכבדה - עם דנה סמו ודב נבון",
-        "poster": "https://www.kankids.org.il/media/gz4pjjyg/https-kanstaticazureedgenet-download-pictures-2019-10-3-imgid-21505_aa.jpeg",
-        "description": "היפסטר וצ'קולה, צמד כתבים חריף, יוצאים לשדר ממשכן הכנסת במטרה לקרב את הכנסת אל העם, אך נלחמים למעשה על שיפור חייהם האישיים",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11724/",
-        "background": "https://www.kankids.org.il/media/gz4pjjyg/https-kanstaticazureedgenet-download-pictures-2019-10-3-imgid-21505_aa.jpeg",
-        "genres": [
-            "Kan",
-            "כאן"
-        ],
         "type": "series",
         "subtype": "k",
         "meta": {
@@ -4259,7 +4010,6 @@
                     "description": "היפסטר וצ'אקולה מנסים להעביר הצעת חוק: מקומות ישיבה שמורים באוטובוס",
                     "thumbnail": "https://www.kankids.org.il/media/kljkhguk/2019-6-27-imgid-15459_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11724/s1/105778/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_5b5m9gst/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4277,7 +4027,6 @@
                     "description": "היפסטר וצ'אקולה מנסים למצוא את גבולות חופש הביטוי בישראל",
                     "thumbnail": "https://www.kankids.org.il/media/ptab1mun/2019-6-27-imgid-15459_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11724/s1/105781/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_izue1w74/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4295,7 +4044,6 @@
                     "description": "צ'אקולה והיפסטר לומדים על בשרם מה ההבדל בין קואליציה ואופוזיציה",
                     "thumbnail": "https://www.kankids.org.il/media/lsrl421g/2019-6-27-imgid-15459_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11724/s1/105784/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_5ar3n14e/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4313,7 +4061,6 @@
                     "description": "צ'אקולה רוצה לקדם חוק שמאפשר לילדים לשנות את שמם",
                     "thumbnail": "https://www.kankids.org.il/media/elwca4bg/2019-6-27-imgid-15459_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11724/s1/105787/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_d7qp9dkf/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4331,7 +4078,6 @@
                     "description": "צ'אקולה קנתה מתנות לתכנית אך היא והיפסטר נבהלים ומתכננים להחביאן",
                     "thumbnail": "https://www.kankids.org.il/media/rxdd2q51/2019-6-27-imgid-15459_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11724/s1/105790/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_z3mac3gy/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4347,14 +4093,7 @@
     "il_kan_11425": {
         "id": "il_kan_11425",
         "name": "בחצר של פופיק",
-        "poster": "https://www.kankids.org.il/media/y50d2d5u/https-kanstaticazureedgenet-download-pictures-2021-9-29-imgid-14225_k.jpeg",
-        "description": "בעולם דמיוני וקסום, חיים להם בנחת פופיק וליבי, אח ואחות צעירים וחבריהם",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11425/",
-        "background": "https://www.kankids.org.il/media/y50d2d5u/https-kanstaticazureedgenet-download-pictures-2021-9-29-imgid-14225_k.jpeg",
-        "genres": [
-            "Kan",
-            "כאן"
-        ],
         "type": "series",
         "subtype": "k",
         "meta": {
@@ -4380,7 +4119,6 @@
                     "description": "ליבי מסדרת לפופיק את החדר אבל זורקת דברים שהוא אוהב. האם הם יגיעו לפח?",
                     "thumbnail": "https://www.kankids.org.il/media/te3jylxz/2019-3-27-imgid-8231_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11425/s5/101204/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_51xar2ho/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4398,7 +4136,6 @@
                     "description": "כבאי מגיע אל החצר כדי ללמוד מפנחס איך להיות כבאי.",
                     "thumbnail": "https://www.kankids.org.il/media/xgciqpmn/2019-3-27-imgid-8232_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11425/s5/101207/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_xkiuvhca/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4416,7 +4153,6 @@
                     "description": "טישה מלמדת את פופיק את כללי משחק המחבואים למרות שהוא לא ממש רוצה.",
                     "thumbnail": "https://www.kankids.org.il/media/1cohbkde/2019-3-27-imgid-8234_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11425/s5/101210/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_3mqflr3i/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4434,7 +4170,6 @@
                     "description": "לפופיק וליבי יש עציץ כמתנה ללבנה, אבל הם לא יודעים איך לטפל בו.",
                     "thumbnail": "https://www.kankids.org.il/media/my3djlqw/2019-3-27-imgid-8236_b.jpeg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11425/s5/101213/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_ch5vo02o/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4450,14 +4185,7 @@
     "il_kan_11598": {
         "id": "il_kan_11598",
         "name": "שרגא בישגדא",
-        "poster": "https://www.kankids.org.il/media/za3lxo1o/https-kanstaticazureedgenet-download-pictures-2022-10-12-imgid-21140_k.jpeg",
-        "description": "סדרה קומית-חינוכית לילדים בכיכובו של מוני מושונוב",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11598/",
-        "background": "https://www.kankids.org.il/media/za3lxo1o/https-kanstaticazureedgenet-download-pictures-2022-10-12-imgid-21140_k.jpeg",
-        "genres": [
-            "Kan",
-            "כאן"
-        ],
         "type": "series",
         "subtype": "k",
         "meta": {
@@ -4483,7 +4211,6 @@
                     "description": "שותפו לשעבר של שרגא, ניסים מוצרי חשמל מבקר ושרגא רוצה להרשים אותו",
                     "thumbnail": "https://www.kankids.org.il/media/3knmnwbm/cat42714_img_cover443946819.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11598/s6/97289/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_h89oov6u/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4501,7 +4228,6 @@
                     "description": "מאמן הכושר של עליזה מעדיף לאכול ולהתבטל מאשר לעשות כושר",
                     "thumbnail": "https://www.kankids.org.il/media/1zio13me/cat42713_img_cover848693038.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11598/s6/97286/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_dkt7mobi/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4519,7 +4245,6 @@
                     "description": "שרגא רכש כרטיסים להופעה דרך הטלפון ושוחח שם אינטלגנציה מלאכותית",
                     "thumbnail": "https://www.kankids.org.il/media/zc0jwurq/cat42712_img_cover855685123.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11598/s6/97283/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_sg5nl8xk/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4535,14 +4260,7 @@
     "il_kan_11610": {
         "id": "il_kan_11610",
         "name": "העיפרון הכי מחודד עם אורי פינק",
-        "poster": "https://www.kankids.org.il/media/1ryk21vs/https-kanstaticazureedgenet-download-pictures-2021-9-29-imgid-21155_k.jpeg",
-        "description": "אורי פינק ואייבי העיפרון המדבר, עובדים יחדיו בסטודיו של אורי ולומדים מהם מאפייני דמות, תקריב, קווי תנועה ועוד, תוך שהם מציירים ציורים שמומלץ לנסות גם בבית.",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11610/",
-        "background": "https://www.kankids.org.il/media/1ryk21vs/https-kanstaticazureedgenet-download-pictures-2021-9-29-imgid-21155_k.jpeg",
-        "genres": [
-            "Kan",
-            "כאן"
-        ],
         "type": "series",
         "subtype": "k",
         "meta": {
@@ -4568,31 +4286,12 @@
                     "description": "בפרק נכיר את אבנר האגרונום החוקר את הארטישוק הירושלמי באוניברסיטה",
                     "thumbnail": "https://www.kankids.org.il/media/o43pzqgd/cat39665_img_cover146896516.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11610/s4/92736/",
-                    "released": "",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_yace0qqt/format/applehttp/protocol/https/desiredFileName.m3u8",
                             "type": "series",
                             "name": "העיפרון הכי מחודד - האוניברסיטה העברית - פרק",
                             "description": "בפרק נכיר את אבנר האגרונום החוקר את הארטישוק הירושלמי באוניברסיטה העברית, האם זהו ארטישוק? ומה הקשר שלו לירושלים?"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_11610:2:2",
-                    "name": "בית הנשיא | פרק 2",
-                    "season": 2,
-                    "episode": 2,
-                    "description": "בפרק הזה נבקר בבית הנשיא",
-                    "thumbnail": "https://www.kankids.org.il/media/4z2bszaw/cat39666_img_cover836768853.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11610/s4/92739/",
-                    "released": "",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_lnsw9e6l/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "העיפרון הכי מחודד - בית הנשיא - פרק 2",
-                            "description": "בפרק הזה נבקר בבית הנשיא – האמת היא שבנימין הילד מבקר בבית הנשיא ומעניק לנשיא המדינה (אייבי) בובה בדמותו מעשה ידיו להתפאר."
                         }
                     ]
                 }
@@ -4602,14 +4301,7 @@
     "il_kan_11732": {
         "id": "il_kan_11732",
         "name": "בית ספר לקוסמים",
-        "poster": "https://www.kankids.org.il/media/gihehooo/https-kanstaticazureedgenet-download-pictures-2021-9-29-imgid-21156_k.jpeg",
-        "description": "דיקו הקוסם ויואב שולייתו, בכירי מורי הקסמים בארץ, מלמדים את סודות הקסמים המקצועיים והגדולים בעולם",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11732/",
-        "background": "https://www.kankids.org.il/media/gihehooo/https-kanstaticazureedgenet-download-pictures-2021-9-29-imgid-21156_k.jpeg",
-        "genres": [
-            "Kan",
-            "כאן"
-        ],
         "type": "series",
         "subtype": "k",
         "meta": {
@@ -4626,39 +4318,13 @@
                 "Kan",
                 "כאן"
             ],
-            "videos": [
-                {
-                    "id": "il_kan_11732:1:1",
-                    "name": "הנבואה התלויה | פרק 1",
-                    "season": 1,
-                    "episode": 1,
-                    "description": "דיקו מנחש תוצאת חיבור של מספרים אקראיים שבחרו הילדים",
-                    "thumbnail": "https://www.kankids.org.il/media/yufmrhlv/2019-2-25-imgid-5344_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11732/s1/100071/",
-                    "released": "",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_uwr9q6sg/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "הנבואה התלויה | פרק 1",
-                            "description": "דיקו מנחש תוצאת חיבור של מספרים אקראיים שבחרו הילדים"
-                        }
-                    ]
-                }
-            ]
+            "videos": []
         }
     },
     "il_kan_11778": {
         "id": "il_kan_11778",
         "name": "חלם בהלם",
-        "poster": "https://www.kankids.org.il/media/ga5n5wvi/239x360_qb.jpg",
-        "description": "רונה מספרת לאחיה גיא סיפורים על הרשל'ה וחכמי חלם, ודרך הפתרונות המשעשעים שמוצאים לכל בעיה, הם לומדים מהם שיעור לחיים.",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11778/",
-        "background": "https://www.kankids.org.il/media/ga5n5wvi/239x360_qb.jpg",
-        "genres": [
-            "Kan",
-            "כאן"
-        ],
         "type": "series",
         "subtype": "k",
         "meta": {
