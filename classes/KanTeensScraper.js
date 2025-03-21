@@ -323,7 +323,7 @@ class KanTeensScraper {
         };
         if (released != "") {video["released"] = released;}
 
-        this._kanTeenJSONObj[key]["meta"]["videos"].push({video});
+        this._kanTeenJSONObj[key]["meta"]["videos"].push(video);
 
     }
 

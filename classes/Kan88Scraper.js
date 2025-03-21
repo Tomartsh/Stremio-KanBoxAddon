@@ -354,9 +354,7 @@ class Kan88Scraper {
         };
         if (released != "") { video["released"] = released;}
 
-        this._kanPodcastsJSONObj[key]["meta"]["videos"].push({
-            video
-        });
+        this._kanPodcastsJSONObj[key]["meta"]["videos"].push(video);
 
     }
 
