@@ -126,7 +126,6 @@ class KanDigitalScraper {
             //set series Description
             var description = "";
             if (seriesPageDoc.querySelector("div.info-description p") != undefined){
-                logger.debug(`The object is: ${this._kanDigitalJSONObj[key]}`);
                 this._kanDigitalJSONObj[key]["meta"]["description"]  = this.setDescription(seriesPageDoc.querySelector("div.info-description p"));
             }
             
@@ -297,8 +296,9 @@ class KanDigitalScraper {
             type: "series",
             name: nameVideo,
             description: descVideo,
-            released: released
         };
+
+        if (released != "") {streamsJSONObj["released"] = released;}
         logger.trace("getStreams => Exiting");
         return streamsJSONObj;
     }
