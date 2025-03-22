@@ -257,6 +257,7 @@ class KanArchiveScraper {
         
         if (doc == undefined){
             logger.debug("getStreams => Error retrieving do from " + link);
+            return "";
         }
         var released = "";
         var videoUrl = "";
