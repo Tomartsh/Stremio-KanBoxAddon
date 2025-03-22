@@ -57,7 +57,6 @@ kanPodcastsScraper.crawl(true);
 const kan88Scraper = new Kan88scraper(addToSeriesList)
 //kan88Scraper.crawl(true);
 
-
 runCrons();
 
 // Main program
@@ -230,37 +229,42 @@ builder.defineMetaHandler(({type, id}) => {
 	//for (var video of meta["videos"]) {
 		//delete video["streams"];
 	//}
-	/*
-	var videoId = id + ":1:1";
-	var meta = {
-		"id": id,
-		"background": "https://www.kan.org.il/media/x0qlwr5e/poster-image_small_239x360_מגרש-הרוסים.jpg",
-		"name": "מגרש הרוסים",
-		"genres": [
-            "Drama",
-            "דרמה",
-            "Thriller",
-            "מתח",
-            "Kan",
-            "כאן"
-        ],
-		"poster": "https://www.kan.org.il/media/x0qlwr5e/poster-image_small_239x360_מגרש-הרוסים.jpg",
-		"posterShape": "poster",
-		"type": "series",
-		"description": "יהודה, בלש ירושלמי, חוקר רצח אכזרי של עולה חדשה בשנות ה-90 בירושלים. אליו מצטרף אנדריי, אביו של צעיר שעומד להיות מוצא להורג בברית המועצות בגין רציחות דומות.\n",
-		"videos": [
-            {
-                "description": "עולה חדשה נרצחת בירושלים. יהודה ג'רסי, הבלש, מטיל ספק באשמתו של בעלה",
-                "episode": 1,
-                "episodeLink": "https://www.kan.org.il/content/kan/kan-11/p-829567/s1/840303/",
-                "id": videoId,
-                "season": 1,
-                "thumbnail": "https://www.kan.org.il/media/5xjnelze/פרק-1-לאתר_.jpg",
-                "name": "פרק 1 - גזר דין",
-				"released": "2025-02-24T19:30:00.000Z"
-            }
-		]
-	};*/
+
+	// var videoId = id + ":1:1";
+	// var meta = {
+	// 	"id": id,
+	// 	"type": "series",
+	// 	"name": "בלואי",
+	// 	"link": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/",
+	// 	"background": "https://www.kankids.org.il/media/ayvbpigh/poster_239_360_בלואי.jpg",
+	// 	"poster": "https://www.kankids.org.il/media/ayvbpigh/poster_239_360_בלואי.jpg",
+	// 	"posterShape": "poster",
+	// 	"logo": "https://www.kankids.org.il/media/ayvbpigh/poster_239_360_בלואי.jpg",
+	// 	"description": "בלואי היא כלבת בקר אוסטרלית בלתי נדלית בת שש, שאוהבת לשחק ולהפוך את חיי היומיום של המשפחה להרפתקאות יוצאות מן הכלל, מפתחת את דמיונה ואת החוסן הנפשי, הגופני והרגשי שלה",
+	// 	"genres": [
+	// 		"Kan",
+	// 		"כאן"
+	// 	],
+	// 	"videos": [
+	// 		{
+	// 			"id": videoId,
+	// 			"name": "פרק 13 - מרגלים",
+	// 			"season": 1,
+	// 			"episode": 1,
+	// 			"description": "מכשיר השליטה במבוגרים מתקלקל כשבינגו מפסיקה לשחק במשחק הריגול של בלואי",
+	// 			"thumbnail": "https://www.kankids.org.il/media/rjgkvubi/בלואי-פרק-13.jpg",
+	// 			"episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/830165/",
+	// 			"streams": [
+	// 				{
+	// 					"url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_d694sfm9/format/applehttp/protocol/https/desiredFileName.m3u8",
+	// 					"type": "series",
+	// 					"name": "פרק 13 - מרגלים",
+	// 					"description": "כשבינגו מפסיקה לשחק במשחק הריגול של בלואי, מכשיר השליטה שלהן במבוגרים מתקלקל! בלואי מבינה את החשיבות של בינגו וצריכה להחזיר אותה לקבוצה"
+	// 				}
+	// 			]
+	// 		}
+	// 	]
+	// };
 
     return Promise.resolve({ meta: meta })
 })
