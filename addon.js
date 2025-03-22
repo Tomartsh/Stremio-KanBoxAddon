@@ -53,7 +53,7 @@ const kanKidsScraper = new KanKidscraper(addToSeriesList)
 const kanTeensScraper = new KanTeensscraper(addToSeriesList)
 //kanTeensScraper.crawl(true);
 const kanPodcastsScraper = new KanPodcastsscraper(addToSeriesList)
-kanPodcastsScraper.crawl(true);
+//kanPodcastsScraper.crawl(true);
 const kan88Scraper = new Kan88scraper(addToSeriesList)
 //kan88Scraper.crawl(true);
 
