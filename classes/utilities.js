@@ -6,10 +6,10 @@ const axios = require('axios');
 const AdmZip = require("adm-zip");
 const fs = require('fs');
 require("dotenv").config({ path: path.resolve(__dirname, "../config/.env") }); // Load .env from config folder
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const GITHUB_BRANCH = process.env.GITHUB_BRANCH;
-const REPO_OWNER = process.env.REPO_OWNER;
-const REPO_NAME = process.env.REPO_NAME;
+const GITHUB_TOKEN = process.env.REPO_TOKEN_SECRET;
+const GITHUB_BRANCH = process.env.BRANCH_SECRET;
+const REPO_OWNER = process.env.REPO_OWNER_SECRET;
+const REPO_NAME = process.env.REPO_NAME_SECRET;
 
 const log4js = require("log4js");
 const {
@@ -240,17 +240,22 @@ function getReleaseDate(str){
             year = releasedArr[2];
             month = releasedArr[1];
             day = releasedArr[0];
+        }
 
-        } else if (regexKanPodcasts.test(str)) {
+        if (regexKanPodcasts.test(str)) {
             releasedArr = str.split(".");
             year = releasedArr[2].split(" ")[0];
             month = releasedArr[1];
             day = releasedArr[0];
 
-            if (month.length = 1){ month = "0" + month;}
-            if (day.length = 1){ day = "0" + day;}
+            if (month.length == 1){ 
+                month = "0" + month;
+            }
+            if (day.length == 1){ day = "0" + day;}
 
-        } else if (regexMako.test(str)){
+        } 
+        
+        if (regexMako.test(str)){
             releasedArr = str.split(".");
             year = releasedArr[2];
             month = releasedArr[1];
