@@ -234,15 +234,17 @@ function getReleaseDate(str){
         const regexReshet = /^(\d{2})\/(\d{2})\/(\d{4})/;
         const regexKanPodcasts = /^(\d{1,2})\.(\d{1,2})\.(\d{4}) (\d{1,2}):(\d{1,2}):(\d{2})/;
         const regexMako = /^(\d{2})\.(\d{2})\.(\d{2})/;
+        var processed = false;
         
-        if (regexReshet.test(str)) {//example 03/06/2024
+        if ((regexReshet.test(str)) && (!processed)) {//example 03/06/2024
             releasedArr = str.split("/"); 
             year = releasedArr[2];
             month = releasedArr[1];
             day = releasedArr[0];
+            processed = true;
         }
 
-        if (regexKanPodcasts.test(str)) {
+        if ((regexKanPodcasts.test(str)) && (!processed)) {
             releasedArr = str.split(".");
             year = releasedArr[2].split(" ")[0];
             month = releasedArr[1];
@@ -252,14 +254,15 @@ function getReleaseDate(str){
                 month = "0" + month;
             }
             if (day.length == 1){ day = "0" + day;}
-
+            processed = true;
         } 
         
-        if (regexMako.test(str)){
+        if ((regexMako.test(str))  && (!processed)){
             releasedArr = str.split(".");
             year = releasedArr[2];
             month = releasedArr[1];
             day = releasedArr[0];
+            processed = true;
         }
 
         released = year + "-" + month + "-" + day + "T00:00:00.000Z";
