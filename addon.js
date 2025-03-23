@@ -225,49 +225,11 @@ builder.defineMetaHandler(({type, id}) => {
 	logger.debug("defineMetaHandler=> request for meta: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	var meta = listSeries.getMetaById(id);
-	//iterate over each videos JSON object and remove streams
-	//for (var video of meta["videos"]) {
-		//delete video["streams"];
-	//}
 
-	// var videoId = id + ":1:1";
-	// var meta = {
-	// 	"id": id,
-	// 	"type": "series",
-	// 	"name": "בלואי",
-	// 	"link": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/",
-	// 	"background": "https://www.kankids.org.il/media/ayvbpigh/poster_239_360_בלואי.jpg",
-	// 	"poster": "https://www.kankids.org.il/media/ayvbpigh/poster_239_360_בלואי.jpg",
-	// 	"posterShape": "poster",
-	// 	"logo": "https://www.kankids.org.il/media/ayvbpigh/poster_239_360_בלואי.jpg",
-	// 	"description": "בלואי היא כלבת בקר אוסטרלית בלתי נדלית בת שש, שאוהבת לשחק ולהפוך את חיי היומיום של המשפחה להרפתקאות יוצאות מן הכלל, מפתחת את דמיונה ואת החוסן הנפשי, הגופני והרגשי שלה",
-	// 	"genres": [
-	// 		"Kan",
-	// 		"כאן"
-	// 	],
-	// 	"videos": [
-	// 		{
-	// 			"id": videoId,
-	// 			"name": "פרק 13 - מרגלים",
-	// 			"season": 1,
-	// 			"episode": 1,
-	// 			"description": "מכשיר השליטה במבוגרים מתקלקל כשבינגו מפסיקה לשחק במשחק הריגול של בלואי",
-	// 			"thumbnail": "https://www.kankids.org.il/media/rjgkvubi/בלואי-פרק-13.jpg",
-	// 			"episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/830165/",
-	// 			"streams": [
-	// 				{
-	// 					"url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_d694sfm9/format/applehttp/protocol/https/desiredFileName.m3u8",
-	// 					"type": "series",
-	// 					"name": "פרק 13 - מרגלים",
-	// 					"description": "כשבינגו מפסיקה לשחק במשחק הריגול של בלואי, מכשיר השליטה שלהן במבוגרים מתקלקל! בלואי מבינה את החשיבות של בינגו וצריכה להחזיר אותה לקבוצה"
-	// 				}
-	// 			]
-	// 		}
-	// 	]
-	// };
+	//var videoId = id + ":1:1";
 
     return Promise.resolve({ meta: meta })
-})
+});
 
 
 async function tuki(type, id){
