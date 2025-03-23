@@ -293,8 +293,10 @@ class KanArchiveScraper {
             type: "series",
             name: nameVideo,
             description: descVideo,
-            released: released
         };
+
+        if (released != "") { streamsJSONObj["released"] = released; }
+        
         logger.trace("getStreams => Exiting");
         return streamsJSONObj;
     }
