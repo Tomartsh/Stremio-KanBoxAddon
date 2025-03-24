@@ -84,7 +84,12 @@ class LiveTV {
                                 url: "http://kan11.media.kan.org.il/hls/live/2024514/2024514/source1_2.5k/chunklist.m3u8",
                                 type: "tv",
                                 name: "שידור חי כאן 11",
-                                description: "שידור חי כאן 11"
+                                description: "שידור חי כאן 11",
+                                behaviorHints: [
+                                    {
+                                        notWebReady: true
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -133,7 +138,12 @@ class LiveTV {
                                 url: "https://kan23.media.kan.org.il/hls/live/2024691-b/2024691/source1_4k/chunklist.m3u8",
                                 type: "tv",
                                 name: "חינוכית שידור חי",
-                                description: "חינוכית שידור חי"
+                                description: "חינוכית שידור חי",
+                                behaviorHints: [
+                                    {
+                                        notWebReady: true
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -182,7 +192,12 @@ class LiveTV {
                                 url: "https://makan.media.kan.org.il/hls/live/2024680/2024680/source1_2.5k/chunklist.m3u8",
                                 type: "tv",
                                 name: "ערוץ השידור הערבי",
-                                description: "שידורי ערוץ השידור הערבי"
+                                description: "שידורי ערוץ השידור הערבי",
+                                behaviorHints: [
+                                    {
+                                        notWebReady: true
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -239,7 +254,12 @@ class LiveTV {
                                 url: url,
                                 type: "tv",
                                 name: "ערוץ הכנסת 99",
-                                description: "שידורי ערוץ הכנסת 99"
+                                description: "שידורי ערוץ הכנסת 99",
+                                behaviorHints: [
+                                    {
+                                        notWebReady: true
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -297,7 +317,12 @@ class LiveTV {
                                 url: "https://mako-streaming.akamaized.net/stream/hls/live/2033791/k12dvr/profile/2/hdntl=exp=1735669372~acl=%2f*~data=hdntl~hmac=b6e2493f547c81407d110fd0e7cf5ffc5cc6229721846c9908181b25a541a6e3/profileManifest.m3u8?_uid=a09bd8e7-f52a-4d5c-83a5-ebb3c664e7d8&rK=a3&_did=22bc6d40-f8a7-43c4-b1e0-ca555e4bc0cb",
                                 type: "tv",
                                 name: "שידור חי מאקו ערוץ 12",
-                                description: "שידור חי מאקו ערוץ 12"
+                                description: "שידור חי מאקו ערוץ 12",
+                                behaviorHints: [
+                                    {
+                                        notWebReady: true
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -354,7 +379,12 @@ class LiveTV {
                                 url: "https://mako-streaming.akamaized.net/stream/hls/live/2033791/k12dvr/profile/2/hdntl=exp=1735669372~acl=%2f*~data=hdntl~hmac=b6e2493f547c81407d110fd0e7cf5ffc5cc6229721846c9908181b25a541a6e3/profileManifest.m3u8?_uid=a09bd8e7-f52a-4d5c-83a5-ebb3c664e7d8&rK=a3&_did=22bc6d40-f8a7-43c4-b1e0-ca555e4bc0cb",
                                 type: "tv",
                                 name: "שידור חי רשת ערוץ 13",
-                                description: "שידור חי רשת ערוץ 13"
+                                description: "שידור חי רשת ערוץ 13",
+                                behaviorHints: [
+                                    {
+                                        notWebReady: true
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -406,7 +436,12 @@ class LiveTV {
                                 url: "https://ynet-live-02.ynet-pic1.yit.co.il/ynet/live_720.m3u8",
                                 type: "tv",
                                 name: "שידור חי ynet",
-                                description: "שידור חי ynet"
+                                description: "שידור חי ynet",
+                                behaviorHints: [
+                                    {
+                                        notWebReady: true
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -457,7 +492,12 @@ class LiveTV {
                                 url: "https://bcovlive-a.akamaihd.net/ecf224f43f3b43e69471a7b626481af0/eu-central-1/5377161796001/playlist.m3u8",
                                 type: "tv",
                                 name: "שידור חי באנגלית i24",
-                                description: "שידור חי באנגלית i24"
+                                description: "שידור חי באנגלית i24",
+                                behaviorHints: [
+                                    {
+                                        notWebReady: true
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -507,7 +547,12 @@ class LiveTV {
                                 url: "https://bcovlive-a.akamaihd.net/d89ede8094c741b7924120b27764153c/eu-central-1/5377161796001/playlist.m3u8?__nn__=5476555825001&hdnea=st=1735653600~exp=1735657200~acl=/d89ede8094c741b7924120b27764153c/eu-central-1/5377161796001/*~hmac=b42070c372326b7d243bf09dced085e140a2a6480cc9312c13a80d6d7a148104",
                                 type: "tv",
                                 name: "שידור חי בעיברית i24",
-                                description: "שידור חי בעיברית i24"
+                                description: "שידור חי בעיברית i24",
+                                behaviorHints: [
+                                    {
+                                        notWebReady: true
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -557,7 +602,12 @@ class LiveTV {
                                 url: "https://bcovlive-a.akamaihd.net/41814196d97e433fb401c5e632d985e9/eu-central-1/5377161796001/playlist.m3u8",
                                 type: "tv",
                                 name: "שידור חי בצרפתית i24",
-                                description: "שידור חי בצרפתית i24"
+                                description: "שידור חי בצרפתית i24",
+                                behaviorHints: [
+                                    {
+                                        notWebReady: true
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -606,7 +656,12 @@ class LiveTV {
                                 url: "https://bcovlive-a.akamaihd.net/95116e8d79524d87bf3ac20ba04241e3/eu-central-1/5377161796001/playlist.m3u8",
                                 type: "tv",
                                 name: "שידור חי בערבית i24",
-                                description: "שידור חי בערבית i24"
+                                description: "שידור חי בערבית i24",
+                                behaviorHints: [
+                                    {
+                                        notWebReady: true
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -658,7 +713,12 @@ class LiveTV {
                                 url: "https://mako-streaming.akamaized.net/direct/hls/live/2035340/ch24live/hdntl=exp=1735742336~acl=%2f*~data=hdntl~hmac=7eedf5eaef20a12e53120f7bcc33e0a0ebbc95c83894b870abdb45976d91d493/video_7201280_p_1.m3u8",
                                 type: "tv",
                                 name: "שידור חי 24",
-                                description: "שידור חי 24"
+                                description: "שידור חי 24",
+                                behaviorHints: [
+                                    {
+                                        notWebReady: true
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -709,7 +769,12 @@ class LiveTV {
                                 url: "https://amg01742-walla-wallanews-ono-btlna.amagi.tv/playlist/amg01742-walla-wallanews-ono/playlist.m3u8",
                                 type: "tv",
                                 name: "שידור חי וואלה",
-                                description: "שידור חי וואלה"
+                                description: "שידור חי וואלה",
+                                behaviorHints: [
+                                    {
+                                        notWebReady: true
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -759,7 +824,12 @@ class LiveTV {
                                 url: "https://rgelive.akamaized.net/hls/live/2043095/live3/playlist.m3u8",
                                 type: "tv",
                                 name: "שידור חי Sport 5",
-                                description: "שידור חי Sport 5"
+                                description: "שידור חי Sport 5",
+                                behaviorHints: [
+                                    {
+                                        notWebReady: true
+                                    }
+                                ]
                             }
                         ]
                     }
