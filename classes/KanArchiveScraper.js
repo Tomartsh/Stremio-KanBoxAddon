@@ -7,9 +7,10 @@ const {
     LOG_BACKUP_FILES,
     LOG_FILENAME,
     KAN_URL_ADDRESS,
-    KAN_DIGITAL_IMAGE_PREFIX,
-    PREFIX
+    KAN_DIGITAL_IMAGE_PREFIX
 } = require("./constants.js");
+const SUB_PREFIX = "archive";
+
 const log4js = require("log4js");
 
 log4js.configure({
@@ -34,7 +35,6 @@ class KanArchiveScraper {
     constructor(addToSeriesList) {
         this._kanArchiveJSONObj = {};
         this.addToSeriesList = addToSeriesList
-        this.seriesIdIterator = 3000;
         this.isRunning = false;
     }
 
@@ -98,7 +98,7 @@ class KanArchiveScraper {
             //set series ID
             // in case the id is not numbers only we need to invent an ID. We will start with 5,000
             // the generateId will return also the incremented series iterator
-            var id = this.generateSeriesId(seriesUrl);
+            var id = utils.generateSeriesId(seriesUrl, SUB_PREFIX);
             
             //set series image link
             var imageElem = seriesElem.querySelector("img");
@@ -322,7 +322,7 @@ class KanArchiveScraper {
         str = str.trim();
         return str;
     }
-
+/*
     generateSeriesId(link){
         var retId = "";
         //if the link has a trailing  "/" then omit it
@@ -350,7 +350,7 @@ class KanArchiveScraper {
         
         return retId;
     }
-
+*/
     setDescription(seriesElems){
         var description = "";
         if (seriesElems.length < 1) {return description;}

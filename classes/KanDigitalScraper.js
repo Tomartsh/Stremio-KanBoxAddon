@@ -6,9 +6,10 @@ const {
     LOG_BACKUP_FILES,
     LOG_FILENAME,
     KAN_URL_ADDRESS,
-    KAN_DIGITAL_IMAGE_PREFIX,
-    PREFIX
+    KAN_DIGITAL_IMAGE_PREFIX
 } = require("./constants.js");
+const SUB_PREFIX = "dogital";
+
 const log4js = require("log4js");
 
 log4js.configure({
@@ -96,7 +97,7 @@ class KanDigitalScraper {
             //set series ID
             // in case the id is not numbers only we need to invent an ID. We will start with 5,000
             // the generateId will return also the incremented series iterator
-            var id = this.generateSeriesId(seriesUrl);
+            var id = utils.generateSeriesId(seriesUrl, SUB_PREFIX);
             
             //set series image link
             var imageElem = seriesElem.querySelector("img");
@@ -324,7 +325,7 @@ class KanDigitalScraper {
         str = str.trim();
         return str;
     }
-   
+   /*
     generateSeriesId(link){
         var retId = "";
         //if the link has a trailing  "/" then omit it
@@ -352,7 +353,7 @@ class KanDigitalScraper {
         
         return retId;
     }
-
+*/
     setDescription(seriesElems){
         var description = "";
         if (seriesElems.length < 1) {return description;}

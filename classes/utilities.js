@@ -11,6 +11,10 @@ const GITHUB_BRANCH = process.env.BRANCH_SECRET;
 const REPO_OWNER = process.env.REPO_OWNER_SECRET;
 const REPO_NAME = process.env.REPO_NAME_SECRET;
 
+const {PREFIX } = require ("./constants");
+
+let seriesIterator = 1000;
+
 const log4js = require("log4js");
 const {
     MAX_RETRIES, 
@@ -476,4 +480,124 @@ function getNameFromSeriesPage(name){
     return name.trim();
 }
 
-module.exports = {padWithLeadingZeros, fetchData, writeJSONToFile, getCurrentDateStr, getReleaseDate, getImageFromUrl, setGenreFromString, getNameFromSeriesPage};
+/**
+ * Function used for Kan kids and teens only.
+ * @param {*} link 
+ * @returns JSON object to be used in teh video object 
+ */
+async function getStreams(link){
+    logger.trace("getStreams => Entering");
+    logger.trace("getStreams => Link: " + link);
+
+    var doc = await fetchData(link);
+    
+    if (doc == undefined){
+        logger.debug("getStreams => Error retrieving do from " + link);
+    }
+    var released = "";
+    var videoUrl = "";
+    var nameVideo = "";
+    var descVideo = "";
+
+    if (doc.querySelector("li.date-local") != undefined){
+        released = utils.getReleaseDate(doc.querySelector("li.date-local").getAttribute("data-date-utc"));
+    } 
+    var scriptElems = doc.querySelectorAll("script");
+    
+    for (var scriptElem of scriptElems){         
+        if (scriptElem.toString().includes("VideoObject")) {
+            videoUrl = this.getEpisodeUrl(scriptElem.toString());
+            break;
+        }
+    }
+    
+    if (videoUrl == "") {
+        return "-1";
+    }
+
+    if (doc.querySelectorAll("div.info-title h1.h2").length > 0){
+        nameVideo = doc.querySelectorAll("div.info-title h1.h2")[0].text.trim();
+        nameVideo = this.getVideoNameFromEpisodePage(nameVideo);
+    } else if (doc.querySelector("title")) {
+        nameVideo = doc.querySelector("title").text.trim();
+        nameVideo = this.getVideoNameFromEpisodePage(nameVideo);
+    }
+
+    if (doc.querySelector("div.info-description") != null){
+        descVideo = doc.querySelector("div.info-description").text.trim();
+    }
+
+    var streamsJSONObj = {
+        url: videoUrl,
+        type: "series",
+        name: nameVideo,
+        description: descVideo,
+    };
+    if (released != "") { streamsJSONObj["released"] = released;}
+    logger.trace("getStreams => Exiting");
+    return streamsJSONObj;
+}
+
+/**
+ * returns a link from a JSON string
+ * @param {*} link 
+ * @returns URL formatted string
+ */
+function getEpisodeUrl(link){
+    var startPoint = link.indexOf("contentUrl");
+    link = link.substring(startPoint + 14);
+    var endPoint = link.indexOf('\"');
+    link = link.substring(0,endPoint);
+        
+    return link;
+}
+
+/**
+ * Clean up string in order to retrieve episode URL
+ * @param {*} str 
+ * @returns the string of a URL from video page
+ */
+function getVideoNameFromEpisodePage(str){
+    if (str.indexOf("|") > 0) {
+        str = str.substring(str.indexOf('|'));
+        str = str.replace("|", "");
+    }
+    str = str.trim();
+    return str;
+}
+
+function generateSeriesId(link, subPrefix){
+    var retId = "";
+    //if the link has a trailing  "/" then omit it
+
+    if(link) {
+        if (link.substring(link.length -1) == "/"){
+            link = link.substring(0,link.length -1);
+        }
+        retId = link.substring(link.lastIndexOf("/") + 1, link.length);
+        retId = retId.replace(/\D/g,'');
+    }
+    if (retId == ""){
+        retId = seriesIterator;
+        seriesIterator++;
+    }
+
+    retId = PREFIX + "kan_" + subPrefix + "_" + retId;
+    
+    return retId;
+}
+
+module.exports = {
+    padWithLeadingZeros, 
+    fetchData, 
+    writeJSONToFile, 
+    getCurrentDateStr, 
+    getReleaseDate, 
+    getImageFromUrl, 
+    setGenreFromString, 
+    getNameFromSeriesPage, 
+    getStreams,
+    getEpisodeUrl,
+    getVideoNameFromEpisodePage,
+    generateSeriesId    
+};

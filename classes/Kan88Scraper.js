@@ -5,10 +5,10 @@ const {
     MAX_LOG_SIZE, 
     LOG_BACKUP_FILES,
     LOG_FILENAME,
-    PODCASTS_URL,
-    KAN88_POCASTS_URL,
-    PREFIX
+    KAN88_POCASTS_URL
 } = require("./constants.js");
+const SUB_PREFIX = "kan88";
+
 const log4js = require("log4js");
 
 log4js.configure({
@@ -89,7 +89,7 @@ class Kan88Scraper {
             var genres = ["music","מוסיקה"];
             
             //set ID
-            var id = this.generateSeriesId(podcastLink);
+            var id = utils.generateSeriesId(podcastLink, SUB_PREFIX);
 
             //set thumbnail image
             var podcastImageUrl = "";
@@ -312,7 +312,7 @@ class Kan88Scraper {
         return streams;
 
     }
-
+/*
     generateSeriesId(link){
         var retId = "";
         //if the link has a trailing  "/" then omit it
@@ -340,7 +340,7 @@ class Kan88Scraper {
         
         return retId;
     }
-
+*/
     addVideoToMeta(key, episodeId, name, seasonNo, episodeNo, desc, thumb, episodeLink, released, streams){
         var video = {
             id: episodeId,

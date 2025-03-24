@@ -9,6 +9,8 @@ const {
     URL_HINUKHIT_KIDS_CONTENT_PREFIX,
     PREFIX
 } = require("./constants.js");
+const SUB_PREFIX = "kids";
+
 const log4js = require("log4js");
 
 log4js.configure({
@@ -33,7 +35,6 @@ class KanKidsScraper {
     constructor(addToSeriesList) {
         this._kanKidsJSONObj = {};
         this.addToSeriesList = addToSeriesList
-        this.seriesIdIterator = 5000;
         this.isRunning = false;
     }
 
@@ -114,7 +115,7 @@ class KanKidsScraper {
             
             var seriesPage = URL_HINUKHIT_KIDS_CONTENT_PREFIX + series.Url;
             var genres = utils.setGenreFromString(series.Genres);
-            var id = this.generateSeriesId(seriesPage);
+            var id = utils.generateSeriesId(seriesPage, SUB_PREFIX);
             var doc2 = await fetchData(seriesPage + "?currentPage=2&itemsToShow=100");
             
             //set the series name
@@ -201,23 +202,24 @@ class KanKidsScraper {
                     (episode.querySelector("img.img-full").getAttribute("src").indexOf("?") > 0)){
                     episodeImgUrl = utils.getImageFromUrl(episode.querySelector("img.img-full").getAttribute("src"), subType);
                 }
-                logger.trace("getKidsVideos => episodeImgUrl: " + episodeImgUrl + " Name: " + episodeTitle)
+                logger.trace("getKidsVideos => episodeImgUrl: " + episodeImgUrl + " Name: " + episodeTitle);
 
                 var episodeDescription = episode.querySelector("div.card-text").text;
                 episodeDescription = episodeDescription.replace(/[\r\n]+/gm, "").trim();;
 
                 var streams = await this.getStreams(episodeLink);
-                var streamsArr = [
-                    {
-                        url: streams.url,
-                        type: streams.type,
-                        name: streams.name,
-                        description: streams.description
-                    }
-                ];
+                var streamsArr = [];
+                var released = "";
+                if (streams == "-1"){
+                    logger.debug("getKidsVideos => Stream is empty. Leaving it empty");
+                } else {
+                    streamsArr.push(streams);
+                    released = streams.released;
+                }
+
                 var videoId = id + ":" + seasonNo + ":" + episodeNo;
                 
-                this.addVideoToMeta(id, videoId, episodeTitle,seasonNo, episodeNo, episodeDescription, episodeImgUrl, episodeLink, streams.released, streamsArr);
+                this.addVideoToMeta(id, videoId, episodeTitle,seasonNo, episodeNo, episodeDescription, episodeImgUrl, episodeLink, released, streamsArr);
                 logger.debug("getKidsVideos => Added videos for episode : " + episodeTitle + " " + videoId + " Description: " + episodeDescription);
             }
         }
@@ -249,6 +251,10 @@ class KanKidsScraper {
             }
         }
         
+        if (videoUrl == "") {
+            return "-1";
+        }
+
         if (doc.querySelectorAll("div.info-title h1.h2").length > 0){
             nameVideo = doc.querySelectorAll("div.info-title h1.h2")[0].text.trim();
             nameVideo = this.getVideoNameFromEpisodePage(nameVideo);
@@ -271,7 +277,7 @@ class KanKidsScraper {
         logger.trace("getStreams => Exiting");
         return streamsJSONObj;
     }
-
+/*
     generateSeriesId(link){
         var retId = "";
         //if the link has a trailing  "/" then omit it
@@ -299,7 +305,7 @@ class KanKidsScraper {
         
         return retId;
     }
-
+*/
     setDescription(seriesElems){
         var description = "";
         if (seriesElems.length < 1) {return description;}

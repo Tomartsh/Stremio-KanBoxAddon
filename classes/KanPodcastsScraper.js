@@ -5,10 +5,10 @@ const {
     MAX_LOG_SIZE, 
     LOG_BACKUP_FILES,
     LOG_FILENAME,
-    PODCASTS_URL,
-    KAN88_POCASTS_URL,
-    PREFIX
+    PODCASTS_URL
 } = require("./constants.js");
+const SUB_PREFIX = "podcasts";
+
 const log4js = require("log4js");
 
 log4js.configure({
@@ -93,7 +93,7 @@ class KanPodcastsScraper {
                 if (podcastSeriesLink.includes("kan88")){continue; }
                 
                 //set ID
-                var id = this.generateSeriesId(podcastSeriesLink);
+                var id = utils.generateSeriesId(podcastSeriesLink, SUB_PREFIX);
 
                 //set title;
                 var seriesTitle = this.getPodcastTitle(podcastElement,"");
@@ -157,7 +157,7 @@ class KanPodcastsScraper {
             lastPageNo = 1;
             logger.trace("getpodcastEpisodeVideos => URL: " + podcastSeriesLink + " has only 1 page");
         }
-        logger.debug("getpodcastEpisodeVideos => podcast ID: " + id + " last page number: " + lastPageNo);
+        logger.debug("getpodcastEpisodeVideos => podcast ID: " + id + " number of pages: " + lastPageNo);
         var podcastEpisodes = []; //list of podcast episodes
         if ((lastPageNo) && (parseInt(lastPageNo) >= 0) ){
             var intLastPageNo = parseInt(lastPageNo);
@@ -316,7 +316,7 @@ class KanPodcastsScraper {
         return streams;
 
     }
-
+/*
     generateSeriesId(link){
         var retId = "";
         //if the link has a trailing  "/" then omit it
@@ -344,7 +344,7 @@ class KanPodcastsScraper {
         
         return retId;
     }
-
+*/
     setDescription(seriesElems){
         var description = "";
         if (seriesElems.length < 1) {return description;}

@@ -6,9 +6,10 @@ const {
     LOG_BACKUP_FILES,
     LOG_FILENAME,
     URL_HINUKHIT_TEENS,
-    URL_HINUKHIT_KIDS_CONTENT_PREFIX,
-    PREFIX
+    URL_HINUKHIT_KIDS_CONTENT_PREFIX
 } = require("./constants.js");
+const SUB_PREFIX = "teens";
+
 const log4js = require("log4js");
 
 log4js.configure({
@@ -33,7 +34,6 @@ class KanTeensScraper {
     constructor(addToSeriesList) {
         this._kanTeenJSONObj = {};
         this.addToSeriesList = addToSeriesList
-        this.seriesIdIterator = 8000;
         this.isRunning = false;
     }
 
@@ -67,28 +67,6 @@ class KanTeensScraper {
 
         logger.info("crawl => Done crawling. Exiting");
     }
-
-    /*************************************************************
-     * Get the URL of the indivifual Episode
-     * @link
-     *************************************************************/
-    getEpisodeUrl(link){
-        var startPoint = link.indexOf("contentUrl");
-        link = link.substring(startPoint + 14);
-        var endPoint = link.indexOf('\"');
-        link = link.substring(0,endPoint);
-            
-        return link;
-    }
-
-    getVideoNameFromEpisodePage(str){
-        if (str.indexOf("|") > 0) {
-            str = str.substring(str.indexOf('|'));
-            str = str.replace("|", "");
-        }
-        str = str.trim();
-        return str;
-    }
    
     /****************************************************************
      * 
@@ -114,7 +92,7 @@ class KanTeensScraper {
             
             var seriesPage = URL_HINUKHIT_KIDS_CONTENT_PREFIX + series.Url;
             var genres = utils.setGenreFromString(series.Genres);
-            var id = this.generateSeriesId(seriesPage);
+            var id = utils.generateSeriesId(seriesPage, SUB_PREFIX);
             logger.debug(`CrawlTeens => seriesPage is ${series.Url}`);
             var doc2 = await fetchData(seriesPage + "?currentPage=2&itemsToShow=500");
             if (doc2 == undefined){ continue; }            
@@ -208,98 +186,22 @@ class KanTeensScraper {
                 var episodeDescription = episode.querySelector("div.card-text").text;
                 episodeDescription = episodeDescription.replace(/[\r\n]+/gm, "").trim();;
 
-                var streams = await this.getStreams(episodeLink);
-                var streamsArr = [
-                    {
-                        url: streams.url,
-                        type: streams.type,
-                        name: streams.name,
-                        description: streams.description
-                    }
-                ];
+                var streams = await utils.getStreams(episodeLink);
+                var streamsArr = [];
+                var released = "";
+                if (streams == "-1"){
+                    logger.debug("getKidsVideos => Stream is empty. Leaving it empty");
+                } else {
+                    streamsArr.push(streams);
+                    released = streams.released;
+                }
+
                 var videoId = id + ":" + seasonNo + ":" + episodeNo;
                 
-                this.addVideoToMeta(id, videoId, episodeTitle,seasonNo, episodeNo, episodeDescription, episodeImgUrl, episodeLink, streams.released, streamsArr);
+                this.addVideoToMeta(id, videoId, episodeTitle,seasonNo, episodeNo, episodeDescription, episodeImgUrl, episodeLink, released, streamsArr);
                 logger.debug("getKidsVideos => Added videos for episode : " + episodeTitle + " " + videoId + " Description: " + episodeDescription);
             }
         }
-    }
-
-    async getStreams(link){
-        logger.trace("getStreams => Entering");
-        logger.trace("getStreams => Link: " + link);
-
-        var doc = await fetchData(link);
-        
-        if (doc == undefined){
-            logger.debug("getStreams => Error retrieving do from " + link);
-        }
-        var released = "";
-        var videoUrl = "";
-        var nameVideo = "";
-        var descVideo = "";
-
-        if (doc.querySelector("li.date-local") != undefined){
-            released = utils.getReleaseDate(doc.querySelector("li.date-local").getAttribute("data-date-utc"));
-        } 
-        var scriptElems = doc.querySelectorAll("script");
-        
-        for (var scriptElem of scriptElems){         
-            if (scriptElem.toString().includes("VideoObject")) {
-                videoUrl = this.getEpisodeUrl(scriptElem.toString());
-                break;
-            }
-        }
-        
-        if (doc.querySelectorAll("div.info-title h1.h2").length > 0){
-            nameVideo = doc.querySelectorAll("div.info-title h1.h2")[0].text.trim();
-            nameVideo = this.getVideoNameFromEpisodePage(nameVideo);
-        } else if (doc.querySelector("title")) {
-            nameVideo = doc.querySelector("title").text.trim();
-            nameVideo = this.getVideoNameFromEpisodePage(nameVideo);
-        }
-
-        if (doc.querySelector("div.info-description") != null){
-            descVideo = doc.querySelector("div.info-description").text.trim();
-        }
-
-        var streamsJSONObj = {
-            url: videoUrl,
-            type: "series",
-            name: nameVideo,
-            description: descVideo,
-            released: released
-        };
-        logger.trace("getStreams => Exiting");
-        return streamsJSONObj;
-    }
-
-    generateSeriesId(link){
-        var retId = "";
-        //if the link has a trailing  "/" then omit it
-
-        if(link) {
-            if (link.substring(link.length -1) == "/"){
-                link = link.substring(0,link.length -1);
-            }
-            retId = link.substring(link.lastIndexOf("/") + 1, link.length);
-            retId = retId.replace(/\D/g,'');
-
-            //check this is not an empty string or if key already exist
-            var testKey = retId in this._kanTeenJSONObj;
-            if ((retId == "") || (testKey)){
-                retId = PREFIX + "kan_" + this.seriesIdIterator;
-                this.seriesIdIterator++;
-            }
-
-            retId = PREFIX + "kan_" + retId;
-            
-        } else {
-            retId = PREFIX + "kan_" + this.seriesIdIterator;
-            this.seriesIdIterator++;
-        }
-        
-        return retId;
     }
 
     setDescription(seriesElems){
