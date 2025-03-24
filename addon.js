@@ -139,7 +139,10 @@ const manifest = {
 			type: "Podcasts",
 			id: "KanPodcasts",
 			name: "כאן הסכתים",
-			extra: [ {name: "search", isRequired: false }]
+			extra: [ 
+				{name: "search", isRequired: false },
+				{name: "skip", isRequired: false }
+			]
 		},
 		{
 			type: "Podcasts",
@@ -198,7 +201,7 @@ builder.defineCatalogHandler(({type, id, extra}) => {
             if (id == "KanPodcasts"){
                 metas = listSeries.getMetasBySubtypeAndName("p",search);
             } else if (id == "Kan88"){
-                metas = listSeries.getMetasBySubtypeAndName("8",search);
+               metas = listSeries.getMetasBySubtypeAndName("8",search);
             }
             break;
 		case "tv":
@@ -209,16 +212,6 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 		logger.debug("defineCatalogHandler => empty metas object!");
 	}
 	return Promise.resolve({metas});
-    /*
-    return Promise.resolve({ metas: [
-		{
-			id: "tt1254207",
-			type: "movie",
-			name: "The Big Buck Bunny",
-			poster: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Big_buck_bunny_poster_big.jpg/220px-Big_buck_bunny_poster_big.jpg"
-		}
-	] })
-    */
 })
 
 builder.defineMetaHandler(({type, id}) => {
@@ -226,8 +219,7 @@ builder.defineMetaHandler(({type, id}) => {
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	var meta = listSeries.getMetaById(id);
 
-	//var videoId = id + ":1:1";
-
+	//var videoId = id + ":1:";
     return Promise.resolve({ meta: meta })
 });
 
@@ -659,5 +651,7 @@ function runCrons(){
 
 	logger.info("runCrons => exiting runCrons");
 }
+
+
 
 module.exports = builder.getInterface();
