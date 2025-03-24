@@ -312,35 +312,7 @@ class Kan88Scraper {
         return streams;
 
     }
-/*
-    generateSeriesId(link){
-        var retId = "";
-        //if the link has a trailing  "/" then omit it
 
-        if(link) {
-            if (link.substring(link.length -1) == "/"){
-                link = link.substring(0,link.length -1);
-            }
-            retId = link.substring(link.lastIndexOf("/") + 1, link.length);
-            retId = retId.replace(/\D/g,'');
-
-            //check this is not an empty string or if key already exist
-            var testKey = retId in this._kanPodcastsJSONObj;
-            if ((retId == "") || (testKey)){
-                retId = this.seriesIdIterator;
-                this.seriesIdIterator++;
-            }
-
-            retId = PREFIX + "kan_" + retId;
-            
-        } else {
-            retId = PREFIX + "kan_" + this.seriesIdIterator;
-            this.seriesIdIterator++;
-        }
-        
-        return retId;
-    }
-*/
     addVideoToMeta(key, episodeId, name, seasonNo, episodeNo, desc, thumb, episodeLink, released, streams){
         var video = {
             id: episodeId,
