@@ -1,7 +1,15 @@
 const utils = require("./utilities.js");
-const {MAX_LOG_SIZE, LOG4JS_LEVEL, LOG_BACKUP_FILES, URLS_ASSETS_BASE} = require("./constants.js");
-const log4js = require("log4js");
+const {
+    MAX_LOG_SIZE, 
+    LOG4JS_LEVEL, 
+    LOG_BACKUP_FILES, 
+    URLS_ASSETS_BASE,
+    KNESSET_URL_TV
+} = require("./constants.js");
 
+
+
+const log4js = require("log4js");
 log4js.configure({
     appenders: { 
         out: { type: "stdout" },
@@ -34,10 +42,12 @@ class LiveTV {
     crawl(isDoWriteFile = false){
         logger.info("Start Crawling");
         this.crawlDigitalLive();
+        this.crawlKnesset();
         this.crawlMakoLive();
         this.crawYnetlLive();
         this.crawlI24();
         this.crawl24();
+        this.crawlwalla();
         //this.crawlSport5();
 
         logger.info("LiveTV=> Done Crawling");
@@ -69,7 +79,8 @@ class LiveTV {
                         description: "שידור חי כאן 11",
                         streams: [
                             {
-                                url: "https://kan11w.media.kan.org.il/hls/live/2105694/2105694/source1_600/chunklist.m3u8",
+                                //url: "https://kan11w.media.kan.org.il/hls/live/2105694/2105694/source1_600/chunklist.m3u8",
+                                url: "http://kan11.media.kan.org.il/hls/live/2024514/2024514/source1_2.5k/chunklist.m3u8",
                                 type: "tv",
                                 name: "שידור חי כאן 11",
                                 description: "שידור חי כאן 11"
@@ -83,13 +94,13 @@ class LiveTV {
         this._liveTVJSONObj[idKanLive] = kanLiveObj;
         var itemKanLive = {
             id: idKanLive, 
-            name: kanLiveObj.metas.name, 
-            poster: kanLiveObj.metas.poster, 
-            description: kanLiveObj.metas.description, 
+            name: kanLiveObj.meta.name, 
+            poster: kanLiveObj.meta.poster, 
+            description: kanLiveObj.meta.description, 
             link: "",
-            background: kanLiveObj.metas.background, 
-            genres: kanLiveObj.metas.genres,
-            meta: kanLiveObj.metas,
+            background: kanLiveObj.meta.background, 
+            genres: kanLiveObj.meta.genres,
+            meta: kanLiveObj.meta,
             type: "tv", 
             subtype: "t"
         }
@@ -131,67 +142,18 @@ class LiveTV {
         this._liveTVJSONObj[idKanKidsLive] = kanKidsObj;
         var itemKanKidsLive ={
             id: idKanKidsLive, 
-            name: kanKidsObj.metas.name, 
-            poster: kanKidsObj.metas.poster, 
-            description: kanKidsObj.metas.description, 
+            name: kanKidsObj.meta.name, 
+            poster: kanKidsObj.meta.poster, 
+            description: kanKidsObj.meta.description, 
             link: "",
-            background: kanKidsObj.metas.background, 
-            genres: kanKidsObj.metas.genres,
-            meta: kanKidsObj.metas,
+            background: kanKidsObj.meta.background, 
+            genres: kanKidsObj.meta.genres,
+            meta: kanKidsObj.meta,
             type: "tv", 
             subtype: "t"
         };
         this.addToSeriesList(itemKanKidsLive)
         logger.debug("crawlDigitalLive => Added Hinukhit Live TV");
-
-        var idKanKnesset = "il_kanTV_06";
-        var knessetLiveObj = {
-            id: idKanKnesset,
-            type: "tv",
-            subtype: "t",
-            name: "שידורי ערוץ הכנסת 99",
-            meta: {
-                id: idKanKnesset,
-                name: "שידורי ערוץ הכנסת 99",
-                genres: ["Actuality","אקטואליה"],
-                type: "tv",
-                background: "https://www.knesset.tv/media/20004/logo-new.png",
-                poster: "https://www.knesset.tv/media/20004/logo-new.png",
-                posterShape: "landscape",
-                description: "שידורי ערוץ הכנסת - 99",
-                videos: [
-                    {
-                        id: idKanKnesset,
-                        name: "ערוץ הכנסת 99",
-                        description: "שידורי ערוץ הכנסת 99",
-                        streams: [
-                            {
-                                url: "https://contactgbs.mmdlive.lldns.net/contactgbs/a40693c59c714fecbcba2cee6e5ab957/manifest.m3u8",
-                                type: "tv",
-                                name: "ערוץ הכנסת 99",
-                                description: "שידורי ערוץ הכנסת 99"
-                            }
-                        ]
-                    }
-                ]
-            }
-        }
-        this._liveTVJSONObj[idKanKnesset] = knessetLiveObj;
-        var itemKnesset ={
-            id: idKanKnesset, 
-            name: knessetLiveObj.metas.name, 
-            poster: knessetLiveObj.metas.poster, 
-            description: knessetLiveObj.metas.description, 
-            link: "",
-            background: knessetLiveObj.metas.background, 
-            genres: knessetLiveObj.metas.genres,
-            meta: knessetLiveObj.metas,
-            type: "tv", 
-            subtype: "t"
-        };
-        this.addToSeriesList(itemKnesset);
-    
-        logger.debug("crawlDigitalLive => Added Knesset Live TV");
 
         var idMakanLive = "il_kanTV_07";
         var MakanLiveObj = {
@@ -215,7 +177,8 @@ class LiveTV {
                         description: "שידורי ערוץ השידור הערבי",
                         streams: [
                             {
-                                url: "https://makan.media.kan.org.il/hls/live/2024680/2024680/master.m3u8",
+                                //url: "https://makan.media.kan.org.il/hls/live/2024680/2024680/master.m3u8",
+                                url: "https://makan.media.kan.org.il/hls/live/2024680/2024680/source1_2.5k/chunklist.m3u8",
                                 type: "tv",
                                 name: "ערוץ השידור הערבי",
                                 description: "שידורי ערוץ השידור הערבי"
@@ -228,19 +191,76 @@ class LiveTV {
         this._liveTVJSONObj[idMakanLive] = MakanLiveObj;
         var itemMakan = {
             id: idMakanLive, 
-            name: MakanLiveObj.metas.name, 
-            poster: MakanLiveObj.metas.poster, 
-            description: MakanLiveObj.metas.description, 
+            name: MakanLiveObj.meta.name, 
+            poster: MakanLiveObj.meta.poster, 
+            description: MakanLiveObj.meta.description, 
             link: "",
-            background: MakanLiveObj.metas.background, 
-            genres: MakanLiveObj.metas.genres,
-            meta: MakanLiveObj.metas,
+            background: MakanLiveObj.meta.background, 
+            genres: MakanLiveObj.meta.genres,
+            meta: MakanLiveObj.meta,
             type: "tv", 
             subtype: "t"
         };
         this.addToSeriesList(itemMakan);
         logger.debug("crawlDigitalLive => Added Makan Live TV");
-        logger.trace("crawlDigitalLive => Leaving");
+    }
+
+    /**
+     * Get the Knesset live stream location
+     */
+    async crawlKnesset(){
+        logger.debug("crawlKnesset => Starting Knesset");
+        var doc = await fetchData(KNESSET_URL_TV);
+        var url = doc.genre.querySelector("div.video-icon.live-logo-div").getAttribute("data-video-url");
+
+        var idKanKnesset = "il_kan_TV_06";
+        var knessetLiveObj = {
+            id: idKanKnesset,
+            type: "tv",
+            subtype: "t",
+            name: "שידורי ערוץ הכנסת 99",
+            meta: {
+                id: idKanKnesset,
+                name: "שידורי ערוץ הכנסת 99",
+                genres: ["Actuality","אקטואליה"],
+                type: "tv",
+                background: "https://www.knesset.tv/media/20004/logo-new.png",
+                poster: "https://www.knesset.tv/media/20004/logo-new.png",
+                posterShape: "landscape",
+                description: "שידורי ערוץ הכנסת - 99",
+                videos: [
+                    {
+                        id: idKanKnesset,
+                        name: "ערוץ הכנסת 99",
+                        description: "שידורי ערוץ הכנסת 99",
+                        streams: [
+                            {
+                                url: url,
+                                type: "tv",
+                                name: "ערוץ הכנסת 99",
+                                description: "שידורי ערוץ הכנסת 99"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+        this._liveTVJSONObj[idKanKnesset] = knessetLiveObj;
+        var itemKnesset ={
+            id: idKanKnesset, 
+            name: knessetLiveObj.metasname, 
+            poster: knessetLiveObj.meta.poster, 
+            description: knessetLiveObj.meta.description, 
+            link: "",
+            background: knessetLiveObj.meta.background, 
+            genres: knessetLiveObj.meta.genres,
+            meta: knessetLiveObj.meta,
+            type: "tv", 
+            subtype: "t"
+        };
+        this.addToSeriesList(itemKnesset);
+        logger.debug("crawlKnesset => Added Knesset Live TV");
+
     }
 
     /********************************************************************
@@ -286,13 +306,13 @@ class LiveTV {
         this._liveTVJSONObj[idMakoLive] = makoLiveObj;
         var item12Live = {
             id: idMakoLive, 
-            name: makoLiveObj.metas.name, 
-            poster: makoLiveObj.metas.poster, 
-            description: makoLiveObj.metas.description, 
+            name: makoLiveObj.meta.name, 
+            poster: makoLiveObj.meta.poster, 
+            description: makoLiveObj.meta.description, 
             link: "",
-            background: makoLiveObj.metas.background, 
-            genres: makoLiveObj.metas.genres,
-            meta: makoLiveObj.metas,
+            background: makoLiveObj.meta.background, 
+            genres: makoLiveObj.meta.genres,
+            meta: makoLiveObj.meta,
             type: "tv", 
             subtype: "t"
         };
@@ -343,13 +363,13 @@ class LiveTV {
         this._liveTVJSONObj[idReshetLive] = reshetLiveObj;
         var item12Live = {
             id: idReshetLive, 
-            name: reshetLiveObj.metas.name, 
-            poster: reshetLiveObj.metas.poster, 
-            description: reshetLiveObj.metas.description, 
+            name: reshetLiveObj.meta.name, 
+            poster: reshetLiveObj.meta.poster, 
+            description: reshetLiveObj.meta.description, 
             link: "",
-            background: reshetLiveObj.metas.background, 
-            genres: reshetLiveObj.metas.genres,
-            meta: reshetLiveObj.metas,
+            background: reshetLiveObj.meta.background, 
+            genres: reshetLiveObj.meta.genres,
+            meta: reshetLiveObj.meta,
             type: "tv", 
             subtype: "t"
         };
@@ -395,13 +415,13 @@ class LiveTV {
         this._liveTVJSONObj[idYnetLive] = idYnetLiveObj;
         var itemYnet = {
             id: idYnetLive, 
-            name: idYnetLiveObj.metas.name, 
-            poster: idYnetLiveObj.metas.poster, 
-            description: idYnetLiveObj.metas.description, 
+            name: idYnetLiveObj.meta.name, 
+            poster: idYnetLiveObj.meta.poster, 
+            description: idYnetLiveObj.meta.description, 
             link: "",
-            background: idYnetLiveObj.metas.background, 
-            genres: idYnetLiveObj.metas.genres,
-            meta: idYnetLiveObj.metas,
+            background: idYnetLiveObj.meta.background, 
+            genres: idYnetLiveObj.meta.genres,
+            meta: idYnetLiveObj.meta,
             type: "tv", 
             subtype: "t"
         };
@@ -447,13 +467,13 @@ class LiveTV {
         this._liveTVJSONObj[idI24EngLive] = idI24EngObj;
         var item24Eng = {
             id: idI24EngLive, 
-            name: idI24EngObj.metas.name, 
-            poster: idI24EngObj.metas.poster, 
-            description: idI24EngObj.metas.description, 
+            name: idI24EngObj.meta.name, 
+            poster: idI24EngObj.meta.poster, 
+            description: idI24EngObj.meta.description, 
             link: "",
-            background: idI24EngObj.metas.background, 
-            genres: idI24EngObj.metas.genres,
-            meta: idI24EngObj.metas,
+            background: idI24EngObj.meta.background, 
+            genres: idI24EngObj.meta.genres,
+            meta: idI24EngObj.meta,
             type: "tv", 
             subtype: "t"
         };
@@ -496,13 +516,13 @@ class LiveTV {
         this._liveTVJSONObj[idI24HebLive] = i24HebLiveObj;
         var item24Heb = {
             id: idI24HebLive, 
-            name: i24HebLiveObj.metas.name, 
-            poster: i24HebLiveObj.metas.poster, 
-            description: i24HebLiveObj.metas.description, 
+            name: i24HebLiveObj.meta.name, 
+            poster: i24HebLiveObj.meta.poster, 
+            description: i24HebLiveObj.meta.description, 
             link: "",
-            background: i24HebLiveObj.metas.background, 
-            genres: i24HebLiveObj.metas.genres,
-            meta: i24HebLiveObj.metas,
+            background: i24HebLiveObj.meta.background, 
+            genres: i24HebLiveObj.meta.genres,
+            meta: i24HebLiveObj.meta,
             type: "tv", 
             subtype: "t"
         };
@@ -546,13 +566,13 @@ class LiveTV {
         this._liveTVJSONObj[idI24FrnLive] = i24FrnLiveObj;
         var item24Frn = {
             id: idI24FrnLive, 
-            name: i24FrnLiveObj.metas.name, 
-            poster: i24FrnLiveObj.metas.poster, 
-            description: i24FrnLiveObj.metas.description, 
+            name: i24FrnLiveObj.meta.name, 
+            poster: i24FrnLiveObj.meta.poster, 
+            description: i24FrnLiveObj.meta.description, 
             link: "",
-            background: i24FrnLiveObj.metas.background, 
-            genres: i24FrnLiveObj.metas.genres,
-            meta: i24FrnLiveObj.metas,
+            background: i24FrnLiveObj.meta.background, 
+            genres: i24FrnLiveObj.meta.genres,
+            meta: i24FrnLiveObj.meta,
             type: "tv", 
             subtype: "t"
         };
@@ -595,13 +615,13 @@ class LiveTV {
         this._liveTVJSONObj[idI24ArbLive] = i24ArbLiveObj;
         var item24Arb = {
             id: idI24ArbLive, 
-            name: i24ArbLiveObj.metas.name, 
-            poster: i24ArbLiveObj.metas.poster, 
-            description: i24ArbLiveObj.metas.description, 
+            name: i24ArbLiveObj.meta.name, 
+            poster: i24ArbLiveObj.meta.poster, 
+            description: i24ArbLiveObj.meta.description, 
             link: "",
-            background: i24ArbLiveObj.metas.background, 
-            genres: i24ArbLiveObj.metas.genres,
-            meta: i24ArbLiveObj.metas,
+            background: i24ArbLiveObj.meta.background, 
+            genres: i24ArbLiveObj.meta.genres,
+            meta: i24ArbLiveObj.meta,
             type: "tv", 
             subtype: "t"
         };
@@ -647,13 +667,13 @@ class LiveTV {
         this._liveTVJSONObj[id24Live] = jo24LiveObj;
         var item24 = {
             id: id24Live, 
-            name: jo24LiveObj.metas.name, 
-            poster: jo24LiveObj.metas.poster, 
-            description: jo24LiveObj.metas.description, 
+            name: jo24LiveObj.meta.name, 
+            poster: jo24LiveObj.meta.poster, 
+            description: jo24LiveObj.meta.description, 
             link: "",
-            background: jo24LiveObj.metas.background, 
-            genres: jo24LiveObj.metas.genres,
-            meta: jo24LiveObj.metas,
+            background: jo24LiveObj.meta.background, 
+            genres: jo24LiveObj.meta.genres,
+            meta: jo24LiveObj.meta,
             type: "tv", 
             subtype: "t"
         };
@@ -661,6 +681,56 @@ class LiveTV {
         logger.debug("crawlDigitalLive => Added 24 Live");
     }
 
+    crawlwalla(){
+        var idWallaLive = "il_walla_live_01";
+
+        var joWallaLiveObj = {
+            id: idWallaLive,
+            type: "tv",
+            subtype: "t",
+            name: "שידור חי וואלה",
+            meta: {
+                id: idWallaLive,
+                name: "שידור חי וואלה",
+                type: "tv",
+                genres: ["Actuality","אקטואליה","news"],
+                background: URLS_ASSETS_BASE + "logo-walla-blue-hostages.png",
+                poster: URLS_ASSETS_BASE + "logo-walla-blue-hostages.png",
+                posterShape: "landscape",
+                description: "שידור חי וואלה",
+                videos: [
+                    {
+                        id: idWallaLive,
+                        name: "שידור חי וואלה",
+                        description: "שידור חי וואלה",
+                        streams: [
+                            {
+                                url: "https://amg01742-walla-wallanews-ono-btlna.amagi.tv/playlist/amg01742-walla-wallanews-ono/playlist.m3u8",
+                                type: "tv",
+                                name: "שידור חי וואלה",
+                                description: "שידור חי וואלה"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+        this._liveTVJSONObj[idWallaLive] = joWallaLiveObj;
+        var itemWalla = {
+            id: idWallaLive, 
+            name: joWallaLiveObj.meta.name, 
+            poster: joWallaLiveObj.meta.poster, 
+            description: joWallaLiveObj.meta.description, 
+            link: "",
+            background: joWallaLiveObj.meta.background, 
+            genres: joWallaLiveObj.meta.genres,
+            meta: joWallaLiveObj.meta,
+            type: "tv", 
+            subtype: "t"
+        };
+        this.addToSeriesList(itemWalla);
+        logger.debug("crawlwalla => Added Walla Live");
+    }
     crawlSport5(){
         /* Sport 5 Live */
         var idSport5Live = "il_Sprt5_01";
@@ -698,13 +768,13 @@ class LiveTV {
         this._liveTVJSONObj[idSport5Live] = sport5LiveObj;
         var itemSport5 = {
             id: idSport5Live, 
-            name: sport5LiveObj.metas.name, 
-            poster: sport5LiveObj.metas.poster, 
-            description: sport5LiveObj.metas.description, 
+            name: sport5LiveObj.meta.name, 
+            poster: sport5LiveObj.meta.poster, 
+            description: sport5LiveObj.meta.description, 
             link: "",
-            background: sport5LiveObj.metas.background, 
-            genres: sport5LiveObj.metas.genres,
-            meta: sport5LiveObj.metas,
+            background: sport5LiveObj.meta.background, 
+            genres: sport5LiveObj.meta.genres,
+            meta: sport5LiveObj.meta,
             type: "tv", 
             subtype: "t"
         }

@@ -68,5 +68,8 @@ module.exports = {
     RESHET_PARTNER_ID: "2748741",
     RESHET_URL_STREAM: "https://cdnapisec.kaltura.com/api_v3/service/multirequest",
     //Sport5
-    URL_SPORT5_VOD: "https://vod.sport5.co.il/HTML/External/VodCentertDS.txt"
+    URL_SPORT5_VOD: "https://vod.sport5.co.il/HTML/External/VodCentertDS.txt",
+
+    //Knesset
+    KNESSET_URL_TV: "https://www.knesset.tv"
 };
