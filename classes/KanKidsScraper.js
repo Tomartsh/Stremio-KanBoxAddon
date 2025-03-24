@@ -277,35 +277,7 @@ class KanKidsScraper {
         logger.trace("getStreams => Exiting");
         return streamsJSONObj;
     }
-/*
-    generateSeriesId(link){
-        var retId = "";
-        //if the link has a trailing  "/" then omit it
 
-        if(link) {
-            if (link.substring(link.length -1) == "/"){
-                link = link.substring(0,link.length -1);
-            }
-            retId = link.substring(link.lastIndexOf("/") + 1, link.length);
-            retId = retId.replace(/\D/g,'');
-
-            //check this is not an empty string or if key already exist
-            var testKey = retId in this._kanKidsJSONObj;
-            if ((retId == "") || (testKey)){
-                retId = this.seriesIdIterator;
-                this.seriesIdIterator++;
-            }
-
-            retId = PREFIX + "kan_" + retId;
-            
-        } else {
-            retId = PREFIX + "kan_" + this.seriesIdIterator;
-            this.seriesIdIterator++;
-        }
-        
-        return retId;
-    }
-*/
     setDescription(seriesElems){
         var description = "";
         if (seriesElems.length < 1) {return description;}
@@ -315,7 +287,7 @@ class KanKidsScraper {
     }
 
     addVideoToMeta(key, episodeId, name, seasonNo, episodeNo, desc, thumb, episodeLink, released, streams){
-        this._kanKidsJSONObj[key]["meta"]["videos"].push({
+        var video = {
             id: episodeId,
             name: name,
             season: seasonNo,
@@ -323,10 +295,11 @@ class KanKidsScraper {
             description: desc,
             thumbnail: thumb,
             episodeLink: episodeLink,
-            released: released,
             streams: streams
-        });
+        };
+        if (released != "") {video["released"] = released;}
 
+        this._kanKidsJSONObj[key]["meta"]["videos"].push(video);
     }
 
     addToJsonObject(id, seriesTitle, seriesPage, imgUrl, seriesDescription, genres, videosList, subType, type){
