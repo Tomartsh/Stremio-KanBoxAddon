@@ -25,7 +25,7 @@
                     "description": "שידור חי כאן 11",
                     "streams": [
                         {
-                            "url": "https://kan11w.media.kan.org.il/hls/live/2105694/2105694/source1_600/chunklist.m3u8",
+                            "url": "http://kan11.media.kan.org.il/hls/live/2024514/2024514/source1_2.5k/chunklist.m3u8",
                             "type": "tv",
                             "name": "שידור חי כאן 11",
                             "description": "שידור חי כאן 11"
@@ -69,40 +69,6 @@
             ]
         }
     },
-    "il_kanTV_06": {
-        "id": "il_kanTV_06",
-        "type": "tv",
-        "subtype": "t",
-        "name": "שידורי ערוץ הכנסת 99",
-        "meta": {
-            "id": "il_kanTV_06",
-            "name": "שידורי ערוץ הכנסת 99",
-            "genres": [
-                "Actuality",
-                "אקטואליה"
-            ],
-            "type": "tv",
-            "background": "https://www.knesset.tv/media/20004/logo-new.png",
-            "poster": "https://www.knesset.tv/media/20004/logo-new.png",
-            "posterShape": "landscape",
-            "description": "שידורי ערוץ הכנסת - 99",
-            "videos": [
-                {
-                    "id": "il_kanTV_06",
-                    "name": "ערוץ הכנסת 99",
-                    "description": "שידורי ערוץ הכנסת 99",
-                    "streams": [
-                        {
-                            "url": "https://contactgbs.mmdlive.lldns.net/contactgbs/a40693c59c714fecbcba2cee6e5ab957/manifest.m3u8",
-                            "type": "tv",
-                            "name": "ערוץ הכנסת 99",
-                            "description": "שידורי ערוץ הכנסת 99"
-                        }
-                    ]
-                }
-            ]
-        }
-    },
     "il_kanTV_07": {
         "id": "il_kanTV_07",
         "type": "tv",
@@ -127,7 +93,7 @@
                     "description": "שידורי ערוץ השידור הערבי",
                     "streams": [
                         {
-                            "url": "https://makan.media.kan.org.il/hls/live/2024680/2024680/master.m3u8",
+                            "url": "https://makan.media.kan.org.il/hls/live/2024680/2024680/source1_2.5k/chunklist.m3u8",
                             "type": "tv",
                             "name": "ערוץ השידור הערבי",
                             "description": "שידורי ערוץ השידור הערבי"
@@ -375,6 +341,41 @@
                             "type": "tv",
                             "name": "שידור חי 24",
                             "description": "שידור חי 24"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "il_walla_live_01": {
+        "id": "il_walla_live_01",
+        "type": "tv",
+        "subtype": "t",
+        "name": "שידור חי וואלה",
+        "meta": {
+            "id": "il_walla_live_01",
+            "name": "שידור חי וואלה",
+            "type": "tv",
+            "genres": [
+                "Actuality",
+                "אקטואליה",
+                "news"
+            ],
+            "background": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/logo-walla-blue-hostages.png",
+            "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/logo-walla-blue-hostages.png",
+            "posterShape": "landscape",
+            "description": "שידור חי וואלה",
+            "videos": [
+                {
+                    "id": "il_walla_live_01",
+                    "name": "שידור חי וואלה",
+                    "description": "שידור חי וואלה",
+                    "streams": [
+                        {
+                            "url": "https://amg01742-walla-wallanews-ono-btlna.amagi.tv/playlist/amg01742-walla-wallanews-ono/playlist.m3u8",
+                            "type": "tv",
+                            "name": "שידור חי וואלה",
+                            "description": "שידור חי וואלה"
                         }
                     ]
                 }

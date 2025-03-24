@@ -1,4 +1,5 @@
 const utils = require("./utilities.js");
+const {fetchData} = require("./utilities.js");
 const {
     MAX_LOG_SIZE, 
     LOG4JS_LEVEL, 
@@ -211,7 +212,7 @@ class LiveTV {
     async crawlKnesset(){
         logger.debug("crawlKnesset => Starting Knesset");
         var doc = await fetchData(KNESSET_URL_TV);
-        var url = doc.genre.querySelector("div.video-icon.live-logo-div").getAttribute("data-video-url");
+        var url = doc.querySelector("div.video-icon.live-logo-div").getAttribute("data-video-url");
 
         var idKanKnesset = "il_kan_TV_06";
         var knessetLiveObj = {
