@@ -238,6 +238,7 @@ function getReleaseDate(str){
         const regexReshet = /^(\d{2})\/(\d{2})\/(\d{4})/;
         const regexKanPodcasts = /^(\d{1,2})\.(\d{1,2})\.(\d{4}) (\d{1,2}):(\d{1,2}):(\d{2})/;
         const regexMako = /^(\d{2})\.(\d{2})\.(\d{2})/;
+        
         var processed = false;
         
         if ((regexReshet.test(str)) && (!processed)) {//example 03/06/2024
@@ -269,14 +270,11 @@ function getReleaseDate(str){
             processed = true;
         }
 
-        released = year + "-" + month + "-" + day + "T00:00:00.000Z";
-
-        //final check to see date format validity
-        // if (isNaN(Date.parse(released))){
-        //     return released;
-        // } else {
-        //     return "";
-        // }
+        if (processed){
+            released = year + "-" + month + "-" + day + "T00:00:00.000Z";
+        }else {
+            released = "";
+        }
 
         return released;
         
