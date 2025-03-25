@@ -78,20 +78,15 @@ class LiveTV {
                         id: idKanLive,
                         name: "כאן 11",
                         description: "שידור חי כאן 11",
-                        streams: [
+                        streams: 
                             {
                                 //url: "https://kan11w.media.kan.org.il/hls/live/2105694/2105694/source1_600/chunklist.m3u8",
                                 url: "http://kan11.media.kan.org.il/hls/live/2024514/2024514/source1_2.5k/chunklist.m3u8",
                                 type: "tv",
                                 name: "שידור חי כאן 11",
                                 description: "שידור חי כאן 11",
-                                behaviorHints: [
-                                    {
-                                        notWebReady: true
-                                    }
-                                ]
                             }
-                        ]
+                        
                     }
 
                 ]
@@ -133,19 +128,14 @@ class LiveTV {
                         id: idKanKidsLive,
                         name: "חינוכית שידור חי",
                         description: "חינוכית שידור חי",
-                        streams: [
+                        streams: 
                             {
                                 url: "https://kan23.media.kan.org.il/hls/live/2024691-b/2024691/source1_4k/chunklist.m3u8",
                                 type: "tv",
                                 name: "חינוכית שידור חי",
                                 description: "חינוכית שידור חי",
-                                behaviorHints: [
-                                    {
-                                        notWebReady: true
-                                    }
-                                ]
                             }
-                        ]
+                        
                     }
                 ]
             }
@@ -193,11 +183,6 @@ class LiveTV {
                                 type: "tv",
                                 name: "ערוץ השידור הערבי",
                                 description: "שידורי ערוץ השידור הערבי",
-                                behaviorHints: [
-                                    {
-                                        notWebReady: true
-                                    }
-                                ]
                             }
                         ]
                     }
@@ -255,11 +240,6 @@ class LiveTV {
                                 type: "tv",
                                 name: "ערוץ הכנסת 99",
                                 description: "שידורי ערוץ הכנסת 99",
-                                behaviorHints: [
-                                    {
-                                        notWebReady: true
-                                    }
-                                ]
                             }
                         ]
                     }
@@ -318,11 +298,6 @@ class LiveTV {
                                 type: "tv",
                                 name: "שידור חי מאקו ערוץ 12",
                                 description: "שידור חי מאקו ערוץ 12",
-                                behaviorHints: [
-                                    {
-                                        notWebReady: true
-                                    }
-                                ]
                             }
                         ]
                     }
@@ -380,11 +355,6 @@ class LiveTV {
                                 type: "tv",
                                 name: "שידור חי רשת ערוץ 13",
                                 description: "שידור חי רשת ערוץ 13",
-                                behaviorHints: [
-                                    {
-                                        notWebReady: true
-                                    }
-                                ]
                             }
                         ]
                     }
@@ -437,11 +407,6 @@ class LiveTV {
                                 type: "tv",
                                 name: "שידור חי ynet",
                                 description: "שידור חי ynet",
-                                behaviorHints: [
-                                    {
-                                        notWebReady: true
-                                    }
-                                ]
                             }
                         ]
                     }
@@ -493,11 +458,6 @@ class LiveTV {
                                 type: "tv",
                                 name: "שידור חי באנגלית i24",
                                 description: "שידור חי באנגלית i24",
-                                behaviorHints: [
-                                    {
-                                        notWebReady: true
-                                    }
-                                ]
                             }
                         ]
                     }
@@ -548,11 +508,6 @@ class LiveTV {
                                 type: "tv",
                                 name: "שידור חי בעיברית i24",
                                 description: "שידור חי בעיברית i24",
-                                behaviorHints: [
-                                    {
-                                        notWebReady: true
-                                    }
-                                ]
                             }
                         ]
                     }
@@ -603,11 +558,6 @@ class LiveTV {
                                 type: "tv",
                                 name: "שידור חי בצרפתית i24",
                                 description: "שידור חי בצרפתית i24",
-                                behaviorHints: [
-                                    {
-                                        notWebReady: true
-                                    }
-                                ]
                             }
                         ]
                     }
@@ -657,12 +607,7 @@ class LiveTV {
                                 type: "tv",
                                 name: "שידור חי בערבית i24",
                                 description: "שידור חי בערבית i24",
-                                behaviorHints: [
-                                    {
-                                        notWebReady: true
-                                    }
-                                ]
-                            }
+                             }
                         ]
                     }
                 ]
@@ -681,7 +626,6 @@ class LiveTV {
             type: "tv", 
             subtype: "t"
         };
-        logger.debug();
         this.addToSeriesList(item24Arb);
         logger.debug("crawlDigitalLive => Added i24 Arabic Live TV");
     }
@@ -714,11 +658,6 @@ class LiveTV {
                                 type: "tv",
                                 name: "שידור חי 24",
                                 description: "שידור חי 24",
-                                behaviorHints: [
-                                    {
-                                        notWebReady: true
-                                    }
-                                ]
                             }
                         ]
                     }
@@ -770,11 +709,6 @@ class LiveTV {
                                 type: "tv",
                                 name: "שידור חי וואלה",
                                 description: "שידור חי וואלה",
-                                behaviorHints: [
-                                    {
-                                        notWebReady: true
-                                    }
-                                ]
                             }
                         ]
                     }
@@ -825,11 +759,6 @@ class LiveTV {
                                 type: "tv",
                                 name: "שידור חי Sport 5",
                                 description: "שידור חי Sport 5",
-                                behaviorHints: [
-                                    {
-                                        notWebReady: true
-                                    }
-                                ]
                             }
                         ]
                     }
