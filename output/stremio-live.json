@@ -29,11 +29,9 @@
                             "type": "tv",
                             "name": "שידור חי כאן 11",
                             "description": "שידור חי כאן 11",
-                            "behaviorHints": [
-                                {
-                                    "notWebReady": true
-                                }
-                            ]
+                            "behaviorHints": {
+                                "notWebReady": true
+                            }
                         }
                     ]
                 }
@@ -68,11 +66,9 @@
                             "type": "tv",
                             "name": "חינוכית שידור חי",
                             "description": "חינוכית שידור חי",
-                            "behaviorHints": [
-                                {
-                                    "notWebReady": true
-                                }
-                            ]
+                            "behaviorHints": {
+                                "notWebReady": true
+                            }
                         }
                     ]
                 }
@@ -107,11 +103,9 @@
                             "type": "tv",
                             "name": "ערוץ השידור הערבי",
                             "description": "שידורי ערוץ השידור הערבי",
-                            "behaviorHints": [
-                                {
-                                    "notWebReady": true
-                                }
-                            ]
+                            "behaviorHints": {
+                                "notWebReady": true
+                            }
                         }
                     ]
                 }
@@ -146,11 +140,9 @@
                             "type": "tv",
                             "name": "שידור חי מאקו ערוץ 12",
                             "description": "שידור חי מאקו ערוץ 12",
-                            "behaviorHints": [
-                                {
-                                    "notWebReady": true
-                                }
-                            ]
+                            "behaviorHints": {
+                                "notWebReady": true
+                            }
                         }
                     ]
                 }
@@ -186,11 +178,9 @@
                             "type": "tv",
                             "name": "שידור חי ynet",
                             "description": "שידור חי ynet",
-                            "behaviorHints": [
-                                {
-                                    "notWebReady": true
-                                }
-                            ]
+                            "behaviorHints": {
+                                "notWebReady": true
+                            }
                         }
                     ]
                 }
@@ -226,11 +216,9 @@
                             "type": "tv",
                             "name": "שידור חי באנגלית i24",
                             "description": "שידור חי באנגלית i24",
-                            "behaviorHints": [
-                                {
-                                    "notWebReady": true
-                                }
-                            ]
+                            "behaviorHints": {
+                                "notWebReady": true
+                            }
                         }
                     ]
                 }
@@ -266,11 +254,9 @@
                             "type": "tv",
                             "name": "שידור חי בעיברית i24",
                             "description": "שידור חי בעיברית i24",
-                            "behaviorHints": [
-                                {
-                                    "notWebReady": true
-                                }
-                            ]
+                            "behaviorHints": {
+                                "notWebReady": true
+                            }
                         }
                     ]
                 }
@@ -306,11 +292,9 @@
                             "type": "tv",
                             "name": "שידור חי בצרפתית i24",
                             "description": "שידור חי בצרפתית i24",
-                            "behaviorHints": [
-                                {
-                                    "notWebReady": true
-                                }
-                            ]
+                            "behaviorHints": {
+                                "notWebReady": true
+                            }
                         }
                     ]
                 }
@@ -346,11 +330,9 @@
                             "type": "tv",
                             "name": "שידור חי בערבית i24",
                             "description": "שידור חי בערבית i24",
-                            "behaviorHints": [
-                                {
-                                    "notWebReady": true
-                                }
-                            ]
+                            "behaviorHints": {
+                                "notWebReady": true
+                            }
                         }
                     ]
                 }
@@ -386,11 +368,9 @@
                             "type": "tv",
                             "name": "שידור חי 24",
                             "description": "שידור חי 24",
-                            "behaviorHints": [
-                                {
-                                    "notWebReady": true
-                                }
-                            ]
+                            "behaviorHints": {
+                                "notWebReady": true
+                            }
                         }
                     ]
                 }
@@ -426,11 +406,9 @@
                             "type": "tv",
                             "name": "שידור חי וואלה",
                             "description": "שידור חי וואלה",
-                            "behaviorHints": [
-                                {
-                                    "notWebReady": true
-                                }
-                            ]
+                            "behaviorHints": {
+                                "notWebReady": true
+                            }
                         }
                     ]
                 }
