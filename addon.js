@@ -40,7 +40,7 @@ var logger = log4js.getLogger("addon");
 const listSeries = new srList();
 const liveTV = new LiveTV(addToSeriesList);
 //liveTV.crawl(true);
-const makoScraper = new Makoscraper(addToSeriesList);
+const makoScraper = new Makoscraper(addToSeriesList)
 //makoScraper.crawl(true);
 const reshetScraper = new Reshetscraper(addToSeriesList);
 //reshetScraper.crawl(true);
@@ -54,7 +54,7 @@ const kanTeensScraper = new KanTeensscraper(addToSeriesList)
 //kanTeensScraper.crawl(true);
 const kanPodcastsScraper = new KanPodcastsscraper(addToSeriesList)
 //kanPodcastsScraper.crawl(true);
-const kan88Scraper = new Kan88scraper(addToSeriesList)
+const kan88Scraper = new Kan88scraper(addToSeriesList);
 //kan88Scraper.crawl(true);
 
 runCrons();
@@ -224,8 +224,8 @@ builder.defineMetaHandler(({type, id}) => {
 });
 
 
-async function tuki(type, id){
-	logger.debug("tuki=> request for stream: "+type+" "+id);
+async function tuki(id){
+	logger.debug("tuki=> request for stream: " + id);
 	var streams = [];
 	if (id.startsWith("il_mako")){
 		//retrieve the url
@@ -259,6 +259,7 @@ builder.defineStreamHandler(({type, id}) => {
 	
 	var streams = [];
 	if (id.startsWith("il_mako")){
+		return tuki(id);
 		// //retrieve the url
 		// var urlList = listSeries.getStreamsById(id);
 		// //Usually we will have one URL for AKAMAI and one for AWS.
@@ -324,10 +325,10 @@ async function getJSONFile(){
                         var value = jsonObj[key]
             
                         listSeries.addItemByDetails(value.id, value.name, value.poster, value.meta.description, value.link, value.background, value.meta.genres, value.meta, value.type, value.subtype);
-                        logger.debug("getJSONFile => Writing series entries. Id: " + value.id + " Subtype: " + value.subtype + " link: " + value.link + " name: " + value.name);
+                        logger.info(`getJSONFile => Writing series. Id: ${value.id} Subtype: ${value.subtype} link: ${value.link} name: ${value.name}`);
 					}
                 } else {
-					logger.error("getJSONFile => Cannot find the JSON data " + jsonFileName + ". Please report this issue.");
+					logger.error(`getJSONFile => Cannot find the JSON data ${jsonFileName}. Please report this issue.`);
                 }
             })
         } catch (e) {
