@@ -101,7 +101,7 @@ class MakoScraper{
                 if (seasonEpisodesPage == undefined){continue;}
                 var videosEpisodes = await this.getEpisodes(seasonEpisodesPage, id, seasonId);
                 
-                for (var episode in videosEpisodes) {videos.push(episode);}
+                for (var episode of videosEpisodes) {videos.push(episode);}
                 logger.debug(`getSeries => ${title} Videos:  ${videos.length}` ); 
             }
 
