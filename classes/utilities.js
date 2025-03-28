@@ -585,6 +585,13 @@ function generateSeriesId(link, subPrefix){
     return retId;
 }
 
+async function sleeperTimer(delay = RETRY_DELAY) {
+    logger.info("sleeperTimer => Start");
+    await sleep(delay); // Sleep for 2 seconds
+    console.log(`sleeperTimer => ${delay} ms`);
+}
+
+
 module.exports = {
     padWithLeadingZeros, 
     fetchData, 
@@ -597,5 +604,6 @@ module.exports = {
     getStreams,
     getEpisodeUrl,
     getVideoNameFromEpisodePage,
-    generateSeriesId    
+    generateSeriesId,
+    sleeperTimer    
 };
