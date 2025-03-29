@@ -140,7 +140,7 @@ class MakoScraper{
                 episodeReleased,
                 vcmid,
                 episodeAjax
-             } = await this.getEpisode(episode, id, seasonId, i, channelId);
+             } = await this.getEpisode(episode, id, seasonId, noOfEpisodes, channelId);
 
              //At the mment we are laying ground work for retry. We are not actually using it at the moment
              //check if we got a valid response. If not, store the data we need in an array to try again later
@@ -149,7 +149,7 @@ class MakoScraper{
                     episode: episode,
                     id: id,
                     seasonId: seasonId,
-                    episodeNo: i,
+                    episodeNo: noOfEpisodes,
                     channelId: channelId
                 });
                 continue;
@@ -167,7 +167,7 @@ class MakoScraper{
                 episode: noOfEpisodes,
                 thumbnail: episodePic,
                 episodeLink: episodePage,
-                streams: streams
+                streamsMako: streams
             }
             if (episodeReleased != "") {videoJsonObj["released"] = episodeReleased;}
             
