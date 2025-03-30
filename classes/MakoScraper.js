@@ -100,7 +100,7 @@ class MakoScraper{
                 var seasonEpisodesPage = await fetchData(seasonUrl + URL_MAKO_SUFFIX, true); 
                 if (seasonEpisodesPage == undefined){continue;}
                 var videosEpisodes = await this.getEpisodes(seasonEpisodesPage, id, seasonId);
-                
+            
                 for (var episode of videosEpisodes) {videos.push(episode);}
                 logger.debug(`getSeries => ${title} Videos:  ${videos.length}` ); 
             }
@@ -167,11 +167,10 @@ class MakoScraper{
                 episode: noOfEpisodes,
                 thumbnail: episodePic,
                 episodeLink: episodePage,
-                streamsMako: streams
+                ticket: streams
             }
             if (episodeReleased != "") {videoJsonObj["released"] = episodeReleased;}
             
-            //this._makoJSONObj[id]["meta"]["videos"].push()
             videos.push(videoJsonObj);
             noOfEpisodes--;
             i++;
@@ -257,7 +256,7 @@ class MakoScraper{
         return streams;
     }
 
-    addToJsonObject(id, seriesUrl, title, background, poster, description, genres, videos){
+    addToJsonObject(id, seriesUrl, title, background, poster, description, genres, videos, streams){
         this._makoJSONObj[id] = {
             id: id, 
             link: seriesUrl,
@@ -275,7 +274,8 @@ class MakoScraper{
                 logo: background,
                 description: description,
                 genres: genres,
-                videos: videos
+                videos: videos,
+                makoStreams: streams
             }
         }
         var item = {
