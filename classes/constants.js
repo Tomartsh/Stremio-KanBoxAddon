@@ -12,8 +12,7 @@ module.exports = {
         "stremio-kanpodcasts.zip",
         "stremio-live.zip",
         "stremio-reshet.zip",
-        "stremio-kan88.zip",
-        "stremio-mako.zip"
+        "stremio-kan88.zip"
     ],
     SAVE_MODE: "both", // "local", "github", or "both"
     SAVE_FOLDER: "output",
