@@ -111,15 +111,15 @@ const manifest = {
 				{name: "genre", isRequired: false}
 			]
 		},
-        {
-			type: "series",
-			id: "MakoVOD",
-			name: "תוכניות ערוץ 12",
-			extra: [
-				{name: "search", isRequired: false},
-				{name: "genre", isRequired: false}
-			]
-		},
+        // {
+		// 	type: "series",
+		// 	id: "MakoVOD",
+		// 	name: "תוכניות ערוץ 12",
+		// 	extra: [
+		// 		{name: "search", isRequired: false},
+		// 		{name: "genre", isRequired: false}
+		// 	]
+		// },
         {
 			type: "series",
 			id: "ReshetVOD",

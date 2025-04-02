@@ -28,7 +28,7 @@ module.exports = {
         "Accept-Encoding": "gzip, deflate, br",
         "Charset": "UTF-8"
     },
-    URL_JSON_BASE: "https://tomartsh.github.io/Stremio-KanBoxAddon/output/",
+    URL_JSON_BASE: "https://tomartsh.github.io/Stremio-KanBoxAddon/output/", 
     URLS_ASSETS_BASE: "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/",
 
     //Kan constants
