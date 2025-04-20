@@ -654,17 +654,17 @@ function runCrons(){
 	/**
 	 * Set cron jobs keep alive for on-render every 10 minutes
 	 */
-	var onRender = cron.schedule('1-59/10 * * * *', () => {
-		logger.info('Running keep alive for onRender');
-		fetchData("https://stremio-kanboxaddon.onrender.com/manifest.json",false)	
-	}, {
-		scheduled: true,
-		timezone: "Asia/Jerusalem"
-	});
-	onRender.start();
-	logger.info("runCrons => started onRender keep alive cron");
+	// var onRender = cron.schedule('1-59/10 * * * *', () => {
+	// 	logger.info('Running keep alive for onRender');
+	// 	fetchData("https://stremio-kanboxaddon.onrender.com/manifest.json",false)	
+	// }, {
+	// 	scheduled: true,
+	// 	timezone: "Asia/Jerusalem"
+	// });
+	//onRender.start();
+	//logger.info("runCrons => started onRender keep alive cron");
 
-	logger.info("runCrons => exiting runCrons");
+	//logger.info("runCrons => exiting runCrons");
 }
 
 
