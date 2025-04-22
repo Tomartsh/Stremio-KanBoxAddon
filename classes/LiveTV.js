@@ -49,6 +49,7 @@ class LiveTV {
         this.crawlI24();
         this.crawl24();
         this.crawlwalla();
+        this.crawl14Live();
         //this.crawlSport5();
 
         logger.info("LiveTV=> Done Crawling");
@@ -81,7 +82,7 @@ class LiveTV {
                         streams: 
                             {
                                 //url: "https://kan11w.media.kan.org.il/hls/live/2105694/2105694/source1_600/chunklist.m3u8",
-                                url: "http://kan11.media.kan.org.il/hls/live/2024514/2024514/source1_2.5k/chunklist.m3u8",
+                                url: "https://kan11.media.kan.org.il/hls/live/2024514/2024514/master.m3u8",
                                 type: "tv",
                                 name: "שידור חי כאן 11",
                                 description: "שידור חי כאן 11",
@@ -130,7 +131,7 @@ class LiveTV {
                         description: "חינוכית שידור חי",
                         streams: 
                             {
-                                url: "https://kan23.media.kan.org.il/hls/live/2024691-b/2024691/source1_4k/chunklist.m3u8",
+                                url: "https://kan23.media.kan.org.il/hls/live/2024691/2024691/master.m3u8",
                                 type: "tv",
                                 name: "חינוכית שידור חי",
                                 description: "חינוכית שידור חי",
@@ -179,7 +180,7 @@ class LiveTV {
                         streams: [
                             {
                                 //url: "https://makan.media.kan.org.il/hls/live/2024680/2024680/master.m3u8",
-                                url: "https://makan.media.kan.org.il/hls/live/2024680/2024680/source1_2.5k/chunklist.m3u8",
+                                url: "https://makan.media.kan.org.il/hls/live/2024680/2024680/master.m3u8",
                                 type: "tv",
                                 name: "ערוץ השידור הערבי",
                                 description: "שידורי ערוץ השידור הערבי",
@@ -212,7 +213,8 @@ class LiveTV {
     async crawlKnesset(){
         logger.debug("crawlKnesset => Starting Knesset");
         var doc = await fetchData(KNESSET_URL_TV);
-        var url = doc.querySelector("div.video-icon.live-logo-div").getAttribute("data-video-url");
+        //var url = doc.querySelector("div.video-icon.live-logo-div").getAttribute("data-video-url");
+        url = "https://kneset.gostreaming.tv/p2-kneset/_definst_/myStream/index.m3u8";
 
         var idKanKnesset = "il_kan_TV_06";
         var knessetLiveObj = {
@@ -351,7 +353,7 @@ class LiveTV {
                         description: "שידור חי רשת ערוץ 13",
                         streams: [
                             {
-                                url: "https://mako-streaming.akamaized.net/stream/hls/live/2033791/k12dvr/profile/2/hdntl=exp=1735669372~acl=%2f*~data=hdntl~hmac=b6e2493f547c81407d110fd0e7cf5ffc5cc6229721846c9908181b25a541a6e3/profileManifest.m3u8?_uid=a09bd8e7-f52a-4d5c-83a5-ebb3c664e7d8&rK=a3&_did=22bc6d40-f8a7-43c4-b1e0-ca555e4bc0cb",
+                                url: "https://reshet.g-mana.live/media/87f59c77-03f6-4bad-a648-897e095e7360/mainManifest.m3u8",
                                 type: "tv",
                                 name: "שידור חי רשת ערוץ 13",
                                 description: "שידור חי רשת ערוץ 13",
@@ -362,7 +364,7 @@ class LiveTV {
             }
         }
         this._liveTVJSONObj[idReshetLive] = reshetLiveObj;
-        var item12Live = {
+        var item13Live = {
             id: idReshetLive, 
             name: reshetLiveObj.meta.name, 
             poster: reshetLiveObj.meta.poster, 
@@ -374,8 +376,66 @@ class LiveTV {
             type: "tv", 
             subtype: "t"
         };
-        this.addToSeriesList(item12Live);
+        this.addToSeriesList(item13Live);
         logger.debug("crawlMakoLive => Added Mako Live TV");
+
+    }
+
+    /********************************************************************
+     * 
+     * Reshet 14 Live channel handling
+     * 
+     ********************************************************************/
+
+    crawl14Live(){
+        logger.trace("crawlReshetLive => Entering");
+        var id14Live = "il_14TV_01";
+        var live14Obj = {
+            id: id14Live,
+            type: "tv",
+            subtype: "t",
+            name: "ערוץ 14",
+            meta: {
+                id: id14Live,
+                name: "שידור חי ערוץ 14",
+                genres: ["Actuality","אקטואליה"],
+                type: "tv",
+                background: URLS_ASSETS_BASE + "14square.png",
+                poster: URLS_ASSETS_BASE + "14square.png",
+                posterShape: "square",
+                description: "שידור חי ערוץ 14",
+                videos: [
+                    {
+                        id: id14Live,
+                        name: "ערוץ 14",
+                        description: "שידור חי ערוץ 14",
+                        streams: [
+                            {
+                                url: "https://ch14-channel14-content.akamaized.net/hls/live/2104807/CH14_CHANNEL14/master.m3u8",
+                                type: "tv",
+                                name: "שידור חי ערוץ 14",
+                                description: "שידור חי ערוץ 14",
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+        this._liveTVJSONObj[id14Live] = reshetLiveObj;
+        var item14Live = {
+            id: id14Live, 
+            name: live14Obj.meta.name, 
+            poster: live14Obj.meta.poster, 
+            description: live14Obj.meta.description, 
+            link: "",
+            background: live14Obj.meta.background, 
+            genres: live14Obj.meta.genres,
+            meta: live14Obj.meta,
+            type: "tv", 
+            subtype: "t"
+        };
+        this.addToSeriesList(item14Live);
+        logger.debug("crawlMakoLive => Added 14 Live TV");
 
     }
 
@@ -504,7 +564,7 @@ class LiveTV {
                         description: "שידור חי בעיברית i24",
                         streams: [
                             {
-                                url: "https://bcovlive-a.akamaihd.net/d89ede8094c741b7924120b27764153c/eu-central-1/5377161796001/playlist.m3u8?__nn__=5476555825001&hdnea=st=1735653600~exp=1735657200~acl=/d89ede8094c741b7924120b27764153c/eu-central-1/5377161796001/*~hmac=b42070c372326b7d243bf09dced085e140a2a6480cc9312c13a80d6d7a148104",
+                                url: "https://bcovlive-a.akamaihd.net/d89ede8094c741b7924120b27764153c/eu-central-1/5377161796001/playlist.m3u8",
                                 type: "tv",
                                 name: "שידור חי בעיברית i24",
                                 description: "שידור חי בעיברית i24",
