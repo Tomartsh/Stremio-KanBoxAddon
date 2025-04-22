@@ -214,7 +214,7 @@ class LiveTV {
         logger.debug("crawlKnesset => Starting Knesset");
         var doc = await fetchData(KNESSET_URL_TV);
         //var url = doc.querySelector("div.video-icon.live-logo-div").getAttribute("data-video-url");
-        url = "https://kneset.gostreaming.tv/p2-kneset/_definst_/myStream/index.m3u8";
+        var url = "https://kneset.gostreaming.tv/p2-kneset/_definst_/myStream/index.m3u8";
 
         var idKanKnesset = "il_kan_TV_06";
         var knessetLiveObj = {
@@ -421,7 +421,7 @@ class LiveTV {
                 ]
             }
         }
-        this._liveTVJSONObj[id14Live] = reshetLiveObj;
+        this._liveTVJSONObj[id14Live] = live14Obj;
         var item14Live = {
             id: id14Live, 
             name: live14Obj.meta.name, 

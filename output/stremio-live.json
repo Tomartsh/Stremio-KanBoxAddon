@@ -24,7 +24,7 @@
                     "name": "כאן 11",
                     "description": "שידור חי כאן 11",
                     "streams": {
-                        "url": "http://kan11.media.kan.org.il/hls/live/2024514/2024514/source1_2.5k/chunklist.m3u8",
+                        "url": "https://kan11.media.kan.org.il/hls/live/2024514/2024514/master.m3u8",
                         "type": "tv",
                         "name": "שידור חי כאן 11",
                         "description": "שידור חי כאן 11"
@@ -56,7 +56,7 @@
                     "name": "חינוכית שידור חי",
                     "description": "חינוכית שידור חי",
                     "streams": {
-                        "url": "https://kan23.media.kan.org.il/hls/live/2024691-b/2024691/source1_4k/chunklist.m3u8",
+                        "url": "https://kan23.media.kan.org.il/hls/live/2024691/2024691/master.m3u8",
                         "type": "tv",
                         "name": "חינוכית שידור חי",
                         "description": "חינוכית שידור חי"
@@ -89,7 +89,7 @@
                     "description": "שידורי ערוץ השידור הערבי",
                     "streams": [
                         {
-                            "url": "https://makan.media.kan.org.il/hls/live/2024680/2024680/source1_2.5k/chunklist.m3u8",
+                            "url": "https://makan.media.kan.org.il/hls/live/2024680/2024680/master.m3u8",
                             "type": "tv",
                             "name": "ערוץ השידור הערבי",
                             "description": "שידורי ערוץ השידור הערבי"
@@ -228,7 +228,7 @@
                     "description": "שידור חי בעיברית i24",
                     "streams": [
                         {
-                            "url": "https://bcovlive-a.akamaihd.net/d89ede8094c741b7924120b27764153c/eu-central-1/5377161796001/playlist.m3u8?__nn__=5476555825001&hdnea=st=1735653600~exp=1735657200~acl=/d89ede8094c741b7924120b27764153c/eu-central-1/5377161796001/*~hmac=b42070c372326b7d243bf09dced085e140a2a6480cc9312c13a80d6d7a148104",
+                            "url": "https://bcovlive-a.akamaihd.net/d89ede8094c741b7924120b27764153c/eu-central-1/5377161796001/playlist.m3u8",
                             "type": "tv",
                             "name": "שידור חי בעיברית i24",
                             "description": "שידור חי בעיברית i24"
@@ -372,6 +372,40 @@
                             "type": "tv",
                             "name": "שידור חי וואלה",
                             "description": "שידור חי וואלה"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "il_14TV_01": {
+        "id": "il_14TV_01",
+        "type": "tv",
+        "subtype": "t",
+        "name": "ערוץ 14",
+        "meta": {
+            "id": "il_14TV_01",
+            "name": "שידור חי ערוץ 14",
+            "genres": [
+                "Actuality",
+                "אקטואליה"
+            ],
+            "type": "tv",
+            "background": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/14square.png",
+            "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/14square.png",
+            "posterShape": "square",
+            "description": "שידור חי ערוץ 14",
+            "videos": [
+                {
+                    "id": "il_14TV_01",
+                    "name": "ערוץ 14",
+                    "description": "שידור חי ערוץ 14",
+                    "streams": [
+                        {
+                            "url": "https://ch14-channel14-content.akamaized.net/hls/live/2104807/CH14_CHANNEL14/master.m3u8",
+                            "type": "tv",
+                            "name": "שידור חי ערוץ 14",
+                            "description": "שידור חי ערוץ 14"
                         }
                     ]
                 }
