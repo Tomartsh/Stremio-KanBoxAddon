@@ -8404,6 +8404,24 @@
                         }
                     ],
                     "released": "1988-12-01T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_671183:1:39",
+                    "name": "פרק 39 - החזאים (הוריקן)",
+                    "season": 1,
+                    "episode": 39,
+                    "description": "מוני ודבל'ה, שני חזאים כושלים, גורמים לפאניקה בארץ בעקבות טעות קומית",
+                    "thumbnail": "https://www.kan.org.il/media/wvzfd0o3/זהו-זה-חזאים-2.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-671183/887007/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_z3tyx494/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 39 - החזאים (הוריקן)",
+                            "description": "מוני ודבל'ה הם צמד חזאים כושלים שמנסים להציל את שמם הטוב. העניינים מסתבכים כשמישהו צועק לעברם \"אורי כאן\", ומוני, בטעות, מבין שמדובר באזהרה לסופת הוריקן – וממהר לדווח על כך ברדיו. הטעות הקומית הזו מובילה לגל של פאניקה ברחבי הארץ, אך גם מעניקה לשניים רגעים נדירים של תהילה. בפרק תוכלו למצוא גם את הלהיט האלמותי \"אמא שלי ממרוקו\" של להקת דור שני (צעירי קריית מלאכי)"
+                        }
+                    ],
+                    "released": "1989-01-19T00:00:00.000Z"
                 }
             ]
         }
@@ -15864,6 +15882,24 @@
                         }
                     ],
                     "released": "1986-06-24T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_670839:1:8",
+                    "name": "פרק 8 - יום הזיכרון לחללי מערכות ישראל",
+                    "season": 1,
+                    "episode": 8,
+                    "description": "גלי עטרי,  אריק סיני ודפנה ארמוני שרים באולפן לזכר הנופלים",
+                    "thumbnail": "https://www.kan.org.il/media/fuuixn2d/שמניות-באוויר.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-670839/894671/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_24l8vu12/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 8 - יום הזיכרון לחללי מערכות ישראל",
+                            "description": "דליק ווליניץ משוחח עם ילדים וילדות ממשפחות שכולות. גלי עטרי, אריק סיני ודפנה ארמוני מצטרפים לשירה באולפן לזכר הנופלים"
+                        }
+                    ],
+                    "released": "1985-04-23T00:00:00.000Z"
                 }
             ]
         }
@@ -22546,66 +22582,612 @@
             ],
             "videos": [
                 {
-                    "id": "il_kan_archive_726517:1:1",
-                    "name": "תוכנית 73 - לקט",
-                    "season": 1,
+                    "id": "il_kan_archive_726517:3:1",
+                    "name": "אזעקת אמת באמצע צילומים",
+                    "season": 3,
                     "episode": 1,
-                    "description": "מיטב האורחים והראיונות הגדולים",
+                    "description": "ירון לונדון לא האמין שזה קורה לו - מלחמת המפרץ הגיעה לאולפן",
+                    "thumbnail": "https://www.kan.org.il/media/bobf35vf/alarm.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726536/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_wzgtvz23/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "אזעקת אמת באמצע צילומים",
+                            "description": "בחו\"ל התחוללה מלחמה ובתקשורת הישראלית המשיכו עסקים כרגיל - עד שהיא הגיעה גם אלינו, היישר לאולפן הטלוויזיה של \"סופשבוע\". רוב הקטע מובא כאן ללא סאונד"
+                        }
+                    ],
+                    "released": "1991-01-18T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:3:2",
+                    "name": "תוכנית 1 - 22.2.1991",
+                    "season": 3,
+                    "episode": 2,
+                    "description": "התמודדות עם פחד, השיר הישראלי בחופי דרום אמריקה ואיך משדרגים טרנינג",
+                    "thumbnail": "https://www.kan.org.il/media/fgvo2tmd/סופשבוע-2221991-web.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726561/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_13z4u3u3/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 1 - 22.2.1991",
+                            "description": "עדה טל קולטת משפחה מבריה\"מ, התקליט החדש של דני רובס, הפרופסור קלמן בנימיני ממקימי עמותת ער\"ן לבריאות הנפש, מי הוא \"פרץ בונה הנגב\"? שלומית אהרון עם השיר שזכה בפסטיבל בצ'ילה, הגבר הישראלי בעיני דודו טופז ורעיונות אופנתיים ללבישת טרנינג - אימונית"
+                        }
+                    ],
+                    "released": "1991-02-21T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:3:3",
+                    "name": "תוכנית 2 - 1.3.1991",
+                    "season": 3,
+                    "episode": 3,
+                    "description": "אנסמבל הג'אז, תימן פינת רוסיה ושיכורים ומשוגעים בקרב שליטי אירופה",
+                    "thumbnail": "https://www.kan.org.il/media/mdzd3ebd/סופשבוע-131991-tv.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726567/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_nuphy24x/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 2 - 1.3.1991",
+                            "description": "בני עמקה חוגגים עשור בנחלת אשרת, פרופסור מיכאל הר-סגור חוקר אוליגרכיות על מנהיגי המאות האחרונות, אנסמבל הג'אז הישראלי והורים לחיילים שמשרתים בעיראק בעת מלחמת המפרץ"
+                        }
+                    ],
+                    "released": "1991-02-28T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:3:4",
+                    "name": "תוכנית 3 - 8.3.1991",
+                    "season": 3,
+                    "episode": 4,
+                    "description": "שלמה ארצי, שיעורי משחק בפוליטיקה והתמודדות חה\"כ שאול אמור עם הסרטן",
+                    "thumbnail": "https://www.kan.org.il/media/hr3lwx0n/סופשבוע-831991-web.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726570/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_mu9vlcyh/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 3 - 8.3.1991",
+                            "description": "שלמה ארצי, תזמורת הסופ\"ש שמצדיעה לגלן מילר, הדוגמניות מיכאלה ברקו וטליה רווה, מנהיגים פוליטיים צעירים משפרים את סיכוייהם להיבחר על-ידי שיעורי משחק ושיחה עם חבר הכנסת שאול אמור על התמודדותו עם מחלה"
+                        }
+                    ],
+                    "released": "1991-03-07T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:3:5",
+                    "name": "תוכנית 4 - 15.3.1991",
+                    "season": 3,
+                    "episode": 5,
+                    "description": "משבר הזהות של קריין בית השידור הישראלי, הסופר העיראקי והכתב האמריקאי",
+                    "thumbnail": "https://www.kan.org.il/media/hgblhpqs/סופשבוע-1531991-web.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726576/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_nhpf7b4u/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 4 - 15.3.1991",
+                            "description": "נוראלדין דירני, הקריין הותיק ביותר של בית השידור הישראלי - הרדיו בערבית, שמעון בלס הסופר העברי, על הקרע בין זהותו התרבותית בעיראק לבין השתרשותו בישראל והכתב האמריקאי היחיד שהורשה להישאר בבגדד וקשרי האהבה הסודיים שלו עם אשת התקשורת הישראלית"
+                        }
+                    ],
+                    "released": "1991-03-14T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:3:6",
+                    "name": "תוכנית 5 - 5.4.1991",
+                    "season": 3,
+                    "episode": 6,
+                    "description": "דוד גרוסמן וספרו , ההרפתקן שצולח ארצות על אופנוע וקול המחאה הטורקית",
+                    "thumbnail": "https://www.kan.org.il/media/51kjaty5/סופשבוע-541991-web.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726581/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_gmbwaxu7/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 5 - 5.4.1991",
+                            "description": "שלום חנוך, הסופר דוד גרוסמן לרגל יציאת ספרו החדש לאור, גבי בבלי שחצה את סוריה וירדן על אופנוע, קלוד ללוש ואשתו מארי סופי, דני סנדרסון וזמרת המחאה הטורקית זלדה"
+                        }
+                    ],
+                    "released": "1991-04-04T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:3:7",
+                    "name": "תוכנית 25 - 12.4.1991",
+                    "season": 3,
+                    "episode": 7,
+                    "description": "הקשר שבין פוליטיקה לספרות ילדים, מבוגרים משחקים בצעצועים ונהגת מירוץ",
+                    "thumbnail": "https://www.kan.org.il/media/etxhr3gk/סופשבוע-1241991-web.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726583/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_wdu559ux/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 6 - 12.4.1991",
+                            "description": "סופרי הילדים אפרים סידון וגד יעקובי שיספר על הקשר בין פוליטיקה לספרים, המבוגרים שמכורים למכוניות צעצוע הנשלטות ע\"י שלט רחוק, נהגת מירוצים, הגבעטרון וקלוד לנצמן יוצר הסרט \"שואה\""
+                        }
+                    ],
+                    "released": "1991-04-11T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:3:8",
+                    "name": "תוכנית 7 - 3.5.1991",
+                    "season": 3,
+                    "episode": 8,
+                    "description": "המקהלה הרוסית ומדע דובי הצעצוע",
+                    "thumbnail": "https://www.kan.org.il/media/nrwio43y/סופשבוע-351991-web.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726587/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_cjkuztry/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 7 - 3.5.1991",
+                            "description": "מקהלת הצבא האדום, נשות המוזיקה חווה סמיר ונורית הירש החוגגת את אנטולוגיית שיריה, דורון נשר, סיפור חייה המיוחד של המשוררת סבינה מסר ומדע הדובולוגיה - מדע דובי צעצועים"
+                        }
+                    ],
+                    "released": "1991-05-02T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:3:9",
+                    "name": "תוכנית 8 - 10.5.1991",
+                    "season": 3,
+                    "episode": 9,
+                    "description": "שיקגו רוקדת בישראל, הזמר הצרפתי-ספרדי והשחקן מנשה ורשבסקי",
+                    "thumbnail": "https://www.kan.org.il/media/psehar4g/סופשבוע-1051991-web.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726589/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_rcosbe08/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 8 - 10.5.1991",
+                            "description": "שלמה בר ופאקו איבנז הצרפתי והספרדי, יוסי בירשטיין על ספרו החדש, מנשה ורשבסקי מגיבורי הסרט \"אהבתה האחרונה של לורה אדלר\" ולהקת המחול של שיקגו"
+                        }
+                    ],
+                    "released": "1991-05-09T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:3:10",
+                    "name": "תוכנית 9 - 17.5.1991",
+                    "season": 3,
+                    "episode": 10,
+                    "description": "נעימות פסנתר ובלט הונגרי",
+                    "thumbnail": "https://www.kan.org.il/media/atvlz2sm/סופשבוע-1751991-web.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726591/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_1ja6qsf4/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 9 - 17.5.1991",
+                            "description": "הפסנתרן הצעיר אלון גולדשטיין זוכה הפרסים, אסתר עופרים, להקת הבלט של בודפשט והמתורגמנית מרים שלזינגר"
+                        }
+                    ],
+                    "released": "1991-05-16T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:3:11",
+                    "name": "תוכנית 10 - 25.5.1991",
+                    "season": 3,
+                    "episode": 11,
+                    "description": "תרבות אפריקאית על בימת ישראל, ההודית העיראקית והופעת אורח מיוחדת",
+                    "thumbnail": "https://www.kan.org.il/media/2mfd1st3/סופשבוע-2451991-web.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726605/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_x90jd62n/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 10 - 25.5.1991",
+                            "description": "\"איפי טומבי\" - המחזמר האפריקני שנכתב ע\"י אם ובתה, קולט אביטל שגרירת ישראל בפורטוגל, בעלת רשת המסעדות ההודיות שאימה יהודייה עיראקית ואביה קצין בכיר הודי וערב חד-פעמי עם גידי גוב, מוני מושונוב, אלון אולארצ'יק ועוד"
+                        }
+                    ],
+                    "released": "1991-05-24T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:3:12",
+                    "name": "תוכנית 11 - 31.5.1991",
+                    "season": 3,
+                    "episode": 12,
+                    "description": "העלייה האתיופית, הג'אז הלטיני והנזירה השוודית-אתיופית",
+                    "thumbnail": "https://www.kan.org.il/media/nlqhttkv/סופשבוע-3151991-web.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726615/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_lo2d9ckq/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 11 - 31.5.1991",
+                            "description": "מציינים את מבצע שלמה ומארחים את חנוך רוזן, ברי סחרוף, תזמורת הג'אז הלטיני, והנזירה הקתולית מהמנזר השוודי שהמירה את דתה וכעת היא נזירה אתיופית"
+                        }
+                    ],
+                    "released": "1991-05-30T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:3:13",
+                    "name": "תוכנית 12 - 7.6.1991",
+                    "season": 3,
+                    "episode": 13,
+                    "description": "טייס הקרב הלוחם, מה זה כאב והאם יהיה קזינו באילת?",
+                    "thumbnail": "https://www.kan.org.il/media/ch5koghi/סופשבוע-761991.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726621/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_kn9nenrx/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 12 - 7.6.1991",
+                            "description": "טייס מטוס הפנטום יפתח ספקטור, מרגלית צנעני, דני רובס, פרופסור חנן פרנק לפסיכולוגיה על תופעת הכאב, אתי אנקרי והשופט בדימוס בנימין כהן על הימורים וקזינו באילת"
+                        }
+                    ],
+                    "released": "1991-06-06T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:3:14",
+                    "name": "תוכנית 13 - 14.6.1991",
+                    "season": 3,
+                    "episode": 14,
+                    "description": "הדיקנית הראשונה למשפטים, קיבוצניקים אתיופים ורוחמה רז מתגעגעת לאחותה",
+                    "thumbnail": "https://www.kan.org.il/media/yukibbb2/סופשבוע-1461991.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726624/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_rk56dey8/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 13 - 14.6.1991",
+                            "description": "רומיאו ויוליה בביצוע הבלט הישראלי, הדיקנית הראשונה של פקולטה למשפטים בישראל, הקיבוץ של העדה האתיופית ורוחמה רז בשיר מרגש לאחותה שנהרגה בתאונה"
+                        }
+                    ],
+                    "released": "1991-06-13T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:3:15",
+                    "name": "תוכנית 14 - 21.6.1991",
+                    "season": 3,
+                    "episode": 15,
+                    "description": "מה הקשר בין יוני נתניהו ז\"ל למייק בראנט ז\"ל?, מקבץ זמרים אהובים",
+                    "thumbnail": "https://www.kan.org.il/media/0nrdxeqv/סופשבוע-2161991.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726626/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_oxx2m7xv/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 14 - 21.6.1991",
+                            "description": "שמעון פרס ועידו נתניהו מספרים על יוני נתניהו שנפל במבצע אנטבה, ההצגה החדשה על חייו של מייק בראנט - כוכב הפופ הישראלי ששם קץ לחייו ושלמה גרוניך ודורי בן זאב בשירים חדשים"
+                        }
+                    ],
+                    "released": "1991-06-20T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:3:16",
+                    "name": "תוכנית 15 - 28.6.1991",
+                    "season": 3,
+                    "episode": 16,
+                    "description": "פותחים את הקיץ עם מיטב הזמרים של ישראל",
+                    "thumbnail": "https://www.kan.org.il/media/04kdb0em/סופשבוע-2861991.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726629/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_pbes4yz1/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 15 - 28.6.1991",
+                            "description": "תוכנית מוזיקלית עם אתניקס, זהבה בן, אלי לוזון, גידי גוב וקטעים מתוך המחזמר שיער, דורון נשר וחווה אלברשטיין"
+                        }
+                    ],
+                    "released": "1991-06-27T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:3:17",
+                    "name": "תוכנית 16 - 25.10.1991",
+                    "season": 3,
+                    "episode": 17,
+                    "description": "אתניקס שרים בגרוזינית, אריק איינשטיין והרקדנית משותקת הרגליים",
+                    "thumbnail": "https://www.kan.org.il/media/s5gepuvn/סופשבוע-25101991.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726633/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_n88jlzt4/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 16 - 25.10.1991",
+                            "description": "תוכנית בהנחיית רבקה מיכאלי ובה היא מארחת את אתניקס בשיר גרוזיני, התאומות המוכשרות זהבה בן ואתי לוי, יוחנן זראי, אריק איינשטיין והריקוד המיוחד של תמר בורר - רקדנית שרגליה משותקות לאחר שעברה תאונה"
+                        }
+                    ],
+                    "released": "1991-10-24T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:3:18",
+                    "name": "תוכנית 17 - 1.11.1991",
+                    "season": 3,
+                    "episode": 18,
+                    "description": "זמרים נבחרים, ראשי העיריות של גוש דן והצרפתייה שבאה לקרוע את העיר",
+                    "thumbnail": "https://www.kan.org.il/media/kvwktwmg/סופשבוע-1111991.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726637/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_5svapr26/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 17 - 1.11.1991",
+                            "description": "תוכנית בהנחיית אהוד מנור שמארח את הפנטומימאי חנוך רוזן, חוה אלברשטיין, ראשי הערים שלמה להט (תל-אביב), אלי לנדאו (הרצליה) ויצחק ולד (כפר-סבא) ורז'ין - מלכת חיי הלילה של פריז"
+                        }
+                    ],
+                    "released": "1991-10-31T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:3:19",
+                    "name": "תוכנית 18 - 8.11.1991",
+                    "season": 3,
+                    "episode": 19,
+                    "description": "אין משכורות בכנסת? הזמר האירופאי הנודע והגברת הספרדיה מירושלים",
+                    "thumbnail": "https://www.kan.org.il/media/2ijlfjma/סופשבוע-8111991.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726641/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_yv4xs35p/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 18 - 8.11.1991",
+                            "description": "קטע מתוך המחזמר \"ברנשים וחתיכות\" בביצוע אייל גפן, העוזרים הפרלמנטריים שמבקשים השלמת הכנסה, הזמר היגוסלבי זוכה הפרסים - איוו פוגורליץ', זכרונותיה של הגברת וידה ויקטוריה ואלרו - הגבירה של העדה הספרדית בירושלים והאם יהיה שלום?"
+                        }
+                    ],
+                    "released": "1991-11-07T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:3:20",
+                    "name": "תוכנית 19 - 15.11.1991",
+                    "season": 3,
+                    "episode": 20,
+                    "description": "הרמטכ\"ל לשעבר בראיון חשוף, כוכבת הפסטיגל והרכש החדש של מכבי תל-אביב",
+                    "thumbnail": "https://www.kan.org.il/media/udpfiazg/סופשבוע-15111991.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726643/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_dt9cqo84/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 19 - 15.11.1991",
+                            "description": "השיר שלא יורד מראש מצעד הפזמונים, יו\"ר הדירקטוריון של התעשייה העצמאית והרמטכ\"ל לשעבר דן שומרון, כוכבת הפסטיגל סי היימן, השחקנית המצליחה ובן זוגה הזמר שעלו לארץ לאחרונה והכדורסלניות הזרות החדשות של מכבי תל-אביב"
+                        }
+                    ],
+                    "released": "1991-11-14T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:3:21",
+                    "name": "תוכנית 20 - 29.11.1991",
+                    "season": 3,
+                    "episode": 21,
+                    "description": "הגיטריסט בן ה-13, השחקן יאיר לפיד ויהונתן גפן סופר כבשים",
+                    "thumbnail": "https://www.kan.org.il/media/ugobizfv/סופשבוע-29111991.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726645/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_f9mlf6as/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 20 - 29.11.1991",
+                            "description": "הגיטריסט אדם אולייר בן ה-13 בנו של באלדי אולייר, השחקנים מילי אביטל ויאיר לפיד, שולמית לפיד ואמנון ז'קונט על ספריהם החדשים, זמרת הקסטות \"ענת המהממת\" , אפרים סידון ויהונתן גפן על הכבש השישה-עשר"
+                        }
+                    ],
+                    "released": "1991-11-28T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:3:22",
+                    "name": "סופשבוע | תוכנית 21 - 12.12.91",
+                    "season": 3,
+                    "episode": 22,
+                    "description": "להקת שפתיים בביצוע משותף עם מתי כספי וריאיון מיוחד עם ספי ריבלין",
+                    "thumbnail": "https://www.kan.org.il/media/yjnjo5h3/מתי-כספי-ולהקת-שפתיים.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/877117/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_2udw2w50/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 21 - 12.12.91",
+                            "description": "להקת שפתיים מבצעים את השיר \"חדוז'ה\" עם מתי כספי, ספי ריבלין בריאיון מיוחד וגם הכדורגלן בוני גינצבורג מתארח"
+                        }
+                    ],
+                    "released": "1991-12-12T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:2:1",
+                    "name": "תוכנית 1 - 10.1.1992",
+                    "season": 2,
+                    "episode": 1,
+                    "description": "אורלי זילברשץ מגיעה אל האולפן ודקלון במחרוזת שירים",
+                    "thumbnail": "https://www.kan.org.il/media/u54cii0g/פרק-רביעי-אורלי-זילברשץ.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/סופשבוע-1992/877131/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_m8vnv2v0/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 1 - 10.1.1992",
+                            "description": "אורלי זילברשץ מגיעה אל האולפן, דקלון במחרוזת שירים ולהקת \"בת שבע\" על הבמה עם עידו תדמור ודוד דביר"
+                        }
+                    ],
+                    "released": "1992-01-10T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:2:2",
+                    "name": "תוכנית 2 - 24.1.1992",
+                    "season": 2,
+                    "episode": 2,
+                    "description": "מקבץ זמרים אהובים ומופע מחול של הלהקה המצליחה בת-שבע",
+                    "thumbnail": "https://www.kan.org.il/media/1f5knbge/סופשבוע-2411992.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/סופשבוע-1992/726647/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_uaa234de/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 2 - 24.1.1992",
+                            "description": "רחל ואורי אבנרי, גלי עטרי, ציפי שביט, רקדני ורקדניות להקת בת-שבע ורמי פורטיס חובק תקליט סולו רביעי"
+                        }
+                    ],
+                    "released": "1992-01-23T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:2:3",
+                    "name": "תוכנית 4 - 21.2.1992",
+                    "season": 2,
+                    "episode": 3,
+                    "description": "פנינה רוזנבלום בראיון עם בעלה לעתיד וניסים גרמה עם הלהיט \"פלאפל\"",
+                    "thumbnail": "https://www.kan.org.il/media/akmfxqcy/פרק-שביעי-פנינה-רוזנבלום.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/סופשבוע-1992/877153/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_y270gldm/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 4 - 21.2.1992",
+                            "description": "ריאיון עם פנינה רוזנבלום ובעלה לעתיד משה חיים. ניסים גרמה בשירים \"פלאפל\" ו\"גשם על פני\" והשחקנים אלי דנקר ואלון אבוטבול על הקריירה ההוליוודית שלהם"
+                        }
+                    ],
+                    "released": "9912-02-21T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:2:4",
+                    "name": "תוכנית 5 - 6.3.92",
+                    "season": 2,
+                    "episode": 4,
+                    "description": "מלכות היופי לשעבר בראיון על יום האישה ושלמה ארצי עם הלהיט ''ירח''",
+                    "thumbnail": "https://www.kan.org.il/media/mghhq202/פרק-שמיני-שלמה-ארצי.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/סופשבוע-1992/877157/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_gj9i0h9o/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 5 - 6.3.92",
+                            "description": "מלכות היופי לשעבר, מיכל מודעי ורינה מור, בריאיון על יום האישה וגם שלמה ארצי עם הלהיט ''ירח''"
+                        }
+                    ],
+                    "released": "1992-03-06T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:2:5",
+                    "name": "תוכנית 6 - 20.3.1992",
+                    "season": 2,
+                    "episode": 5,
+                    "description": "תוכנית פורימית עם להקת \"צעירי תל אביב\", גידי גוב ולהקת ''אטרף''",
+                    "thumbnail": "https://www.kan.org.il/media/pt0fsxcw/פרק-תשע-גידי-גוב.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/סופשבוע-1992/877161/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_fccgtau0/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 6 - 20.3.92",
+                            "description": "אהוד מנור מתחפש לאהרון הכהן בתוכנית פורימית עם \"צעירי תל אביב\", גידי גוב מגיע לאולפן וגם להקת \"אטרף\" על הבמה"
+                        }
+                    ],
+                    "released": "1992-03-20T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:2:6",
+                    "name": "תוכנית 7 - 1.5.1992",
+                    "season": 2,
+                    "episode": 6,
+                    "description": "אבי קושניר על הצגתו החדשה ואביבה אבידן בשיר ''יהיה בסדר''",
+                    "thumbnail": "https://www.kan.org.il/media/qxdgilkc/פרק-10-אבי-קושניר.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/סופשבוע-1992/877701/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_lfaaph3q/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 7 - 1.5.1992",
+                            "description": "אבי קושניר על הצגתו החדשה, אביבה אבידן בשיר ''יהיה בסדר'' וגם ערן צור מגיע לאולפן"
+                        }
+                    ],
+                    "released": "1992-05-01T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:2:7",
+                    "name": "סופשבוע | תוכנית 8 - 15.5.1992",
+                    "season": 2,
+                    "episode": 7,
+                    "description": "תוכים שיודעים לדבר, קורין אלאל והמנחה שי שטרן בצעירותו",
+                    "thumbnail": "https://www.kan.org.il/media/3n3n3mzx/פרק-11-קורין-אלאל.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/סופשבוע-1992/877702/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_fnnsysha/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 8 - 15.5.92",
+                            "description": "תוכים שיודעים לדבר, קורין אלאל והמנחה שי שטרן בצעירותו"
+                        }
+                    ],
+                    "released": "1992-05-15T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:2:8",
+                    "name": "תוכנית 10 - 24.7.1992",
+                    "season": 2,
+                    "episode": 8,
+                    "description": "הסרט החדש של אריק איינשטיין, השחקנים יהודה ברקן וששון גבאי והזמר האהוב",
+                    "thumbnail": "https://www.kan.org.il/media/omrbm3fy/סופשבוע-2471992.jpg",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/סופשבוע-1992/726649/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_z6f31b4v/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 10 - 24.7.1992",
+                            "description": "קטע מתוך הסרט \"כבלים\" עם אריק איינשטיין ומוני מושונוב, ראיון עם דני ליטני, אורי פיימן, ששון גבאי, יהודה ברקן ויוני רכטר"
+                        }
+                    ],
+                    "released": "1992-07-23T00:00:00.000Z"
+                },
+                {
+                    "id": "il_kan_archive_726517:2:9",
+                    "name": "תוכנית 11 - לקט",
+                    "season": 2,
+                    "episode": 9,
+                    "description": "מיטב האורחים והראיונות הגדולים של העונה",
                     "thumbnail": "https://www.kan.org.il/media/lt3gixqg/sofshavua01.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726655/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/סופשבוע-1992/726655/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_5jqfnazv/format/applehttp/protocol/https/desiredFileName.m3u8",
                             "type": "series",
-                            "name": "תוכנית 73 - לקט",
-                            "description": "מבחר קטעים של אנשי התרבות והרוח שהתארחו בתוכנית"
+                            "name": "תוכנית 11 - לקט",
+                            "description": "מיטב האורחים והראיונות הגדולים של העונה"
                         }
                     ],
                     "released": "1992-08-06T00:00:00.000Z"
                 },
                 {
-                    "id": "il_kan_archive_726517:1:2",
-                    "name": "תוכנית 91 - 30.4.1993",
+                    "id": "il_kan_archive_726517:1:1",
+                    "name": "תוכנית 1 - 30.4.1993",
                     "season": 1,
-                    "episode": 2,
+                    "episode": 1,
                     "description": "הילדים שמשחקים בתיאטרון, הסטודנטים הסינים ומנחים אורחים מיוחדים",
                     "thumbnail": "https://www.kan.org.il/media/ushjezi1/סופשבוע-3041993.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726657/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/סופשבוע-1993/726657/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_vawpzjon/format/applehttp/protocol/https/desiredFileName.m3u8",
                             "type": "series",
-                            "name": "תוכנית 91 - 30.4.1993",
+                            "name": "תוכנית 1 - 30.4.1993",
                             "description": "מתי כספי, ציפי שביט, דובל'ה גליקמן מארחים ביחד עם רבקה מיכאלי את תלמידי מרכז האופרה לילדים בגילאי 5-16 שמשחקים בתיאטרון ז'רר בכר לילדים ושני סטודנטים סינים שלומדים באוניברסיטה העברית"
                         }
                     ],
                     "released": "1993-04-29T00:00:00.000Z"
                 },
                 {
-                    "id": "il_kan_archive_726517:1:3",
-                    "name": "תוכנית 104 - 30.7.1993",
+                    "id": "il_kan_archive_726517:1:2",
+                    "name": "תוכנית 2 - 30.7.1993",
                     "season": 1,
-                    "episode": 3,
+                    "episode": 2,
                     "description": "תוכנית חגיגית עם תזמורת הבית ואורחים צבעוניים",
                     "thumbnail": "https://www.kan.org.il/media/svsoyrcr/סופשבוע-3071993.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726660/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/סופשבוע-1993/726660/",
                     "streams": [
-                        {}
-                    ]
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_hdgrbwmt/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תוכנית 2 - 30.7.1993",
+                            "description": "תוכנית אחרונה לעונה עם דודו טופז על קטעי ארכיון של שייקה אופיר ז\"ל ואפרים שמיר, תזמורת סופשבוע, טוביה צפיר, חנוך רוזן ואלון אולארצ'יק"
+                        }
+                    ],
+                    "released": "1993-07-29T00:00:00.000Z"
                 },
                 {
-                    "id": "il_kan_archive_726517:1:4",
-                    "name": "תוכנית 115 - 24.12.1993",
+                    "id": "il_kan_archive_726517:1:3",
+                    "name": "תוכנית 3 - 24.12.1993",
                     "season": 1,
-                    "episode": 4,
+                    "episode": 3,
                     "description": "יום הולדת 30 ללהקת המחול בת-שבע, סיפורים מסביב לעולם ודנה אינטרנשיונל",
                     "thumbnail": "https://www.kan.org.il/media/amspert0/סופשבוע-24121993.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/s1/726662/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-726517/סופשבוע-1993/726662/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_k5iist8e/format/applehttp/protocol/https/desiredFileName.m3u8",
                             "type": "series",
-                            "name": "תוכנית 115 - 24.12.1993",
+                            "name": "תוכנית 3 - 24.12.1993",
                             "description": "חנה לסלאו עם קטעים מתוך המופע \"החיים על-פי חנה לסלאו\", קטע מתוך המופע \"אנפאזה\" של להקת המחול בת-שבע, התרמילאים שחזרו מניו-זילנד, דנה אינטרנשיונל וישי לוי"
                         }
                     ],
