@@ -36,6 +36,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
+            "sourceMaps": false,
             "program": "${workspaceFolder}/server.js",
             "args": ["--", "--install"]
         },
@@ -47,6 +48,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
+            "sourceMaps": false,
             "program": "${workspaceFolder}/server.js",
             "args": ["--", "--start"]
         },
@@ -59,6 +61,7 @@
             "outputCapture": "std",
             "runtimeArgs": ["run-script", "debug"],
             "program": "${workspaceFolder}/server.js",
+            "sourceMaps": false,
             "skipFiles": [
                 "<node_internals>/**"
             ],
