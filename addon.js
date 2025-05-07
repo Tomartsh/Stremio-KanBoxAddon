@@ -111,15 +111,15 @@ const manifest = {
 				{name: "genre", isRequired: false}
 			]
 		},
-        // {
-		// 	type: "series",
-		// 	id: "MakoVOD",
-		// 	name: "תוכניות ערוץ 12",
-		// 	extra: [
-		// 		{name: "search", isRequired: false},
-		// 		{name: "genre", isRequired: false}
-		// 	]
-		// },
+        {
+			type: "series",
+			id: "MakoVOD",
+			name: "תוכניות ערוץ 12",
+			extra: [
+				{name: "search", isRequired: false},
+				{name: "genre", isRequired: false}
+			]
+		},
         {
 			type: "series",
 			id: "ReshetVOD",
@@ -226,6 +226,12 @@ builder.defineMetaHandler(({type, id}) => {
 
 async function tuki(id){
 	logger.debug("tuki=> request for stream: " + id);
+	return {
+		"url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_g9r1iy0w/format/applehttp/protocol/https/desiredFileName.m3u8",
+		"type": "series",
+		"name": "פרק 1 - גזר דין",
+		"description": "שנת 1991. עולה חדשה נרצחת בירושלים. הרוצח חרט לה את המספר 37 על המצח. החשד נופל על ניקולאי, בעלה של הנרצחת. יהודה ג'רסי, הבלש שבידיו מופקד התיק, מטיל ספק באשמתו של ניקולאי ומגלה שרציחות דומות קרו בביה\"מ"
+	};
 	var streams = [];
 	if (id.startsWith("il_mako")){
 		//retrieve the url
@@ -275,6 +281,7 @@ builder.defineStreamHandler(({type, id}) => {
 	var streams = [];
 	if (id.startsWith("il_mako")){
 		streams = tuki(id);
+		
 		// //retrieve the url
 		// var urlList = listSeries.getStreamsById(id);
 		// //Usually we will have one URL for AKAMAI and one for AWS.
