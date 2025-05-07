@@ -167,7 +167,7 @@ class MakoScraper{
                 episode: noOfEpisodes,
                 thumbnail: episodePic,
                 episodeLink: episodePage,
-                ticket: streams
+                streams: streams
             }
             if (episodeReleased != "") {videoJsonObj["released"] = episodeReleased;}
             
