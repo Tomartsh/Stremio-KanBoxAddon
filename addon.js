@@ -8,7 +8,6 @@ const log4js = require("log4js");
 const srList = require("./classes/srList");
 const utils = require("./classes/utilities.js");
 const {fetchData} = require("./classes/utilities.js");
-//const Kanscraper = require("./classes/KanScraper.js");
 const KanDigitalscraper = require("./classes/KanDigitalScraper.js");
 const KanArchivescraper = require("./classes/KanArchiveScraper.js");
 const KanKidscraper = require("./classes/KanKidsScraper.js");
@@ -226,45 +225,38 @@ builder.defineMetaHandler(({type, id}) => {
 
 async function tuki(id){
 	logger.debug("tuki=> request for stream: " + id);
-	return {
-		"url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_g9r1iy0w/format/applehttp/protocol/https/desiredFileName.m3u8",
-		"type": "series",
-		"name": "פרק 1 - גזר דין",
-		"description": "שנת 1991. עולה חדשה נרצחת בירושלים. הרוצח חרט לה את המספר 37 על המצח. החשד נופל על ניקולאי, בעלה של הנרצחת. יהודה ג'רסי, הבלש שבידיו מופקד התיק, מטיל ספק באשמתו של ניקולאי ומגלה שרציחות דומות קרו בביה\"מ"
-	};
-	// var streams = [];
-	// if (id.startsWith("il_mako")){
-	// 	//retrieve the url
-	// 	var streamList;
-	// 	var metaId = id.split(":")[0];
-	// 	var metas = listSeries.getMetaById(metaId);
-	// 	var videos = metas["videos"];
-	// 	for (var video of videos){
-	// 		if (video["id"] == id){
-	// 			streamList = video["streamsMako"];
-	// 			break;
-	// 		}
-	// 	}
+	var streams = [];
+	//retrieve the url
+	var streamList;
+	var metaId = id.split(":")[0];
+	var metas = listSeries.getMetaById(metaId);
+	var videos = metas["videos"];
+	for (var video of videos){
+		if (video["id"] == id){
+			streamList = video["streamsMako"];
+			break;
+		}
+	}
 
-	// 	//Usually we will have one URL for AKAMAI and one for AWS.
-	// 	//We need to construct the URL for both
-	// 	for (var entry of streamList){
-	// 		var link = entry["link"];
-	// 		var ticketObj = await fetchData(link, true);
-	// 		var ticketRaw = ticketObj["tickets"][0]["ticket"];
-	// 		var ticket = decodeURIComponent(ticketRaw);
-	// 		var streamUrl = entry["url"] + "?" + ticket;
-	// 		logger.info("tuki => " + streamUrl);
+	//Usually we will have one URL for AKAMAI and one for AWS.
+	//We need to construct the URL for both
+	for (var entry of streamList){
+		var link = entry["link"];
+		var ticketObj = await fetchData(link, true);
+		var ticketRaw = ticketObj["tickets"][0]["ticket"];
+		var ticket = decodeURIComponent(ticketRaw);
+		var streamUrl = entry["url"] + "?" + ticket;
+		logger.info("tuki => " + streamUrl);
 
-	// 		streams.push({
-	// 			url: streamUrl,
-	// 			behaviorHints: {
-	// 				notWebReady: true
-	// 			}
-	// 		});
-	// 	}	
-
-	// 	//streams = {url: "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_d694sfm9/format/applehttp/protocol/https/desiredFileName.m3u8",name: "This is only a test"};
+		streams.push({
+			url: streamUrl,
+			behaviorHints: {
+				notWebReady: true
+			}
+		});
+	}	
+	return streams;
+	//streams = {url: "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_d694sfm9/format/applehttp/protocol/https/desiredFileName.m3u8",name: "This is only a test"};
 	// } else { 
 	// 	streams = listSeries.getStreamsById(id)
 	// }
