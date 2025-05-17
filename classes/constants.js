@@ -36,6 +36,7 @@ module.exports = {
     url_JSON_File: "https://tomartsh.github.io/Stremio_Addon_Files/stremio-kanbox.zip",
     KAN_URL_ADDRESS: "https://www.kan.org.il/lobby/kan-box",
     KAN_DIGITAL_IMAGE_PREFIX: "https://www.kan.org.il",
+    KAN_BASE_URL: "https://www.kan.org.il",
 
     URL_HINUKHIT_TINY: "https://www.kankids.org.il/lobby-kids/tiny/",
     URL_HINUKHIT_TEENS: "https://www.kankids.org.il/lobby-kids/kids-teens",
