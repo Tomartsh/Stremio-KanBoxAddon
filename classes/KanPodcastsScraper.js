@@ -5,7 +5,8 @@ const {
     MAX_LOG_SIZE, 
     LOG_BACKUP_FILES,
     LOG_FILENAME,
-    PODCASTS_URL
+    PODCASTS_URL,
+    KAN_BASE_URL
 } = require("./constants.js");
 const SUB_PREFIX = "podcasts";
 
@@ -167,7 +168,10 @@ class KanPodcastsScraper {
                     for (var episodeChecked of podcastEpisodesToCheck){
                         var hrefObj = episodeChecked.querySelector("a.card-body")
                         var episodeLink = hrefObj.getAttribute("href");
-
+                        logger.debug("getpodcastEpisodeVideos => episodeLink is: " + episodeLink);
+                        if (episodeLink.startsWith("/")){
+                            episodeLink = KAN_BASE_URL + episodeLink;
+                        }
                         var docToCheck = await fetchData(episodeLink);//check if there is an episode on the oher side or more episodes
                         var card = docToCheck.querySelector("h2.title");
                         if (card != undefined){ //this is an episode so let's get the  stream while we have the data
@@ -247,8 +251,11 @@ class KanPodcastsScraper {
                 }
             }
 
-            var episodeTitle = episodeElement.querySelector("h2.card-title").text.trim();
-            var episodeTitle = episodeTitle.replace(/^פרק \d+:/, '').trim();;
+            var episodeTitle = "";
+            if (episodeElement.querySelector("h2.card-title") != null){
+                episodeTitle = episodeElement.querySelector("h2.card-title").text.trim();
+                episodeTitle = episodeTitle.replace(/^פרק \d+:/, '').trim();
+            }
 
 
             var episodeImgUrl = "";
