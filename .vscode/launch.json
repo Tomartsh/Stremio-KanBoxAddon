@@ -5,30 +5,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "java",
-            "name": "Kan WebCrawler",
-            "request": "launch",
-            "mainClass": "WebCrawlerKan"
-        },
-        {
-            "type": "java",
-            "name": "Mako WebCrawler",
-            "request": "launch",
-            "mainClass": "WebCrawlerMako"
-        },
-        {
-            "type": "java",
-            "name": "Reshet WebCrawler",
-            "request": "launch",
-            "mainClass": "WebCrawlerReshet"
-        },
-        {
-            "type": "java",
-            "name": "Various TV WebCrawler",
-            "request": "launch",
-            "mainClass": "WebCrawlerVariousTV"
-        },
-        {
             "type": "node",
             "request": "launch",
             "name": "Stremio - Install",
@@ -36,11 +12,10 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "sourceMaps": false,
             "program": "${workspaceFolder}/server.js",
             "args": ["--", "--install"]
         },
-		{
+        {
             "type": "node",
             "request": "launch",
             "name": "Stremio - start",
