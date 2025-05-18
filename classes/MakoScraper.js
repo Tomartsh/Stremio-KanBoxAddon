@@ -95,7 +95,10 @@ class MakoScraper{
                 var seasonEpisodesPage = await fetchData(seasonUrl + URL_MAKO_SUFFIX, true); 
                 if (seasonEpisodesPage == undefined){continue;}
                 var videosEpisodes = await this.getEpisodes(seasonEpisodesPage, id, seasonId);
-            
+                
+                if (videosEpisodes == null) {
+                    return;
+                }
                 for (var episode of videosEpisodes) {videos.push(episode);}
                 logger.debug(`getSeries => ${title} Videos:  ${videos.length}` ); 
             }
