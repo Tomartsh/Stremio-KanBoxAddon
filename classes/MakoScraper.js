@@ -54,12 +54,7 @@ class MakoScraper{
         }
         logger.debug("crawl() => Exiting");
     }
-/*
-    async crawlMako(){
-        await this.getSeries();
-        //await this.getSeasons();
-    }
-*/
+
     async getSeries(){
         var jsonPage = await fetchData(URL_MAKO_VOD, true);     
 
@@ -126,7 +121,14 @@ class MakoScraper{
           
         logger.debug("getEpisodes => Season ID: " + seasonId + ". channelId: " + channelId);
         var videos = [];
-        var noOfEpisodes = episodes.length;
+        var noOfEpisodes;
+        try {
+            noOfEpisodes = episodes.length;
+        } catch(error) {
+            logger.error("getEpisodes => no videos at all !");
+            return null;
+        }
+        
         var i = 1;
         for (var episode of episodes){
             if (episode["componentLayout"] != "vod") {continue;}
