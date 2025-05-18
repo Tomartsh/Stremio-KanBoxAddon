@@ -39,9 +39,77 @@
                 },
                 {
                     "id": "il_kan_teens_893350:1:2",
-                    "name": "תיכון בגיריונית מציג: הפודקאסט שלי בנץ - בגרות או למות 📚",
+                    "name": "פרק 1 - חברים זה לנצח אהבה זה לתמיד",
                     "season": 1,
                     "episode": 2,
+                    "description": "בנץ מגיע להסכת כימיה, ועוזר לארמונד להרוס לשיא-גל את חיי האהבה",
+                    "thumbnail": "https://www.kankids.org.il/media/pv2hzb1h/הפודקאסט-שלי-בנץ-פרק-1.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-893350/895126/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_4s8zo963/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 1 - חברים זה לנצח אהבה זה לתמיד",
+                            "description": "בנץ מגיע להסכת כימיה, ועוזר לארמונד להרוס לשיא-גל את חיי האהבה"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_teens_893350:1:3",
+                    "name": "פרק 2 - אינגליש זה קל עם שיא-גל",
+                    "season": 1,
+                    "episode": 3,
+                    "description": "פוד האנגלית של שיא-גל משתבש כשלתומי נתקע מכשיר התמי 4",
+                    "thumbnail": "https://www.kankids.org.il/media/arrf0swr/הפודקאסט-שלי-בנץ-פרק-2.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-893350/896866/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_9954940j/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 2 - אינגליש זה קל עם שיא-גל",
+                            "description": "פוד האנגלית של שיא-גל משתבש כשלתומי נתקע מכשיר התמי 4"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_teens_893350:1:4",
+                    "name": "פרק 3 - ספוגים בזמן",
+                    "season": 1,
+                    "episode": 4,
+                    "description": "ניצן מגיעה להסכת כדי לדבר על ביוטופ ונקלעת לדיסטופיית ספוגי מיקרופון",
+                    "thumbnail": "https://www.kankids.org.il/media/dsih4efg/הפודקאסט-שלי-בנץ-פרק-3.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-893350/900353/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_d3m95c7x/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 3 - ספוגים בזמן",
+                            "description": "ניצן מגיעה להסכת כדי לדבר על ביוטופ ונקלעת לדיסטופיית ספוגי מיקרופון"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_teens_893350:1:5",
+                    "name": "פרק 4 - גרי ונקניקים בראי ההיסטוריה",
+                    "season": 1,
+                    "episode": 5,
+                    "description": "האם נקניקים שינו את ההיסטוריה? בהחלט. וגרי פה כדי לשקר לנו על זה",
+                    "thumbnail": "https://www.kankids.org.il/media/g2razjny/הפודקאסט-שלי-בנץ-פרק-4.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-893350/902129/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_iy5z6dki/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 4 - גרי ונקניקים בראי ההיסטוריה",
+                            "description": "האם נקניקים שינו את ההיסטוריה? בהחלט. וגרי פה כדי לשקר לנו על זה"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_teens_893350:1:6",
+                    "name": "תיכון בגיריונית מציג: הפודקאסט שלי בנץ - בגרות או למות 📚",
+                    "season": 1,
+                    "episode": 6,
                     "description": "בקרוב 🎧 הסכת הכנה לבגרויות של התיכון הכי מטורלל בארץ",
                     "thumbnail": "https://www.kankids.org.il/media/dgglc3t2/1920x1080_הפודקסט-שלי-בנץ.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-893350/894206/",
@@ -97,9 +165,128 @@
                 },
                 {
                     "id": "il_kan_teens_1000:3:2",
-                    "name": "בקרוב יהיה דביק. מאד דביק 🍦",
+                    "name": "פרק 2 - הועדה למינוי מנהלים",
                     "season": 3,
                     "episode": 2,
+                    "description": "יוני מנסה להחליף את ורד, שנאלצת לפרוש, ובנץ מתלבט אם לפגוש את אמא שלו",
+                    "thumbnail": "https://www.kankids.org.il/media/b1tpbllt/האחיין-שלי-בנץ-3-פרק-2.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/nephew_bentz-main/s3/894328/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_3h3qmcuk/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 2 - הועדה למינוי מנהלים",
+                            "description": "המנהלת נאלצת לפרוש מבית הספר עקב קמפיין הבחירות שלה, ויוני מנסה לתפוס את מקומה. יולי לוקחת את אולף כפרוייקט אחרי שניצן ואלכס מתרחקים ממנו, ובנץ, אחרי שהשיג את הכתובת של אימו, מתלבט אם כדאי להיפגש"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_teens_1000:3:3",
+                    "name": "פרק 3 - פאן יונתן",
+                    "season": 3,
+                    "episode": 3,
+                    "description": "גרי מנסה לזכות באהדת המורים והחבורה נצורה בכיתה מאימת נמר משוחרר",
+                    "thumbnail": "https://www.kankids.org.il/media/s4sj4lww/האחיין-שלי-בנץ-3-פרק-3.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/nephew_bentz-main/s3/894706/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_m1lj58dk/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 3 - פאן יונתן",
+                            "description": "גרי מנסה לכבוש את לבבות המורים במשתה חגיגי ומעורר את חשדו של יוני, בינתיים ארמונד זורע פאניקה בבית הספר עם שמועות על נמר משוחרר וגורם לבנץ ולחבורה להתבצר בכיתה. נטע מנסה למצוא את דרכה באוניברסיטה"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_teens_1000:3:4",
+                    "name": "פרק 4 - בנץ ההתבגרות",
+                    "season": 3,
+                    "episode": 4,
+                    "description": "בנץ מתמודד במפתיע עם גיל ההתבגרות והכיתה מתחילה ללמוד נהיגה",
+                    "thumbnail": "https://www.kankids.org.il/media/dlwilrkr/האחיין-שלי-בנץ-3-פרק-4.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/nephew_bentz-main/s3/896418/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_mhqbm8ag/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 4 - בנץ ההתבגרות",
+                            "description": "בנץ מתמודד עם גיל ההתבגרות האנושי שהחל אצלו לפתע, הוא רעב, מחוצ'קן ובעיקר עצבני על העובדה שאף אחד לא מאמין לו שראה את פולי. בינתיים קוליש מעביר לכיתה שיעור בנהיגה, וגרי משכנע את ים להישאר בבית הספר"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_teens_1000:3:5",
+                    "name": "פרק 5 - האויגוינים",
+                    "season": 3,
+                    "episode": 5,
+                    "description": "בנץ ויוני יוצאים למסע למחלקת \"איבוד\" בגיהנום על מנת לשחרר את השטן",
+                    "thumbnail": "https://www.kankids.org.il/media/tgjdjjev/האחיין-שלי-בנץ-3-פרק-5.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/nephew_bentz-main/s3/897177/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_4yd9po9y/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 5 - האויגוינים",
+                            "description": "יוני מתאהב בסגנית המנהלת החדשה, גילי, אך נלקח על ידי בנץ למחלקת החפצים האבודים בגיהנום על מנת למצוא את המפתח לכלא של השטן. בינתיים, נטע צריכה להתמודד עם העובדה שהיא לא התלמידה הכי חכמה באוניברסיטה"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_teens_1000:3:6",
+                    "name": "פרק 6 - חצי טרפז שמח",
+                    "season": 3,
+                    "episode": 6,
+                    "description": "החברים מנסים לעזור לבנץ ונטע לחגוג חצי שנה. המורים מקימים כיתה מחתרתית",
+                    "thumbnail": "https://www.kankids.org.il/media/4pgjp0ef/האחיין-שלי-בנץ-3-פרק-6.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/nephew_bentz-main/s3/900394/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_kbq4giko/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 6 - חצי טרפז שמח",
+                            "description": "חגיגות חצי השנה של בנץ ונטע הופכות למאבק כוחות בין אולף ניצן ואלכס ומשתבשות לחלוטין. בינתיים המורים מקימים כיתה מחתרתית שבה יוכלו ללמד בלי עינו הפקוחה של גרי שמצידו שולח את ים לרגל אחריהם"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_teens_1000:3:7",
+                    "name": "פרק 7 - עבודת שורשים",
+                    "season": 3,
+                    "episode": 7,
+                    "description": "בנץ מנסה להתמודד עם ההפסקה מנטע ושער מסתורי לגיהנום נפתח",
+                    "thumbnail": "https://www.kankids.org.il/media/ns5nx1fn/האחיין-שלי-בנץ-3-פרק-7.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/nephew_bentz-main/s3/900398/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_wi28eo0l/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 7 - עבודת שורשים",
+                            "description": "הבית של יוני מתמלא בשדים שמגיעים דרך שער מסתורי לגיהנום, יוני וארמונד מנסים להעסיק אותם עד שחזי יבין איך לסגור אותו. בינתיים, בנץ מנסה להבין מה עושים ב\"הפסקה\" מנטע, ויולי מגלה פרט אפל על עבר משפחתה"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_teens_1000:3:8",
+                    "name": "פרק 8- לאבה לאב",
+                    "season": 3,
+                    "episode": 8,
+                    "description": "ליבי מפלצת לבה מנסה לחזור לבנץ, והמורים מעלים מחזמר בנושא נקניקים",
+                    "thumbnail": "https://www.kankids.org.il/media/bk3poyvr/האחיין-שלי-בנץ-3-פרק-8.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/nephew_bentz-main/s3/902093/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_5ac2kbma/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 8- לאבה לאב",
+                            "description": "ליבי מפלצת לבה, מופיעה בבית של בנץ בתקווה לחזור לזוגיות איתו. בינתיים, נטע מתלבטת אם להמשיך במסלול האקדמי התובעני וגרי מכריח את המורים להעלות אופרת ראפ על היתרונות הבריאותיים של הנקניק"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_teens_1000:3:9",
+                    "name": "בקרוב יהיה דביק. מאד דביק 🍦",
+                    "season": 3,
+                    "episode": 9,
                     "description": "האחיין שלי בנץ חוזר בעונה שלישית 😈 ב-4.5 מתחילים!",
                     "thumbnail": "https://www.kankids.org.il/media/k4jfn4pa/האחיין-שלי-בנץ-הצצה-פרק-1.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/nephew_bentz-main/s3/881053/",
@@ -113,10 +300,10 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1000:3:3",
+                    "id": "il_kan_teens_1000:3:10",
                     "name": "לא הגיע הזמן להתבגר?",
                     "season": 3,
-                    "episode": 3,
+                    "episode": 10,
                     "description": "האחיין שלי בנץ חוזר בעונה שלישית, בוגרת ואחראית 😈 מתחילים ב-4.5",
                     "thumbnail": "https://www.kankids.org.il/media/sfhjfw5v/1920x1080_169_האחיין-שלי-בנץ.jpg",
                     "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/nephew_bentz-main/s3/887682/",
@@ -2730,40 +2917,6 @@
                             "description": "ויש מצטרף עם הילדים לבית הספר . גול מקבל מכתב נוסף הפעם עם הזמנה. ג'יין נוקמת בטד. גול מנסה להבין אם ביאטריס היא אכן המעריצה הסודית שלו. קורונליה מנסה לחטוף את ויש וכראמל מגלה לרובי על יכולת חדשה ומופלאה ביותר שלו"
                         }
                     ]
-                },
-                {
-                    "id": "il_kan_teens_1001:2:16",
-                    "name": "שובו של קונפוציוס | פרק 16",
-                    "season": 2,
-                    "episode": 16,
-                    "description": "כראמל מחזיר את החרב לקונפוציוס, אבל מסתבר שהבעיה לא נפתרה",
-                    "thumbnail": "https://www.kankids.org.il/media/mnkexpzr/2023-2-22-imgid-94547_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/cramel_main/s2/158550/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_7p2k9r9k/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 16",
-                            "description": "כראמל מחזיר את החרב אבל מסתבר שהבעיה לא נפתרה. קורנליה מנסה לקחת את ויש אל המעבר הסודי אבל משהו מפריע לה. לספ יש רעיון באיזה אירוע גדול להציע נישואין למילה. והלנה מגלה שדווקא היא יודעת משהו שיכול להציל את המצב"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1001:2:17",
-                    "name": "הנשף | פרק 17",
-                    "season": 2,
-                    "episode": 17,
-                    "description": "הנשף הגיע, אבל דברים לא מתרחשים כמתוכנן",
-                    "thumbnail": "https://www.kankids.org.il/media/flceorfi/2023-3-1-imgid-95022_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/cramel_main/s2/158553/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_zzbb0d6m/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 17",
-                            "description": "הנשף הגיע, אבל דברים לא מתרחשים כמתוכנן. כראמל מספר לרובי שהקללה היא בעצם עליו. סיסיליה ובלום מגיעים עם תחפושת מיוחדת. גול מגלה סוף סוף מיהי המעריצה שלו. מילה מבקשת מקורנליה לנגן בנשף. ויש וג'יין מתכוננים להצגה אבל אז קורה הנורא מכל"
-                        }
-                    ]
                 }
             ]
         }
@@ -2973,6 +3126,23 @@
                             "type": "series",
                             "name": "פרק 11 - הפרעות קשב וריכוז והיפראקטיביות",
                             "description": "מתי הבנת שיש לך הפרעת קשב? האם אתה מדבר על הנושא או שזה סוד? ילדות וילדים עם הפרעות קשב וריכוז והיפראקטיביות מתיישבים מול המצלמה ועונים בכנות על שאלות ישירות מהבית"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_teens_855842:1:12",
+                    "name": "פרק 12- ילדים להורים עם מוגבלות",
+                    "season": 1,
+                    "episode": 12,
+                    "description": "מתי הבנת שההורים שלך שונים? הם תלויים בך?",
+                    "thumbnail": "https://www.kankids.org.il/media/xbwdkmfp/disable-parents-01_12051.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-855842/s1/897598/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_afsptq97/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 12- ילדים להורים עם מוגבלות",
+                            "description": "מתי הבנת שההורים שלך שונים? הם תלויים בך? ילדות וילדים להורים עם מוגבלות מתיישבים מול המצלמה ועונים בכנות על שאלות ישירות מהבית"
                         }
                     ]
                 }
@@ -5662,23 +5832,6 @@
                             "description": "אלינור מגיעה לביקור וצריכה להכיר מחדש את שלי. במקביל, האריות מחפשים את הדרך הנכונה לנצח את משחק הפלייאוף הראשון שלהם נגד הצ'יטות, ומיכאל חוזר לבלט ופוגש מישהי חדשה..."
                         }
                     ]
-                },
-                {
-                    "id": "il_kan_teens_1006:1:17",
-                    "name": "בעיטות הכרעה | פרק 17",
-                    "season": 1,
-                    "episode": 17,
-                    "description": "האריות מתכוננים לחצי הגמר ועדן נאלץ להתמודד עם חששות פנימיים",
-                    "thumbnail": "https://www.kankids.org.il/media/wuvl0zgx/2022-11-17-imgid-85918_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/shelly_koveshet-main/s1/150848/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_q5zwx94a/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 17",
-                            "description": "האריות מתכוננים לחצי הגמר ועדן נאלץ להתמודד עם חששות פנימיים. שלי לא סגורה לאן מתקדמת מערכת היחסים שלה עם בן, בזמן שאצל הילי מתחיל משהו חדש ומפתיע. אורחת: אשרת עיני"
-                        }
-                    ]
                 }
             ]
         }
@@ -7604,23 +7757,6 @@
                             "description": "לליסה יש בן זוג חדש בשם מתן. מייקי לא מוכן לקבל את הפולש החדש בבית ועושה כל מה שהוא יכול כדי לגרום למתן להרגיש  לא רצוי."
                         }
                     ]
-                },
-                {
-                    "id": "il_kan_teens_1009:4:19",
-                    "name": "פרק 19 - גמד ענק",
-                    "season": 4,
-                    "episode": 19,
-                    "description": "ילדי הכיתה משחקים בגמד ענק. קשת נסחפת רחוק מדי עם המתנות המוגזמות",
-                    "thumbnail": "https://www.kankids.org.il/media/0hzlojdn/שקשוקה-4-פרק_.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/shakshuka/s4/565675/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_zfrqbzdk/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 19 - גמד ענק",
-                            "description": "ילדי הכיתה והמורים משחקים בגמד וענק. המורים שמים לב שכולם קיבלו את שמה של תכלת כענק. מה הם יעשו כנקמה? קשת נותנת לאביב מתנות מוגזמות, וכל יום מנסה להמציא את עצמה מחדש."
-                        }
-                    ]
                 }
             ]
         }
@@ -9431,1246 +9567,14 @@
             ]
         }
     },
-    "il_kan_teens_12923": {
-        "id": "il_kan_teens_12923",
-        "name": "יום העצמאות",
-        "link": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/",
-        "type": "series",
-        "subtype": "n",
-        "meta": {
-            "id": "il_kan_teens_12923",
-            "type": "series",
-            "name": "יום העצמאות",
-            "link": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/",
-            "background": "https://www.kankids.org.il/media/clojl3r4/עצמאות_poster_239_360.jpg",
-            "poster": "https://www.kankids.org.il/media/clojl3r4/עצמאות_poster_239_360.jpg",
-            "posterShape": "poster",
-            "logo": "https://www.kankids.org.il/media/clojl3r4/עצמאות_poster_239_360.jpg",
-            "description": "כל התוכניות הכי שוות ליום העצמאות מחכות לכם כאן",
-            "genres": "Kan",
-            "videos": [
-                {
-                    "id": "il_kan_teens_12923:6:1",
-                    "name": "טיול בארץ",
-                    "season": 6,
-                    "episode": 1,
-                    "description": "דודו את כל החברים ויחד הם נוסעים לטייל בארץ ולומדים על חיי הכפר.",
-                    "thumbnail": "https://www.kankids.org.il/media/0b1id2u5/2019-5-7-imgid-11146_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/פרפר-נחמד/102857/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/HYxfdyzbn7o",
-                            "type": "series",
-                            "name": "טיול בארץ",
-                            "description": "דודו אוסף את כל החברים ויחד כולם נוסעים לטייל בארץ. בדרך הם פוגשים את אמנון ותמר, שם הם לומדים על חיי הכפר. בהמשך הם מגיעים לים, אוספים צדפים ומקשיבים לשיחה בין זוג דגים פטפטניים.במדבר הם פוגשים את מנאר, בדואית שמספרת להם על החיים במדבר ומלמדת אותם להכין פיתות."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:6:2",
-                    "name": "ציונות",
-                    "season": 6,
-                    "episode": 2,
-                    "description": "תולדות ימי עמנו החל מההבטחה לאברהם אבינו ועד הכרזת הרצל ובניית א\"י.",
-                    "thumbnail": "https://www.kankids.org.il/media/wcjhuvbg/2019-5-7-imgid-11149_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/פרפר-נחמד/102865/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/fTCNeGrQrwY",
-                            "type": "series",
-                            "name": "ציונות",
-                            "description": "תולדות ימי עמנו החל מההבטחה לאברהם אבינו בואו לארץ כנען תקופת שלמה המלך, סיפור בית המקדש וירושלים סיפור החורבן וגלות עם ישראל מארצו. הכרזת הרצל וחזרת עם ישראל מהתפוצות ובניית הארץ מחדש."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:6:3",
-                    "name": "ארץ ישראל שלי",
-                    "season": 6,
-                    "episode": 3,
-                    "description": "בץ ונולי לומדים להכיר שניים מסמלי המדינה: את הדגל ואת המנורה.",
-                    "thumbnail": "https://www.kankids.org.il/media/fvmbvfzx/2019-5-7-imgid-11155_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/פרפר-נחמד/102871/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/4B28wiZxw7g",
-                            "type": "series",
-                            "name": "ארץ ישראל שלי",
-                            "description": "בץ ונולי לומדים להכיר שניים מסמלי המדינה: את הדגל ואת המנורה. את צבעם, צורתם ומקורם באגדות ישראל. ילדים מכל קצוות הארץ שרים יחד עם אפי ודודו על \"ארץ ישראל שלי יפה וגם פורחת\"."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:6:4",
-                    "name": "פרחים לחג העצמאות",
-                    "season": 6,
-                    "episode": 4,
-                    "description": "דודו מתכונן לחגוג את יום העצמאות בחברת חני והוא מקשט בפרחים ובדגלים.",
-                    "thumbnail": "https://www.kankids.org.il/media/iobd0jxu/2019-5-7-imgid-11157_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/פרפר-נחמד/102874/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/KvX0-MarWOo",
-                            "type": "series",
-                            "name": "פרחים לחג העצמאות",
-                            "description": "דודו מתכונן לחגוג את יום העצמאות בחברת חני והוא מקשט בפרחים ובדגלים. נולי ושבי חושבים שודו מכין מסיבת יום הולדת לחברה שלו. הטעות מתבררת במהרה וכולם יחד חוגגים את יום העצמאות בפיקניק ובשירה."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:6:5",
-                    "name": "חוגגים עצמאות",
-                    "season": 6,
-                    "episode": 5,
-                    "description": "החברים הכינו מתנה ליום ההולדת של המדינה- שיר חדש שישירו עם ירדנה ארזי",
-                    "thumbnail": "https://www.kankids.org.il/media/za3acvdd/2023-3-27-imgid-96925_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/פרפר-נחמד/327715/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_yf5j3ket/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "חוגגים עצמאות",
-                            "description": "החברים מאושרים על המתנה שהכינו לכבוד יום ההולדת למדינה- שיר חדש שישירו לישראל עם ירדנה ארזי. הבעיה היא שירדנה איבדה את הקול בדיוק ביום העצמאות..."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:5:1",
-                    "name": "המצור על ירושלים",
-                    "season": 5,
-                    "episode": 1,
-                    "description": "על ירושלים מוטל מצור במלחמת יום העצמאות. כיצד נראו החיים בעיר הנצורה?",
-                    "thumbnail": "https://www.kankids.org.il/media/mownml1k/2019-5-7-imgid-11106_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/תריץ-אחורה/102827/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/sa-R7nHLYIY",
-                            "type": "series",
-                            "name": "המצור על ירושלים",
-                            "description": "הימים ימי מלחמת העצמאות, ועל ירושלים מוטל מצור. כיצד נראו החיים בעיר הנצורה? איך חיו בלי מים? למה אכלו חובזה? ומה זה חובזה בכלל?"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:5:2",
-                    "name": "הקונגרס הציוני",
-                    "season": 5,
-                    "episode": 2,
-                    "description": "החזון של הרצל נתקל בקשיים, אבל הקונגרס הציוני היה צעד ראשון להגשמתו",
-                    "thumbnail": "https://www.kankids.org.il/media/2b3cjcca/2019-5-7-imgid-11108_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/תריץ-אחורה/102830/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/gIa0DSlFaes",
-                            "type": "series",
-                            "name": "הקונגרס הציוני",
-                            "description": "לבנימין זאב הרצל היה חזון לקבץ את כל היהודים במקום אחד שבו יקימו את מדינתם - מדינת היהודים; החזון של חוזה המדינה נתקל בקשיים, אבל הקונגרס הציוני היה צעד ראשון להגשמתו"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:5:3",
-                    "name": "סוסיתא",
-                    "season": 5,
-                    "episode": 3,
-                    "description": "מכונית ישראלית תוצרת כחול- לבן, שנסעה ונסעה עד שנתקעה.",
-                    "thumbnail": "https://www.kankids.org.il/media/sa0bm04g/2019-5-8-imgid-11265_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/תריץ-אחורה/102996/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/L0ONvpMtRng",
-                            "type": "series",
-                            "name": "סוסיתא",
-                            "description": "קשה להאמין אבל פעם ייצרו בארץ מכוניות. לא מדובר בפאר היצירה אבל בכל זאת, מכונית ישראלית תוצרת כחול- לבן, שנסעה ונסעה עד שנתקעה."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:4:1",
-                    "name": "עולים בים באוויר וביבשה",
-                    "season": 4,
-                    "episode": 1,
-                    "description": "המבצעים הנועזים להעלאת יהודים למדינת ישראל.",
-                    "thumbnail": "https://www.kankids.org.il/media/lzedcxeh/2019-5-7-imgid-11173_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/חדשות-מהעבר/102880/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/RFag7peZaaE",
-                            "type": "series",
-                            "name": "עולים בים באוויר וביבשה",
-                            "description": "המבצעים הנועזים להעלאת יהודים למדינת ישראל. נעלה את יהודי תימן על כנפי נשרים, את יהודי עיראק במבצע עזרא ונחמיה, ואת יהודי אתיופיה בסדרת מבצעים נועזים שבשיאם, במבצע משה, הועלו יותר מאלף יהודים מאתיופיה על מטוס אל על אחד."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:4:2",
-                    "name": "חיים וייצמן",
-                    "season": 4,
-                    "episode": 2,
-                    "description": "מדען מחונן שפיתח חומר נפץ ששינה את מהלך ההיסטוריה.",
-                    "thumbnail": "https://www.kankids.org.il/media/u2epfb0h/2019-5-8-imgid-11216_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/חדשות-מהעבר/102883/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/WGIXfvN8MNA",
-                            "type": "series",
-                            "name": "חיים וייצמן",
-                            "description": "מדען מחונן שפיתח חומר נפץ ששינה את מהלך ההיסטוריה. חיים ויצמן פעל כל חייו למען הקמת המדינה בדיפלומטיות וללא אלימות, כל הדרך עד להבחרו לנשיא הראשון של ישראל"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:4:3",
-                    "name": "מביירות ועד דמשק",
-                    "season": 4,
-                    "episode": 3,
-                    "description": "סיפורן של הקהילות היהודיות בשכנות מצפון לגבול.",
-                    "thumbnail": "https://www.kankids.org.il/media/qthbhdqh/2019-5-7-imgid-11175_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/חדשות-מהעבר/102886/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/amOhKkbCmXw",
-                            "type": "series",
-                            "name": "מביירות ועד דמשק",
-                            "description": "סיפורן של הקהילות היהודיות בשכנות מצפון לגבול. כיצד הוברחו ילדי הקהילה לישראל במבצע נועז? וגם הסיבות שהביאו את היהודים לעזוב את ביתם ולהגר עד שנותרו פרטים בודדים בלבד בסוריה ולבנון."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:4:4",
-                    "name": "בן גוריון",
-                    "season": 4,
-                    "episode": 4,
-                    "description": "סיפורו של אבי האומה דוד בן גוריון,מי שהנהיג את ישראל בשנותייה הראשונות",
-                    "thumbnail": "https://www.kankids.org.il/media/r5rlowym/2019-5-7-imgid-11176_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/חדשות-מהעבר/102889/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/lJLzKA6IjvA",
-                            "type": "series",
-                            "name": "בן גוריון",
-                            "description": "סיפורו של אבי האומה דוד בן גוריון, מנהיג הישוב שבנחישות אין קץ ונגד כל הסיכויים הפך את החזון הציוני מחלום למציאות, הנהיג את ישראל בשנותייה הראשונות ולא היסס גם לתת דוגמה אישית ובערוב ימיו ירד דרומה ליישב את הנגב"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:4:5",
-                    "name": "חיים ויצמן, הצהרת בלפור וחיל המדע",
-                    "season": 4,
-                    "episode": 5,
-                    "description": "נלמד על חיים ויצמן, מדען וציוני נלהב וגם הנשיא הראשון של מדינת ישראל.",
-                    "thumbnail": "https://www.kankids.org.il/media/11tlvhku/2019-5-8-imgid-11252_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/חדשות-מהעבר/102892/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/OYDgWJqqtY8",
-                            "type": "series",
-                            "name": "חיים ויצמן והצהרת בלפור",
-                            "description": "חיים ויצמן, מדען וציוני נלהב וגם הנשיא הראשון של מדינת ישראל היה מקובל מאוד על הבריטים לאחר שעזר להם במלחמת העולם הראשונה כשהמציא את האצטון שהיה מרכיב בחומרי הנפץ בהם השתמשו. הוא הקים את הסוכנות היהודית ותרם רבות לתנועה הציונית, ובזכותו פרסם הלורד הבריטי בלפור את \"הצהרת בלפור\" המפורסמת שמכירה בזכותם של היהודים להקים בית לאומי בארץ ישראל."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:4:6",
-                    "name": "הרצל, הקונגרס הציוני ותוכנית אוגנדה",
-                    "season": 4,
-                    "episode": 6,
-                    "description": "אלוף בהגשמת חלומות - כיצד זכה בנימין זאב הרצל להיקרא חוזה המדינה?",
-                    "thumbnail": "https://www.kankids.org.il/media/kmcboqj3/2019-5-8-imgid-11221_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/חדשות-מהעבר/102901/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/KEDK61TknUM",
-                            "type": "series",
-                            "name": "הרצל ותוכנית אוגנדה",
-                            "description": "אלוף בהגשמת חלומות - כיצד זכה בנימין זאב הרצל להיקרא חוזה המדינה? הכנסת שהייתה לפני הכנסת - על מה התווכחו בקונגרס הציוני? לנגב חומוס בג'ונגל - איך כמעט הקימו את מדינת ישראל בלב אפריקה במסגרת תכנית אוגנדה."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:3:1",
-                    "name": "יום העצמאות",
-                    "season": 3,
-                    "episode": 1,
-                    "description": "בפרק זה אורי מלמד את אייבי איך לצייר דגל ישראל מכה בראשו של חבר",
-                    "thumbnail": "https://www.kankids.org.il/media/0rmbkypx/2019-5-7-imgid-11114_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/העיפרון-הכי-מחודד/102845/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/gVaYepsEP7k",
-                            "type": "series",
-                            "name": "יום העצמאות",
-                            "description": "בפרק זה אורי מלמד את אייבי העיפרון איך לצייר דגל ישראל מכה בראשו של חבר ויוצאים ממנו זיקוקי דינור"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:3:2",
-                    "name": "האות ל' | לווין ישראלי בחלל",
-                    "season": 3,
-                    "episode": 2,
-                    "description": "בפרק זה אורי מלמד את אייבי איך לצייר לווין, להבת אש, ואת לימור המדענית",
-                    "thumbnail": "https://www.kankids.org.il/media/jojpwgkc/2019-5-7-imgid-11160_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/העיפרון-הכי-מחודד/102848/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/WF0bOX8XS44",
-                            "type": "series",
-                            "name": "האות ל' | לווין ישראלי",
-                            "description": "בפרק זה אורי מלמד את אייבי העיפרון איך לצייר לווין, להבת אש, ואת לימור הילדה המדענית"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:3:3",
-                    "name": "האות א'",
-                    "season": 3,
-                    "episode": 3,
-                    "description": "אורי פינק ואייבי העפרון המדבר, מציירים ומשחקים בסטודיו הקסום של אורי",
-                    "thumbnail": "https://www.kankids.org.il/media/rgknj24h/2019-5-8-imgid-11235_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/העיפרון-הכי-מחודד/102949/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/qZT8QEZV81w",
-                            "type": "series",
-                            "name": "האות א'",
-                            "description": "אורי פינק ואייבי העפרון המדבר, מציירים ומשחקים יחד בסטודיו הקסום של אורי. הם לומדים על אותיות האלף בית, עונות השנה, חגי ישראל ואת הטכניקה המרתקת של ציור הקומיקס.\r\nבפרק זה אורי מלמד את אייבי העפרון איך לצייר ארנב, אווירון ואקליפטוס."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:3:4",
-                    "name": "האות ד'",
-                    "season": 3,
-                    "episode": 4,
-                    "description": "בפרק זה אורי מלמד את אייבי העיפרון איך לצייר דבורה, דוור ודלת.",
-                    "thumbnail": "https://www.kankids.org.il/media/bedlumnu/2019-5-8-imgid-11244_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/העיפרון-הכי-מחודד/102952/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/lhFLJZPBi2k",
-                            "type": "series",
-                            "name": "האות ד'",
-                            "description": "אורי פינק ואייבי, העיפרון המדבר, מציירים ומשחקים יחד בסטודיו הקסום של אורי. הם לומדים על אותיות האלף בית, עונות השנה, חגי ישראל ואת הטכניקה המרתקת של ציור הקומיקס.\r\nבפרק זה אורי מלמד את אייבי העיפרון איך לצייר דבורה, דוור ודלת."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:3:5",
-                    "name": "דוד בן גוריון",
-                    "season": 3,
-                    "episode": 5,
-                    "description": "אייבי מסביר לאורי שאלוף הארץ בעמידה על הראש היה דוד בן גוריון.",
-                    "thumbnail": "https://www.kankids.org.il/media/ibrnyjdq/2019-5-8-imgid-11238_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/העיפרון-הכי-מחודד/102958/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/oou1wA-nnW8",
-                            "type": "series",
-                            "name": "דוד בן גוריון",
-                            "description": "אורי נכנס לסטודיו עם קרח על הראש, כואב לו הראש כי הוא מנסה לעמוד עמידת ראש. אייבי מסביר לו שאלוף הארץ בעמידה על הראש היה דוד בן גוריון. הפרק יוקדש לדוד בן גוריון ויצוירו בו דוד, אורי ואייבי עומדים על הראש."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:3:6",
-                    "name": "האות ה'",
-                    "season": 3,
-                    "episode": 6,
-                    "description": "אורי מלמד את אייבי איך לצייר היפופוטם שטיפס על הר כדי להגיע להמבורגר.",
-                    "thumbnail": "https://www.kankids.org.il/media/abghsh54/2019-5-8-imgid-11239_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/העיפרון-הכי-מחודד/102961/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/NDNLKVbRUdg",
-                            "type": "series",
-                            "name": "האות ה'",
-                            "description": "אורי פינק ואייבי העפרון המדבר, מציירים ומשחקים יחד בסטודיו הקסום של אורי. הם לומדים על אותיות האלף בית, עונות השנה, חגי ישראל ואת הטכניקה המרתקת של ציור הקומיקס.\r\nבפרק זה אורי מלמד את אייבי העפרון איך לצייר היפופוטם שטיפס על הר כדי להגיע להמבורגר."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:3:7",
-                    "name": "האות ח'",
-                    "season": 3,
-                    "episode": 7,
-                    "description": "בפרק זה אורי מלמד את אייבי העיפרון איך לצייר חרגול, חלון וחייל.",
-                    "thumbnail": "https://www.kankids.org.il/media/f5fhvkrm/2019-5-8-imgid-11242_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/העיפרון-הכי-מחודד/102964/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/KBkllef-yzI",
-                            "type": "series",
-                            "name": "האות ח'",
-                            "description": "אורי פינק ואייבי, העיפרון המדבר, מציירים ומשחקים יחד בסטודיו הקסום של אורי. הם לומדים על אותיות האלף בית, עונות השנה, חגי ישראל ואת הטכניקה המרתקת של ציור הקומיקס.\r\nבפרק זה אורי מלמד את אייבי העיפרון איך לצייר חרגול, חלון וחייל."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:3:8",
-                    "name": "שכונת עין כרם",
-                    "season": 3,
-                    "episode": 8,
-                    "description": "אייבי מבקר באחת השכונות הוותיקות בעיר- שכונת עין הכרם.",
-                    "thumbnail": "https://www.kankids.org.il/media/3hynvrvr/2019-5-8-imgid-11243_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/העיפרון-הכי-מחודד/102967/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/KmEafOg6i98",
-                            "type": "series",
-                            "name": "שכונת עין כרם",
-                            "description": "אחת השכונות הוותיקות בעיר – שורשיה מהתקופה הכנענית, אייבי נשאב למנהרת זמן ומבקר באותו בנין בתקופה הכנענית, הצלבנית ובמלחמת העצמאות."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:3:9",
-                    "name": "עושים שלום",
-                    "season": 3,
-                    "episode": 9,
-                    "description": "איך ממלחמה מנהיגים מבינים שהדרך הטובה היא שלום ועד להסכם השלום שנחתם.",
-                    "thumbnail": "https://www.kankids.org.il/media/baeadq0l/2019-5-8-imgid-11245_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/העיפרון-הכי-מחודד/102972/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/d9cbFNbs1hY",
-                            "type": "series",
-                            "name": "עושים שלום",
-                            "description": "זה יום השנה להסכם השלום ואורי מספר לאייבי בהתרגשות גדולה על הרגע ההוא שהילד אורי פינק עמד ונופף בדגל כשביקר בארץ אנואר סעאדאת. \r\nבקומיקס יצוירו שלושה ציורים, איך ממלחמה מנהיגים מבינים שהדרך הטובה ביותר היא שלום ועד להסכם השלום שנחתם."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:3:10",
-                    "name": "בנימין זאב הרצל",
-                    "season": 3,
-                    "episode": 10,
-                    "description": "אורי מספר לאייבי על איש החזון הציוני - בנימין זאב הרצל ומציירים קומיקס",
-                    "thumbnail": "https://www.kankids.org.il/media/im0pdfp5/2019-5-8-imgid-11246_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/העיפרון-הכי-מחודד/102978/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/tFeHIxXkAtE",
-                            "type": "series",
-                            "name": "בנימין זאב הרצל",
-                            "description": "לאייבי יש רעיון, חזון: הוא רוצה להביא את כל העפרונות למקום אחד ולהקים שם את עפרוניה, המדינה היפה בעולם. אורי מספר לו על איש החזון הציוני - בנימין זאב הרצל והם מציירים קומיקס שנושאו חזון הקמת המדינה."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:3:11",
-                    "name": "האות פ'",
-                    "season": 3,
-                    "episode": 11,
-                    "description": "אורי מלמד את אייבי  איך לצייר את הפיל פנחס שהפך לפקיד בגן החיות.",
-                    "thumbnail": "https://www.kankids.org.il/media/sjmfn32f/2019-5-8-imgid-11248_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/העיפרון-הכי-מחודד/102981/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/oai5DrKuDEw",
-                            "type": "series",
-                            "name": "האות פ'",
-                            "description": "אורי פינק ואייבי העפרון המדבר, מציירים ומשחקים יחד בסטודיו הקסום של אורי. הם לומדים על אותיות האלף בית, עונות השנה, חגי ישראל ואת הטכניקה המרתקת של ציור הקומיקס.\r\nבפרק זה אורי מלמד את אייבי העפרון איך לצייר את הפיל פנחס שהפך לפקיד בקופה של גן החיות ומרחרח מנת פלאפל."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:3:12",
-                    "name": "האות ע'",
-                    "season": 3,
-                    "episode": 12,
-                    "description": "אורי מלמד את אייבי העיפרון איך לצייר עץ ועוגת יומולדת",
-                    "thumbnail": "https://www.kankids.org.il/media/rtypbc1q/2019-5-8-imgid-11254_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/העיפרון-הכי-מחודד/102984/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/_TpNHrdXF7M",
-                            "type": "series",
-                            "name": "האות ע'",
-                            "description": "עמי יוצא עם עוגת יומולדת ומציץ מצמרת עץ, חבוש כובע טמבל. על היוצאים לרקוד את יום העצמאות הראשון של מדינת ישראל. אורי מלמד את אייבי העיפרון איך לצייר עץ ועוגת יומולדת"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:3:13",
-                    "name": "האות נ'",
-                    "season": 3,
-                    "episode": 13,
-                    "description": "הנשיא בא לביקור. ניר והמורה מכינים זר נרקיסים ונאום לקראת קבלת הפנים",
-                    "thumbnail": "https://www.kankids.org.il/media/xsij3q0w/2019-5-8-imgid-11251_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/העיפרון-הכי-מחודד/102987/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/er5bdIbepsI",
-                            "type": "series",
-                            "name": "האות נ'",
-                            "description": "נשיא מדינת ישראל - התרגשות גדולה בבית הספר, הנשיא מגיע לביקור. ניר והמורה נורית מכינים זר של נרקיסים ונאום לקראת קבלת הפנים.\r\nנלמד לצייר את המורה, הילד וזר של נרקיסים"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:3:14",
-                    "name": "האות מ'",
-                    "season": 3,
-                    "episode": 14,
-                    "description": "בפרק זה אורי מלמד את אייבי איך לצייר מצלמה, מגילה ואת משה הילד הצלם",
-                    "thumbnail": "https://www.kankids.org.il/media/wj5p1vqh/2019-5-8-imgid-11255_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/העיפרון-הכי-מחודד/102990/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/btBjkxawj_A",
-                            "type": "series",
-                            "name": "האות מ'",
-                            "description": "משה מצלם עם מצלמה את הרגע בו הוכרזה מדינת ישראל.\r\nבפרק זה אורי מלמד את אייבי העיפרון איך לצייר מצלמה, מגילה ואת משה הילד הצלם"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:3:15",
-                    "name": "סמלים",
-                    "season": 3,
-                    "episode": 15,
-                    "description": "אורי ואייבי לומדים על סמלי מדינת ישראל : מנורה ומגן דוד",
-                    "thumbnail": "https://www.kankids.org.il/media/fprfvl1d/2019-5-8-imgid-11258_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/העיפרון-הכי-מחודד/102993/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/nkowrHZ7S1E",
-                            "type": "series",
-                            "name": "סמלים",
-                            "description": "מה הם הסמלים של מדינה? למה צריך אותם? מאיפה הם נובעים? אורי ואייבי ממציאים סמלים למדינה דמיונית ולומדים על סמלי מדינת ישראל - מנורה , מגן דוד"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:2:1",
-                    "name": "מגילת העצמאות",
-                    "season": 2,
-                    "episode": 1,
-                    "description": "מי ניסח את מגילת העצמאות, מה הדברים המרכזיים בה ומה מקורות ההשראה?",
-                    "thumbnail": "https://www.kankids.org.il/media/xb1bvzvr/2019-5-8-imgid-11211_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/בין-השורות/102904/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/UxFaQ_T8NZI",
-                            "type": "series",
-                            "name": "מגילת העצמאות",
-                            "description": "מי ניסח את מגילת העצמאות, מה הדברים המרכזיים בה, מה מקורות ההשראה (התנ\"ך מצד אחד, מגילת זכויות האדם של האו\"ם מצד שני), המושג \"יהודית ודמוקרטית\",עד כמה יש מתח או סתירה בין המושגים האלה, עד כמה היא מתווה את הדרך של ישראל היום, מה נשאר ממנה ומה הלך לאיבוד."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:2:2",
-                    "name": "יום העצמאות",
-                    "season": 2,
-                    "episode": 2,
-                    "description": "מארחים את חבר הכנסת יאיר לפיד, שמסביר מהו הדבק שמחזיק היום את הישראלים",
-                    "thumbnail": "https://www.kankids.org.il/media/dfjfaofv/2019-5-8-imgid-11212_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/בין-השורות/102907/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/ijSkpXNWAsU",
-                            "type": "series",
-                            "name": "יום העצמאות",
-                            "description": "אפרת שפירא רוזנברג והילדים מארחים את חבר הכנסת יאיר לפיד, שמסביר מהו הדבק שמחזיק היום את הישראלים ביחד. יחד הם נזכרים באירועים שהובילו להקמת המדינה ובמלחמת העצמאות ומשוחחים על משמעות המושגים עצמאות וריבונות ומדוע עמים כל כך זקוקים להם"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:1:1",
-                    "name": "אמנות התיוג",
-                    "season": 1,
-                    "episode": 1,
-                    "description": "לצוות יש שעתיים למצוא את כל המידע על מגילת העצמאות ולהכין אותה למשלוח",
-                    "thumbnail": "https://www.kankids.org.il/media/lfvpl5s4/2019-5-7-imgid-11111_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/מחלקה-לחפצים-מיוחדים/102839/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/yRH9BpKmzeI",
-                            "type": "series",
-                            "name": "אמנות התיוג",
-                            "description": "למחלקה לחפצים מיוחדים מגיעה מגילת העצמאות. לצוות יש בדיוק שעתיים למצוא את כל המידע על המגילה ולהכין אותה לקראת משלוח לתערוכה בינלאומית אך הכל מסתבך שהאחראים על התיוג הם מורדי ואליחי"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12923:1:2",
-                    "name": "מי שבר את הספל?",
-                    "season": 1,
-                    "episode": 2,
-                    "description": "למחלקה מגיע כתב היד המקורי של הספר \"אלטנוילנד\" שכתב בנימין זאב הרצל",
-                    "thumbnail": "https://www.kankids.org.il/media/ngtkl30b/2019-5-7-imgid-11113_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12923/מחלקה-לחפצים-מיוחדים/102842/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/0scynERBAHA",
-                            "type": "series",
-                            "name": "מי שבר את הספל?",
-                            "description": "למחלקה לחפצים מיוחדים מגיע כתב היד המקורי של הספר \"אלטנוילנד\" שכתב בנימין זאב הרצל, אך בזמן שהצוות עסוק בלמצוא מידע על כתב היד, המנהלת שפירא פוצחת בחקירה פלילית כדי למצוא מי הפושע ששבר את הספל שלה"
-                        }
-                    ]
-                }
-            ]
-        }
-    },
     "il_kan_teens_1012": {
         "id": "il_kan_teens_1012",
-        "name": "יום הזיכרון לחללי מערכות ישראל",
-        "link": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/",
-        "type": "series",
-        "subtype": "n",
-        "meta": {
-            "id": "il_kan_teens_1012",
-            "type": "series",
-            "name": "יום הזיכרון לחללי מערכות ישראל",
-            "link": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/",
-            "background": "https://www.kankids.org.il/media/5rubmwod/יום-הזיכרון_poster_239_360_.jpg",
-            "poster": "https://www.kankids.org.il/media/5rubmwod/יום-הזיכרון_poster_239_360_.jpg",
-            "posterShape": "poster",
-            "logo": "https://www.kankids.org.il/media/5rubmwod/יום-הזיכרון_poster_239_360_.jpg",
-            "description": "תכניות יום הזיכרון לחללי מערכות ישראל של כאן חינוכית",
-            "genres": "Kan",
-            "videos": [
-                {
-                    "id": "il_kan_teens_1012:6:1",
-                    "name": "פרק 1 - עד שהלילה נעלם",
-                    "season": 6,
-                    "episode": 1,
-                    "description": "רונה נחושה להנציח את אחותה, גם במחיר סיכון טקס יום הזיכרון",
-                    "thumbnail": "https://www.kankids.org.il/media/pkpdbed2/הדברים-שהלכו-לאיבוד-פרק.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/הדברים-שהלכו-לאיבוד/747118/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_2soyx6o2/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 1 - עד שהלילה נעלם",
-                            "description": "יום הזיכרון הראשון אחרי השבעה באוקטובר. רונה, שאחותה נרצחה במסיבת הנובה, כואבת וזועמת, מתרחקת מכל מי שסביבה. עד שמפגש מפתיע ישנה את דעתה, ויגרום לה לסכן את טקס יום הזיכרון בבית הספר."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:6:2",
-                    "name": "פרק 2 - קצה חלום, ודי",
-                    "season": 6,
-                    "episode": 2,
-                    "description": "רונה ואורן מנסים לשתף פעולה בתכניתם, אך החברות ביניהם עומדת במבחן",
-                    "thumbnail": "https://www.kankids.org.il/media/13hpyfbt/הדברים-שהלכו-לאיבוד-פרק.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/הדברים-שהלכו-לאיבוד/747115/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_yit8faja/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 2 - קצה חלום, ודי",
-                            "description": "רונה ואורן משתפים פעולה בתוכניתם, וצריכים להתמודד עם אסתי הרכזת, החברים שלהם ובעיקר עם חוסר האמון שלהם זה בזו. דווקא כשהם מוצאים שפה והומור משותפים, החברות שביניהם עומדת במבחן."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:6:3",
-                    "name": "פרק 3 - הבטחות צריך לקיים",
-                    "season": 6,
-                    "episode": 3,
-                    "description": "בבוקר יום הזיכרון, רונה מתעקשת לממש את התוכנית שלה ולהשמיע את השיר של דניאלה, בעוד שאורן חייב לעצור אותה בזמן. כשאסתי מבינה שמשהו מתרחש מתחת לאף שלה, השעון מתקתק לקראת הצפירה, והעימות מגיע לשיא.",
-                    "thumbnail": "https://www.kankids.org.il/media/bi0fukgn/הדברים-שהלכו-לאיבוד-פרק.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/הדברים-שהלכו-לאיבוד/747114/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_c519bnh2/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 3 - הבטחות צריך לקיים",
-                            "description": "בבוקר יום הזיכרון, רונה מתעקשת לממש את התוכנית שלה ולהשמיע את השיר של דניאלה, בעוד שאורן חייב לעצור אותה בזמן. כשאסתי מבינה שמשהו מתרחש מתחת לאף שלה, השעון מתקתק לקראת הצפירה, והעימות מגיע לשיא."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:5:1",
-                    "name": "ילדים לחללי צה\"ל",
-                    "season": 5,
-                    "episode": 1,
-                    "description": "יתומי צהל עונים על: מה קרה לאבא/אמא שלך? האם אתה מרגיש שמרחמים עליך?",
-                    "thumbnail": "https://www.kankids.org.il/media/wzfjcgzh/2020-4-13-imgid-31871_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/פרקים-וסרטים/112633/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_pdrc9sqd/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 4",
-                            "description": "יתומי צה\"ל עונים על שאלות שחששתם לשאול כמו: מה קרה לאבא/אמא שלך? האם אתה מרגיש שמרחמים עליך? והאם טקס יום הזיכרון משעמם אותך?"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:5:2",
-                    "name": "הסרט המלא",
-                    "season": 5,
-                    "episode": 2,
-                    "description": "חוויות השכול הפרטיות של בני הנוער חושפות פסיפס עשיר של הוויה ישראלית",
-                    "thumbnail": "https://www.kankids.org.il/media/hkrelaxd/2019-5-6-imgid-11041_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/פרקים-וסרטים/748136/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_o5uzv6ir/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "הסרט המלא",
-                            "description": "פגשנו את אלון, תמר, אליה, נוי, שירה, סתיו עומר, לוטם ארנון וחיה בביתם והם שיתפו אותנו בחוויית השכול הפרטית שלהם. בדרך נחשף בפנינו פסיפס עשיר ומרגש של הוויה ישראלית על כל גווניה."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:5:3",
-                    "name": "יום הזיכרון",
-                    "season": 5,
-                    "episode": 3,
-                    "description": "למה יום הזיכרון הפך לאחד הימים שמייצגים את הישראליות יותר מכל?",
-                    "thumbnail": "https://www.kankids.org.il/media/clobvnpy/2019-5-5-imgid-10951_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/פרקים-וסרטים/102693/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/iQGE1txPXog",
-                            "type": "series",
-                            "name": "יום הזיכרון",
-                            "description": "למה החליטו להצמיד את יום הזיכרון ליום העצמאות? למה יום הזיכרון הפך לאחד הימים שמייצגים את הישראליות יותר מכל? תת אלוף במיל' גיורא ענבר ידבר איתנו על מחיר השכול"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:5:4",
-                    "name": "נועם גרשוני",
-                    "season": 5,
-                    "episode": 4,
-                    "description": "נועם רצה תמיד להגיע הכי גבוה שאפשר - עד שהגיעה הפציעה שהותירה אותו נכה",
-                    "thumbnail": "https://www.kankids.org.il/media/u44hwcq1/2019-5-5-imgid-10967_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/פרקים-וסרטים/102720/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/qUKVQHNq08I",
-                            "type": "series",
-                            "name": "נועם גרשוני",
-                            "description": "נועם גרשוני רצה תמיד להגיע הכי גבוה שאפשר - הוא התגייס לקורס טייס, הפך לטייס מסוקי קרב ונגע בעננים, אבל אז הגיעה הפציעה הקשה שהותירה אותו נכה. למרות המגבלה, נעם לא וויתר והמשיך לנסות לגעת בעננים, במשחקים הפאראלימפיים בשנת 2012, הוא זכה במדליית זהב בטורניר היחידים ובמדליית ארד בטורניר הזוגות יחד עם שרגא ויינברג"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:5:5",
-                    "name": "יתמות",
-                    "season": 5,
-                    "episode": 5,
-                    "description": "האם יתמות של חיות דומה ליתמות של בני אדם? נשוחח על הפחד מיתמות",
-                    "thumbnail": "https://www.kankids.org.il/media/alnfcs1e/2019-5-5-imgid-10966_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/פרקים-וסרטים/102717/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/W8e3m9rorWU",
-                            "type": "series",
-                            "name": "יתמות",
-                            "description": "האם ילדים יכולים לנהל בית יתומים, בית ספר או משפחה? האם יתמות של חיות דומה ליתמות של בני אדם? ינץ והילדים משוחחים על הפחד מיתמות וגם על הפנטזיה שביתמות. מה היתמות מאפשרת לגיבורים בספרים ואילו קשיים היא מציבה בפניהם?"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:5:6",
-                    "name": "דוד גרוסמן",
-                    "season": 5,
-                    "episode": 6,
-                    "description": "מאיפה באים רעיונות לסיפורים? איך יודעים מהו רעיון טוב?",
-                    "thumbnail": "https://www.kankids.org.il/media/232a1u40/2019-5-5-imgid-10969_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/פרקים-וסרטים/102723/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/34QgLglkLek",
-                            "type": "series",
-                            "name": "דוד גרוסמן",
-                            "description": "מאיפה באים רעיונות לסיפורים? איך יודעים מהו רעיון טוב? הסופר המעוטר דוד גרוסמן מתארח אצל ירון והילדים ב''מה זה מוזה'' ומספר על מקורות ההשראה שלו כסופר"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:5:7",
-                    "name": "אלכס ליבק",
-                    "season": 5,
-                    "episode": 7,
-                    "description": "אלכס ליבק מתארח באולפן ומשוחח על צילומים מצחיקים, מרשימים וישראליים",
-                    "thumbnail": "https://www.kankids.org.il/media/4ivlhnza/2019-5-5-imgid-10970_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/פרקים-וסרטים/102726/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/Xz8jAp6OfI4",
-                            "type": "series",
-                            "name": "אלכס ליבק",
-                            "description": "ירון והילדים מארחים את הצלם אלכס ליבק, ומשוחחים עמו על צילומים מצחיקים, צילומים מעוררי השתאות ועל כאלו שמספרים לנו משהו על ישראל. ביחד הם בוחנים תמונות שהילדים צילמו בביתם ומקבלים עצות כיצד לשפר את כישורי הצילום שלהם"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:5:8",
-                    "name": "זיכרון וטראומה",
-                    "season": 5,
-                    "episode": 8,
-                    "description": "הסופרת ליזי דורון עונה לשאלות הילדים בנושא זיכרון וטראומה",
-                    "thumbnail": "https://www.kankids.org.il/media/5apjvhyn/2019-5-5-imgid-10971_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/פרקים-וסרטים/102729/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/AwxauL_j92U",
-                            "type": "series",
-                            "name": "זיכרון וטראומה",
-                            "description": "התלמידים ישאלו את האורחת בתכנית, הסופרת ליזי דורון, שאלות בנושא זיכרון וטראומה. ליזי דורון היא בת לניצולי שואה וספריה, אשר תורגמו לשפות רבות, עוסקים בנתח ניכר מהם בזיכרון וטראומה. גם עבודתה ומחקריה האקדמיים של דורון עוסקים בנושא זה"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:4:1",
-                    "name": "צליל מושיאשוילי - פצעי בגרות",
-                    "season": 4,
-                    "episode": 1,
-                    "description": "צליל שמעידה מספרת על מה שעבר עליה ואיך המציאות שנכפתה עליה ביגרה אותה",
-                    "thumbnail": "https://www.kankids.org.il/media/2tblq4a5/2019-5-6-imgid-11008_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/זה-לא-עוד-סרט-זיכרון/102740/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_a2iaem6u/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "צליל מושיאשוילי",
-                            "description": "שלושה ימים לפני חגיגת בת המצווה של צליל, נהרג אחיה נתנאל, חובש בגולני, מירי מחבל. צליל שמעידה על עצמה שהיא \"אוהבת לצחוק ולשמוח\", מספרת על מה שעבר עליה ואיך המציאות שנכפתה עליה גרמה לה להתבגר בין לילה"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:4:2",
-                    "name": "אביה מורנו - מתנות קטנות",
-                    "season": 4,
-                    "episode": 2,
-                    "description": "אביה התייתמה מאביה בגיל 5, ויוצאת למסע להכיר את דמותו לא רק כגיבור",
-                    "thumbnail": "https://www.kankids.org.il/media/24alc3co/2019-5-6-imgid-11013_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/זה-לא-עוד-סרט-זיכרון/102749/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_5oqgvioa/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "אביה מורנו",
-                            "description": "בתו של לוחם סיירת מטכ\"ל עמנואל מורנו התייתמה כשהייתה בת 5 בסיום מלחמת לבנון השנייה. לאחר מותו שמעה סיפורי גבורה רבים על אביה. מטרתה להכיר לא רק את הגיבור, אלא את האיש עצמו, אבא שלה."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:4:3",
-                    "name": "שי ודורון אלקריף - לא סתם צעצוע",
-                    "season": 4,
-                    "episode": 3,
-                    "description": "לשי ודורון, שאביהם נהרג במלחמת לבנון השנייה, עולמות מאוד שונים",
-                    "thumbnail": "https://www.kankids.org.il/media/fwrdnitb/2019-5-6-imgid-11011_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/זה-לא-עוד-סרט-זיכרון/102746/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_a6mo6sev/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "שי ודורון אלקריף",
-                            "description": "אביהם של שי בת 15 ודורון בן 16 מרמת ישי נהרג במלחמת לבנון השנייה, באסון כפר גלעדי. לשי ודורון עולמות מאד שונים, אבל הסכימו לעשות סרט עלילתי יחד. שי מספרת כמה היא מתגעגעת לאביה למרות שלא הכירה אותו."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:4:4",
-                    "name": "עוז אלפסי - בלי רחמים",
-                    "season": 4,
-                    "episode": 4,
-                    "description": "עוז מדבר על האובדן ויש לו רצון עז להבהיר לכולם שרחמים עצמיים רק משתקים",
-                    "thumbnail": "https://www.kankids.org.il/media/axthest0/2019-5-6-imgid-11009_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/זה-לא-עוד-סרט-זיכרון/102743/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_35q2phh2/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "עוז אלפסי - בלי רחמים",
-                            "description": "עוז אלפסי בן 16, אוהב כדורסל, אוהב להדריך בצופים ולשחק בתאטרון. עוז מדבר על האובדן, בעיקר עם נערים ונערות שכולים אחרים, איתם הוא יכול לדבר בחופשיות ולהביא לידי ביטוי את ההומור השחור שלו. מאד קשה לו במצבים שבהם מרחמים עליו, ויש לו רצון עז להבהיר לכולם שרחמים עצמיים רק משתקים אותך"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:3:1",
-                    "name": "נועם ליבוביץ'",
-                    "season": 3,
-                    "episode": 1,
-                    "description": "נועם ליבוביץ' נהרגה מירי מחבלים שארבו לרכב משפחתה בדרך לירושלים",
-                    "thumbnail": "https://www.kankids.org.il/media/vwipiapu/2019-5-6-imgid-11022_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/אחד-חסר/102752/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_93s6fnek/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "נועם ליבוביץ'",
-                            "description": "נועם ליבוביץ ז\"ל נסעה ב-17 ליוני 2003 עם משפחתה לחגיגת בר מצווה בירושלים. מחבלים שהמתינו במארב סמוך לצומת אייל בכביש 6 פתחו בירי לעבר רכב המשפחה. אחד הכדורים פגע בנועם שישנה במושב האחורי והיא נהרגה"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:3:2",
-                    "name": "אהוד אפרתי",
-                    "season": 3,
-                    "episode": 2,
-                    "description": "ילדיו של אהוד אפרתי, שנפל במסגרת מילואיו בגבול עזה, מספרים על הנצחתו",
-                    "thumbnail": "https://www.kankids.org.il/media/okcleeyr/2019-5-6-imgid-11023_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/אחד-חסר/102755/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_yr60rw74/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "אהוד אפרתי",
-                            "description": "רב סמל ראשון אהוד אפרתי ז\"ל נהרג ב-29 לאוקטובר 2007 במסגרת שירות מילואים בגבול עזה, בהתקלות עם חוליית חמאס ליד מחסום סופה. ילדיו מספרים כיצד בחרו להנציח את אביהם ואיך הם מתמודדים עם העדרו ביום יום"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:3:3",
-                    "name": "עוז מנדלוביץ'",
-                    "season": 3,
-                    "episode": 3,
-                    "description": "אחיו של עוז מנדלוביץ' שנפל בצוק איתן משתפים אותנו בהתמודדות עם האובדן",
-                    "thumbnail": "https://www.kankids.org.il/media/f02aqj5q/2019-5-6-imgid-11024_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/אחד-חסר/102758/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_ioezyyrw/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "עוז מנדלוביץ'",
-                            "description": "סמ\"ר עוז מנדלוביץ' שירת בגולני ונהרג ב-21 ליולי 2014 במהלך מבצע צוק איתן בפעילות בשג'אעיה יחד עם עוד 12 לוחמים. אחיו משתפים אותנו בהתמודדות עם האובדן ובמפעל ההנצחה המשקף את כישוריו הרבים שהיו לעוז."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:3:4",
-                    "name": "גלעד יעקובי",
-                    "season": 3,
-                    "episode": 4,
-                    "description": "צופי \"הנהגת דן\" החליטו להקים שלוחה על שם גלעד יעקובי שנפל ב\"צוק איתן\"",
-                    "thumbnail": "https://www.kankids.org.il/media/33lpu3do/2019-5-6-imgid-11025_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/אחד-חסר/102761/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_369e2gcp/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "גלעד יעקובי",
-                            "description": "סמ\"ר גלעד יעקובי ז\"ל, לוחם גולני בן 21 בנופלו, נהרג בפעילות בשג'אעיה במהלך מבצע צוק איתן. גלעד היה פעיל בשבט צופי \"הנהגת דן\" וביצע תפקידי הדרכה מובילים. היום מקימים שלוחה של השבט על שמו."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:3:5",
-                    "name": "בר רהב",
-                    "season": 3,
-                    "episode": 5,
-                    "description": "בר רהב נפל בקרב בצוק איתן. דברים שכתב במחברת קורס הקצינים הולחנו לשיר",
-                    "thumbnail": "https://www.kankids.org.il/media/qw5jokd1/2019-5-6-imgid-11027_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/אחד-חסר/102764/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_weooe21d/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "בר רהב",
-                            "description": "סג\"ם בר רהב נפל בקרב במבצע \"צוק איתן\". בר היה בן 21 בנופלו והותיר אחריו הורים ושלושה אחים. במסגרת פרוייקט ההנצחה \"עורכים זכרון\" של בי\"ס \"רימון\" עובדו והולחנו דברים שכתב במחברת קורס הקצינים לשיר"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:3:6",
-                    "name": "אמוץ גרינברג",
-                    "season": 3,
-                    "episode": 6,
-                    "description": "אמוץ גרינברג נפל בצוק איתן. רשימות שכתבה ליהי בתו בעת השבעה הפכו לשיר",
-                    "thumbnail": "https://www.kankids.org.il/media/nswlzgf4/2019-5-6-imgid-11029_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/אחד-חסר/102767/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_53lp4gg0/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "אמוץ גרינברג",
-                            "description": "סא\"ל אמוץ גרינברג נפל בקרב במבצע \"צוק איתן\" ברצועת עזה. בן 46 בנופלו, הותיר אחריו הורים, אישה ושלושה ילדים. במסגרת פרויקט ההנצחה של בי\"ס \"רימון\" עובדו והולחנו רשימות שכתבה ליהי בתו במהלך השבעה"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:3:7",
-                    "name": "אושי (אשר) נוביק",
-                    "season": 3,
-                    "episode": 7,
-                    "description": "אושי נוביק נפל במלחמת לבנון השנייה. טקסט שכתבה אלמנתו בשבעה הפך לשיר",
-                    "thumbnail": "https://www.kankids.org.il/media/x4vhxj2j/2019-5-6-imgid-11032_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/אחד-חסר/102770/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_n3k2ik9p/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "אושי (אשר) נוביק",
-                            "description": "רס\"ר אושי נוביק היה לוחם ביחידת צנחנים, שנהרג במהלך מלחמת לבנון השנייה. הותיר אחריו אישה ושני ילדים. במסגרת פרוייקט ההנצחה של בי\"ס \"רימון\" עובד והולחן טקסט שכתבה במהלך השבעה אסנת נוביק, אלמנתו, לשיר"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:3:8",
-                    "name": "דני בן דוד",
-                    "season": 3,
-                    "episode": 8,
-                    "description": "טקסט שכתב בנו של רס\"ר דני בן דוד שנפל במלחמת לבנון השנייה, הולחן לשיר",
-                    "thumbnail": "https://www.kankids.org.il/media/sltlpfgd/2019-5-6-imgid-11034_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/אחד-חסר/102773/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_rdvuiunm/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "דני בן דוד",
-                            "description": "רס\"ר דני בן דוד גדל במושב אחיטוב ונהרג במהלך מלחמת לבנון השנייה במטח הקטיושות על כפר גלעדי. הותיר אחריו אשה ושלושה ילדים. במסגרת פרויקט הנצחה של בי\"ס \"רימון\" עובד והולחן טקסט שכתב בנו תומר לאביו, לשיר"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:3:9",
-                    "name": "אייל צור",
-                    "season": 3,
-                    "episode": 9,
-                    "description": "אייל צור ז\"ל נפל ערב מלחמת לבנון הראשונה. שוהם טאיפרו  מלחינה שיר שכתב",
-                    "thumbnail": "https://www.kankids.org.il/media/utefkhby/2019-5-6-imgid-11035_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/אחד-חסר/102776/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_fzjl2d52/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "אייל צור",
-                            "description": "שוהם טאיפרו (מתמודדת דה וויס) פוגשת את משפחתו של סגן אייל צור ז\"ל שנפל ערב מלחמת לבנון הראשונה. מהמפגש עם משפחתו ואחייניותיו שלא הכיר היא מלחינה שיר שכתב ונמצא לאחר מותו."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:3:10",
-                    "name": "תאמר עאמר",
-                    "season": 3,
-                    "episode": 10,
-                    "description": "בני משפחתו של סמל תאמר עאמר ז\"ל מלווים את תהליך ההלחנה של שיר לזכרו",
-                    "thumbnail": "https://www.kankids.org.il/media/5kjhhpdf/2019-5-6-imgid-11036_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/אחד-חסר/102779/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/6F6Ajz0wugY",
-                            "type": "series",
-                            "name": "תאמר עאמר",
-                            "description": "המוזיקאי מאור ארגמן פוגש את כאמל, אביו של סמל תאמר (תומר) עאמר ז\"ל מהכפר ג'וליס, לוחם גדוד 51 של חטיבת גולני. בני משפחתו הענפה מספרים לו על הילד שהכירו, על אהבותיו ומלווים את תהליך ההלחנה של שיר לזכרו."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:3:11",
-                    "name": "רמי ולד",
-                    "season": 3,
-                    "episode": 11,
-                    "description": "גלויה שהשאיר הלוחם סרן רמי ולד ז\"ל, אז אב טרי, לבנו הופכת לשיר",
-                    "thumbnail": "https://www.kankids.org.il/media/x3knj13b/2019-5-6-imgid-11037_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/אחד-חסר/102782/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_pjqqmubl/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "רמי ולד",
-                            "description": "המוזיקאית יעל קופלנד פוגשת את בנו של קצין הצנחנים סרן רמי ולד ז\"ל שנהרג בקרב על גבעת התחמושת במלחמת ששת הימים. גלויה שהשאיר הלוחם, אז אב טרי, לבנו הופכת לשיר"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:3:12",
-                    "name": "יוחאי קלנגל",
-                    "season": 3,
-                    "episode": 12,
-                    "description": "עמי נגר פוגש את משפחתו של יוחאי קלנגל ז\"ל ושומע על מורשת הנתינה שלו",
-                    "thumbnail": "https://www.kankids.org.il/media/c5aot2sr/2019-5-6-imgid-11039_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/אחד-חסר/102785/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_ikignyt7/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "יוחאי קלנגל",
-                            "description": "המוזיקאי עמי נגר פוגש את משפחתו של יוחאי קלנגל ז\"ל, מ\"פ מסייעת בגדוד צבר, חטיבת גבעתי. אחת מבנותיו של יוחאי נולדה חודשים ספורים אחרי שנפל. הוא שומע על הבחירה להנציח את מורשת הנתינה של הלוחם\r\n\r\nהמוזיקאי עמי נגר פוגש את בני משפחתו של יוחאי קלנגל ז\"ל ושומע על הבחירה להנציח את מורשת הנתינה של הלוחם"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:2:1",
-                    "name": "סיפורי גבורה של נשים לוחמות ?‍♀️",
-                    "season": 2,
-                    "episode": 1,
-                    "description": "ההיסטוריון יובל מלחי בסיפורים מעוררי השראה של נשים בקרב על הקמת המדינה",
-                    "thumbnail": "https://www.kankids.org.il/media/wgihv43x/2020-4-27-imgid-32566_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/אנחנו-כאן/112686/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_8el14y4q/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "סיפורי גבורה של נשים לוחמות 🦸‍♀️",
-                            "description": "ההיסטוריון יובל מלחי בסיפורים מעוררי השראה של נשים בקרב על הקמת המדינה"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:2:2",
-                    "name": "הכירו את הפלמ\"ח",
-                    "season": 2,
-                    "episode": 2,
-                    "description": "תולדות הארגון המתחרתי שהוביל להקמת המדינה היהודית",
-                    "thumbnail": "https://www.kankids.org.il/media/gonigxlo/2020-4-26-imgid-32510_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/אנחנו-כאן/112675/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_t6jyqyqt/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "הכירו את הפלמ\"ח",
-                            "description": "תולדות הארגון המתחרתי שהוביל להקמת המדינה היהודית"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:2:3",
-                    "name": "סיפורי גבורה של ילדים ?",
-                    "season": 2,
-                    "episode": 3,
-                    "description": "סיפורי גבורה של ילדים לפני קום המדינה, מפי הסופרת גלילה רון פדר",
-                    "thumbnail": "https://www.kankids.org.il/media/u5gpxo0m/2020-4-26-imgid-32508_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/אנחנו-כאן/112666/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_9tnb2lw9/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "סיפורי גבורה של ילדים 💪",
-                            "description": "סיפורי גבורה של ילדים לפני קום המדינה, מפי הסופרת גלילה רון פדר שגדלה בצל המלחמה"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:2:4",
-                    "name": "הסיפור שמאחורי השיר: לו יהי",
-                    "season": 2,
-                    "episode": 4,
-                    "description": "נינה זריפין (לירי) ואסף אשתר על הסיפור שמאחורי השיר",
-                    "thumbnail": "https://www.kankids.org.il/media/5jua4nnn/2020-4-26-imgid-32514_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/אנחנו-כאן/112677/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_nmwawlqo/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "הסיפור שמאחורי השיר: לו יהי",
-                            "description": "נינה זריפין (לירי) ואסף אשתר על הסיפור שמאחורי השיר"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:1:1",
-                    "name": "מבצע דני",
-                    "season": 1,
-                    "episode": 1,
-                    "description": "על \"מבצע דני\", גדול הקרבות במלחמת העצמאות בו כובשים את מרכז הארץ",
-                    "thumbnail": "https://www.kankids.org.il/media/nttmcgib/2019-5-5-imgid-10955_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/חדשות-מהעבר/102699/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/yF1M1A5zS1A",
-                            "type": "series",
-                            "name": "מבצע דני",
-                            "description": "מבצע דני, גדול הקרבות במלחמת העצמאות, הקרבות בנגב ובגליל שקבעו את גבולות המדינה והסכמי הפסקת האש עם מדינות ערב."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:1:2",
-                    "name": "אילן רמון",
-                    "season": 1,
-                    "episode": 2,
-                    "description": "סיפורו של אילן רמון, הטייס הישראלי שעשה היסטוריה והפיכתו לאסטרונאוט",
-                    "thumbnail": "https://www.kankids.org.il/media/i21pgki5/2019-5-5-imgid-10956_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/חדשות-מהעבר/102702/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/BpI9JHvAV0Q",
-                            "type": "series",
-                            "name": "אילן רמון",
-                            "description": "הטייס הישראלי שעשה היסטוריה. סיפורו של אילן רמון, שהשתתף במבצע אופרה שבו השמידו טייסי חיל האוויר את הכור הגרעיני בעיראק. הפיכתו לאסטרונאוט הישראלי הראשון והטיסה לחלל שהסתיימה בטרגדיה"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:1:3",
-                    "name": "אלי כהן",
-                    "season": 1,
-                    "episode": 3,
-                    "description": "נכיר את האיש שלנו בדמשק,אלי כהן, המרגל שהעביר לישראל מידע מסוריה ונתפס",
-                    "thumbnail": "https://www.kankids.org.il/media/53tdzyc2/2019-5-5-imgid-10957_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/חדשות-מהעבר/102705/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/sluzgNOHvv0",
-                            "type": "series",
-                            "name": "אלי כהן",
-                            "description": "ביקור בארצות ערב: עליית היהודים מארצות ערב במבצעים נועזים לפני ואחרי קום המדינה. נכיר את האיש שלנו בדמשק, אלי כהן, המרגל שהעביר לישראל מידע חיוני מסוריה ונתפס"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:1:4",
-                    "name": "מלחמת לבנון",
-                    "season": 1,
-                    "episode": 4,
-                    "description": "ישראל יוצאת למבצע שלום הגליל בלבנון אך המבצע מסתבך והופך למלחמה",
-                    "thumbnail": "https://www.kankids.org.il/media/y1nfpot3/2019-5-5-imgid-10959_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/חדשות-מהעבר/102708/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/vByCaIW_nFw",
-                            "type": "series",
-                            "name": "מלחמת לבנון",
-                            "description": "לאחר שהמחבלים מלבנון מפציצים את ישובי הצפון, ישראל יוצאת למבצע שלום הגליל ובמהלכו נכנסים כוחות צה\"ל ללבנון כדי \"לעשות סדר\", אבל המבצע מסתבך והופך למלחמה שגובה אלפי הרוגים."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:1:5",
-                    "name": "אביב נעורים",
-                    "season": 1,
-                    "episode": 5,
-                    "description": "המבצעים הנועזים של צה\"ל: הקומנדו הישראלי במבצע בעורף האויב בלבנון",
-                    "thumbnail": "https://www.kankids.org.il/media/nzshs441/2019-5-5-imgid-10961_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/חדשות-מהעבר/102711/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/9fVpW1ngR-c",
-                            "type": "series",
-                            "name": "אביב נעורים",
-                            "description": "המבצעים הנועזים של צה\"ל: הקומנדו הישראלי במבצע בעורף האויב בלבנון. בתגובה למבצע, מחבלים חוטפים בני ערובה בתל אביב עד לחילוץ הנועז, וכנקמה על כך, לוחמי צה\"ל מפליגים לתוניס ומחסלים את אחד מראשי הטרור במבצע \"הצגת תכלית\""
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_1012:1:6",
-                    "name": "טבח הספורטאים באולימפיאדת מינכן",
-                    "season": 1,
-                    "episode": 6,
-                    "description": "פיגוע טרור במשחקים האולימפיים גובה את חייהם של 11 חברי המשלחת הישראלית",
-                    "thumbnail": "https://www.kankids.org.il/media/iethz0or/2019-5-5-imgid-10962_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/memorial_day/חדשות-מהעבר/102714/",
-                    "streams": [
-                        {
-                            "url": "https://www.youtube.com/embed/nEfk9oHUhd4",
-                            "type": "series",
-                            "name": "טבח הספורטאים באולימפיאדת מינכ",
-                            "description": "פיגוע טרור רצחני במשחקים האולימפיים במינכן גובה את חייהם של 11 מחברי המשלחת הישראלית. וגם, ניזכר בפעם היחידה בה נבחרת ישראל העפילה לגביע העולם בכדורגל, ובהצלחות ובמדליות של הספורטאים הישראלים במשחקים האולימפיים."
-                        }
-                    ]
-                }
-            ]
-        }
-    },
-    "il_kan_teens_1013": {
-        "id": "il_kan_teens_1013",
         "name": "הדברים שהלכו לאיבוד",
         "link": "https://www.kankids.org.il/content/kids/hinuchit-main/lost_things/",
         "type": "series",
         "subtype": "n",
         "meta": {
-            "id": "il_kan_teens_1013",
+            "id": "il_kan_teens_1012",
             "type": "series",
             "name": "הדברים שהלכו לאיבוד",
             "link": "https://www.kankids.org.il/content/kids/hinuchit-main/lost_things/",
@@ -10685,7 +9589,7 @@
             ],
             "videos": [
                 {
-                    "id": "il_kan_teens_1013:1:1",
+                    "id": "il_kan_teens_1012:1:1",
                     "name": "פרק 1 - עד שהלילה נעלם",
                     "season": 1,
                     "episode": 1,
@@ -10702,7 +9606,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1013:1:2",
+                    "id": "il_kan_teens_1012:1:2",
                     "name": "פרק 2 - קצה חלום, ודי",
                     "season": 1,
                     "episode": 2,
@@ -10719,7 +9623,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1013:1:3",
+                    "id": "il_kan_teens_1012:1:3",
                     "name": "פרק 3 - הבטחות צריך לקיים",
                     "season": 1,
                     "episode": 3,
@@ -10736,7 +9640,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1013:1:4",
+                    "id": "il_kan_teens_1012:1:4",
                     "name": "השיר של דניאלה - \"עד שהלילה נעלם\"",
                     "season": 1,
                     "episode": 4,
@@ -10755,14 +9659,14 @@
             ]
         }
     },
-    "il_kan_teens_1014": {
-        "id": "il_kan_teens_1014",
+    "il_kan_teens_1013": {
+        "id": "il_kan_teens_1013",
         "name": "זה יוני",
         "link": "https://www.kankids.org.il/content/kids/hinuchit-main/thats_joey/",
         "type": "series",
         "subtype": "n",
         "meta": {
-            "id": "il_kan_teens_1014",
+            "id": "il_kan_teens_1013",
             "type": "series",
             "name": "זה יוני",
             "link": "https://www.kankids.org.il/content/kids/hinuchit-main/thats_joey/",
@@ -10777,7 +9681,7 @@
             ],
             "videos": [
                 {
-                    "id": "il_kan_teens_1014:1:1",
+                    "id": "il_kan_teens_1013:1:1",
                     "name": "פרק 1 - יוני הכפול",
                     "season": 1,
                     "episode": 1,
@@ -10794,7 +9698,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1014:1:2",
+                    "id": "il_kan_teens_1013:1:2",
                     "name": "פרק 2 - האוצר של מר בילי",
                     "season": 1,
                     "episode": 2,
@@ -10811,7 +9715,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1014:1:3",
+                    "id": "il_kan_teens_1013:1:3",
                     "name": "פרק 3 - המורה יוני",
                     "season": 1,
                     "episode": 3,
@@ -10828,7 +9732,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1014:1:4",
+                    "id": "il_kan_teens_1013:1:4",
                     "name": "פרק 4 - עשר מתוך עשר",
                     "season": 1,
                     "episode": 4,
@@ -10845,7 +9749,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1014:1:5",
+                    "id": "il_kan_teens_1013:1:5",
                     "name": "פרק 5 - המוח של ליאור",
                     "season": 1,
                     "episode": 5,
@@ -10862,7 +9766,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1014:1:6",
+                    "id": "il_kan_teens_1013:1:6",
                     "name": "פרק 6 - יוני הקוסם",
                     "season": 1,
                     "episode": 6,
@@ -10879,7 +9783,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1014:1:7",
+                    "id": "il_kan_teens_1013:1:7",
                     "name": "פרק 7 - הספר הזומבי",
                     "season": 1,
                     "episode": 7,
@@ -10896,7 +9800,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1014:1:8",
+                    "id": "il_kan_teens_1013:1:8",
                     "name": "פרק 8 - מרוץ עגלות",
                     "season": 1,
                     "episode": 8,
@@ -10913,7 +9817,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1014:1:9",
+                    "id": "il_kan_teens_1013:1:9",
                     "name": "פרק 9 - פפראצי",
                     "season": 1,
                     "episode": 9,
@@ -10930,7 +9834,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1014:1:10",
+                    "id": "il_kan_teens_1013:1:10",
                     "name": "פרק 10 - יוני אחראי על הבית",
                     "season": 1,
                     "episode": 10,
@@ -12687,14 +11591,14 @@
             ]
         }
     },
-    "il_kan_teens_1015": {
-        "id": "il_kan_teens_1015",
+    "il_kan_teens_1014": {
+        "id": "il_kan_teens_1014",
         "name": "אנחנו כאן",
         "link": "https://www.kankids.org.il/content/kids/hinuchit-main/we_are_here/",
         "type": "series",
         "subtype": "n",
         "meta": {
-            "id": "il_kan_teens_1015",
+            "id": "il_kan_teens_1014",
             "type": "series",
             "name": "אנחנו כאן",
             "link": "https://www.kankids.org.il/content/kids/hinuchit-main/we_are_here/",
@@ -12709,7 +11613,7 @@
             ],
             "videos": [
                 {
-                    "id": "il_kan_teens_1015:1:1",
+                    "id": "il_kan_teens_1014:1:1",
                     "name": "8.11.23",
                     "season": 1,
                     "episode": 1,
@@ -12726,7 +11630,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1015:1:2",
+                    "id": "il_kan_teens_1014:1:2",
                     "name": "7.11.23",
                     "season": 1,
                     "episode": 2,
@@ -12743,7 +11647,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1015:1:3",
+                    "id": "il_kan_teens_1014:1:3",
                     "name": "6.11.23",
                     "season": 1,
                     "episode": 3,
@@ -12760,7 +11664,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1015:1:4",
+                    "id": "il_kan_teens_1014:1:4",
                     "name": "5.11.23",
                     "season": 1,
                     "episode": 4,
@@ -12777,7 +11681,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1015:1:5",
+                    "id": "il_kan_teens_1014:1:5",
                     "name": "2.11.23",
                     "season": 1,
                     "episode": 5,
@@ -12794,7 +11698,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1015:1:6",
+                    "id": "il_kan_teens_1014:1:6",
                     "name": "1.11.23",
                     "season": 1,
                     "episode": 6,
@@ -12811,7 +11715,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1015:1:7",
+                    "id": "il_kan_teens_1014:1:7",
                     "name": "31.10.23",
                     "season": 1,
                     "episode": 7,
@@ -12828,7 +11732,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1015:1:8",
+                    "id": "il_kan_teens_1014:1:8",
                     "name": "30.10.23",
                     "season": 1,
                     "episode": 8,
@@ -12845,7 +11749,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1015:1:9",
+                    "id": "il_kan_teens_1014:1:9",
                     "name": "29.10.23",
                     "season": 1,
                     "episode": 9,
@@ -12862,7 +11766,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1015:1:10",
+                    "id": "il_kan_teens_1014:1:10",
                     "name": "26.10.23",
                     "season": 1,
                     "episode": 10,
@@ -12879,7 +11783,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1015:1:11",
+                    "id": "il_kan_teens_1014:1:11",
                     "name": "25.10.23",
                     "season": 1,
                     "episode": 11,
@@ -12896,7 +11800,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1015:1:12",
+                    "id": "il_kan_teens_1014:1:12",
                     "name": "24.10.23",
                     "season": 1,
                     "episode": 12,
@@ -12913,7 +11817,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1015:1:13",
+                    "id": "il_kan_teens_1014:1:13",
                     "name": "23.10.23",
                     "season": 1,
                     "episode": 13,
@@ -12930,7 +11834,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1015:1:14",
+                    "id": "il_kan_teens_1014:1:14",
                     "name": "22.10.23",
                     "season": 1,
                     "episode": 14,
@@ -12947,7 +11851,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1015:1:15",
+                    "id": "il_kan_teens_1014:1:15",
                     "name": "19.10.23",
                     "season": 1,
                     "episode": 15,
@@ -12964,7 +11868,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1015:1:16",
+                    "id": "il_kan_teens_1014:1:16",
                     "name": "18.10.23",
                     "season": 1,
                     "episode": 16,
@@ -12981,7 +11885,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1015:1:17",
+                    "id": "il_kan_teens_1014:1:17",
                     "name": "17.10.23",
                     "season": 1,
                     "episode": 17,
@@ -12998,7 +11902,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1015:1:18",
+                    "id": "il_kan_teens_1014:1:18",
                     "name": "16.10.23",
                     "season": 1,
                     "episode": 18,
@@ -13015,7 +11919,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1015:1:19",
+                    "id": "il_kan_teens_1014:1:19",
                     "name": "15.10.23",
                     "season": 1,
                     "episode": 19,
@@ -13032,7 +11936,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1015:1:20",
+                    "id": "il_kan_teens_1014:1:20",
                     "name": "12.10.23",
                     "season": 1,
                     "episode": 20,
@@ -13049,7 +11953,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1015:1:21",
+                    "id": "il_kan_teens_1014:1:21",
                     "name": "11.10.23",
                     "season": 1,
                     "episode": 21,
@@ -13066,7 +11970,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1015:1:22",
+                    "id": "il_kan_teens_1014:1:22",
                     "name": "10.10.23",
                     "season": 1,
                     "episode": 22,
@@ -13083,7 +11987,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1015:1:23",
+                    "id": "il_kan_teens_1014:1:23",
                     "name": "9.10.23",
                     "season": 1,
                     "episode": 23,
@@ -13100,7 +12004,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1015:1:24",
+                    "id": "il_kan_teens_1014:1:24",
                     "name": "8.10.23",
                     "season": 1,
                     "episode": 24,
@@ -13119,14 +12023,14 @@
             ]
         }
     },
-    "il_kan_teens_1016": {
-        "id": "il_kan_teens_1016",
+    "il_kan_teens_1015": {
+        "id": "il_kan_teens_1015",
         "name": "מלון הוטל",
         "link": "https://www.kankids.org.il/content/kids/hinuchit-main/malon_hotel/",
         "type": "series",
         "subtype": "n",
         "meta": {
-            "id": "il_kan_teens_1016",
+            "id": "il_kan_teens_1015",
             "type": "series",
             "name": "מלון הוטל",
             "link": "https://www.kankids.org.il/content/kids/hinuchit-main/malon_hotel/",
@@ -13141,7 +12045,7 @@
             ],
             "videos": [
                 {
-                    "id": "il_kan_teens_1016:1:1",
+                    "id": "il_kan_teens_1015:1:1",
                     "name": "מלון כמוטל | פרק 1",
                     "season": 1,
                     "episode": 1,
@@ -13158,7 +12062,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1016:1:2",
+                    "id": "il_kan_teens_1015:1:2",
                     "name": "המבקרת | פרק 2",
                     "season": 1,
                     "episode": 2,
@@ -13175,7 +12079,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1016:1:3",
+                    "id": "il_kan_teens_1015:1:3",
                     "name": "הילד שצעק וולף | פרק 3",
                     "season": 1,
                     "episode": 3,
@@ -13192,7 +12096,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1016:1:4",
+                    "id": "il_kan_teens_1015:1:4",
                     "name": "לישון מחוץ לבית | פרק 4",
                     "season": 1,
                     "episode": 4,
@@ -13209,7 +12113,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1016:1:5",
+                    "id": "il_kan_teens_1015:1:5",
                     "name": "סייקו פיג'ן | פרק 5",
                     "season": 1,
                     "episode": 5,
@@ -13226,7 +12130,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1016:1:6",
+                    "id": "il_kan_teens_1015:1:6",
                     "name": "החברה החדשה של נאיה | פרק 6",
                     "season": 1,
                     "episode": 6,
@@ -13243,7 +12147,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1016:1:7",
+                    "id": "il_kan_teens_1015:1:7",
                     "name": "חברה בשלט רחוק | פרק 7",
                     "season": 1,
                     "episode": 7,
@@ -13260,7 +12164,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1016:1:8",
+                    "id": "il_kan_teens_1015:1:8",
                     "name": "הטרנד של נאיה | פרק 8",
                     "season": 1,
                     "episode": 8,
@@ -13277,7 +12181,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1016:1:9",
+                    "id": "il_kan_teens_1015:1:9",
                     "name": "סוון ליום אחד | פרק 9",
                     "season": 1,
                     "episode": 9,
@@ -13294,7 +12198,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1016:1:10",
+                    "id": "il_kan_teens_1015:1:10",
                     "name": "אורי 2.0 | פרק 10",
                     "season": 1,
                     "episode": 10,
@@ -13311,7 +12215,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1016:1:11",
+                    "id": "il_kan_teens_1015:1:11",
                     "name": "העובד החיוני | פרק 11",
                     "season": 1,
                     "episode": 11,
@@ -13328,7 +12232,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1016:1:12",
+                    "id": "il_kan_teens_1015:1:12",
                     "name": "טריפל צ'ק | פרק 12",
                     "season": 1,
                     "episode": 12,
@@ -13345,7 +12249,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1016:1:13",
+                    "id": "il_kan_teens_1015:1:13",
                     "name": "לקום אתמול בבוקר | פרק 13....",
                     "season": 1,
                     "episode": 13,
@@ -13362,7 +12266,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1016:1:14",
+                    "id": "il_kan_teens_1015:1:14",
                     "name": "הקבוצה של נאיה | פרק 14",
                     "season": 1,
                     "episode": 14,
@@ -13379,7 +12283,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1016:1:15",
+                    "id": "il_kan_teens_1015:1:15",
                     "name": "מלון סלבס | פרק 15",
                     "season": 1,
                     "episode": 15,
@@ -13396,7 +12300,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1016:1:16",
+                    "id": "il_kan_teens_1015:1:16",
                     "name": "איתן השני | פרק 16",
                     "season": 1,
                     "episode": 16,
@@ -13413,7 +12317,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1016:1:17",
+                    "id": "il_kan_teens_1015:1:17",
                     "name": "ט\"ו באב | פרק 17",
                     "season": 1,
                     "episode": 17,
@@ -13430,7 +12334,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1016:1:18",
+                    "id": "il_kan_teens_1015:1:18",
                     "name": "רצח במלון הוטל | פרק 18",
                     "season": 1,
                     "episode": 18,
@@ -13447,7 +12351,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1016:1:19",
+                    "id": "il_kan_teens_1015:1:19",
                     "name": "הייטק הוטל | פרק 19",
                     "season": 1,
                     "episode": 19,
@@ -13464,7 +12368,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1016:1:20",
+                    "id": "il_kan_teens_1015:1:20",
                     "name": "פרק סיום העונה (20) - החדר הסודי",
                     "season": 1,
                     "episode": 20,
@@ -13481,7 +12385,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1016:1:21",
+                    "id": "il_kan_teens_1015:1:21",
                     "name": "פרק 21 - מייקינגאוף",
                     "season": 1,
                     "episode": 21,
@@ -13500,14 +12404,14 @@
             ]
         }
     },
-    "il_kan_teens_1017": {
-        "id": "il_kan_teens_1017",
+    "il_kan_teens_1016": {
+        "id": "il_kan_teens_1016",
         "name": "לבד בבית",
         "link": "https://www.kankids.org.il/content/kids/hinuchit-main/on_our_own/",
         "type": "series",
         "subtype": "n",
         "meta": {
-            "id": "il_kan_teens_1017",
+            "id": "il_kan_teens_1016",
             "type": "series",
             "name": "לבד בבית",
             "link": "https://www.kankids.org.il/content/kids/hinuchit-main/on_our_own/",
@@ -13522,7 +12426,7 @@
             ],
             "videos": [
                 {
-                    "id": "il_kan_teens_1017:4:1",
+                    "id": "il_kan_teens_1016:4:1",
                     "name": "דרופ דה פאוץ' - באנו להרים!",
                     "season": 4,
                     "episode": 1,
@@ -13539,7 +12443,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:4:2",
+                    "id": "il_kan_teens_1016:4:2",
                     "name": "פרק 1 - איך הכל התחיל #4",
                     "season": 4,
                     "episode": 2,
@@ -13556,7 +12460,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:4:3",
+                    "id": "il_kan_teens_1016:4:3",
                     "name": "פרק 2 - אתגר הצחוק",
                     "season": 4,
                     "episode": 3,
@@ -13573,7 +12477,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:4:4",
+                    "id": "il_kan_teens_1016:4:4",
                     "name": "פרק 3 - רננה נפרדת מאיה",
                     "season": 4,
                     "episode": 4,
@@ -13590,7 +12494,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:4:5",
+                    "id": "il_kan_teens_1016:4:5",
                     "name": "פרק 4 - צחי לצחי צח",
                     "season": 4,
                     "episode": 5,
@@ -13607,7 +12511,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:4:6",
+                    "id": "il_kan_teens_1016:4:6",
                     "name": "פרק 5 - הקופסאות",
                     "season": 4,
                     "episode": 6,
@@ -13624,7 +12528,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:4:7",
+                    "id": "il_kan_teens_1016:4:7",
                     "name": "פרק 6 - משפט הזבל",
                     "season": 4,
                     "episode": 7,
@@ -13641,7 +12545,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:4:8",
+                    "id": "il_kan_teens_1016:4:8",
                     "name": "פרק 7 - רוני לא אחראי",
                     "season": 4,
                     "episode": 8,
@@ -13658,7 +12562,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:4:9",
+                    "id": "il_kan_teens_1016:4:9",
                     "name": "פרק 8 - איה התורמת",
                     "season": 4,
                     "episode": 9,
@@ -13675,7 +12579,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:4:10",
+                    "id": "il_kan_teens_1016:4:10",
                     "name": "פרק 9 - האחים דיבובי",
                     "season": 4,
                     "episode": 10,
@@ -13692,7 +12596,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:4:11",
+                    "id": "il_kan_teens_1016:4:11",
                     "name": "פרק 10 - צ'ונסי צ'ונסי",
                     "season": 4,
                     "episode": 11,
@@ -13709,7 +12613,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:4:12",
+                    "id": "il_kan_teens_1016:4:12",
                     "name": "פרק 11 - רוני מלך הג'ודו",
                     "season": 4,
                     "episode": 12,
@@ -13726,7 +12630,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:4:13",
+                    "id": "il_kan_teens_1016:4:13",
                     "name": "פרק 12 - נבו הולך לפסיכולוג",
                     "season": 4,
                     "episode": 13,
@@ -13743,7 +12647,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:4:14",
+                    "id": "il_kan_teens_1016:4:14",
                     "name": "פרק 13 - פריניניניאו",
                     "season": 4,
                     "episode": 14,
@@ -13760,7 +12664,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:4:15",
+                    "id": "il_kan_teens_1016:4:15",
                     "name": "פרק 14 - פלוטניקלדת",
                     "season": 4,
                     "episode": 15,
@@ -13777,7 +12681,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:4:16",
+                    "id": "il_kan_teens_1016:4:16",
                     "name": "פרק 15 - איה הבומרית",
                     "season": 4,
                     "episode": 16,
@@ -13794,7 +12698,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:4:17",
+                    "id": "il_kan_teens_1016:4:17",
                     "name": "פרק סיום העונה (16) - הפרק הכי מטומטם אי פעם",
                     "season": 4,
                     "episode": 17,
@@ -13811,7 +12715,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:4:18",
+                    "id": "il_kan_teens_1016:4:18",
                     "name": "ה-פספוסים",
                     "season": 4,
                     "episode": 18,
@@ -13828,7 +12732,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:4:19",
+                    "id": "il_kan_teens_1016:4:19",
                     "name": "זעתר עם יוזמות חדשות ליום העצמאות 🌟  🥳",
                     "season": 4,
                     "episode": 19,
@@ -13845,7 +12749,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:3:1",
+                    "id": "il_kan_teens_1016:3:1",
                     "name": "צילה | פרק 1",
                     "season": 3,
                     "episode": 1,
@@ -13862,7 +12766,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:3:2",
+                    "id": "il_kan_teens_1016:3:2",
                     "name": "שוגשוגים | פרק 2",
                     "season": 3,
                     "episode": 2,
@@ -13879,7 +12783,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:3:3",
+                    "id": "il_kan_teens_1016:3:3",
                     "name": "הפודקאסט של מיקה | פרק 3",
                     "season": 3,
                     "episode": 3,
@@ -13896,7 +12800,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:3:4",
+                    "id": "il_kan_teens_1016:3:4",
                     "name": "זעתר המורה | פרק 4",
                     "season": 3,
                     "episode": 4,
@@ -13913,7 +12817,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:3:5",
+                    "id": "il_kan_teens_1016:3:5",
                     "name": "תורידי ת'תמונה | פרק 5",
                     "season": 3,
                     "episode": 5,
@@ -13930,7 +12834,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:3:6",
+                    "id": "il_kan_teens_1016:3:6",
                     "name": "מסיבת פיג'מות | פרק 6",
                     "season": 3,
                     "episode": 6,
@@ -13947,7 +12851,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:3:7",
+                    "id": "il_kan_teens_1016:3:7",
                     "name": "הסדרה הכי טובה בעולם | פרק 7",
                     "season": 3,
                     "episode": 7,
@@ -13964,7 +12868,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:3:8",
+                    "id": "il_kan_teens_1016:3:8",
                     "name": "זהירות ספויילר | פרק 8",
                     "season": 3,
                     "episode": 8,
@@ -13981,7 +12885,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:3:9",
+                    "id": "il_kan_teens_1016:3:9",
                     "name": "אזדרכת | פרק 9",
                     "season": 3,
                     "episode": 9,
@@ -13998,7 +12902,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:3:10",
+                    "id": "il_kan_teens_1016:3:10",
                     "name": "זעתר הסטנדאפיסט | פרק 10",
                     "season": 3,
                     "episode": 10,
@@ -14015,7 +12919,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:3:11",
+                    "id": "il_kan_teens_1016:3:11",
                     "name": "חדר בריחה | פרק 11",
                     "season": 3,
                     "episode": 11,
@@ -14032,7 +12936,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:3:12",
+                    "id": "il_kan_teens_1016:3:12",
                     "name": "מסיבת הפתעה בהפתעה | פרק 12",
                     "season": 3,
                     "episode": 12,
@@ -14049,7 +12953,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:3:13",
+                    "id": "il_kan_teens_1016:3:13",
                     "name": "לידור לידור לידור | פרק 13",
                     "season": 3,
                     "episode": 13,
@@ -14066,7 +12970,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:3:14",
+                    "id": "il_kan_teens_1016:3:14",
                     "name": "הטוטוריאל של זעתר | פרק 14",
                     "season": 3,
                     "episode": 14,
@@ -14083,7 +12987,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:3:15",
+                    "id": "il_kan_teens_1016:3:15",
                     "name": "המסלול היבש | פרק 15",
                     "season": 3,
                     "episode": 15,
@@ -14100,7 +13004,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:3:16",
+                    "id": "il_kan_teens_1016:3:16",
                     "name": "נהגת חדשה | פרק 16",
                     "season": 3,
                     "episode": 16,
@@ -14117,7 +13021,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:3:17",
+                    "id": "il_kan_teens_1016:3:17",
                     "name": "הטירשי | פרק 17",
                     "season": 3,
                     "episode": 17,
@@ -14134,7 +13038,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:3:18",
+                    "id": "il_kan_teens_1016:3:18",
                     "name": "רוני הבכיין | פרק 18",
                     "season": 3,
                     "episode": 18,
@@ -14151,7 +13055,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:3:19",
+                    "id": "il_kan_teens_1016:3:19",
                     "name": "שלום עושים עם אחים | פרק 19",
                     "season": 3,
                     "episode": 19,
@@ -14168,7 +13072,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:3:20",
+                    "id": "il_kan_teens_1016:3:20",
                     "name": "ניפגש בבית המשפט | פרק סיום העונה (20)",
                     "season": 3,
                     "episode": 20,
@@ -14185,7 +13089,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:2:1",
+                    "id": "il_kan_teens_1016:2:1",
                     "name": "איך הכל התחיל שוב... | פרק 1",
                     "season": 2,
                     "episode": 1,
@@ -14202,7 +13106,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:2:2",
+                    "id": "il_kan_teens_1016:2:2",
                     "name": "אכול כפי יכולתך | פרק 2",
                     "season": 2,
                     "episode": 2,
@@ -14219,7 +13123,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:2:3",
+                    "id": "il_kan_teens_1016:2:3",
                     "name": "אח גדול אחות קטנה | פרק 3",
                     "season": 2,
                     "episode": 3,
@@ -14236,7 +13140,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1017:2:4",
+                    "id": "il_kan_teens_1016:2:4",
                     "name": "השפם של רוני | פרק 4",
                     "season": 2,
                     "episode": 4,
@@ -14255,14 +13159,14 @@
             ]
         }
     },
-    "il_kan_teens_1018": {
-        "id": "il_kan_teens_1018",
+    "il_kan_teens_1017": {
+        "id": "il_kan_teens_1017",
         "name": "ילדי בית העץ",
         "link": "https://www.kankids.org.il/content/kids/hinuchit-main/tree_house_kids/",
         "type": "series",
         "subtype": "n",
         "meta": {
-            "id": "il_kan_teens_1018",
+            "id": "il_kan_teens_1017",
             "type": "series",
             "name": "ילדי בית העץ",
             "link": "https://www.kankids.org.il/content/kids/hinuchit-main/tree_house_kids/",
@@ -14277,7 +13181,7 @@
             ],
             "videos": [
                 {
-                    "id": "il_kan_teens_1018:7:1",
+                    "id": "il_kan_teens_1017:7:1",
                     "name": "מקהלה עליזה | פרק 1",
                     "season": 7,
                     "episode": 1,
@@ -14294,7 +13198,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:7:2",
+                    "id": "il_kan_teens_1017:7:2",
                     "name": "אסרום ידי זהב | פרק 2",
                     "season": 7,
                     "episode": 2,
@@ -14311,7 +13215,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:7:3",
+                    "id": "il_kan_teens_1017:7:3",
                     "name": "התי-פופ | פרק 3",
                     "season": 7,
                     "episode": 3,
@@ -14328,7 +13232,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:7:4",
+                    "id": "il_kan_teens_1017:7:4",
                     "name": "נגה משתנה | פרק 4",
                     "season": 7,
                     "episode": 4,
@@ -14345,7 +13249,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:7:5",
+                    "id": "il_kan_teens_1017:7:5",
                     "name": "הפרסומת של טלילה | פרק 5",
                     "season": 7,
                     "episode": 5,
@@ -14362,7 +13266,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:7:6",
+                    "id": "il_kan_teens_1017:7:6",
                     "name": "שניר הקמצן | פרק 6",
                     "season": 7,
                     "episode": 6,
@@ -14379,7 +13283,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:7:7",
+                    "id": "il_kan_teens_1017:7:7",
                     "name": "על כלבים ומלצרים | פרק 7",
                     "season": 7,
                     "episode": 7,
@@ -14396,7 +13300,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:7:8",
+                    "id": "il_kan_teens_1017:7:8",
                     "name": "הכתם האדום | פרק 8",
                     "season": 7,
                     "episode": 8,
@@ -14413,7 +13317,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:7:9",
+                    "id": "il_kan_teens_1017:7:9",
                     "name": "שבת | פרק 9",
                     "season": 7,
                     "episode": 9,
@@ -14430,7 +13334,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:7:10",
+                    "id": "il_kan_teens_1017:7:10",
                     "name": "אבא של אפרים | פרק 10",
                     "season": 7,
                     "episode": 10,
@@ -14447,7 +13351,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:7:11",
+                    "id": "il_kan_teens_1017:7:11",
                     "name": "החבר הכי טוב של צ'יקו | פרק 11",
                     "season": 7,
                     "episode": 11,
@@ -14464,7 +13368,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:7:12",
+                    "id": "il_kan_teens_1017:7:12",
                     "name": "השכנה המעצבנת | פרק 12",
                     "season": 7,
                     "episode": 12,
@@ -14481,7 +13385,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:7:13",
+                    "id": "il_kan_teens_1017:7:13",
                     "name": "עשר אגורות | פרק 13",
                     "season": 7,
                     "episode": 13,
@@ -14498,7 +13402,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:7:14",
+                    "id": "il_kan_teens_1017:7:14",
                     "name": "פעולת חסה | פרק 14",
                     "season": 7,
                     "episode": 14,
@@ -14515,7 +13419,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:7:15",
+                    "id": "il_kan_teens_1017:7:15",
                     "name": "החניכה החדשה - חלק א' | פרק 15",
                     "season": 7,
                     "episode": 15,
@@ -14532,7 +13436,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:7:16",
+                    "id": "il_kan_teens_1017:7:16",
                     "name": "החניכה החדשה - חלק ב' | פרק 16",
                     "season": 7,
                     "episode": 16,
@@ -14549,7 +13453,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:7:17",
+                    "id": "il_kan_teens_1017:7:17",
                     "name": "מאחורי הקלעים | פרק 17",
                     "season": 7,
                     "episode": 17,
@@ -14566,7 +13470,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:6:1",
+                    "id": "il_kan_teens_1017:6:1",
                     "name": "יב\"ה -  שיר הנושא",
                     "season": 6,
                     "episode": 1,
@@ -14583,7 +13487,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:6:2",
+                    "id": "il_kan_teens_1017:6:2",
                     "name": "שמריהו צדק חוזר | פרק 1",
                     "season": 6,
                     "episode": 2,
@@ -14600,7 +13504,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:6:3",
+                    "id": "il_kan_teens_1017:6:3",
                     "name": "מה זה יב\"ה? | פרק 2",
                     "season": 6,
                     "episode": 3,
@@ -14617,7 +13521,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:6:4",
+                    "id": "il_kan_teens_1017:6:4",
                     "name": "פיש ומבצע האוכל הגדול | פרק 3",
                     "season": 6,
                     "episode": 4,
@@ -14634,7 +13538,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:6:5",
+                    "id": "il_kan_teens_1017:6:5",
                     "name": "מדים | פרק 4",
                     "season": 6,
                     "episode": 5,
@@ -14651,7 +13555,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:6:6",
+                    "id": "il_kan_teens_1017:6:6",
                     "name": "שניר והכדורגל | פרק 5",
                     "season": 6,
                     "episode": 6,
@@ -14668,7 +13572,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:6:7",
+                    "id": "il_kan_teens_1017:6:7",
                     "name": "לירי כוכבת | פרק 6",
                     "season": 6,
                     "episode": 7,
@@ -14685,7 +13589,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:6:8",
+                    "id": "il_kan_teens_1017:6:8",
                     "name": "מסיבת ריקודים | פרק 7",
                     "season": 6,
                     "episode": 8,
@@ -14702,7 +13606,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:6:9",
+                    "id": "il_kan_teens_1017:6:9",
                     "name": "שגיב חמוצי | פרק 8",
                     "season": 6,
                     "episode": 9,
@@ -14719,7 +13623,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:6:10",
+                    "id": "il_kan_teens_1017:6:10",
                     "name": "המרק של אסרום | פרק 9",
                     "season": 6,
                     "episode": 10,
@@ -14736,7 +13640,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:6:11",
+                    "id": "il_kan_teens_1017:6:11",
                     "name": "דוגמה אישית | פרק 10",
                     "season": 6,
                     "episode": 11,
@@ -14753,7 +13657,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:6:12",
+                    "id": "il_kan_teens_1017:6:12",
                     "name": "הרפתקאות דוב החורף | פרק 11",
                     "season": 6,
                     "episode": 12,
@@ -14770,7 +13674,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:6:13",
+                    "id": "il_kan_teens_1017:6:13",
                     "name": "יש גנב ביב\"ה | פרק 12",
                     "season": 6,
                     "episode": 13,
@@ -14787,7 +13691,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:6:14",
+                    "id": "il_kan_teens_1017:6:14",
                     "name": "צמר גפן לא מתוק | פרק 13",
                     "season": 6,
                     "episode": 14,
@@ -14804,7 +13708,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:6:15",
+                    "id": "il_kan_teens_1017:6:15",
                     "name": "שירז וגור הכלבים | פרק 14",
                     "season": 6,
                     "episode": 15,
@@ -14821,7 +13725,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:6:16",
+                    "id": "il_kan_teens_1017:6:16",
                     "name": "לחץ חברתי | פרק 15",
                     "season": 6,
                     "episode": 16,
@@ -14838,7 +13742,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:6:17",
+                    "id": "il_kan_teens_1017:6:17",
                     "name": "לילי פילי | פרק 16",
                     "season": 6,
                     "episode": 17,
@@ -14855,7 +13759,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:5:1",
+                    "id": "il_kan_teens_1017:5:1",
                     "name": "נגה חוזרת | פרק 1",
                     "season": 5,
                     "episode": 1,
@@ -14872,7 +13776,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:5:2",
+                    "id": "il_kan_teens_1017:5:2",
                     "name": "האודישן | פרק 2",
                     "season": 5,
                     "episode": 2,
@@ -14889,7 +13793,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:5:3",
+                    "id": "il_kan_teens_1017:5:3",
                     "name": "שבועות | פרק 3",
                     "season": 5,
                     "episode": 3,
@@ -14906,7 +13810,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:5:4",
+                    "id": "il_kan_teens_1017:5:4",
                     "name": "להיות מורה | פרק 4",
                     "season": 5,
                     "episode": 4,
@@ -14923,7 +13827,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:5:5",
+                    "id": "il_kan_teens_1017:5:5",
                     "name": "המחלוקת | פרק 5",
                     "season": 5,
                     "episode": 5,
@@ -14940,7 +13844,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:5:6",
+                    "id": "il_kan_teens_1017:5:6",
                     "name": "הקול שלי | פרק 6",
                     "season": 5,
                     "episode": 6,
@@ -14957,7 +13861,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:5:7",
+                    "id": "il_kan_teens_1017:5:7",
                     "name": "החיים הם סרט | פרק 7",
                     "season": 5,
                     "episode": 7,
@@ -14974,7 +13878,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1018:5:8",
+                    "id": "il_kan_teens_1017:5:8",
                     "name": "מסיבת הפתעה | פרק 8",
                     "season": 5,
                     "episode": 8,
@@ -14993,14 +13897,14 @@
             ]
         }
     },
-    "il_kan_teens_1019": {
-        "id": "il_kan_teens_1019",
+    "il_kan_teens_1018": {
+        "id": "il_kan_teens_1018",
         "name": "אתגר היצירה",
         "link": "https://www.kankids.org.il/content/kids/hinuchit-main/crafts_challenge/",
         "type": "series",
         "subtype": "n",
         "meta": {
-            "id": "il_kan_teens_1019",
+            "id": "il_kan_teens_1018",
             "type": "series",
             "name": "אתגר היצירה",
             "link": "https://www.kankids.org.il/content/kids/hinuchit-main/crafts_challenge/",
@@ -15015,7 +13919,7 @@
             ],
             "videos": [
                 {
-                    "id": "il_kan_teens_1019:1:1",
+                    "id": "il_kan_teens_1018:1:1",
                     "name": "הקונדיטוריה של ניר ואלון | פרק 1",
                     "season": 1,
                     "episode": 1,
@@ -15032,7 +13936,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1019:1:2",
+                    "id": "il_kan_teens_1018:1:2",
                     "name": "נוצות בשיטת מקרמה | פרק 2",
                     "season": 1,
                     "episode": 2,
@@ -15049,7 +13953,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1019:1:3",
+                    "id": "il_kan_teens_1018:1:3",
                     "name": "ניר מכורה לפצפצים | פרק 3",
                     "season": 1,
                     "episode": 3,
@@ -15066,7 +13970,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1019:1:4",
+                    "id": "il_kan_teens_1018:1:4",
                     "name": "הגיטרה של דניאל | פרק 4",
                     "season": 1,
                     "episode": 4,
@@ -15083,7 +13987,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1019:1:5",
+                    "id": "il_kan_teens_1018:1:5",
                     "name": "פאצ'ים לחאקי | פרק 5",
                     "season": 1,
                     "episode": 5,
@@ -15100,7 +14004,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1019:1:6",
+                    "id": "il_kan_teens_1018:1:6",
                     "name": "פרק 6",
                     "season": 1,
                     "episode": 6,
@@ -15117,7 +14021,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1019:1:7",
+                    "id": "il_kan_teens_1018:1:7",
                     "name": "מסיבת הפתעה | פרק 7",
                     "season": 1,
                     "episode": 7,
@@ -15134,7 +14038,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1019:1:8",
+                    "id": "il_kan_teens_1018:1:8",
                     "name": "לאמץ כלב | פרק 8",
                     "season": 1,
                     "episode": 8,
@@ -15151,7 +14055,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1019:1:9",
+                    "id": "il_kan_teens_1018:1:9",
                     "name": "מסיבת תחפושות | פרק 9",
                     "season": 1,
                     "episode": 9,
@@ -15168,7 +14072,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1019:1:10",
+                    "id": "il_kan_teens_1018:1:10",
                     "name": "כרית ינשופית וקלמר סושי | פרק 10",
                     "season": 1,
                     "episode": 10,
@@ -15185,7 +14089,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1019:1:11",
+                    "id": "il_kan_teens_1018:1:11",
                     "name": "מרבל עם לקים | פרק 11",
                     "season": 1,
                     "episode": 11,
@@ -15202,7 +14106,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1019:1:12",
+                    "id": "il_kan_teens_1018:1:12",
                     "name": "יום הולדת לאימא | פרק 12",
                     "season": 1,
                     "episode": 12,
@@ -15219,7 +14123,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1019:1:13",
+                    "id": "il_kan_teens_1018:1:13",
                     "name": "האופניים של אנה | פרק 13",
                     "season": 1,
                     "episode": 13,
@@ -15236,7 +14140,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1019:1:14",
+                    "id": "il_kan_teens_1018:1:14",
                     "name": "עושים טאי דאי | פרק 14",
                     "season": 1,
                     "episode": 14,
@@ -15253,7 +14157,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1019:1:15",
+                    "id": "il_kan_teens_1018:1:15",
                     "name": "הדפסת תמונה על עץ | פרק 15",
                     "season": 1,
                     "episode": 15,
@@ -15270,7 +14174,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1019:1:16",
+                    "id": "il_kan_teens_1018:1:16",
                     "name": "פרק 16 - קמופלאז' ושפריצים גלקטיים",
                     "season": 1,
                     "episode": 16,
@@ -15287,7 +14191,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1019:1:17",
+                    "id": "il_kan_teens_1018:1:17",
                     "name": "פרק 17 - תחרות משיכת חבל",
                     "season": 1,
                     "episode": 17,
@@ -15304,7 +14208,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1019:1:18",
+                    "id": "il_kan_teens_1018:1:18",
                     "name": "פרק 18 - תחפושת של גנב",
                     "season": 1,
                     "episode": 18,
@@ -15321,7 +14225,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1019:1:19",
+                    "id": "il_kan_teens_1018:1:19",
                     "name": "פרק 19 - פיצה עם תותים",
                     "season": 1,
                     "episode": 19,
@@ -15338,7 +14242,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1019:1:20",
+                    "id": "il_kan_teens_1018:1:20",
                     "name": "פרק 20 - האתגר של אנה",
                     "season": 1,
                     "episode": 20,
@@ -16038,23 +14942,6 @@
                             "type": "series",
                             "name": "גלעד כהנא ועדי ביטי | פרק 19",
                             "description": "גלעד כהנא ועדי ביטי מגיעים לאולפן כדי לדבר על איך זה לגלם רשעים, ועל צילומים בתקופת הקורונה. לשיחה מצטרפים דן מסר (במאי הסדרה) ודרור ויידמן (יוצר הסדרה) ומספרים על איך נוצרו הדמויות של פולי וליבי"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_11530:1:20",
-                    "name": "פרק סיום | פרק 20",
-                    "season": 1,
-                    "episode": 20,
-                    "description": "טייכר מארח את כל צוות השחקנים של \"האחיין שלי בנץ\", לפרק סיום חגיגי",
-                    "thumbnail": "https://www.kankids.org.il/media/2tmi34fc/2021-12-14-imgid-65867_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-11530/s1/137167/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_kjvremdq/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק סיום | פרק 20",
-                            "description": "כל קאסט הסדרה מגיע לאולפן כדי לסכם את העונה, ולבחור את הרגעים הכי גדולים, הכי מצחיקים והכי מביכים של העונה, בפרק סיום חגיגי בו אף אחד לא הולך לגיהנום"
                         }
                     ]
                 }
@@ -16829,14 +15716,14 @@
             ]
         }
     },
-    "il_kan_teens_1020": {
-        "id": "il_kan_teens_1020",
+    "il_kan_teens_1019": {
+        "id": "il_kan_teens_1019",
         "name": "מדרסה",
         "link": "https://www.kankids.org.il/content/kids/hinuchit-main/madrase_main/",
         "type": "series",
         "subtype": "n",
         "meta": {
-            "id": "il_kan_teens_1020",
+            "id": "il_kan_teens_1019",
             "type": "series",
             "name": "מדרסה",
             "link": "https://www.kankids.org.il/content/kids/hinuchit-main/madrase_main/",
@@ -16851,7 +15738,7 @@
             ],
             "videos": [
                 {
-                    "id": "il_kan_teens_1020:1:1",
+                    "id": "il_kan_teens_1019:1:1",
                     "name": "התחלה חדשה | פרק 1",
                     "season": 1,
                     "episode": 1,
@@ -16868,7 +15755,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1020:1:2",
+                    "id": "il_kan_teens_1019:1:2",
                     "name": "כיסוי ראש | פרק 2",
                     "season": 1,
                     "episode": 2,
@@ -16885,7 +15772,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1020:1:3",
+                    "id": "il_kan_teens_1019:1:3",
                     "name": "דירה להשכיר | פרק 3",
                     "season": 1,
                     "episode": 3,
@@ -16902,7 +15789,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1020:1:4",
+                    "id": "il_kan_teens_1019:1:4",
                     "name": "יאללה בית\"ר | פרק 4",
                     "season": 1,
                     "episode": 4,
@@ -16919,7 +15806,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1020:1:5",
+                    "id": "il_kan_teens_1019:1:5",
                     "name": "הדודה מאמריקה | פרק 5",
                     "season": 1,
                     "episode": 5,
@@ -16936,7 +15823,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1020:1:6",
+                    "id": "il_kan_teens_1019:1:6",
                     "name": "הגרמנים באים | פרק 6",
                     "season": 1,
                     "episode": 6,
@@ -16953,7 +15840,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1020:1:7",
+                    "id": "il_kan_teens_1019:1:7",
                     "name": "מורה לחיים | פרק 7",
                     "season": 1,
                     "episode": 7,
@@ -16970,7 +15857,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1020:1:8",
+                    "id": "il_kan_teens_1019:1:8",
                     "name": "ארוחת ערב | פרק 8",
                     "season": 1,
                     "episode": 8,
@@ -16987,7 +15874,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1020:1:9",
+                    "id": "il_kan_teens_1019:1:9",
                     "name": "הכתובת הייתה על הקיר | פרק 9",
                     "season": 1,
                     "episode": 9,
@@ -17004,7 +15891,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1020:1:10",
+                    "id": "il_kan_teens_1019:1:10",
                     "name": "החלוקה | פרק 10",
                     "season": 1,
                     "episode": 10,
@@ -17021,7 +15908,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1020:1:11",
+                    "id": "il_kan_teens_1019:1:11",
                     "name": "ערב גיבוש | פרק 11",
                     "season": 1,
                     "episode": 11,
@@ -17038,7 +15925,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1020:1:12",
+                    "id": "il_kan_teens_1019:1:12",
                     "name": "אלרגיות | פרק 12",
                     "season": 1,
                     "episode": 12,
@@ -17055,7 +15942,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1020:1:13",
+                    "id": "il_kan_teens_1019:1:13",
                     "name": "המחסום | פרק 13",
                     "season": 1,
                     "episode": 13,
@@ -17072,7 +15959,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1020:1:14",
+                    "id": "il_kan_teens_1019:1:14",
                     "name": "תחפושות | פרק 14",
                     "season": 1,
                     "episode": 14,
@@ -17089,7 +15976,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1020:1:15",
+                    "id": "il_kan_teens_1019:1:15",
                     "name": "לפגוש את ההורים | פרק 15",
                     "season": 1,
                     "episode": 15,
@@ -17106,7 +15993,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1020:1:16",
+                    "id": "il_kan_teens_1019:1:16",
                     "name": "צו ראשון | פרק 16",
                     "season": 1,
                     "episode": 16,
@@ -17123,7 +16010,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1020:1:17",
+                    "id": "il_kan_teens_1019:1:17",
                     "name": "ביקור בכפר | פרק 17",
                     "season": 1,
                     "episode": 17,
@@ -17140,7 +16027,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1020:1:18",
+                    "id": "il_kan_teens_1019:1:18",
                     "name": "תערוכה | פרק 18",
                     "season": 1,
                     "episode": 18,
@@ -17157,7 +16044,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1020:1:19",
+                    "id": "il_kan_teens_1019:1:19",
                     "name": "נבחרת לאומית | פרק 19",
                     "season": 1,
                     "episode": 19,
@@ -17174,7 +16061,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_teens_1020:1:20",
+                    "id": "il_kan_teens_1019:1:20",
                     "name": "מסיבת סיום | פרק 20",
                     "season": 1,
                     "episode": 20,
@@ -17367,7 +16254,7 @@
                     "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12673/2021/129334/",
                     "streams": [
                         {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_7d6ydk6r/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_72uxrjij/format/applehttp/protocol/https/desiredFileName.m3u8",
                             "type": "series",
                             "name": "בוחרים בצעצועים 🧸",
                             "description": "לוסי איוב והחתול האהוב שלה יושבים וצופים בתשדירי בחירות מבלבלים במיוחד. כמו שקורה לכולנו, יש להם שאלות בנוגע לבחירות, אבל הם לא בודקים את התשובה בגוגל, יש להם את אליה שיסביר להם על הבחירות באמצעות צעצועים"
@@ -17850,6 +16737,23 @@
                             "type": "series",
                             "name": "חובת הצבעה",
                             "description": "האם ההצבעה לבחירות בכנסת היא זכות או חובה?"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_teens_12673:3:14",
+                    "name": "פייק ניוז",
+                    "season": 3,
+                    "episode": 14,
+                    "description": "מה זה אומר פייק ניוז?",
+                    "thumbnail": "https://www.kankids.org.il/media/pm5bjqgk/2019-9-16-imgid-20636_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12673/2019/106185/",
+                    "streams": [
+                        {
+                            "url": "https://www.youtube.com/embed/DtVZjkpO7m8",
+                            "type": "series",
+                            "name": "פייק ניוז",
+                            "description": "מה זה אומר פייק ניוז?"
                         }
                     ]
                 }
@@ -21254,6 +20158,23 @@
                             "description": "אלי ואלה נלחמים על האפונה בטעם קולה שהם מקבלים פעם בשנה מדודה אתי. כל אחד מהם רוצה יותר אפונה לעצמו ויעשה כל מה שצריך כדי להשיג אותה. בפרק זה הם יוצאים לפצח את הקשר בין אנרגיה סולרית, המהפיכה התעשייתית ושייקספיר"
                         }
                     ]
+                },
+                {
+                    "id": "il_kan_teens_11955:4:26",
+                    "name": "לשון , כלבי נחייה, אור | פרק 26",
+                    "season": 4,
+                    "episode": 26,
+                    "description": "שוסטר ושוסטר יוצאים לפצח את הקשר בין לשון , כלבי נחייה ואור",
+                    "thumbnail": "https://www.kankids.org.il/media/jkhocozr/https-kanstaticazureedgenet-download-pictures-2021-6-27-imgid-56000_aa.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-11955/s4/131296/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_k5vz9sbr/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 26",
+                            "description": "השוסטרים ממהרים לשוק \"קח תן\" שמתקיים כל שנה בסוכנות ובושמיץ מנסה לרמוז שיום ההולדת שלה מתקיים בדיוק היום. בפרק זה הם יוצאים לפצח את הקשר בין לשון , כלבי נחייה ואור"
+                        }
+                    ]
                 }
             ]
         }
@@ -24285,6 +23206,23 @@
                             "description": "תכנית מדע במתכונת של תכנית תחקירים לכל המשפחה. דודו ארז שולח את הכתבים שלו לברר איך התפתחה העין האנושית, איך המציאו את המצלמה ומדוע מבוגרים אוהבים למעוך דברים חמודים?"
                         }
                     ]
+                },
+                {
+                    "id": "il_kan_teens_12308:6:18",
+                    "name": "ספיישל דבורים | פרק 18",
+                    "season": 6,
+                    "episode": 18,
+                    "description": "דודו ארז שולח את הכתבים שלו לברר איפה הדבורה ממין זכר",
+                    "thumbnail": "https://www.kankids.org.il/media/hjmhqtvt/cat39785_img_cover220484640.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12308/s6/93090/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_74yqta8r/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "ספיישל דבורים | פרק 18",
+                            "description": "תכנית מדע במתכונת של תכנית תחקירים לכל המשפחה. הפעם תכנית על דבורים. דודו ארז שולח את הכתבים שלו לברר איפה הדבורה ממין זכר ומי אחראי על זה שיש עגבניות. אורח באולפן: פרופ' אברהם חפץ."
+                        }
+                    ]
                 }
             ]
         }
@@ -24581,6 +23519,23 @@
                             "description": "האחים פרל מספרים איך הופכים מסלול טיול בשבילי הארץ לסרטון רשת ויראלי"
                         }
                     ]
+                },
+                {
+                    "id": "il_kan_teens_12390:1:17",
+                    "name": "מיה זיו",
+                    "season": 1,
+                    "episode": 17,
+                    "description": "מנהלת הסושיאל של \"כאן\" מגיעה לחיות רשת ומספרת על התנהגות הגולשים ברשת",
+                    "thumbnail": "https://www.kankids.org.il/media/gvglgsot/https-kanstaticazureedgenet-download-pictures-2020-11-24-imgid-42613_aa.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12390/s1/103785/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_v1reieg3/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "מיה זיו",
+                            "description": "מנהלת הסושיאל של \"כאן\" מגיעה לחיות רשת ומספרת על התנהגות הגולשים ברשת"
+                        }
+                    ]
                 }
             ]
         }
@@ -24858,23 +23813,6 @@
                             "type": "series",
                             "name": "פרק 15",
                             "description": "ראש הממשלה ה-11 נולד בכפר מלל. היה פעיל בארגון ההגנה. הקים את יחידה 101 והיה מצביא ולוחם. היה ממקימי מפלגת הליכוד. מילא תפקידים רבים בממשלות ישראל. ב2005 הקים את מפלגת קדימה ויזם את תכנית ההתנתקות."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12633:1:16",
-                    "name": "שמעון פרס | פרק 16",
-                    "season": 1,
-                    "episode": 16,
-                    "description": "10 עובדות על שמעון פרס, הנשיא התשיעי של מדינת ישראל",
-                    "thumbnail": "https://www.kankids.org.il/media/mxcps2aq/https-kanstaticazureedgenet-download-pictures-2021-3-11-imgid-48907_aa.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12633/127004/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_ftxtq5g6/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 16",
-                            "description": "שמעון פרס היה הנשיא ה9. נולד בבבלרוס ונישא לסוניה. עבד עם דוד בן גוריון בהגנה. היה ממקימי הקמ\"ג. ב1974 היה שר הביטחון. פעל להעלאת יהודי אתיופיה. קיבל את פרס נובל לשלום על פעילותו לקידום השלום באזור"
                         }
                     ]
                 }
@@ -25390,6 +24328,23 @@
                             "description": "תכנית העשרה בנושא אוכל ותזונה בהנחיית רותי רוסו. הפעם מתארח שף הגלידות איתי רוגוזינסקי, שיעזור לנו להבין מה זה בעצם גלידה, מי המציא אותה ואיך מכינים גלידות"
                         }
                     ]
+                },
+                {
+                    "id": "il_kan_teens_12669:1:13",
+                    "name": "תפוחי אדמה | פרק 13",
+                    "season": 1,
+                    "episode": 13,
+                    "description": "תכנית העשרה בנושא אוכל ותזונה. הפעם: השף רן שמואלי",
+                    "thumbnail": "https://www.kankids.org.il/media/ajoikytb/cat38774_img_cover638099418.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12669/90428/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_nxl53c0h/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "תפוחי אדמה | פרק 13",
+                            "description": "תכנית העשרה בנושא אוכל ותזונה בהנחיית רותי רוסו. הפעם מתארח השף רן שמואלי, שיעזור לנו להבין איך גדל תפוח אדמה, להכיר זנים מיוחדים וללמוד להכין את הפירה המושלם"
+                        }
+                    ]
                 }
             ]
         }
@@ -25599,6 +24554,23 @@
                             "type": "series",
                             "name": "ביקור היפני | פרק 11",
                             "description": "למחלקה מגיע אורח חשוב מיפן וההתרגשות גדולה. מורדי ואליחי עסוקים בתיוג ספר תורה עתיק של יהדות תימן אבל מתקשים לעמוד בעומס המטלות."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_teens_12515:1:12",
+                    "name": "המנון המחלקה | פרק 12",
+                    "season": 1,
+                    "episode": 12,
+                    "description": "המנהלת שפירא מטילה על מורדי ואליחי למצוא את כל המידע על הצהרת בלפור",
+                    "thumbnail": "https://www.kankids.org.il/media/uosixflo/https-cdnbackstage-apicom-key-backstage-cms-production-uploads-1280x720-1653bcb0-f2c7-11ec-87e7-b1d975722ca7-assets-images-d3a984db-14a4-4770-889d-acc04a23817a.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12515/s1/91201/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_d0d9dvqi/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "המנון המחלקה | פרק 12",
+                            "description": "המנהלת שפירא מטילה על מורדי ואליחי משימה כפולה - למצוא את כל המידע על הצהרת בלפור וגם להלחין את המנון המחלקה לחפצים מיוחדים."
                         }
                     ]
                 }
@@ -25989,6 +24961,23 @@
                             "description": "שני כהן היא ירדנה גושן, המארחת נשים חזקות בתכנית האירוח שלה. הפעם: שרה אהרונסון, גיבורת ניל\"י."
                         }
                     ]
+                },
+                {
+                    "id": "il_kan_teens_12641:1:10",
+                    "name": "מרסדס סוסה | פרק 11",
+                    "season": 1,
+                    "episode": 10,
+                    "description": "ירדנה גושן מארחת נשים חזקות, והפעם: מרסדס סוסה, הזמרת הנערצת.",
+                    "thumbnail": "https://www.kankids.org.il/media/olsfepnw/https-kanstaticazureedgenet-download-pictures-2020-11-21-imgid-21150_aa.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12641/s1/89780/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_celxrtad/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "מרסדס סוסה | פרק 11",
+                            "description": "שני כהן היא ירדנה גושן, המארחת נשים חזקות בתכנית האירוח שלה. הפעם: מרסדס סוסה, הזמרת הארגנטינאית הנערצת."
+                        }
+                    ]
                 }
             ]
         }
@@ -26147,6 +25136,23 @@
                             "type": "series",
                             "name": "קנדינסקי |",
                             "description": "תכנית טוק-שואו קומית בהנחייתו של יקי כץ, הלא הוא טל פרדימן. הפעם מארח יקי את קנדינסקי, הצייר הרוסי, חלוץ הציור המופשט שפעל בתחילת המאה העשרים והיה \"שומע צבעים\" (תופעת הסינסטזיה, כשהחושים מתערבבים)."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_teens_12610:1:9",
+                    "name": "דגה | פרק 9",
+                    "season": 1,
+                    "episode": 9,
+                    "description": "יקי כץ, הלא הוא טל פרידמן, מארח אומנים מפורסמים. הפעם: אדגר דגה",
+                    "thumbnail": "https://www.kankids.org.il/media/35sipdjw/https-kanstaticazureedgenet-download-pictures-2022-10-21-imgid-21149_aa.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12610/s1/90255/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_djgw5l5n/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "דגה |",
+                            "description": "תכנית טוק-שואו קומית בהנחייתו של יקי כץ, הלא הוא טל פרדימן. הפעם מארח יקי את הצייר, הצלם והפסל הצרפתי אדגר דגה."
                         }
                     ]
                 }
@@ -26384,6 +25390,23 @@
                             "description": "חיות במה צוחקות עם יעל שרוני. מיכאל הנגבי והילדים משוחחים עם השחקנית והקומיקאית הנהדרת ומקבלים שיעור בבניית דמות בעזרת אביזרים חיצוניים,  וגם למה יעל כל כך מתרגשת להשתתף בתוכנית.."
                         }
                     ]
+                },
+                {
+                    "id": "il_kan_teens_12567:2:7",
+                    "name": "קובי מיימון | פרק 7",
+                    "season": 2,
+                    "episode": 7,
+                    "description": "חיות במה צוחקות עם קובי מימון",
+                    "thumbnail": "https://www.kankids.org.il/media/11sjpckr/cat39328_img_cover741297025.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12567/s2/91862/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_siuh5pxi/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "חיות במה צוחקות 2 - קובי מיימון - פרק 7",
+                            "description": "חיות במה צוחקות עם קובי מימון. הקומיקאי והסטנדאפיסט המוביל פוגש את מיכאל הנגבי והילדים לשיחה על הז'אנר המוקומנטרי, ולשיעור מאלף בתורת הסטנד אפ. וגם איך בונים פאנץ' על מהירות האור והקול..."
+                        }
+                    ]
                 }
             ]
         }
@@ -26602,23 +25625,6 @@
                             "description": "דאנה איבגי והילדים מארחים את הבימאי והתסריטאי רשף לוי. יחד איתו הם מנסים לגלות את ההבדלים בין התסריט שרשף כתב, לתוצאה שרואים על המסך"
                         }
                     ]
-                },
-                {
-                    "id": "il_kan_teens_12606:1:5",
-                    "name": "דורון צברי | פרק 5",
-                    "season": 1,
-                    "episode": 5,
-                    "description": "דאנה איבגי והילדים מארחים את הבמאי דורון צברי",
-                    "thumbnail": "https://www.kankids.org.il/media/mojdof4t/https-kanstaticazureedgenet-download-pictures-2021-9-29-imgid-3502_aa.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12606/s1/91246/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_5qog3sno/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "חיות מסך - דורון צברי - פרק 5",
-                            "description": "דאנה איבגי והילדים מארחים את הבמאי דורון צברי, שמדגים איך המציאות יכולה להיות בסיס לסרט תיעודי מעניין, וגם צופה ברעיונות שהילדים צילמו לסרטים דוקומנטריים"
-                        }
-                    ]
                 }
             ]
         }
@@ -26825,23 +25831,6 @@
                             "type": "series",
                             "name": "גסטרונומיה",
                             "description": "אילן פלד בתכנית המתבוננת בשפה כבמראה בעדה משתקפים חיינו.  הפעם: שפת האוכל והשתנותה כשיקוף של שינוי תרבותי"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_teens_12744:1:2",
-                    "name": "שפה | פרק 2",
-                    "season": 1,
-                    "episode": 2,
-                    "description": "אילן פלד בתכנית המתבוננת בשפה כמראה. הפעם: השפה עצמה",
-                    "thumbnail": "https://www.kankids.org.il/media/oklhtgnp/https-kanstaticazureedgenet-download-pictures-2020-11-21-imgid-21151_aa.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/hinuchit-main/p-12744/s1/90868/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_2xfipvf1/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "שפה",
-                            "description": "אילן פלד בתכנית המתבוננת בשפה כבמראה בעדה משתקפים חיינו.  הפעם נעסוק בעצם השפה: אותו עניין מסתורי שמאפשר לנו לתקשר בינינו"
                         }
                     ]
                 }
