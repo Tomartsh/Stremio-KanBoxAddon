@@ -5,7 +5,8 @@ const path = require("path");
 const axios = require('axios');
 const AdmZip = require("adm-zip");
 const fs = require('fs');
-require("dotenv").config({ path: path.resolve(__dirname, "../config/.env") }); // Load .env from config folder
+//require("dotenv").config({ path: path.resolve(__dirname, "../config/.env") }); // Load .env from config folder
+require("dotenv").config(); // Load .env from config folder
 const GITHUB_TOKEN = process.env.REPO_TOKEN_SECRET;
 const GITHUB_BRANCH = process.env.BRANCH_SECRET;
 const REPO_OWNER = process.env.REPO_OWNER_SECRET;
