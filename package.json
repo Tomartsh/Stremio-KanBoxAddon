@@ -8,7 +8,7 @@
 	"dependencies": {
 		"adm-zip": "^0.5.16",
 		"axios": "^1.7.9",
-		"dotenv": "^16.4.7",
+		"dotenv": "^16.5.0",
 		"fs": "^0.0.1-security",
 		"log4js": "^6.9.1",
 		"node-cron": "^3.0.3",
