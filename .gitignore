@@ -3,7 +3,8 @@ node_modules
 package-lock.json
 stremio-kanbox.json
 
-config/*.env
+config/.env
+.env
 
 # ignore output folder
 output/*.*
