@@ -411,5 +411,40 @@
                 }
             ]
         }
+    },
+    "il_10_live_01": {
+        "id": "il_10_live_01",
+        "type": "tv",
+        "subtype": "t",
+        "name": "שידור חי ערוץ 10",
+        "meta": {
+            "id": "il_10_live_01",
+            "name": "שידור חי ערוץ 10",
+            "type": "tv",
+            "genres": [
+                "Actuality",
+                "אקטואליה",
+                "news"
+            ],
+            "background": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/10.png",
+            "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/10.png",
+            "posterShape": "landscape",
+            "description": "שידור חי ערוץ 10",
+            "videos": [
+                {
+                    "id": "il_10_live_01",
+                    "name": "שידור חי ערוץ 10",
+                    "description": "שידור חי ערוץ 10",
+                    "streams": [
+                        {
+                            "url": "https://r.il.cdn-redge.media/livehls/oil/calcala-live/live/channel10/live.livx/playlist.m3u8",
+                            "type": "tv",
+                            "name": "שידור חי ערוץ 10",
+                            "description": "שידור חי ערוץ 10"
+                        }
+                    ]
+                }
+            ]
+        }
     }
 }

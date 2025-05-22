@@ -190,7 +190,7 @@ async function uploadToGitHub(fileContent, fileName, commitMessage) {
     const GITHUB_API_URL = 'https://api.github.com';
     const githubFilePath = `${SAVE_FOLDER}/${fileName}`;
     const url = `${GITHUB_API_URL}/repos/${REPO_OWNER}/${REPO_NAME}/contents/${githubFilePath}`;
-
+    logger.error("uploadToGitHub => github udate URL is: " + url);
     try {
         // Check if the file exists to get SHA
         let sha = null;
