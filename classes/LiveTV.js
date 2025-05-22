@@ -50,6 +50,7 @@ class LiveTV {
         this.crawl24();
         this.crawlwalla();
         this.crawl14Live();
+        this.crawl10Live();
         //this.crawlSport5();
 
         logger.info("LiveTV=> Done Crawling");
@@ -789,6 +790,56 @@ class LiveTV {
             subtype: "t"
         };
         this.addToSeriesList(itemWalla);
+        logger.debug("crawlwalla => Added Walla Live");
+    }
+    crawl10Live(){
+        var id10Live = "il_10_live_01";
+
+        var joLiveObj = {
+            id: id10Live,
+            type: "tv",
+            subtype: "t",
+            name: "שידור חי ערוץ 10",
+            meta: {
+                id: id10Live,
+                name: "שידור חי ערוץ 10",
+                type: "tv",
+                genres: ["Actuality","אקטואליה","news"],
+                background: URLS_ASSETS_BASE + "10.png",
+                poster: URLS_ASSETS_BASE + "10.png",
+                posterShape: "landscape",
+                description: "שידור חי ערוץ 10",
+                videos: [
+                    {
+                        id: id10Live,
+                        name: "שידור חי ערוץ 10",
+                        description: "שידור חי ערוץ 10",
+                        streams: [
+                            {
+                                url: "https://r.il.cdn-redge.media/livehls/oil/calcala-live/live/channel10/live.livx/playlist.m3u8",
+                                type: "tv",
+                                name: "שידור חי ערוץ 10",
+                                description: "שידור חי ערוץ 10",
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+        this._liveTVJSONObj[id10Live] = joLiveObj;
+        var item = {
+            id: id10Live, 
+            name: joLiveObj.meta.name, 
+            poster: joLiveObj.meta.poster, 
+            description: joLiveObj.meta.description, 
+            link: "",
+            background: joLiveObj.meta.background, 
+            genres: joLiveObj.meta.genres,
+            meta: joLiveObj.meta,
+            type: "tv", 
+            subtype: "t"
+        };
+        this.addToSeriesList(item);
         logger.debug("crawlwalla => Added Walla Live");
     }
     crawlSport5(){
