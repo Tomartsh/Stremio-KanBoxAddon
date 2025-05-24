@@ -1608,23 +1608,6 @@
                             "description": "צ'ילי המכשפה מתעטשת ומביאה לחדרה את אורי השחקן. שניהם מופתעים ועושים הכרות ביניהם לראשונה. לצ'ילי יש בעיה: יוצאים לה מילים בצ'די. אורי לא יכול לעזור לה עד שדן מגיע ומביא את הספר גיל בר בום של ד\"ר סוס."
                         }
                     ]
-                },
-                {
-                    "id": "il_kan_kids_762163:1:18",
-                    "name": "פרק 19 - פרות",
-                    "season": 1,
-                    "episode": 18,
-                    "description": "הפעם הסיפור \"בינה נוסעת מבנימינה\"",
-                    "thumbnail": "https://www.kankids.org.il/media/itga2mbg/s0342283.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-762163/762661/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_8d5xqad0/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 19 - פרות",
-                            "description": "צ'ילי המכשפה שומעת סיפורים מחבריה. הפעם הסיפור \"בינה נוסעת מבנימינה\". לבינה, הפרה מבנימינה, נכנס שיגעון לנסוע ברכבת לכל מקום. כל היום היא עומדת ליד הפסים וגועה, עד שארז פותח את השער ולוקח אותה לנסיעה."
-                        }
-                    ]
                 }
             ]
         }
@@ -2513,23 +2496,6 @@
                             "description": "לכבוד יום הולדתה, סולינה מבקשת מכל אחד מחבריה להכין קטע ממיטב כישרונו. בס מחפש את הכישרון שלו, ומוצא..."
                         }
                     ]
-                },
-                {
-                    "id": "il_kan_kids_11429:1:15",
-                    "name": "תחרות גלגלונים - פרק 15",
-                    "season": 1,
-                    "episode": 15,
-                    "description": "סולינה מעליבה את בס, אבל מתקשה לבקש סליחה",
-                    "thumbnail": "https://www.kankids.org.il/media/tz1dvn3k/2019-6-27-imgid-15456_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91159/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_fibjaood/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "הפלנטונים - תחרות גלגלונים - פרק 15",
-                            "description": "סולינה מעליבה את בס, אבל מתקשה לבקש סליחה. בס כועס על סולינה ולבסוף מבין, שלבקש סליחה זה אולי הכרחי אבל לא תמיד קל"
-                        }
-                    ]
                 }
             ]
         }
@@ -3202,23 +3168,6 @@
                             "type": "series",
                             "name": "אני חבר טוב",
                             "description": "מאת: דנה כהן-סדלינסקי"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_kids_519728:1:11",
-                    "name": "בגדי המלך החדשים",
-                    "season": 1,
-                    "episode": 11,
-                    "description": "מאת: שירי צוק",
-                    "thumbnail": "https://www.kankids.org.il/media/g2jkzm5o/11.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519728/521235/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_7a0upx4b/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "בגדי המלך החדשים",
-                            "description": "מאת: שירי צוק"
                         }
                     ]
                 }
