@@ -614,23 +614,6 @@
                             "description": "צ'רלי ומארב מכינים קטע מוסיקלי למופע של בית הספר.לולה מפריעה להם כי היא גם רוצה לנגן, וצ'רלי מלמד אותה להכין כלי נגינה מחפצים בבית."
                         }
                     ]
-                },
-                {
-                    "id": "il_kan_kids_1001:1:23",
-                    "name": "פרק 23- אני יותר מדי עסוקה",
-                    "season": 1,
-                    "episode": 23,
-                    "description": "לולה מדמיינת שהיא עובדת,.",
-                    "thumbnail": "https://www.kankids.org.il/media/i3yhpdsi/פרק-23.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778340/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_3o04jm59/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 23- אני יותר מדי עסוקה",
-                            "description": "לולה מדמיינת שהיא עובדת, פעם כמנהלת, פעם כמלצרית, ופעם כפקידת קבלה של רופא שיניים. צ'רלי רוצה לשחק עם לולה במשחק קלפים חדש, אבל לולה לא מתפנה אליו בגלל עיסוקיה הרבים."
-                        }
-                    ]
                 }
             ]
         }
@@ -2215,23 +2198,6 @@
                             "type": "series",
                             "name": "פרק 16",
                             "description": "חמחמש מעריץ את שרלוק הולמס הבלש המפורסם, כשהוא מוצא קופסת אוצר מסתורית הוא יוצא במשימה בלשית לגלות את בעליה"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_kids_11101:2:17",
-                    "name": "מדוזת המשאלות | פרק 17",
-                    "season": 2,
-                    "episode": 17,
-                    "description": "אם אתם פוגשים מדוזת משאלות אל תבקשו ממנה מסטיק. צפו בפרק ותבינו למה",
-                    "thumbnail": "https://www.kankids.org.il/media/it3loyrt/2021-1-25-imgid-46178_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11101/s2/118857/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_1ldwomoy/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 17",
-                            "description": "מדוזת המשאלות נותנת למספרים לבחור שמונה משאלות. המשאלה האחרונה מסבכת את כל עיר המספרים"
                         }
                     ]
                 }
@@ -4227,23 +4193,6 @@
                             "type": "series",
                             "name": "לואי ארמסטרונג",
                             "description": "שרגא תיכנן היום ללמד את נטע לתקוע בחצוצרה אבל עליזה הפילה עליו את מאמן הכושר המוזר שלה, שריר. מאמן הכושר מעדיף לאכול ולהתבטל מאשר לעשות כושר. נטע ושרגא המומים ממנו. שריר עושה לשרגא תרגיל כושר של אכילה. עליזה גם רוצה. היא תלך לקנות מה שצריך. שריר הולך. שרגא ונטע לא מצליחים לתקוע בחצוצרה"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_kids_11598:4:3",
-                    "name": "אלן טיורינג | פרק 3",
-                    "season": 4,
-                    "episode": 3,
-                    "description": "שרגא רכש כרטיסים להופעה דרך הטלפון ושוחח שם אינטלגנציה מלאכותית",
-                    "thumbnail": "https://www.kankids.org.il/media/zc0jwurq/cat42712_img_cover855685123.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11598/s6/97283/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_sg5nl8xk/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 3",
-                            "description": "שרגא רכש כרטיסים להופעה דרך הטלפון ושוחח שם עם אישה בשם ציפורה. עליזה טוענת שלא מדובר באישה אמיתית אלא במענה אוטומטי של מחשב. נטע מציעה לו לבדוק זאת באמצעות אפליקציית מבחן טיורינג. שרגא מפעיל את אפליקציית טיורינג בזמן שיחה עם ציפורה והתוכנה מזהה אותה כבן אדם. שרגא שמח, רק שאז התוכנה מזהה את שרגא כרובוט וציפורה מנתקת. עליזה מקבלת את הכרטיס להופעה שציפורה רכשה לשרגא"
                         }
                     ]
                 }
