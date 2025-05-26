@@ -98,7 +98,7 @@ async function fetchWithRetries(url, asJson = false, params = {}, headers) {
             try {
                 logger.trace("fetchWithRetries => Attempting retrieval from " + url +", try no. " + attempt);
                 //writeLog("DEBUG","fetchWithRetries => Attempting retrieval from " + url +", try no. " + attempt);
-                const response = await axios.get(url, {
+                var response = await axios.get(url, {
                     timeout: REQUEST_TIMEOUT,
                     headers: headers,
                     params: params,
