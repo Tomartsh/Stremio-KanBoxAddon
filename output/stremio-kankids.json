@@ -1155,23 +1155,6 @@
                             "description": "החברים הופכים שדה בור לגינת ירק. הם בטוחים שכל תושבי השכונה ישמחו אבל להפתעתם זה לא מוצא חן בעיני ציפי, שהשומר שצמח בשדה שימש אותה להכנת קציצות טעימות לנכדים"
                         }
                     ]
-                },
-                {
-                    "id": "il_kan_kids_1002:2:20",
-                    "name": "אחות קטנה | פרק 50",
-                    "season": 2,
-                    "episode": 20,
-                    "description": "אוזה ונולי מתבלבלות וחושבות שנעם, אחותה הקטנה של משי, היא קטנה בגודל",
-                    "thumbnail": "https://www.kankids.org.il/media/gqgd2svl/untitled_11551.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/489614/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_89ormyqm/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "אחות קטנה | פרק 50",
-                            "description": "נעם, אחותה הקטנה של משי, באה לעזור למשי ובן להרכיב מחסן. אוזה ונולי מתבלבלות וחושבות שאחות של משי קטנה בגודל. הן מכינות מסיבת תה לכולם, עם כלים קטנים קטנים לנועם."
-                        }
-                    ]
                 }
             ]
         }
@@ -2460,23 +2443,6 @@
                             "type": "series",
                             "name": "הפלנטונים - הכישרון של בס - פרק 14",
                             "description": "לכבוד יום הולדתה, סולינה מבקשת מכל אחד מחבריה להכין קטע ממיטב כישרונו. בס מחפש את הכישרון שלו, ומוצא..."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_kids_11429:1:15",
-                    "name": "תחרות גלגלונים - פרק 15",
-                    "season": 1,
-                    "episode": 15,
-                    "description": "סולינה מעליבה את בס, אבל מתקשה לבקש סליחה",
-                    "thumbnail": "https://www.kankids.org.il/media/tz1dvn3k/2019-6-27-imgid-15456_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91159/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_fibjaood/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "הפלנטונים - תחרות גלגלונים - פרק 15",
-                            "description": "סולינה מעליבה את בס, אבל מתקשה לבקש סליחה. בס כועס על סולינה ולבסוף מבין, שלבקש סליחה זה אולי הכרחי אבל לא תמיד קל"
                         }
                     ]
                 }
@@ -3953,6 +3919,23 @@
                             "description": "סדרת העשרה לילדים בגילאי 4-7 שעוסקת בנושאים פילוסופיים. הפרק: סופי חושקת במרק כדורי פלאפל והיא מתחילה להכין אותו מבלי שיש לה כדורי פלאפל"
                         }
                     ]
+                },
+                {
+                    "id": "il_kan_kids_11660:1:6",
+                    "name": "חתולית עתיקה | פרק 6",
+                    "season": 1,
+                    "episode": 6,
+                    "description": "לאיכסה נעלם הקול. האם אפשר לתקשר גם בלי שפה?",
+                    "thumbnail": "https://www.kankids.org.il/media/amniiwmg/cat38968_img706128802.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11660/s1/90940/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_4js3fu5k/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "חתולית עתיקה",
+                            "description": "סדרת העשרה לילדים בגילאי 4-7 שעוסקת בנושאים פילוסופיים. הפרק: לאיכסה נעלם הקול. האם אפשר לתקשר גם בלי שפה? איך נותנים שם למשהו חדש ומי יודעת לדבר חתולית עתיקה?"
+                        }
+                    ]
                 }
             ]
         }
@@ -4137,6 +4120,23 @@
                             "description": "לבנה מבקשת ממתושלח שישגיח על פנחס בזמן שהיא יוצאת לטיול, למרות שפנחס לא ממש רוצה. טישה מלמדת את פופיק את כללי משחק המחבואים, למרות שהוא לא ממש רוצה. מה יעשו פופיק ופנחס?"
                         }
                     ]
+                },
+                {
+                    "id": "il_kan_kids_11425:4:4",
+                    "name": "מה צריך עציץ | פרק 4",
+                    "season": 4,
+                    "episode": 4,
+                    "description": "לפופיק וליבי יש עציץ כמתנה ללבנה, אבל הם לא יודעים איך לטפל בו.",
+                    "thumbnail": "https://www.kankids.org.il/media/my3djlqw/2019-3-27-imgid-8236_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11425/s5/101213/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_ch5vo02o/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "מה צריך עציץ",
+                            "description": "לפופיק וליבי יש עציץ כמתנת הפתעה ליום ההולדת של לבנה, אבל הם לא יודעים איך לטפל בו. פנחס לא מבין בצמחים, ועסוק בהכנות לטיול. האם העציץ יצוץ וילבלב ביום ההולדת, ומה מתכנן פנחס?"
+                        }
+                    ]
                 }
             ]
         }
@@ -4193,6 +4193,23 @@
                             "type": "series",
                             "name": "לואי ארמסטרונג",
                             "description": "שרגא תיכנן היום ללמד את נטע לתקוע בחצוצרה אבל עליזה הפילה עליו את מאמן הכושר המוזר שלה, שריר. מאמן הכושר מעדיף לאכול ולהתבטל מאשר לעשות כושר. נטע ושרגא המומים ממנו. שריר עושה לשרגא תרגיל כושר של אכילה. עליזה גם רוצה. היא תלך לקנות מה שצריך. שריר הולך. שרגא ונטע לא מצליחים לתקוע בחצוצרה"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_11598:4:3",
+                    "name": "אלן טיורינג | פרק 3",
+                    "season": 4,
+                    "episode": 3,
+                    "description": "שרגא רכש כרטיסים להופעה דרך הטלפון ושוחח שם אינטלגנציה מלאכותית",
+                    "thumbnail": "https://www.kankids.org.il/media/zc0jwurq/cat42712_img_cover855685123.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11598/s6/97283/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_sg5nl8xk/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 3",
+                            "description": "שרגא רכש כרטיסים להופעה דרך הטלפון ושוחח שם עם אישה בשם ציפורה. עליזה טוענת שלא מדובר באישה אמיתית אלא במענה אוטומטי של מחשב. נטע מציעה לו לבדוק זאת באמצעות אפליקציית מבחן טיורינג. שרגא מפעיל את אפליקציית טיורינג בזמן שיחה עם ציפורה והתוכנה מזהה אותה כבן אדם. שרגא שמח, רק שאז התוכנה מזהה את שרגא כרובוט וציפורה מנתקת. עליזה מקבלת את הכרטיס להופעה שציפורה רכשה לשרגא"
                         }
                     ]
                 }
@@ -4277,7 +4294,25 @@
                 "Kan",
                 "כאן"
             ],
-            "videos": []
+            "videos": [
+                {
+                    "id": "il_kan_kids_11732:1:1",
+                    "name": "הנבואה התלויה | פרק 1",
+                    "season": 1,
+                    "episode": 1,
+                    "description": "דיקו מנחש תוצאת חיבור של מספרים אקראיים שבחרו הילדים",
+                    "thumbnail": "https://www.kankids.org.il/media/yufmrhlv/2019-2-25-imgid-5344_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11732/s1/100071/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_uwr9q6sg/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "הנבואה התלויה | פרק 1",
+                            "description": "דיקו מנחש תוצאת חיבור של מספרים אקראיים שבחרו הילדים"
+                        }
+                    ]
+                }
+            ]
         }
     },
     "il_kan_kids_11778": {
