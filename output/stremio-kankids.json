@@ -614,23 +614,6 @@
                             "description": "צ'רלי ומארב מכינים קטע מוסיקלי למופע של בית הספר.לולה מפריעה להם כי היא גם רוצה לנגן, וצ'רלי מלמד אותה להכין כלי נגינה מחפצים בבית."
                         }
                     ]
-                },
-                {
-                    "id": "il_kan_kids_1001:1:23",
-                    "name": "פרק 23- אני יותר מדי עסוקה",
-                    "season": 1,
-                    "episode": 23,
-                    "description": "לולה מדמיינת שהיא עובדת,.",
-                    "thumbnail": "https://www.kankids.org.il/media/i3yhpdsi/פרק-23.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778340/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_3o04jm59/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 23- אני יותר מדי עסוקה",
-                            "description": "לולה מדמיינת שהיא עובדת, פעם כמנהלת, פעם כמלצרית, ופעם כפקידת קבלה של רופא שיניים. צ'רלי רוצה לשחק עם לולה במשחק קלפים חדש, אבל לולה לא מתפנה אליו בגלל עיסוקיה הרבים."
-                        }
-                    ]
                 }
             ]
         }
@@ -1608,23 +1591,6 @@
                             "description": "צ'ילי המכשפה מתעטשת ומביאה לחדרה את אורי השחקן. שניהם מופתעים ועושים הכרות ביניהם לראשונה. לצ'ילי יש בעיה: יוצאים לה מילים בצ'די. אורי לא יכול לעזור לה עד שדן מגיע ומביא את הספר גיל בר בום של ד\"ר סוס."
                         }
                     ]
-                },
-                {
-                    "id": "il_kan_kids_762163:1:18",
-                    "name": "פרק 19 - פרות",
-                    "season": 1,
-                    "episode": 18,
-                    "description": "הפעם הסיפור \"בינה נוסעת מבנימינה\"",
-                    "thumbnail": "https://www.kankids.org.il/media/itga2mbg/s0342283.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-762163/762661/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_8d5xqad0/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 19 - פרות",
-                            "description": "צ'ילי המכשפה שומעת סיפורים מחבריה. הפעם הסיפור \"בינה נוסעת מבנימינה\". לבינה, הפרה מבנימינה, נכנס שיגעון לנסוע ברכבת לכל מקום. כל היום היא עומדת ליד הפסים וגועה, עד שארז פותח את השער ולוקח אותה לנסיעה."
-                        }
-                    ]
                 }
             ]
         }
@@ -2234,23 +2200,6 @@
                             "description": "חמחמש מעריץ את שרלוק הולמס הבלש המפורסם, כשהוא מוצא קופסת אוצר מסתורית הוא יוצא במשימה בלשית לגלות את בעליה"
                         }
                     ]
-                },
-                {
-                    "id": "il_kan_kids_11101:2:17",
-                    "name": "מדוזת המשאלות | פרק 17",
-                    "season": 2,
-                    "episode": 17,
-                    "description": "אם אתם פוגשים מדוזת משאלות אל תבקשו ממנה מסטיק. צפו בפרק ותבינו למה",
-                    "thumbnail": "https://www.kankids.org.il/media/it3loyrt/2021-1-25-imgid-46178_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11101/s2/118857/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_1ldwomoy/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 17",
-                            "description": "מדוזת המשאלות נותנת למספרים לבחור שמונה משאלות. המשאלה האחרונה מסבכת את כל עיר המספרים"
-                        }
-                    ]
                 }
             ]
         }
@@ -2511,23 +2460,6 @@
                             "type": "series",
                             "name": "הפלנטונים - הכישרון של בס - פרק 14",
                             "description": "לכבוד יום הולדתה, סולינה מבקשת מכל אחד מחבריה להכין קטע ממיטב כישרונו. בס מחפש את הכישרון שלו, ומוצא..."
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_kids_11429:1:15",
-                    "name": "תחרות גלגלונים - פרק 15",
-                    "season": 1,
-                    "episode": 15,
-                    "description": "סולינה מעליבה את בס, אבל מתקשה לבקש סליחה",
-                    "thumbnail": "https://www.kankids.org.il/media/tz1dvn3k/2019-6-27-imgid-15456_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91159/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_fibjaood/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "הפלנטונים - תחרות גלגלונים - פרק 15",
-                            "description": "סולינה מעליבה את בס, אבל מתקשה לבקש סליחה. בס כועס על סולינה ולבסוף מבין, שלבקש סליחה זה אולי הכרחי אבל לא תמיד קל"
                         }
                     ]
                 }
@@ -3202,23 +3134,6 @@
                             "type": "series",
                             "name": "אני חבר טוב",
                             "description": "מאת: דנה כהן-סדלינסקי"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_kids_519728:1:11",
-                    "name": "בגדי המלך החדשים",
-                    "season": 1,
-                    "episode": 11,
-                    "description": "מאת: שירי צוק",
-                    "thumbnail": "https://www.kankids.org.il/media/g2jkzm5o/11.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-519728/521235/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_7a0upx4b/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "בגדי המלך החדשים",
-                            "description": "מאת: שירי צוק"
                         }
                     ]
                 }
@@ -4278,23 +4193,6 @@
                             "type": "series",
                             "name": "לואי ארמסטרונג",
                             "description": "שרגא תיכנן היום ללמד את נטע לתקוע בחצוצרה אבל עליזה הפילה עליו את מאמן הכושר המוזר שלה, שריר. מאמן הכושר מעדיף לאכול ולהתבטל מאשר לעשות כושר. נטע ושרגא המומים ממנו. שריר עושה לשרגא תרגיל כושר של אכילה. עליזה גם רוצה. היא תלך לקנות מה שצריך. שריר הולך. שרגא ונטע לא מצליחים לתקוע בחצוצרה"
-                        }
-                    ]
-                },
-                {
-                    "id": "il_kan_kids_11598:4:3",
-                    "name": "אלן טיורינג | פרק 3",
-                    "season": 4,
-                    "episode": 3,
-                    "description": "שרגא רכש כרטיסים להופעה דרך הטלפון ושוחח שם אינטלגנציה מלאכותית",
-                    "thumbnail": "https://www.kankids.org.il/media/zc0jwurq/cat42712_img_cover855685123.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11598/s6/97283/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_sg5nl8xk/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 3",
-                            "description": "שרגא רכש כרטיסים להופעה דרך הטלפון ושוחח שם עם אישה בשם ציפורה. עליזה טוענת שלא מדובר באישה אמיתית אלא במענה אוטומטי של מחשב. נטע מציעה לו לבדוק זאת באמצעות אפליקציית מבחן טיורינג. שרגא מפעיל את אפליקציית טיורינג בזמן שיחה עם ציפורה והתוכנה מזהה אותה כבן אדם. שרגא שמח, רק שאז התוכנה מזהה את שרגא כרובוט וציפורה מנתקת. עליזה מקבלת את הכרטיס להופעה שציפורה רכשה לשרגא"
                         }
                     ]
                 }
