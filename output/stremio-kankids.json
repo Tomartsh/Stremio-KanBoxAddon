@@ -614,23 +614,6 @@
                             "description": "צ'רלי ומארב מכינים קטע מוסיקלי למופע של בית הספר.לולה מפריעה להם כי היא גם רוצה לנגן, וצ'רלי מלמד אותה להכין כלי נגינה מחפצים בבית."
                         }
                     ]
-                },
-                {
-                    "id": "il_kan_kids_1001:1:23",
-                    "name": "פרק 23- אני יותר מדי עסוקה",
-                    "season": 1,
-                    "episode": 23,
-                    "description": "לולה מדמיינת שהיא עובדת,.",
-                    "thumbnail": "https://www.kankids.org.il/media/i3yhpdsi/פרק-23.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778340/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_3o04jm59/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 23- אני יותר מדי עסוקה",
-                            "description": "לולה מדמיינת שהיא עובדת, פעם כמנהלת, פעם כמלצרית, ופעם כפקידת קבלה של רופא שיניים. צ'רלי רוצה לשחק עם לולה במשחק קלפים חדש, אבל לולה לא מתפנה אליו בגלל עיסוקיה הרבים."
-                        }
-                    ]
                 }
             ]
         }
@@ -1608,23 +1591,6 @@
                             "description": "צ'ילי המכשפה מתעטשת ומביאה לחדרה את אורי השחקן. שניהם מופתעים ועושים הכרות ביניהם לראשונה. לצ'ילי יש בעיה: יוצאים לה מילים בצ'די. אורי לא יכול לעזור לה עד שדן מגיע ומביא את הספר גיל בר בום של ד\"ר סוס."
                         }
                     ]
-                },
-                {
-                    "id": "il_kan_kids_762163:1:18",
-                    "name": "פרק 19 - פרות",
-                    "season": 1,
-                    "episode": 18,
-                    "description": "הפעם הסיפור \"בינה נוסעת מבנימינה\"",
-                    "thumbnail": "https://www.kankids.org.il/media/itga2mbg/s0342283.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-762163/762661/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_8d5xqad0/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 19 - פרות",
-                            "description": "צ'ילי המכשפה שומעת סיפורים מחבריה. הפעם הסיפור \"בינה נוסעת מבנימינה\". לבינה, הפרה מבנימינה, נכנס שיגעון לנסוע ברכבת לכל מקום. כל היום היא עומדת ליד הפסים וגועה, עד שארז פותח את השער ולוקח אותה לנסיעה."
-                        }
-                    ]
                 }
             ]
         }
@@ -1938,23 +1904,6 @@
                             "description": "עמליה רוצה לבשל לבד בלי עזרה, היא מכינה פסטה ברוטב עגבניות וזה יוצא ככה ככה. סבא יוני ושוקי הירקן עושים כאילו זה טעים להם כדי לא להעליב את עמליה. מה יהיה כשקליינטה רוצה להזמין את הפסטה של עמליה?"
                         }
                     ]
-                },
-                {
-                    "id": "il_kan_kids_11195:2:18",
-                    "name": "שמות | פרק 18",
-                    "season": 2,
-                    "episode": 18,
-                    "description": "המורה הראשון של יוני לגיטרה מגיע לביקור ויוני לא זוכר איך קוראים לו",
-                    "thumbnail": "https://www.kankids.org.il/media/z0bgxepx/2021-4-12-imgid-50820_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11195/s2/128801/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_0nk6ohkf/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 18",
-                            "description": "המורה הראשון של יוני לגיטרה מגיע לביקור מפתיע, הבעיה היא שיוני לא זוכר איך קוראים לו ולא נעים לו לשאול. למלי, שמחפשת שם לבן שעומד להיוולד לה, לא נעים להגיד שהפשטידה לא טעימה לה"
-                        }
-                    ]
                 }
             ]
         }
@@ -2234,6 +2183,23 @@
                             "description": "החברים עוזרים לשמונה עם המשלוחים במכולת ומגלים שמשלוח עושים באהבה או שלא עושים בכלל"
                         }
                     ]
+                },
+                {
+                    "id": "il_kan_kids_11101:2:16",
+                    "name": "הבלש חמחמש | פרק 16",
+                    "season": 2,
+                    "episode": 16,
+                    "description": "כשחמחמש מוצא קופסת אוצר מסתורית הוא יוצא במשימה בלשית לגלות את בעליה",
+                    "thumbnail": "https://www.kankids.org.il/media/uvapeheu/2021-1-25-imgid-46165_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11101/s2/118899/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_wv18xk6l/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 16",
+                            "description": "חמחמש מעריץ את שרלוק הולמס הבלש המפורסם, כשהוא מוצא קופסת אוצר מסתורית הוא יוצא במשימה בלשית לגלות את בעליה"
+                        }
+                    ]
                 }
             ]
         }
@@ -2494,6 +2460,23 @@
                             "type": "series",
                             "name": "הפלנטונים - הכישרון של בס - פרק 14",
                             "description": "לכבוד יום הולדתה, סולינה מבקשת מכל אחד מחבריה להכין קטע ממיטב כישרונו. בס מחפש את הכישרון שלו, ומוצא..."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_11429:1:15",
+                    "name": "תחרות גלגלונים - פרק 15",
+                    "season": 1,
+                    "episode": 15,
+                    "description": "סולינה מעליבה את בס, אבל מתקשה לבקש סליחה",
+                    "thumbnail": "https://www.kankids.org.il/media/tz1dvn3k/2019-6-27-imgid-15456_a.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91159/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_fibjaood/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "הפלנטונים - תחרות גלגלונים - פרק 15",
+                            "description": "סולינה מעליבה את בס, אבל מתקשה לבקש סליחה. בס כועס על סולינה ולבסוף מבין, שלבקש סליחה זה אולי הכרחי אבל לא תמיד קל"
                         }
                     ]
                 }
@@ -3970,23 +3953,6 @@
                             "description": "סדרת העשרה לילדים בגילאי 4-7 שעוסקת בנושאים פילוסופיים. הפרק: סופי חושקת במרק כדורי פלאפל והיא מתחילה להכין אותו מבלי שיש לה כדורי פלאפל"
                         }
                     ]
-                },
-                {
-                    "id": "il_kan_kids_11660:1:6",
-                    "name": "חתולית עתיקה | פרק 6",
-                    "season": 1,
-                    "episode": 6,
-                    "description": "לאיכסה נעלם הקול. האם אפשר לתקשר גם בלי שפה?",
-                    "thumbnail": "https://www.kankids.org.il/media/amniiwmg/cat38968_img706128802.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11660/s1/90940/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_4js3fu5k/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "חתולית עתיקה",
-                            "description": "סדרת העשרה לילדים בגילאי 4-7 שעוסקת בנושאים פילוסופיים. הפרק: לאיכסה נעלם הקול. האם אפשר לתקשר גם בלי שפה? איך נותנים שם למשהו חדש ומי יודעת לדבר חתולית עתיקה?"
-                        }
-                    ]
                 }
             ]
         }
@@ -4171,23 +4137,6 @@
                             "description": "לבנה מבקשת ממתושלח שישגיח על פנחס בזמן שהיא יוצאת לטיול, למרות שפנחס לא ממש רוצה. טישה מלמדת את פופיק את כללי משחק המחבואים, למרות שהוא לא ממש רוצה. מה יעשו פופיק ופנחס?"
                         }
                     ]
-                },
-                {
-                    "id": "il_kan_kids_11425:4:4",
-                    "name": "מה צריך עציץ | פרק 4",
-                    "season": 4,
-                    "episode": 4,
-                    "description": "לפופיק וליבי יש עציץ כמתנה ללבנה, אבל הם לא יודעים איך לטפל בו.",
-                    "thumbnail": "https://www.kankids.org.il/media/my3djlqw/2019-3-27-imgid-8236_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11425/s5/101213/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_ch5vo02o/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "מה צריך עציץ",
-                            "description": "לפופיק וליבי יש עציץ כמתנת הפתעה ליום ההולדת של לבנה, אבל הם לא יודעים איך לטפל בו. פנחס לא מבין בצמחים, ועסוק בהכנות לטיול. האם העציץ יצוץ וילבלב ביום ההולדת, ומה מתכנן פנחס?"
-                        }
-                    ]
                 }
             ]
         }
@@ -4246,23 +4195,6 @@
                             "description": "שרגא תיכנן היום ללמד את נטע לתקוע בחצוצרה אבל עליזה הפילה עליו את מאמן הכושר המוזר שלה, שריר. מאמן הכושר מעדיף לאכול ולהתבטל מאשר לעשות כושר. נטע ושרגא המומים ממנו. שריר עושה לשרגא תרגיל כושר של אכילה. עליזה גם רוצה. היא תלך לקנות מה שצריך. שריר הולך. שרגא ונטע לא מצליחים לתקוע בחצוצרה"
                         }
                     ]
-                },
-                {
-                    "id": "il_kan_kids_11598:4:3",
-                    "name": "אלן טיורינג | פרק 3",
-                    "season": 4,
-                    "episode": 3,
-                    "description": "שרגא רכש כרטיסים להופעה דרך הטלפון ושוחח שם אינטלגנציה מלאכותית",
-                    "thumbnail": "https://www.kankids.org.il/media/zc0jwurq/cat42712_img_cover855685123.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11598/s6/97283/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_sg5nl8xk/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "פרק 3",
-                            "description": "שרגא רכש כרטיסים להופעה דרך הטלפון ושוחח שם עם אישה בשם ציפורה. עליזה טוענת שלא מדובר באישה אמיתית אלא במענה אוטומטי של מחשב. נטע מציעה לו לבדוק זאת באמצעות אפליקציית מבחן טיורינג. שרגא מפעיל את אפליקציית טיורינג בזמן שיחה עם ציפורה והתוכנה מזהה אותה כבן אדם. שרגא שמח, רק שאז התוכנה מזהה את שרגא כרובוט וציפורה מנתקת. עליזה מקבלת את הכרטיס להופעה שציפורה רכשה לשרגא"
-                        }
-                    ]
                 }
             ]
         }
@@ -4304,6 +4236,23 @@
                             "description": "בפרק נכיר את אבנר האגרונום החוקר את הארטישוק הירושלמי באוניברסיטה העברית, האם זהו ארטישוק? ומה הקשר שלו לירושלים?"
                         }
                     ]
+                },
+                {
+                    "id": "il_kan_kids_11610:2:2",
+                    "name": "בית הנשיא | פרק 2",
+                    "season": 2,
+                    "episode": 2,
+                    "description": "בפרק הזה נבקר בבית הנשיא",
+                    "thumbnail": "https://www.kankids.org.il/media/4z2bszaw/cat39666_img_cover836768853.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11610/s4/92739/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_lnsw9e6l/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "העיפרון הכי מחודד - בית הנשיא - פרק 2",
+                            "description": "בפרק הזה נבקר בבית הנשיא – האמת היא שבנימין הילד מבקר בבית הנשיא ומעניק לנשיא המדינה (אייבי) בובה בדמותו מעשה ידיו להתפאר."
+                        }
+                    ]
                 }
             ]
         }
@@ -4328,25 +4277,7 @@
                 "Kan",
                 "כאן"
             ],
-            "videos": [
-                {
-                    "id": "il_kan_kids_11732:1:1",
-                    "name": "הנבואה התלויה | פרק 1",
-                    "season": 1,
-                    "episode": 1,
-                    "description": "דיקו מנחש תוצאת חיבור של מספרים אקראיים שבחרו הילדים",
-                    "thumbnail": "https://www.kankids.org.il/media/yufmrhlv/2019-2-25-imgid-5344_b.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11732/s1/100071/",
-                    "streams": [
-                        {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_uwr9q6sg/format/applehttp/protocol/https/desiredFileName.m3u8",
-                            "type": "series",
-                            "name": "הנבואה התלויה | פרק 1",
-                            "description": "דיקו מנחש תוצאת חיבור של מספרים אקראיים שבחרו הילדים"
-                        }
-                    ]
-                }
-            ]
+            "videos": []
         }
     },
     "il_kan_kids_11778": {
