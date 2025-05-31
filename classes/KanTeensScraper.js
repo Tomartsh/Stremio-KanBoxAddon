@@ -115,7 +115,7 @@ class KanTeensScraper {
 
             var seasons = doc2.querySelectorAll("div.seasons-item.kids");
             this.addToJsonObject(id, seriesTitle,seriesPage,imgUrl,seriesDescription,genres,[],subType,"series");
-            this.getKidsVideos(seasons, id, subType);
+            await this.getKidsVideos(seasons, id, subType);
         }
     }
 
