@@ -187,10 +187,11 @@ async function writeJSONToFile(jsonObj, fileName){
 
 async function uploadToGitHub(fileContent, fileName, commitMessage) {
     logger.trace("uploadToGitHub => Entering");
-    const GITHUB_API_URL = 'https://api.github.com';
+     const GITHUB_API_URL = 'https://api.github.com';
     const githubFilePath = `${SAVE_FOLDER}/${fileName}`;
     const url = `${GITHUB_API_URL}/repos/${REPO_OWNER}/${REPO_NAME}/contents/${githubFilePath}`;
-    logger.error("uploadToGitHub => github udate URL is: " + url);
+    logger.debug("uploadToGitHub => URL is: " + url);
+      
     try {
         // Check if the file exists to get SHA
         let sha = null;

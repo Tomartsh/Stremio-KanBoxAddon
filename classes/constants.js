@@ -15,7 +15,7 @@ module.exports = {
         "stremio-kan88.zip",
         "stremio-mako.zip"
     ],
-    SAVE_MODE: "github", // "local", "github", or "both"
+    SAVE_MODE: "local", // "local", "github", or "both"
     SAVE_FOLDER: "output",
     PREFIX: "il_",
     LOG4JS_LEVEL: "debug",
