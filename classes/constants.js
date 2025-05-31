@@ -24,9 +24,9 @@ module.exports = {
     LOG_FILENAME: "logs/Stremio_addon.log",
     HEADERS: {
         "Content-Type": "text/html; charset=utf-8",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0",
         "Accept": "application/json,text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Encoding": "gzip, deflate, br, zstd",
         "Charset": "UTF-8"
     },
     URL_JSON_BASE: "https://tomartsh.github.io/Stremio-KanBoxAddon/output/", 
