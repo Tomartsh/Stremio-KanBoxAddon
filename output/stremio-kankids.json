@@ -18550,5 +18550,1736 @@
                 }
             ]
         }
+    },
+    "il_kan_kids_1004": {
+        "id": "il_kan_kids_1004",
+        "name": "בלואי",
+        "link": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/",
+        "type": "series",
+        "subtype": "k",
+        "meta": {
+            "id": "il_kan_kids_1004",
+            "type": "series",
+            "name": "בלואי",
+            "link": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/",
+            "background": "https://www.kankids.org.il/media/ayvbpigh/poster_239_360_בלואי.jpg",
+            "poster": "https://www.kankids.org.il/media/ayvbpigh/poster_239_360_בלואי.jpg",
+            "posterShape": "poster",
+            "logo": "https://www.kankids.org.il/media/ayvbpigh/poster_239_360_בלואי.jpg",
+            "description": "בלואי היא כלבת בקר אוסטרלית בלתי נדלית בת שש, שאוהבת לשחק ולהפוך את חיי היומיום של המשפחה להרפתקאות יוצאות מן הכלל, מפתחת את דמיונה ואת החוסן הנפשי, הגופני והרגשי שלה",
+            "genres": [
+                "Kan",
+                "כאן"
+            ],
+            "videos": [
+                {
+                    "id": "il_kan_kids_1004:1:1",
+                    "name": "פרק 41 - אימהות ואבות",
+                    "season": 1,
+                    "episode": 1,
+                    "description": "כשאנדי וראסטי משחקים באימהות ואבות, הם לא מצליחים להחליט מי ילך לעבודה",
+                    "thumbnail": "https://www.kankids.org.il/media/l4gpfohn/בלואי-פרק-41.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/846815/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_5s11dxlb/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 41 - אימהות ואבות",
+                            "description": "כשאינדי וראסטי משחקים באימהות ואבות, הם לא מצליחים להחליט מי ילך לעבודה, אז הם נפרדים. אינדי מתקשה למצוא שמרטף, ובלואי הופכת את ראסטי לתינוק שלה!"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1004:1:2",
+                    "name": "פרק 42 - מחבואים",
+                    "season": 1,
+                    "episode": 2,
+                    "description": "המשפחה משחקת \"מחבואים\". האם בלואי תצליח להתרכז במשחק?",
+                    "thumbnail": "https://www.kankids.org.il/media/fzzgljvv/בלואי-פרק-42.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/846817/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_80ca679u/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 42 - מחבואים",
+                            "description": "המשפחה משחקת \"מחבואים\"! כולם מתחבאים בזמן שבלואי סופרת עד עשרים, אבל האם היא תצליח להתרכז במשחק ולא לאבד ריכוז בגלל כל הצעצועים שלה?"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1004:1:3",
+                    "name": "פרק 43 - מחנה",
+                    "season": 1,
+                    "episode": 3,
+                    "description": "בלואי פוגשת חבר חדש בשם ז'אן-לוק. הם מוצאים שפה משותפת כשהם משחקים",
+                    "thumbnail": "https://www.kankids.org.il/media/cjkjswkm/בלואי-פרק-43.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/847226/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_e2mrfuf9/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 43 - מחנה",
+                            "description": "בזמן חופשת קמפינג, בלואי פוגשת חבר חדש בשם ז'אן-לוק. בלואי אולי לא מבינה אותו, אבל הם מוצאים שפה משותפת כשהם משחקים ומנסים לצוד את חזיר האבא הפראי"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1004:1:4",
+                    "name": "פרק 44 - הר אימאבא",
+                    "season": 1,
+                    "episode": 4,
+                    "description": "לבנגו ובלואי נשאר חמש דקות לשינה, מספיק זמן כדי לרוץ לפסגת הר אימאבא!",
+                    "thumbnail": "https://www.kankids.org.il/media/vtld2jyt/בלואי-פרק-44.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/847230/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_smileor2/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 44 - הר אימאבא",
+                            "description": "לבינגו ובלואי יש חמש דקות עד השינה, מספיק זמן כדי לרוץ לפסגת הר אימאבא! אבל בין סופות עוצמתיות, מפולות שלגים ואזורים מסריחים, השתיים יצטרכו לשתף פעולה"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1004:1:5",
+                    "name": "פרק 45 - ילדים",
+                    "season": 1,
+                    "episode": 5,
+                    "description": "במשחק ה\"ילדים\", בלואי היא האימא, בינגו היא הבת שלה, ואבא הוא ילד שובב",
+                    "thumbnail": "https://www.kankids.org.il/media/lsfj4ouv/בלואי-פרק-45.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/847235/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_7zv62psq/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 45 - ילדים",
+                            "description": "נסיעה זריזה לחנות מקשה על אבא כאשר בינגו ובלואי רוצות לשחק ב\"ילדים\". כעת, בלואי היא האימא, בינגו היא הבת שלה, ואבא הוא ילד שובב במיוחד!"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1004:1:6",
+                    "name": "פרק 46 - תרנגולת-חולדה",
+                    "season": 1,
+                    "episode": 6,
+                    "description": "הגיע הזמן להיכנס למיטה, ובינגו לא זוכרת היכן שמה את פלופי האהובה עליה",
+                    "thumbnail": "https://www.kankids.org.il/media/gtmbkzzx/בלואי-פרק-46.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/847242/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_icrr06c2/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 46 - תרנגולת-חולדה",
+                            "description": "הגיע הזמן להיכנס למיטה, ובינגו לא זוכרת היכן היא שמה את פלופי האהובה עליה! כשהן משחזרות את צעדיהן, בינגו ובלואי מובילות את אימא לאורך היום המשונה שלהן בתקווה למצוא את הבובה"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1004:1:7",
+                    "name": "פרק 47 - שכנים",
+                    "season": 1,
+                    "episode": 7,
+                    "description": "בלואי צריכה את עזרתה של אימא כדי להתמודד עם שכנה בעייתית",
+                    "thumbnail": "https://www.kankids.org.il/media/mqkdetmv/בלואי-פרק-47.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/847245/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_txbsrvxf/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 47 - שכנים",
+                            "description": "בלואי צריכה את עזרתה של אימא כדי להתמודד עם שכנה בעייתית, לאחר ששלוות בית הכריות שלה מופרת על ידי חיות המשק המתרבות של בינגו"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1004:1:8",
+                    "name": "פרק 48 - הקנטה",
+                    "season": 1,
+                    "episode": 8,
+                    "description": "בלואי, בינגו ואימא מתווכחות עם אבא על ההגדרה של \"להקניט\"",
+                    "thumbnail": "https://www.kankids.org.il/media/dsdgbs2o/בלואי-פרק-48.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/847249/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_1fkdfqi3/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 48 - הקנטה",
+                            "description": "בלואי, בינגו ואימא מתווכחות עם אבא על ההגדרה של \"להקניט\". כשהן נזכרות בפעמים שהוא היה \"מקניטן גדול\", אבא טוען שהוא \"רק שיחק\""
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1004:1:9",
+                    "name": "פרק 49 - אספרגוס",
+                    "season": 1,
+                    "episode": 9,
+                    "description": "כשבלואי מקבלת אספרגוס קסום, היא מראה שלכולם יש צד פראי!",
+                    "thumbnail": "https://www.kankids.org.il/media/n1dhwnkt/בלואי-פרק-49.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/847253/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_mfuorf2t/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 49 - אספרגוס",
+                            "description": "אבא אומר לבלואי להיות מנומסת בשולחן האוכל, הרי הם לא חיות! אבל כשבלואי מקבלת אספרגוס קסום, היא מראה להם שלכולם יש צד פראי!"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1004:1:10",
+                    "name": "פרק 50 - שון",
+                    "season": 1,
+                    "episode": 10,
+                    "description": "הבנות רוצות חיית מחמד. אבא הופך את ידו לאמו כדי שיראו כמה עבודה נדרשת",
+                    "thumbnail": "https://www.kankids.org.il/media/lptftpkz/בלואי-פרק-50.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/847256/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_jbumaes2/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 50 - שון",
+                            "description": "בלואי ובינגו רוצות חיית מחמד! כדי להראות להן כמה עבודה נדרשת, אבא הופך את ידו לחברם הוותיק שון, אמו כאוטי וחסר משמעת עם חיבה לצרות"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1004:1:11",
+                    "name": "פרק 51 - אבא משכיב לישון",
+                    "season": 1,
+                    "episode": 11,
+                    "description": "אימא יוצאת בערב מהבית. כשהבנות מתגעגעות אבא מנסה לבדר אותן במשחקים",
+                    "thumbnail": "https://www.kankids.org.il/media/ff4f254m/בלואי-פרק-51.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/847269/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_8mqk0cf1/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 51 - אבא משכיב לישון",
+                            "description": "כשאימא הולכת למסיבת טרום לידה, אבא לוקח פיקוד על שגרת הערב של הילדות. אבל כאשר בלואי מתגעגעת לאימא, אבא צריך להיעזר בכל המשחקים שהוא מכיר כדי לבדר את הבנות"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1004:1:12",
+                    "name": "פרק 52- סנטה במרפסת",
+                    "season": 1,
+                    "episode": 12,
+                    "description": "כשמשחק משאיר את סוקס נסערת, בלואי לומדת את המשמעות האמיתית של טוב לב",
+                    "thumbnail": "https://www.kankids.org.il/media/uxumkhrd/בלואי-פרק-52.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/847273/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_560ekztt/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 52- סנטה במרפסת",
+                            "description": "זה חג המולד ובלואי משתדלת להיות טובה כדי לקבל יותר מתנות. אבל כשמשחק של סנטה במרפסת משאיר את בת הדודה סוקס נסערת, בלואי חייבת ללמוד את המשמעות האמיתית של טוב לב"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "il_kan_kids_1005": {
+        "id": "il_kan_kids_1005",
+        "name": "צ'רלי ולולה",
+        "link": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/",
+        "type": "series",
+        "subtype": "k",
+        "meta": {
+            "id": "il_kan_kids_1005",
+            "type": "series",
+            "name": "צ'רלי ולולה",
+            "link": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/",
+            "background": "https://www.kankids.org.il/media/kk2jabh0/poster_239_360.jpg",
+            "poster": "https://www.kankids.org.il/media/kk2jabh0/poster_239_360.jpg",
+            "posterShape": "poster",
+            "logo": "https://www.kankids.org.il/media/kk2jabh0/poster_239_360.jpg",
+            "description": "צ'רלי הוא אחיה הגדול של לולה המצחיקה שאוהבת להסתבך בצרות ולהיעזר באחיה",
+            "genres": [
+                "Kan",
+                "כאן"
+            ],
+            "videos": [
+                {
+                    "id": "il_kan_kids_1005:1:1",
+                    "name": "פרק 1 - אני לעולם לא אוכל עגבנייה",
+                    "season": 1,
+                    "episode": 1,
+                    "description": "לולה לא אוהבת עגבניות בעצם היא לא אוהבת ירקות כלל",
+                    "thumbnail": "https://www.kankids.org.il/media/qbln2odn/פרק-1.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777856/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_iwt44ido/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 1 - אני לעולם לא אוכל עגבנייה",
+                            "description": "לולה לא אוהבת עגבניות בעצם היא לא אוהבת ירקות כלל. צ'רלי משחק איתה במשחק \"נדמה לי\" והם מדמיינים שהגזרים האפונים תפוחי האדמה והעגבניות הם בעצם דברים אחרים."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:2",
+                    "name": "פרק 2 - אני יכולה לעשות כל דבר שבעולם, ממש בעצמי",
+                    "season": 1,
+                    "episode": 2,
+                    "description": "לולה הקטנה מתעקשת לעשות הכל בעצמה.",
+                    "thumbnail": "https://www.kankids.org.il/media/4d5lmggy/פרק-2.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777857/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_zaxzaw3e/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 2 - אני יכולה לעשות כל דבר שבעולם, ממש בעצמי",
+                            "description": "לולה הקטנה מתעקשת לעשות הכל בעצמה כשהיא מתעקשת להתנדנד לבדה על נדנדה לשניים לוקחים אותה צ'רלי וחבריו מרב להפלגה דמיונית באונייה ומראים לה שאנשי צוות עוזרים זה לזה."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:3",
+                    "name": "פרק 3 - אני לא עייפה ואני לא הולכת לישון",
+                    "season": 1,
+                    "episode": 3,
+                    "description": "לולה לא רוצה לשכב לישון, וממציאה כל מיני משחקים.",
+                    "thumbnail": "https://www.kankids.org.il/media/pj1npo0y/פרק-3.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777859/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_lprwl1u4/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 3 - אני לא עייפה ואני לא הולכת לישון",
+                            "description": "לולה לא רוצה לשכב לישון, וממציאה כל מיני משחקי \"נדמה לי\" שצ'רלי נאלץ לשתף איתם פעולה כדי שבסופו של דבר לולה תתעייף ותשכב לישון."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:4",
+                    "name": "פרק 4 - אבל זה הספר שלי",
+                    "season": 1,
+                    "episode": 4,
+                    "description": "לולה מבקרת בספרייה אבל רוצה לקחת בכל פעם אותו ספר.",
+                    "thumbnail": "https://www.kankids.org.il/media/3cocxrnz/פרק-4.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777861/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_wh7py4h8/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 4 - אבל זה הספר שלי",
+                            "description": "לולה מבקרת בספרייה אבל רוצה לקחת בכל פעם אותו ספר. כשמתברר שמישהי אחרת לקחה את הספר שלולה אוהבת, צ'רלי מנסה לשכנע אותה לבחור בספר אחר."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:5",
+                    "name": "פרק 5 - יש רק שמש אחת וזאת אני",
+                    "season": 1,
+                    "episode": 5,
+                    "description": "לולה רוצה מאוד לקבל את תפקיד השמש בהצגה של בי\"ס.",
+                    "thumbnail": "https://www.kankids.org.il/media/ovip24kp/פרק-5.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777864/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_l8smrc5z/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 5 - יש רק שמש אחת וזאת אני",
+                            "description": "לולה רוצה מאוד לקבל את תפקיד השמש בהצגה של בי\"ס. היא מתאכזבת מאוד כשהיא מקבלת את תפקיד עלה ג בשלכת. צרלי מראה לה שלעלים יש חשיבות רבה מאוד, ועוזר לה להכין תחפושת ענקית של עלה. בסופו של דבר לולה שמחה בחלקה."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:6",
+                    "name": "פרק 6 - אנחנו באמת מבטיחות שנוכל לשמור על הכלב שלך",
+                    "season": 1,
+                    "episode": 6,
+                    "description": "לולה ולוטה רוצות לשמור על הכלב של מארב כשהם מטיילים בפארק.",
+                    "thumbnail": "https://www.kankids.org.il/media/1xrj5cvb/פרק-6.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777866/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_jnhzur2q/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 6 - אנחנו באמת מבטיחות שנוכל לשמור על הכלב שלך",
+                            "description": "לולה ולוטה רוצות לשמור על הכלב של מארב כשהם מטיילים בפארק. השתיים לא שמות לב שהכלב נעלם, וכשהוא שב, הוא בא עם כלב דומה לו בדיוק. הן לא יודעות איך להבדיל בין השניים."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:7",
+                    "name": "פרק 7 - ניצחתי. לא! אני ניצחתי",
+                    "season": 1,
+                    "episode": 7,
+                    "description": "לולה רוצה לנצח בכול. גם במחיר רמאויות והמצאות של חוקים חדשים.",
+                    "thumbnail": "https://www.kankids.org.il/media/nxjewc2o/פרק-7.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777867/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_0inzavq1/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 7 - ניצחתי. לא! אני ניצחתי",
+                            "description": "לולה רוצה לנצח בכול. גם במחיר רמאויות והמצאות של חוקים חדשים. לבסוף צ'רלי מנצח בתחרות ריצה במגרש שעשועים, וחושש שלולה תיפגע. היא מפתיעה ומקבלת את ההפסד בכבוד."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:8",
+                    "name": "פרק 8 - אני אוהבת את שיערי בדיוק כמו שהוא",
+                    "season": 1,
+                    "episode": 8,
+                    "description": "לולה וצ'רלי הולכים לספר כדי להסתפר.",
+                    "thumbnail": "https://www.kankids.org.il/media/eeobjq21/פרק-8.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777908/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_druqeeoo/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 8 - אני אוהבת את שיערי בדיוק כמו שהוא",
+                            "description": "לולה וצ'רלי הולכים לספר כדי להסתפר. לולה עושה הכל כדי לא להסתפר ולא להסתרק. צ'רלי מנסה לברר למה היא חוששת כ\"כ מהתספורת."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:9",
+                    "name": "פרק 9 - אני באמת באמת,לא מרגישה טוב",
+                    "season": 1,
+                    "episode": 9,
+                    "description": "לולה הקטנה הצטננה. היא רוצה שצ'רלי ישעשע אותה בכל זמן מחלתה,",
+                    "thumbnail": "https://www.kankids.org.il/media/o2bdci2o/פרק-9.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777909/",
+                    "streams": []
+                },
+                {
+                    "id": "il_kan_kids_1005:1:10",
+                    "name": "פרק 10 - אני ממהרת! אני כבר כמעט מוכנה",
+                    "season": 1,
+                    "episode": 10,
+                    "description": "בבוקר, בהכנות ליציאה לבה\"ס, לולה עושה המון דברים,",
+                    "thumbnail": "https://www.kankids.org.il/media/rxybu2ix/פרק-10.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777911/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_iouhd6ug/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 10 - אני ממהרת! אני כבר כמעט מוכנה",
+                            "description": "בבוקר, בהכנות ליציאה לבה\"ס, לולה עושה המון דברים, אבל מתארגנת לאט מאוד. צ'רלי מבין שכדי שהיא תזדרז עליו לשתף פעולה עם עולמה הדמיוני.."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:11",
+                    "name": "פרק 11-  בו! הבהלתי אותך",
+                    "season": 1,
+                    "episode": 11,
+                    "description": "לולה רוצה להבהיל את צ'רלי, ולא מצליחה.",
+                    "thumbnail": "https://www.kankids.org.il/media/5drlokcf/פרק-11.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777912/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_5o7lapu2/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 11-  בו! הבהלתי אותך",
+                            "description": "לולה רוצה להבהיל את צ'רלי, ולא מצליחה. לוטה ומארב ישנים אצל לולה וצ'רלי, ולולה מספרת סיפור מפחיד, שמפחיד רק את לוטה. לולה מבינה שכדי להבהיל עליה להיות בלתי צפויה..."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:12",
+                    "name": "פרק 12-  הפיקניק הכי הכי נפלא בעולם",
+                    "season": 1,
+                    "episode": 12,
+                    "description": "צ'רלי, לולה, מארב ולוטה יוצאים יחד לפיקניק.",
+                    "thumbnail": "https://www.kankids.org.il/media/me3pzrkq/פרק-12.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/777913/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_ef5h3yi1/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 12-  הפיקניק הכי הכי נפלא בעולם",
+                            "description": "צ'רלי, לולה, מארב ולוטה יוצאים יחד לפיקניק. לולה מתרגשת ורוצה שזה יהיה הפיקניק הכי הכי נפלא בכל העולם, אבל התכניות משתבשות כשמתחיל לרדת גשם."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:13",
+                    "name": "פרק 13-  זה לא אני",
+                    "season": 1,
+                    "episode": 13,
+                    "description": "צ'רלי בונה חללית מקופסאות קרטון, ומקבל עליה פרס ראשון בכיתה.",
+                    "thumbnail": "https://www.kankids.org.il/media/ltjnfbuj/פרק-13.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778326/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_5t8a7goo/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 13-  זה לא אני",
+                            "description": "צ'רלי בונה חללית מקופסאות קרטון, ומקבל עליה פרס ראשון בכיתה. לולה שוברת את החללית, ומנסה להתחמק מכעסו של צ'רלי ע\"י המצאת סיפורים עם החבר הדמיוני שלה, סורן לורסן."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:14",
+                    "name": "פרק 14-  זה סוד",
+                    "season": 1,
+                    "episode": 14,
+                    "description": "אבא ואמא מכינים לצ'רלי הפתעה ליום הולדתו .",
+                    "thumbnail": "https://www.kankids.org.il/media/1uhnyzyr/פרק-14.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778327/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_0dwi8y8v/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 14-  זה סוד",
+                            "description": "אבא ואמא מכינים לצ'רלי הפתעה ליום הולדתו . לולה יודעת מה הסוד, וכמעט מתפקעת בניסיון לא לגלות. צ'רלי עוזר לה לשמור על הסוד ובסוף הוא באמת מופתע."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:15",
+                    "name": "פרק 15- אני אוהבת לנסוע לסבא וסבתא אבל...",
+                    "season": 1,
+                    "episode": 15,
+                    "description": "צ'רלי ולולה מתכוננים לנסוע לסבא וסבתא ולולה עושה הכול כדי לא לצאת.",
+                    "thumbnail": "https://www.kankids.org.il/media/1nqn1fxg/פרק-15.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778328/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_jt621zo3/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 15- אני אוהבת לנסוע לסבא וסבתא אבל...",
+                            "description": "צ'רלי ולולה מתכוננים לנסוע לסבא וסבתא ולולה עושה הכול כדי לא לצאת, כי היא פוחדת שהיא תתגעגע. גלויות, טלפון, וחפצים של אמא ואבא עוזרים ללולה להתגבר על הפחד."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:16",
+                    "name": "פרק 16-  שן מתנדנדת",
+                    "season": 1,
+                    "episode": 16,
+                    "description": "ללולה יש שן מתנדנדת.",
+                    "thumbnail": "https://www.kankids.org.il/media/hm0lk3iu/פרק-16.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778330/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_jkv0j35m/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 16-  שן מתנדנדת",
+                            "description": "ללולה יש שן מתנדנדת. היא לא רוצה שהשן תיפול עד שהיא שומעת על פיית השיניים ואז היא כבר להוטה שהשן שלה תיפול,כדי לקבל מטבע מפיית השיניים ולקנות ג'ירפה לחווה שלה ושל לוטה."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:17",
+                    "name": "פרק 17- לחייך",
+                    "season": 1,
+                    "episode": 17,
+                    "description": "צלם מגיע לבית הספר ואמא מבקשת מלולה להישאר נקיה ומסודרת עד לצילום.",
+                    "thumbnail": "https://www.kankids.org.il/media/lqpinpw4/פרק-17.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778332/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_dl5fwxkg/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 17- לחייך",
+                            "description": "צלם מגיע לבית הספר ואמא מבקשת מלולה להישאר נקיה ומסודרת עד לצילום. למרות כל מאמציה של לולה היא מגיעה לצילום פרועה ומלוכלכת. אבל החיוך שלה מקסים."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:18",
+                    "name": "פרק 18- עכבישים",
+                    "season": 1,
+                    "episode": 18,
+                    "description": "לולה פוחדת מעכבישים.",
+                    "thumbnail": "https://www.kankids.org.il/media/e4ph40ov/פרק-18.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778333/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_oq0catih/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 18- עכבישים",
+                            "description": "לולה פוחדת מעכבישים. צ'רלי לוכד עכביש קטן במקלחת כדי לשחרר אותו בחוץ,אבל בינתיים לולה נותנת לו שם ומחליטה שקר בחוץ, וובעצם היא רוצה לגדל אותו בבית."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:19",
+                    "name": "פרק 19- אני הכי הכי אוהבת שלג",
+                    "season": 1,
+                    "episode": 19,
+                    "description": "לולה מחכה בקוצר רוח לשלג.",
+                    "thumbnail": "https://www.kankids.org.il/media/idnasbdw/פרק-19.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778334/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_zcopjmem/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 19- אני הכי הכי אוהבת שלג",
+                            "description": "לולה מחכה בקוצר רוח לשלג, וכשהוא מגיע היא יוצאת עם צ'רלי מארב ולוטה לשחק ולבנות איש שלג. למחרת השלג נמס, ולולה מתאכזבת."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:20",
+                    "name": "פרק 20-  לא תאהבי את המתנה הזאת כמוני",
+                    "season": 1,
+                    "episode": 20,
+                    "description": "לולה קונה ללוטה ליום הולדתה תיק של רופא.",
+                    "thumbnail": "https://www.kankids.org.il/media/4i1nssx5/פרק-20.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778335/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_m6zl7p6r/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 20-  לא תאהבי את המתנה הזאת כמוני",
+                            "description": "לולה קונה ללוטה ליום הולדתה תיק של רופא. לולה עצמה רוצה את המתנה וקשה לה מאוד להיפרד ממנה, אבל היא מתגברת , ובסוף הן משחקות שתיהן ברופאות, וצ'רלי הוא החולה."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:21",
+                    "name": "פרק 21- אני צריכה לקחת את הכול",
+                    "season": 1,
+                    "episode": 21,
+                    "description": "לולה הולכת לישון אצל לוטה, והיא אורזת המון דברים.",
+                    "thumbnail": "https://www.kankids.org.il/media/3wins2nj/פרק-21.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778337/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_x8zsas47/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 21- אני צריכה לקחת את הכול",
+                            "description": "לולה הולכת לישון אצל לוטה, והיא אורזת המון דברים כדי לשחק אצל לוטה בסינדרלה. כשמתברר לה שהיא שכחה את המזוודה בבית, הבנות מחליטות לאלתר אביזרים למשחק ולהיעזר בדמיון."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:22",
+                    "name": "פרק 22-  גם אני רוצה לנגן",
+                    "season": 1,
+                    "episode": 22,
+                    "description": "צ'רלי ומארב מכינים קטע מוסיקלי למופע של בית הספר.",
+                    "thumbnail": "https://www.kankids.org.il/media/15dlxqra/פרק-22.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778338/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_2x5551a4/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 22-  גם אני רוצה לנגן",
+                            "description": "צ'רלי ומארב מכינים קטע מוסיקלי למופע של בית הספר.לולה מפריעה להם כי היא גם רוצה לנגן, וצ'רלי מלמד אותה להכין כלי נגינה מחפצים בבית."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:23",
+                    "name": "פרק 23- אני יותר מדי עסוקה",
+                    "season": 1,
+                    "episode": 23,
+                    "description": "לולה מדמיינת שהיא עובדת,.",
+                    "thumbnail": "https://www.kankids.org.il/media/i3yhpdsi/פרק-23.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778340/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_3o04jm59/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 23- אני יותר מדי עסוקה",
+                            "description": "לולה מדמיינת שהיא עובדת, פעם כמנהלת, פעם כמלצרית, ופעם כפקידת קבלה של רופא שיניים. צ'רלי רוצה לשחק עם לולה במשחק קלפים חדש, אבל לולה לא מתפנה אליו בגלל עיסוקיה הרבים."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:24",
+                    "name": "פרק 24-  אני רוצה להיות גדולה יותר, כמוך",
+                    "season": 1,
+                    "episode": 24,
+                    "description": "לולה רוצה להיות גדולה, כדי לעלות על רכבת ההרים של הגדולים.",
+                    "thumbnail": "https://www.kankids.org.il/media/xtxhkvlt/פרק-24.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778347/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_kyz56sgc/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 24-  אני רוצה להיות גדולה יותר, כמוך",
+                            "description": "לולה רוצה להיות גדולה, כדי לעלות עם צ'רלי ומארב על רכבת ההרים של הגדולים. צ'רלי מנסה לשכנע אותה בעזרת משחק של חילופי תפקידים."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:25",
+                    "name": "פרק 25- העיר הקטנה שלי",
+                    "season": 1,
+                    "episode": 25,
+                    "description": "צ'רלי ולולה מקבלים במתנה משחק קוביות שנקרא \"העיר הקטנה שלי\".",
+                    "thumbnail": "https://www.kankids.org.il/media/swupgp1i/פרק-25.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778348/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_h9zd8101/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 25- העיר הקטנה שלי",
+                            "description": "צ'רלי ולולה מקבלים במתנה משחק קוביות שנקרא \"העיר הקטנה שלי\". צ'רלי רוצה להקים עיר עם מטוסים ולהציל אותה ממתקפת חיזרים..."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1005:1:26",
+                    "name": "פרק 26- אבל אני תנינה",
+                    "season": 1,
+                    "episode": 26,
+                    "description": "לולה אוהבת להתחפש, והפעם היא מתחפשת לתנינה.",
+                    "thumbnail": "https://www.kankids.org.il/media/g33dl320/פרק-26.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/עונה-1/778350/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_kepvu3om/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 26- אבל אני תנינה",
+                            "description": "לולה אוהבת להתחפש, והפעם היא מתחפשת לתנינה. היא מתכוננת להופיע כך לפני כל בית הספר, וצ'רלי חושש שיצחקו לה, אבל היא מתעקשת ובסוף ההופעה שלה זוכה להצלחה גדולה."
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "il_kan_kids_1006": {
+        "id": "il_kan_kids_1006",
+        "name": "פרפר נחמד",
+        "link": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/",
+        "type": "series",
+        "subtype": "k",
+        "meta": {
+            "id": "il_kan_kids_1006",
+            "type": "series",
+            "name": "פרפר נחמד",
+            "link": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/",
+            "background": "https://www.kankids.org.il/media/f1mgjvik/239x360_qb.jpg",
+            "poster": "https://www.kankids.org.il/media/f1mgjvik/239x360_qb.jpg",
+            "posterShape": "poster",
+            "logo": "https://www.kankids.org.il/media/f1mgjvik/239x360_qb.jpg",
+            "description": "אוזה,שבי,בץ ונולי חוזרים בסדרת בובות חכמה ומוסיקלית לילדי הגן",
+            "genres": [
+                "Kan",
+                "כאן"
+            ],
+            "videos": [
+                {
+                    "id": "il_kan_kids_1006:2:1",
+                    "name": "המבצר המעופף | פרק 31",
+                    "season": 2,
+                    "episode": 1,
+                    "description": "הצריח של המבצר נשבר, ובלי צריח זה לא כמו תמיד ואוזה לא מוכנה לשחק",
+                    "thumbnail": "https://www.kankids.org.il/media/jg4fjavr/2023-1-22-imgid-91852_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158012/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_kz8g9d5l/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 31",
+                            "description": "אוזה בץ ואורי משחקים במבצר, אך כשהצריח נשבר, אוזה מסרבת להמשיך לשחק ונראה שהכל נהרס. כשאסתר מצליחה להפוך ארגז לימונים שהגיע בטעות ללימונדה, אוזה מבינה שלפעמים מתקלות וטעויות יוצאים הדברים הטובים ביותר"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:2",
+                    "name": "המטמון | פרק 32",
+                    "season": 2,
+                    "episode": 2,
+                    "description": "אורח שמחפש מטמון לפי מפה עתיקה, בטוח שהאוצר שם. מה הוא ימצא?",
+                    "thumbnail": "https://www.kankids.org.il/media/v0gdtuti/2023-1-23-imgid-91944_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158015/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_7vsh3ibh/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 32",
+                            "description": "שבי איבד את המצפן של בן, אבל מתקשה להודות בכך. מה הסיכוי שאורח מוזר שנקלע למקום, כי הוא מחפש אוצר לפי מפה עתיקה, יעזור לשבי למצוא את המצפן הנעלם?"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:3",
+                    "name": "המכולת שלנו | פרק 33",
+                    "season": 2,
+                    "episode": 3,
+                    "description": "שבי מקבל את תפקיד החנווני במשחק מכולת. הוא לא יודע מה זה ומתבייש לשאול",
+                    "thumbnail": "https://www.kankids.org.il/media/gradania/2023-1-23-imgid-91948_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158018/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_eztapr8x/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 33",
+                            "description": "אוזה, שבי, בן ומשי משחקים במכולת. שבי מקבל את תפקיד החנווני. הוא לא יודע מה זה חנווני אבל מתבייש לשאול וקצת מסתבך..."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:4",
+                    "name": "בץ מחפש געגוע | פרק 34",
+                    "season": 2,
+                    "episode": 4,
+                    "description": "מפגש עם דוכן גלידה מעורר אצל כולם געגוע למשהו. רק בץ נשאר בלי געגוע",
+                    "thumbnail": "https://www.kankids.org.il/media/anldirlp/2023-1-23-imgid-91951_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158021/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_vbckymje/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 34",
+                            "description": "אורח (קובי אוז) מגיע עם דוכן גלידה, וזה מעורר אצל כל אחד געגוע למשהו אחר. חוץ מבץ שנשאר בלי געגוע, ומנסה לקנות מנולי את הגעגוע שלה. כשדוכן הגלידה נתקע, החברים עוזרים לו להיחלץ ובץ נזכר למה הוא מתגעגע"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:5",
+                    "name": "להציל את עץ התות | פרק 35",
+                    "season": 2,
+                    "episode": 5,
+                    "description": "עץ התות עליו אסתר שיחקה בילדותה בסכנה, והחברים מתגייסים להצילו",
+                    "thumbnail": "https://www.kankids.org.il/media/3replw0z/2023-1-23-imgid-91953_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158024/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_ytlcebnm/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 35",
+                            "description": "השכנים רוצים לכרות את עץ התות עליו אסתר שיחקה בילדותה, ואסתר עצובה מאוד. שבי נולי ואורי מחליטים לעשות הפגנה ולשכנע את השכנים להשאיר את העץ"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:6",
+                    "name": "שבי יוצא דופן | פרק 36",
+                    "season": 2,
+                    "episode": 6,
+                    "description": "החברים מתרגשים לקראת טיול. שבי מתבייש להגיד שהוא לא אוהב לינה בחוץ",
+                    "thumbnail": "https://www.kankids.org.il/media/jzedmqcy/2023-1-23-imgid-91975_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158027/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_ntx59fbg/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 36",
+                            "description": "משי ואורי מתארגנים לצאת לטיול עם לינה בחוץ יחד עם נולי ושבי. שבי רק עושה את עצמו שמח ונרגש, בעצם הוא לא אוהב לישון בחוץ, אבל הוא מתבייש להודות בזה. הוא לא רוצה להיות מוזר או יוצא דופן"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:7",
+                    "name": "החברה החדשה של משי | פרק 37",
+                    "season": 2,
+                    "episode": 7,
+                    "description": "למשי יש חברה חדשה, שבי ונולי מקנאים ובטוחים שהיא גונבת להם את משי",
+                    "thumbnail": "https://www.kankids.org.il/media/t3rbtduz/2023-1-25-imgid-92218_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158030/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_uouw2tb1/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 37",
+                            "description": "למשי יש חברה חדשה, שבי ונולי מקנאים ופוחדים שהיא \"תיקח\" להם את משי ומנסים לגרום לה להרגיש לא רצויה. הם מגלים שאף אחד לא יכול לתפוס להם את המקום בלב של משי, ושבעצם החברה החדשה נחמדה וכיף שהיא בסביבה"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:8",
+                    "name": "האכזבות של נולי | פרק 38",
+                    "season": 2,
+                    "episode": 8,
+                    "description": "נולי ואורי מאוכזבים כי מה שרצו, לא קרה. זה לא פשוט להתגבר על אכזבה",
+                    "thumbnail": "https://www.kankids.org.il/media/uc4duote/2023-2-2-imgid-92897_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158033/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_jz33rz28/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 38",
+                            "description": "נולי ציפתה מאוד למפגש עם בת-דודתה, אך זו חלתה והמפגש בוטל. נולי מרגישה עצובה. קוראים לזה אכזבה. גם התוכניות של אורי התקלקלו. מה עושים שמה שקיווינו ורצינו לא יצא? החברים ינסו להתגייס לעזרה"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:9",
+                    "name": "אני יכול | פרק 39",
+                    "season": 2,
+                    "episode": 9,
+                    "description": "בץ לא מאמין שילמד לשחות, ומחביא את ציוד הבריכה כדי שאף אחד לא ילך",
+                    "thumbnail": "https://www.kankids.org.il/media/4dbn0gtk/2023-2-6-imgid-93164_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158036/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_k8564nea/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 39",
+                            "description": "בץ מגלה שהוא האחרון שעדיין צריך מצופים ולא מאמין שיצליח אי פעם ללמוד לשחות. הוא מחביא למשי ואוזה את החפצים לבריכה כדי שישארו איתו. מה ישכנע את בץ ללכת לבריכה ולהמשיך לנסות?"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:10",
+                    "name": "שמח בפורים | פרק 40",
+                    "season": 2,
+                    "episode": 10,
+                    "description": "בשנה שעברה שבי החליט שלעולם לא יחגוג יותר את פורים. האם יעמוד בהחלטתו?",
+                    "thumbnail": "https://www.kankids.org.il/media/xqblzwen/2023-2-6-imgid-93166_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158039/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_z2xmvba7/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 40",
+                            "description": "ברגע של אכזבה, לאחר שהפסיד בתחרות תחפושות לבץ, שבי הצהיר שלעולם לא יחגוג את חג פורים. החג מתקרב וכולם עסוקים בהכנות חוץ ממנו, מה שגורם לו להצטער על ההחלטה, כי דווקא בא לו להתחפש... מה יעשה?"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:11",
+                    "name": "בית למשי | פרק 41",
+                    "season": 2,
+                    "episode": 11,
+                    "description": "למשי חסר בית בשיר. שבי ואוזה שומעים שאין לה בית ומבקשים מאורי לבנות לה",
+                    "thumbnail": "https://www.kankids.org.il/media/efrfau1i/2023-4-3-imgid-97439_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158042/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_ekszsert/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 41",
+                            "description": "למשי חסר בית לשיר שהיא כותבת. שבי ואוזה נלחצים שלמשי אין בית ומבקשים מאורי שיעזור להם לבנות בית, כדי שיהיה לה איפה לגור. משי מזמינה את שבי ואוזה להיכנס פנימה, לתוך הבית החדש שלה, כי הוא גם הבית שלהם"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:12",
+                    "name": "בוקר טוב | פרק 42",
+                    "season": 2,
+                    "episode": 12,
+                    "description": "שבי ונולי רוצים להעיר למחלק העיתונים שמגיע מוקדם. האם יצליחו לקום?",
+                    "thumbnail": "https://www.kankids.org.il/media/bs2cnevv/2023-4-13-imgid-98030_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158048/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_oo7nwyzw/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 42",
+                            "description": "שבי מנסה לקום מוקדם בבוקר כדי להעיר למחלק העיתונים שלא יזרוק אליהם את העיתון. בן לא מצליח לתפוס בטלפון את אחיו שנמצא בטיול בצד השני של כדור הארץ. הם צריכים לקום מאוד מוקדם בבוקר"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:13",
+                    "name": "חוגגים עצמאות | פרק 43",
+                    "season": 2,
+                    "episode": 13,
+                    "description": "החברים הכינו מתנה ליום ההולדת של המדינה- שיר חדש שישירו עם ירדנה ארזי",
+                    "thumbnail": "https://www.kankids.org.il/media/gvpeby1u/2023-3-27-imgid-96925_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/158045/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_yf5j3ket/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 43",
+                            "description": "החברים מאושרים על המתנה שהכינו לכבוד יום ההולדת למדינה- שיר חדש שישירו לישראל עם ירדנה ארזי. הבעיה היא שירדנה איבדה את הקול בדיוק ביום העצמאות..."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:14",
+                    "name": "קוף אחרי בן אדם | פרק 44",
+                    "season": 2,
+                    "episode": 14,
+                    "description": "אוזה מבינה שחיקוי זו דרך ללמוד, וגם שכדאי לבדוק מה לומדים מכל חיקוי",
+                    "thumbnail": "https://www.kankids.org.il/media/dmuhkjuf/2023-4-27-imgid-99092_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/327697/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_sx7e5lg8/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 44",
+                            "description": "לאוזה יש חברה חדשה שהיא מעריצה ומאמצת את ההתנהגויות שלה. האם תמיד נכון לחקות חברים? אלון חבר של אסתר מגיע ללמד אותם תיפוף. חיקוי הוא דרך טובה ללמידה, כל עוד אתה נשאר אתה עצמך"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:15",
+                    "name": "הפתעה בהפתעה | פרק 45",
+                    "season": 2,
+                    "episode": 15,
+                    "description": "משי ובן מארגנים הפתעות לאסתר. שבי ונולי לא בטוחים שאלו הפתעות טובות",
+                    "thumbnail": "https://www.kankids.org.il/media/5wvn5de2/2023-4-27-imgid-99095_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/327700/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_4xtr42f6/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 45",
+                            "description": "משי ובן מארגנים הפתעות לאסתר שחוזרת עייפה מטיול ארוך בטבע. שבי ונולי לא בטוחים שההפתעות שהכינו לאסתר טובות מספיק. שבי ונולי מתכננים להפתיע ולשמח אחד את השני"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:16",
+                    "name": "לנשום ולספור | פרק 46",
+                    "season": 2,
+                    "episode": 16,
+                    "description": "מה עושים כשכועסים? אורי חושב שסופרים ואסתר חושבת שנושמים",
+                    "thumbnail": "https://www.kankids.org.il/media/bzei42f4/2023-4-27-imgid-99099_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/327703/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_uykrmuye/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 46",
+                            "description": "אוזה ושבי רבים וכועסים מאד אחד על השני. אורי ואסתר מנסים להרגיע, אבל לכל אחד מהם שיטה אחרת להתמודדות עם כעס. שניה לפני שהוויכוח ביניהם הופך גם הוא לכעס, אוזה ושבי משלימים, ועוזרים לאורי ואסתר להתפייס"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:17",
+                    "name": "תחרות הצורה הטובה | פרק 47",
+                    "season": 2,
+                    "episode": 17,
+                    "description": "החברים עורכים תחרות כדי לגלות מה היא הצורה הכי טובה. איזו צורה תנצח?",
+                    "thumbnail": "https://www.kankids.org.il/media/erbfm0kg/2023-5-4-imgid-99671_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/360917/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_9jbarjgv/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 47",
+                            "description": "בן, משי, נולי ושבי אופים לחמניות. הלחמניות יוצאות בצורות שונות ומתעורר ויכוח- מה היא הצורה הכי טובה? החברים עורכים תחרות כדי לגלות. בן מנחה ומשי, נולי ושבי הם המתמודדים. איזו צורה תנצח?"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:18",
+                    "name": "יחד ולבד | פרק 48",
+                    "season": 2,
+                    "episode": 18,
+                    "description": "אוזה מארגנת לבד ובעצמה תאטרון צלליות ומרגישה קצת בודדה בדרך",
+                    "thumbnail": "https://www.kankids.org.il/media/flxhctxc/2023-5-4-imgid-99675_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/360922/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_3173kjv2/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 48",
+                            "description": "אוזה רוצה לארגן לבד ובעצמה הופעת תאטרון צלליות. היא מצליחה, אבל מרגישה קצת בודדה בדרך. אורי, אסתר ובץ מתאמנים בלהיות קהל וממציאים קריאות עידוד לאוזה"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:19",
+                    "name": "גינת ירק | פרק 49",
+                    "season": 2,
+                    "episode": 19,
+                    "description": "החברים הופכים שדה בור לגינת ירק ורק את ציפי השכנה זה לא משמח",
+                    "thumbnail": "https://www.kankids.org.il/media/3y4ggq0k/2023-5-4-imgid-99679_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/360927/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_q54uehsn/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 49",
+                            "description": "החברים הופכים שדה בור לגינת ירק. הם בטוחים שכל תושבי השכונה ישמחו אבל להפתעתם זה לא מוצא חן בעיני ציפי, שהשומר שצמח בשדה שימש אותה להכנת קציצות טעימות לנכדים"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:20",
+                    "name": "אחות קטנה | פרק 50",
+                    "season": 2,
+                    "episode": 20,
+                    "description": "אוזה ונולי מתבלבלות וחושבות שנעם, אחותה הקטנה של משי, היא קטנה בגודל",
+                    "thumbnail": "https://www.kankids.org.il/media/gqgd2svl/untitled_11551.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/489614/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_89ormyqm/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "אחות קטנה | פרק 50",
+                            "description": "נעם, אחותה הקטנה של משי, באה לעזור למשי ובן להרכיב מחסן. אוזה ונולי מתבלבלות וחושבות שאחות של משי קטנה בגודל. הן מכינות מסיבת תה לכולם, עם כלים קטנים קטנים לנועם."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:21",
+                    "name": "משעמם לי | פרק 51",
+                    "season": 2,
+                    "episode": 21,
+                    "description": "שבי משועמם. כולם מנסים לסייע לו, אבל שבי מוצא דרך מקורית להפגת השעמום",
+                    "thumbnail": "https://www.kankids.org.il/media/rhilyyzq/untitled_1871.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/489616/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_6nm80smz/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "משעמם לי | פרק 51",
+                            "description": "אסתר ובן רוצים לסדר אחרי ערב משחקים, אבל את שבי זה משעמם. גם כל הצעה למשחק נראית לו משעממת. אז מה עושים כשמשועממים? יכול להיות שדווקא סידור המשחקים עשוי להפוך למשחק מלהיב שיפיג את השעמום?"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:22",
+                    "name": "לפני החגים | פרק 52",
+                    "season": 2,
+                    "episode": 22,
+                    "description": "שבי ונולי מחליטים לבטל את החגים כי בגללם לאורי ואסתר אין זמן בשבילם",
+                    "thumbnail": "https://www.kankids.org.il/media/ppoefux1/169.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/489624/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_jwm899so/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "לפני החגים | פרק 52",
+                            "description": "שבי ונולי זוכרים משנה שעברה שכיף בחגי תשרי. השנה, בגלל עומס ההכנות, לאורי ואסתר אין זמן בשבילם ובכלל לא כיף להם. שבי ונולי מחליטים להפסיק לקשט שנות טובות ולבטל את כל החגים."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:23",
+                    "name": "פרק 53 - המופע של אוזה",
+                    "season": 2,
+                    "episode": 23,
+                    "description": "אוזה רוצה לערוך הופעה עם שיר שהמציאה והחפצים הישנים של אורי עוזרים לה.",
+                    "thumbnail": "https://www.kankids.org.il/media/z4udkmas/untitled_161.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/489628/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_6jgzrdcx/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 53 - המופע של אוזה",
+                            "description": "אוזה רוצה לערוך הופעה עם שיר שהמציאה, אבל לא יודעת מאיפה להשיג תפאורה ותלבושות; אורי מתקשה להיפרד מחפצים מיותרים. יכול להיות שהזבל של אורי הוא האוצר של אוזה, שיעזור לה לערוך הופעה כמו שחלמה?"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:24",
+                    "name": "פרק 54 - תקשיבו לי",
+                    "season": 2,
+                    "episode": 24,
+                    "description": "החבורה מתכוננת לפיקניק. לבץ יש מצב רוח רע אבל חבריו לא קשובים למצוקתו",
+                    "thumbnail": "https://www.kankids.org.il/media/cruhhu3n/untitled_1941.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/529556/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_i3lh48xo/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 54 - תקשיבו לי",
+                            "description": "החבורה מתארגנת לפיקניק בים. אוזה, בן ומשי עסוקים בהכנות לפיקניק ולא קשובים לבץ שחלם חלום רע ולא משתתף בחגיגת ההכנות אבל כשהם סוף סוף שמים לב, הם מרגיעים אותו. החבורה הולכת לים וכולם נהנים מאוד"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:25",
+                    "name": "פרק 55 - בן הדוד מאיטליה",
+                    "season": 2,
+                    "episode": 25,
+                    "description": "בן דודו האיטלקי של שבי מגיע לביקור ושבי ונולי מכינים קבלת פנים מיוחדת",
+                    "thumbnail": "https://www.kankids.org.il/media/uvubcflt/untitled_3111.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/529564/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_o0pq6vs6/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 55 - בן הדוד מאיטליה",
+                            "description": "שבניני, בן דודו האיטלקי של שבי מגיע לביקור. שבי ונולי ומתרגשים מהביקור ומכינים קבלת פנים איטלקית, כדי ששבניני ירגיש בבית. רק שזה מצליח להם קצת יותר מדי טוב עד ששבניני מתבלבל וחושב שחזר לאיטליה..."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:26",
+                    "name": "פרק 56 - דרוש מעשה טוב",
+                    "season": 2,
+                    "episode": 26,
+                    "description": "בן אורי ואוזה מתנדבים, ושבי רוצה גם הוא לעשות מעשה טוב אך לא יודע איך",
+                    "thumbnail": "https://www.kankids.org.il/media/d2alg03n/untitled_1242.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/539741/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_918m2e7n/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 56 - דרוש מעשה טוב",
+                            "description": "בן, אורי ואוזה מתנדבים לקבל את פניהם של עולים חדשים. שבי רוצה גם הוא לעשות מעשה טוב ולהרגיש טוב, אך \"המעשים הטובים\" שלו מתקלקלים והוא מרגיש נורא. בדיוק כשהוא מתייאש, הוא מגלה שבכל זאת עשה מעשה טוב."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:27",
+                    "name": "פרק 57 - חוקים וחרובים",
+                    "season": 2,
+                    "episode": 27,
+                    "description": "בץ חושב שאסור לבוא ליום הולדת בלי מתנה, אבל שכח להביא לחילזי",
+                    "thumbnail": "https://www.kankids.org.il/media/rguiq23u/untitled_1111.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/539745/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_ef8zda5k/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 57 - חוקים וחרובים",
+                            "description": "לבץ יש חוקים משל עצמו, וגם כשהוא משחק משחקים, הוא אוהב לשנות את החוקים. אחד החוקים שלו הוא: אסור ללכת ליום הולדת בלי מתנה. אז מה עושים כשיש יום הולדת, אבל שוכחים להכין מתנה?"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:28",
+                    "name": "פרק 58 - כשאהיה גדול",
+                    "season": 2,
+                    "episode": 28,
+                    "description": "שבי ואוזה מתלבטים מה הם יהיו כשיגדלו, עד שהם מבינים שלא חייבים להחליט",
+                    "thumbnail": "https://www.kankids.org.il/media/htybxkld/untitled_1351.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/539774/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_akpekmom/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 58 - כשאהיה גדול",
+                            "description": "מפגש עם קוסם בן שמונה גורם לשבי ואוזה לתהות מה הם יהיו כשיגדלו. הם מגלים שהם רוצים להיות המון דברים, ומחליפים חלום כל רגע. בעזרת משי ובן הם מבינים שלא דחוף להחליט על זה כרגע ואפשר לחלום על המון דברים."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:29",
+                    "name": "פרק 59 - שקרים לבנים",
+                    "season": 2,
+                    "episode": 29,
+                    "description": "שבי ונולי נעלבים שמשי לא אמרה להם את האמת ולומדים שיש גם שקר לבן",
+                    "thumbnail": "https://www.kankids.org.il/media/wbhfm14p/untitled_12351.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/539848/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_5ncp3fv1/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 59 - שקרים לבנים",
+                            "description": "למשי יש טקס חשוב וכולם עוזרים לה לבחור מה ללבוש. מתוך נימוס משי לא מודה שהיא לא אוהבת את פריטי הלבוש החדשים, עד שהאמת מתגלה. שבי ונולי נעלבים שמשי שיקרה להם ולומדים שיש דבר שנקרא שקר לבן."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:2:30",
+                    "name": "פרק 60 - החורף הגיע",
+                    "season": 2,
+                    "episode": 30,
+                    "description": "אוזה מצפה לגשם ומתגעגעת למטריה האהובה שלה. ובץ? הוא פשוט לא אוהב חורף",
+                    "thumbnail": "https://www.kankids.org.il/media/125ldxvn/untitled_11641.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s2/539852/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_qypcz608/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 60 - החורף הגיע",
+                            "description": "אוזה מצפה לגשם הראשון שאז תוכל סוף סוף להשתמש במטריה הצהובה עם הנקודות הלבנות שהיא אוהבת. כשהארגז מהחורף שעבר יוצא מהמחסן, מצפה לה הפתעה לא נעימה. והאם בץ יצליח למצוא משהו אחד שהוא כן אוהב בחורף?"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:1",
+                    "name": "איך דמיון מתגלגל | פרק 1",
+                    "season": 1,
+                    "episode": 1,
+                    "description": "אורי ומשי מחפשים את גלגל המריצה שהפך לדברים אחרים",
+                    "thumbnail": "https://www.kankids.org.il/media/3pehd0qn/2021-9-1-imgid-60285_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/135116/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_mwg2qad4/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 1",
+                            "description": "אורי ומשי מחפשים את גלגל המריצה שנעלם. בחיפושיהם הם מגלים שעם קצת דמיון, גלגל של מריצה יכול להיות גם הרבה דברים אחרים: למשל כובע וברז"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:2",
+                    "name": "על טעם ועל ריח | פרק 2",
+                    "season": 1,
+                    "episode": 2,
+                    "description": "חיים כהן מגיע להכין עוגה טעימה ,אבל איך קובעים מהי העוגה הטעימה מכולן?",
+                    "thumbnail": "https://www.kankids.org.il/media/ibhjqgls/2021-9-5-imgid-60464_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/135119/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_cjjsxv3b/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 2",
+                            "description": "בן מזמין את חברו הטוב – השף חיים כהן להכין עוגה טעימה במיוחד. אבל איך קובעים מהי העוגה הטעימה מכולן?"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:3",
+                    "name": "מי בא לים | פרק 3",
+                    "season": 1,
+                    "episode": 3,
+                    "description": "נולי, שבי ואורי הולכים לים ומשי, שאמורה לצאת לטיול מתנהגת מוזר",
+                    "thumbnail": "https://www.kankids.org.il/media/lngem5t3/2021-9-5-imgid-60475_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/135122/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_vt5r38w4/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 3",
+                            "description": "נולי, שבי ואורי נוסעים לים ומשי אמורה לצאת לטיול, אז למה משי מתנהגת מוזר כל כך? ולמה היא מתעקשת שהכל לגמרי בסדר? והאם הרעיון של נולי ושבי יציל את היום?"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:4",
+                    "name": "איזה פחד | פרק 4",
+                    "season": 1,
+                    "episode": 4,
+                    "description": "כל אחד מפחד ממשהו ורק בץ חושב שהוא לא מפחד מדבר",
+                    "thumbnail": "https://www.kankids.org.il/media/ke3oef40/2021-9-9-imgid-60664_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/135125/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_213imbvg/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 4",
+                            "description": "בן לא רוצה לצאת עם אסתר לטיול מפני שהוא מפחד מגבהים ובטיול מטפסים על הר. נולי מפחדת מהמון דברים ובץ חושב שהוא לא מפחד מכלום עד שנולי מספרת לו על המפלצת המפחידה עליה חלמה"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:5",
+                    "name": "מה מצחיק? | פרק 5",
+                    "season": 1,
+                    "episode": 5,
+                    "description": "לשבי קשה להבין ולספר כמו שצריך בדיחה מצחיקה שבן סיפר לו",
+                    "thumbnail": "https://www.kankids.org.il/media/jktn2cqy/2021-9-9-imgid-60665_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/135128/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_lwzyi8i7/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 5",
+                            "description": "לבן יש בדיחה חדשה ומצחיקה במיוחד, רק שלשבי קשה להבין את הבדיחה ועוד יותר קשה לספר אותה כמו שצריך"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:6",
+                    "name": "עננים צהובים | פרק 6",
+                    "season": 1,
+                    "episode": 6,
+                    "description": "נולי נעלבת כשהיא רוצה לצבוע את העננים שבציור בצהוב והחברים לא מסכימים",
+                    "thumbnail": "https://www.kankids.org.il/media/kqildtub/2021-9-9-imgid-60679_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/135131/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_irsnm446/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 6",
+                            "description": "החברים מתנדבים לעזור למשי לצבוע ציור לתערוכת ציורים. הבעיות מתחילות כשנולי מתעקשת לצבוע את העננים שבציור בצהוב והחברים לא מסכימים. האם פיית הצבעים תפתור את המצב?"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:7",
+                    "name": "בץ החוקר | פרק 7",
+                    "season": 1,
+                    "episode": 7,
+                    "description": "משקפי השמש של בן הולכות לאיבוד ובץ מתנדב לפתור את התעלומה ולמצוא אותן",
+                    "thumbnail": "https://www.kankids.org.il/media/2n3l2fkx/2021-9-16-imgid-60984_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/135134/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_k83nhx23/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 7",
+                            "description": "בץ חולם לפתור תעלומות בדיוק כמו בסדרת הספרים האהובה עליו \"יואש הבלש שלא אומר נואש\". ההזדמנות מגיעה כשבן לא מוצא את משקפי השמש שלו. האם בץ יצליח לפתור את התעלומה ולגלות היכן הן?"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:8",
+                    "name": "החבורה הסודית | פרק 8",
+                    "season": 1,
+                    "episode": 8,
+                    "description": "לכל חבורה סודית חייבים להיות כללים, גם לזו של שבי ואוזה",
+                    "thumbnail": "https://www.kankids.org.il/media/gefh2bhg/2021-9-16-imgid-60985_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/135137/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_qb8b9p9o/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 8",
+                            "description": "שבי ממציא חבורה סודית שרק הוא חבר בה. אוזה מסבירה לו שבחבורה סודית צריך להיות יותר מאחד, היא מסבירה לו גם על הכללים של חבורה. האם משי ואורי מתאימים לכללי החבורה שלהם?"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:9",
+                    "name": "השכנה החדשה | פרק 9",
+                    "season": 1,
+                    "episode": 9,
+                    "description": "גאולה אבן, מגישת החדשות, עוברת לגור ליד החברים בפרפר נחמד",
+                    "thumbnail": "https://www.kankids.org.il/media/h10dvd04/2021-9-16-imgid-60986_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/135140/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_kb7qymrj/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 9",
+                            "description": "לחברים בפרפר נחמד יש שכנים חדשים. גאולה אבן, מגישת החדשות, עוברת לגור ממש לידם. היא מלמדת אותם על תקשורת ומה הוא סיפור שיכול להופיע בחדשות. נולי ובץ מאוד רוצים להופיע בחדשות"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:10",
+                    "name": "המעודדים | פרק 10",
+                    "season": 1,
+                    "episode": 10,
+                    "description": "אסתר עצובה ושבי מרגיש שהוא לא מצליח לעודד אותה ולהיות חבר טוב עבורה",
+                    "thumbnail": "https://www.kankids.org.il/media/uhcba4vs/2021-9-19-imgid-61081_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/135143/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_mym3uw7m/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 10",
+                            "description": "אסתר חוזרת מאוכזבת ועצובה אחרי הפסד במשחק כדורסל. החברים הטובים בפרפר נחמד מתגייסים לשמח ולעודד אותה אבל שבי מרגיש שהוא לא יודע איך להיות חבר טוב ומנסה למצוא דרך לשמח את אסתר"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:11",
+                    "name": "מה לובשים למסיבה | פרק 11",
+                    "season": 1,
+                    "episode": 11,
+                    "description": "בן מחפש מה מתאים ונוח לו ללבוש למסיבה",
+                    "thumbnail": "https://www.kankids.org.il/media/fa2ptw31/2021-9-19-imgid-61088_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/135146/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_138f2pzj/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 11",
+                            "description": "בן ומשי הולכים למסיבה. בן מחליף בגדים עד שהוא מוצא את הדבר שהכי מתאים ונוח לו ללבוש למסיבה.  אבל האם הוא בחר את הדבר הנכון...?"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:12",
+                    "name": "מעט, הרבה, המון | פרק 12",
+                    "season": 1,
+                    "episode": 12,
+                    "description": "אף פעם אין מספיק תותים, גם אם יש מהם ממש הרבה ואפילו המון",
+                    "thumbnail": "https://www.kankids.org.il/media/ntkdmi24/2021-9-19-imgid-61082_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/135149/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_zc46pdy7/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 12",
+                            "description": "לשבי יש המון תותים ולנולי אין. שבי נותן לנולי כמה תותים ועכשיו נראה לו שיש לו ממש מעט תותים. לאורי ואסתר יש תוכנית אחרת בשביל כל התותים"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:13",
+                    "name": "חנוכה | פרק 13",
+                    "season": 1,
+                    "episode": 13,
+                    "description": "לאורי חשוב לשחזר את טקס הדלקת הנר בדיוק כמו בילדותו. היצליח?",
+                    "thumbnail": "https://www.kankids.org.il/media/fbflob23/2021-11-7-imgid-63819_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/137851/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_hxrvtwaz/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 13",
+                            "description": "חבר ילדות של אורי הוזמן לפרפר נחמד להדליק איתם נר ראשון של חנוכה. לאורי חשוב לשחזר את טקס הדלקת הנר בדיוק כמו בילדותם. כולם נרתמים לעזור לו, אבל... האם הוא יצליח?"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:14",
+                    "name": "אוסף הכדורים של שבי | פרק 14",
+                    "season": 1,
+                    "episode": 14,
+                    "description": "אסתר ואורי מגייסים תרומות. האם שבי יסכים לתרום מאוסף הכדורים שלו?",
+                    "thumbnail": "https://www.kankids.org.il/media/xpxb3k5n/2021-11-7-imgid-63785_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/137854/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_woljqnxo/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 14",
+                            "description": "אסתר ואורי מכינים ארגזים לתרומה, ונולי נרתמת בשמחה. האם שבי יסכים לתרום מאוסף הכדורים המפואר שלו?"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:15",
+                    "name": "הברוגז של שבי | פרק 15",
+                    "season": 1,
+                    "episode": 15,
+                    "description": "שבי ברוגז עם אוזה כי הוא נעלב ממנה בלי שהיא תדע",
+                    "thumbnail": "https://www.kankids.org.il/media/frlp4bne/2021-11-7-imgid-63786_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/136438/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_o18inesb/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 15",
+                            "description": "שבי ברוגז עם אוזה כי הוא נעלב ממנה. אוזה אפילו לא יודעת ששבי נעלב. איך מפייסים מישהו שנעלב בטעות, ומי צריך להתנצל בפני מי?"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:16",
+                    "name": "גשם של טבעות | פרק 16",
+                    "season": 1,
+                    "episode": 16,
+                    "description": "שבי כל-כך נהנה להחזיר אבדה לבעליה שהוא פותח משרד אבדות ומציאות",
+                    "thumbnail": "https://www.kankids.org.il/media/x3lpv3pz/2021-11-25-imgid-64880_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/136441/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_h3zxsow3/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 16",
+                            "description": "שבי מוצא טבעת, ומתקשה להשלים עם העובדה שהיא לא שלו. אבל אחרי שהוא מחזיר את הטבעת למי שאבדה אותה וחווה את שמחתה, הוא מחליט לפתוח משרד אבדות ומציאות"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:17",
+                    "name": "בץ מדבר בצית | פרק 17",
+                    "season": 1,
+                    "episode": 17,
+                    "description": "בץ מציא מילים חדשות כדי לבטא את התחושות שלו",
+                    "thumbnail": "https://www.kankids.org.il/media/uavnuim5/2021-11-7-imgid-63787_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/136444/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_q7suvpt3/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 17",
+                            "description": "בץ נעלב, אבל מתקשה לתאר את התחושות המדויקות שלו, ולכן הוא ממציא מילים חדשות. בסוף הוא לומד שאם היה מבין סלנג הוא בכלל לא היה נעלב"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:18",
+                    "name": "לבריאות שבי מדביק | פרק 18",
+                    "season": 1,
+                    "episode": 18,
+                    "description": "כולם מתרחקים משבי החולה חוץ מנולי שרוצה להידבק",
+                    "thumbnail": "https://www.kankids.org.il/media/n1eoevy5/2021-11-28-imgid-65023_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/136447/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_zkldkto2/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 18",
+                            "description": "שבי מבריא ממחלה מדבקת, מה שגורם לאסתר ואורי להתרחק ממנו, אבל גם לרחם עליו ולפנק אותו. נולי מקנאה, רוצה להידבק, אבל לומדת שעדיף להיות בריאה"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:19",
+                    "name": "ממציאים המצאות | פרק 19",
+                    "season": 1,
+                    "episode": 19,
+                    "description": "בן מנסה להמציא למשי שם חיבה ושבי רוצה גם הוא להמציא המצאה",
+                    "thumbnail": "https://www.kankids.org.il/media/n3wbmcg0/2021-12-2-imgid-65276_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/136450/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_4xyy3cfi/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 19",
+                            "description": "בן מנסה להמציא שם חיבה למשי ותוך כדי זה הוא גם מנסה לנקות. בשביל לעשות את שני הדברים יחד הוא המציא המצאה אבל היא לא ממש עובדת. גם שבי מאוד רוצה להמציא משהו חדש אבל זה לא פשוט בכלל"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:20",
+                    "name": "חברים לעפיפון | פרק 20",
+                    "season": 1,
+                    "episode": 20,
+                    "description": "בץ ושבי לא אוהבים לשחק באותם משחקים. האם הם יכולים להיות חברים?",
+                    "thumbnail": "https://www.kankids.org.il/media/modba00h/2021-11-7-imgid-63788_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/136453/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_yoevuppt/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 20",
+                            "description": "בץ חושב שחברים צריכים להסכים על כל דבר, ולאהוב אותם משחקים, לכן הוא לא יכול להיות חבר של שבי. שבי מבולבל. אסתר ובן חושבים אחרת. האם יצליחו לשכנע את בץ?"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:21",
+                    "name": "האוטובץ | פרק 21",
+                    "season": 1,
+                    "episode": 21,
+                    "description": "בץ חולם לנסוע לירושלים בכלי רכב חדש שאף אחד לא מכיר. הכירו את הבצמוביל",
+                    "thumbnail": "https://www.kankids.org.il/media/gamjvbab/2021-11-7-imgid-63820_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/136456/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_03e9rw6f/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 21",
+                            "description": "בץ חולם לנסוע לירושלים בכלי רכב חדש, כלי רכב שאף אחד לא מכיר. לא מכונית, לא אנייה ואפילו לא מטוס. הכירו את הבצמוביל!"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:22",
+                    "name": "איפה העוגה? | פרק 22",
+                    "season": 1,
+                    "episode": 22,
+                    "description": "בץ ונולי לא מתאפקים, אוכלים את העוגה שמשי הכינה לבן ומסתבכים בשקרים",
+                    "thumbnail": "https://www.kankids.org.il/media/uxqjx2gl/2022-3-29-imgid-71797_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/138625/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_9ei4w9x1/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 22",
+                            "description": "בן רוצה לצלם את העוגה שמשי הכינה לקורס הצילום שלו. בזמן שהוא מתארגן, בץ ונולי לא מצליחים להתאפק מחליטים ל\"יישר קצת\" את העוגה ואוכלים את כולה. הם מתביישים להודות ובניסיון להסתיר מתחילים להסתבך בשקרים"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:23",
+                    "name": "יום הולדת למוזה | פרק 23",
+                    "season": 1,
+                    "episode": 23,
+                    "description": "אוזה עלולה לאחר בגלל שבץ לא החזיר לה את הטושים",
+                    "thumbnail": "https://www.kankids.org.il/media/z3dlpd4e/2022-2-23-imgid-69744_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/138628/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_lkxqabaf/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 23",
+                            "description": "אוזה ממהרת ליומולדת של מוזה. האם אוזה תאחר בגלל שבץ לא החזיר לה את הטושים?"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:24",
+                    "name": "התחלות חדשות | פרק 24",
+                    "season": 1,
+                    "episode": 24,
+                    "description": "משי קיבלה את התעודה שלה כמורה לפיתוח קול. שבי הוא התלמיד הראשון שלה",
+                    "thumbnail": "https://www.kankids.org.il/media/5fwpxj0r/2022-2-23-imgid-69745_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/138631/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_n96ue3w1/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 24",
+                            "description": "משי קיבלה את התעודה שלה והיא עכשיו מורה לפיתוח קול. שבי מתחיל את החוג הראשון שלו כתלמיד של משי ואורי נרשם לבריכת שחיה. לכולם יש התחלות חדשות חוץ מלנולי..."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:25",
+                    "name": "פסח בא! | פרק 25",
+                    "season": 1,
+                    "episode": 25,
+                    "description": "חג הפסח מגיע לפרפר נחמד וההכנות לליל הסדר בעיצומן",
+                    "thumbnail": "https://www.kankids.org.il/media/y1dhrolc/2022-2-23-imgid-69746_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/138634/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_pm3ye1fr/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 25",
+                            "description": "ההכנות לליל הסדר בעיצומן וכולם מאוד מתרגשים. נולי חוששת שלא תצליח לזכור את ארבע הקושיות, לשבי נמאס מזה שבכל שנה אוזה מוצאת את האפיקומן ומחליט לגלות איך היא עושה את זה ובן רוצה להמחיז את סיפור ההגדה"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:26",
+                    "name": "מסיבת הפתעה | פרק 26",
+                    "season": 1,
+                    "episode": 26,
+                    "description": "האם החברים יצליחו לשמור בסוד את מסיבת ההפתעה ליום ההולדת של אורי?",
+                    "thumbnail": "https://www.kankids.org.il/media/f5dhdzqq/2022-2-23-imgid-69747_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/138637/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_38du8mpt/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 26",
+                            "description": "אסתר מתכננת מסיבת הפתעה סודית ליום ההולדת של אורי. העניינים מתחילים להסתבך כשהחברים מגלים שזה לא כל כך פשוט לשמור על ההפתעה בסוד"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:27",
+                    "name": "טיפ, טיפה קנאה | פרק 27",
+                    "season": 1,
+                    "episode": 27,
+                    "description": "שבי משוויץ אחרי שהוא מביס את נולי במשחק ונולי מקנאה ונחושה לנצח בחזרה",
+                    "thumbnail": "https://www.kankids.org.il/media/twbailnl/2022-2-23-imgid-69748_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/138640/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_1akdiwxv/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 27",
+                            "description": "נולי, שבי, אורי ומשי משחקים במשחק הצלילים. שבי מנצח כל פעם ומשתחצן ונולי מקנאה. היא נחושה להתאמן ולנצח את שבי השוויצר בחזרה. אך כשלבסוף היא מנצחת ורואה את שבי עצוב, היא מחליטה לעודד אותו ולנצח בכבוד"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:28",
+                    "name": "ביצת זהב | פרק 28",
+                    "season": 1,
+                    "episode": 28,
+                    "description": "נולי ובץ סקרנים, האם הברווזה האורחת תטיל ביצי זהב?",
+                    "thumbnail": "https://www.kankids.org.il/media/u1tagd3l/2022-2-23-imgid-69749_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/138643/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_mqfaakx6/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 28",
+                            "description": "אסתר שומרת על אווזה מפינת החי. נולי ובץ חושבים שאולי, אם האווזה תחשוב שהיא בעולם האגדות, היא תטיל להם ביצי זהב. הם מחליטים לנסות ולהמציא עולם של אגדות בפרפר נחמד."
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:29",
+                    "name": "האספנים | פרק 29",
+                    "season": 1,
+                    "episode": 29,
+                    "description": "משי מוצאת אבן עגולה שמתאימה גם לאוסף אבנים וגם לאוסף עיגולים",
+                    "thumbnail": "https://www.kankids.org.il/media/crmjiyef/2022-2-23-imgid-69750_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/138646/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_jz66ny4q/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 29",
+                            "description": "משי מוצאת אבן עגולה ויפה בשביל אוסף האבנים של אורי. לבץ יש אוסף של דברים עגולים והוא חושב שהאבן מתאימה דווקא לאוסף שלו. מי יקבל את האבן ומה אוספת משי?"
+                        }
+                    ]
+                },
+                {
+                    "id": "il_kan_kids_1006:1:30",
+                    "name": "שבי הקוסם | פרק 30",
+                    "season": 1,
+                    "episode": 30,
+                    "description": "שבי רוצה להיות קוסם, אבל לא מצליח למנות את השפנים שהוא שולף מהכובע",
+                    "thumbnail": "https://www.kankids.org.il/media/imljydn5/2022-2-23-imgid-69751_b.jpeg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/s1/138649/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_8n1i2ycn/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "פרק 30",
+                            "description": "שבי חולם להיות קוסם. אבל אוי- הוא לא מצליח לזכור את סדר המספרים ולמנות את השפנים שהוא שולף מהכובע. הוא כמעט זונח את החלום, עד שאסתר נזכרת בטריק שעוזר לשבי לזכור איך לספור, וזה עובד ממש כמו קסם"
+                        }
+                    ]
+                }
+            ]
+        }
     }
 }
