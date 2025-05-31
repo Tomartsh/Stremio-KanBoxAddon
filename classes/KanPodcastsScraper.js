@@ -198,6 +198,10 @@ class KanPodcastsScraper {
                 }
                 logger.trace("getpodcastEpisodeVideos => calling fetchPage with URL: " + podcastSeriesLink + "?page=" + i);
                 var podcastsAdditionalPages = await fetchData(podcastSeriesLink + "?page=" + i);
+                if (podcastsAdditionalPages == undefined){
+                    logger.warn("getpodcastEpisodeVideos => No additional pages found for URL: " + podcastSeriesLink + "?page=" + i);
+                    continue;
+                }
                 var podcastElems = podcastsAdditionalPages.querySelectorAll("div.card.card-row");
 
                 for (var additionalPodcast of podcastElems){
