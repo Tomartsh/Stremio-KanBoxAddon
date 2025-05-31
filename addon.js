@@ -51,13 +51,13 @@ const kanArchiveScraper = new KanArchivescraper(addToSeriesList)
 const kanKidsScraper = new KanKidscraper(addToSeriesList)
 //kanKidsScraper.crawl(true);
 const kanTeensScraper = new KanTeensscraper(addToSeriesList)
- kanTeensScraper.crawl(true);
+//kanTeensScraper.crawl(true);
 const kanPodcastsScraper = new KanPodcastsscraper(addToSeriesList)
 //kanPodcastsScraper.crawl(true);
 const kan88Scraper = new Kan88scraper(addToSeriesList);
 //kan88Scraper.crawl(true);
 
-runCrons();
+//runCrons();
 
 // Main program
 (async () => {
