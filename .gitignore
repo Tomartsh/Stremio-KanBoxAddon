@@ -1,7 +1,6 @@
 # ignore the modules folder
 node_modules
 package-lock.json
-stremio-kanbox.json
 
 config/.env
 .env
