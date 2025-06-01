@@ -1,8 +1,8 @@
 module.exports = {
-    RETRY_DELAY: 10000,//default delay between requests
-    REQUEST_TIMEOUT: 5000,
+    RETRY_DELAY: 15000,//default delay between requests
+    REQUEST_TIMEOUT: 7000,
     MAX_RETRIES: 5,  
-    MAX_CONCURRENT_REQUESTS: 4,
+    MAX_CONCURRENT_REQUESTS: 2,
     UPDATE_LIST: true, // update the series list as well as creating the JSON object  
     URL_ZIP_FILES: [
         "stremio-kandigital.zip",
@@ -15,7 +15,7 @@ module.exports = {
         "stremio-kan88.zip",
         "stremio-mako.zip"
     ],
-    SAVE_MODE: "github", // "local", "github", or "both"
+    SAVE_MODE: "local", // "local", "github", or "both"
     SAVE_FOLDER: "output",
     PREFIX: "il_",
     LOG4JS_LEVEL: "debug",
@@ -24,9 +24,9 @@ module.exports = {
     LOG_FILENAME: "logs/Stremio_addon.log",
     HEADERS: {
         "Content-Type": "text/html; charset=utf-8",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0",
         "Accept": "application/json,text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Encoding": "gzip, deflate, br, zstd",
         "Charset": "UTF-8"
     },
     URL_JSON_BASE: "https://tomartsh.github.io/Stremio-KanBoxAddon/output/", 
