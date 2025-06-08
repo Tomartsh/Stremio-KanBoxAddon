@@ -19,6 +19,7 @@ const Reshetscraper = require("./classes/ReshetScraper.js");
 const LiveTV = require("./classes/LiveTV.js"); 
 const constants = require("./classes/constants.js");
 const {URL_ZIP_FILES, URL_JSON_BASE, LOG4JS_LEVEL, MAX_LOG_SIZE, LOG_BACKUP_FILES} = require("./classes/constants.js");
+require("dotenv").config(); // Load .env from config folder
 
 log4js.configure({
 	appenders: { 
@@ -56,7 +57,7 @@ const kanPodcastsScraper = new KanPodcastsscraper(addToSeriesList)
 const kan88Scraper = new Kan88scraper(addToSeriesList);
 //kan88Scraper.crawl(true);
 
-runCrons();
+//runCrons();
 
 // Main program
 (async () => {
@@ -193,8 +194,8 @@ builder.defineCatalogHandler(({type, id, extra}) => {
             } else if (id == "MakoVOD"){
                 metas = listSeries.getMetasBySubtypeAndName("m", search);
             } else if (id == "ReshetVOD"){
-                metas = listSeries.getMetasBySubtypeAndName("r", search);
-            }
+				metas = listSeries.getMetasBySubtypeAndName("r", search);
+			}
             break;
         case "Podcasts":
             if (id == "KanPodcasts"){
@@ -217,7 +218,7 @@ builder.defineMetaHandler(({type, id}) => {
 	logger.debug("defineMetaHandler=> request for meta: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	var meta = listSeries.getMetaById(id);
-
+	logger.debug("defineMetaHandler => meta subtype: " + meta.subType);
 	//var videoId = id + ":1:";
     return Promise.resolve({ meta: meta })
 });
@@ -227,13 +228,14 @@ async function tuki(id){
 	logger.debug("tuki=> request for stream: " + id);
 	var streams = [];
 	//retrieve the url
-	var streamList;
+	var streamList = [];
 	var metaId = id.split(":")[0];
 	var metas = listSeries.getMetaById(metaId);
 	var videos = metas["videos"];
 	for (var video of videos){
 		if (video["id"] == id){
-			streamList = video["streamsMako"];
+			logger.debug("tuki=>video[id]: " + video["id"]);
+			streamList = video["streams"];
 			break;
 		}
 	}
@@ -650,20 +652,6 @@ function runCrons(){
 	//taskMakoJsonZip.start();
 	//logger.info("runCrons => started 12 CH cron with zip");
 
-	/**
-	 * Set cron jobs keep alive for on-render every 10 minutes
-	 */
-	// var onRender = cron.schedule('1-59/10 * * * *', () => {
-	// 	logger.info('Running keep alive for onRender');
-	// 	fetchData("https://stremio-kanboxaddon.onrender.com/manifest.json",false)	
-	// }, {
-	// 	scheduled: true,
-	// 	timezone: "Asia/Jerusalem"
-	// });
-	//onRender.start();
-	//logger.info("runCrons => started onRender keep alive cron");
-
-	//logger.info("runCrons => exiting runCrons");
 }
 
 
