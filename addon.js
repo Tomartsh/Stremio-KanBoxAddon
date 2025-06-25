@@ -57,7 +57,7 @@ const kanPodcastsScraper = new KanPodcastsscraper(addToSeriesList)
 const kan88Scraper = new Kan88scraper(addToSeriesList);
 //kan88Scraper.crawl(true);
 
-//runCrons();
+runCrons();
 
 // Main program
 (async () => {
@@ -190,7 +190,7 @@ builder.defineCatalogHandler(({type, id, extra}) => {
             } else if (id == "KanKids"){
                 metas = listSeries.getMetasBySubtypeAndName("k",search);
             } else if (id == "KanTeens"){
-                metas = listSeries.getMetasBySubtypeAndName("n",search);
+                metas = listSeries.getMetasBySubtypeAndName("`n",search);
             } else if (id == "MakoVOD"){
                 metas = listSeries.getMetasBySubtypeAndName("m", search);
             } else if (id == "ReshetVOD"){
@@ -213,7 +213,7 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 	}
 	return Promise.resolve({metas});
 })
-
+/
 builder.defineMetaHandler(({type, id}) => {
 	logger.debug("defineMetaHandler=> request for meta: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
@@ -222,7 +222,6 @@ builder.defineMetaHandler(({type, id}) => {
 	//var videoId = id + ":1:";
     return Promise.resolve({ meta: meta })
 });
-
 
 async function tuki(id){
 	logger.debug("tuki=> request for stream: " + id);
@@ -653,7 +652,5 @@ function runCrons(){
 	//logger.info("runCrons => started 12 CH cron with zip");
 
 }
-
-
 
 module.exports = builder.getInterface();
