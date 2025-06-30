@@ -118,6 +118,10 @@ class MakoScraper{
             episodes = season[0]["vods"];
             channelId = season[0]["channelId"];
         } else {
+            if (season["menu"][0]["vods"]){ 
+                logger.error("getEpisodes => Season ID: " + seasonId + ". channelId: " + channelId + ", no episodes found");
+                return null;
+            }
             episodes = season["menu"][0]["vods"];
             channelId = season["channelId"];
         }
@@ -172,7 +176,7 @@ class MakoScraper{
                 episode: noOfEpisodes,
                 thumbnail: episodePic,
                 episodeLink: episodePage,
-                streams: streams
+                makostreams: streams
             }
             if (episodeReleased != "") {videoJsonObj["released"] = episodeReleased;}
             
