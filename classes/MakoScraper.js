@@ -118,7 +118,7 @@ class MakoScraper{
             episodes = season[0]["vods"];
             channelId = season[0]["channelId"];
         } else {
-            if (! season["menu"][0]["vods"]){ 
+            if (undefined == season["menu"][0]){ 
                 logger.error("getEpisodes => Season ID: " + seasonId + ". channelId: " + channelId + ", no episodes found");
                 return null;
             }
