@@ -89,7 +89,7 @@ class MakoScraper{
             for (var season of seasons["seasons"]){
                 var seasonUrl = URL_MAKO_BASE + season["pageUrl"];
                 var seasonId = this.setSeasonId(season["seasonTitle"],seasonUrl);
-                logger.debug("getSeries => Season ID: " + seasonId + ". URL: " + seasonUrl); 
+                logger.debug("getSeries => " + title + " ID: " + seasonId + ". URL: " + seasonUrl); 
                 
                 //for each season get the episodes
                 var seasonEpisodesPage = await fetchData(seasonUrl + URL_MAKO_SUFFIX, true); 
@@ -97,7 +97,7 @@ class MakoScraper{
                 var videosEpisodes = await this.getEpisodes(seasonEpisodesPage, id, seasonId);
                 
                 if (videosEpisodes == null) {
-                    return;
+                    continue;
                 }
                 for (var episode of videosEpisodes) {videos.push(episode);}
                 logger.debug(`getSeries => ${title} Videos:  ${videos.length}` ); 
