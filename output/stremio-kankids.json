@@ -1,12 +1,53 @@
 {
     "il_kan_kids_1000": {
         "id": "il_kan_kids_1000",
+        "name": "הגינה של תמרי",
+        "link": "https://www.kankids.org.il/content/kids/ktantanim-main/tamaris_garden/",
+        "type": "series",
+        "subtype": "k",
+        "meta": {
+            "id": "il_kan_kids_1000",
+            "type": "series",
+            "name": "הגינה של תמרי",
+            "link": "https://www.kankids.org.il/content/kids/ktantanim-main/tamaris_garden/",
+            "background": "https://www.kankids.org.il/media/uy4cjqaa/poster_239_360.jpg",
+            "poster": "https://www.kankids.org.il/media/uy4cjqaa/poster_239_360.jpg",
+            "posterShape": "poster",
+            "logo": "https://www.kankids.org.il/media/uy4cjqaa/poster_239_360.jpg",
+            "description": "עמית, נתנאל, נועה, יהלי, מיקה, דורון, עוז ומאור נפגשים כמעט כל יום בגינה הקהילתית שבמרכז השכונה. הם עובדים בגינה, משחקים, צוחקים, מתרגשים, מתרגזים, רבים, סולחים ומתפייסים. הכל תחת עינה הפקוחה של תמרי שמשתדלת לנהל את הגינה, ולפעמים גם מצליחה",
+            "genres": [
+                "Kan",
+                "כאן"
+            ],
+            "videos": [
+                {
+                    "id": "il_kan_kids_1000:1:1",
+                    "name": "הגינה של תמרי 🌸 בקרוב!",
+                    "season": 1,
+                    "episode": 1,
+                    "description": "תמרי מזמינה אתכם לגינה שבה כולם פורחים",
+                    "thumbnail": "https://www.kankids.org.il/media/magbtqjc/1920x1080_169_hd.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/tamaris_garden/930693/",
+                    "streams": [
+                        {
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_1zg91lkg/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "type": "series",
+                            "name": "הגינה של תמרי 🌸 בקרוב!",
+                            "description": "תמרי מזמינה אתכם לגינה שבה כולם פורחים 🌸 החל מ-27.7 בכאן חינוכית ובכאן BOX"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "il_kan_kids_1001": {
+        "id": "il_kan_kids_1001",
         "name": "בלואי",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/",
         "type": "series",
         "subtype": "k",
         "meta": {
-            "id": "il_kan_kids_1000",
+            "id": "il_kan_kids_1001",
             "type": "series",
             "name": "בלואי",
             "link": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/",
@@ -21,220 +62,220 @@
             ],
             "videos": [
                 {
-                    "id": "il_kan_kids_1000:1:1",
-                    "name": "פרק 1 - הקסילופון הקסום",
+                    "id": "il_kan_kids_1001:1:1",
+                    "name": "פרק 13 - מרגלים",
                     "season": 1,
                     "episode": 1,
-                    "description": "בלואי ובינגו רבות על הקסילופון הקסום. אבא משתלט עליו ומקפיא את בלואי",
-                    "thumbnail": "https://www.kankids.org.il/media/fblbcjn1/בלואי-פרק-1.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/828914/",
+                    "description": "מכשיר השליטה במבוגרים מתקלקל כשבינגו מפסיקה לשחק במשחק הריגול של בלואי",
+                    "thumbnail": "https://www.kankids.org.il/media/rjgkvubi/בלואי-פרק-13.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/830165/",
                     "streams": [
                         {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_53bpzfsi/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_d694sfm9/format/applehttp/protocol/https/desiredFileName.m3u8",
                             "type": "series",
-                            "name": "פרק 1 - הקסילופון הקסום",
-                            "description": "כשבלואי ובינגו רבות על הקסילופון הקסום שלהן (שיש לו כוח להקפיא את אביהן במרחב ובזמן) האב משתלט עליו ומקפיא את בלואי, וכך בינגו נעשית תקוותה היחידה"
+                            "name": "פרק 13 - מרגלים",
+                            "description": "כשבינגו מפסיקה לשחק במשחק הריגול של בלואי, מכשיר השליטה שלהן במבוגרים מתקלקל! בלואי מבינה את החשיבות של בינגו וצריכה להחזיר אותה לקבוצה"
                         }
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1000:1:2",
-                    "name": "פרק 2 - בית חולים",
+                    "id": "il_kan_kids_1001:1:2",
+                    "name": "פרק 14 - מזמינים אוכל",
                     "season": 1,
                     "episode": 2,
-                    "description": "יש צורך בדוקטור בלואי לאחר שאבא עובר צילום רנטגן על ידי האחות בינגו",
-                    "thumbnail": "https://www.kankids.org.il/media/jv2l4lkx/בלואי-פרק-2-2.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/828918/",
+                    "description": "בלואי ובינגו מחפשות איך לבדר את עצמן ותוך כדי בודקות את הסבלנות של אבא",
+                    "thumbnail": "https://www.kankids.org.il/media/zdrbnqk0/בלואי-פרק-14.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/830169/",
                     "streams": [
                         {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_vqsqwhug/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_9fh59bs2/format/applehttp/protocol/https/desiredFileName.m3u8",
                             "type": "series",
-                            "name": "פרק 2 - בית חולים",
-                            "description": "יש צורך בדוקטור בלואי לאחר שאבא עובר צילום רנטגן מסקרן על ידי האחות בינגו. נראה שיש לו חתול בבטן, מה שלא משאיר לבלואי ברירה ועליה לנתח מייד!"
+                            "name": "פרק 14 - מזמינים אוכל",
+                            "description": "כשעליהן לחכות לאוכל שלהן חמש דקות במסעדה, בלואי ובינגו מאבדות סבלנות ומחפשות איך לבדר את עצמן ותוך כדי בודקות את הסבלנות של אבא"
                         }
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1000:1:3",
-                    "name": "פרק 3 - להרים באוויר",
+                    "id": "il_kan_kids_1001:1:3",
+                    "name": "פרק 15 - פרפרים",
                     "season": 1,
                     "episode": 3,
-                    "description": "המשחק \"להרים באוויר\" עם הבלון הופך למבחן מיומנות כאשר אבא מצטרף",
-                    "thumbnail": "https://www.kankids.org.il/media/fdwbopfm/בלואי-פרק-3.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/828931/",
+                    "description": "כיף לשחק \"פרפרים\" בחצר, עד שבלואי בורחת עם ג'ודו ומשאירה את בינגו לבד",
+                    "thumbnail": "https://www.kankids.org.il/media/sccbm144/בלואי-פרק-15.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/830175/",
                     "streams": [
                         {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_lblyvx4q/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_im9zu1fi/format/applehttp/protocol/https/desiredFileName.m3u8",
                             "type": "series",
-                            "name": "פרק 3 - להרים באוויר",
-                            "description": "בלואי, בינגו ואימא נהנות לשחק ב\"להרים באוויר\" עם הבלון האחרון שלהן ברחבי הבית, אבל כאשר אבא מצטרף המשחק הופך למבחן המיומנות האולטימטיבי"
+                            "name": "פרק 15 - פרפרים",
+                            "description": "כיף לשחק \"פרפרים\" בחצר, עד שבלואי בורחת עם ג'ודו ומשאירה את בינגו לבדה. כעת, בינגו המסכנה עצובה ובלואי צריכה לתקן את המצב"
                         }
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1000:1:4",
-                    "name": "פרק 4 - אבא רובוט",
+                    "id": "il_kan_kids_1001:1:4",
+                    "name": "פרק 16 - כדור יוגה",
                     "season": 1,
                     "episode": 4,
-                    "description": "בלואי ובינגו נותנות לאבא רובוט לסדר את חדר המשחקים במקומן",
-                    "thumbnail": "https://www.kankids.org.il/media/x1vdn255/בלואי-פרק-4.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/828957/",
+                    "description": "אימא מלמדת את בינגו להשתמש בנביחה הבוגרת שלה כדי להציב גבולות במשחקים",
+                    "thumbnail": "https://www.kankids.org.il/media/vwfjjmro/בלואי-פרק-16.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/832781/",
                     "streams": [
                         {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_y77q099w/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_grz5zg7g/format/applehttp/protocol/https/desiredFileName.m3u8",
                             "type": "series",
-                            "name": "פרק 4 - אבא רובוט",
-                            "description": "בלואי ובינגו לא רוצות לסדר את חדר המשחקים, אז הן נותנות לאבא רובוט לעשות זאת בשבילן. אבל כאשר בלואי מגזימה, אבא רובוט חווה תקלה הרסנית"
+                            "name": "פרק 16 - כדור יוגה",
+                            "description": "בינגו אוהבת להשתולל עם אבא, אבל לפעמים הוא שוכח שבינגו קטנה יותר מאחותה. אימא מלמדת את בינגו להשתמש בנביחה הבוגרת שלה כדי להציב גבולות במשחקים שלהם"
                         }
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1000:1:5",
-                    "name": "פרק 5 - ארץ הצל",
+                    "id": "il_kan_kids_1001:1:5",
+                    "name": "פרק 17 - קליפסו",
                     "season": 1,
                     "episode": 5,
-                    "description": "קוקו מחפשת קצורי דרך ובלואי מראה לקוקו שלפעמים כיף יותר לציית לחוקים",
-                    "thumbnail": "https://www.kankids.org.il/media/bwvhmfgt/בלואי-פרק-5.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/828962/",
+                    "description": "בלואי וחבריה משחקים בביה\"ס במגוון משחקים, כולם מלבד פרצל המסתורי",
+                    "thumbnail": "https://www.kankids.org.il/media/fyxavmyq/בלואי-פרק-17.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/832784/",
                     "streams": [
                         {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_rlp829n4/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_nq40q5c9/format/applehttp/protocol/https/desiredFileName.m3u8",
                             "type": "series",
-                            "name": "פרק 5 - ארץ הצל",
-                            "description": "במהלך פיקניק בפארק, בלואי וחבריה משחקים ב\"ארץ הצל\", אבל כשקוקו מחפשת קיצורי דרך, בלואי מראה לה שלפעמים כיף יותר לציית לחוקים"
+                            "name": "פרק 17 - קליפסו",
+                            "description": "בלואי וחבריה משחקים בביה\"ס במגוון משחקים. המורה קליפסו שומרת על תלמידיה עם הכוונה נבונה ושירים... כולם מלבד פרצל המסתורי"
                         }
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1000:1:6",
-                    "name": "פרק 6 - סוף השבוע",
+                    "id": "il_kan_kids_1001:1:6",
+                    "name": "פרק 18 - הרופא",
                     "season": 1,
                     "episode": 6,
-                    "description": "בינגו כועסת לאחר שמוצאת חרק מקל בגינה ואבא לא שם לב",
-                    "thumbnail": "https://www.kankids.org.il/media/bshjs3lu/בלואי-פרק-6.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/829071/",
+                    "description": "האני תקועה בתור לד\"ר בינגו, בלואי פקידת הקבלה אומרת לה להתאזר בסבלנות",
+                    "thumbnail": "https://www.kankids.org.il/media/mafcfzij/בלואי-פרק-18.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/832787/",
                     "streams": [
                         {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_p8kgzbsz/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_rpgdvubu/format/applehttp/protocol/https/desiredFileName.m3u8",
                             "type": "series",
-                            "name": "פרק 6 - סוף השבוע",
-                            "description": "במהלך סוף השבוע, בלואי ובינגו משחקות בגינה עם אבא, אך בינגו כועסת לאחר שהיא מוצאת חרק מקל ואבא שקוע מדי במשחק מכדי להבחין בו"
+                            "name": "פרק 18 - הרופא",
+                            "description": "האני תקועה בתור לד\"ר בינגו בזמן שהמקרים המעניינים יותר נכנסים לפניה. בלואי פקידת הקבלה אומרת לה להתאזר בסבלנות, חלק מהמקרים האלה יכולים להיות ממש \"מסובכים\"!"
                         }
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1000:1:7",
-                    "name": "פרק 7 - על האש",
+                    "id": "il_kan_kids_1001:1:7",
+                    "name": "פרק 19 - מכונת מזל",
                     "season": 1,
                     "episode": 7,
-                    "description": "ארוחת הצהריים \"על האש\" תיאלץ לחכות עד שבינגו תמצא פלפלים בכל הצבעים",
-                    "thumbnail": "https://www.kankids.org.il/media/uwcdht3t/בלואי-פרק-7.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/829082/",
+                    "description": "אימא ואבא יוצרים מכונת מזל בבית, אבל אבא לא מתכוון להקל על הזכייה",
+                    "thumbnail": "https://www.kankids.org.il/media/jgdaasbv/בלואי-פרק-19.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/832789/",
                     "streams": [
                         {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_nr582jzj/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_80dvbnbj/format/applehttp/protocol/https/desiredFileName.m3u8",
                             "type": "series",
-                            "name": "פרק 7 - על האש",
-                            "description": "זו ארוחת צהריים של יום ראשון בחצר האחורית של בלואי, אבל כל ארוחת \"על האש\" זקוקה לסלטים, אז המפגש המרגיע של בינגו ייאלץ לחכות עד שהיא תמצא פלפלים בכל הצבעים כפי שבנות הדודות שלה ביקשו!"
+                            "name": "פרק 19 - מכונת מזל",
+                            "description": "כאשר בלואי ובינגו לא מצליחות לזכות בפרס במכונת מזל, אימא ואבא יוצרים מכונה משלהם בבית, אבל אבא לא מתכוון להקל על הזכייה"
                         }
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1000:1:8",
-                    "name": "פרק 8 - עטלף פירות",
+                    "id": "il_kan_kids_1001:1:8",
+                    "name": "פרק 20 - הולכים לשוק",
                     "season": 1,
                     "episode": 8,
-                    "description": "בלואי מנסה לחלום שהיא עטלף פירות. במהרה מוצאת עצמה מעופפת בשמי הלילה",
-                    "thumbnail": "https://www.kankids.org.il/media/f2cexwaf/בלואי-פרק-8.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/829100/",
+                    "description": "בלואי ואינדי מבקרות בשוק. הן מגלות שהבחירה לרכישה המושלמת קשה למדי",
+                    "thumbnail": "https://www.kankids.org.il/media/2gdb2jtp/בלואי-פרק-20.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/836784/",
                     "streams": [
                         {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_blyxrw27/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_rxe9blno/format/applehttp/protocol/https/desiredFileName.m3u8",
                             "type": "series",
-                            "name": "פרק 8 - עטלף פירות",
-                            "description": "בלואי לא רוצה ללכת לישון ומנסה לחלום שהיא עטלף פירות לילי כדי שהיא תוכל להישאר ערה כל הלילה ובמהרה היא מוצאת את עצמה מעופפת בשמי הלילה"
+                            "name": "פרק 20 - הולכים לשוק",
+                            "description": "כשבלואי מבקרת בשוק עם חמישה דולרים שקיבלה מפיית השיניים, האפשריות הן אינסופיות. אבל כאשר היא ואינדי מחפשות את הרכישה המושלמת ברחבי הדוכנים, היא מגלה שהבחירה קשה למדי"
                         }
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1000:1:9",
-                    "name": "פרק 9 - לרכוב על סוס",
+                    "id": "il_kan_kids_1001:1:9",
+                    "name": "פרק 21 - ההרים הכחולים",
                     "season": 1,
                     "episode": 9,
-                    "description": "הילדים מארגנים חתונת סוסונים, ואבא ודוד סטרייפ מגלמים את הסוסים!",
-                    "thumbnail": "https://www.kankids.org.il/media/zzjgdei2/בלואי-פרק-9.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/829117/",
+                    "description": "כל המשפחה משחקת במשחק בובות ידיים וחוקרת את הארץ מעבר להרים הכחולים",
+                    "thumbnail": "https://www.kankids.org.il/media/5kvofvby/בלואי-פרק-21.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/836788/",
                     "streams": [
                         {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_8hmzszqt/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_x4mcwzfy/format/applehttp/protocol/https/desiredFileName.m3u8",
                             "type": "series",
-                            "name": "פרק 9 - לרכוב על סוס",
-                            "description": "כאשר בלואי שוכחת להחזיר למקומה את הבובה האהובה עליה, בן דודה, סוקס, לוקח אותה ולא מוכן להחזיר אותה. הילדים מארגנים חתונת סוסונים כפעולת הסחה, ואבא ודוד סטרייפ מגלמים את הסוסים!"
+                            "name": "פרק 21 - ההרים הכחולים",
+                            "description": "בלואי, בינגו, אימא ואבא משחקים במשחק בובות ידיים וחוקרים את הארץ מעבר להרים הכחולים, שם הם מערימים על שועל ערמומי ומוצאים את המיטות הרכות בעולם"
                         }
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1000:1:10",
-                    "name": "פרק 10 - בית מלון",
+                    "id": "il_kan_kids_1001:1:10",
+                    "name": "פרק 22- הבריכה",
                     "season": 1,
                     "episode": 10,
-                    "description": "כאשר בלואי משתלטת על המשחק, בינגו עוזבת ובלואי צריכה ללמוד להתפשר",
-                    "thumbnail": "https://www.kankids.org.il/media/kidbhw32/בלואי-פרק-10.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/829122/",
+                    "description": "בלואי ואבא מקניטים את אמא שהיא מגזימה עם האריזה לבילוי בבריכה",
+                    "thumbnail": "https://www.kankids.org.il/media/zplhucua/בלואי-פרק-22.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/836791/",
                     "streams": [
                         {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_ci6ieu0j/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_tpr7d6jd/format/applehttp/protocol/https/desiredFileName.m3u8",
                             "type": "series",
-                            "name": "פרק 10 - בית מלון",
-                            "description": "אבא מצטרף למשחק \"בית מלון\" בו בלואי ובינגו מנהלות בית מלון מטורף ואבא מגלם את האורח השבוי, אך כאשר בלואי מתחילה להשתלט על המשחק, בינגו מתפטרת ובלואי צריכה ללמוד להתפשר כדי שהכיף יוכל להימשך"
+                            "name": "פרק 22- הבריכה",
+                            "description": "בזמן שאימא אורזת לבילוי בבריכה, בלואי ואבא מקניטים אותה על כך שהיא מגזימה עם האריזה. אבל כשהם מגיעים לא מוכנים, הם מבינים שקצת תכנון משמעותי מאוד"
                         }
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1000:1:11",
-                    "name": "פרק 11 - אופניים",
+                    "id": "il_kan_kids_1001:1:11",
+                    "name": "פרק 23 - חנויות",
                     "season": 1,
                     "episode": 11,
-                    "description": "בלואי מתקשה לרכוב על אופניים. היא צופה בחברותיה ומקבלת השראה לנסות שוב",
-                    "thumbnail": "https://www.kankids.org.il/media/d0odqzjk/בלואי-פרק-11.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/830027/",
+                    "description": "אין כמו משחק \"חנויות\" בשביל בלואי וחבריה, אם הם יצליחו להתחיל!",
+                    "thumbnail": "https://www.kankids.org.il/media/zt4jaxy2/בלואי-פרק-23.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/836797/",
                     "streams": [
                         {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_c1f2560d/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_ynbnup9u/format/applehttp/protocol/https/desiredFileName.m3u8",
                             "type": "series",
-                            "name": "פרק 11 - אופניים",
-                            "description": "בלואי מתקשה ללמוד לרכוב על אופניים בפארק. היא ואביה צופים בחברותיה הנחושות להצליח במשימות שלהן, ובלואי מקבלת השראה לנסות שוב"
+                            "name": "פרק 23 - חנויות",
+                            "description": "אין כמו משחק \"חנויות\" בשביל בלואי וחבריה, אם הם יצליחו להתחיל! כאשר בלואי מפקפקת בחוקים ומשנה את התפקידים, הם עשויים להיות כאן כל היום!"
                         }
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1000:1:12",
-                    "name": "פרק 12 - בוב בילבי",
+                    "id": "il_kan_kids_1001:1:12",
+                    "name": "פרק 24 - בעגלה",
                     "season": 1,
                     "episode": 12,
-                    "description": "כשמגיע תורה של בינגו להביא הביתה את בוב בילבי, המשפחה עוזבת את המסכים",
-                    "thumbnail": "https://www.kankids.org.il/media/3vnflo0f/בלואי-פרק-12.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/830130/",
+                    "description": "בלואי מתה להגיע למתקנים בפארק. סבלנותה עומדת במבחן כשאבא עוצר לשיחה",
+                    "thumbnail": "https://www.kankids.org.il/media/ynunouyp/בלואי-פרק-24.jpg",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/bluey/s1/836808/",
                     "streams": [
                         {
-                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_30rhktio/format/applehttp/protocol/https/desiredFileName.m3u8",
+                            "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_jy977rao/format/applehttp/protocol/https/desiredFileName.m3u8",
                             "type": "series",
-                            "name": "פרק 12 - בוב בילבי",
-                            "description": "כשמגיע תורה של בינגו להביא הביתה את בובת הבוב בילבי של קינדי ולתעד את הסופ\"ש שלהם, המשפחה מחליטה להניח את המסכים ולעשות חיים"
+                            "name": "פרק 24 - בעגלה",
+                            "description": "אבא לוקח את בלואי ובינגו לסיבוב עגלה בפארק ובלואי מתה להגיע למתקני הטיפוס. אבל הסבלנות שלה עומדת במבחן כאשר אבא ממשיך לעצור לשוחח עם מבוגרים"
                         }
                     ]
                 }
             ]
         }
     },
-    "il_kan_kids_1001": {
-        "id": "il_kan_kids_1001",
+    "il_kan_kids_1002": {
+        "id": "il_kan_kids_1002",
         "name": "צ'רלי ולולה",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/",
         "type": "series",
         "subtype": "k",
         "meta": {
-            "id": "il_kan_kids_1001",
+            "id": "il_kan_kids_1002",
             "type": "series",
             "name": "צ'רלי ולולה",
             "link": "https://www.kankids.org.il/content/kids/ktantanim-main/charlie_and_lola/",
@@ -249,7 +290,7 @@
             ],
             "videos": [
                 {
-                    "id": "il_kan_kids_1001:1:1",
+                    "id": "il_kan_kids_1002:1:1",
                     "name": "פרק 1 - אני לעולם לא אוכל עגבנייה",
                     "season": 1,
                     "episode": 1,
@@ -266,7 +307,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:2",
+                    "id": "il_kan_kids_1002:1:2",
                     "name": "פרק 2 - אני יכולה לעשות כל דבר שבעולם, ממש בעצמי",
                     "season": 1,
                     "episode": 2,
@@ -283,7 +324,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:3",
+                    "id": "il_kan_kids_1002:1:3",
                     "name": "פרק 3 - אני לא עייפה ואני לא הולכת לישון",
                     "season": 1,
                     "episode": 3,
@@ -300,7 +341,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:4",
+                    "id": "il_kan_kids_1002:1:4",
                     "name": "פרק 4 - אבל זה הספר שלי",
                     "season": 1,
                     "episode": 4,
@@ -317,7 +358,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:5",
+                    "id": "il_kan_kids_1002:1:5",
                     "name": "פרק 5 - יש רק שמש אחת וזאת אני",
                     "season": 1,
                     "episode": 5,
@@ -334,7 +375,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:6",
+                    "id": "il_kan_kids_1002:1:6",
                     "name": "פרק 6 - אנחנו באמת מבטיחות שנוכל לשמור על הכלב שלך",
                     "season": 1,
                     "episode": 6,
@@ -351,7 +392,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:7",
+                    "id": "il_kan_kids_1002:1:7",
                     "name": "פרק 7 - ניצחתי. לא! אני ניצחתי",
                     "season": 1,
                     "episode": 7,
@@ -368,7 +409,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:8",
+                    "id": "il_kan_kids_1002:1:8",
                     "name": "פרק 8 - אני אוהבת את שיערי בדיוק כמו שהוא",
                     "season": 1,
                     "episode": 8,
@@ -385,7 +426,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:9",
+                    "id": "il_kan_kids_1002:1:9",
                     "name": "פרק 9 - אני באמת באמת,לא מרגישה טוב",
                     "season": 1,
                     "episode": 9,
@@ -395,7 +436,7 @@
                     "streams": []
                 },
                 {
-                    "id": "il_kan_kids_1001:1:10",
+                    "id": "il_kan_kids_1002:1:10",
                     "name": "פרק 10 - אני ממהרת! אני כבר כמעט מוכנה",
                     "season": 1,
                     "episode": 10,
@@ -412,7 +453,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:11",
+                    "id": "il_kan_kids_1002:1:11",
                     "name": "פרק 11-  בו! הבהלתי אותך",
                     "season": 1,
                     "episode": 11,
@@ -429,7 +470,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:12",
+                    "id": "il_kan_kids_1002:1:12",
                     "name": "פרק 12-  הפיקניק הכי הכי נפלא בעולם",
                     "season": 1,
                     "episode": 12,
@@ -446,7 +487,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:13",
+                    "id": "il_kan_kids_1002:1:13",
                     "name": "פרק 13-  זה לא אני",
                     "season": 1,
                     "episode": 13,
@@ -463,7 +504,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:14",
+                    "id": "il_kan_kids_1002:1:14",
                     "name": "פרק 14-  זה סוד",
                     "season": 1,
                     "episode": 14,
@@ -480,7 +521,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:15",
+                    "id": "il_kan_kids_1002:1:15",
                     "name": "פרק 15- אני אוהבת לנסוע לסבא וסבתא אבל...",
                     "season": 1,
                     "episode": 15,
@@ -497,7 +538,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:16",
+                    "id": "il_kan_kids_1002:1:16",
                     "name": "פרק 16-  שן מתנדנדת",
                     "season": 1,
                     "episode": 16,
@@ -514,7 +555,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:17",
+                    "id": "il_kan_kids_1002:1:17",
                     "name": "פרק 17- לחייך",
                     "season": 1,
                     "episode": 17,
@@ -531,7 +572,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:18",
+                    "id": "il_kan_kids_1002:1:18",
                     "name": "פרק 18- עכבישים",
                     "season": 1,
                     "episode": 18,
@@ -548,7 +589,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:19",
+                    "id": "il_kan_kids_1002:1:19",
                     "name": "פרק 19- אני הכי הכי אוהבת שלג",
                     "season": 1,
                     "episode": 19,
@@ -565,7 +606,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:20",
+                    "id": "il_kan_kids_1002:1:20",
                     "name": "פרק 20-  לא תאהבי את המתנה הזאת כמוני",
                     "season": 1,
                     "episode": 20,
@@ -582,7 +623,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:21",
+                    "id": "il_kan_kids_1002:1:21",
                     "name": "פרק 21- אני צריכה לקחת את הכול",
                     "season": 1,
                     "episode": 21,
@@ -599,7 +640,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:22",
+                    "id": "il_kan_kids_1002:1:22",
                     "name": "פרק 22-  גם אני רוצה לנגן",
                     "season": 1,
                     "episode": 22,
@@ -616,7 +657,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:23",
+                    "id": "il_kan_kids_1002:1:23",
                     "name": "פרק 23- אני יותר מדי עסוקה",
                     "season": 1,
                     "episode": 23,
@@ -633,7 +674,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:24",
+                    "id": "il_kan_kids_1002:1:24",
                     "name": "פרק 24-  אני רוצה להיות גדולה יותר, כמוך",
                     "season": 1,
                     "episode": 24,
@@ -650,7 +691,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:25",
+                    "id": "il_kan_kids_1002:1:25",
                     "name": "פרק 25- העיר הקטנה שלי",
                     "season": 1,
                     "episode": 25,
@@ -667,7 +708,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1001:1:26",
+                    "id": "il_kan_kids_1002:1:26",
                     "name": "פרק 26- אבל אני תנינה",
                     "season": 1,
                     "episode": 26,
@@ -880,14 +921,14 @@
             ]
         }
     },
-    "il_kan_kids_1002": {
-        "id": "il_kan_kids_1002",
+    "il_kan_kids_1003": {
+        "id": "il_kan_kids_1003",
         "name": "פרפר נחמד",
         "link": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/",
         "type": "series",
         "subtype": "k",
         "meta": {
-            "id": "il_kan_kids_1002",
+            "id": "il_kan_kids_1003",
             "type": "series",
             "name": "פרפר נחמד",
             "link": "https://www.kankids.org.il/content/kids/ktantanim-main/parpar_nehmad/",
@@ -902,7 +943,7 @@
             ],
             "videos": [
                 {
-                    "id": "il_kan_kids_1002:2:1",
+                    "id": "il_kan_kids_1003:2:1",
                     "name": "המבצר המעופף | פרק 31",
                     "season": 2,
                     "episode": 1,
@@ -919,7 +960,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:2",
+                    "id": "il_kan_kids_1003:2:2",
                     "name": "המטמון | פרק 32",
                     "season": 2,
                     "episode": 2,
@@ -936,7 +977,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:3",
+                    "id": "il_kan_kids_1003:2:3",
                     "name": "המכולת שלנו | פרק 33",
                     "season": 2,
                     "episode": 3,
@@ -953,7 +994,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:4",
+                    "id": "il_kan_kids_1003:2:4",
                     "name": "בץ מחפש געגוע | פרק 34",
                     "season": 2,
                     "episode": 4,
@@ -970,7 +1011,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:5",
+                    "id": "il_kan_kids_1003:2:5",
                     "name": "להציל את עץ התות | פרק 35",
                     "season": 2,
                     "episode": 5,
@@ -987,7 +1028,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:6",
+                    "id": "il_kan_kids_1003:2:6",
                     "name": "שבי יוצא דופן | פרק 36",
                     "season": 2,
                     "episode": 6,
@@ -1004,7 +1045,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:7",
+                    "id": "il_kan_kids_1003:2:7",
                     "name": "החברה החדשה של משי | פרק 37",
                     "season": 2,
                     "episode": 7,
@@ -1021,7 +1062,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:8",
+                    "id": "il_kan_kids_1003:2:8",
                     "name": "האכזבות של נולי | פרק 38",
                     "season": 2,
                     "episode": 8,
@@ -1038,7 +1079,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:9",
+                    "id": "il_kan_kids_1003:2:9",
                     "name": "אני יכול | פרק 39",
                     "season": 2,
                     "episode": 9,
@@ -1055,7 +1096,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:10",
+                    "id": "il_kan_kids_1003:2:10",
                     "name": "שמח בפורים | פרק 40",
                     "season": 2,
                     "episode": 10,
@@ -1072,7 +1113,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:11",
+                    "id": "il_kan_kids_1003:2:11",
                     "name": "בית למשי | פרק 41",
                     "season": 2,
                     "episode": 11,
@@ -1089,7 +1130,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:12",
+                    "id": "il_kan_kids_1003:2:12",
                     "name": "בוקר טוב | פרק 42",
                     "season": 2,
                     "episode": 12,
@@ -1106,7 +1147,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:13",
+                    "id": "il_kan_kids_1003:2:13",
                     "name": "חוגגים עצמאות | פרק 43",
                     "season": 2,
                     "episode": 13,
@@ -1123,7 +1164,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:14",
+                    "id": "il_kan_kids_1003:2:14",
                     "name": "קוף אחרי בן אדם | פרק 44",
                     "season": 2,
                     "episode": 14,
@@ -1140,7 +1181,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:15",
+                    "id": "il_kan_kids_1003:2:15",
                     "name": "הפתעה בהפתעה | פרק 45",
                     "season": 2,
                     "episode": 15,
@@ -1157,7 +1198,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:16",
+                    "id": "il_kan_kids_1003:2:16",
                     "name": "לנשום ולספור | פרק 46",
                     "season": 2,
                     "episode": 16,
@@ -1174,7 +1215,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:17",
+                    "id": "il_kan_kids_1003:2:17",
                     "name": "תחרות הצורה הטובה | פרק 47",
                     "season": 2,
                     "episode": 17,
@@ -1191,7 +1232,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:18",
+                    "id": "il_kan_kids_1003:2:18",
                     "name": "יחד ולבד | פרק 48",
                     "season": 2,
                     "episode": 18,
@@ -1208,7 +1249,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:19",
+                    "id": "il_kan_kids_1003:2:19",
                     "name": "גינת ירק | פרק 49",
                     "season": 2,
                     "episode": 19,
@@ -1225,7 +1266,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:20",
+                    "id": "il_kan_kids_1003:2:20",
                     "name": "אחות קטנה | פרק 50",
                     "season": 2,
                     "episode": 20,
@@ -1242,7 +1283,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:21",
+                    "id": "il_kan_kids_1003:2:21",
                     "name": "משעמם לי | פרק 51",
                     "season": 2,
                     "episode": 21,
@@ -1259,7 +1300,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:22",
+                    "id": "il_kan_kids_1003:2:22",
                     "name": "לפני החגים | פרק 52",
                     "season": 2,
                     "episode": 22,
@@ -1276,7 +1317,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:23",
+                    "id": "il_kan_kids_1003:2:23",
                     "name": "פרק 53 - המופע של אוזה",
                     "season": 2,
                     "episode": 23,
@@ -1293,7 +1334,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:24",
+                    "id": "il_kan_kids_1003:2:24",
                     "name": "פרק 54 - תקשיבו לי",
                     "season": 2,
                     "episode": 24,
@@ -1310,7 +1351,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:25",
+                    "id": "il_kan_kids_1003:2:25",
                     "name": "פרק 55 - בן הדוד מאיטליה",
                     "season": 2,
                     "episode": 25,
@@ -1327,7 +1368,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:26",
+                    "id": "il_kan_kids_1003:2:26",
                     "name": "פרק 56 - דרוש מעשה טוב",
                     "season": 2,
                     "episode": 26,
@@ -1344,7 +1385,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:27",
+                    "id": "il_kan_kids_1003:2:27",
                     "name": "פרק 57 - חוקים וחרובים",
                     "season": 2,
                     "episode": 27,
@@ -1361,7 +1402,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:28",
+                    "id": "il_kan_kids_1003:2:28",
                     "name": "פרק 58 - כשאהיה גדול",
                     "season": 2,
                     "episode": 28,
@@ -1378,7 +1419,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:29",
+                    "id": "il_kan_kids_1003:2:29",
                     "name": "פרק 59 - שקרים לבנים",
                     "season": 2,
                     "episode": 29,
@@ -1395,7 +1436,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:2:30",
+                    "id": "il_kan_kids_1003:2:30",
                     "name": "פרק 60 - החורף הגיע",
                     "season": 2,
                     "episode": 30,
@@ -1412,7 +1453,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:1",
+                    "id": "il_kan_kids_1003:1:1",
                     "name": "איך דמיון מתגלגל | פרק 1",
                     "season": 1,
                     "episode": 1,
@@ -1429,7 +1470,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:2",
+                    "id": "il_kan_kids_1003:1:2",
                     "name": "על טעם ועל ריח | פרק 2",
                     "season": 1,
                     "episode": 2,
@@ -1446,7 +1487,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:3",
+                    "id": "il_kan_kids_1003:1:3",
                     "name": "מי בא לים | פרק 3",
                     "season": 1,
                     "episode": 3,
@@ -1463,7 +1504,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:4",
+                    "id": "il_kan_kids_1003:1:4",
                     "name": "איזה פחד | פרק 4",
                     "season": 1,
                     "episode": 4,
@@ -1480,7 +1521,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:5",
+                    "id": "il_kan_kids_1003:1:5",
                     "name": "מה מצחיק? | פרק 5",
                     "season": 1,
                     "episode": 5,
@@ -1497,7 +1538,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:6",
+                    "id": "il_kan_kids_1003:1:6",
                     "name": "עננים צהובים | פרק 6",
                     "season": 1,
                     "episode": 6,
@@ -1514,7 +1555,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:7",
+                    "id": "il_kan_kids_1003:1:7",
                     "name": "בץ החוקר | פרק 7",
                     "season": 1,
                     "episode": 7,
@@ -1531,7 +1572,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:8",
+                    "id": "il_kan_kids_1003:1:8",
                     "name": "החבורה הסודית | פרק 8",
                     "season": 1,
                     "episode": 8,
@@ -1548,7 +1589,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:9",
+                    "id": "il_kan_kids_1003:1:9",
                     "name": "השכנה החדשה | פרק 9",
                     "season": 1,
                     "episode": 9,
@@ -1565,7 +1606,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:10",
+                    "id": "il_kan_kids_1003:1:10",
                     "name": "המעודדים | פרק 10",
                     "season": 1,
                     "episode": 10,
@@ -1582,7 +1623,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:11",
+                    "id": "il_kan_kids_1003:1:11",
                     "name": "מה לובשים למסיבה | פרק 11",
                     "season": 1,
                     "episode": 11,
@@ -1599,7 +1640,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:12",
+                    "id": "il_kan_kids_1003:1:12",
                     "name": "מעט, הרבה, המון | פרק 12",
                     "season": 1,
                     "episode": 12,
@@ -1616,7 +1657,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:13",
+                    "id": "il_kan_kids_1003:1:13",
                     "name": "חנוכה | פרק 13",
                     "season": 1,
                     "episode": 13,
@@ -1633,7 +1674,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:14",
+                    "id": "il_kan_kids_1003:1:14",
                     "name": "אוסף הכדורים של שבי | פרק 14",
                     "season": 1,
                     "episode": 14,
@@ -1650,7 +1691,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:15",
+                    "id": "il_kan_kids_1003:1:15",
                     "name": "הברוגז של שבי | פרק 15",
                     "season": 1,
                     "episode": 15,
@@ -1667,7 +1708,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:16",
+                    "id": "il_kan_kids_1003:1:16",
                     "name": "גשם של טבעות | פרק 16",
                     "season": 1,
                     "episode": 16,
@@ -1684,7 +1725,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:17",
+                    "id": "il_kan_kids_1003:1:17",
                     "name": "בץ מדבר בצית | פרק 17",
                     "season": 1,
                     "episode": 17,
@@ -1701,7 +1742,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:18",
+                    "id": "il_kan_kids_1003:1:18",
                     "name": "לבריאות שבי מדביק | פרק 18",
                     "season": 1,
                     "episode": 18,
@@ -1718,7 +1759,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:19",
+                    "id": "il_kan_kids_1003:1:19",
                     "name": "ממציאים המצאות | פרק 19",
                     "season": 1,
                     "episode": 19,
@@ -1735,7 +1776,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:20",
+                    "id": "il_kan_kids_1003:1:20",
                     "name": "חברים לעפיפון | פרק 20",
                     "season": 1,
                     "episode": 20,
@@ -1752,7 +1793,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:21",
+                    "id": "il_kan_kids_1003:1:21",
                     "name": "האוטובץ | פרק 21",
                     "season": 1,
                     "episode": 21,
@@ -1769,7 +1810,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:22",
+                    "id": "il_kan_kids_1003:1:22",
                     "name": "איפה העוגה? | פרק 22",
                     "season": 1,
                     "episode": 22,
@@ -1786,7 +1827,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:23",
+                    "id": "il_kan_kids_1003:1:23",
                     "name": "יום הולדת למוזה | פרק 23",
                     "season": 1,
                     "episode": 23,
@@ -1803,7 +1844,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:24",
+                    "id": "il_kan_kids_1003:1:24",
                     "name": "התחלות חדשות | פרק 24",
                     "season": 1,
                     "episode": 24,
@@ -1820,7 +1861,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:25",
+                    "id": "il_kan_kids_1003:1:25",
                     "name": "פסח בא! | פרק 25",
                     "season": 1,
                     "episode": 25,
@@ -1837,7 +1878,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:26",
+                    "id": "il_kan_kids_1003:1:26",
                     "name": "מסיבת הפתעה | פרק 26",
                     "season": 1,
                     "episode": 26,
@@ -1854,7 +1895,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:27",
+                    "id": "il_kan_kids_1003:1:27",
                     "name": "טיפ, טיפה קנאה | פרק 27",
                     "season": 1,
                     "episode": 27,
@@ -1871,7 +1912,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:28",
+                    "id": "il_kan_kids_1003:1:28",
                     "name": "ביצת זהב | פרק 28",
                     "season": 1,
                     "episode": 28,
@@ -1888,7 +1929,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:29",
+                    "id": "il_kan_kids_1003:1:29",
                     "name": "האספנים | פרק 29",
                     "season": 1,
                     "episode": 29,
@@ -1905,7 +1946,7 @@
                     ]
                 },
                 {
-                    "id": "il_kan_kids_1002:1:30",
+                    "id": "il_kan_kids_1003:1:30",
                     "name": "שבי הקוסם | פרק 30",
                     "season": 1,
                     "episode": 30,
@@ -1952,7 +1993,7 @@
                     "episode": 1,
                     "description": "דרדס טבע מנסה להפוך כמה דרדסים שמתקשים במשימה ביער, לדרדסי יער אמיתיים",
                     "thumbnail": "https://www.kankids.org.il/media/vxepnjgi/הדרדסים-2-פרק-11.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-390426/עונה-2/768264/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-390426/s2/768264/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_yfdgfp7e/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1969,7 +2010,7 @@
                     "episode": 2,
                     "description": "גרגמל מתחפש לחילזון כדי להסתנן לכפר הדרדסים ולא מצליח לחזור לדמותו.",
                     "thumbnail": "https://www.kankids.org.il/media/4jcfvh3x/הדרדסים-2-פרק-12.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-390426/עונה-2/768267/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-390426/s2/768267/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_iw14k9n8/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -1986,7 +2027,7 @@
                     "episode": 3,
                     "description": "לבלובית רבה עם חברותיה והולכת לגור עם דרדס פרא ומגלה שזה לא פשוט",
                     "thumbnail": "https://www.kankids.org.il/media/v42of0s1/הדרדסים-2-פרק-13.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-390426/עונה-2/768270/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-390426/s2/768270/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_iv7mhhjd/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2003,7 +2044,7 @@
                     "episode": 4,
                     "description": "בניסוי שמשתבש בר מח מאבד את החוכמה שלו וחובר לטפשוני",
                     "thumbnail": "https://www.kankids.org.il/media/bulopcco/הדרדסים-2-פרק-14.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-390426/עונה-2/768275/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-390426/s2/768275/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_q2e0ms0x/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -2020,7 +2061,7 @@
                     "episode": 5,
                     "description": "דרדס טבח וזללני מתמודדים בדרך לפסטיבל האביב עם קרסול נקוע, וסופלה ענק",
                     "thumbnail": "https://www.kankids.org.il/media/5ljaaj1d/הדרדסים-2-פרק-15.jpg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-390426/עונה-2/768277/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-390426/s2/768277/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_56g5vckr/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4425,7 +4466,7 @@
                     "episode": 1,
                     "description": "בס הרעב מאיץ בעצים שיגדלו פירות מהר יותר",
                     "thumbnail": "https://www.kankids.org.il/media/bbpl3bws/2019-6-27-imgid-15438_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91115/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/91115/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_4lzvi5p0/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4442,7 +4483,7 @@
                     "episode": 2,
                     "description": "פלור דוחה את סידור גינת הג'ונגל עד כדי כך שצומח אצלה האנדרלמוס",
                     "thumbnail": "https://www.kankids.org.il/media/v1cn21f3/2019-6-27-imgid-15439_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91120/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/91120/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_l4pgmrwg/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4459,7 +4500,7 @@
                     "episode": 3,
                     "description": "לסולינה נתקע קוץ ביד והחברים מנסים להוציא לה אותו",
                     "thumbnail": "https://www.kankids.org.il/media/ngdd2t4n/2019-6-27-imgid-15440_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91123/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/91123/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_17l23zoo/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4476,7 +4517,7 @@
                     "episode": 4,
                     "description": "גולי חושב שהחברים לעגו לשיר שלו ומאבד את הביטחון העצמי",
                     "thumbnail": "https://www.kankids.org.il/media/naclybp5/2019-6-27-imgid-15441_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91126/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/91126/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_gg6ousus/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4493,7 +4534,7 @@
                     "episode": 5,
                     "description": "בס משחק עם כוכב ים בתלולית הגעש, אך סולינה אומרת שבס לקח אותו בלי רשות",
                     "thumbnail": "https://www.kankids.org.il/media/42ia01nu/2019-6-27-imgid-15442_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91129/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/91129/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_g1vipk3g/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4510,7 +4551,7 @@
                     "episode": 6,
                     "description": "בס מלמד את חבריו שיר שיעזור להם לישון בשקט בלי הרעשים שמסביב",
                     "thumbnail": "https://www.kankids.org.il/media/2fmfbjpw/2019-6-27-imgid-15443_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91132/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/91132/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_iwqi24mm/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4527,7 +4568,7 @@
                     "episode": 7,
                     "description": "סולינה מתביישת כשאינה מצליחה לשרוק ומסרבת להתאמן עם החברים",
                     "thumbnail": "https://www.kankids.org.il/media/1vphiiix/2019-6-27-imgid-15444_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91135/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/91135/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_2sg0rsrj/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4544,7 +4585,7 @@
                     "episode": 8,
                     "description": "ספינת הצעצוע של גולי נעלמת במים",
                     "thumbnail": "https://www.kankids.org.il/media/2kihctj0/2019-6-27-imgid-15446_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91138/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/91138/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_8g624b5n/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4561,7 +4602,7 @@
                     "episode": 9,
                     "description": "לגולי משעמם אבל לאף אחד אין זמן בשבילו",
                     "thumbnail": "https://www.kankids.org.il/media/cswgo4ue/2019-6-27-imgid-15447_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91141/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/91141/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_syj97oda/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4578,7 +4619,7 @@
                     "episode": 10,
                     "description": "פלור חולה בפהקת, היא מרגישה לא טוב והיא לא מצליחה להפסיק לפהק",
                     "thumbnail": "https://www.kankids.org.il/media/4ipbs1e4/2019-6-27-imgid-15449_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91144/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/91144/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_4prt7npi/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4595,7 +4636,7 @@
                     "episode": 11,
                     "description": "פלור מפחדת ללכת לישון עקב חלום רע שחלמה, החברים נפגשים ומספרים חלומות",
                     "thumbnail": "https://www.kankids.org.il/media/0jljxaq5/2019-6-27-imgid-15451_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91147/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/91147/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_7bsorwfd/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4612,7 +4653,7 @@
                     "episode": 12,
                     "description": "רעש מפחיד מעיר את פלור באמצע הלילה",
                     "thumbnail": "https://www.kankids.org.il/media/f52j5tzz/2019-6-27-imgid-15452_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91150/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/91150/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_qn3zu9w5/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4629,7 +4670,7 @@
                     "episode": 13,
                     "description": "בס מוצא מפת מטמון עתיקה ומחליט לנסוע בעקבותיה לכוכב המטמון",
                     "thumbnail": "https://www.kankids.org.il/media/duvf0qep/2019-6-27-imgid-15453_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91153/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/91153/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_4pylwcup/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4646,7 +4687,7 @@
                     "episode": 14,
                     "description": "לכבוד יום הולדתה, סולינה מבקשת מכל אחד מחבריה להכין קטע ממיטב כישרונו",
                     "thumbnail": "https://www.kankids.org.il/media/t4cow0yc/2019-6-27-imgid-15455_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91156/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/91156/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_kb8onn1p/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4663,7 +4704,7 @@
                     "episode": 15,
                     "description": "סולינה מעליבה את בס, אבל מתקשה לבקש סליחה",
                     "thumbnail": "https://www.kankids.org.il/media/tz1dvn3k/2019-6-27-imgid-15456_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91159/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/91159/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_fibjaood/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4680,7 +4721,7 @@
                     "episode": 16,
                     "description": "הפלנטונים עושים ערב חידות",
                     "thumbnail": "https://www.kankids.org.il/media/iggcqcrc/2019-6-27-imgid-15457_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91162/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/91162/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_61qsr4fr/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4697,7 +4738,7 @@
                     "episode": 17,
                     "description": "סולינה ערכה מסיבה ונתקעה עם ערימת זבל גדולה",
                     "thumbnail": "https://www.kankids.org.il/media/zati15vm/2019-6-27-imgid-15458_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/91165/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/91165/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_zigbjf0g/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4714,7 +4755,7 @@
                     "episode": 18,
                     "description": "גולי רוצה להיות גיבור על ומנסה להציל את סולינה ובס אבל הוא רק מפריע",
                     "thumbnail": "https://www.kankids.org.il/media/n4jm1meh/2019-6-27-imgid-15433_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104266/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104266/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_i910dg3s/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4731,7 +4772,7 @@
                     "episode": 19,
                     "description": "בס נוסע לבקר את אחיו בסון וסולינה מחליטה לעשות לו הפתעה",
                     "thumbnail": "https://www.kankids.org.il/media/b1dahvtq/2019-6-27-imgid-15434_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104269/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104269/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_2k3rd56a/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4748,7 +4789,7 @@
                     "episode": 20,
                     "description": "החברים לומדים מקצב חדש שגורם לעגלה של בס לרחף באוויר",
                     "thumbnail": "https://www.kankids.org.il/media/ihblwerw/2019-6-27-imgid-15435_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104272/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104272/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_xpn4spla/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4765,7 +4806,7 @@
                     "episode": 21,
                     "description": "גרגיר חול המזל של סולינה אבד ועכשיו היא בטוחה שיותר לא יהיה לה מזל",
                     "thumbnail": "https://www.kankids.org.il/media/uwdbw1st/2019-6-27-imgid-15436_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104275/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104275/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_jq5okjp8/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4782,7 +4823,7 @@
                     "episode": 22,
                     "description": "הפלנטונים עורכים תחרות שירה לקראת הגלקסיזיון, ומגלים שכיף לשיר ביחד",
                     "thumbnail": "https://www.kankids.org.il/media/1qliam5a/2019-6-30-imgid-15574_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104303/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104303/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_wpu6qhdi/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4799,7 +4840,7 @@
                     "episode": 23,
                     "description": "בס מרעיש בלילות ולא מניח לשכניו לישון, הם קובעים חוק נגד הפרעה",
                     "thumbnail": "https://www.kankids.org.il/media/1e0bhrhe/2019-6-30-imgid-15576_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104306/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104306/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_igok030j/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4816,7 +4857,7 @@
                     "episode": 24,
                     "description": "סולינה נרגשת כשבארמון החול שלה מופיע צמח שיר נדיר",
                     "thumbnail": "https://www.kankids.org.il/media/q5vprfwz/2019-6-30-imgid-15579_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104309/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104309/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_zw1np4eh/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4833,7 +4874,7 @@
                     "episode": 25,
                     "description": "פרח חדש וקסום הופיע בין לילה בפלנטון, אך באותה מהירות הוא גם נובל",
                     "thumbnail": "https://www.kankids.org.il/media/gz5cak1w/2019-6-30-imgid-15580_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104312/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104312/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_g0wvsnae/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4850,7 +4891,7 @@
                     "episode": 26,
                     "description": "קרפדינה תקועה על העץ הכי גבוה בגינת הג'ונגל ומפחדת לרדת",
                     "thumbnail": "https://www.kankids.org.il/media/x53f5ni3/2019-6-30-imgid-15582_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104315/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104315/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_81cpm67o/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4867,7 +4908,7 @@
                     "episode": 27,
                     "description": "בס נעלב מהעובדה שדווקא הצבע שלו - אדום, משמש כדי לעצור או לאסור מעבר",
                     "thumbnail": "https://www.kankids.org.il/media/qv2pcm55/2019-6-30-imgid-15583_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104318/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104318/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_z6miaa3h/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4884,7 +4925,7 @@
                     "episode": 28,
                     "description": "גולי רב עם מר דג ומחליט לעבור דירה, אבל בשום מקום הוא לא מרגיש בבית",
                     "thumbnail": "https://www.kankids.org.il/media/nbsfnrl5/2019-6-30-imgid-15584_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104321/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104321/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_md5gajg0/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4901,7 +4942,7 @@
                     "episode": 29,
                     "description": "גולי לא מוצא חרוז לשם שלו ומחליט לשנות אותו. מה יהיה שמו החדש?",
                     "thumbnail": "https://www.kankids.org.il/media/p2xjgo3l/2019-8-25-imgid-19317_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/105395/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/105395/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_kpk9puv1/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4918,7 +4959,7 @@
                     "episode": 30,
                     "description": "הפלנטונים עורכים יום ספורט תחרותי, וגולי מפסיד כל הזמן ומתעצב",
                     "thumbnail": "https://www.kankids.org.il/media/sx4fdxpu/2019-6-30-imgid-15608_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104327/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104327/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_d7l59b2s/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4935,7 +4976,7 @@
                     "episode": 31,
                     "description": "בס משתמש בערסל של פלור ללא רשות, והערסל נקרע. מה הוא יעשה?",
                     "thumbnail": "https://www.kankids.org.il/media/unwclbph/2019-6-30-imgid-15609_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104330/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104330/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_aq99jlrr/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4952,7 +4993,7 @@
                     "episode": 32,
                     "description": "גולי מבקש מסולינה חול לבנות סככה, ובתמורה היא נותנת לו חול",
                     "thumbnail": "https://www.kankids.org.il/media/bp3i1wrn/2019-6-30-imgid-15611_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104333/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104333/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_nfntlha0/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4969,7 +5010,7 @@
                     "episode": 33,
                     "description": "בס מארגן טיול לכולם. בדרך הם נתקלים בסלע גדול שמפריע להם להמשיך",
                     "thumbnail": "https://www.kankids.org.il/media/bxin05ho/2019-6-30-imgid-15612_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104336/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104336/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_j495yhyz/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -4986,7 +5027,7 @@
                     "episode": 34,
                     "description": "פלור מרגישה שאינה טובה בכלום. דוקטור דג מלמד אותה כיצד להפריח בועות",
                     "thumbnail": "https://www.kankids.org.il/media/0habzr4c/2019-8-5-imgid-17892_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/105242/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/105242/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_j8wbk2be/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -5003,7 +5044,7 @@
                     "episode": 35,
                     "description": "פלור מוצאת פטריית מרשמלו בגינת הג'ונגל וכדי שהיא תגדל צריך לשיר לה",
                     "thumbnail": "https://www.kankids.org.il/media/k1jff25e/2019-6-30-imgid-15613_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104339/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104339/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_e4da4g4r/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -5020,7 +5061,7 @@
                     "episode": 36,
                     "description": "ד\"ר דג ובס עורכים תחרות שתכריע מי השחיין הטוב ביותר. את מי יעודד גולי?",
                     "thumbnail": "https://www.kankids.org.il/media/5qgfmxkm/2019-7-8-imgid-16199_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104568/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104568/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_b42gb7u2/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -5037,7 +5078,7 @@
                     "episode": 37,
                     "description": "סולינה מזמינה את החברים לארוחה, אבל המנה נשרפה. האם יגידו לה את האמת?",
                     "thumbnail": "https://www.kankids.org.il/media/m4bfsqv3/2019-8-5-imgid-17888_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/105236/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/105236/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_23rouh0n/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -5054,7 +5095,7 @@
                     "episode": 38,
                     "description": "בס אומר מילה שגולי לא מבין. גולי מתבייש להודות שאינו מכיר את המילה",
                     "thumbnail": "https://www.kankids.org.il/media/vwpbyp3s/2019-6-30-imgid-15614_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104342/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104342/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_a96q9ktw/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -5071,7 +5112,7 @@
                     "episode": 39,
                     "description": "בס מאבד את אבן, וכדי למצוא אותה הוא מלמד את הפלנטונים את משחק המחבואים",
                     "thumbnail": "https://www.kankids.org.il/media/f4qnf31k/2019-6-30-imgid-15617_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104345/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104345/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_tdh0iypm/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -5088,7 +5129,7 @@
                     "episode": 40,
                     "description": "סולינה עוקבת אחרי בס בניסיון לגלות את התבלין הסודי שהוא מוסיף לבישוליו",
                     "thumbnail": "https://www.kankids.org.il/media/r3cag3vz/2019-6-30-imgid-15619_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104351/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104351/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_akmknkod/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -5105,7 +5146,7 @@
                     "episode": 41,
                     "description": "הפירות בגינת הג'ונגל של פלור הבשילו והיא רוצה להכין לכולם סלט פירות",
                     "thumbnail": "https://www.kankids.org.il/media/4bwn5w02/2019-6-30-imgid-15622_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104354/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104354/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_g460r4tx/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -5122,7 +5163,7 @@
                     "episode": 42,
                     "description": "בס מקבל מאחיו בסון מכתב המעורר בו געגועים והוא מחליט לנסוע לבקר אותו",
                     "thumbnail": "https://www.kankids.org.il/media/tuupxexk/2019-7-1-imgid-15686_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104384/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104384/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_dizp0h19/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -5139,7 +5180,7 @@
                     "episode": 43,
                     "description": "לגולי נמאס להיות כמו כולם, והוא משנה את דרכיו כדי להיות מקורי",
                     "thumbnail": "https://www.kankids.org.il/media/u0hduurq/2019-7-1-imgid-15688_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104387/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104387/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_44ikb7m1/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -5156,7 +5197,7 @@
                     "episode": 44,
                     "description": "סולינה מספרת לבס על חלום שחלמה עליו בו הלביבות המפורסמות שלו כשלו",
                     "thumbnail": "https://www.kankids.org.il/media/x2plpgwn/2019-7-1-imgid-15689_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104390/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104390/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_75j68hg1/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -5173,7 +5214,7 @@
                     "episode": 45,
                     "description": "לסולינה יש תסרוקת חדשה שמאוד לא מוצאת חן בעיני החברים בפלנטון",
                     "thumbnail": "https://www.kankids.org.il/media/y43mc0wd/2019-8-5-imgid-17889_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/105239/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/105239/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_q3pu25jn/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -5190,7 +5231,7 @@
                     "episode": 46,
                     "description": "בס החזאי לומד להתמודד עם מזג האוויר ולרתום אותו לצרכי הפלנטונים",
                     "thumbnail": "https://www.kankids.org.il/media/4cenhtst/2019-7-7-imgid-16090_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104476/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104476/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_2fgz10bm/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -5207,7 +5248,7 @@
                     "episode": 47,
                     "description": "גולי ופלור מתווכחים מתי יאכלו את פטרית המרשמלו. האם הם יצליחו להתפשר?",
                     "thumbnail": "https://www.kankids.org.il/media/bzuat5cj/2019-7-7-imgid-16091_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104479/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104479/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_xfqzsins/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -5224,7 +5265,7 @@
                     "episode": 48,
                     "description": "החברים משוכנעים שבס חולה או כועס או נעלב ומנסים לעזור",
                     "thumbnail": "https://www.kankids.org.il/media/oj5lvza4/2019-7-24-imgid-17175_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/105017/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/105017/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_niohhhb4/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -5241,7 +5282,7 @@
                     "episode": 49,
                     "description": "גולי חולה בעצבת והפלנטונים מפנקים אותו. פלור רוקחת תרופה שמרפאת אותו",
                     "thumbnail": "https://www.kankids.org.il/media/yg1dj2mn/2019-8-25-imgid-19318_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/105398/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/105398/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_osd9ageg/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -5258,7 +5299,7 @@
                     "episode": 50,
                     "description": "בס מתחייב לעזור לסולינה ולגולי אך שניהם זקוקים לעזרתו בדיוק באותו הזמן",
                     "thumbnail": "https://www.kankids.org.il/media/1fjj1qm4/2019-7-22-imgid-17070_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104987/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104987/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_v3l9semr/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -5275,7 +5316,7 @@
                     "episode": 51,
                     "description": "סולינה מלמדת את גולי לצייר אגרטל עם פרחים, אך גולי לא מצליח לצייר כמוה",
                     "thumbnail": "https://www.kankids.org.il/media/nndnskua/2019-7-8-imgid-16200_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/104571/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/104571/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_s919uzxl/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -5292,7 +5333,7 @@
                     "episode": 52,
                     "description": "בס מגלה שחבריו מכינים לו מסיבת הפתעה, מה שהורס את ההפתעה ומבטל אותה",
                     "thumbnail": "https://www.kankids.org.il/media/n0ef3h3a/2019-8-1-imgid-17665_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/105074/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/105074/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_dud2yrht/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -5309,7 +5350,7 @@
                     "episode": 53,
                     "description": "גולי מסתיר מחבריו את האמת, ומרוב רגשות אשם צומח צמח שמנגן לו על המצפון",
                     "thumbnail": "https://www.kankids.org.il/media/w5ppqe4b/2019-7-24-imgid-17176_a.jpeg",
-                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/עונה-1/105020/",
+                    "episodeLink": "https://www.kankids.org.il/content/kids/ktantanim-main/p-11429/s1/105020/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_egsypbf2/format/applehttp/protocol/https/desiredFileName.m3u8",
