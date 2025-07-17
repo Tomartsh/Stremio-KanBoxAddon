@@ -17240,7 +17240,7 @@
                     "season": 1,
                     "episode": 5,
                     "description": "מה הילדים היו עושים לו היו מתעשרים",
-                    "thumbnail": "",
+                    "thumbnail": "https://www.kan.org.il/media/gybiav2x/omer05-web.jpg",
                     "episodeLink": "https://www.kan.org.il/content/archive1/vod/p-725264/725281/",
                     "streams": [
                         {
@@ -18133,8 +18133,8 @@
             ]
         }
     },
-    "il_kan_archive_1000": {
-        "id": "il_kan_archive_1000",
+    "il_kan_archive_1020": {
+        "id": "il_kan_archive_1020",
         "name": "שיישאר בינינו",
         "poster": "https://www.kan.org.il/media/bzkpzbox/poster-image_small_239x360_פוסטר-קטן.jpg",
         "description": "",
@@ -18144,7 +18144,7 @@
         "type": "series",
         "subtype": "a",
         "meta": {
-            "id": "il_kan_archive_1000",
+            "id": "il_kan_archive_1020",
             "type": "series",
             "name": "שיישאר בינינו",
             "link": "https://www.kan.org.il/content/archive1/vod/betweenus/",
@@ -18161,7 +18161,7 @@
             ],
             "videos": [
                 {
-                    "id": "il_kan_archive_1000:1:1",
+                    "id": "il_kan_archive_1020:1:1",
                     "name": "פרק 1 - שעמום",
                     "season": 1,
                     "episode": 1,
@@ -18179,7 +18179,7 @@
                     "released": "1985-12-29T00:00:00.000Z"
                 },
                 {
-                    "id": "il_kan_archive_1000:1:2",
+                    "id": "il_kan_archive_1020:1:2",
                     "name": "פרק 2 - עוברים דירה",
                     "season": 1,
                     "episode": 2,
@@ -18197,7 +18197,7 @@
                     "released": "2024-01-21T00:00:00.000Z"
                 },
                 {
-                    "id": "il_kan_archive_1000:1:3",
+                    "id": "il_kan_archive_1020:1:3",
                     "name": "פרק 3 - נימוסים",
                     "season": 1,
                     "episode": 3,
@@ -18215,7 +18215,7 @@
                     "released": "2024-01-21T00:00:00.000Z"
                 },
                 {
-                    "id": "il_kan_archive_1000:1:4",
+                    "id": "il_kan_archive_1020:1:4",
                     "name": "פרק 4 -  לילה",
                     "season": 1,
                     "episode": 4,
@@ -18233,7 +18233,7 @@
                     "released": "1986-01-26T00:00:00.000Z"
                 },
                 {
-                    "id": "il_kan_archive_1000:1:5",
+                    "id": "il_kan_archive_1020:1:5",
                     "name": "פרק 5 - לקט",
                     "season": 1,
                     "episode": 5,
@@ -21359,7 +21359,7 @@
                             "description": "לקט משיריו של הזמר והיוצר, שירי סולו כמו \"בואי נישאר ו\"בלעדייך\", וכן ביצועים עם להקת \"גזוז\".\nשודר בשנת 1978"
                         }
                     ],
-                    "released": "2024-08-07T00:00:00.000Z"
+                    "released": "1977-12-31T00:00:00.000Z"
                 },
                 {
                     "id": "il_kan_archive_659692:1:12",
@@ -29595,21 +29595,21 @@
             ]
         }
     },
-    "il_kan_archive_753843": {
-        "id": "il_kan_archive_753843",
+    "il_kan_archive_198384": {
+        "id": "il_kan_archive_198384",
         "name": "עונת 1983/84",
         "poster": "https://www.kan.org.il/media/0rwlurw4/4_poster-image_small_239x360.jpg",
         "description": "",
-        "link": "https://www.kan.org.il/content/archive1/sport/p-753843/",
+        "link": "https://www.kan.org.il/content/archive1/sport/s198384/",
         "background": "https://www.kan.org.il/media/0rwlurw4/4_poster-image_small_239x360.jpg",
         "genres": "",
         "type": "series",
         "subtype": "a",
         "meta": {
-            "id": "il_kan_archive_753843",
+            "id": "il_kan_archive_198384",
             "type": "series",
             "name": "עונת 1983/84",
-            "link": "https://www.kan.org.il/content/archive1/sport/p-753843/",
+            "link": "https://www.kan.org.il/content/archive1/sport/s198384/",
             "background": "https://www.kan.org.il/media/0rwlurw4/4_poster-image_small_239x360.jpg",
             "poster": "https://www.kan.org.il/media/0rwlurw4/4_poster-image_small_239x360.jpg",
             "posterShape": "poster",
@@ -29623,13 +29623,13 @@
             ],
             "videos": [
                 {
-                    "id": "il_kan_archive_753843:1:1",
+                    "id": "il_kan_archive_198384:1:1",
                     "name": "מבט ספורט | עונת 83/84, סיכום המחזור ה-30",
                     "season": 1,
                     "episode": 1,
                     "description": "סיכום מחזור 30: במוקד - האליפות הראשונה של מכבי חיפה",
                     "thumbnail": "https://www.kan.org.il/media/j4xm3m2s/sprb_ui1850580200_04_54_07still001.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-753843/753940/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/s198384/753940/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_qkt0am9e/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -30691,7 +30691,7 @@
                     "episode": 1,
                     "description": "סיכום מחזור 1",
                     "thumbnail": "https://www.kan.org.il/media/u12i2cwp/משחק-השבת-מחזור-1.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/758261/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/758261/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_8y8ych2r/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -30709,7 +30709,7 @@
                     "episode": 2,
                     "description": "סיכום מחזור 2",
                     "thumbnail": "https://www.kan.org.il/media/g1ebiexh/מחשק-השבת-86-87-מחזור-2.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/758267/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/758267/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_2igqhkd1/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -30727,7 +30727,7 @@
                     "episode": 3,
                     "description": "סיכום מחזור 3",
                     "thumbnail": "https://www.kan.org.il/media/hv3lcbui/1_sb7ltug0.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/757511/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/757511/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_vvvij2ko/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -30745,7 +30745,7 @@
                     "episode": 4,
                     "description": "סיכום מחזור 4",
                     "thumbnail": "https://www.kan.org.il/media/zwhn0o45/sprb_pu70192197.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/759284/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/759284/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_nrwyz5f4/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -30763,7 +30763,7 @@
                     "episode": 5,
                     "description": "סיכום מחזור 5",
                     "thumbnail": "https://www.kan.org.il/media/tsbjwauf/sprb_pu70191769.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/759287/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/759287/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_3ng6bi01/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -30781,7 +30781,7 @@
                     "episode": 6,
                     "description": "סיכום מחזור 6",
                     "thumbnail": "https://www.kan.org.il/media/pncmfbtu/sprb_pu70191900.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/759291/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/759291/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_abip6cb7/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -30799,7 +30799,7 @@
                     "episode": 7,
                     "description": "סיכום מחזור 8",
                     "thumbnail": "https://www.kan.org.il/media/tqypvqid/sprb_pu70193104.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/759292/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/759292/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_zjafmzqx/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -30817,7 +30817,7 @@
                     "episode": 8,
                     "description": "סיכום מחזור 9",
                     "thumbnail": "https://www.kan.org.il/media/q2odruyx/sprb_pu70191744.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/759293/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/759293/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_jnr59v0a/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -30835,7 +30835,7 @@
                     "episode": 9,
                     "description": "סיכום מחזור 10",
                     "thumbnail": "https://www.kan.org.il/media/2pthw15g/sprb_ue17019206.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/759294/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/759294/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_bsftq50e/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -30853,7 +30853,7 @@
                     "episode": 10,
                     "description": "סיכום מחזור 11: במוקד - בית\"ר-הפועל ת\"א, מכבי חיפה-מכבי ת\"א",
                     "thumbnail": "https://www.kan.org.il/media/0ihnbu5w/pu70192015.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/494818/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/494818/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_xkokdtzw/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -30871,7 +30871,7 @@
                     "episode": 11,
                     "description": "סיכום מחזור 12: במוקד - שמשון-הפועל ת\"א, בית\"ר ירושלים-מכבי ת\"א",
                     "thumbnail": "https://www.kan.org.il/media/14ximfzt/sprb_pu7019192600_05_33_10still001.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/744226/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/744226/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_xdujkl66/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -30889,7 +30889,7 @@
                     "episode": 12,
                     "description": "סיכום מחזור 13: במוקד - בית\"ר י-ם-מכבי נתניה",
                     "thumbnail": "https://www.kan.org.il/media/4noluqwb/pu70192155_full.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/494821/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/494821/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_1283heyq/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -30907,7 +30907,7 @@
                     "episode": 13,
                     "description": "סיכום מחזור 14: במוקד - בית\"ר י-ם-הפועל פ\"ת, שמשון ת\"א-מכבי נתניה",
                     "thumbnail": "https://www.kan.org.il/media/h2mlhlpj/pu70192551_full.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/494823/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/494823/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_25d5azxe/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -30925,7 +30925,7 @@
                     "episode": 14,
                     "description": "סיכום מחזור 16: במוקד - בית\"ר י-ם-בני יהודה",
                     "thumbnail": "https://www.kan.org.il/media/qj1bldnp/sprb_pu7019567900_07_15_05still001.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/744016/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/744016/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_8iuaqdlf/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -30943,7 +30943,7 @@
                     "episode": 15,
                     "description": "סיכום מחזור 17: במוקד - בית\"ר י-ם-מכבי חיפה",
                     "thumbnail": "https://www.kan.org.il/media/rprp2id4/pu70195208_full.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/494837/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/494837/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_msd0ln39/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -30961,7 +30961,7 @@
                     "episode": 16,
                     "description": "סיכום מחזור 19: במוקד - בית\"ר י-ם-שמשון, הפועל ת\"א-מכבי יבנה",
                     "thumbnail": "https://www.kan.org.il/media/ep1lmspu/8.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/744542/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/744542/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_m2ic5ms7/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -30979,7 +30979,7 @@
                     "episode": 17,
                     "description": "סיכום מחזור 20: במוקד - הדרבי של ת\"א ובית\"ר י-ם-ביתר ת\"א",
                     "thumbnail": "https://www.kan.org.il/media/xcrfuvwb/משחק-השבת-עונה-8687-מחזור-20.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/744567/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/744567/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_2qo78k2y/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -30997,7 +30997,7 @@
                     "episode": 18,
                     "description": "סיכום מחזור 21: במוקד - מכבי נתניה-הפועל ת\"א, מכבי ת\"א נגד מכבי יבנה",
                     "thumbnail": "https://www.kan.org.il/media/mqulpnyi/משחק-השבת-עונה-8687-מחזור-21.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/744629/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/744629/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_2saqcsu5/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -31015,7 +31015,7 @@
                     "episode": 19,
                     "description": "סיכום מחזור 22: במוקד -  בית\"ר י-ם-נגד הפועל לוד, שמשון-בית\"ר נתניה",
                     "thumbnail": "https://www.kan.org.il/media/4okdxfwh/pu7019679200_17_52_12still002.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/744633/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/744633/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_jrmlknfg/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -31033,7 +31033,7 @@
                     "episode": 20,
                     "description": "סיכום מחזור 23: במוקד - הפועל כ\"ס-בני יהודה",
                     "thumbnail": "https://www.kan.org.il/media/yukijika/23.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/744643/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/744643/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_me0jmfnc/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -31051,7 +31051,7 @@
                     "episode": 21,
                     "description": "סיכום מחזור 24: במוקד - שמשון-מכבי יפו, ביתר י-ם-הפועל ב\"ש",
                     "thumbnail": "https://www.kan.org.il/media/jmpfdjro/24.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/744644/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/744644/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_lssxprqh/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -31069,7 +31069,7 @@
                     "episode": 22,
                     "description": "סיכום מחזור 25: במוקד - מכבי ת\"א-בני יהודה, הפועל ת\"א-מכבי חיפה",
                     "thumbnail": "https://www.kan.org.il/media/k5cfjk3s/25.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/744649/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/744649/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_l412c6no/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -31087,7 +31087,7 @@
                     "episode": 23,
                     "description": "סיכום מחזור 26: במוקד - הפועל ת\"א-בית\"ר י-ם",
                     "thumbnail": "https://www.kan.org.il/media/xgrjhzyi/sprb_pu7015697800_00_54_02still001.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/748684/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/748684/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_xkgut1hd/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -31105,7 +31105,7 @@
                     "episode": 24,
                     "description": "סיכום מחזור 27: במוקד - מכבי ת\"א-בית\"ר",
                     "thumbnail": "https://www.kan.org.il/media/j0ibc1yb/pu70195307_full.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/494835/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/494835/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_cq57hn6k/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -31123,7 +31123,7 @@
                     "episode": 25,
                     "description": "סיכום מחזור 28: במוקד - בית\"ר י-ם-מכבי נתניה",
                     "thumbnail": "https://www.kan.org.il/media/bfacmd5x/pu7019706300_06_40_22still002.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/744663/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/744663/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_dkytmmt8/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -31141,7 +31141,7 @@
                     "episode": 26,
                     "description": "סיכום מחזור 29",
                     "thumbnail": "https://www.kan.org.il/media/lcddtcdq/sprb_ui18705745.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/766344/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/766344/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_6b64ak9k/format/applehttp/protocol/https/desiredFileName.m3u8",
@@ -31159,7 +31159,7 @@
                     "episode": 27,
                     "description": "סיכום מחזור 30: במוקד - מחזור סיום הליגה ועליות מהארצית",
                     "thumbnail": "https://www.kan.org.il/media/ygmhsqje/pu7019632100_07_58_21still001.jpg",
-                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/משחק-השבת/744668/",
+                    "episodeLink": "https://www.kan.org.il/content/archive1/sport/p-740812/s1/744668/",
                     "streams": [
                         {
                             "url": "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_md52mh30/format/applehttp/protocol/https/desiredFileName.m3u8",
