@@ -18,3 +18,7 @@ backups/*.*
 
 #ignore java sction of project as it is already obsolete
 WebCrawler/
+
+#remove output folder as we d not need it anymore
+output
+output/*.*

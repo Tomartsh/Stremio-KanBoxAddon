@@ -14,8 +14,8 @@
                 "חדשות",
                 "אקטואליה"
             ],
-            "background": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/kan.jpg",
-            "poster": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/kan.jpg",
+            "background": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/kan.jpg",
+            "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/kan.jpg",
             "posterShape": "square",
             "description": "Kan 11 Live Stream From Israel",
             "videos": [
@@ -46,8 +46,8 @@
                 "Kids",
                 "ילדים ונוער"
             ],
-            "background": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/hinuchit.jpg",
-            "poster": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/hinuchit.jpg",
+            "background": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/hinuchit.jpg",
+            "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/hinuchit.jpg",
             "posterShape": "landscape",
             "description": "שידורי הטלויזיה החינוכית",
             "videos": [
@@ -112,8 +112,8 @@
                 "אקטואליה"
             ],
             "type": "tv",
-            "background": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/LIVE_push_mako_tv.jpg",
-            "poster": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/LIVE_push_mako_tv.jpg",
+            "background": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/LIVE_push_mako_tv.jpg",
+            "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/LIVE_push_mako_tv.jpg",
             "posterShape": "landscape",
             "description": "שידור חי מאקו ערוץ 12",
             "videos": [
@@ -147,8 +147,8 @@
                 "news"
             ],
             "type": "tv",
-            "background": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/ynet_logo_gif_ynet.gif",
-            "poster": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/ynet_logo_gif_ynet.gif",
+            "background": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/ynet_logo_gif_ynet.gif",
+            "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/ynet_logo_gif_ynet.gif",
             "posterShape": "landscape",
             "description": "שידור חי ynet",
             "videos": [
@@ -182,8 +182,8 @@
                 "news"
             ],
             "type": "tv",
-            "background": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/i24new_english_square.png",
-            "poster": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/i24new_english_square.png",
+            "background": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/i24new_english_square.png",
+            "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/i24new_english_square.png",
             "posterShape": "landscape",
             "description": "שידור חי באנגלית i24",
             "videos": [
@@ -217,8 +217,8 @@
                 "אקטואליה",
                 "news"
             ],
-            "background": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/i24news_hebrew_square.png",
-            "poster": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/i24news_hebrew_sqaure.png",
+            "background": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/i24news_hebrew_square.png",
+            "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/i24news_hebrew_sqaure.png",
             "posterShape": "square",
             "description": "שידור חי בעיברית i24",
             "videos": [
@@ -252,8 +252,8 @@
                 "אקטואליה",
                 "news"
             ],
-            "background": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/i24new_french_square.png",
-            "poster": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/i24new_french_square.png",
+            "background": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/i24new_french_square.png",
+            "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/i24new_french_square.png",
             "posterShape": "landscape",
             "description": "שידור חי בצרפתית i24",
             "videos": [
@@ -287,8 +287,8 @@
                 "אקטואליה",
                 "news"
             ],
-            "background": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/i24news_arabic_square.png",
-            "poster": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/i24news_arabic_square.png",
+            "background": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/i24news_arabic_square.png",
+            "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/i24news_arabic_square.png",
             "posterShape": "landscape",
             "description": "שידור חי בערבית i24",
             "videos": [
@@ -322,8 +322,8 @@
                 "אקטואליה",
                 "news"
             ],
-            "background": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/channel_24_square.jpg",
-            "poster": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/channel_24_square.jpg",
+            "background": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/channel_24_square.jpg",
+            "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/channel_24_square.jpg",
             "posterShape": "landscape",
             "description": "שידור חי 24",
             "videos": [
@@ -357,8 +357,8 @@
                 "אקטואליה",
                 "news"
             ],
-            "background": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/logo-walla-blue-hostages.png",
-            "poster": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/logo-walla-blue-hostages.png",
+            "background": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/logo-walla-blue-hostages.png",
+            "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/logo-walla-blue-hostages.png",
             "posterShape": "landscape",
             "description": "שידור חי וואלה",
             "videos": [
@@ -391,8 +391,8 @@
                 "אקטואליה"
             ],
             "type": "tv",
-            "background": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/14square.png",
-            "poster": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/14square.png",
+            "background": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/14square.png",
+            "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/14square.png",
             "posterShape": "square",
             "description": "שידור חי ערוץ 14",
             "videos": [
@@ -426,8 +426,8 @@
                 "אקטואליה",
                 "news"
             ],
-            "background": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/10.png",
-            "poster": "https://tomartsh.github.io/Stremio-KanBoxRepos/assets/10.png",
+            "background": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/10.png",
+            "poster": "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/10.png",
             "posterShape": "landscape",
             "description": "שידור חי ערוץ 10",
             "videos": [
