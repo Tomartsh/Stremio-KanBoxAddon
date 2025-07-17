@@ -30,9 +30,15 @@ var logger = log4js.getLogger("Kan88Scraper");
 
 class Kan88Scraper {
 
-    constructor(addToSeriesList) {
+    // constructor(addToSeriesList) {
+    //     this._kanPodcastsJSONObj = {};
+    //     this.addToSeriesList = addToSeriesList
+    //     this.seriesIdIterator = 11000;
+    //     this.isRunning = false;
+    // }
+
+    constructor() {
         this._kanPodcastsJSONObj = {};
-        this.addToSeriesList = addToSeriesList
         this.seriesIdIterator = 11000;
         this.isRunning = false;
     }

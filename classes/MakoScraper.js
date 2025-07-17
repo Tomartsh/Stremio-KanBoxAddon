@@ -34,11 +34,17 @@ log4js.configure({
 var logger = log4js.getLogger("MakoScraper");
 
 class MakoScraper{
-    constructor(addToSeriesList){
+    // constructor(addToSeriesList){
+    //     this._makoJSONObj = {};
+    //     this._devideId = "";
+    //     this.seriesId = 100;
+    //     this.addToSeriesList = addToSeriesList;
+    // }
+
+    constructor(){
         this._makoJSONObj = {};
         this._devideId = "";
         this.seriesId = 100;
-        this.addToSeriesList = addToSeriesList;
     }
 
     async crawl(isDoWriteFile = false){

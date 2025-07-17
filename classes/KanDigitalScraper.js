@@ -31,9 +31,15 @@ var logger = log4js.getLogger("KanDigitalScraper");
 
 class KanDigitalScraper {
 
-    constructor(addToSeriesList) {
+    // constructor(addToSeriesList) {
+    //     this._kanDigitalJSONObj = {};
+    //     this.addToSeriesList = addToSeriesList
+    //     this.seriesIdIterator = 1000;
+    //     this.isRunning = false;
+    // }
+
+    constructor() {
         this._kanDigitalJSONObj = {};
-        this.addToSeriesList = addToSeriesList
         this.seriesIdIterator = 1000;
         this.isRunning = false;
     }
