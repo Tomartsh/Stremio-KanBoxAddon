@@ -18,7 +18,7 @@ module.exports = {
     SAVE_MODE: "local", // "local", "github", or "both"
     SAVE_FOLDER: "output",
     PREFIX: "il_",
-    LOG4JS_LEVEL: "debug",
+    LOG4JS_LEVEL: "info",
     MAX_LOG_SIZE: 10  * 1024 * 1024, // = 5Mb
     LOG_BACKUP_FILES: 3, // keep 5 backup files'
     LOG_FILENAME: "logs/Stremio_addon.log",
@@ -29,7 +29,8 @@ module.exports = {
         "Accept-Encoding": "gzip, deflate, br, zstd",
         "Charset": "UTF-8"
     },
-    URL_JSON_BASE: "https://tomartsh.github.io/Stremio-KanBoxAddon/output/", 
+    //URL_JSON_BASE: "https://tomartsh.github.io/Stremio-KanBoxAddon/output/", 
+    URL_JSON_BASE: "https://raw.githubusercontent.com/Tomartsh/Stremio-KanBoxRepos/main/output/", 
     URLS_ASSETS_BASE: "https://tomartsh.github.io/Stremio-KanBoxAddon/assets/",
 
     //Kan constants
