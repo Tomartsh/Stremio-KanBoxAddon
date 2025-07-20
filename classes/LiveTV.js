@@ -29,9 +29,13 @@ var logger = log4js.getLogger("LiveTV");
 
 class LiveTV {
 
-    constructor(addToSeriesList) {
+    // constructor(addToSeriesList) {
+    //     this._liveTVJSONObj = {};
+    //     this.addToSeriesList = addToSeriesList;
+    // }
+
+    constructor() {
         this._liveTVJSONObj = {};
-        this.addToSeriesList = addToSeriesList;
     }
 
     /********************************************************************

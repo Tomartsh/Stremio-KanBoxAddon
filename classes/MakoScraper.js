@@ -34,11 +34,17 @@ log4js.configure({
 var logger = log4js.getLogger("MakoScraper");
 
 class MakoScraper{
-    constructor(addToSeriesList){
+    // constructor(addToSeriesList){
+    //     this._makoJSONObj = {};
+    //     this._devideId = "";
+    //     this.seriesId = 100;
+    //     this.addToSeriesList = addToSeriesList;
+    // }
+
+    constructor(){
         this._makoJSONObj = {};
         this._devideId = "";
         this.seriesId = 100;
-        this.addToSeriesList = addToSeriesList;
     }
 
     async crawl(isDoWriteFile = false){
@@ -89,7 +95,7 @@ class MakoScraper{
             for (var season of seasons["seasons"]){
                 var seasonUrl = URL_MAKO_BASE + season["pageUrl"];
                 var seasonId = this.setSeasonId(season["seasonTitle"],seasonUrl);
-                logger.debug("getSeries => Season ID: " + seasonId + ". URL: " + seasonUrl); 
+                logger.debug("getSeries => " + title + " ID: " + seasonId + ". URL: " + seasonUrl); 
                 
                 //for each season get the episodes
                 var seasonEpisodesPage = await fetchData(seasonUrl + URL_MAKO_SUFFIX, true); 
@@ -97,7 +103,7 @@ class MakoScraper{
                 var videosEpisodes = await this.getEpisodes(seasonEpisodesPage, id, seasonId);
                 
                 if (videosEpisodes == null) {
-                    return;
+                    continue;
                 }
                 for (var episode of videosEpisodes) {videos.push(episode);}
                 logger.debug(`getSeries => ${title} Videos:  ${videos.length}` ); 
@@ -118,6 +124,10 @@ class MakoScraper{
             episodes = season[0]["vods"];
             channelId = season[0]["channelId"];
         } else {
+            if (undefined == season["menu"][0]){ 
+                logger.error("getEpisodes => Season ID: " + seasonId + ". channelId: " + channelId + ", no episodes found");
+                return null;
+            }
             episodes = season["menu"][0]["vods"];
             channelId = season["channelId"];
         }
@@ -172,7 +182,7 @@ class MakoScraper{
                 episode: noOfEpisodes,
                 thumbnail: episodePic,
                 episodeLink: episodePage,
-                streams: streams
+                makostreams: streams
             }
             if (episodeReleased != "") {videoJsonObj["released"] = episodeReleased;}
             

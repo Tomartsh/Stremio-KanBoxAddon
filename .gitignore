@@ -6,11 +6,16 @@ config/.env
 .env
 
 # ignore output folder
+output
 output/*.*
 
 #ignore the logs folder
 logs
 logs/*.*
+
+#ignore backup folder
+backups
+backups/*.*
 
 #ignore java sction of project as it is already obsolete
 WebCrawler/

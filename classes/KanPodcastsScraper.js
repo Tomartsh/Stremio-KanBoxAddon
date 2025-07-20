@@ -31,9 +31,15 @@ var logger = log4js.getLogger("KanPodcastsScraper");
 
 class KanPodcastsScraper {
 
-    constructor(addToSeriesList) {
+    // constructor(addToSeriesList) {
+    //     this._kanPodcastsJSONObj = {};
+    //     this.addToSeriesList = addToSeriesList
+    //     this.seriesIdIterator = 10000;
+    //     this.isRunning = false;
+    // }
+
+    constructor() {
         this._kanPodcastsJSONObj = {};
-        this.addToSeriesList = addToSeriesList
         this.seriesIdIterator = 10000;
         this.isRunning = false;
     }

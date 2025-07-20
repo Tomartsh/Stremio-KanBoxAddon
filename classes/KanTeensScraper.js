@@ -31,9 +31,14 @@ var logger = log4js.getLogger("KanTeensScraper");
 
 class KanTeensScraper {
 
-    constructor(addToSeriesList) {
+    // constructor(addToSeriesList) {
+    //     this._kanTeenJSONObj = {};
+    //     this.addToSeriesList = addToSeriesList
+    //     this.isRunning = false;
+    // }
+
+    constructor() {
         this._kanTeenJSONObj = {};
-        this.addToSeriesList = addToSeriesList
         this.isRunning = false;
     }
 
