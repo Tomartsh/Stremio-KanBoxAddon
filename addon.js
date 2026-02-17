@@ -7,24 +7,23 @@ const log4js = require("log4js");
 
 const srList = require("./classes/srList");
 const utils = require("./classes/utilities.js");
-const {fetchData} = require("./classes/utilities.js");
+const {fetchData, resolveStreamUrl} = require("./classes/utilities.js");
 
 const constants = require("./classes/constants.js");
-const {URL_ZIP_FILES, URL_JSON_BASE, LOG4JS_LEVEL, MAX_LOG_SIZE, LOG_BACKUP_FILES} = require("./classes/constants.js");
+const { URL_ZIP_FILES, URL_JSON_BASE, LOG4JS } = require("./classes/constants.js");
 require("dotenv").config(); // Load .env from config folder
 
 log4js.configure({
-	appenders: { 
+	appenders: {
 		out: { type: "stdout" },
-		Stremio: 
-		{ 
-			type: "file", 
-			filename: "logs/Stremio_addon.log", 
-			maxLogSize: MAX_LOG_SIZE,
-			backups: LOG_BACKUP_FILES, // keep five backup files
+		Stremio: {
+			type: LOG4JS.TYPE,
+			filename: LOG4JS.FILENAME,
+			maxLogSize: LOG4JS.MAX_SIZE,
+			backups: LOG4JS.BACKUP_FILES
 		}
 	},
-	categories: { default: { appenders: ['Stremio','out'], level: LOG4JS_LEVEL } },
+	categories: { default: { appenders: ['Stremio', 'out'], level: LOG4JS.LEVEL } },
 });
 
 var logger = log4js.getLogger("addon");
@@ -110,20 +109,44 @@ const manifest = {
 			extra: [ {name: "search", isRequired: false }]
 		},
         {
-			type: "Podcasts",
-			id: "KanPodcasts",
-			name: "כאן הסכתים",
-			extra: [ 
-				{name: "search", isRequired: false },
-				{name: "skip", isRequired: false }
-			]
-		},
-		{
-			type: "Podcasts",
-			id: "Kan88",
-			name: "כאן 88 הסכתים",
-			extra: [ {name: "search", isRequired: false }]
-		}
+            type: "Podcasts",
+            id: "KanPodcasts",
+            name: "כאן הסכתים",
+            extra: [
+                { name: "search", isRequired: false },
+                { name: "skip",   isRequired: false },              
+                { name: "sort",   isRequired: false, options: [
+                    "name",        // A-Z
+                    "name_desc"    // Z-A
+                ]}
+            ]
+        },
+        {
+            type: "Podcasts",
+            id: "Kan88",
+            name: "כאן 88 הסכתים",
+            extra: [
+                { name: "search", isRequired: false },
+                { name: "skip",   isRequired: false },             
+                { name: "sort",   isRequired: false, options: [
+                    "name",
+                    "name_desc"
+                ]}
+            ]
+        },
+        {
+            type: "Podcasts",
+            id: "KanKidsPods",
+            name: "הסכתים לילדיםס",
+            extra: [
+                { name: "search", isRequired: false },
+                { name: "skip",   isRequired: false },             
+                { name: "sort",   isRequired: false, options: [
+                    "name",
+                    "name_desc"
+                ]}
+            ]
+        }
 	],
 	"resources": [
 		"catalog",
@@ -138,17 +161,22 @@ const manifest = {
 		"tv",
         "Podcasts"
 	],
-	"name": "Israel Channels",
-	"description": "Israel channels live and VOD"
+	"name": "Israeli Channels",
+	"description": "Israeli channels live and VOD"
 }
 
 const builder = new addonBuilder(manifest)
 
 builder.defineCatalogHandler(({type, id, extra}) => {
-	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineCatalogHandler.md
-	logger.debug("request for catalogs: "+type+" "+id + " search: " + extra.search);
+	logger.debug(
+        "request for catalogs: " + type + " " + id +
+        " search: " + extra.search +
+        " skip: " + extra.skip +
+        " sort: " + extra.sort
+    );
 	var metas = [];
     var search;
+
     if ((extra.search == "undefined") || (extra.search == null)){
         search = "*";
     } else {
@@ -176,7 +204,27 @@ builder.defineCatalogHandler(({type, id, extra}) => {
                 metas = listSeries.getMetasBySubtypeAndName("p",search);
             } else if (id == "Kan88"){
                metas = listSeries.getMetasBySubtypeAndName("8",search);
-            }
+            } else if (id == "KanKidsPods"){
+				metas = listSeries.getMetasBySubtypeAndName("h",search);
+			}
+
+			// --- SORT ALPHABETICALLY (A-Z / Z-A) ---
+            const sort = extra.sort || "name"; // default A-Z
+
+            metas.sort((a, b) => {
+                const nameA = (a.name || "").toLowerCase();
+                const nameB = (b.name || "").toLowerCase();
+                if (sort === "name_desc") {
+                    return nameB.localeCompare(nameA); // Z-A
+                } else {
+                    return nameA.localeCompare(nameB); // A-Z
+                }
+            });
+
+            // --- PAGINATION: 100 ITEMS PER PAGE ---
+            const skip = parseInt(extra.skip || 0, 10);
+            metas = metas.slice(skip, skip + 100);
+
             break;
 		case "tv":
 			metas = listSeries.getMetasByType("tv");
@@ -187,7 +235,7 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 	}
 	return Promise.resolve({metas});
 })
-/
+
 builder.defineMetaHandler(({type, id}) => {
 	logger.debug("defineMetaHandler=> request for meta: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
@@ -240,39 +288,41 @@ async function tuki(id){
 	// return streams;
 }
 
-builder.defineStreamHandler(({type, id}) => {
+builder.defineStreamHandler(async ({type, id}) => {
 	logger.debug("defineStreamHandler=> request for streams: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineStreamHandler.md
-	//return tuki(type, id);
-	
+
 	var streams = [];
 	if (id.startsWith("il_mako")){
-		streams = tuki(id);
-		
-		// //retrieve the url
-		// var urlList = listSeries.getStreamsById(id);
-		// //Usually we will have one URL for AKAMAI and one for AWS.
-		// //We need to construct the URL for both
-		// for (var entry of urlList){
-		// 	var link = entry["link"];
-		// 	//issue the request
-		// 	var ticketObj = await fetchData(link, true);
-		// 	var ticketRaw = ticketObj["tickets"][0]["ticket"];
-		// 	var ticket = decodeURIComponent(ticketRaw);
-		// 	var streamUrl = entry["url"]["url"] + "?" + ticket;
-		// 	//issue the request
-		// 	streams.push({
-		// 		url: {streamUrl}
-		// 	});
-		// }	
+		streams = await tuki(id);
+	} else {
+		streams = listSeries.getStreamsById(id);
 
-	} else { 
-		streams = listSeries.getStreamsById(id)
+		// On-demand stream resolution for Kan episodes with empty streams
+		// Applies to: Kan Digital (il_kan_d), Kan Podcasts (il_kan_podcasts)
+		if ((!streams || streams.length === 0) && id.startsWith("il_kan_")) {
+			logger.debug("defineStreamHandler => No pre-fetched streams, attempting on-demand resolution for: " + id);
+			const video = listSeries.getVideoById(id);
+			if (video && video.episodeLink) {
+				logger.info("defineStreamHandler => Resolving stream on-demand from: " + video.episodeLink);
+				const resolvedStream = await resolveStreamUrl(video.episodeLink);
+				if (resolvedStream && resolvedStream.url) {
+					streams = [{
+						url: resolvedStream.url,
+						title: resolvedStream.title || video.title || video.name,
+						name: resolvedStream.name || video.title || video.name
+					}];
+					logger.info("defineStreamHandler => Successfully resolved stream for: " + (video.name || video.title));
+				} else {
+					logger.warn("defineStreamHandler => Failed to resolve stream for: " + id);
+				}
+			} else {
+				logger.warn("defineStreamHandler => No episodeLink found for video: " + id);
+			}
+		}
 	}
-    
-    //return Promise.resolve({ streams: [streams] });
-    return Promise.resolve({ streams: [streams] });
-	
+
+    return Promise.resolve({ streams: streams });
 })
 
 //+===================================================================================
@@ -280,9 +330,10 @@ builder.defineStreamHandler(({type, id}) => {
 //  zip retrieval and json parsing functions
 //+===================================================================================
 /**
- * Retrieve the zip file, extract the .json file and then convert it to the seriesList object
- */
+* Retrieve the zip file, extract the .json file and then convert it to the seriesList object
+*/
 
+/*
 function addToSeriesList(item){
 	logger.trace("updateSeriesList => Entering");
 	logger.debug("updateSeriesList => Updating / Adding new entry to list: " + item.id + " " + item.name);
@@ -290,6 +341,7 @@ function addToSeriesList(item){
 
 	logger.trace("updateSeriesList => Exiting");
 }
+*/
 
 async function getJSONFile(){
     logger.trace("getJSONFile => Entered JSON");
@@ -309,8 +361,12 @@ async function getJSONFile(){
                 if ((jsonStr != undefined) && (jsonStr != '')){
     
                     var jsonObj = JSON.parse(jsonStr);
-                    for (var key in jsonObj){
-                        var value = jsonObj[key]
+
+					// Ignore timestamp and use the data array/object
+                    var actualData = jsonObj.data || jsonObj;
+
+                    for (var key in actualData){
+                        var value = actualData[key]
             
                         listSeries.addItemByDetails(value.id, value.name, value.poster, value.meta.description, value.link, value.background, value.meta.genres, value.meta, value.type, value.subtype);
                         logger.info(`getJSONFile => Writing series. Id: ${value.id} Subtype: ${value.subtype} link: ${value.link} name: ${value.name}`);
