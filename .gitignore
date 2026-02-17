@@ -14,7 +14,5 @@ logs/*.*
 backups
 backups/*.*
 
-WebCrawler/
-
 classes
 classes/*.*
