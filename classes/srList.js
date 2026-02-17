@@ -86,7 +86,7 @@ class srList {
         var seriesId = id;
         var seasonId;
         var episodeId;
-        if (seriesId.indexOf(":") > 0){ 
+        if (seriesId.indexOf(":") > 0){
             var tempId = id.split(":")
             seriesId = tempId[0];
             seasonId = tempId[1];
@@ -101,6 +101,28 @@ class srList {
             if (videos[i].id == id) {streams = videos[i].streams;}
         }
         return streams;
+    }
+
+    /**
+     * Get the full video object by ID (includes episodeLink for on-demand stream resolution)
+     * @param {string} id - The video ID in format "seriesId:seasonId:episodeId"
+     * @returns {Object|null} - The video object or null if not found
+     */
+    getVideoById(id) {
+        var seriesId = id;
+        if (seriesId.indexOf(":") > 0) {
+            seriesId = id.split(":")[0];
+        }
+
+        var meta = this.getMetaById(seriesId);
+        if (!meta || !meta.videos) { return null; }
+
+        for (var i = 0; i < meta.videos.length; i++) {
+            if (meta.videos[i].id == id) {
+                return meta.videos[i];
+            }
+        }
+        return null;
     }
 
     setVideosById(id, videos){
