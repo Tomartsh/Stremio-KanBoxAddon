@@ -10,7 +10,7 @@ const utils = require("./classes/utilities.js");
 const {fetchData, resolveStreamUrl} = require("./classes/utilities.js");
 
 const constants = require("./classes/constants.js");
-const { URL_ZIP_FILES, URL_JSON_BASE, LOG4JS } = require("./classes/constants.js");
+const { URL_ZIP_FILES, URL_JSON_BASE, LOG4JS, MAKO, HEADERS } = require("./classes/constants.js");
 require("dotenv").config(); // Load .env from config folder
 
 log4js.configure({
@@ -240,89 +240,129 @@ builder.defineMetaHandler(({type, id}) => {
 	logger.debug("defineMetaHandler=> request for meta: "+type+" "+id);
 	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
 	var meta = listSeries.getMetaById(id);
-	logger.debug("defineMetaHandler => meta subtype: " + meta.subType);
-	//var videoId = id + ":1:";
+	logger.debug("defineMetaHandler => meta subtype: " + meta.subtype);
+
+	// For Mako content, remove embedded streams from video objects.
+	// Mako streams need runtime token resolution via the stream handler,
+	// so embedded (tokenless) streams would show as broken duplicates.
+	if (id.startsWith("il_mako_") && meta.videos) {
+		meta = Object.assign({}, meta);
+		meta.videos = meta.videos.map(v => {
+			if (v.streams) {
+				var copy = Object.assign({}, v);
+				delete copy.streams;
+				return copy;
+			}
+			return v;
+		});
+	}
+
     return Promise.resolve({ meta: meta })
 });
 
-async function tuki(id){
-	logger.debug("tuki=> request for stream: " + id);
-	var streams = [];
-	//retrieve the url
-	var streamList = [];
-	var metaId = id.split(":")[0];
-	var metas = listSeries.getMetaById(metaId);
-	var videos = metas["videos"];
-	for (var video of videos){
-		if (video["id"] == id){
-			logger.debug("tuki=>video[id]: " + video["id"]);
-			streamList = video["streams"];
-			break;
-		}
+/**
+ * Resolve Mako stream URLs by fetching entitlement tokens and resolving sub-stream URLs.
+ * Stremio's HLS player can't handle token-protected relative sub-stream paths,
+ * so we fetch the master m3u8 and return direct absolute sub-stream URLs.
+ * Only uses AKAMAI CDN (more reliable).
+ */
+// In-memory cache for pre-fetched and rewritten m3u8 playlists
+const m3u8Cache = new Map();
+let m3u8Counter = 0;
+
+async function resolveMakoStreams(id) {
+	logger.debug("resolveMakoStreams => resolving streams for: " + id);
+	var baseStreams = listSeries.getStreamsById(id);
+	if (!baseStreams || baseStreams.length === 0) {
+		logger.warn("resolveMakoStreams => No base streams found for: " + id);
+		return [];
 	}
 
-	//Usually we will have one URL for AKAMAI and one for AWS.
-	//We need to construct the URL for both
-	for (var entry of streamList){
-		var link = entry["link"];
-		var ticketObj = await fetchData(link, true);
-		var ticketRaw = ticketObj["tickets"][0]["ticket"];
-		var ticket = decodeURIComponent(ticketRaw);
-		var streamUrl = entry["url"] + "?" + ticket;
-		logger.info("tuki => " + streamUrl);
+	var streams = [];
+	// Use only AKAMAI CDN (first entry) - more reliable
+	var entry = baseStreams.find(s => (s.cdn || "AKAMAI") === "AKAMAI") || baseStreams[0];
+	var cdnName = entry.cdn || "AKAMAI";
 
+	try {
+		// Step 1: Get entitlement ticket
+		var ticketUrl = MAKO.URL_ENTITLEMENT_SERVICES + "?et=gt&lp=" + encodeURIComponent(entry.url) + "&rv=" + cdnName;
+		logger.debug("resolveMakoStreams => Fetching ticket from: " + ticketUrl);
+		var ticketObj = await fetchData(ticketUrl, true);
+
+		if (!ticketObj || !ticketObj.tickets || ticketObj.tickets.length === 0) {
+			logger.warn("resolveMakoStreams => No ticket returned, using base URL");
+			streams.push({ url: entry.url, name: "Mako", title: "ערוץ 12" });
+			return streams;
+		}
+
+		var ticketRaw = ticketObj.tickets[0].ticket;
+		var ticket = decodeURIComponent(ticketRaw);
+		var resolvedUrl = ticketObj.tickets[0].url;
+		if (!resolvedUrl || resolvedUrl.startsWith("/")) {
+			resolvedUrl = entry.url;
+		}
+		var masterUrl = resolvedUrl + "?" + ticket;
+
+		// Step 2: Return the master m3u8 URL.
+		// Stremio's built-in HLS player decodes %2f in sub-stream paths, breaking
+		// Akamai's token auth for VOD content. So we provide two stream options:
+		logger.info("resolveMakoStreams => Master URL: " + masterUrl);
+		logger.info("resolveMakoStreams => URL has token: " + masterUrl.includes("hdnea="));
 		streams.push({
-			url: streamUrl,
-			behaviorHints: {
-				notWebReady: true
-			}
+			url: masterUrl,
+			name: "ערוץ 12",
+			title: "Mako VOD"
 		});
-	}	
+
+	} catch (e) {
+		logger.error("resolveMakoStreams => Error: " + e.message);
+		streams.push({ url: entry.url, name: "Mako", title: "ערוץ 12" });
+	}
+
 	return streams;
-	//streams = {url: "https://cdnapisec.kaltura.com/p/2717431/sp/271743100/playManifest/entryId/1_d694sfm9/format/applehttp/protocol/https/desiredFileName.m3u8",name: "This is only a test"};
-	// } else { 
-	// 	streams = listSeries.getStreamsById(id)
-	// }
-    
-    // //return Promise.resolve({ streams: [streams] });
-	// return streams;
 }
 
 builder.defineStreamHandler(async ({type, id}) => {
-	logger.debug("defineStreamHandler=> request for streams: "+type+" "+id);
-	// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineStreamHandler.md
+	logger.debug("defineStreamHandler => request for streams: " + type + " " + id);
 
 	var streams = [];
-	if (id.startsWith("il_mako")){
-		streams = await tuki(id);
-	} else {
-		streams = listSeries.getStreamsById(id);
 
-		// On-demand stream resolution for Kan episodes with empty streams
-		// Applies to: Kan Digital (il_kan_d), Kan Podcasts (il_kan_podcasts)
-		if ((!streams || streams.length === 0) && id.startsWith("il_kan_")) {
-			logger.debug("defineStreamHandler => No pre-fetched streams, attempting on-demand resolution for: " + id);
-			const video = listSeries.getVideoById(id);
-			if (video && video.episodeLink) {
-				logger.info("defineStreamHandler => Resolving stream on-demand from: " + video.episodeLink);
-				const resolvedStream = await resolveStreamUrl(video.episodeLink);
-				if (resolvedStream && resolvedStream.url) {
-					streams = [{
-						url: resolvedStream.url,
-						title: resolvedStream.title || video.title || video.name,
-						name: resolvedStream.name || video.title || video.name
-					}];
-					logger.info("defineStreamHandler => Successfully resolved stream for: " + (video.name || video.title));
-				} else {
-					logger.warn("defineStreamHandler => Failed to resolve stream for: " + id);
-				}
+	if (id.startsWith("il_mako_")) {
+		// Mako: resolve entitlement tokens for CDN-protected streams
+		streams = await resolveMakoStreams(id);
+
+	} else if (id.startsWith("il_kan_dogital_") || id.startsWith("il_kan_podcasts_")) {
+		// Kan Digital & Podcasts: streams are not pre-fetched, resolve on-demand
+		const video = listSeries.getVideoById(id);
+		if (video && video.episodeLink) {
+			logger.info("defineStreamHandler => Resolving stream on-demand from: " + video.episodeLink);
+			const resolvedStream = await resolveStreamUrl(video.episodeLink);
+			if (resolvedStream && resolvedStream.url) {
+				streams = [{
+					url: resolvedStream.url,
+					title: resolvedStream.title || video.title || video.name,
+					name: resolvedStream.name || video.title || video.name
+				}];
+				logger.info("defineStreamHandler => Resolved stream for: " + (video.title || video.name));
 			} else {
-				logger.warn("defineStreamHandler => No episodeLink found for video: " + id);
+				logger.warn("defineStreamHandler => Failed to resolve stream for: " + id);
 			}
+		} else {
+			logger.warn("defineStreamHandler => No episodeLink found for video: " + id);
 		}
+
+	} else {
+		// All other sources (kanarchive, kankids, kanteens, kan88, reshet, live, etc.)
+		// have pre-fetched streams in the JSON data
+		streams = listSeries.getStreamsById(id);
 	}
 
-    return Promise.resolve({ streams: streams });
+	logger.debug("defineStreamHandler => Returning " + streams.length + " streams for: " + id);
+	if (streams.length > 0) {
+		logger.debug("defineStreamHandler => First stream URL: " + (streams[0].url || "MISSING").substring(0, 150));
+		logger.debug("defineStreamHandler => Stream JSON: " + JSON.stringify(streams).substring(0, 500));
+	}
+	return Promise.resolve({ streams: streams });
 })
 
 //+===================================================================================
@@ -367,7 +407,20 @@ async function getJSONFile(){
 
                     for (var key in actualData){
                         var value = actualData[key]
-            
+
+                        // Sanitize meta fields that may cause Stremio to reject data
+                        if (value.meta) {
+                            if (!Array.isArray(value.meta.genres)) {
+                                value.meta.genres = [];
+                            }
+                            if (value.meta.videos) {
+                                for (var v of value.meta.videos) {
+                                    if (v.released === "") delete v.released;
+                                    if (typeof v.season === "string") v.season = parseInt(v.season, 10) || 1;
+                                }
+                            }
+                        }
+
                         listSeries.addItemByDetails(value.id, value.name, value.poster, value.meta.description, value.link, value.background, value.meta.genres, value.meta, value.type, value.subtype);
                         logger.info(`getJSONFile => Writing series. Id: ${value.id} Subtype: ${value.subtype} link: ${value.link} name: ${value.name}`);
 					}
@@ -381,4 +434,6 @@ async function getJSONFile(){
     }
 }
 
-module.exports = builder.getInterface();
+const addonInterface = builder.getInterface();
+module.exports = addonInterface;
+module.exports.m3u8Cache = m3u8Cache;

@@ -11,7 +11,7 @@ module.exports = {
 
     // Log4js Configuration
     LOG4JS: {
-        LEVEL: "info",
+        LEVEL: "debug",
         MAX_SIZE: 10 * 1024 * 1024, // 10Mb
         BACKUP_FILES: 3,
         FILENAME: "logs/Stremio_addon.log",
