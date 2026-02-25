@@ -1,46 +1,23 @@
 const { addonBuilder } = require("stremio-addon-sdk");
 const AdmZip = require("adm-zip");
-const https = require("https");
 const axios = require('axios');
-const cron = require('node-cron');
-const log4js = require("log4js"); 
+const log4js = require("./classes/logger");
 
 const srList = require("./classes/srList");
-const utils = require("./classes/utilities.js");
 const {fetchData, resolveStreamUrl} = require("./classes/utilities.js");
 
-const constants = require("./classes/constants.js");
-const { URL_ZIP_FILES, URL_JSON_BASE, LOG4JS, MAKO, HEADERS } = require("./classes/constants.js");
-require("dotenv").config(); // Load .env from config folder
-
-log4js.configure({
-	appenders: {
-		out: { type: "stdout" },
-		Stremio: {
-			type: LOG4JS.TYPE,
-			filename: LOG4JS.FILENAME,
-			maxLogSize: LOG4JS.MAX_SIZE,
-			backups: LOG4JS.BACKUP_FILES
-		}
-	},
-	categories: { default: { appenders: ['Stremio', 'out'], level: LOG4JS.LEVEL } },
-});
+const { URL_ZIP_FILES, URL_JSON_BASE, MAKO } = require("./classes/constants.js");
+require("dotenv").config();
 
 var logger = log4js.getLogger("addon");
 
 const listSeries = new srList();
 
-//runCrons();
-
-// Main program
-(async () => {
-    try {
-        const jsonData = await getJSONFile();
-    } catch (error) {
-		logger.debug("An unexpected error occurred: " + error.message);
-        process.exit(1); // Exit with an error code
-    }
-})();
+// Data loading promise - resolves when all ZIP data is downloaded and parsed.
+// In serverless (Vercel), request handlers await this before responding.
+const dataReady = getJSONFile().catch(error => {
+	logger.error("Failed to load data: " + error.message);
+});
 
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md
 const manifest = {
@@ -437,3 +414,4 @@ async function getJSONFile(){
 const addonInterface = builder.getInterface();
 module.exports = addonInterface;
 module.exports.m3u8Cache = m3u8Cache;
+module.exports.dataReady = dataReady;

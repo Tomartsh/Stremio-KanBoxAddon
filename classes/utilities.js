@@ -24,27 +24,13 @@ const { PREFIX } = require("./constants");
 
 let seriesIterator = 1000;
 
-const log4js = require("log4js");
+const log4js = require("./logger");
 const {
-    LOG4JS,
     HEADERS,
     SAVE_MODE,
     SAVE_FOLDER,
     FETCH_METHOD_CONFIG
 } = require("./constants");
-
-log4js.configure({
-    appenders: {
-        out: { type: "stdout" },
-        Stremio: {
-            type: LOG4JS.TYPE,
-            filename: LOG4JS.FILENAME,
-            maxLogSize: LOG4JS.MAX_SIZE,
-            backups: LOG4JS.BACKUP_FILES
-        }
-    },
-    categories: { default: { appenders: ['Stremio', 'out'], level: LOG4JS.LEVEL } },
-});
 
 var logger = log4js.getLogger("utilities");
 
