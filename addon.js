@@ -280,9 +280,6 @@ async function resolveMakoStreams(id) {
 		}
 		var masterUrl = resolvedUrl + "?" + ticket;
 
-		// Step 2: Return the master m3u8 URL.
-		// Stremio's built-in HLS player decodes %2f in sub-stream paths, breaking
-		// Akamai's token auth for VOD content. So we provide two stream options:
 		logger.info("resolveMakoStreams => Master URL: " + masterUrl);
 		logger.info("resolveMakoStreams => URL has token: " + masterUrl.includes("hdnea="));
 		streams.push({
@@ -299,13 +296,60 @@ async function resolveMakoStreams(id) {
 	return streams;
 }
 
+/**
+ * Resolve Mako/Keshet live TV streams (Ch12, Ch24) by fetching entitlement tokens.
+ * Live streams use et=ngt (not et=gt like VOD) and the stream URL is a path
+ * that needs to be prefixed with the Akamai domain.
+ */
+async function resolveMakoLiveStream(id) {
+	logger.debug("resolveMakoLiveStream => resolving live stream for: " + id);
+	var baseStreams = listSeries.getStreamsById(id);
+	if (!baseStreams || baseStreams.length === 0) {
+		logger.warn("resolveMakoLiveStream => No base streams found for: " + id);
+		return [];
+	}
+
+	var entry = baseStreams[0];
+	var streamPath = entry.url;
+
+	try {
+		var ticketUrl = MAKO.URL_ENTITLEMENT_SERVICES + "?et=ngt&lp=" + encodeURIComponent(streamPath) + "&rv=AKAMAI";
+		logger.debug("resolveMakoLiveStream => Fetching live ticket from: " + ticketUrl);
+		var ticketObj = await fetchData(ticketUrl, true);
+
+		if (!ticketObj || !ticketObj.tickets || ticketObj.tickets.length === 0) {
+			logger.warn("resolveMakoLiveStream => No ticket returned");
+			return [{ url: "https://mako-streaming.akamaized.net" + streamPath, name: entry.name || "Live", title: entry.title || "שידור חי" }];
+		}
+
+		var ticket = decodeURIComponent(ticketObj.tickets[0].ticket);
+		var resolvedPath = ticketObj.tickets[0].url || streamPath;
+		var liveUrl = "https://mako-streaming.akamaized.net" + resolvedPath + "?" + ticket;
+
+		logger.info("resolveMakoLiveStream => Live URL: " + liveUrl.substring(0, 150));
+		return [{
+			url: liveUrl,
+			name: entry.name || "Live",
+			title: entry.title || "שידור חי"
+		}];
+
+	} catch (e) {
+		logger.error("resolveMakoLiveStream => Error: " + e.message);
+		return [{ url: "https://mako-streaming.akamaized.net" + streamPath, name: entry.name || "Live", title: entry.title || "שידור חי" }];
+	}
+}
+
 builder.defineStreamHandler(async ({type, id}) => {
 	logger.debug("defineStreamHandler => request for streams: " + type + " " + id);
 
 	var streams = [];
 
-	if (id.startsWith("il_mako_")) {
-		// Mako: resolve entitlement tokens for CDN-protected streams
+	if (id === "il_makoTV_01" || id === "il_24_01") {
+		// Mako/Keshet live TV: resolve entitlement tokens at runtime
+		streams = await resolveMakoLiveStream(id);
+
+	} else if (id.startsWith("il_mako_")) {
+		// Mako VOD: resolve entitlement tokens for CDN-protected streams
 		streams = await resolveMakoStreams(id);
 
 	} else if (id.startsWith("il_kan_dogital_") || id.startsWith("il_kan_podcasts_")) {
