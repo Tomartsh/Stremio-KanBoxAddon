@@ -144,7 +144,127 @@ const manifest = {
 
 const builder = new addonBuilder(manifest)
 
-builder.defineCatalogHandler(({type, id, extra}) => {
+// TMDB-based search integration (optional).
+// We query TMDB for the user's query, then match returned (localized) titles back to
+// your existing locally-scraped metas so that stream resolution still works.
+const TMDB_API_KEY = process.env.TMDB_API_KEY;
+const TMDB_BASE_URL = "https://api.themoviedb.org/3";
+const TMDB_LANGUAGE = process.env.TMDB_LANGUAGE || "he-IL";
+const tmdbSearchCache = new Map(); // key => { ts, titles }
+const TMDB_CACHE_TTL_MS = 30 * 60 * 1000; // 30 minutes
+
+function normalizeTitle(input) {
+	return (input || "")
+		.toString()
+		.toLowerCase()
+		// Keep letters/numbers/spaces (works for Hebrew too)
+		.replace(/[^\p{L}\p{N}\s]/gu, " ")
+		.replace(/\s+/g, " ")
+		.trim();
+}
+
+function scoreTitleMatch(localName, tmdbTitle) {
+	const a = normalizeTitle(localName);
+	const b = normalizeTitle(tmdbTitle);
+	if (!a || !b) return 0;
+	if (a === b) return 100;
+	// Substring match gives strong signal
+	if (a.includes(b) || b.includes(a)) return 75;
+
+	// Token overlap (Jaccard-ish)
+	const tokensA = new Set(a.split(" ").filter(Boolean));
+	const tokensB = new Set(b.split(" ").filter(Boolean));
+	if (tokensA.size === 0 || tokensB.size === 0) return 0;
+
+	let intersection = 0;
+	for (const t of tokensA) {
+		if (tokensB.has(t)) intersection++;
+	}
+	const union = new Set([...tokensA, ...tokensB]).size;
+	if (union === 0) return 0;
+
+	const j = intersection / union; // 0..1
+	return Math.round(j * 70); // cap at 70-ish (substring already handled above)
+}
+
+async function getTmdbTitlesForQuery(query) {
+	if (!TMDB_API_KEY) return [];
+	const normalizedQuery = normalizeTitle(query);
+	if (!normalizedQuery) return [];
+
+	const cacheKey = normalizedQuery;
+	const cached = tmdbSearchCache.get(cacheKey);
+	if (cached && (Date.now() - cached.ts) < TMDB_CACHE_TTL_MS) {
+		return cached.titles;
+	}
+
+	try {
+		const resp = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
+			timeout: 15000,
+			params: {
+				api_key: TMDB_API_KEY,
+				query,
+				language: TMDB_LANGUAGE,
+				include_adult: false,
+				page: 1
+			}
+		});
+
+		const results = (resp && resp.data && Array.isArray(resp.data.results)) ? resp.data.results : [];
+		const titles = [];
+		const seen = new Set();
+		for (const r of results) {
+			const t = r && (r.name || r.title || r.original_name || r.original_title);
+			if (!t) continue;
+			const nt = normalizeTitle(t);
+			if (!nt || seen.has(nt)) continue;
+			seen.add(nt);
+			titles.push(t);
+			if (titles.length >= 15) break;
+		}
+
+		tmdbSearchCache.set(cacheKey, { ts: Date.now(), titles });
+		return titles;
+	} catch (e) {
+		logger.warn("TMDB search failed, falling back to local search: " + e.message);
+		return [];
+	}
+}
+
+async function searchMetasByTmdb(subtype, localMetas, search, limit) {
+	// Guardrails: only engage TMDB for a real query (not wildcard / not missing key)
+	if (!TMDB_API_KEY) return null;
+	if (!search || search === "*" || search === "undefined") return null;
+
+	const tmdbTitles = await getTmdbTitlesForQuery(search);
+	if (!tmdbTitles || tmdbTitles.length === 0) return null;
+
+	// Score each local meta against all TMDB titles, keep the best score per meta.
+	// localMetas are objects like { id, name, type, videos, ... }.
+	const scored = localMetas
+		.map(meta => {
+			const localName = meta && meta.name ? meta.name : "";
+			let best = 0;
+			for (const t of tmdbTitles) {
+				best = Math.max(best, scoreTitleMatch(localName, t));
+				if (best >= 100) break;
+			}
+			return { meta, score: best };
+		})
+		.filter(x => x.score > 0);
+
+	scored.sort((a, b) => {
+		if (b.score !== a.score) return b.score - a.score;
+		const nameA = (a.meta && a.meta.name ? a.meta.name : "").toLowerCase();
+		const nameB = (b.meta && b.meta.name ? b.meta.name : "").toLowerCase();
+		return nameA.localeCompare(nameB);
+	});
+
+	const ret = scored.slice(0, limit).map(x => x.meta);
+	return ret;
+}
+
+builder.defineCatalogHandler(async ({type, id, extra}) => {
 	logger.debug(
         "request for catalogs: " + type + " " + id +
         " search: " + extra.search +
@@ -162,27 +282,61 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 
 	switch(type) {
         case "series":
-			if (id == "kanDigital"){              
-                metas = listSeries.getMetasBySubtypeAndName("d", search);
-            } else if (id == "KanArchive"){
-                metas = listSeries.getMetasBySubtypeAndName("a", search);
-            } else if (id == "KanKids"){
-                metas = listSeries.getMetasBySubtypeAndName("k",search);
-            } else if (id == "KanTeens"){
-                metas = listSeries.getMetasBySubtypeAndName("`n",search);
-            } else if (id == "MakoVOD"){
-                metas = listSeries.getMetasBySubtypeAndName("m", search);
-            } else if (id == "ReshetVOD"){
-				metas = listSeries.getMetasBySubtypeAndName("r", search);
+			// Map Stremio catalog id -> your dataset subtype
+			let seriesSubtype = null;
+			if (id == "kanDigital"){
+				seriesSubtype = "d";
+			} else if (id == "KanArchive"){
+				seriesSubtype = "a";
+			} else if (id == "KanKids"){
+				seriesSubtype = "k";
+			} else if (id == "KanTeens"){
+				seriesSubtype = "`n";
+			} else if (id == "MakoVOD"){
+				seriesSubtype = "m";
+			} else if (id == "ReshetVOD"){
+				seriesSubtype = "r";
+			}
+
+			// Wildcard / missing search should return all (current behavior).
+			if (!seriesSubtype) {
+				metas = [];
+			} else if (search === "*" || search === "undefined") {
+				metas = listSeries.getMetasBySubtype(seriesSubtype);
+			} else {
+				// Try TMDB first (if enabled), otherwise fall back to local substring search.
+				const localMetas = listSeries.getMetasBySubtype(seriesSubtype);
+				const tmdbMetas = await searchMetasByTmdb(seriesSubtype, localMetas, search, 200);
+				if (tmdbMetas === null || tmdbMetas.length === 0) {
+					metas = listSeries.getMetasBySubtypeAndName(seriesSubtype, search);
+				} else {
+					metas = tmdbMetas;
+				}
 			}
             break;
         case "Podcasts":
-            if (id == "KanPodcasts"){
-                metas = listSeries.getMetasBySubtypeAndName("p",search);
-            } else if (id == "Kan88"){
-               metas = listSeries.getMetasBySubtypeAndName("8",search);
-            } else if (id == "KanKidsPods"){
-				metas = listSeries.getMetasBySubtypeAndName("h",search);
+			// Map Stremio catalog id -> your dataset subtype
+			let podcastsSubtype = null;
+			if (id == "KanPodcasts"){
+				podcastsSubtype = "p";
+			} else if (id == "Kan88"){
+				podcastsSubtype = "8";
+			} else if (id == "KanKidsPods"){
+				podcastsSubtype = "h";
+			}
+
+			if (!podcastsSubtype) {
+				metas = [];
+			} else if (search === "*" || search === "undefined") {
+				metas = listSeries.getMetasBySubtype(podcastsSubtype);
+			} else {
+				const localMetas = listSeries.getMetasBySubtype(podcastsSubtype);
+				const tmdbMetas = await searchMetasByTmdb(podcastsSubtype, localMetas, search, 1000);
+				if (tmdbMetas === null || tmdbMetas.length === 0) {
+					metas = listSeries.getMetasBySubtypeAndName(podcastsSubtype, search);
+				} else {
+					metas = tmdbMetas;
+				}
 			}
 
 			// --- SORT ALPHABETICALLY (A-Z / Z-A) ---
@@ -204,6 +358,7 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 
             break;
 		case "tv":
+			// Keep existing behavior: live TV browsing (no TMDB search).
 			metas = listSeries.getMetasByType("tv");
 			break;
     }
