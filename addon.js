@@ -131,7 +131,8 @@ const manifest = {
 		"meta"
 	],
 	"idPrefixes": [
-		"il_"
+		"il_",
+		"tmdb:"
 	],
 	"types": [
 		"series",
@@ -147,7 +148,22 @@ const builder = new addonBuilder(manifest)
 // TMDB-based search integration (optional).
 // We query TMDB for the user's query, then match returned (localized) titles back to
 // your existing locally-scraped metas so that stream resolution still works.
-const TMDB_API_KEY = process.env.TMDB_API_KEY;
+const TMDB_API_KEY = process.env.TMDB_API_KEY || "";
+const authHeaders = {};
+const authParams = {};
+
+if (TMDB_API_KEY) {
+	let rawKey = TMDB_API_KEY.trim();
+	// TMDB v4 access tokens are JWTs starting with eyJ
+	if (rawKey.startsWith("Bearer ")) {
+		authHeaders["Authorization"] = rawKey;
+	} else if (rawKey.startsWith("eyJ")) {
+		authHeaders["Authorization"] = `Bearer ${rawKey}`;
+	} else {
+		authParams["api_key"] = rawKey;
+	}
+}
+
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const TMDB_LANGUAGE = process.env.TMDB_LANGUAGE || "he-IL";
 const tmdbSearchCache = new Map(); // key => { ts, titles }
@@ -187,6 +203,111 @@ function scoreTitleMatch(localName, tmdbTitle) {
 	return Math.round(j * 70); // cap at 70-ish (substring already handled above)
 }
 
+async function getTitleFromTmdbId(tmdbId, type) {
+	if (!TMDB_API_KEY) return null;
+	const cacheKey = `tmdb_id_${tmdbId}_${type}`;
+	const cached = tmdbSearchCache.get(cacheKey);
+	if (cached && (Date.now() - cached.ts) < TMDB_CACHE_TTL_MS) {
+		return cached.titles[0];
+	}
+
+	try {
+		const endpoint = type === "movie" ? "movie" : "tv";
+		const resp = await axios.get(`${TMDB_BASE_URL}/${endpoint}/${tmdbId}`, {
+			timeout: 10000,
+			headers: authHeaders,
+			params: {
+				...authParams,
+				language: TMDB_LANGUAGE
+			}
+		});
+
+		const title = resp.data && (resp.data.name || resp.data.title || resp.data.original_name || resp.data.original_title);
+		if (title) {
+			tmdbSearchCache.set(cacheKey, { ts: Date.now(), titles: [title] });
+			return title;
+		}
+	} catch (e) {
+		logger.warn(`Failed to fetch title for TMDB ID ${tmdbId}: ${e.message}`);
+	}
+	return null;
+}
+
+async function mapTmdbToLocalId(id, type) {
+	if (!id.startsWith("tmdb:")) return null;
+	
+	// Extract format: "tmdb:<id>:<season>:<episode>" or "tmdb:<id>" (movie)
+	const parts = id.split(":");
+	const tmdbId = parts[1];
+	if (!tmdbId) return null;
+
+	const season = parts.length > 2 ? parseInt(parts[2], 10) : 1;
+	const episode = parts.length > 3 ? parseInt(parts[3], 10) : 1;
+
+	const tmdbType = type === "movie" ? "movie" : "tv";
+	const title = await getTitleFromTmdbId(tmdbId, tmdbType);
+	
+	if (!title) {
+		logger.debug("mapTmdbToLocalId => No title from TMDB for ID: " + tmdbId);
+		return null;
+	}
+
+	logger.debug("mapTmdbToLocalId => Trying to map TMDB title: " + title);
+
+	// Grab all local metas
+	const allMetas = listSeries.getMetasByType("series").concat(listSeries.getMetasByType("movie") || []);
+	
+	let bestMatch = null;
+	let bestScore = 0;
+	
+	for (const meta of allMetas) {
+		const score = scoreTitleMatch(meta.name, title);
+		if (score > bestScore && score >= 70) {
+			bestScore = score;
+			bestMatch = meta;
+			if (score === 100) break;
+		}
+	}
+
+	if (!bestMatch) {
+		logger.debug(`mapTmdbToLocalId => No matching local series found for title: ${title}`);
+		return null;
+	}
+
+	// Found local series mapping! Find specific episode ID in videos
+	const videos = bestMatch.videos || [];
+	if (videos.length === 0) return null;
+
+	let matchedVideo = null;
+	
+	if (tmdbType === "movie") {
+		matchedVideo = videos[0];
+	} else {
+		matchedVideo = videos.find(v => {
+			const vSeason = (v.season != null && v.season !== "") ? parseInt(v.season, 10) : 1;
+			// Extract episode from ID backwards (e.g., "id:season:episode") or from explicit v.episode / v.number
+			let vEp = 1;
+			if (v.episode) {
+				vEp = parseInt(v.episode, 10);
+			} else if (v.number) {
+				vEp = parseInt(v.number, 10);
+			} else if (v.id) {
+				const idParts = v.id.split(":");
+				vEp = parseInt(idParts[idParts.length - 1], 10);
+			}
+			return (vSeason === season && vEp === episode);
+		});
+	}
+
+	if (matchedVideo && matchedVideo.id) {
+		logger.info(`mapTmdbToLocalId => TMDB ${id} mapped to local ID: ${matchedVideo.id}`);
+		return matchedVideo.id;
+	}
+
+	logger.debug(`mapTmdbToLocalId => Found local series ${bestMatch.id} but missing season ${season} episode ${episode}`);
+	return null;
+}
+
 async function getTmdbTitlesForQuery(query) {
 	if (!TMDB_API_KEY) return [];
 	const normalizedQuery = normalizeTitle(query);
@@ -201,8 +322,9 @@ async function getTmdbTitlesForQuery(query) {
 	try {
 		const resp = await axios.get(`${TMDB_BASE_URL}/search/multi`, {
 			timeout: 15000,
+			headers: authHeaders,
 			params: {
-				api_key: TMDB_API_KEY,
+				...authParams,
 				query,
 				language: TMDB_LANGUAGE,
 				include_adult: false,
@@ -498,6 +620,15 @@ builder.defineStreamHandler(async ({type, id}) => {
 	logger.debug("defineStreamHandler => request for streams: " + type + " " + id);
 
 	var streams = [];
+
+	if (id.startsWith("tmdb:")) {
+		const localId = await mapTmdbToLocalId(id, type);
+		if (localId) {
+			id = localId; // Substitute ID so the rest of the switch statement catches the localized target
+		} else {
+			return Promise.resolve({ streams: [] });
+		}
+	}
 
 	if (id === "il_makoTV_01" || id === "il_24_01") {
 		// Mako/Keshet live TV: resolve entitlement tokens at runtime
