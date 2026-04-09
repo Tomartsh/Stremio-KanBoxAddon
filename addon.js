@@ -235,18 +235,62 @@ async function getTitleFromTmdbId(tmdbId, type) {
 
 async function mapTmdbToLocalId(id, type) {
 	if (!id.startsWith("tmdb:")) return null;
-	
+
 	// Extract format: "tmdb:<id>:<season>:<episode>" or "tmdb:<id>" (movie)
 	const parts = id.split(":");
 	const tmdbId = parts[1];
 	if (!tmdbId) return null;
 
+	const tmdbIdNum = parseInt(tmdbId, 10);
 	const season = parts.length > 2 ? parseInt(parts[2], 10) : 1;
 	const episode = parts.length > 3 ? parseInt(parts[3], 10) : 1;
 
 	const tmdbType = type === "movie" ? "movie" : "tv";
+
+	// FIRST TRY: Direct TMDB ID lookup from our scraped data
+	if (tmdbType !== "movie") {
+		// Try to find by TMDB series ID + season/episode (most accurate)
+		const directMatch = listSeries.findEpisodeByTmdbSeriesAndSeEp(tmdbIdNum, season, episode);
+		if (directMatch && directMatch.video && directMatch.video.id) {
+			logger.info(`mapTmdbToLocalId => Direct TMDB lookup matched: ${id} -> ${directMatch.video.id}`);
+			return directMatch.video.id;
+		}
+
+		// Try to find by TMDB episode ID (if we have it)
+		const tmdbEpisodeId = `${tmdbIdNum}-${season}-${episode}`;
+		const episodeMatch = listSeries.findVideoByTmdbEpisodeId(tmdbEpisodeId);
+		if (episodeMatch && episodeMatch.video && episodeMatch.video.id) {
+			logger.info(`mapTmdbToLocalId => TMDB episode ID matched: ${id} -> ${episodeMatch.video.id}`);
+			return episodeMatch.video.id;
+		}
+
+		// Try to find series by TMDB ID and then match by season/episode
+		const series = listSeries.findSeriesByTmdbId(tmdbIdNum);
+		if (series && series.meta && series.meta.videos) {
+			const matchedVideo = series.meta.videos.find(v => {
+				const vSeason = (v.season != null && v.season !== "") ? parseInt(v.season, 10) : 1;
+				let vEp = 1;
+				if (v.episode) {
+					vEp = parseInt(v.episode, 10);
+				} else if (v.number) {
+					vEp = parseInt(v.number, 10);
+				} else if (v.id) {
+					const idParts = v.id.split(":");
+					vEp = parseInt(idParts[idParts.length - 1], 10);
+				}
+				return (vSeason === season && vEp === episode);
+			});
+
+			if (matchedVideo && matchedVideo.id) {
+				logger.info(`mapTmdbToLocalId => TMDB series ID + S/E matched: ${id} -> ${matchedVideo.id}`);
+				return matchedVideo.id;
+			}
+		}
+	}
+
+	// FALLBACK: Use title-based matching (for movies or when direct lookup fails)
 	const title = await getTitleFromTmdbId(tmdbId, tmdbType);
-	
+
 	if (!title) {
 		logger.debug("mapTmdbToLocalId => No title from TMDB for ID: " + tmdbId);
 		return null;
@@ -256,10 +300,10 @@ async function mapTmdbToLocalId(id, type) {
 
 	// Grab all local metas
 	const allMetas = listSeries.getMetasByType("series").concat(listSeries.getMetasByType("movie") || []);
-	
+
 	let bestMatch = null;
 	let bestScore = 0;
-	
+
 	for (const meta of allMetas) {
 		const score = scoreTitleMatch(meta.name, title);
 		if (score > bestScore && score >= 70) {
@@ -279,7 +323,7 @@ async function mapTmdbToLocalId(id, type) {
 	if (videos.length === 0) return null;
 
 	let matchedVideo = null;
-	
+
 	if (tmdbType === "movie") {
 		matchedVideo = videos[0];
 	} else {
@@ -300,7 +344,7 @@ async function mapTmdbToLocalId(id, type) {
 	}
 
 	if (matchedVideo && matchedVideo.id) {
-		logger.info(`mapTmdbToLocalId => TMDB ${id} mapped to local ID: ${matchedVideo.id}`);
+		logger.info(`mapTmdbToLocalId => Fallback title match: TMDB ${id} mapped to local ID: ${matchedVideo.id}`);
 		return matchedVideo.id;
 	}
 
