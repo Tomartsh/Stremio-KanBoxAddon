@@ -6,14 +6,23 @@ const isVercel = !!process.env.VERCEL;
 if (isVercel) {
 	log4js.configure({
 		appenders: {
-			out: { type: "stdout" }
+			out: {
+				type: "stdout",
+				layout: { type: "coloured" }
+			}
 		},
 		categories: { default: { appenders: ['out'], level: LOG4JS.LEVEL } }
 	});
 } else {
 	log4js.configure({
 		appenders: {
-			out: { type: "stdout" },
+			console: {
+				type: "stdout",
+				layout: {
+					type: "coloured",
+					pattern: "%[%d{ISO8601}|%p|%c%] %m"
+				}
+			},
 			Stremio: {
 				type: LOG4JS.TYPE,
 				filename: LOG4JS.FILENAME,
@@ -21,7 +30,7 @@ if (isVercel) {
 				backups: LOG4JS.BACKUP_FILES
 			}
 		},
-		categories: { default: { appenders: ['Stremio', 'out'], level: LOG4JS.LEVEL } }
+		categories: { default: { appenders: ['Stremio', 'console'], level: LOG4JS.LEVEL } }
 	});
 }
 
