@@ -146,6 +146,75 @@ class srList {
         }
     }
 
+    /**
+     * Find a series by TMDB ID
+     * @param {number} tmdbId - The TMDB series ID
+     * @returns {Object|null} - The series object or null if not found
+     */
+    findSeriesByTmdbId(tmdbId) {
+        if (!tmdbId) return null;
+
+        for (var [key, value] of Object.entries(this._seriesList)) {
+            if (value.meta && value.meta.tmdbId === tmdbId) {
+                return value;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Find a video (episode) by TMDB episode ID
+     * @param {number} tmdbEpisodeId - The TMDB episode ID
+     * @returns {Object|null} - Object with {seriesId, video} or null if not found
+     */
+    findVideoByTmdbEpisodeId(tmdbEpisodeId) {
+        if (!tmdbEpisodeId) return null;
+
+        for (var [seriesId, value] of Object.entries(this._seriesList)) {
+            if (value.meta && value.meta.videos) {
+                for (var i = 0; i < value.meta.videos.length; i++) {
+                    if (value.meta.videos[i].tmdbEpisodeId === tmdbEpisodeId) {
+                        return {
+                            seriesId: seriesId,
+                            video: value.meta.videos[i]
+                        };
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Find a specific episode by TMDB series ID, season, and episode number
+     * @param {number} tmdbSeriesId - The TMDB series ID
+     * @param {number} season - Season number
+     * @param {number} episode - Episode number
+     * @returns {Object|null} - Object with {seriesId, video} or null if not found
+     */
+    findEpisodeByTmdbSeriesAndSeEp(tmdbSeriesId, season, episode) {
+        if (!tmdbSeriesId) return null;
+
+        const series = this.findSeriesByTmdbId(tmdbSeriesId);
+        if (!series || !series.meta || !series.meta.videos) {
+            return null;
+        }
+
+        for (var i = 0; i < series.meta.videos.length; i++) {
+            var video = series.meta.videos[i];
+            var videoSeason = (video.season != null) ? parseInt(video.season, 10) : 1;
+            var videoEpisode = (video.episode != null) ? parseInt(video.episode, 10) : 1;
+
+            if (videoSeason === season && videoEpisode === episode) {
+                return {
+                    seriesId: series.id,
+                    video: video
+                };
+            }
+        }
+        return null;
+    }
+
     isValueExistById(id){
         if (this._seriesList[id] == undefined){
             return false; 
