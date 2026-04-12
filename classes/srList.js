@@ -94,9 +94,17 @@ class srList {
         }
 
         var meta = this.getMetaById(seriesId);
+        if (meta == undefined){ return null;}
+
+        // For live TV, streams are directly on the meta object
+        if (meta.streams) {
+            return meta.streams;
+        }
+
+        // For on-demand content, streams are within the videos array
         var videos = meta["videos"];
         var streams = [];
-        if ((meta == undefined) || (videos == undefined)){ return null;}
+        if (videos == undefined){ return null;}
         for (var i = 0; i < videos.length; i++){
             if (videos[i].id == id) {streams = videos[i].streams;}
         }
