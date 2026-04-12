@@ -13,3 +13,5 @@ logs/*.*
 
 backups
 backups/*.*
+
+.claude
