@@ -12,8 +12,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/server.js",
-            "args": ["--", "--install"]
+            "program": "${workspaceFolder}/server.js"
         },
         {
             "type": "node",
@@ -24,8 +23,7 @@
                 "<node_internals>/**"
             ],
             "sourceMaps": false,
-            "program": "${workspaceFolder}/server.js",
-            "args": ["--", "--start"]
+            "program": "${workspaceFolder}/server.js"
         },
         {
             "name": "Launch via npm",
@@ -34,7 +32,7 @@
             "cwd": "${workspaceFolder}",
             "runtimeExecutable": "npm",
             "outputCapture": "std",
-            "runtimeArgs": ["run-script", "debug"],
+            "runtimeArgs": ["start"],
             "program": "${workspaceFolder}/server.js",
             "sourceMaps": false,
             "skipFiles": [
