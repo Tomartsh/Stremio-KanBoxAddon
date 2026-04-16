@@ -617,48 +617,61 @@ async function resolveMakoStreams(id) {
 	return streams;
 }
 
-/**
- * Resolve Mako/Keshet live TV streams (Ch12, Ch24) by fetching entitlement tokens.
- * Live streams use et=ngt (not et=gt like VOD) and the stream URL is a path
- * that needs to be prefixed with the Akamai domain.
- */
-async function resolveMakoLiveStream(id) {
-	logger.debug("resolveMakoLiveStream => resolving live stream for: " + id);
-	var baseStreams = listSeries.getStreamsById(id);
-	if (!baseStreams || baseStreams.length === 0) {
-		logger.warn("resolveMakoLiveStream => No base streams found for: " + id);
-		return [];
-	}
 
-	var entry = baseStreams[0];
-	var streamPath = entry.url;
-
-	try {
-		var ticketUrl = MAKO.URL_ENTITLEMENT_SERVICES + "?et=ngt&lp=" + encodeURIComponent(streamPath) + "&rv=AKAMAI";
-		logger.debug("resolveMakoLiveStream => Fetching live ticket from: " + ticketUrl);
-		var ticketObj = await fetchData(ticketUrl, true);
-
-		if (!ticketObj || !ticketObj.tickets || ticketObj.tickets.length === 0) {
-			logger.warn("resolveMakoLiveStream => No ticket returned");
-			return [{ url: "https://mako-streaming.akamaized.net" + streamPath, name: entry.name || "Live", title: entry.title || "שידור חי" }];
+	/**
+	 * Resolve Mako/Keshet live TV streams (Ch12, Ch24) by fetching entitlement tokens.
+	 * These streams require authentication tokens from Mako's entitlement service.
+	 */
+	async function resolveMakoLiveStream(id) {
+		logger.debug("resolveMakoLiveStream => resolving live stream for: " + id);
+		var baseStreams = listSeries.getStreamsById(id);
+		if (!baseStreams || baseStreams.length === 0) {
+			logger.warn("resolveMakoLiveStream => No base streams found for: " + id);
+			return [];
 		}
 
-		var ticket = decodeURIComponent(ticketObj.tickets[0].ticket);
-		var resolvedPath = ticketObj.tickets[0].url || streamPath;
-		var liveUrl = "https://mako-streaming.akamaized.net" + resolvedPath + "?" + ticket;
+		var entry = baseStreams[0];
+		// Extract the path from the full URL (e.g., "/direct/hls/live/2033791/k12/index.m3u8")
+		var streamPath = "";
+		try {
+			var urlObj = new URL(entry.url);
+			streamPath = urlObj.pathname;
+		} catch (e) {
+			logger.warn("resolveMakoLiveStream => Invalid URL format: " + entry.url);
+			streamPath = entry.url;
+		}
+		var cdnName = "AKAMAI"; // Mako live streams use Akamai
 
-		logger.info("resolveMakoLiveStream => Live URL: " + liveUrl.substring(0, 150));
-		return [{
-			url: liveUrl,
-			name: entry.name || "Live",
-			title: entry.title || "שידור חי"
-		}];
+		try {
+			// Use et=ngt for live streams (not et=gt which is for VOD)
+			var ticketUrl = MAKO.URL_ENTITLEMENT_SERVICES + "?et=ngt&lp=" + encodeURIComponent(streamPath) + "&rv=" + cdnName;
+			logger.debug("resolveMakoLiveStream => Fetching live ticket from: " + ticketUrl);
+			var ticketObj = await fetchData(ticketUrl, true);
 
-	} catch (e) {
-		logger.error("resolveMakoLiveStream => Error: " + e.message);
-		return [{ url: "https://mako-streaming.akamaized.net" + streamPath, name: entry.name || "Live", title: entry.title || "שידור חי" }];
+			if (!ticketObj || !ticketObj.tickets || ticketObj.tickets.length === 0) {
+				logger.warn("resolveMakoLiveStream => No ticket returned, using fallback URL");
+				// Fallback: use the original URL (might not work but better than nothing)
+				return [{ url: entry.url, name: entry.name || "Live", title: entry.title || "שידור חי" }];
+			}
+
+			// Don't decode the ticket - use it as-is from the API response
+			var ticket = ticketObj.tickets[0].ticket;
+			var resolvedPath = ticketObj.tickets[0].url || streamPath;
+			var liveUrl = "https://mako-streaming.akamaized.net" + resolvedPath + "?" + ticket;
+
+			logger.info("resolveMakoLiveStream => Live URL constructed: " + liveUrl.substring(0, 150));
+			return [{
+				url: liveUrl,
+				name: entry.name || "Live",
+				title: entry.title || "שידור חי"
+			}];
+
+		} catch (e) {
+			logger.error("resolveMakoLiveStream => Error: " + e.message);
+			// Fallback: use the original URL
+			return [{ url: entry.url, name: entry.name || "Live", title: entry.title || "שידור חי" }];
+		}
 	}
-}
 
 builder.defineStreamHandler(async ({type, id}) => {
 	logger.debug("defineStreamHandler => request for streams: " + type + " " + id);
@@ -675,8 +688,8 @@ builder.defineStreamHandler(async ({type, id}) => {
 	}
 
 	if (id === "il_makoTV_01" || id === "il_24_01") {
-		// Mako/Keshet live TV: resolve entitlement tokens at runtime
-		streams = await resolveMakoLiveStream(id);
+			// Mako/Keshet live TV: resolve entitlement tokens at runtime
+			streams = await resolveMakoLiveStream(id);
 
 	} else if (id.startsWith("il_mako_")) {
 		// Mako VOD: resolve entitlement tokens for CDN-protected streams
@@ -710,8 +723,9 @@ builder.defineStreamHandler(async ({type, id}) => {
 
 	logger.debug("defineStreamHandler => Returning " + streams.length + " streams for: " + id);
 	if (streams.length > 0) {
-		logger.debug("defineStreamHandler => First stream URL: " + (streams[0].url || "MISSING").substring(0, 150));
-		logger.debug("defineStreamHandler => Stream JSON: " + JSON.stringify(streams).substring(0, 500));
+		logger.info("defineStreamHandler => stream found");
+		logger.debug("defineStreamHandler => Stream URL: " + (streams[0].url || "MISSING"));
+		logger.debug("defineStreamHandler => Full stream object: " + JSON.stringify(streams[0]));
 	}
 	return Promise.resolve({ streams: streams });
 })
