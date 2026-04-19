@@ -23,39 +23,12 @@ const dataReady = getJSONFile().catch(error => {
 const manifest = {
 	"id": "community.StremioIsraeliTV",
 	"version": "1.0.0",
-    "logo": "https://i.imgur.com/rw5Vxad.png",
+    "logo": "https://raw.githubusercontent.com/tomartsh/Stremio-KanBoxAddon/main/assets/IdanPlus.jpg",
 	"catalogs": [
 		{
 			type: "series",
 			id: "kanDigital",
 			name: "כאן 11 דיגיטל",
-			extra: [
-				{name: "search", isRequired: false},
-				{name: "genre", isRequired: false}
-			]
-		},
-		{
-			type: "series",
-			id: "KanArchive",
-			name: "כאן 11 ארכיב",
-			extra: [
-				{name: "search", isRequired: false},
-				{name: "genre", isRequired: false}
-			]
-		},
-		{
-			type: "series",
-			id: "KanKids",
-			name: "כאן 11 ילדים",
-			extra: [
-				{name: "search", isRequired: false},
-				{name: "genre", isRequired: false}
-			]
-		},
-        {
-			type: "series",
-			id: "KanTeens",
-			name: "כאן 11 נוער",
 			extra: [
 				{name: "search", isRequired: false},
 				{name: "genre", isRequired: false}
@@ -98,6 +71,33 @@ const manifest = {
                 ]}
             ]
         },
+		{
+			type: "series",
+			id: "KanArchive",
+			name: "כאן 11 ארכיב",
+			extra: [
+				{name: "search", isRequired: false},
+				{name: "genre", isRequired: false}
+			]
+		},
+		{
+			type: "series",
+			id: "KanKids",
+			name: "כאן 11 ילדים",
+			extra: [
+				{name: "search", isRequired: false},
+				{name: "genre", isRequired: false}
+			]
+		},
+        {
+			type: "series",
+			id: "KanTeens",
+			name: "כאן 11 נוער",
+			extra: [
+				{name: "search", isRequired: false},
+				{name: "genre", isRequired: false}
+			]
+		},
         {
             type: "Podcasts",
             id: "Kan88",
@@ -452,17 +452,17 @@ builder.defineCatalogHandler(async ({type, id, extra}) => {
 			let seriesSubtype = null;
 			if (id == "kanDigital"){
 				seriesSubtype = "d";
+			} else if (id == "MakoVOD"){
+				seriesSubtype = "m";
+			} else if (id == "ReshetVOD"){
+				seriesSubtype = "r";
 			} else if (id == "KanArchive"){
 				seriesSubtype = "a";
 			} else if (id == "KanKids"){
 				seriesSubtype = "k";
 			} else if (id == "KanTeens"){
 				seriesSubtype = "`n";
-			} else if (id == "MakoVOD"){
-				seriesSubtype = "m";
-			} else if (id == "ReshetVOD"){
-				seriesSubtype = "r";
-			}
+			} 
 
 			// Wildcard / missing search should return all (current behavior).
 			if (!seriesSubtype) {
@@ -729,24 +729,6 @@ builder.defineStreamHandler(async ({type, id}) => {
 	}
 	return Promise.resolve({ streams: streams });
 })
-
-//+===================================================================================
-//
-//  zip retrieval and json parsing functions
-//+===================================================================================
-/**
-* Retrieve the zip file, extract the .json file and then convert it to the seriesList object
-*/
-
-/*
-function addToSeriesList(item){
-	logger.trace("updateSeriesList => Entering");
-	logger.debug("updateSeriesList => Updating / Adding new entry to list: " + item.id + " " + item.name);
-	listSeries.addItemByDetails(item.id, item.name,item.poster,item.description,item.link, item.background, item.genres, item.metas,item.type, item.subtype);
-
-	logger.trace("updateSeriesList => Exiting");
-}
-*/
 
 async function getJSONFile(){
     logger.trace("getJSONFile => Entered JSON");
