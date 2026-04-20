@@ -26,6 +26,12 @@ const manifest = {
     "logo": "https://raw.githubusercontent.com/tomartsh/Stremio-KanBoxAddon/main/assets/IdanPlus.jpg",
 	"catalogs": [
 		{
+			type: "tv",
+			id: "TV_Broadcast",
+			name: "שידורים חיים",
+			extra: [ {name: "search", isRequired: false }]
+		},
+		{
 			type: "series",
 			id: "kanDigital",
 			name: "כאן 11 דיגיטל",
@@ -51,12 +57,6 @@ const manifest = {
 				{name: "search", isRequired: false},
 				{name: "genre", isRequired: false}
 			]
-		},
-		{
-			type: "tv",
-			id: "TV_Broadcast",
-			name: "שידורים חיים",
-			extra: [ {name: "search", isRequired: false }]
 		},
         {
             type: "Podcasts",
@@ -447,6 +447,10 @@ builder.defineCatalogHandler(async ({type, id, extra}) => {
     }
 
 	switch(type) {
+		case "tv":
+			// Keep existing behavior: live TV browsing (no TMDB search).
+			metas = listSeries.getMetasByType("tv");
+			break;
         case "series":
 			// Map Stremio catalog id -> your dataset subtype
 			let seriesSubtype = null;
@@ -521,12 +525,8 @@ builder.defineCatalogHandler(async ({type, id, extra}) => {
             // --- PAGINATION: 100 ITEMS PER PAGE ---
             const skip = parseInt(extra.skip || 0, 10);
             metas = metas.slice(skip, skip + 100);
-
             break;
-		case "tv":
-			// Keep existing behavior: live TV browsing (no TMDB search).
-			metas = listSeries.getMetasByType("tv");
-			break;
+
     }
 	if (metas == undefined){
 		logger.debug("defineCatalogHandler => empty metas object!");
