@@ -75,11 +75,10 @@ class srList {
     }
 
     getMetaById(id){
-        var meta = {};
-        if (this._seriesList[id] == undefined){ return meta;}
+        if (this._seriesList[id] == undefined){ return {};}
         else {
-            meta = this._seriesList[id].meta;
-            return meta;
+            // Return the full object to include id and type, not just the nested meta
+            return this._seriesList[id];
         }
     }
     
