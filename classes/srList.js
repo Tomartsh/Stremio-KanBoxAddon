@@ -49,8 +49,9 @@ class srList {
         var metas = [];
         for (var [key, value] of Object.entries(this._seriesList)) {
             if (value.subtype == subtype){
-                metas.push(value.meta);
-            }  
+                // Return the full object, not just meta, to include id and type
+                metas.push(value);
+            }
         }
         return metas;
     }
@@ -64,11 +65,11 @@ class srList {
         }
         for (var [key, value] of Object.entries(this._seriesList)) {
             if (value.subtype == subtype){
-                var meta = value.meta;
-                if (meta.name.includes(nameToSearch.trim())){
-                    metas.push(value.meta);
+                // Check if name matches, then return full object
+                if (value.name && value.name.includes(nameToSearch.trim())){
+                    metas.push(value);
                 }
-            }  
+            }
         }
         return metas;
     }
