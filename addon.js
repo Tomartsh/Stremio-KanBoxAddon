@@ -5,6 +5,7 @@ const log4js = require("./classes/logger");
 
 const srList = require("./classes/srList");
 const {fetchData, resolveStreamUrl} = require("./classes/utilities.js");
+const databaseManager = require("./classes/DatabaseManager");
 
 const { URL_ZIP_FILES, URL_JSON_BASE, MAKO } = require("./classes/constants.js");
 require("dotenv").config();
@@ -16,7 +17,8 @@ const listSeries = new srList();
 // Data loading promise - resolves when all ZIP data is downloaded and parsed.
 // In serverless (Vercel), request handlers await this before responding.
 const dataReady = getJSONFile().catch(error => {
-	logger.error("Failed to load data: " + error.message);
+    logger.error("Failed to load data: " + error.message);
+    logger.error("Stack: " + error.stack);
 });
 
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md
@@ -483,6 +485,27 @@ builder.defineCatalogHandler(async ({type, id, extra}) => {
 					metas = tmdbMetas;
 				}
 			}
+
+			// Sort series by latest_episode_date (newest first)
+			if (metas && metas.length > 0) {
+			    metas.sort((a, b) => {
+			        // Get latest episode date from each meta
+			        const getLatestDate = (meta) => {
+			            if (!meta || !meta.videos || meta.videos.length === 0) {
+			                return new Date(0); // Epoch for series without videos
+			            }
+			            // Find the latest released date among videos
+			            const dates = meta.videos
+			                .map(v => v.released ? new Date(v.released).getTime() : 0)
+			                .filter(d => d > 0);
+			            return dates.length > 0 ? Math.max(...dates) : new Date(0);
+			        };
+
+			        const dateA = getLatestDate(a);
+			        const dateB = getLatestDate(b);
+			        return dateB - dateA; // Newest first
+			    });
+			}
             break;
         case "Podcasts":
 			// Map Stremio catalog id -> your dataset subtype
@@ -730,8 +753,85 @@ builder.defineStreamHandler(async ({type, id}) => {
 	return Promise.resolve({ streams: streams });
 })
 
+// New function to load data from database
+async function loadDataFromDatabase() {
+    logger.info("loadDataFromDatabase => Attempting to load from database...");
+
+    try {
+        // Test database connection
+        const connected = await databaseManager.testConnection();
+        if (!connected) {
+            throw new Error("Database connection failed");
+        }
+
+        // Get database stats
+        const stats = await databaseManager.getStats();
+        logger.info(`loadDataFromDatabase => Database stats: ${JSON.stringify(stats)}`);
+
+        // Load all series (no limit, but sorted by latest_episode_date)
+        logger.info("loadDataFromDatabase => Loading series from database...");
+        const allSeries = await databaseManager.loadSeries({
+            sort: 'latest_episode_date',
+            order: 'desc'
+        });
+
+        if (allSeries.length === 0) {
+            throw new Error("No series found in database");
+        }
+
+        logger.info(`loadDataFromDatabase => Retrieved ${allSeries.length} series from database, adding to list...`);
+
+        // Add each series to listSeries
+        let loadedCount = 0;
+        let errorCount = 0;
+
+        for (const series of allSeries) {
+            try {
+                listSeries.addItemByDetails(
+                    series.id,
+                    series.name,
+                    series.poster,
+                    series.description,
+                    series.link,
+                    series.background,
+                    series.genres,
+                    series.meta,
+                    series.type,
+                    series.subtype
+                );
+                loadedCount++;
+                if (loadedCount <= 20) { // Only log first 20 to reduce noise
+                    logger.debug(`loadDataFromDatabase => Loaded series: ${series.name}`);
+                }
+            } catch (error) {
+                errorCount++;
+                logger.error(`loadDataFromDatabase => Error loading series ${series.id} (${series.name}): ${error.message}`);
+            }
+        }
+
+        logger.info(`loadDataFromDatabase => Successfully loaded ${loadedCount} series, ${errorCount} errors`);
+    } catch (error) {
+        logger.error(`loadDataFromDatabase => Fatal error: ${error.message}`);
+        logger.error(`loadDataFromDatabase => Stack: ${error.stack}`);
+        throw error; // Re-throw to trigger fallback
+    }
+}
+
 async function getJSONFile(){
-    logger.trace("getJSONFile => Entered JSON");
+    logger.info("getJSONFile => Starting data load...");
+
+    // TRY DATABASE FIRST
+    try {
+        await loadDataFromDatabase();
+        logger.info("getJSONFile => Successfully loaded all data from database");
+        return;
+    } catch (error) {
+        logger.warn(`getJSONFile => Database load failed: ${error.message}`);
+        logger.info("getJSONFile => Falling back to ZIP files...");
+    }
+
+    // FALLBACK TO ZIP FILES (original code)
+    logger.trace("getJSONFile => Loading from ZIP files");
 	var jsonStr;
     var filesArray = URL_ZIP_FILES;
     for (var urlIndex in filesArray) {
@@ -779,6 +879,7 @@ async function getJSONFile(){
 			logger.error("getJSONFile => Something went wrong. " + e);
         }
     }
+    logger.info("getJSONFile => Completed loading from ZIP files (fallback mode)");
 }
 
 const addonInterface = builder.getInterface();
