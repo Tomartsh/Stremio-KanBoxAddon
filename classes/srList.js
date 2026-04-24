@@ -77,8 +77,21 @@ class srList {
     getMetaById(id){
         if (this._seriesList[id] == undefined){ return {};}
         else {
-            // Return the full object to include id and type, not just the nested meta
-            return this._seriesList[id];
+            // Return the full object with nested meta fields merged to top level
+            // This ensures id, type are present AND videos/description are accessible
+            const item = this._seriesList[id];
+            if (item.meta) {
+                // Merge nested meta fields to top level for Stremio compatibility
+                return {
+                    ...item,
+                    ...item.meta,
+                    // Keep original id/type/subtype at top level
+                    id: item.id,
+                    type: item.type,
+                    subtype: item.subtype
+                };
+            }
+            return item;
         }
     }
     
