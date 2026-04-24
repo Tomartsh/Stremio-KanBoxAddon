@@ -24,7 +24,7 @@ const manifest = {
 	"id": "community.StremioIsraeliTV",
 	"version": "1.0.0",
     "logo": "https://raw.githubusercontent.com/tomartsh/Stremio-KanBoxAddon/main/assets/IdanPlus.jpg",
-	"catalogs": [
+		"catalogs": [
 		{
 			type: "tv",
 			id: "TV_Broadcast",
@@ -58,19 +58,6 @@ const manifest = {
 				{name: "genre", isRequired: false}
 			]
 		},
-        {
-            type: "Podcasts",
-            id: "KanPodcasts",
-            name: "כאן הסכתים",
-            extra: [
-                { name: "search", isRequired: false },
-                { name: "skip",   isRequired: false },              
-                { name: "sort",   isRequired: false, options: [
-                    "name",        // A-Z
-                    "name_desc"    // Z-A
-                ]}
-            ]
-        },
 		{
 			type: "series",
 			id: "KanArchive",
@@ -104,7 +91,7 @@ const manifest = {
             name: "כאן 88 הסכתים",
             extra: [
                 { name: "search", isRequired: false },
-                { name: "skip",   isRequired: false },             
+                { name: "skip",   isRequired: false },
                 { name: "sort",   isRequired: false, options: [
                     "name",
                     "name_desc"
@@ -113,11 +100,24 @@ const manifest = {
         },
         {
             type: "Podcasts",
-            id: "KanKidsPods",
-            name: "הסכתים לילדיםס",
+            id: "KanPodcasts",
+            name: "כאן הסכתים",
             extra: [
                 { name: "search", isRequired: false },
-                { name: "skip",   isRequired: false },             
+                { name: "skip",   isRequired: false },
+                { name: "sort",   isRequired: false, options: [
+                    "name",        // A-Z
+                    "name_desc"    // Z-A
+                ]}
+            ]
+        },
+        {
+            type: "Podcasts",
+            id: "KanKidsPods",
+            name: "הסכתים לילדים",
+            extra: [
+                { name: "search", isRequired: false },
+                { name: "skip",   isRequired: false },
                 { name: "sort",   isRequired: false, options: [
                     "name",
                     "name_desc"
