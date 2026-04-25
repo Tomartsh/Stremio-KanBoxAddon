@@ -94,71 +94,102 @@ class DatabaseManager {
         }
 
         try {
-            let query = this.supabase
-                .from('series')
-                .select(`
-                    id,
-                    scraper,
-                    name,
-                    poster,
-                    background,
-                    description,
-                    link,
-                    type,
-                    subtype,
-                    genres,
-                    tmdb_id,
-                    latest_episode_date,
-                    videos (
+            // Supabase has a 1000 row limit per query, so we need to paginate
+            const pageSize = 1000;
+            let allSeries = [];
+            let page = 0;
+            let hasMore = true;
+
+            while (hasMore) {
+                let query = this.supabase
+                    .from('series')
+                    .select(`
                         id,
-                        title,
-                        season,
-                        episode,
+                        scraper,
+                        name,
+                        poster,
+                        background,
                         description,
-                        thumbnail,
-                        episode_link,
-                        released,
-                        tmdb_episode_id
-                    )
-                `);
+                        link,
+                        type,
+                        subtype,
+                        genres,
+                        tmdb_id,
+                        latest_episode_date,
+                        videos (
+                            id,
+                            title,
+                            season,
+                            episode,
+                            description,
+                            thumbnail,
+                            episode_link,
+                            released,
+                            tmdb_episode_id
+                        )
+                    `);
 
-            // Filter by scraper type
-            if (options.scraper) {
-                query = query.eq('scraper', options.scraper);
+                // Filter by scraper type
+                if (options.scraper) {
+                    query = query.eq('scraper', options.scraper);
+                }
+
+                // Search by name
+                if (options.search) {
+                    query = query.ilike('name', `%${options.search}%`);
+                }
+
+                // Filter by genre
+                if (options.genre) {
+                    query = query.contains('genres', `[${options.genre}]`);
+                }
+
+                // Sort
+                const sortField = options.sort || 'latest_episode_date';
+                const sortOrder = options.order || 'desc';
+                query = query.order(sortField, { ascending: sortOrder === 'asc', nullsFirst: false });
+
+                // Apply pagination
+                const start = page * pageSize;
+                const end = start + pageSize - 1;
+                query = query.range(start, end);
+
+                // Apply additional limit if specified
+                if (options.limit && allSeries.length + pageSize > options.limit) {
+                    query = query.range(start, start + (options.limit - allSeries.length) - 1);
+                }
+
+                const { data, error } = await query;
+
+                if (error) {
+                    logger.error(`DatabaseManager => loadSeries page ${page} error: ${error.message}`);
+                    break;
+                }
+
+                if (data && data.length > 0) {
+                    allSeries = allSeries.concat(data);
+                    logger.debug(`DatabaseManager => Loaded page ${page}: ${data.length} series`);
+
+                    // Check if we should continue paginating
+                    if (data.length < pageSize || (options.limit && allSeries.length >= options.limit)) {
+                        hasMore = false;
+                    } else {
+                        page++;
+                    }
+                } else {
+                    hasMore = false;
+                }
             }
 
-            // Search by name
-            if (options.search) {
-                query = query.ilike('name', `%${options.search}%`);
-            }
+            // Log scraper distribution before transformation
+            const scraperCounts = {};
+            allSeries.forEach(s => {
+                scraperCounts[s.scraper] = (scraperCounts[s.scraper] || 0) + 1;
+            });
+            logger.info(`DatabaseManager => Query returned ${allSeries.length} series, scraper distribution: ${JSON.stringify(scraperCounts)}`);
 
-            // Filter by genre
-            if (options.genre) {
-                query = query.contains('genres', `[${options.genre}]`);
-            }
-
-            // Sort
-            const sortField = options.sort || 'latest_episode_date';
-            const sortOrder = options.order || 'desc';
-            query = query.order(sortField, { ascending: sortOrder === 'asc', nullsFirst: false });
-
-            // Limit and offset
-            if (options.limit) {
-                query = query.limit(options.limit);
-            }
-            if (options.offset) {
-                query = query.range(options.offset, options.offset + (options.limit || 100) - 1);
-            }
-
-            const { data, error } = await query;
-
-            if (error) {
-                logger.error(`DatabaseManager => loadSeries error: ${error.message}`);
-                return [];
-            }
-
-            logger.info(`DatabaseManager => Loaded ${data.length} series from database`);
-            return this.transformSeriesData(data);
+            logger.info(`DatabaseManager => Loaded ${allSeries.length} series from database`);
+            return this.transformSeriesData(allSeries);
 
         } catch (error) {
             logger.error(`DatabaseManager => loadSeries exception: ${error.message}`);
@@ -243,6 +274,17 @@ class DatabaseManager {
             'live': 'tv'  // For live TV
         };
 
+        // Debug: Log first few series to see scraper vs subtype values
+        const log4js = require("./logger");
+        const logger = log4js.getLogger("DatabaseManager");
+        seriesData.slice(0, 5).forEach(series => {
+            logger.debug(`DB series: ${series.name}, scraper: ${series.scraper}, subtype: ${series.subtype}`);
+        });
+
+        // Count kandigital series before transformation
+        const kandigitalCount = seriesData.filter(s => s.scraper === 'kandigital').length;
+        logger.debug(`DatabaseManager => Found ${kandigitalCount} kandigital series in database query`);
+
         return seriesData.map(series => {
             const videos = (series.videos || []).map(video => ({
                 id: video.id,
@@ -258,8 +300,14 @@ class DatabaseManager {
             }));
 
             // Map scraper to expected subtype code
+            // Prefer scraper mapping over database subtype field (which may be outdated)
             const scraper = series.scraper || 'unknown';
-            const subtype = series.subtype || scraperToSubtype[scraper] || scraper;
+            const subtype = scraperToSubtype[scraper] || series.subtype || scraper;
+
+            // Debug log for kandigital
+            if (scraper === 'kandigital') {
+                logger.debug(`Transforming kandigital: ${series.name}, mapped subtype: ${subtype}, scraperToSubtype result: ${scraperToSubtype[scraper]}`);
+            }
 
             return {
                 id: series.id,

@@ -784,9 +784,13 @@ async function loadDataFromDatabase() {
         // Add each series to listSeries
         let loadedCount = 0;
         let errorCount = 0;
+        const subtypeCounts = {};
 
         for (const series of allSeries) {
             try {
+                // Count subtypes for debugging
+                subtypeCounts[series.subtype] = (subtypeCounts[series.subtype] || 0) + 1;
+
                 listSeries.addItemByDetails(
                     series.id,
                     series.name,
@@ -801,7 +805,7 @@ async function loadDataFromDatabase() {
                 );
                 loadedCount++;
                 if (loadedCount <= 20) { // Only log first 20 to reduce noise
-                    logger.debug(`loadDataFromDatabase => Loaded series: ${series.name}`);
+                    logger.debug(`loadDataFromDatabase => Loaded series: ${series.name} (subtype: ${series.subtype})`);
                 }
             } catch (error) {
                 errorCount++;
@@ -809,6 +813,8 @@ async function loadDataFromDatabase() {
             }
         }
 
+        // Log subtype distribution
+        logger.info(`loadDataFromDatabase => Subtype distribution: ${JSON.stringify(subtypeCounts)}`);
         logger.info(`loadDataFromDatabase => Successfully loaded ${loadedCount} series, ${errorCount} errors`);
     } catch (error) {
         logger.error(`loadDataFromDatabase => Fatal error: ${error.message}`);
