@@ -77,23 +77,30 @@ class srList {
     getMetaById(id){
         if (this._seriesList[id] == undefined){ return {};}
         else {
-            // Return the full object with nested meta fields merged to top level
-            // This ensures id, type are present AND videos/description are accessible
             const item = this._seriesList[id];
-            if (item.meta) {
-                // Extract all fields from nested meta except the meta key itself
-                const { meta: nestedMeta, ...itemWithoutMeta } = item;
-                const { videos, description, genres, tmdbId, ...restOfMeta } = nestedMeta;
 
-                // Return merged object with id/type at top level and videos/description accessible
+            // For database-loaded items, we need to merge top-level and nested meta fields
+            // DatabaseManager creates: {id, name, poster, background, link, type, subtype, genres, meta: {videos, description, genres, tmdbId, name, poster, background}}
+            if (item.meta) {
                 return {
-                    ...itemWithoutMeta,
-                    videos,
-                    description,
-                    genres,
-                    tmdbId
+                    // Top-level required fields
+                    id: item.id,
+                    type: item.type,
+                    subtype: item.subtype,
+                    name: item.name,
+                    poster: item.poster,
+                    background: item.background,
+                    link: item.link,
+                    genres: item.genres,
+
+                    // Nested meta fields
+                    videos: item.meta.videos || [],
+                    description: item.meta.description || item.description,
+                    tmdbId: item.meta.tmdbId || item.tmdbId
                 };
             }
+
+            // For ZIP-loaded items (legacy structure)
             return item;
         }
     }
