@@ -10,18 +10,19 @@ class srList {
     }
 
     // Add an item to the list (each item is an object with an id and key-value pair)
-    // values are stated speratately
-    addItemByDetails(id, name, poster, description, link, background, genres, metas, type, subType) {
+    // values are stated seperately
+    addItemByDetails(id, name, poster, description, link, background, genres, metas, type, subType, latestEpisodeDate) {
         var item = {
             id: id,
             type: type,
             subtype: subType,
-            name: name, 
-            poster: poster,  
-            link: link, 
-            background: background, 
-            genres: genres, 
+            name: name,
+            poster: poster,
+            link: link,
+            background: background,
+            genres: genres,
             meta: metas,
+            latestEpisodeDate: latestEpisodeDate
         }
 
         if (description != undefined) {
@@ -49,10 +50,40 @@ class srList {
         var metas = [];
         for (var [key, value] of Object.entries(this._seriesList)) {
             if (value.subtype == subtype){
-                // Return the full object, not just meta, to include id and type
-                metas.push(value);
+                // For database-loaded items with separate meta structure, return just the meta
+                // For ZIP-loaded items where meta is the main structure, return the value itself
+                if (value.meta && value.id && value.type) {
+                    // Database-loaded item: return object with all required fields at top level
+                    metas.push({
+                        id: value.id,
+                        type: value.type,
+                        name: value.name,
+                        poster: value.poster,
+                        background: value.background,
+                        description: value.description,
+                        genres: value.genres,
+                        subtype: value.subtype,
+                        link: value.link,
+                        tmdbId: value.meta.tmdbId || value.tmdbId,
+                        latestEpisodeDate: value.latestEpisodeDate,
+                        videos: value.meta.videos || []
+                    });
+                } else {
+                    // ZIP-loaded item: return as-is (legacy structure)
+                    metas.push(value);
+                }
             }
         }
+
+        // Sort by latestEpisodeDate descending (newest first), except for live TV
+        if (subtype !== 'tv') {
+            metas.sort((a, b) => {
+                const dateA = a.latestEpisodeDate ? new Date(a.latestEpisodeDate).getTime() : 0;
+                const dateB = b.latestEpisodeDate ? new Date(b.latestEpisodeDate).getTime() : 0;
+                return dateB - dateA; // Descending order (newest first)
+            });
+        }
+
         return metas;
     }
 
@@ -63,10 +94,12 @@ class srList {
             metas = this.getMetasBySubtype(subtype);
             return metas;
         }
+        const searchTerm = nameToSearch.trim().toLowerCase();
         for (var [key, value] of Object.entries(this._seriesList)) {
             if (value.subtype == subtype){
-                // Check if name matches, then return full object
-                if (value.name && value.name.includes(nameToSearch.trim())){
+                // Check if series name contains the search term (case-insensitive)
+                const seriesName = value.name ? value.name.toLowerCase() : "";
+                if (seriesName.includes(searchTerm)){
                     metas.push(value);
                 }
             }
@@ -75,14 +108,19 @@ class srList {
     }
 
     getMetaById(id){
-        if (this._seriesList[id] == undefined){ return {};}
+        if (this._seriesList[id] == undefined){
+            const log4js = require("./logger");
+            const logger = log4js.getLogger("srList");
+            logger.debug("getMetaById => id not found: " + id);
+            return {};
+        }
         else {
             const item = this._seriesList[id];
 
             // For database-loaded items, we need to merge top-level and nested meta fields
             // DatabaseManager creates: {id, name, poster, background, link, type, subtype, genres, meta: {videos, description, genres, tmdbId, name, poster, background}}
             if (item.meta) {
-                return {
+                const result = {
                     // Top-level required fields
                     id: item.id,
                     type: item.type,
@@ -98,9 +136,16 @@ class srList {
                     description: item.meta.description || item.description,
                     tmdbId: item.meta.tmdbId || item.tmdbId
                 };
+                const log4js = require("./logger");
+                const logger = log4js.getLogger("srList");
+                logger.debug("getMetaById => returning database item with id: " + result.id + " name: " + result.name);
+                return result;
             }
 
             // For ZIP-loaded items (legacy structure)
+            const log4js = require("./logger");
+            const logger = log4js.getLogger("srList");
+            logger.debug("getMetaById => returning ZIP item with id: " + item.id);
             return item;
         }
     }

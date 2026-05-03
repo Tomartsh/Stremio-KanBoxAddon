@@ -432,13 +432,15 @@ async function searchMetasByTmdb(subtype, localMetas, search, limit) {
 	return ret;
 }
 
-builder.defineCatalogHandler(async ({type, id, extra}) => {
-	logger.debug(
-        "request for catalogs: " + type + " " + id +
-        " search: " + extra.search +
-        " skip: " + extra.skip +
-        " sort: " + extra.sort
-    );
+	builder.defineCatalogHandler(async (args) => {
+		const { type, id, extra } = args;
+		logger.debug(
+	        "request for catalogs RAW: " + JSON.stringify(args)
+	    );
+		logger.debug(
+	        "parsed: type=" + type + " id=" + id + " search=" + (extra?.search)
+	    );
+
 	var metas = [];
     var search;
 
@@ -593,9 +595,34 @@ let m3u8Counter = 0;
 
 async function resolveMakoStreams(id) {
 	logger.debug("resolveMakoStreams => resolving streams for: " + id);
+
+	// Try to get streams from in-memory list first (for ZIP-loaded content)
 	var baseStreams = listSeries.getStreamsById(id);
+
+	// If not in memory, try loading from database (for database-loaded content)
 	if (!baseStreams || baseStreams.length === 0) {
-		logger.warn("resolveMakoStreams => No base streams found for: " + id);
+		logger.debug("resolveMakoStreams => Streams not in memory, querying database...");
+		try {
+			const { data: streams } = await databaseManager.supabase
+				.from('streams')
+				.select('*')
+				.eq('video_id', id);
+
+			if (streams && streams.length > 0) {
+				baseStreams = streams.map(s => ({
+					url: s.url,
+					name: s.title || 'Stream',
+					cdn: 'AKAMAI' // Default to AKAMAI for database streams
+				}));
+				logger.debug(`resolveMakoStreams => Found ${baseStreams.length} streams in database`);
+			}
+		} catch (error) {
+			logger.error(`resolveMakoStreams => Database query failed: ${error.message}`);
+		}
+	}
+
+	if (!baseStreams || baseStreams.length === 0) {
+		logger.warn("resolveMakoStreams => No streams found for: " + id);
 		return [];
 	}
 
@@ -801,7 +828,8 @@ async function loadDataFromDatabase() {
                     series.genres,
                     series.meta,
                     series.type,
-                    series.subtype
+                    series.subtype,
+                    series.latestEpisodeDate
                 );
                 loadedCount++;
                 if (loadedCount <= 20) { // Only log first 20 to reduce noise
@@ -874,7 +902,7 @@ async function getJSONFile(){
                             }
                         }
 
-                        listSeries.addItemByDetails(value.id, value.name, value.poster, value.meta.description, value.link, value.background, value.meta.genres, value.meta, value.type, value.subtype);
+                        listSeries.addItemByDetails(value.id, value.name, value.poster, value.meta.description, value.link, value.background, value.meta.genres, value.meta, value.type, value.subtype, null);
                         logger.info(`getJSONFile => Writing series. Id: ${value.id} Subtype: ${value.subtype} link: ${value.link} name: ${value.name}`);
 					}
                 } else {

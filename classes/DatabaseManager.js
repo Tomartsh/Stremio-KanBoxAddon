@@ -188,6 +188,9 @@ class DatabaseManager {
             });
             logger.info(`DatabaseManager => Query returned ${allSeries.length} series, scraper distribution: ${JSON.stringify(scraperCounts)}`);
 
+            // Load and embed streams for all videos
+            allSeries = await this.loadAndEmbedStreams(allSeries);
+
             logger.info(`DatabaseManager => Loaded ${allSeries.length} series from database`);
             return this.transformSeriesData(allSeries);
 
@@ -246,12 +249,100 @@ class DatabaseManager {
                 return null;
             }
 
-            const transformed = this.transformSeriesData([data]);
+            // Load and embed streams for all videos
+            const seriesWithStreams = await this.loadAndEmbedStreams([data]);
+
+            const transformed = this.transformSeriesData(seriesWithStreams);
             return transformed[0] || null;
 
         } catch (error) {
             logger.error(`DatabaseManager => loadSeriesById exception: ${error.message}`);
             return null;
+        }
+    }
+
+    /**
+     * Load streams for all videos in series and embed them
+     * @param {Array} seriesData - Array of series from database
+     * @returns {Promise<Array>} Series data with streams embedded
+     */
+    async loadAndEmbedStreams(seriesData) {
+        if (!seriesData || seriesData.length === 0) {
+            return seriesData;
+        }
+
+        try {
+            // Collect all video IDs from all series
+            const videoIds = [];
+            const videoIdToSeries = {}; // Map video_id to series and video index
+
+            seriesData.forEach(series => {
+                if (series.videos) {
+                    series.videos.forEach((video, videoIdx) => {
+                        videoIds.push(video.id);
+                        videoIdToSeries[video.id] = {
+                            seriesId: series.id,
+                            videoIdx: videoIdx
+                        };
+                    });
+                }
+            });
+
+            if (videoIds.length === 0) {
+                return seriesData;
+            }
+
+            // Batch fetch all streams (Supabase has a limit on IN clause, so batch by 500)
+            const batchSize = 500;
+            const allStreams = [];
+
+            for (let i = 0; i < videoIds.length; i += batchSize) {
+                const batch = videoIds.slice(i, i + batchSize);
+                const { data, error } = await this.supabase
+                    .from('streams')
+                    .select('*')
+                    .in('video_id', batch);
+
+                if (error) {
+                    logger.warn(`DatabaseManager => Failed to load streams batch: ${error.message} (continuing without streams for this batch)`);
+                    continue;
+                }
+
+                if (data) {
+                    allStreams.push(...data);
+                }
+            }
+
+            logger.debug(`DatabaseManager => Loaded ${allStreams.length} streams for ${videoIds.length} videos`);
+
+            // Group streams by video_id
+            const streamsByVideo = {};
+            allStreams.forEach(stream => {
+                if (!streamsByVideo[stream.video_id]) {
+                    streamsByVideo[stream.video_id] = [];
+                }
+                streamsByVideo[stream.video_id].push({
+                    url: stream.url,
+                    name: stream.title,
+                    description: stream.description,
+                    quality: stream.quality
+                });
+            });
+
+            // Embed streams in video objects
+            seriesData.forEach(series => {
+                if (series.videos) {
+                    series.videos.forEach(video => {
+                        video.streams = streamsByVideo[video.id] || [];
+                    });
+                }
+            });
+
+            return seriesData;
+
+        } catch (error) {
+            logger.error(`DatabaseManager => loadAndEmbedStreams exception: ${error.message}`);
+            return seriesData;
         }
     }
 
@@ -286,18 +377,49 @@ class DatabaseManager {
         logger.debug(`DatabaseManager => Found ${kandigitalCount} kandigital series in database query`);
 
         return seriesData.map(series => {
-            const videos = (series.videos || []).map(video => ({
-                id: video.id,
-                name: video.title,
-                season: video.season,
-                episode: video.episode,
-                description: video.description,
-                thumbnail: video.thumbnail,
-                episodeLink: video.episode_link,
-                released: video.released,
-                tmdbEpisodeId: video.tmdb_episode_id,
-                streams: [] // Streams resolved on-demand
-            }));
+            const videos = (series.videos || []).map(video => {
+                // Generate title if null (required for Stremio)
+                let title = video.title;
+                if (!title) {
+                    const season = video.season || 1;
+                    const episode = video.episode || 1;
+                    title = `${series.name} – Season ${season}, Episode ${episode}`;
+                }
+
+                // Streams are embedded by loadAndEmbedStreams() method
+                return {
+                    id: video.id,
+                    name: title,
+                    season: video.season,
+                    episode: video.episode,
+                    description: video.description,
+                    thumbnail: video.thumbnail,
+                    episodeLink: video.episode_link,
+                    released: video.released,
+                    tmdbEpisodeId: video.tmdb_episode_id,
+                    streams: video.streams || []
+                };
+            }).sort((a, b) => {
+                // Sort by release date (most recent first)
+                const dateA = a.released ? new Date(a.released).getTime() : 0;
+                const dateB = b.released ? new Date(b.released).getTime() : 0;
+
+                if (dateA !== dateB) {
+                    return dateB - dateA; // Descending by date (newest first)
+                }
+
+                // If dates are the same, sort by season (newest first)
+                const seasonA = a.season || 0;
+                const seasonB = b.season || 0;
+                if (seasonA !== seasonB) {
+                    return seasonB - seasonA;
+                }
+
+                // If date and season are the same, sort by episode (descending)
+                const episodeA = a.episode || 0;
+                const episodeB = b.episode || 0;
+                return episodeB - episodeA;
+            });
 
             // Map scraper to expected subtype code
             // Prefer scraper mapping over database subtype field (which may be outdated)
@@ -320,12 +442,13 @@ class DatabaseManager {
                 subtype: subtype,
                 genres: series.genres || [],
                 tmdbId: series.tmdb_id,
+                latestEpisodeDate: series.latest_episode_date,
                 meta: {
                     videos: videos,
                     description: series.description,
                     genres: series.genres || [],
                     tmdbId: series.tmdb_id,
-                    name: series.name,  // Include name in meta for catalog display
+                    name: series.name,
                     poster: series.poster,
                     background: series.background || series.poster
                 }
