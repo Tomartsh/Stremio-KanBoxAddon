@@ -295,22 +295,49 @@ class DatabaseManager {
             // Batch fetch all streams (Supabase has a limit on IN clause, so batch by 500)
             const batchSize = 500;
             const allStreams = [];
+            let failedBatches = 0;
+
+            logger.debug(`DatabaseManager => Querying streams for ${videoIds.length} videos...`);
+            logger.debug(`DatabaseManager => Sample video IDs: ${videoIds.slice(0, 5).join(', ')}...`);
 
             for (let i = 0; i < videoIds.length; i += batchSize) {
                 const batch = videoIds.slice(i, i + batchSize);
-                const { data, error } = await this.supabase
-                    .from('streams')
-                    .select('*')
-                    .in('video_id', batch);
+                const batchNum = Math.floor(i/batchSize) + 1;
 
-                if (error) {
-                    logger.warn(`DatabaseManager => Failed to load streams batch: ${error.message} (continuing without streams for this batch)`);
-                    continue;
+                // Add small delay between batches to avoid rate limiting
+                if (i > 0) {
+                    await new Promise(resolve => setTimeout(resolve, 100));
                 }
 
-                if (data) {
-                    allStreams.push(...data);
+                try {
+                    const { data, error, count } = await this.supabase
+                        .from('streams')
+                        .select('*', { count: 'exact' })
+                        .in('video_id', batch);
+
+                    if (error) {
+                        logger.warn(`DatabaseManager => Failed to load streams batch ${batchNum}: ${error.message} (continuing without streams for this batch)`);
+                        failedBatches++;
+                        continue;
+                    }
+
+                    if (data && data.length > 0) {
+                        allStreams.push(...data);
+                        logger.debug(`DatabaseManager => Loaded batch ${batchNum}: ${data.length} streams`);
+                    } else {
+                        // Debug: Show what video IDs we're querying when we get 0 results
+                        if (i === 0) { // Only log first batch to avoid spam
+                            logger.debug(`DatabaseManager => Batch 1 returned 0 streams. Sample video IDs queried: ${batch.slice(0, 3).join(', ')}`);
+                        }
+                    }
+                } catch (fetchError) {
+                    logger.warn(`DatabaseManager => Network error loading batch ${batchNum}: ${fetchError.message} (continuing without streams for this batch)`);
+                    failedBatches++;
                 }
+            }
+
+            if (failedBatches > 0) {
+                logger.warn(`DatabaseManager => Completed stream loading with ${failedBatches} failed batches out of ${Math.ceil(videoIds.length/batchSize)} total batches`);
             }
 
             logger.debug(`DatabaseManager => Loaded ${allStreams.length} streams for ${videoIds.length} videos`);
