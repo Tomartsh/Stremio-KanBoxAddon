@@ -86,6 +86,7 @@ class DatabaseManager {
      * @param {number} options.offset - Offset for pagination
      * @param {string} options.sort - Sort field (latest_episode_date, name, etc.)
      * @param {string} options.order - Order direction (asc, desc)
+     * @param {boolean} options.includeVideos - Whether to include videos (default: false for lazy loading)
      * @returns {Promise<Array>} Array of series objects
      */
     async loadSeries(options = {}) {
@@ -93,41 +94,93 @@ class DatabaseManager {
             return [];
         }
 
+        // Default to NOT including videos for lazy loading
+        const includeVideos = options.includeVideos === true;
+
         try {
+            // DIAGNOSTIC: Check what's actually in the database
+            const { data: diagnostic, error: diagError } = await this.supabase
+                .from('series')
+                .select('scraper, type, subtype, name, poster')
+                .limit(20);
+
+            if (!diagError && diagnostic) {
+                logger.info(`DatabaseManager => DIAGNOSTIC - Sample rows:`);
+                diagnostic.forEach(row => {
+                    logger.info(`  scraper: ${row.scraper}, type: ${row.type}, subtype: ${row.subtype}, name: ${row.name}, poster: ${row.poster ? 'YES' : 'NO'}`);
+                });
+            }
+
+            // Check scraper distribution
+            const { data: scraperStats, error: scraperError } = await this.supabase
+                .from('series')
+                .select('scraper');
+
+            if (!scraperError && scraperStats) {
+                const counts = {};
+                scraperStats.forEach(s => counts[s.scraper] = (counts[s.scraper] || 0) + 1);
+                logger.info(`DatabaseManager => Scraper distribution: ${JSON.stringify(counts)}`);
+            }
+
             // Supabase has a 1000 row limit per query, so we need to paginate
             const pageSize = 1000;
             let allSeries = [];
             let page = 0;
             let hasMore = true;
 
+            // First, get total count to understand pagination
+            const { count: totalCount, error: countError } = await this.supabase
+                .from('series')
+                .select('*', { count: 'exact', head: true });
+
+            if (!countError && totalCount !== null) {
+                logger.info(`DatabaseManager => Total series in database: ${totalCount}`);
+            }
+
+            // Build the select query - only include videos if requested
+            const selectFields = includeVideos ? `
+                id,
+                scraper,
+                name,
+                poster,
+                background,
+                description,
+                link,
+                type,
+                subtype,
+                genres,
+                tmdb_id,
+                latest_episode_date,
+                videos (
+                    id,
+                    title,
+                    season,
+                    episode,
+                    description,
+                    thumbnail,
+                    episode_link,
+                    released,
+                    tmdb_episode_id
+                )
+            ` : `
+                id,
+                scraper,
+                name,
+                poster,
+                background,
+                description,
+                link,
+                type,
+                subtype,
+                genres,
+                tmdb_id,
+                latest_episode_date
+            `;
+
             while (hasMore) {
                 let query = this.supabase
                     .from('series')
-                    .select(`
-                        id,
-                        scraper,
-                        name,
-                        poster,
-                        background,
-                        description,
-                        link,
-                        type,
-                        subtype,
-                        genres,
-                        tmdb_id,
-                        latest_episode_date,
-                        videos (
-                            id,
-                            title,
-                            season,
-                            episode,
-                            description,
-                            thumbnail,
-                            episode_link,
-                            released,
-                            tmdb_episode_id
-                        )
-                    `);
+                    .select(selectFields, { count: 'exact' });
 
                 // Filter by scraper type
                 if (options.scraper) {
@@ -159,7 +212,7 @@ class DatabaseManager {
                     query = query.range(start, start + (options.limit - allSeries.length) - 1);
                 }
 
-                const { data, error } = await query;
+                const { data, error, count: pageCount } = await query;
 
                 if (error) {
                     logger.error(`DatabaseManager => loadSeries page ${page} error: ${error.message}`);
@@ -168,10 +221,16 @@ class DatabaseManager {
 
                 if (data && data.length > 0) {
                     allSeries = allSeries.concat(data);
-                    logger.debug(`DatabaseManager => Loaded page ${page}: ${data.length} series`);
+                    logger.debug(`DatabaseManager => Loaded page ${page}: ${data.length} series (total so far: ${allSeries.length}${totalCount ? ` / ${totalCount}` : ''})`);
 
                     // Check if we should continue paginating
-                    if (data.length < pageSize || (options.limit && allSeries.length >= options.limit)) {
+                    // Use total count if available, otherwise fall back to page size heuristic
+                    const reachedLimit = options.limit && allSeries.length >= options.limit;
+                    const hasTotalCount = totalCount !== null && totalCount !== undefined;
+                    const hasMoreData = hasTotalCount ? (allSeries.length < totalCount) : (data.length >= pageSize);
+
+                    if (reachedLimit || !hasMoreData) {
+                        logger.debug(`DatabaseManager => Pagination stopping. Reached limit: ${reachedLimit}, Has more data: ${hasMoreData}`);
                         hasMore = false;
                     } else {
                         page++;
@@ -188,10 +247,12 @@ class DatabaseManager {
             });
             logger.info(`DatabaseManager => Query returned ${allSeries.length} series, scraper distribution: ${JSON.stringify(scraperCounts)}`);
 
-            // Load and embed streams for all videos
-            allSeries = await this.loadAndEmbedStreams(allSeries);
+            // Only load and embed streams if videos were requested
+            if (includeVideos) {
+                allSeries = await this.loadAndEmbedStreams(allSeries);
+            }
 
-            logger.info(`DatabaseManager => Loaded ${allSeries.length} series from database`);
+            logger.info(`DatabaseManager => Loaded ${allSeries.length} series from database (videos: ${includeVideos ? 'included' : 'lazy-loaded'})`);
             return this.transformSeriesData(allSeries);
 
         } catch (error) {
@@ -262,6 +323,133 @@ class DatabaseManager {
     }
 
     /**
+     * Load videos (and their streams) for a specific series ID
+     * Used for lazy loading when a user clicks on a series to see episodes
+     * @param {string} seriesId - Series ID
+     * @returns {Promise<Array|null>} Array of video objects or null if error
+     */
+    async loadVideosForSeries(seriesId) {
+        if (!this.initialized && !this.initialize()) {
+            return null;
+        }
+
+        try {
+            // Query through the series table to get videos (using Supabase's relationship)
+            const { data, error } = await this.supabase
+                .from('series')
+                .select(`
+                    videos (
+                        id,
+                        title,
+                        season,
+                        episode,
+                        description,
+                        thumbnail,
+                        episode_link,
+                        released,
+                        tmdb_episode_id
+                    )
+                `)
+                .eq('id', seriesId)
+                .single();
+
+            if (error) {
+                logger.error(`DatabaseManager => loadVideosForSeries error: ${error.message}`);
+                return null;
+            }
+
+            if (!data || !data.videos || data.videos.length === 0) {
+                logger.debug(`DatabaseManager => No videos found for series ${seriesId}`);
+                return [];
+            }
+
+            // Load streams for these videos
+            const videosWithStreams = await this.loadStreamsForVideos(data.videos);
+
+            logger.debug(`DatabaseManager => Loaded ${videosWithStreams.length} videos for series ${seriesId}`);
+            return videosWithStreams;
+
+        } catch (error) {
+            logger.error(`DatabaseManager => loadVideosForSeries exception: ${error.message}`);
+            return null;
+        }
+    }
+
+    /**
+     * Load streams for a specific array of video objects
+     * @param {Array} videos - Array of video objects with id field
+     * @returns {Promise<Array>} Videos with streams embedded
+     */
+    async loadStreamsForVideos(videos) {
+        if (!videos || videos.length === 0) {
+            return videos;
+        }
+
+        try {
+            const videoIds = videos.map(v => v.id);
+
+            // Batch fetch streams (Supabase has limit on IN clause)
+            const batchSize = 500;
+            const allStreams = [];
+
+            for (let i = 0; i < videoIds.length; i += batchSize) {
+                const batch = videoIds.slice(i, i + batchSize);
+
+                const { data, error } = await this.supabase
+                    .from('streams')
+                    .select('*')
+                    .in('video_id', batch);
+
+                if (error) {
+                    logger.warn(`DatabaseManager => Error loading streams batch: ${error.message}`);
+                    continue;
+                }
+
+                if (data) {
+                    allStreams.push(...data);
+                }
+
+                // Small delay between batches to avoid rate limiting
+                if (i + batchSize < videoIds.length) {
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                }
+            }
+
+            // Group streams by video_id
+            const streamsByVideo = {};
+            allStreams.forEach(stream => {
+                if (!streamsByVideo[stream.video_id]) {
+                    streamsByVideo[stream.video_id] = [];
+                }
+                streamsByVideo[stream.video_id].push({
+                    url: stream.url,
+                    name: stream.title,
+                    description: stream.description,
+                    quality: stream.quality
+                });
+            });
+
+            // Embed streams in video objects
+            return videos.map(video => ({
+                id: video.id,
+                title: video.title,
+                season: video.season,
+                episode: video.episode,
+                description: video.description,
+                thumbnail: video.thumbnail,
+                episodeLink: video.episode_link,
+                released: video.released,
+                tmdbEpisodeId: video.tmdb_episode_id,
+                streams: streamsByVideo[video.id] || []
+            }));
+
+        } catch (error) {
+            logger.error(`DatabaseManager => loadStreamsForVideos exception: ${error.message}`);
+            return videos;
+        }
+    }
+
+    /**
      * Load streams for all videos in series and embed them
      * @param {Array} seriesData - Array of series from database
      * @returns {Promise<Array>} Series data with streams embedded
@@ -296,6 +484,7 @@ class DatabaseManager {
             const batchSize = 500;
             const allStreams = [];
             let failedBatches = 0;
+            const maxRetries = 3;
 
             logger.debug(`DatabaseManager => Querying streams for ${videoIds.length} videos...`);
             logger.debug(`DatabaseManager => Sample video IDs: ${videoIds.slice(0, 5).join(', ')}...`);
@@ -304,35 +493,56 @@ class DatabaseManager {
                 const batch = videoIds.slice(i, i + batchSize);
                 const batchNum = Math.floor(i/batchSize) + 1;
 
-                // Add small delay between batches to avoid rate limiting
+                // Add delay between batches to avoid rate limiting (longer for later batches)
                 if (i > 0) {
-                    await new Promise(resolve => setTimeout(resolve, 100));
+                    const delay = Math.min(100 + (batchNum * 10), 500); // Gradually increase delay, max 500ms
+                    await new Promise(resolve => setTimeout(resolve, delay));
                 }
 
-                try {
-                    const { data, error, count } = await this.supabase
-                        .from('streams')
-                        .select('*', { count: 'exact' })
-                        .in('video_id', batch);
+                let success = false;
+                let lastError = null;
 
-                    if (error) {
-                        logger.warn(`DatabaseManager => Failed to load streams batch ${batchNum}: ${error.message} (continuing without streams for this batch)`);
-                        failedBatches++;
-                        continue;
-                    }
+                // Retry with exponential backoff
+                for (let attempt = 0; attempt < maxRetries && !success; attempt++) {
+                    try {
+                        const { data, error, count } = await this.supabase
+                            .from('streams')
+                            .select('*', { count: 'exact' })
+                            .in('video_id', batch);
 
-                    if (data && data.length > 0) {
-                        allStreams.push(...data);
-                        logger.debug(`DatabaseManager => Loaded batch ${batchNum}: ${data.length} streams`);
-                    } else {
-                        // Debug: Show what video IDs we're querying when we get 0 results
-                        if (i === 0) { // Only log first batch to avoid spam
-                            logger.debug(`DatabaseManager => Batch 1 returned 0 streams. Sample video IDs queried: ${batch.slice(0, 3).join(', ')}`);
+                        if (error) {
+                            lastError = error;
+                            // Don't retry on certain errors (like invalid column)
+                            if (error.code === 'PGRST204' || error.code === '42703') {
+                                break;
+                            }
+                        } else {
+                            success = true;
+                            if (data && data.length > 0) {
+                                allStreams.push(...data);
+                                logger.debug(`DatabaseManager => Loaded batch ${batchNum}: ${data.length} streams${attempt > 0 ? ` (retry ${attempt})` : ''}`);
+                            } else {
+                                // Debug: Show what video IDs we're querying when we get 0 results
+                                if (i === 0) { // Only log first batch to avoid spam
+                                    logger.debug(`DatabaseManager => Batch 1 returned 0 streams. Sample video IDs queried: ${batch.slice(0, 3).join(', ')}`);
+                                }
+                            }
                         }
+                    } catch (fetchError) {
+                        lastError = fetchError;
+                        logger.warn(`DatabaseManager => Network error loading batch ${batchNum} (attempt ${attempt + 1}/${maxRetries}): ${fetchError.message}`);
                     }
-                } catch (fetchError) {
-                    logger.warn(`DatabaseManager => Network error loading batch ${batchNum}: ${fetchError.message} (continuing without streams for this batch)`);
+
+                    // Wait before retry with exponential backoff
+                    if (!success && attempt < maxRetries - 1) {
+                        const backoffDelay = Math.min(1000 * Math.pow(2, attempt), 5000); // 1s, 2s, 4s max
+                        await new Promise(resolve => setTimeout(resolve, backoffDelay));
+                    }
+                }
+
+                if (!success) {
                     failedBatches++;
+                    logger.warn(`DatabaseManager => Failed to load streams batch ${batchNum} after ${maxRetries} attempts: ${lastError?.message || 'Unknown error'} (continuing without streams for this batch)`);
                 }
             }
 
@@ -384,17 +594,22 @@ class DatabaseManager {
             'kandigital': 'd',
             'kanarchive': 'a',
             'kankids': 'k',
-            'kanteens': '`n',  // Special case
+            'kanteens': '`n',
             'kan88': '8',
             'kanpodcasts': 'p',
             'mako': 'm',
             'reshet': 'r',
-            'live': 'tv'  // For live TV
+            'livetv': 'tv'
         };
 
         // Debug: Log first few series to see scraper vs subtype values
         const log4js = require("./logger");
         const logger = log4js.getLogger("DatabaseManager");
+
+        // Log unique scrapers found in data
+        const uniqueScrapers = [...new Set(seriesData.map(s => s.scraper))];
+        logger.info(`DatabaseManager => Unique scrapers in data: ${JSON.stringify(uniqueScrapers)}`);
+
         seriesData.slice(0, 5).forEach(series => {
             logger.debug(`DB series: ${series.name}, scraper: ${series.scraper}, subtype: ${series.subtype}`);
         });
@@ -450,7 +665,7 @@ class DatabaseManager {
 
             // Map scraper to expected subtype code
             // Prefer scraper mapping over database subtype field (which may be outdated)
-            const scraper = series.scraper || 'unknown';
+            const scraper = (series.scraper || 'unknown').toLowerCase().trim();
             const subtype = scraperToSubtype[scraper] || series.subtype || scraper;
 
             // Debug log for kandigital
@@ -462,6 +677,7 @@ class DatabaseManager {
                 id: series.id,
                 name: series.name,
                 poster: series.poster,
+                posterShape: series.poster_shape || undefined,
                 background: series.background || series.poster,
                 description: series.description,
                 link: series.link,
@@ -477,6 +693,7 @@ class DatabaseManager {
                     tmdbId: series.tmdb_id,
                     name: series.name,
                     poster: series.poster,
+                    posterShape: series.poster_shape || undefined,
                     background: series.background || series.poster
                 }
             };

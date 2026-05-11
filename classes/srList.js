@@ -1,6 +1,12 @@
 class srList {
     constructor() {
         this._seriesList = {};    // Private list to store items
+        this._databaseManager = null;  // Database manager for lazy loading
+    }
+
+    // Set database manager for lazy loading
+    setDatabaseManager(dbManager) {
+        this._databaseManager = dbManager;
     }
 
 
@@ -59,6 +65,7 @@ class srList {
                         type: value.type,
                         name: value.name,
                         poster: value.poster,
+                        posterShape: value.meta.posterShape || "poster",
                         background: value.background,
                         description: value.description,
                         genres: value.genres,
@@ -107,7 +114,7 @@ class srList {
         return metas;
     }
 
-    getMetaById(id){
+    async getMetaById(id){
         if (this._seriesList[id] == undefined){
             const log4js = require("./logger");
             const logger = log4js.getLogger("srList");
@@ -116,10 +123,28 @@ class srList {
         }
         else {
             const item = this._seriesList[id];
+            const log4js = require("./logger");
+            const logger = log4js.getLogger("srList");
 
             // For database-loaded items, we need to merge top-level and nested meta fields
             // DatabaseManager creates: {id, name, poster, background, link, type, subtype, genres, meta: {videos, description, genres, tmdbId, name, poster, background}}
             if (item.meta) {
+                // Check if videos need to be lazy-loaded (empty or undefined)
+                const needsLazyLoad = !item.meta.videos || item.meta.videos.length === 0;
+
+                if (needsLazyLoad && this._databaseManager) {
+                    logger.debug("getMetaById => Lazy-loading videos for: " + id);
+                    try {
+                        const videos = await this._databaseManager.loadVideosForSeries(id);
+                        if (videos && videos.length > 0) {
+                            item.meta.videos = videos;
+                            logger.debug("getMetaById => Loaded " + videos.length + " videos for " + id);
+                        }
+                    } catch (error) {
+                        logger.error("getMetaById => Failed to lazy-load videos: " + error.message);
+                    }
+                }
+
                 const result = {
                     // Top-level required fields
                     id: item.id,
@@ -127,6 +152,7 @@ class srList {
                     subtype: item.subtype,
                     name: item.name,
                     poster: item.poster,
+                    posterShape: item.meta.posterShape || "poster",
                     background: item.background,
                     link: item.link,
                     genres: item.genres,
@@ -136,21 +162,17 @@ class srList {
                     description: item.meta.description || item.description,
                     tmdbId: item.meta.tmdbId || item.tmdbId
                 };
-                const log4js = require("./logger");
-                const logger = log4js.getLogger("srList");
-                logger.debug("getMetaById => returning database item with id: " + result.id + " name: " + result.name);
+                logger.debug("getMetaById => returning database item with id: " + result.id + " name: " + result.name + " videos: " + result.videos.length);
                 return result;
             }
 
             // For ZIP-loaded items (legacy structure)
-            const log4js = require("./logger");
-            const logger = log4js.getLogger("srList");
             logger.debug("getMetaById => returning ZIP item with id: " + item.id);
             return item;
         }
     }
     
-    getStreamsById(id){
+    async getStreamsById(id){
         var seriesId = id;
         var seasonId;
         var episodeId;
@@ -161,8 +183,8 @@ class srList {
             episodeId = tempId[2];
         }
 
-        var meta = this.getMetaById(seriesId);
-        if (meta == undefined){ return null;}
+        var meta = await this.getMetaById(seriesId);
+        if (meta == undefined){ return [];}
 
         // For live TV, streams are directly on the meta object
         if (meta.streams) {
@@ -172,25 +194,28 @@ class srList {
         // For on-demand content, streams are within the videos array
         var videos = meta["videos"];
         var streams = [];
-        if (videos == undefined){ return null;}
+        if (videos == undefined){ return [];}
         for (var i = 0; i < videos.length; i++){
             if (videos[i].id == id) {streams = videos[i].streams;}
         }
-        return streams;
+        return streams || [];
     }
 
     /**
      * Get the full video object by ID (includes episodeLink for on-demand stream resolution)
      * @param {string} id - The video ID in format "seriesId:seasonId:episodeId"
-     * @returns {Object|null} - The video object or null if not found
+     * @returns {Promise<Object|null>} - The video object or null if not found
      */
-    getVideoById(id) {
+    async getVideoById(id) {
+	    const log4js = require("./logger");
+	    const logger = log4js.getLogger("srList");
+	    logger.info("getVideoById => Looking for video ID: " + id);
         var seriesId = id;
         if (seriesId.indexOf(":") > 0) {
             seriesId = id.split(":")[0];
         }
 
-        var meta = this.getMetaById(seriesId);
+        var meta = await this.getMetaById(seriesId);
         if (!meta || !meta.videos) { return null; }
 
         for (var i = 0; i < meta.videos.length; i++) {
