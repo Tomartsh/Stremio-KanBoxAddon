@@ -334,6 +334,22 @@ class DatabaseManager {
         }
 
         try {
+            // DIAGNOSTIC: First check if videos exist directly
+            const { data: directVideos, error: directError } = await this.supabase
+                .from('videos')
+                .select('id, title, series_id')
+                .eq('series_id', seriesId)
+                .limit(5);
+
+            if (directError) {
+                logger.error(`DatabaseManager => Direct videos query error: ${directError.message}`);
+            } else {
+                logger.debug(`DatabaseManager => DIAGNOSTIC - Direct videos query for ${seriesId}: found ${directVideos?.length || 0} videos`);
+                if (directVideos && directVideos.length > 0) {
+                    directVideos.forEach(v => logger.debug(`  Video: ${v.id} - ${v.title}`));
+                }
+            }
+
             // Query through the series table to get videos (using Supabase's relationship)
             const { data, error } = await this.supabase
                 .from('series')

@@ -1,5 +1,22 @@
 #!/usr/bin/env node
 
+/**
+ * Stremio-KanBoxAddon Server
+ *
+ * Main entry point for the Israeli TV addon server.
+ *
+ * Server runs on port 49621 (default) and provides:
+ * - Stremio addon API (manifest, catalog, meta, stream handlers)
+ * - HLS playlist proxy for Mako streams
+ *
+ * ADMIN FUNCTIONS:
+ * For database diagnostics and management, use the KanBoxRepos scraper server
+ * running on port 49999:
+ * - Diagnostics: http://localhost:49999/admin/diagnose/<scraper>
+ * - Wipe Data: http://localhost:49999/admin/wipe/<scraper>
+ * - Statistics: http://localhost:49999/admin/stats
+ */
+
 const log4js = require("./classes/logger");
 const app = require("./app");
 

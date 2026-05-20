@@ -115,18 +115,39 @@ class srList {
     }
 
     async getMetaById(id){
-        if (this._seriesList[id] == undefined){
-            const log4js = require("./logger");
-            const logger = log4js.getLogger("srList");
-            logger.debug("getMetaById => id not found: " + id);
-            return {};
-        }
-        else {
-            const item = this._seriesList[id];
-            const log4js = require("./logger");
-            const logger = log4js.getLogger("srList");
+        const log4js = require("./logger");
+        const logger = log4js.getLogger("srList");
 
-            // For database-loaded items, we need to merge top-level and nested meta fields
+        if (this._seriesList[id] == undefined){
+            logger.debug("getMetaById => id not found in memory: " + id);
+
+            // Try to load from database if not in memory
+            if (this._databaseManager) {
+                try {
+                    logger.debug("getMetaById => Attempting to load series from database: " + id);
+                    const seriesFromDb = await this._databaseManager.loadSeriesById(id);
+                    if (seriesFromDb) {
+                        // Add to memory for future access
+                        this._seriesList[id] = seriesFromDb;
+                        logger.debug("getMetaById => Loaded series from database: " + id + " (" + seriesFromDb.name + ")");
+                        // Continue to return the loaded series
+                    } else {
+                        logger.debug("getMetaById => Series not found in database: " + id);
+                        return {};
+                    }
+                } catch (error) {
+                    logger.error("getMetaById => Failed to load series from database: " + error.message);
+                    return {};
+                }
+            } else {
+                return {};
+            }
+        }
+
+        // At this point, the series is either in memory or was just loaded from database
+        const item = this._seriesList[id];
+
+        // For database-loaded items, we need to merge top-level and nested meta fields
             // DatabaseManager creates: {id, name, poster, background, link, type, subtype, genres, meta: {videos, description, genres, tmdbId, name, poster, background}}
             if (item.meta) {
                 // Check if videos need to be lazy-loaded (empty or undefined)
@@ -164,12 +185,11 @@ class srList {
                 };
                 logger.debug("getMetaById => returning database item with id: " + result.id + " name: " + result.name + " videos: " + result.videos.length);
                 return result;
+            } else {
+                // For ZIP-loaded items (legacy structure)
+                logger.debug("getMetaById => returning ZIP item with id: " + item.id);
+                return item;
             }
-
-            // For ZIP-loaded items (legacy structure)
-            logger.debug("getMetaById => returning ZIP item with id: " + item.id);
-            return item;
-        }
     }
     
     async getStreamsById(id){
