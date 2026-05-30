@@ -15,3 +15,7 @@ backups
 backups/*.*
 
 .claude
+
+# Syncthing
+.stfolder/
+.stignore
