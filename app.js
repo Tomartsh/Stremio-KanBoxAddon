@@ -20,19 +20,19 @@ app.use(compression({
 }));
 
 // Add caching headers for better bandwidth usage
-// Catalog and meta responses can be cached for 1 hour
+// Increased TTLs to reduce bandwidth on Render's 5GB free tier
 app.use((req, res, next) => {
-    // Cache static assets for 1 day
+    // Cache static assets for 7 days
     if (req.path.match(/\.(jpg|jpeg|png|webp|svg|ico)$/i)) {
-        res.setHeader('Cache-Control', 'public, max-age=86400, immutable');
+        res.setHeader('Cache-Control', 'public, max-age=604800, immutable');
     }
-    // Cache JSON responses for 1 hour (catalog, meta)
+    // Cache JSON responses for 8 hours (catalog, meta) with 24h stale-while-revalidate
     else if (req.path.match(/\.(json|manifest)$/i) || req.path.startsWith('/manifest')) {
-        res.setHeader('Cache-Control', 'public, max-age=3600, stale-while-revalidate=7200');
+        res.setHeader('Cache-Control', 'public, max-age=28800, stale-while-revalidate=86400');
     }
-    // Cache addon API responses for 30 minutes
+    // Cache addon API responses for 4 hours with 24h stale-while-revalidate
     else if (req.path.match(/\/(catalog|meta|stream)/i)) {
-        res.setHeader('Cache-Control', 'public, max-age=1800, stale-while-revalidate=3600');
+        res.setHeader('Cache-Control', 'public, max-age=14400, stale-while-revalidate=86400');
         res.setHeader('Vary', 'Accept-Encoding');
     }
     next();
