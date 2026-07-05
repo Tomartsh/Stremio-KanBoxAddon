@@ -659,6 +659,7 @@ async function searchMetasByTmdb(subtype, localMetas, search, limit) {
 })
 
 builder.defineMetaHandler(async ({type, id}) => {
+	const originalRequestId = id;
 	logger.debug("defineMetaHandler=> request for meta: "+type+" "+id);
 
 	// Handle IMDB ID (tt) lookups - convert to TMDB ID, then to local ID
@@ -756,7 +757,11 @@ builder.defineMetaHandler(async ({type, id}) => {
 		});
 	}
 
-    return Promise.resolve({ meta: meta })
+    	// Preserve original request ID so Stremio can correlate our addon to this content
+	if (meta && meta.id && originalRequestId !== meta.id) {
+		meta = Object.assign({}, meta, { id: originalRequestId });
+	}
+	return Promise.resolve({ meta: meta })
 });
 
 /**
