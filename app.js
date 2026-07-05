@@ -28,7 +28,7 @@ app.use((req, res, next) => {
     }
     // Cache JSON responses for 8 hours (catalog, meta) with 24h stale-while-revalidate
     else if (req.path.match(/\.(json|manifest)$/i) || req.path.startsWith('/manifest')) {
-        res.setHeader('Cache-Control', 'public, max-age=28800, stale-while-revalidate=86400');
+        res.setHeader('Cache-Control', 'public, max-age=10, stale-while-revalidate=86400');
     }
     // Cache addon API responses for 4 hours with 24h stale-while-revalidate
     else if (req.path.match(/\/(catalog|meta|stream)/i)) {
