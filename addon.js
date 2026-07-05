@@ -676,9 +676,11 @@ builder.defineMetaHandler(async ({type, id}) => {
 				logger.debug("defineMetaHandler => IMDB->local: " + id);
 			} else {
 				logger.debug("defineMetaHandler => IMDB " + imdbId + " not in local data");
+				return Promise.resolve({ meta: { id: id, type: type, videos: [] } });
 			}
 		} else {
 			logger.debug("defineMetaHandler => Could not convert IMDB ID: " + id);
+			return Promise.resolve({ meta: { id: id, type: type, videos: [] } });
 		}
 	}
 
@@ -949,8 +951,9 @@ builder.defineStreamHandler(async ({type, id}) => {
 			if (resolvedStream && resolvedStream.url) {
 				streams = [{
 					url: resolvedStream.url,
+					name: "Israeli Channels",
 					title: resolvedStream.title || video.title || video.name,
-					name: resolvedStream.name || video.title || video.name
+					behaviorHints: {}
 				}];
 				logger.info("defineStreamHandler => Resolved stream for: " + (video.title || video.name));
 			} else {
