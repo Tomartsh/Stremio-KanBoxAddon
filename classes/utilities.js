@@ -562,30 +562,47 @@ async function resolveStreamUrl(episodePageUrl) {
     }
 
     try {
-        // Use got-scraping for better bot evasion (dynamic import for ESM module)
-        const gotScraping = await getGotScraping();
-        const response = await gotScraping({
-            url: episodePageUrl,
-            responseType: 'text',
-            timeout: { request: 30000 },
-            http2: true,
-            headerGeneratorOptions: {
-                browsers: [
-                    { name: 'chrome', minVersion: 120 },
-                    { name: 'firefox', minVersion: 120 }
-                ],
-                devices: ['desktop'],
-                locales: ['he-IL', 'en-US'],
-                operatingSystems: ['windows', 'macos']
-            }
-        });
+        let doc = null;
 
-        if (response.statusCode >= 400) {
-            logger.warn(`resolveStreamUrl => HTTP ${response.statusCode} for: ${episodePageUrl}`);
-            return null;
+        // Method 1: Use got-scraping for better bot evasion (dynamic import for ESM module)
+        try {
+            const gotScraping = await getGotScraping();
+            const response = await gotScraping({
+                url: episodePageUrl,
+                responseType: 'text',
+                timeout: { request: 30000 },
+                http2: true,
+                headerGeneratorOptions: {
+                    browsers: [
+                        { name: 'chrome', minVersion: 120 },
+                        { name: 'firefox', minVersion: 120 }
+                    ],
+                    devices: ['desktop'],
+                    locales: ['he-IL', 'en-US'],
+                    operatingSystems: ['windows', 'macos']
+                }
+            });
+
+            if (response.statusCode < 400) {
+                doc = parse(response.body);
+                logger.debug("resolveStreamUrl => Got page via got-scraping");
+            } else {
+                logger.warn(`resolveStreamUrl => got-scraping HTTP ${response.statusCode} for: ${episodePageUrl}`);
+            }
+        } catch (gotError) {
+            logger.warn(`resolveStreamUrl => got-scraping failed: ${gotError.message}. Trying axios fallback...`);
         }
 
-        const doc = parse(response.body);
+        // Method 2: Fallback to fetchData (axios-based, used successfully by scraper)
+        if (!doc) {
+            logger.info("resolveStreamUrl => Falling back to fetchData (axios)");
+            doc = await fetchData(episodePageUrl);
+            if (!doc) {
+                logger.warn(`resolveStreamUrl => Failed to fetch page with both methods: ${episodePageUrl}`);
+                return null;
+            }
+            logger.debug("resolveStreamUrl => Got page via fetchData (axios)");
+        }
 
         let videoUrl = "";
         let nameVideo = "";
