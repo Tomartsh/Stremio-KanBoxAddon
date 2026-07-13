@@ -550,7 +550,7 @@ async function searchMetasByTmdb(subtype, localMetas, search, limit) {
 			// Keep existing behavior: live TV browsing (no TMDB search).
 			metas = listSeries.getMetasByType("tv");
 			break;
-        case "series":
+	       case "series":
 			// Map Stremio catalog id -> your dataset subtype
 			let seriesSubtype = null;
 			if (id == "kanDigital"){
@@ -565,7 +565,7 @@ async function searchMetasByTmdb(subtype, localMetas, search, limit) {
 				seriesSubtype = "k";
 			} else if (id == "KanTeens"){
 				seriesSubtype = "`n";
-			} 
+			}
 
 			// Wildcard / missing search should return all (current behavior).
 			if (!seriesSubtype) {
@@ -573,13 +573,22 @@ async function searchMetasByTmdb(subtype, localMetas, search, limit) {
 			} else if (search === "*" || search === "undefined") {
 				metas = listSeries.getMetasBySubtype(seriesSubtype);
 			} else {
-				// Try TMDB first (if enabled), otherwise fall back to local substring search.
-				const localMetas = listSeries.getMetasBySubtype(seriesSubtype);
-				const tmdbMetas = await searchMetasByTmdb(seriesSubtype, localMetas, search, 200);
-				if (tmdbMetas === null || tmdbMetas.length === 0) {
+				// Detect if query contains Hebrew characters
+				const hasHebrew = /[֐-׿]/.test(search);
+
+				if (hasHebrew) {
+					// Hebrew query: skip TMDB (it may return English titles that don't match
+					// local Hebrew names, masking local results). Go directly to local search.
 					metas = listSeries.getMetasBySubtypeAndName(seriesSubtype, search);
 				} else {
-					metas = tmdbMetas;
+					// Non-Hebrew query: Try TMDB first (if enabled), otherwise fall back to local search.
+					const localMetas = listSeries.getMetasBySubtype(seriesSubtype);
+					const tmdbMetas = await searchMetasByTmdb(seriesSubtype, localMetas, search, 200);
+					if (tmdbMetas === null || tmdbMetas.length === 0) {
+						metas = listSeries.getMetasBySubtypeAndName(seriesSubtype, search);
+					} else {
+						metas = tmdbMetas;
+					}
 				}
 			}
 
@@ -620,12 +629,20 @@ async function searchMetasByTmdb(subtype, localMetas, search, limit) {
 			} else if (search === "*" || search === "undefined") {
 				metas = listSeries.getMetasBySubtype(podcastsSubtype);
 			} else {
-				const localMetas = listSeries.getMetasBySubtype(podcastsSubtype);
-				const tmdbMetas = await searchMetasByTmdb(podcastsSubtype, localMetas, search, 1000);
-				if (tmdbMetas === null || tmdbMetas.length === 0) {
+				// Detect if query contains Hebrew characters
+				const hasHebrew = /[֐-׿]/.test(search);
+
+				if (hasHebrew) {
+					// Hebrew query: skip TMDB, go directly to local search
 					metas = listSeries.getMetasBySubtypeAndName(podcastsSubtype, search);
 				} else {
-					metas = tmdbMetas;
+					const localMetas = listSeries.getMetasBySubtype(podcastsSubtype);
+					const tmdbMetas = await searchMetasByTmdb(podcastsSubtype, localMetas, search, 1000);
+					if (tmdbMetas === null || tmdbMetas.length === 0) {
+						metas = listSeries.getMetasBySubtypeAndName(podcastsSubtype, search);
+					} else {
+						metas = tmdbMetas;
+					}
 				}
 			}
 

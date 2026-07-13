@@ -1,3 +1,45 @@
+/**
+ * Repair corrupted Hebrew text in titles.
+ * Fixes double-encoding (Latin-1 → Windows-1255) and common character corruption.
+ */
+function repairTitle(title) {
+    if (!title || typeof title !== 'string') return title;
+
+    // Improved Heuristic: If string has non-ASCII characters but NO Hebrew characters,
+    // it is almost certainly corrupted and needs recovery.
+    const hasNonAscii = /[^\x00-\x7f]/.test(title);
+    const hasHebrew = /[֐-׿]/.test(title);
+
+    if (hasNonAscii && !hasHebrew) {
+        try {
+            // Double-encoding recovery: Treat as Latin-1 bytes and decode as Windows-1255 (Hebrew)
+            const bytes = Buffer.from(title, 'latin1');
+            const recovered = new TextDecoder('windows-1255').decode(bytes);
+
+            // If recovered string now has Hebrew characters, return it
+            if (/[֐-׿]/.test(recovered)) {
+                return recovered;
+            }
+        } catch (e) {
+            // Fallback silently
+        }
+    }
+
+    // Keep the existing prefix-based cleanup for other types of mangling
+    if (title.includes("׳")) {
+        return title
+            .replace(/׳”/g, "ה")
+            .replace(/׳ž/g, "מ")
+            .replace(/׳¢/g, "ע")
+            .replace(/׳‘/g, "ב")
+            .replace(/׳¨/g, "ר")
+            .replace(/׳–/g, "נ")
+            .replace(/׳/g, "");
+    }
+
+    return title;
+}
+
 class srList {
     constructor() {
         this._seriesList = {};    // Private list to store items
@@ -96,18 +138,43 @@ class srList {
 
     getMetasBySubtypeAndName(subtype, nameToSearch) {
         var metas = [];
-        //if this is a wild card, return all metas of teh relevant subtype
+        //if this is a wild card, return all metas of the relevant subtype
         if (nameToSearch.trim() == "*"){
             metas = this.getMetasBySubtype(subtype);
             return metas;
         }
-        const searchTerm = nameToSearch.trim().toLowerCase();
+
+        // Normalize search term: apply repairTitle, NFKC normalization, and lowercase
+        const rawSearch = nameToSearch.trim();
+        const searchTerm = repairTitle(rawSearch).normalize('NFKC').toLowerCase();
+
         for (var [key, value] of Object.entries(this._seriesList)) {
             if (value.subtype == subtype){
-                // Check if series name contains the search term (case-insensitive)
-                const seriesName = value.name ? value.name.toLowerCase() : "";
+                // Apply repairTitle and NFKC normalization to series name before comparing
+                const seriesName = value.name ? repairTitle(value.name).normalize('NFKC').toLowerCase() : "";
                 if (seriesName.includes(searchTerm)){
-                    metas.push(value);
+                    // Return the same format as getMetasBySubtype for consistency
+                    if (value.meta && value.id && value.type) {
+                        // Database-loaded item: return formatted object
+                        metas.push({
+                            id: value.id,
+                            type: value.type,
+                            name: value.name,
+                            poster: value.poster,
+                            posterShape: value.meta.posterShape || "poster",
+                            background: value.background,
+                            description: value.description,
+                            genres: value.genres,
+                            subtype: value.subtype,
+                            link: value.link,
+                            tmdbId: value.meta.tmdbId || value.tmdbId,
+                            latestEpisodeDate: value.latestEpisodeDate,
+                            videos: value.meta.videos || []
+                        });
+                    } else {
+                        // ZIP-loaded item: return as-is (legacy structure)
+                        metas.push(value);
+                    }
                 }
             }
         }
