@@ -541,6 +541,11 @@ function sleeperTimer(delay = FETCH_METHOD_CONFIG.RETRY_DELAY) {
     return new Promise(resolve => setTimeout(resolve, delay));
 }
 
+// In-memory cache for resolved stream URLs (keyed by episode page URL)
+// Avoids re-fetching pages that were already resolved
+const streamUrlCache = new Map();
+const STREAM_CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
+
 /**
  * =============================================================================
  * ON-DEMAND STREAM RESOLVER
@@ -549,6 +554,8 @@ function sleeperTimer(delay = FETCH_METHOD_CONFIG.RETRY_DELAY) {
  * Resolves stream URLs on-demand when a user plays an episode.
  * Used for Kan Digital episodes where streams are not pre-fetched during scraping
  * to avoid Cloudflare rate limiting.
+ *
+ * Results are cached in-memory for 1 hour to avoid repeated fetching.
  *
  * @param {string} episodePageUrl - The URL of the episode page (stored in episodeLink)
  * @returns {Promise<Object|null>} - Stream object with url, title, name or null on failure
@@ -561,16 +568,24 @@ async function resolveStreamUrl(episodePageUrl) {
         return null;
     }
 
+    // Check cache first — subsequent plays of the same episode are instant
+    const cached = streamUrlCache.get(episodePageUrl);
+    if (cached && (Date.now() - cached.ts) < STREAM_CACHE_TTL_MS) {
+        logger.debug(`resolveStreamUrl => Cache hit for: ${episodePageUrl}`);
+        return cached.stream;
+    }
+
     try {
         let doc = null;
 
         // Method 1: Use got-scraping for better bot evasion (dynamic import for ESM module)
+        // Timeout reduced from 30s to 8s — if it takes longer, fall back to axios
         try {
             const gotScraping = await getGotScraping();
             const response = await gotScraping({
                 url: episodePageUrl,
                 responseType: 'text',
-                timeout: { request: 30000 },
+                timeout: { request: 8000 },
                 http2: true,
                 headerGeneratorOptions: {
                     browsers: [
@@ -688,6 +703,9 @@ async function resolveStreamUrl(episodePageUrl) {
             name: nameVideo,
             released: released
         };
+
+        // Store in cache for subsequent requests
+        streamUrlCache.set(episodePageUrl, { ts: Date.now(), stream: streamObj });
 
         logger.info(`resolveStreamUrl => Successfully resolved stream: ${nameVideo}`);
         return streamObj;

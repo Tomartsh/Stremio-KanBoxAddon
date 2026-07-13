@@ -990,7 +990,7 @@ builder.defineStreamHandler(async ({type, id}) => {
 					url: resolvedStream.url,
 					name: "Israeli Channels",
 					title: resolvedStream.title || video.title || video.name,
-					behaviorHints: {}
+					behaviorHints: { default: true }
 				}];
 				logger.info("defineStreamHandler => Resolved stream for: " + (video.title || video.name));
 			} else {
