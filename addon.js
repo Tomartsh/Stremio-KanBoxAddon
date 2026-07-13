@@ -8,6 +8,21 @@ const {fetchData, resolveStreamUrl} = require("./classes/utilities.js");
 const databaseManager = require("./classes/DatabaseManager");
 
 const { URL_ZIP_FILES, URL_JSON_BASE, MAKO } = require("./classes/constants.js");
+
+// ZIP filename to subtype/type mapping for fallback loading.
+// Overrides incorrect values in scraped ZIP data (e.g., kanDigital had "series" instead of "d").
+const ZIP_SUBTYPE_MAP = {
+    'stremio-kandigital': { subtype: 'd', type: 'series' },
+    'stremio-kanarchive': { subtype: 'a', type: 'series' },
+    'stremio-kankids': { subtype: 'k', type: 'series' },
+    'stremio-kanteens': { subtype: '`n', type: 'series' },
+    'stremio-kanpodcasts': { subtype: 'p', type: 'Podcasts' },
+    'stremio-live': { subtype: 'tv', type: 'tv' },
+    'stremio-reshet': { subtype: 'r', type: 'series' },
+    'stremio-kan88': { subtype: '8', type: 'Podcasts' },
+    'stremio-mako': { subtype: 'm', type: 'series' }
+};
+
 require("dotenv").config({ path: require("path").join(__dirname, ".env") });
 
 var logger = log4js.getLogger("addon");
@@ -1096,6 +1111,11 @@ async function getJSONFile(){
                 // Ignore timestamp and use the data array/object
                 var actualData = jsonObj.data || jsonObj;
 
+                // Determine expected subtype/type from ZIP filename (e.g., "stremio-kandigital" -> "d"/"series")
+                // Overrides incorrect values that may exist in scraped ZIP data
+                var zipBaseName = filesArray[urlIndex].split(".")[0];
+                var subtypeConfig = ZIP_SUBTYPE_MAP[zipBaseName];
+
                 for (var key in actualData){
                     var value = actualData[key]
 
@@ -1109,6 +1129,14 @@ async function getJSONFile(){
                                 if (v.released === "") delete v.released;
                                 if (typeof v.season === "string") v.season = parseInt(v.season, 10) || 1;
                             }
+                        }
+                    }
+
+                    // Override subtype/type from ZIP filename mapping to fix incorrect scraped data
+                    if (subtypeConfig) {
+                        value.subtype = subtypeConfig.subtype;
+                        if (value.type === undefined || value.type === null) {
+                            value.type = subtypeConfig.type;
                         }
                     }
 
