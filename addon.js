@@ -231,6 +231,7 @@ function normalizeTitle(input) {
 	let title = repairTitle(input);
 	return (title || "")
 		.toString()
+		.normalize('NFKC') // Normalize Unicode (e.g., Hebrew final letters, nikkud)
 		.toLowerCase()
 		// Remove common prefixes like od-keshet/, kan-digital/, etc.
 		.replace(/^[a-z0-9\-]+\//, "")
@@ -439,15 +440,19 @@ async function mapTmdbToLocalId(id, type) {
 	return null;
 }
 
+/**
+ * Search TMDB for a query and return both titles and TMDB IDs.
+ * @returns {Object} { titles: string[], tmdbIds: number[] } or empty arrays on failure
+ */
 async function getTmdbTitlesForQuery(query) {
-	if (!TMDB_API_KEY) return [];
+	if (!TMDB_API_KEY) return { titles: [], tmdbIds: [] };
 	const normalizedQuery = normalizeTitle(query);
-	if (!normalizedQuery) return [];
+	if (!normalizedQuery) return { titles: [], tmdbIds: [] };
 
 	const cacheKey = normalizedQuery;
 	const cached = tmdbSearchCache.get(cacheKey);
 	if (cached && (Date.now() - cached.ts) < TMDB_CACHE_TTL_MS) {
-		return cached.titles;
+		return cached;
 	}
 
 	try {
@@ -465,6 +470,7 @@ async function getTmdbTitlesForQuery(query) {
 
 		const results = (resp && resp.data && Array.isArray(resp.data.results)) ? resp.data.results : [];
 		const titles = [];
+		const tmdbIds = [];
 		const seen = new Set();
 		for (const r of results) {
 			const t = r && (r.name || r.title || r.original_name || r.original_title);
@@ -473,14 +479,17 @@ async function getTmdbTitlesForQuery(query) {
 			if (!nt || seen.has(nt)) continue;
 			seen.add(nt);
 			titles.push(t);
+			// Collect TMDB ID for cross-referencing with local metas
+			if (r.id) tmdbIds.push(r.id);
 			if (titles.length >= 15) break;
 		}
 
-		tmdbSearchCache.set(cacheKey, { ts: Date.now(), titles });
-		return titles;
+		const result = { titles, tmdbIds };
+		tmdbSearchCache.set(cacheKey, { ts: Date.now(), ...result });
+		return result;
 	} catch (e) {
 		logger.warn("TMDB search failed, falling back to local search: " + e.message);
-		return [];
+		return { titles: [], tmdbIds: [] };
 	}
 }
 
@@ -495,15 +504,27 @@ async function searchMetasByTmdb(subtype, localMetas, search, limit) {
 			logger.debug(`searchMetasByTmdb => Returning null: Invalid search "${search}"`);
 			return null;
 		}
-		const tmdbTitles = await getTmdbTitlesForQuery(search);
+		const tmdbResult = await getTmdbTitlesForQuery(search);
+		const tmdbTitles = tmdbResult.titles || [];
+		const tmdbIds = tmdbResult.tmdbIds || [];
 	if (!tmdbTitles || tmdbTitles.length === 0) return null;
-		logger.debug(`searchMetasByTmdb => TMDB returned ${tmdbTitles.length} titles`);
+		logger.debug(`searchMetasByTmdb => TMDB returned ${tmdbTitles.length} titles, ${tmdbIds.length} IDs`);
 
+
+	// Build a Set of TMDB IDs for O(1) lookup
+	const tmdbIdSet = new Set(tmdbIds);
 
 	// Score each local meta against all TMDB titles, keep the best score per meta.
 	// localMetas are objects like { id, name, type, videos, ... }.
 	const scored = localMetas
 		.map(meta => {
+			// FIRST: Exact TMDB ID match (most reliable)
+			const metaTmdbId = meta.tmdbId;
+			if (metaTmdbId && tmdbIdSet.has(metaTmdbId)) {
+				return { meta, score: 100 };
+			}
+
+			// SECOND: Fallback to fuzzy title matching
 			const localName = meta && meta.name ? meta.name : "";
 			let best = 0;
 			for (const t of tmdbTitles) {
@@ -573,22 +594,24 @@ async function searchMetasByTmdb(subtype, localMetas, search, limit) {
 			} else if (search === "*" || search === "undefined") {
 				metas = listSeries.getMetasBySubtype(seriesSubtype);
 			} else {
-				// Detect if query contains Hebrew characters
-				const hasHebrew = /[֐-׿]/.test(search);
-
-				if (hasHebrew) {
-					// Hebrew query: skip TMDB (it may return English titles that don't match
-					// local Hebrew names, masking local results). Go directly to local search.
-					metas = listSeries.getMetasBySubtypeAndName(seriesSubtype, search);
-				} else {
-					// Non-Hebrew query: Try TMDB first (if enabled), otherwise fall back to local search.
-					const localMetas = listSeries.getMetasBySubtype(seriesSubtype);
-					const tmdbMetas = await searchMetasByTmdb(seriesSubtype, localMetas, search, 200);
-					if (tmdbMetas === null || tmdbMetas.length === 0) {
-						metas = listSeries.getMetasBySubtypeAndName(seriesSubtype, search);
-					} else {
-						metas = tmdbMetas;
+				// MERGED SEARCH: Always return local results, enriched with TMDB matches.
+				// 1. Get local results (substring name match — works for Hebrew and English)
+				const localHits = listSeries.getMetasBySubtypeAndName(seriesSubtype, search);
+				// 2. Try TMDB to boost — TMDB-matched series get priority placement
+				const localMetas = listSeries.getMetasBySubtype(seriesSubtype);
+				const tmdbMetas = await searchMetasByTmdb(seriesSubtype, localMetas, search, 200);
+				if (tmdbMetas && tmdbMetas.length > 0) {
+					// Merge: TMDB matches first, then local-only results that aren't already included
+					const seenIds = new Set(tmdbMetas.map(m => m.id));
+					const merged = [...tmdbMetas];
+					for (const local of localHits) {
+						if (!seenIds.has(local.id)) {
+							merged.push(local);
+						}
 					}
+					metas = merged;
+				} else {
+					metas = localHits;
 				}
 			}
 
@@ -629,20 +652,14 @@ async function searchMetasByTmdb(subtype, localMetas, search, limit) {
 			} else if (search === "*" || search === "undefined") {
 				metas = listSeries.getMetasBySubtype(podcastsSubtype);
 			} else {
-				// Detect if query contains Hebrew characters
-				const hasHebrew = /[֐-׿]/.test(search);
-
-				if (hasHebrew) {
-					// Hebrew query: skip TMDB, go directly to local search
+				// Try TMDB first (if enabled), otherwise fall back to local search.
+				// TMDB supports Hebrew (he-IL) so we try it for all queries.
+				const localMetas = listSeries.getMetasBySubtype(podcastsSubtype);
+				const tmdbMetas = await searchMetasByTmdb(podcastsSubtype, localMetas, search, 1000);
+				if (tmdbMetas === null || tmdbMetas.length === 0) {
 					metas = listSeries.getMetasBySubtypeAndName(podcastsSubtype, search);
 				} else {
-					const localMetas = listSeries.getMetasBySubtype(podcastsSubtype);
-					const tmdbMetas = await searchMetasByTmdb(podcastsSubtype, localMetas, search, 1000);
-					if (tmdbMetas === null || tmdbMetas.length === 0) {
-						metas = listSeries.getMetasBySubtypeAndName(podcastsSubtype, search);
-					} else {
-						metas = tmdbMetas;
-					}
+					metas = tmdbMetas;
 				}
 			}
 
@@ -790,10 +807,31 @@ builder.defineMetaHandler(async ({type, id}) => {
 	}
 
     	// Preserve original request ID so Stremio can correlate our addon to this content
-	if (meta && meta.id && originalRequestId !== meta.id) {
-		meta = Object.assign({}, meta, { id: originalRequestId });
-	}
-	return Promise.resolve({ meta: meta })
+ if (meta && meta.id && originalRequestId !== meta.id) {
+  meta = Object.assign({}, meta, { id: originalRequestId });
+ }
+
+ // PRE-WARM STREAM CACHE: For kanDigital series, proactively resolve the first
+ // few episode streams in the background while the user browses the episode list.
+ // By the time they click play, the stream is already cached — instant playback.
+ if (meta && meta.videos && Array.isArray(meta.videos) && meta.videos.length > 0) {
+  const seriesId = id.split(":")[0];
+  const isKanDigital = seriesId.startsWith("il_kan_digital_");
+  if (isKanDigital) {
+   // Fire-and-forget: resolve first 3 episodes in the background
+   const episodesToPreWarm = meta.videos.slice(0, 3);
+   for (const video of episodesToPreWarm) {
+    if (video.episodeLink && video.id) {
+    	// Don't await — run in background
+    	resolveStreamUrl(video.episodeLink).catch(err => {
+    		logger.debug(`defineMetaHandler => Pre-warm failed for ${video.id}: ${err.message}`);
+    	});
+    }
+   }
+  }
+ }
+
+ return Promise.resolve({ meta: meta })
 });
 
 /**
@@ -990,7 +1028,10 @@ builder.defineStreamHandler(async ({type, id}) => {
 					url: resolvedStream.url,
 					name: "Israeli Channels",
 					title: resolvedStream.title || video.title || video.name,
-					behaviorHints: { default: true }
+					behaviorHints: {
+						default: true,          // Mark as preferred stream
+						bingeGroup: "kanDigital" // Group episodes for seamless binge-watching
+					}
 				}];
 				logger.info("defineStreamHandler => Resolved stream for: " + (video.title || video.name));
 			} else {

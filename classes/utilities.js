@@ -544,7 +544,26 @@ function sleeperTimer(delay = FETCH_METHOD_CONFIG.RETRY_DELAY) {
 // In-memory cache for resolved stream URLs (keyed by episode page URL)
 // Avoids re-fetching pages that were already resolved
 const streamUrlCache = new Map();
-const STREAM_CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
+const STREAM_CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours (Kan stream URLs rarely change)
+
+/**
+ * Quick single-shot axios fetch with short timeout — no retries.
+ * Used as a fast fallback inside resolveStreamUrl to avoid the expensive
+ * fetchWithRetries path (30s timeout, 5 retries) that causes 40+ second delays.
+ */
+async function fetchPageFast(url) {
+    try {
+        const resp = await axios.get(url, {
+            timeout: 10000,
+            headers: HEADERS,
+            responseType: 'text'
+        });
+        return parse(resp.data);
+    } catch (e) {
+        logger.warn(`fetchPageFast => Failed: ${e.message}`);
+        return null;
+    }
+}
 
 /**
  * =============================================================================
@@ -555,7 +574,8 @@ const STREAM_CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
  * Used for Kan Digital episodes where streams are not pre-fetched during scraping
  * to avoid Cloudflare rate limiting.
  *
- * Results are cached in-memory for 1 hour to avoid repeated fetching.
+ * Results are cached in-memory for 24 hours to avoid repeated fetching.
+ * Timeouts are aggressive (<10s total) to ensure fast response.
  *
  * @param {string} episodePageUrl - The URL of the episode page (stored in episodeLink)
  * @returns {Promise<Object|null>} - Stream object with url, title, name or null on failure
@@ -579,13 +599,13 @@ async function resolveStreamUrl(episodePageUrl) {
         let doc = null;
 
         // Method 1: Use got-scraping for better bot evasion (dynamic import for ESM module)
-        // Timeout reduced from 30s to 8s — if it takes longer, fall back to axios
+        // Aggressive 5s timeout — Kan pages are lightweight and should load fast
         try {
             const gotScraping = await getGotScraping();
             const response = await gotScraping({
                 url: episodePageUrl,
                 responseType: 'text',
-                timeout: { request: 8000 },
+                timeout: { request: 5000 },
                 http2: true,
                 headerGeneratorOptions: {
                     browsers: [
@@ -608,15 +628,16 @@ async function resolveStreamUrl(episodePageUrl) {
             logger.warn(`resolveStreamUrl => got-scraping failed: ${gotError.message}. Trying axios fallback...`);
         }
 
-        // Method 2: Fallback to fetchData (axios-based, used successfully by scraper)
+        // Method 2: Fast axios fallback with 10s timeout and NO retries
+        // NOT using fetchData here — that path has 30s timeout + 5 retries and causes 40+ second delays
         if (!doc) {
-            logger.info("resolveStreamUrl => Falling back to fetchData (axios)");
-            doc = await fetchData(episodePageUrl);
+            logger.info("resolveStreamUrl => Falling back to fetchPageFast (axios, 10s timeout)");
+            doc = await fetchPageFast(episodePageUrl);
             if (!doc) {
                 logger.warn(`resolveStreamUrl => Failed to fetch page with both methods: ${episodePageUrl}`);
                 return null;
             }
-            logger.debug("resolveStreamUrl => Got page via fetchData (axios)");
+            logger.debug("resolveStreamUrl => Got page via fetchPageFast (axios)");
         }
 
         let videoUrl = "";
