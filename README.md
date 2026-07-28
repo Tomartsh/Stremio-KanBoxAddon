@@ -200,18 +200,6 @@ Supabase tables used:
 
 ---
 
-## 8. Populating / managing the content database
-
-This addon only **reads** content. To scrape and load content into Supabase, run the companion **KanBoxRepos** scraper server (default port `49999`), which also provides the admin endpoints:
-
-- **Diagnostics**: `http://localhost:49999/admin/diagnose/<scraper>`
-- **Wipe data**: `http://localhost:49999/admin/wipe/<scraper>`
-- **Statistics**: `http://localhost:49999/admin/stats`
-
-See the Stremio-KanBoxRepos README for details.
-
----
-
 ## Troubleshooting
 
 | Symptom | Likely cause / fix |
