@@ -533,8 +533,10 @@ async function searchMetasByTmdb(subtype, localMetas, search, limit) {
 			}
 			return { meta, score: best };
 		})
-		.filter(x => x.score > 0);
-		logger.debug(`searchMetasByTmdb => Filtered to ${scored.length} matches with score > 0`);
+		// Keep only strong matches: exact TMDB ID (100) or title substring (75).
+		// Loose token-overlap (< 75) pulls in unrelated shows for generic queries.
+		.filter(x => x.score >= 75);
+		logger.debug(`searchMetasByTmdb => Filtered to ${scored.length} matches with score >= 75`);
 
 
 	scored.sort((a, b) => {
@@ -615,8 +617,10 @@ async function searchMetasByTmdb(subtype, localMetas, search, limit) {
 				}
 			}
 
-			// Sort series by latest_episode_date (newest first)
-			if (metas && metas.length > 0) {
+			// Sort series by latest_episode_date (newest first) — only when browsing (no query).
+			// For real searches keep the relevance order (TMDB matches first); a date sort
+			// would bury the exact match under unrelated recent shows.
+			if (search === "*" && metas && metas.length > 0) {
 			    metas.sort((a, b) => {
 			        // Get latest episode date from each meta
 			        const getLatestDate = (meta) => {
