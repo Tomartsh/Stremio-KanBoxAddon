@@ -790,15 +790,8 @@ builder.defineMetaHandler(async ({type, id}) => {
 
 	// Fix Hebrew text issues in metadata before returning
 
-	// BANDWIDTH OPTIMIZATION: Limit videos in meta responses
-	// Return only first 50 episodes to reduce bandwidth. Stremio will lazy-load
-	// more episodes as needed via the meta handler with skip parameter.
-	if (meta.videos && Array.isArray(meta.videos) && meta.videos.length > 50) {
-		logger.debug("defineMetaHandler => Limiting videos from " + meta.videos.length + " to 50 for: " + id);
-		meta.videos = meta.videos.slice(0, 50);
-		// Add info that there are more videos available
-		meta.info = { moreVideosAvailable: true, totalVideos: meta.videos.length };
-	}
+	// Return all episodes: meta requests have no paging (Stremio/Nuvio never fetch
+	// more), so trimming the list hid every episode past the 50th.
 
 	if (meta.name) meta.name = repairTitle(meta.name);
 	if (meta.description) meta.description = repairTitle(meta.description);
