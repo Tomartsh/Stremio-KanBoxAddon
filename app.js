@@ -3,6 +3,7 @@ const compression = require('compression');
 const log4js = require("./classes/logger");
 const { getRouter } = require("stremio-addon-sdk");
 const addonModule = require("./addon");
+const { cacheControlFor } = require("./classes/cachePolicy");
 
 const logger = log4js.getLogger("app");
 const app = express();
@@ -22,8 +23,16 @@ app.use(compression({
 // Add caching headers for better bandwidth usage
 // Increased TTLs to reduce bandwidth on Render's 5GB free tier
 app.use((req, res, next) => {
+    // Live TV responses carry short-lived Mako tokens, so they must not use
+    // the multi-hour cache below. Stream URLs end in .json, which would
+    // otherwise match the long JSON rule first.
+    const liveCache = cacheControlFor(req.path);
+    if (liveCache) {
+        res.setHeader('Cache-Control', liveCache);
+        res.setHeader('Vary', 'Accept-Encoding');
+    }
     // Cache static assets for 7 days
-    if (req.path.match(/\.(jpg|jpeg|png|webp|svg|ico)$/i)) {
+    else if (req.path.match(/\.(jpg|jpeg|png|webp|svg|ico)$/i)) {
         res.setHeader('Cache-Control', 'public, max-age=604800, immutable');
     }
     // Cache JSON responses for 8 hours (catalog, meta) with 24h stale-while-revalidate
