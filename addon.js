@@ -8,6 +8,7 @@ const {fetchData, resolveStreamUrl} = require("./classes/utilities.js");
 const databaseManager = require("./classes/DatabaseManager");
 
 const { URL_ZIP_FILES, URL_JSON_BASE, MAKO } = require("./classes/constants.js");
+const { ensureLiveChannels } = require("./classes/liveChannels");
 
 // ZIP filename to subtype/type mapping for fallback loading.
 // Overrides incorrect values in scraped ZIP data (e.g., kanDigital had "series" instead of "d").
@@ -1139,6 +1140,7 @@ async function getJSONFile(){
     try {
         await loadDataFromDatabase();
         logger.info("getJSONFile => Successfully loaded all data from database");
+        ensureLiveChannels(listSeries);
         return;
     } catch (error) {
         logger.warn(`getJSONFile => Database load failed: ${error.message}`);
@@ -1206,6 +1208,7 @@ async function getJSONFile(){
         }
     }
     logger.info("getJSONFile => Completed loading from ZIP files (fallback mode)");
+    ensureLiveChannels(listSeries);
 }
 
 const addonInterface = builder.getInterface();
