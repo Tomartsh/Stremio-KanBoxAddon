@@ -2,10 +2,14 @@
  * Live TV stream resolver.
  *
  * Playback URLs come from Fishenzon's Idan Plus (plugin.video.idanplus
- * channels.json plus keshet.py / kan.py / reshet.py / 14tv.py / tv.py).
- * Keshet 12 and Channel 24 need a fresh Mako entitlement token on every
- * request. Other channels are direct links, with the headers Idan Plus sends
- * passed through to Stremio.
+ * channels.json). Keshet 12, Channel 24, and the Mako /evrideo/ channels
+ * need a fresh entitlementsServicesV2.jsp et=ngt token on every request.
+ *
+ * These playlists return 200 with no Referer and no special User-Agent.
+ * Stremio applies proxyHeaders only when notWebReady is also set, and that
+ * flag sends HLS through the local streaming server. That server applies
+ * headers to the first request only and mishandles root-absolute segment
+ * URLs, so the streams are returned as plain HTTPS URLs.
  */
 
 const axios = require("axios");
@@ -15,18 +19,10 @@ const BROWSER_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
 const MAKO_HOST = "https://mako-streaming.akamaized.net";
 const MAKO_ENTITLEMENT = "https://mass.mako.co.il/ClicksStatistics/entitlementsServicesV2.jsp";
 const MAKO_REFERER = "https://www.mako.co.il/";
-const KAN_REFERER = "https://www.kan.org.il";
-const RESHET_REFERER = "https://13tv.co.il/live/";
-const CHANNEL14_REFERER = "https://vod.c14.co.il/";
 const CHANNEL14_API = "https://insight-api-channel14.univtec.com/cms/interface/channels/play?relations=true&filter=guid||$eq||b676b906-5625-48af-a331-11a5d22e151b";
 
-const KAN_HEADERS = { "User-Agent": BROWSER_UA, Referer: KAN_REFERER };
-const DIRECT_HEADERS = { "User-Agent": BROWSER_UA };
-const RESHET_HEADERS = { "User-Agent": BROWSER_UA, Referer: RESHET_REFERER };
-const CHANNEL14_HEADERS = { "User-Agent": BROWSER_UA, Referer: CHANNEL14_REFERER };
-
-function direct(name, headers, notWebReady, links) {
-    return { kind: "direct", name, headers, notWebReady, links };
+function direct(name, links) {
+    return { kind: "direct", name, links };
 }
 
 function mako(name, variants) {
@@ -34,24 +30,25 @@ function mako(name, variants) {
 }
 
 /**
- * One entry per live channel id the addon already publishes.
- * `links` keep Idan Plus backup and accessibility variants as extra streams.
+ * One entry per live channel id the addon publishes.
+ * The first link is the one Stremio desktop and mobile should play:
+ * an HTTPS HLS playlist whose child playlists and segments are relative.
  */
 const LIVE_STREAM_SOURCES = {
-    il_kanTV_04: direct("כאן 11", KAN_HEADERS, true, [
+    il_kanTV_04: direct("כאן 11", [
         { title: "כאן 11", url: "https://r.il.cdn-redge.media/livehls/oil/kancdn-live/live/kan11/live.livx/playlist.m3u8?dvr=21600000" },
         { title: "כאן 11 - גיבוי", url: "https://r.il.cdn-redge.media/livedash/oil/kancdn-live/live/kan11/live.livx?dvr=14400000" },
         { title: "כאן 11 - לקויי שמיעה", url: "https://r.il.cdn-redge.media/livehls/oil/kancdn-live/live/kan11_subs/live.livx/playlist.m3u8?dvr=21600000" }
     ]),
-    il_kanTV_05: direct("חינוכית", KAN_HEADERS, true, [
+    il_kanTV_05: direct("חינוכית", [
         { title: "כאן חינוכית 23", url: "https://r.il.cdn-redge.media/livehls/oil/kancdn-live/live/kan_edu/live.livx/playlist.m3u8?dvr=21600000" },
         { title: "כאן חינוכית 23 - גיבוי", url: "https://r.il.cdn-redge.media/livedash/oil/kancdn-live/live/kan_edu/live.livx?dvr=14400000" }
     ]),
-    il_kanTV_07: direct("מכאן", KAN_HEADERS, true, [
+    il_kanTV_07: direct("מכאן", [
         { title: "מכאן 33", url: "https://r.il.cdn-redge.media/livehls/oil/kancdn-live/live/makan/live.livx/playlist.m3u8?dvr=21600000" },
         { title: "מכאן 33 - גיבוי", url: "https://r.il.cdn-redge.media/livedash/oil/kancdn-live/live/makan/live.livx?dvr=14400000" }
     ]),
-    il_kan_TV_06: direct("כנסת 99", DIRECT_HEADERS, false, [
+    il_kan_TV_06: direct("כנסת 99", [
         { title: "כנסת 99", url: "https://kneset.gostreaming.tv/p2-kneset/_definst_/myStream/index.m3u8" },
         { title: "כנסת 99 - לקויי שמיעה", url: "https://kneset.gostreaming.tv/p2-Accessibility/_definst_/myStream/index.m3u8" }
     ]),
@@ -66,39 +63,65 @@ const LIVE_STREAM_SOURCES = {
         { title: "ערוץ 24", path: "/direct/hls/live/2035340/ch24live/index.m3u8?as=1" },
         { title: "ערוץ 24 - גיבוי", path: "/evrideo/hls/live/20001278/ch24live/index.m3u8" }
     ]),
-    il_reshetTV_01: direct("רשת 13", RESHET_HEADERS, true, [
-        { title: "רשת 13", url: "https://dsk76kvc9kie6.cloudfront.net/media/87f59c77-03f6-4bad-a648-897e095e7360/mainManifest.m3u8" },
-        { title: "רשת 13 - גיבוי", url: "https://d18b0e6mopany4.cloudfront.net/out/v1/2f2bc414a3db4698a8e94b89eaf2da2a/index.m3u8" },
-        { title: "רשת 13 - גיבוי 2", url: "https://d2xg1g9o5vns8m.cloudfront.net/out/v1/0855d703f7d5436fae6a9c7ce8ca5075/index.m3u8", headers: { "User-Agent": BROWSER_UA, Referer: "https://13tv.co.il/allshows/2010263/" } },
-        { title: "רשת 13 - לקויי שמיעה", url: "https://reshet.g-mana.live/media/4607e158-e4d4-4e18-9160-3dc3ea9bc677/mainManifest.m3u8" }
+    il_makoTV_erets: mako("ערוץ ארץ נהדרת", [
+        { title: "ערוץ ארץ נהדרת", path: "/evrideo/hls/live/20001278/erets/index.m3u8" }
+    ]),
+    il_makoTV_savri: mako("ערוץ סברי מרנן", [
+        { title: "ערוץ סברי מרנן", path: "/evrideo/hls/live/20001278/savri/index.m3u8" }
+    ]),
+    il_makoTV_comedy: mako("ערוץ הקומדיה", [
+        { title: "ערוץ הקומדיה", path: "/evrideo/hls/live/20001278/free_comedy/index.m3u8" }
+    ]),
+    il_makoTV_drama: mako("ערוץ הדרמה", [
+        { title: "ערוץ הדרמה", path: "/evrideo/hls/live/20001278/free_drama/index.m3u8" }
+    ]),
+    il_makoTV_music: mako("ערוץ המוזיקה", [
+        { title: "ערוץ המוזיקה", path: "/evrideo/hls/live/20001278/free_music/index.m3u8" }
+    ]),
+    il_makoTV_food: mako("ערוץ האוכל", [
+        { title: "ערוץ האוכל", path: "/evrideo/hls/live/20001278/free_food/index.m3u8" }
+    ]),
+    // The Idan Plus primary (dsk76kvc9kie6 mainManifest) is a master whose
+    // media playlist uses root-absolute segment paths (/out/v1/...). With
+    // notWebReady, Stremio's streaming server requests those from the wrong
+    // host. The CloudFront index below uses relative segment names and plays
+    // with no Referer, so it is listed first. The old primary stays as a
+    // later choice for players that resolve root-absolute URLs themselves.
+    // The g-mana accessibility manifest answers 403 and is omitted.
+    il_reshetTV_01: direct("רשת 13", [
+        { title: "רשת 13", url: "https://d18b0e6mopany4.cloudfront.net/out/v1/2f2bc414a3db4698a8e94b89eaf2da2a/index.m3u8" },
+        { title: "רשת 13 - גיבוי", url: "https://d2xg1g9o5vns8m.cloudfront.net/out/v1/0855d703f7d5436fae6a9c7ce8ca5075/index.m3u8" },
+        { title: "רשת 13 - גיבוי 2", url: "https://dsk76kvc9kie6.cloudfront.net/media/87f59c77-03f6-4bad-a648-897e095e7360/mainManifest.m3u8" }
     ]),
     il_14TV_01: {
         kind: "channel14",
         name: "עכשיו 14",
         api: CHANNEL14_API,
-        headers: CHANNEL14_HEADERS,
         links: [
             { title: "עכשיו 14", url: "https://ch14channel14.encoders.immergo.tv/app/2/streamPlaylist.m3u8" },
             { title: "עכשיו 14 - גיבוי", url: "https://r.il.cdn-redge.media/livehls/oil/ch14/live/ch14/live.livx/playlist.m3u8?dvr=21600000&bitrate=5692000&audioId=1&videoId=0" }
         ]
     },
-    il_10_live_01: direct("ערוץ 10", DIRECT_HEADERS, false, [
+    il_10_live_01: direct("ערוץ 10", [
         { title: "כלכלה 10", url: "https://r.il.cdn-redge.media/livehls/oil/calcala-live/live/channel10/live.livx/playlist.m3u8?dvr=21600000" }
     ]),
-    il_ynetTv_01: direct("ynet", DIRECT_HEADERS, false, [
-        { title: "Ynet Live", url: "https://ynet-live-01.ynet-pic1.yit.co.il/ynet/live.m3u8" }
+    // The master only points at this 720p media playlist. Playing the media
+    // playlist directly avoids a client that attaches a User-Agent hint and
+    // then fails the master. Segments are relative and need no Referer.
+    il_ynetTv_01: direct("ynet", [
+        { title: "Ynet Live", url: "https://ynet-live-01.ynet-pic1.yit.co.il/ynet/live_720.m3u8" }
     ]),
-    il_24newsHeb_01: direct("i24 עברית", DIRECT_HEADERS, false, [
-        { title: "i24news", url: "https://i24newshebrew-cdn.encoders.immergo.tv/master.m3u8" }
+    il_24newsHeb_01: direct("i24 עברית", [
+        { title: "i24 עברית", url: "https://i24newshebrew-cdn.encoders.immergo.tv/master.m3u8" }
     ]),
-    il_24newsEng_01: direct("i24 English", DIRECT_HEADERS, false, [
-        { title: "i24news en", url: "https://i24newsenglish-cdn.encoders.immergo.tv/master.m3u8" }
+    il_24newsEng_01: direct("i24 English", [
+        { title: "i24 English", url: "https://i24newsenglish-cdn.encoders.immergo.tv/master.m3u8" }
     ]),
-    il_24newsFrn_01: direct("i24 Français", DIRECT_HEADERS, false, [
-        { title: "i24news fr", url: "https://i24newsfrench-cdn.encoders.immergo.tv/master.m3u8" }
+    il_24newsFrn_01: direct("i24 Français", [
+        { title: "i24 Français", url: "https://i24newsfrench-cdn.encoders.immergo.tv/master.m3u8" }
     ]),
-    il_24newsArb_01: direct("i24 العربية", DIRECT_HEADERS, false, [
-        { title: "i24news ar", url: "https://i24newsarabic-cdn.encoders.immergo.tv/master.m3u8" }
+    il_24newsArb_01: direct("i24 العربية", [
+        { title: "i24 العربية", url: "https://i24newsarabic-cdn.encoders.immergo.tv/master.m3u8" }
     ])
 };
 
@@ -106,21 +129,27 @@ function isLiveChannelId(id) {
     return Object.prototype.hasOwnProperty.call(LIVE_STREAM_SOURCES, id);
 }
 
-function toStream({ url, name, title, headers, notWebReady }) {
-    const stream = {
+function toStream({ url, name, title }) {
+    return {
         url: url,
         name: name,
         title: title || name
     };
-    if (headers && Object.keys(headers).length > 0) {
-        stream.behaviorHints = {
-            proxyHeaders: { request: headers }
-        };
-        if (notWebReady) {
-            stream.behaviorHints.notWebReady = true;
-        }
-    }
-    return stream;
+}
+
+/**
+ * Stremio has no flag that skips the stream list on the first play.
+ * bingeGroup is the hook that makes a later play of the same title pick
+ * this stream without asking. It is only set when the channel has one
+ * stream, so a multi-source channel still shows the picker.
+ */
+function withSingleStreamHint(id, streams) {
+    if (!streams || streams.length !== 1) return streams || [];
+    return [Object.assign({}, streams[0], {
+        behaviorHints: Object.assign({}, streams[0].behaviorHints, {
+            bingeGroup: "kanbox-" + id
+        })
+    })];
 }
 
 async function defaultHttpGet(url, options = {}) {
@@ -158,12 +187,7 @@ async function resolveMakoVariant(variant, channelName, httpGet) {
     return toStream({
         url: host + playPath + joiner + ticket,
         name: channelName,
-        title: variant.title,
-        headers: {
-            "User-Agent": MAKO_UA,
-            Referer: MAKO_REFERER
-        },
-        notWebReady: true
+        title: variant.title
     });
 }
 
@@ -181,9 +205,7 @@ async function resolveChannel14(source, httpGet) {
             streams.push(toStream({
                 url: hls,
                 name: source.name,
-                title: "עכשיו 14",
-                headers: source.headers,
-                notWebReady: true
+                title: "עכשיו 14"
             }));
         }
     } catch (error) {
@@ -195,9 +217,7 @@ async function resolveChannel14(source, httpGet) {
         streams.push(toStream({
             url: link.url,
             name: source.name,
-            title: link.title,
-            headers: link.headers || source.headers,
-            notWebReady: true
+            title: link.title
         }));
     }
     return streams;
@@ -213,20 +233,16 @@ async function resolveLiveStreams(id, deps = {}) {
     if (!source) return [];
     const httpGet = deps.httpGet || defaultHttpGet;
     const logger = deps.logger;
+    let streams = [];
 
     try {
         if (source.kind === "direct") {
-            return source.links.map(link => toStream({
+            streams = source.links.map(link => toStream({
                 url: link.url,
                 name: source.name,
-                title: link.title,
-                headers: link.headers || source.headers,
-                notWebReady: source.notWebReady
+                title: link.title
             }));
-        }
-
-        if (source.kind === "mako") {
-            const streams = [];
+        } else if (source.kind === "mako") {
             for (const variant of source.variants) {
                 try {
                     const stream = await resolveMakoVariant(variant, source.name, httpGet);
@@ -235,16 +251,15 @@ async function resolveLiveStreams(id, deps = {}) {
                     if (logger) logger.warn("resolveLiveStreams => Mako " + variant.title + ": " + error.message);
                 }
             }
-            return streams;
-        }
-
-        if (source.kind === "channel14") {
-            return await resolveChannel14(source, httpGet);
+        } else if (source.kind === "channel14") {
+            streams = await resolveChannel14(source, httpGet);
         }
     } catch (error) {
         if (logger) logger.error("resolveLiveStreams => " + id + ": " + error.message);
+        streams = [];
     }
-    return [];
+
+    return withSingleStreamHint(id, streams);
 }
 
 module.exports = {

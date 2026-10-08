@@ -1,4 +1,4 @@
-const { repairLivePoster } = require("./liveChannels");
+const { repairLivePoster, shapeLiveCatalogMeta, shapeLiveDetailMeta } = require("./liveChannels");
 
 /**
  * Repair corrupted Hebrew text in titles.
@@ -107,7 +107,7 @@ class srList {
             const background = value.type === "tv"
                 ? repairLivePoster(value.id, value.background || value.meta.background || poster)
                 : (value.background || value.meta.background || poster);
-            return {
+            return shapeLiveCatalogMeta({
                 id: value.id,
                 type: value.type,
                 name: value.name || value.meta.name,
@@ -119,9 +119,30 @@ class srList {
                 subtype: value.subtype,
                 link: value.link,
                 tmdbId: value.meta.tmdbId || value.tmdbId
-            };
+            });
         }
         return value;
+    }
+
+    _mergeMetasById(lists) {
+        const seen = new Set();
+        const metas = [];
+        for (const list of lists) {
+            for (const meta of list) {
+                if (!meta || !meta.id || seen.has(meta.id)) continue;
+                seen.add(meta.id);
+                metas.push(meta);
+            }
+        }
+        return metas;
+    }
+
+    getMetasBySubtypes(subtypes) {
+        return this._mergeMetasById((subtypes || []).map(subtype => this.getMetasBySubtype(subtype)));
+    }
+
+    getMetasBySubtypesAndName(subtypes, nameToSearch) {
+        return this._mergeMetasById((subtypes || []).map(subtype => this.getMetasBySubtypeAndName(subtype, nameToSearch)));
     }
    
     getMetasBySubtype(subtype) {
@@ -286,12 +307,12 @@ class srList {
                     description: item.meta.description || item.description,
                     tmdbId: item.meta.tmdbId || item.tmdbId
                 };
-                logger.debug("getMetaById => returning database item with id: " + result.id + " name: " + result.name + " videos: " + result.videos.length);
-                return result;
+                logger.debug("getMetaById => returning database item with id: " + result.id + " name: " + result.name + " videos: " + (result.videos ? result.videos.length : 0));
+                return shapeLiveDetailMeta(result);
             } else {
                 // For ZIP-loaded items (legacy structure)
                 logger.debug("getMetaById => returning ZIP item with id: " + item.id);
-                return item;
+                return shapeLiveDetailMeta(item);
             }
     }
     

@@ -40,9 +40,9 @@ const LIVE_CHANNELS = [
     },
     {
         id: "il_makoTV_01",
-        name: "מאקו ערוץ 12",
+        name: "קשת 12",
         poster: ASSET_BASE + "LIVE_push_mako_tv.jpg",
-        description: "שידור חי מאקו ערוץ 12",
+        description: "שידור חי קשת 12",
         genres: ["Actuality", "אקטואליה"]
     },
     {
@@ -67,6 +67,48 @@ const LIVE_CHANNELS = [
         genres: ["Actuality", "אקטואליה", "news"]
     },
     {
+        id: "il_makoTV_erets",
+        name: "ערוץ ארץ נהדרת",
+        poster: "https://raw.githubusercontent.com/Fishenzon/repo/master/plugin.video.idanplus/images/12eretz.jpg",
+        description: "שידור חי ערוץ ארץ נהדרת",
+        genres: ["Actuality", "אקטואליה"]
+    },
+    {
+        id: "il_makoTV_savri",
+        name: "ערוץ סברי מרנן",
+        poster: "https://raw.githubusercontent.com/Fishenzon/repo/master/plugin.video.idanplus/images/12savri.jpg",
+        description: "שידור חי ערוץ סברי מרנן",
+        genres: ["Actuality", "אקטואליה"]
+    },
+    {
+        id: "il_makoTV_comedy",
+        name: "ערוץ הקומדיה",
+        poster: "https://raw.githubusercontent.com/Fishenzon/repo/master/plugin.video.idanplus/images/12comedy.jpg",
+        description: "שידור חי ערוץ הקומדיה",
+        genres: ["Actuality", "אקטואליה"]
+    },
+    {
+        id: "il_makoTV_drama",
+        name: "ערוץ הדרמה",
+        poster: "https://raw.githubusercontent.com/Fishenzon/repo/master/plugin.video.idanplus/images/12drama.jpg",
+        description: "שידור חי ערוץ הדרמה",
+        genres: ["Actuality", "אקטואליה"]
+    },
+    {
+        id: "il_makoTV_music",
+        name: "ערוץ המוזיקה",
+        poster: "https://raw.githubusercontent.com/Fishenzon/repo/master/plugin.video.idanplus/images/12music.jpg",
+        description: "שידור חי ערוץ המוזיקה",
+        genres: ["Actuality", "אקטואליה"]
+    },
+    {
+        id: "il_makoTV_food",
+        name: "ערוץ האוכל",
+        poster: "https://raw.githubusercontent.com/Fishenzon/repo/master/plugin.video.idanplus/images/12food.jpg",
+        description: "שידור חי ערוץ האוכל",
+        genres: ["Actuality", "אקטואליה"]
+    },
+    {
         id: "il_10_live_01",
         name: "ערוץ עשר",
         poster: ASSET_BASE + "10.png",
@@ -82,30 +124,30 @@ const LIVE_CHANNELS = [
     },
     {
         id: "il_24newsHeb_01",
-        name: "שידור חי בעיברית i24",
+        name: "i24 עברית",
         poster: ASSET_BASE + "i24news_hebrew_square.png",
-        description: "שידור חי בעיברית i24",
+        description: "שידור חי i24 עברית",
         genres: ["Actuality", "אקטואליה", "news"]
     },
     {
         id: "il_24newsEng_01",
-        name: "שידור חי באנגלית i24",
+        name: "i24 English",
         poster: ASSET_BASE + "i24new_english_square.png",
-        description: "שידור חי באנגלית i24",
+        description: "i24 News English live",
         genres: ["Actuality", "אקטואליה", "news"]
     },
     {
         id: "il_24newsFrn_01",
-        name: "שידור חי בצרפתית i24",
+        name: "i24 Français",
         poster: ASSET_BASE + "i24news.png",
-        description: "שידור חי בצרפתית i24",
+        description: "i24 News Français en direct",
         genres: ["Actuality", "אקטואליה", "news"]
     },
     {
         id: "il_24newsArb_01",
-        name: "שידור חי בערבית i24",
+        name: "i24 العربية",
         poster: ASSET_BASE + "i24news_arabic_square.png",
-        description: "שידור חי בערבית i24",
+        description: "بث مباشر i24 بالعربية",
         genres: ["Actuality", "אקטואליה", "news"]
     }
 ];
@@ -134,8 +176,48 @@ function repairLivePoster(id, url) {
 }
 
 /**
+ * Catalog and meta use these names even when Supabase still has the old
+ * label (for example "מאקו ערוץ 12" instead of "קשת 12").
+ */
+function shapeLiveCatalogMeta(meta) {
+    if (!meta || meta.type !== "tv" || !CHANNELS_BY_ID.has(meta.id)) return meta;
+    const channel = CHANNELS_BY_ID.get(meta.id);
+    return Object.assign({}, meta, {
+        name: channel.name,
+        posterShape: "square",
+        behaviorHints: Object.assign({}, meta.behaviorHints, { isLive: true })
+    });
+}
+
+/**
+ * A live channel is one video: the channel itself.
+ *
+ * Stremio treats a missing `videos` array as that single video, and uses
+ * `defaultVideoId` to open the detail page on its streams. An explicit
+ * empty array means there are no videos, which is why Keshet 12 and i24
+ * looked missing after the detail page loaded.
+ *
+ * There is no addon flag that starts playback without the stream list.
+ * `defaultVideoId` is the closest supported step: the click lands on that
+ * one video's streams. `bingeGroup` (set on the stream when it is the only
+ * one) only auto-selects a later play, not this first one.
+ */
+function shapeLiveDetailMeta(meta) {
+    const shaped = shapeLiveCatalogMeta(meta);
+    if (!shaped || shaped.type !== "tv" || !CHANNELS_BY_ID.has(shaped.id)) return meta;
+    const detail = Object.assign({}, shaped);
+    delete detail.videos;
+    detail.behaviorHints = Object.assign({}, detail.behaviorHints, {
+        isLive: true,
+        defaultVideoId: shaped.id
+    });
+    return detail;
+}
+
+/**
  * Add any live channel the database (or ZIP fallback) did not load.
- * Existing ids are left untouched so Supabase names and posters stay.
+ * Existing ids keep their stored poster. Display names are applied later
+ * by shapeLiveCatalogMeta so an old Supabase name cannot hide the channel.
  */
 function ensureLiveChannels(listSeries) {
     for (const channel of LIVE_CHANNELS) {
@@ -168,5 +250,7 @@ module.exports = {
     LIVE_CHANNELS,
     isBrokenPoster,
     repairLivePoster,
+    shapeLiveCatalogMeta,
+    shapeLiveDetailMeta,
     ensureLiveChannels
 };
