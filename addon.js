@@ -11,6 +11,7 @@ const { URL_JSON_BASE, MAKO } = require("./classes/constants.js");
 const { zipFilesToLoad, seriesEntriesFromZipJson } = require("./classes/zipSources");
 const { ensureLiveChannels } = require("./classes/liveChannels");
 const { isLiveChannelId, resolveLiveStreams } = require("./classes/liveStreamResolver");
+const { repairTitle } = require("./classes/repairTitle");
 
 // ZIP filename to subtype/type mapping for fallback loading.
 // Overrides incorrect values in scraped ZIP data (e.g., kanDigital had "series" instead of "d").
@@ -190,45 +191,6 @@ const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const TMDB_LANGUAGE = process.env.TMDB_LANGUAGE || "he-IL";
 const tmdbSearchCache = new Map(); // key => { ts, titles }
 const TMDB_CACHE_TTL_MS = 30 * 60 * 1000; // 30 minutes
-
-// Fix common character corruption in local metadata (especially Reshet VOD)
-function repairTitle(title) {
-	if (!title || typeof title !== 'string') return title;
-
-	// Improved Heuristic: If string has non-ASCII characters but NO Hebrew characters,
-	// it is almost certainly corrupted and needs recovery.
-	const hasNonAscii = /[^\x00-\x7f]/.test(title);
-	const hasHebrew = /[֐-׿]/.test(title);
-
-	if (hasNonAscii && !hasHebrew) {
-		try {
-			// Double-encoding recovery: Treat as Latin-1 bytes and decode as Windows-1255 (Hebrew)
-			const bytes = Buffer.from(title, 'latin1');
-			const recovered = new TextDecoder('windows-1255').decode(bytes);
-
-			// If recovered string now has Hebrew characters, return it
-			if (/[֐-׿]/.test(recovered)) {
-				return recovered;
-			}
-		} catch (e) {
-			// Fallback silently
-		}
-	}
-
-	// Keep the existing prefix-based cleanup for other types of mangling
-	if (title.includes("׳")) {
-		return title
-			.replace(/׳”/g, "ה")
-			.replace(/׳ž/g, "מ")
-			.replace(/׳¢/g, "ע")
-			.replace(/׳‘/g, "ב")
-			.replace(/׳¨/g, "ר")
-			.replace(/׳–/g, "נ")
-			.replace(/׳/g, "");
-	}
-
-	return title;
-}
 
 function normalizeTitle(input) {
 	let title = repairTitle(input);
