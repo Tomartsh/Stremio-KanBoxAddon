@@ -58,6 +58,5 @@ function repairTitle(title) {
 }
 
 module.exports = {
-    repairTitle,
-    isWindows1255Mojibake
+    repairTitle
 };
