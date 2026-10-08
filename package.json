@@ -3,7 +3,8 @@
 	"version": "0.0.1",
 	"description": "Kan Digital and live broadcast",
 	"scripts": {
-		"start": "node server.js"
+		"start": "node server.js",
+		"test": "node --test"
 	},
 	"engines": {
 		"node": ">=18.x"

@@ -7,7 +7,10 @@ const srList = require("./classes/srList");
 const {fetchData, resolveStreamUrl} = require("./classes/utilities.js");
 const databaseManager = require("./classes/DatabaseManager");
 
-const { URL_ZIP_FILES, URL_JSON_BASE, MAKO } = require("./classes/constants.js");
+const { URL_JSON_BASE, MAKO } = require("./classes/constants.js");
+const { zipFilesToLoad } = require("./classes/zipSources");
+const { ensureLiveChannels } = require("./classes/liveChannels");
+const { isLiveChannelId, resolveLiveStreams } = require("./classes/liveStreamResolver");
 
 // ZIP filename to subtype/type mapping for fallback loading.
 // Overrides incorrect values in scraped ZIP data (e.g., kanDigital had "series" instead of "d").
@@ -920,61 +923,6 @@ async function resolveMakoStreams(id) {
 }
 
 
-	/**
-	 * Resolve Mako/Keshet live TV streams (Ch12, Ch24) by fetching entitlement tokens.
-	 * These streams require authentication tokens from Mako's entitlement service.
-	 */
-	async function resolveMakoLiveStream(id) {
-		logger.debug("resolveMakoLiveStream => resolving live stream for: " + id);
-		var baseStreams = await listSeries.getStreamsById(id);
-		if (!baseStreams || baseStreams.length === 0) {
-			logger.warn("resolveMakoLiveStream => No base streams found for: " + id);
-			return [];
-		}
-
-		var entry = baseStreams[0];
-		// Extract the path from the full URL (e.g., "/direct/hls/live/2033791/k12/index.m3u8")
-		var streamPath = "";
-		try {
-			var urlObj = new URL(entry.url);
-			streamPath = urlObj.pathname;
-		} catch (e) {
-			logger.warn("resolveMakoLiveStream => Invalid URL format: " + entry.url);
-			streamPath = entry.url;
-		}
-		var cdnName = "AKAMAI"; // Mako live streams use Akamai
-
-		try {
-			// Use et=ngt for live streams (not et=gt which is for VOD)
-			var ticketUrl = MAKO.URL_ENTITLEMENT_SERVICES + "?et=ngt&lp=" + encodeURIComponent(streamPath) + "&rv=" + cdnName;
-			logger.debug("resolveMakoLiveStream => Fetching live ticket from: " + ticketUrl);
-			var ticketObj = await fetchData(ticketUrl, true);
-
-			if (!ticketObj || !ticketObj.tickets || ticketObj.tickets.length === 0) {
-				logger.warn("resolveMakoLiveStream => No ticket returned, using fallback URL");
-				// Fallback: use the original URL (might not work but better than nothing)
-				return [{ url: entry.url, name: entry.name || "Live", title: entry.title || "שידור חי" }];
-			}
-
-			// Don't decode the ticket - use it as-is from the API response
-			var ticket = ticketObj.tickets[0].ticket;
-			var resolvedPath = ticketObj.tickets[0].url || streamPath;
-			var liveUrl = "https://mako-streaming.akamaized.net" + resolvedPath + "?" + ticket;
-
-			logger.info("resolveMakoLiveStream => Live URL constructed: " + liveUrl.substring(0, 150));
-			return [{
-				url: liveUrl,
-				name: entry.name || "Live",
-				title: entry.title || "שידור חי"
-			}];
-
-		} catch (e) {
-			logger.error("resolveMakoLiveStream => Error: " + e.message);
-			// Fallback: use the original URL
-			return [{ url: entry.url, name: entry.name || "Live", title: entry.title || "שידור חי" }];
-		}
-	}
-
 builder.defineStreamHandler(async ({type, id}) => {
 	logger.debug("defineStreamHandler => request for streams: " + type + " " + id);
 
@@ -1006,9 +954,10 @@ builder.defineStreamHandler(async ({type, id}) => {
 		}
 	}
 
-	if (id === "il_makoTV_01" || id === "il_24_01") {
-			// Mako/Keshet live TV: resolve entitlement tokens at runtime
-			streams = await resolveMakoLiveStream(id);
+	if (isLiveChannelId(id)) {
+		// Live TV URLs are resolved per request. Keshet tokens expire in minutes
+		// and were never stored in Supabase.
+		streams = await resolveLiveStreams(id, { logger });
 
 	} else if (id.startsWith("il_mako_")) {
 		// Mako VOD: resolve entitlement tokens for CDN-protected streams
@@ -1039,7 +988,7 @@ builder.defineStreamHandler(async ({type, id}) => {
 		}
 
 	} else {
-		// All other sources (kanarchive, kankids, kanteens, reshet, live, etc.)
+		// On-demand sources (kanarchive, kankids, kanteens, reshet, etc.)
 		// have pre-fetched streams in the JSON data
 		streams = await listSeries.getStreamsById(id);
 	}
@@ -1139,6 +1088,7 @@ async function getJSONFile(){
     try {
         await loadDataFromDatabase();
         logger.info("getJSONFile => Successfully loaded all data from database");
+        ensureLiveChannels(listSeries);
         return;
     } catch (error) {
         logger.warn(`getJSONFile => Database load failed: ${error.message}`);
@@ -1148,7 +1098,7 @@ async function getJSONFile(){
     // FALLBACK TO ZIP FILES
     logger.trace("getJSONFile => Loading from ZIP files");
     var jsonStr;
-    var filesArray = URL_ZIP_FILES;
+    var filesArray = zipFilesToLoad();
     for (var urlIndex in filesArray) {
         logger.debug("getJSONFile => Handling file " + filesArray[urlIndex]);
         var zipFileName = URL_JSON_BASE + filesArray[urlIndex];
@@ -1206,6 +1156,7 @@ async function getJSONFile(){
         }
     }
     logger.info("getJSONFile => Completed loading from ZIP files (fallback mode)");
+    ensureLiveChannels(listSeries);
 }
 
 const addonInterface = builder.getInterface();

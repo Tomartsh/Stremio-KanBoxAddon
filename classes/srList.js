@@ -1,3 +1,5 @@
+const { repairLivePoster } = require("./liveChannels");
+
 /**
  * Repair corrupted Hebrew text in titles.
  * Fixes double-encoding (Latin-1 → Windows-1255) and common character corruption.
@@ -88,10 +90,38 @@ class srList {
         var metas = [];
         for (var [key, value] of Object.entries(this._seriesList)) {
             if (value.type == type){
-                metas.push(value.meta);
-            }  
+                // Database rows keep id/type/name/poster on the series object.
+                // The nested meta is only description, genres, poster and tmdbId,
+                // so returning it raw makes Stremio drop the catalog item.
+                metas.push(this._formatCatalogMeta(value));
+            }
         }
         return metas;
+    }
+
+    _formatCatalogMeta(value) {
+        if (value && value.meta && value.id && value.type) {
+            const poster = value.type === "tv"
+                ? repairLivePoster(value.id, value.poster || value.meta.poster)
+                : (value.poster || value.meta.poster);
+            const background = value.type === "tv"
+                ? repairLivePoster(value.id, value.background || value.meta.background || poster)
+                : (value.background || value.meta.background || poster);
+            return {
+                id: value.id,
+                type: value.type,
+                name: value.name || value.meta.name,
+                poster: poster,
+                posterShape: value.meta.posterShape || value.posterShape || "poster",
+                background: background,
+                description: value.description || value.meta.description || "",
+                genres: value.genres || value.meta.genres || [],
+                subtype: value.subtype,
+                link: value.link,
+                tmdbId: value.meta.tmdbId || value.tmdbId
+            };
+        }
+        return value;
     }
    
     getMetasBySubtype(subtype) {
@@ -233,15 +263,21 @@ class srList {
                     }
                 }
 
+                const poster = item.type === "tv"
+                    ? repairLivePoster(item.id, item.poster)
+                    : item.poster;
+                const background = item.type === "tv"
+                    ? repairLivePoster(item.id, item.background || poster)
+                    : item.background;
                 const result = {
                     // Top-level required fields
                     id: item.id,
                     type: item.type,
                     subtype: item.subtype,
                     name: item.name,
-                    poster: item.poster,
+                    poster: poster,
                     posterShape: item.meta.posterShape || "poster",
-                    background: item.background,
+                    background: background,
                     link: item.link,
                     genres: item.genres,
 
