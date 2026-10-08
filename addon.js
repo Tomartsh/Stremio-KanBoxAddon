@@ -8,7 +8,7 @@ const {fetchData, resolveStreamUrl} = require("./classes/utilities.js");
 const databaseManager = require("./classes/DatabaseManager");
 
 const { URL_JSON_BASE, MAKO } = require("./classes/constants.js");
-const { zipFilesToLoad } = require("./classes/zipSources");
+const { zipFilesToLoad, seriesEntriesFromZipJson } = require("./classes/zipSources");
 const { ensureLiveChannels } = require("./classes/liveChannels");
 const { isLiveChannelId, resolveLiveStreams } = require("./classes/liveStreamResolver");
 
@@ -43,7 +43,7 @@ const dataReady = getJSONFile().catch(error => {
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md
 const manifest = {
 	"id": "community.StremioIsraeliTV",
-	"version": "1.0.0",
+	"version": "1.1.0",
     "logo": "https://raw.githubusercontent.com/tomartsh/Stremio-KanBoxAddon/main/assets/IdanPlus.jpg",
 		"catalogs": [
 		{
@@ -644,27 +644,29 @@ async function searchMetasByTmdb(subtype, localMetas, search, limit) {
 			}
             break;
         case "Podcasts":
-			// Map Stremio catalog id -> your dataset subtype
-			let podcastsSubtype = null;
+			// Map Stremio catalog id -> dataset subtypes.
+			// Kan 88 is subtype "8" (DatabaseManager scraper kan88). Also accept
+			// "kan88" and "88" in case rows were stored under the database key.
+			let podcastsSubtypes = null;
 			if (id == "KanPodcasts"){
-				podcastsSubtype = "p";
+				podcastsSubtypes = ["p"];
 			} else if (id == "Kan88"){
-				podcastsSubtype = "8";
+				podcastsSubtypes = ["8", "kan88", "88"];
 			} else if (id == "KanKidsPods"){
-				podcastsSubtype = "h";
+				podcastsSubtypes = ["h"];
 			}
 
-			if (!podcastsSubtype) {
+			if (!podcastsSubtypes) {
 				metas = [];
 			} else if (search === "*" || search === "undefined") {
-				metas = listSeries.getMetasBySubtype(podcastsSubtype);
+				metas = listSeries.getMetasBySubtypes(podcastsSubtypes);
 			} else {
 				// Try TMDB first (if enabled), otherwise fall back to local search.
 				// TMDB supports Hebrew (he-IL) so we try it for all queries.
-				const localMetas = listSeries.getMetasBySubtype(podcastsSubtype);
-				const tmdbMetas = await searchMetasByTmdb(podcastsSubtype, localMetas, search, 1000);
+				const localMetas = listSeries.getMetasBySubtypes(podcastsSubtypes);
+				const tmdbMetas = await searchMetasByTmdb(podcastsSubtypes[0], localMetas, search, 1000);
 				if (tmdbMetas === null || tmdbMetas.length === 0) {
-					metas = listSeries.getMetasBySubtypeAndName(podcastsSubtype, search);
+					metas = listSeries.getMetasBySubtypesAndName(podcastsSubtypes, search);
 				} else {
 					metas = tmdbMetas;
 				}
@@ -1113,16 +1115,21 @@ async function getJSONFile(){
             if ((jsonStr != undefined) && (jsonStr != '')){
                 var jsonObj = JSON.parse(jsonStr);
 
-                // Ignore timestamp and use the data array/object
-                var actualData = jsonObj.data || jsonObj;
-
                 // Determine expected subtype/type from ZIP filename (e.g., "stremio-kandigital" -> "d"/"series")
                 // Overrides incorrect values that may exist in scraped ZIP data
                 var zipBaseName = filesArray[urlIndex].split(".")[0];
                 var subtypeConfig = ZIP_SUBTYPE_MAP[zipBaseName];
+                // `{ timestamp, data: {} }` is a published empty archive. Kan 88
+                // is in that state; loading it adds nothing. Supabase is the
+                // primary source and is also empty for subtype 8 until
+                // Stremio-KanBoxRepos republishes the scrape.
+                var entries = seriesEntriesFromZipJson(jsonObj);
+                if (entries.length === 0) {
+                    logger.warn("getJSONFile => " + filesArray[urlIndex] + " has no series. The ZIP data object is empty.");
+                    continue;
+                }
 
-                for (var key in actualData){
-                    var value = actualData[key]
+                for (var value of entries) {
 
                     // Sanitize meta fields that may cause Stremio to reject data
                     if (value.meta) {

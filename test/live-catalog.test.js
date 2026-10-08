@@ -89,6 +89,9 @@ test("broken live posters are replaced and working posters are kept", () => {
     assert.match(byId.il_kanTV_05.poster, /hinuchit\.jpg$/);
     assert.match(byId.il_24_01.poster, /channel_24_square\.jpg$/);
     assert.match(byId.il_makoTV_01.poster, /LIVE_push_mako_tv\.jpg$/);
+    assert.equal(byId.il_makoTV_01.name, "קשת 12");
+    assert.equal(byId.il_makoTV_01.posterShape, "square");
+    assert.equal(byId.il_makoTV_01.behaviorHints.isLive, true);
     assert.equal(
         repairLivePoster("il_24newsFrn_01", "https://raw.githubusercontent.com/tomartsh/Stremio-KanBoxAddon/main/assets/i24new_french_square.png"),
         "https://raw.githubusercontent.com/tomartsh/Stremio-KanBoxAddon/main/assets/i24news.png"
@@ -113,5 +116,74 @@ test("missing live channels are seeded with the existing il_* ids", () => {
         assert.ok(meta.name);
         assert.match(meta.poster, /^https:\/\//);
         assert.doesNotMatch(meta.poster, /NaN/);
+        assert.equal(meta.behaviorHints.isLive, true);
     }
+    const byId = Object.fromEntries(metas.map(meta => [meta.id, meta]));
+    for (const id of ["il_makoTV_01", "il_24newsHeb_01", "il_24newsEng_01", "il_24newsFrn_01", "il_24newsArb_01", "il_makoTV_erets"]) {
+        assert.ok(byId[id], "missing " + id);
+    }
+    assert.equal(byId.il_makoTV_01.name, "קשת 12");
+    assert.equal(byId.il_24newsHeb_01.name, "i24 עברית");
+    assert.equal(byId.il_24newsEng_01.name, "i24 English");
+    assert.equal(byId.il_24newsFrn_01.name, "i24 Français");
+    assert.equal(byId.il_24newsArb_01.name, "i24 العربية");
+});
+
+test("live meta opens the channel itself instead of an empty video list", async () => {
+    const list = new srList();
+    addDatabaseShapedChannel(list, {
+        id: "il_makoTV_01",
+        name: "מאקו ערוץ 12"
+    });
+    addDatabaseShapedChannel(list, {
+        id: "il_24newsEng_01",
+        name: "שידור חי באנגלית i24"
+    });
+
+    const keshet = await list.getMetaById("il_makoTV_01");
+    assert.equal(keshet.name, "קשת 12");
+    assert.equal(keshet.type, "tv");
+    assert.equal(Object.prototype.hasOwnProperty.call(keshet, "videos"), false);
+    assert.equal(keshet.behaviorHints.isLive, true);
+    assert.equal(keshet.behaviorHints.defaultVideoId, "il_makoTV_01");
+    assert.equal(keshet.posterShape, "square");
+
+    const english = await list.getMetaById("il_24newsEng_01");
+    assert.equal(english.name, "i24 English");
+    assert.equal(english.behaviorHints.defaultVideoId, "il_24newsEng_01");
+    assert.equal(Object.prototype.hasOwnProperty.call(english, "videos"), false);
+});
+
+test("Kan 88 catalog matches subtype 8 and the kan88 database key", () => {
+    const list = new srList();
+    list.addItemByDetails(
+        "il_kan_kan88_stored",
+        "פודקאסט שמור",
+        "https://example.com/kan88.jpg",
+        "stored under the database key",
+        null,
+        "https://example.com/kan88.jpg",
+        [],
+        { description: "stored under the database key", genres: [], name: "פודקאסט שמור" },
+        "Podcasts",
+        "kan88",
+        null
+    );
+    list.addItemByDetails(
+        "il_kan_kan88_8",
+        "פודקאסט 8",
+        "https://example.com/kan88b.jpg",
+        "stored as subtype 8",
+        null,
+        "https://example.com/kan88b.jpg",
+        [],
+        { description: "stored as subtype 8", genres: [], name: "פודקאסט 8" },
+        "Podcasts",
+        "8",
+        null
+    );
+
+    const metas = list.getMetasBySubtypes(["8", "kan88", "88"]);
+    const ids = metas.map(meta => meta.id).sort();
+    assert.deepEqual(ids, ["il_kan_kan88_8", "il_kan_kan88_stored"]);
 });
