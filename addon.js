@@ -12,6 +12,7 @@ const { zipFilesToLoad, seriesEntriesFromZipJson } = require("./classes/zipSourc
 const { ensureLiveChannels } = require("./classes/liveChannels");
 const { isLiveChannelId, resolveLiveStreams } = require("./classes/liveStreamResolver");
 const { repairTitle } = require("./classes/repairTitle");
+const { currentOrigin } = require("./classes/requestOrigin");
 
 // ZIP filename to subtype/type mapping for fallback loading.
 // Overrides incorrect values in scraped ZIP data (e.g., kanDigital had "series" instead of "d").
@@ -808,15 +809,17 @@ builder.defineMetaHandler(async ({type, id}) => {
 const m3u8Cache = new Map();
 let m3u8Counter = 0;
 
-async function resolveMakoStreams(id) {
-	logger.debug("resolveMakoStreams => resolving streams for: " + id);
-
+/**
+ * Find the stored (untokened) Mako stream entry for a video id, from the
+ * in-memory list or the database. Returns null when the id has no stream.
+ */
+async function findMakoEntry(id) {
 	// Try to get streams from in-memory list first (for ZIP-loaded content)
 	var baseStreams = await listSeries.getStreamsById(id);
 
 	// If not in memory, try loading from database (for database-loaded content)
 	if (!baseStreams || baseStreams.length === 0) {
-		logger.debug("resolveMakoStreams => Streams not in memory, querying database...");
+		logger.debug("findMakoEntry => Streams not in memory, querying database...");
 		try {
 			if (databaseManager.supabase) {
 				const { data: streams } = await databaseManager.supabase
@@ -830,36 +833,48 @@ async function resolveMakoStreams(id) {
 						name: s.title || 'Stream',
 						cdn: 'AKAMAI' // Default to AKAMAI for database streams
 					}));
-					logger.debug(`resolveMakoStreams => Found ${baseStreams.length} streams in database`);
+					logger.debug(`findMakoEntry => Found ${baseStreams.length} streams in database`);
 				}
 			} else {
-				logger.debug("resolveMakoStreams => Database not available (ZIP fallback mode)");
+				logger.debug("findMakoEntry => Database not available (ZIP fallback mode)");
 			}
 		} catch (error) {
-			logger.error(`resolveMakoStreams => Database query failed: ${error.message}`);
+			logger.error(`findMakoEntry => Database query failed: ${error.message}`);
 		}
 	}
 
 	if (!baseStreams || baseStreams.length === 0) {
-		logger.warn("resolveMakoStreams => No streams found for: " + id);
-		return [];
+		logger.warn("findMakoEntry => No streams found for: " + id);
+		return null;
 	}
 
-	var streams = [];
 	// Use only AKAMAI CDN (first entry) - more reliable
-	var entry = baseStreams.find(s => (s.cdn || "AKAMAI") === "AKAMAI") || baseStreams[0];
+	return baseStreams.find(s => (s.cdn || "AKAMAI") === "AKAMAI") || baseStreams[0];
+}
+
+/**
+ * Resolve a Mako VOD stream to a master playlist URL carrying a fresh
+ * entitlement token. The token expires about 15 minutes after it is issued.
+ * Returns { url, tokened } or null when the id has no stream.
+ */
+async function resolveMakoMasterUrl(id) {
+	logger.debug("resolveMakoMasterUrl => resolving master URL for: " + id);
+
+	var entry = await findMakoEntry(id);
+	if (!entry) {
+		return null;
+	}
 	var cdnName = entry.cdn || "AKAMAI";
 
 	try {
 		// Step 1: Get entitlement ticket
 		var ticketUrl = MAKO.URL_ENTITLEMENT_SERVICES + "?et=gt&lp=" + encodeURIComponent(entry.url) + "&rv=" + cdnName;
-		logger.debug("resolveMakoStreams => Fetching ticket from: " + ticketUrl);
+		logger.debug("resolveMakoMasterUrl => Fetching ticket from: " + ticketUrl);
 		var ticketObj = await fetchData(ticketUrl, true);
 
 		if (!ticketObj || !ticketObj.tickets || ticketObj.tickets.length === 0) {
-			logger.warn("resolveMakoStreams => No ticket returned, using base URL");
-			streams.push({ url: entry.url, name: "Mako", title: "ערוץ 12" });
-			return streams;
+			logger.warn("resolveMakoMasterUrl => No ticket returned, using base URL");
+			return { url: entry.url, tokened: false };
 		}
 
 		var ticketRaw = ticketObj.tickets[0].ticket;
@@ -870,20 +885,45 @@ async function resolveMakoStreams(id) {
 		}
 		var masterUrl = resolvedUrl + "?" + ticket;
 
-		logger.info("resolveMakoStreams => Master URL: " + masterUrl);
-		logger.info("resolveMakoStreams => URL has token: " + masterUrl.includes("hdnea="));
-		streams.push({
-			url: masterUrl,
-			name: "ערוץ 12",
-			title: "Mako VOD"
-		});
+		logger.info("resolveMakoMasterUrl => Master URL: " + masterUrl);
+		logger.info("resolveMakoMasterUrl => URL has token: " + masterUrl.includes("hdnea="));
+		return { url: masterUrl, tokened: masterUrl.includes("hdnea=") };
 
 	} catch (e) {
-		logger.error("resolveMakoStreams => Error: " + e.message);
-		streams.push({ url: entry.url, name: "Mako", title: "ערוץ 12" });
+		logger.error("resolveMakoMasterUrl => Error: " + e.message);
+		return { url: entry.url, tokened: false };
+	}
+}
+
+/**
+ * Mako VOD streams. A tokened master URL is only valid for about 15 minutes,
+ * but clients keep stream responses longer than that (they cache them, and
+ * reopen a saved stream to resume). So the stream points at this addon's
+ * /play/mako/ route, which fetches a fresh token each time it is opened, and
+ * no token is fetched here. Without a known public origin (no HTTP request),
+ * the tokened URL is returned as before.
+ */
+async function resolveMakoStreams(id) {
+	logger.debug("resolveMakoStreams => resolving streams for: " + id);
+
+	var origin = currentOrigin();
+	if (origin) {
+		if (!(await findMakoEntry(id))) {
+			return [];
+		}
+		var playUrl = origin + "/play/mako/" + encodeURIComponent(id) + ".m3u8";
+		logger.info("resolveMakoStreams => Stream URL: " + playUrl);
+		return [{ url: playUrl, name: "ערוץ 12", title: "Mako VOD" }];
 	}
 
-	return streams;
+	var master = await resolveMakoMasterUrl(id);
+	if (!master) {
+		return [];
+	}
+	if (!master.tokened) {
+		return [{ url: master.url, name: "Mako", title: "ערוץ 12" }];
+	}
+	return [{ url: master.url, name: "ערוץ 12", title: "Mako VOD" }];
 }
 
 
@@ -1132,3 +1172,4 @@ const addonInterface = builder.getInterface();
 module.exports = addonInterface;
 module.exports.m3u8Cache = m3u8Cache;
 module.exports.dataReady = dataReady;
+module.exports.resolveMakoMasterUrl = resolveMakoMasterUrl;
