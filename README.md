@@ -65,6 +65,9 @@ ADMIN_SECRET=change_this_to_a_secure_random_string
 | `TMDB_API_KEY` | No | Enables richer search results |
 | `TMDB_LANGUAGE` | No | TMDB response language (default `he-IL`) |
 | `PORT` | No | Port the server listens on (default `49621`) |
+| `PUBLIC_URL` | No | Public base URL of the addon, e.g. `https://your-addon.onrender.com`. When set, Mako `/play/` stream links are built from it and `X-Forwarded-Proto`/`X-Forwarded-Host` are ignored. When unset, the origin comes from those headers (or `Host`). Recommended in production. |
+| `PLAY_RATE_LIMIT` | No | Max `/play/mako/` requests per client IP per minute (default `30`; beyond that the addon answers 429) |
+| `TRUST_PROXY_HOPS` | No | Reverse-proxy hops to trust for the client IP used by the rate limit (default `1`, right for Render) |
 | `ADMIN_SECRET` | No* | Required only if you expose the admin endpoints |
 
 > The content itself lives in your Supabase database. The addon reads from it — it does not populate it. Populating the catalog is the job of the separate **KanBoxRepos** scraper project.
