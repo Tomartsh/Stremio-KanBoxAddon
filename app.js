@@ -4,9 +4,16 @@ const log4js = require("./classes/logger");
 const { getRouter } = require("stremio-addon-sdk");
 const addonModule = require("./addon");
 const { cacheControlFor } = require("./classes/cachePolicy");
+const { runWithRequestOrigin } = require("./classes/requestOrigin");
+const { makoPlaylist } = require("./classes/makoPlay");
+const { createTicketCache, createRateLimiter } = require("./classes/makoGuard");
 
 const logger = log4js.getLogger("app");
 const app = express();
+// Behind Render's proxy, req.ip must come from X-Forwarded-For (one hop).
+app.set('trust proxy', Number(process.env.TRUST_PROXY_HOPS || 1));
+const makoTickets = createTicketCache(id => addonModule.resolveMakoMasterUrl(id));
+const playLimiter = createRateLimiter({ limit: Number(process.env.PLAY_RATE_LIMIT || 30), windowMs: 60 * 1000 });
 
 // Enable gzip compression for all responses (reduces bandwidth by ~70%)
 app.use(compression({
@@ -74,7 +81,32 @@ app.get('/hls/:id.m3u8', (req, res) => {
 	res.send(content);
 });
 
-// Stremio addon routes
+// Mako VOD master playlist with a fresh entitlement token on every request.
+// Stream responses point here instead of at a tokened CDN URL, so a client
+// that reopens a stream after the token has expired still gets a valid one.
+// Cache-Control (no-store) comes from classes/cachePolicy.js.
+app.get('/play/mako/:id.m3u8', playLimiter.middleware, async (req, res) => {
+	const id = req.params.id;
+	try {
+		const playlist = await makoPlaylist(id, {
+			resolveMasterUrl: makoTickets.get,
+			userAgent: req.get('user-agent')
+		});
+		logger.info('[PLAY] ' + id + ' => ' + playlist.status);
+		res.setHeader('Access-Control-Allow-Origin', '*');
+		if (playlist.contentType) {
+			res.setHeader('Content-Type', playlist.contentType);
+		}
+		res.status(playlist.status).send(playlist.body);
+	} catch (e) {
+		logger.error('[PLAY] ' + id + ' => ' + e.message);
+		res.status(e.status || 502).send('Mako playlist request failed');
+	}
+});
+
+// Stremio addon routes. Stream handlers read the request's public origin
+// (see classes/requestOrigin.js) to build absolute /play/ URLs.
+app.use((req, res, next) => runWithRequestOrigin(req, next));
 app.use(getRouter(addonModule));
 
 // Landing page
