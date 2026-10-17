@@ -1,0 +1,13 @@
+.git
+.github
+.vscode
+node_modules
+logs
+output
+backups
+.env
+**/.env
+test
+docs
+*.md
+npm-debug.log*
