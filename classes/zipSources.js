@@ -20,8 +20,22 @@ function seriesEntriesFromZipJson(jsonObj) {
     return entries.filter(entry => entry && typeof entry === "object");
 }
 
+/**
+ * Poster and background for a series stored in a KanBoxRepos ZIP.
+ * The exports keep both inside `meta` only (`meta.poster`, `meta.background`);
+ * the top-level fields are kept as the first choice for older exports.
+ */
+function seriesArtwork(entry) {
+    const meta = (entry && entry.meta) || {};
+    return {
+        poster: entry.poster || meta.poster,
+        background: entry.background || meta.background
+    };
+}
+
 module.exports = {
     RETIRED_ZIP_FILES,
     zipFilesToLoad,
-    seriesEntriesFromZipJson
+    seriesEntriesFromZipJson,
+    seriesArtwork
 };
