@@ -6,7 +6,11 @@ Stremio does not get the channels from a file you copy. It gets them from a web 
 
 ## Quick start
 
-Open **[docs/SELF_HOSTING.md](docs/SELF_HOSTING.md)**. It is written for someone who has never run a Node server. Start at the top and follow one path:
+Open **[docs/SELF_HOSTING.md](docs/SELF_HOSTING.md)**. It is written for someone who has never run a Node server.
+
+The show list should come from Nino's database. Ask him privately for `SUPABASE_URL` and `SUPABASE_ANON_KEY`. He sends them in a one-time secret link. Put those two values in Render's Environment page, or in a `.env` file on your own computer. This page does not contain them. The guide writes `<ask Nino>` wherever they belong.
+
+Then follow one path:
 
 - **Path A, easiest:** a free [Render](docs/SELF_HOSTING.md#path-a-render-easiest) website. Nothing to install on your computer.
 - **Path B:** your [Windows PC or Mac](docs/SELF_HOSTING.md#path-b-your-own-computer), reached through a Cloudflare Tunnel.
