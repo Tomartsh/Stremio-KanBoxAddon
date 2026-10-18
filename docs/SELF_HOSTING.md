@@ -10,14 +10,13 @@ Stremio is an app for films and TV. An **addon** is a small website that tells S
 
 The website is a Node.js program. `npm start` runs `server.js`. That file starts the web server in `app.js`. On your own computer it listens on **port 49621**. On Render, Render chooses the port and the program uses that instead.
 
-When the program starts, it builds a catalog (the list of shows):
+When the program starts, it builds a catalog (the list of shows). Use Nino's Supabase database for that list. Ask him for `SUPABASE_URL` and `SUPABASE_ANON_KEY`, as described in [Ask Nino for the catalog](#ask-nino-for-the-catalog). With both values accepted, the log says `Successfully loaded all data from database`.
 
-1. If you set both `SUPABASE_URL` and `SUPABASE_ANON_KEY`, and that database has shows, it reads them from Supabase.
-2. If you do not, it downloads public ZIP files from GitHub. No password and no token. The address is fixed in the code:
+If the two values are missing or the database rejects them, the program keeps running. It logs `Falling back to ZIP files` and downloads public ZIP files from GitHub, with no password:
 
-   `https://raw.githubusercontent.com/Tomartsh/Stremio-KanBoxRepos/main/output/`
+`https://raw.githubusercontent.com/Tomartsh/Stremio-KanBoxRepos/main/output/`
 
-You can skip Supabase. The ZIP files are the normal way.
+Those ZIPs are the spare catalog. The database is the one to use.
 
 What you end up with is a public **HTTPS** address. You paste this into Stremio:
 
@@ -28,6 +27,55 @@ https://YOUR-URL/manifest.json
 Open this in a browser first if you want to see a finished one (it is not yours): <https://stremio-kanboxaddon.onrender.com/manifest.json>
 
 You should see a page of text starting with `"id": "community.StremioIsraeliTV"` and `"name": "Israeli Channels"`. That text is the manifest. Yours will look the same, at your own address.
+
+## Ask Nino for the catalog
+
+The show list lives in a Supabase database that Nino runs. You do not create your own project. Ask Nino, in private, for two settings:
+
+- `SUPABASE_URL`
+- `SUPABASE_ANON_KEY`
+
+He will send them through a **one-time secret link**. Open the link, copy the two values, and put them where this guide says. After the link has been opened, it will not work again. Do not paste the values into GitHub, into a chat, into a screenshot, or into this file.
+
+This guide never shows the real values. Every example says `<ask Nino>`. Replace those words with what the link gave you. If you leave the words `<ask Nino>` in the file, the database will reject them and the program will use the ZIP files instead.
+
+The anon key is a **read-only** key. It starts with `sb_publishable_`. The addon only reads shows with that key. It does not need a service-role key. A service-role key starts with `sb_secret_`. Do not ask Nino for one, and do not put one in Render or in `.env`. If a link contains `sb_secret_`, stop and ask him for the publishable key.
+
+Where the two values go:
+
+- **Render:** the service's **Environment** page, as two environment variables.
+- **Your own computer or a Linux server:** a file named `.env` in the project folder (the same folder as `package.json`). The program reads that file when it starts.
+
+After a restart, look at the log.
+
+You should see this when the database accepted the keys (`classes/DatabaseManager.js` and `addon.js`):
+
+```text
+Supabase client initialized
+Connection test successful
+Successfully loaded all data from database
+```
+
+You should not see `Falling back to ZIP files` in that case.
+
+You should see this when the two values are missing:
+
+```text
+SUPABASE_URL or SUPABASE_ANON_KEY not set in environment
+Database load failed: Database connection failed
+Falling back to ZIP files
+```
+
+You should see this when the values are present but the database rejects them (a wrong or swapped key, or the words `<ask Nino>` left in the file). The client is created first, then the check against the `series` table fails:
+
+```text
+Supabase client initialized
+Connection test failed:
+Database load failed: Database connection failed
+Falling back to ZIP files
+```
+
+The words after `Connection test failed:` are the database's own message. A successful ZIP fallback then continues with `Writing series`. The server is up either way. Fix the two values and start it again to leave the ZIP path.
 
 ## Pick your path
 
@@ -89,6 +137,10 @@ A fork is how Render can update later when you click Sync fork. You can instead 
    |---|---|
    | `NODE_VERSION` | `22.23.3` |
    | `PUBLIC_URL` | `https://THE-NAME-YOU-TYPED.onrender.com` |
+   | `SUPABASE_URL` | `<ask Nino>` |
+   | `SUPABASE_ANON_KEY` | `<ask Nino>` |
+
+   Replace both `<ask Nino>` cells with the values from Nino's one-time secret link. Do not type the words `<ask Nino>` into Render. `SUPABASE_ANON_KEY` must start with `sb_publishable_`. Do not put a `sb_secret_` key in this list. Render stores these on the Environment page. They are not written into the Git repository.
 
    `NODE_VERSION` is Render's switch for which Node.js it installs. This program does not read `NODE_VERSION`. `package.json` only says Node 18 or newer (`>=18.x`). Render's docs say an open-ended range like that can drift to the newest Node, so pin `22.23.3`.
 
@@ -118,7 +170,9 @@ On Render the port in that line is Render's `PORT`, not 49621. Their docs say th
 HTTP addon accessible at: http://127.0.0.1:10000/manifest.json
 ```
 
-You should also see `Falling back to ZIP files` if you did not set Supabase. A line that says `Database connection failed` is that same skip. It is not a broken deploy when the ZIP lines follow it.
+With Nino's two values saved, you should also see `Supabase client initialized`, `Connection test successful`, and `Successfully loaded all data from database`.
+
+If you instead see `Falling back to ZIP files`, the keys were missing or rejected. Open **Environment**, check both values against the secret link, and save again. Render deploys again when you save. The ZIP lines mean the spare catalog loaded. They are not a crashed server. The database catalog is the one you want.
 
 Then open this in your browser, using your real name:
 
@@ -198,7 +252,14 @@ Use the real folder path if Windows put the ZIP somewhere else. A ZIP download h
 
 #### 3. Install the program's libraries and start it
 
-In the project folder:
+In the project folder, create `.env` before the first start. Notepad: File → Save As → file name `.env` → save as type **All Files**, in the project folder. Two lines, with the words `<ask Nino>` replaced by the one-time link:
+
+```text
+SUPABASE_URL=<ask Nino>
+SUPABASE_ANON_KEY=<ask Nino>
+```
+
+The second value must start with `sb_publishable_`. Do not save a value that starts with `sb_secret_`.
 
 ```powershell
 npm install
@@ -210,16 +271,26 @@ You should see a line like `added 257 packages` and no line that says `npm ERR!`
 npm start
 ```
 
-You should see these lines. The order can vary a little:
+You should see:
+
+```text
+Supabase client initialized
+Connection test successful
+Successfully loaded all data from database
+HTTP addon accessible at: http://127.0.0.1:49621/manifest.json
+```
+
+You should not see `Falling back to ZIP files`. If you do, the two values are missing or wrong. Fix `.env` and run `npm start` again.
+
+If you have not received Nino's link yet, the program still starts and logs:
 
 ```text
 SUPABASE_URL or SUPABASE_ANON_KEY not set in environment
-HTTP addon accessible at: http://127.0.0.1:49621/manifest.json
-Database connection failed
+Database load failed: Database connection failed
 Falling back to ZIP files
 ```
 
-`Database connection failed` is normal when you did not set Supabase. The next line must be `Falling back to ZIP files`, then many lines that say `Writing series`.
+That is the spare ZIP catalog. Add the two values when the link arrives, then start the program again.
 
 Leave this PowerShell window open. Closing it stops the addon.
 
@@ -258,17 +329,25 @@ Cloudflare's quick-tunnel documentation says the address uses `trycloudflare.com
 The addon builds Mako play links from `PUBLIC_URL`. If you skip this, a phone can be sent `http://127.0.0.1:49621/...`, which points at the phone, not your PC.
 
 1. In the **first** window, press `Ctrl+C` so `npm start` stops.
-2. In the project folder, create a file named `.env` (the name starts with a dot). Notepad is fine: File → Save As → file name `.env` → save as type **All Files**, in the project folder. The file is one line, using the address cloudflared printed, with **no** slash at the end and **no** `/manifest.json`:
+2. Open the same `.env` file and add `PUBLIC_URL`. Keep the two Supabase lines. The address is the one cloudflared printed, with **no** slash at the end and **no** `/manifest.json`. Replace `<ask Nino>` if you have not already:
 
 ```text
 PUBLIC_URL=https://something-random.trycloudflare.com
+SUPABASE_URL=<ask Nino>
+SUPABASE_ANON_KEY=<ask Nino>
 ```
 
-Or in PowerShell, from the project folder, paste your real address:
+Or in PowerShell, from the project folder. This replaces the whole file, so include the Supabase lines, not only `PUBLIC_URL`:
 
 ```powershell
-Set-Content -Path .env -Value "PUBLIC_URL=https://something-random.trycloudflare.com" -Encoding ascii
+@"
+PUBLIC_URL=https://something-random.trycloudflare.com
+SUPABASE_URL=<ask Nino>
+SUPABASE_ANON_KEY=<ask Nino>
+"@ | Set-Content -Path .env -Encoding ascii
 ```
+
+Then replace `<ask Nino>` in that file with the link's values before you start the server again. Leaving those words in the file makes the database reject the connection.
 
 3. Start the addon again:
 
@@ -316,19 +395,29 @@ If `git` is not found, macOS will offer to install the command-line tools. Accep
 
 #### 3. Install and start
 
+Create `.env` in the project folder before you start. Replace `<ask Nino>` with the values from the one-time link. The key must start with `sb_publishable_`.
+
 ```bash
+cat > .env << 'EOF'
+SUPABASE_URL=<ask Nino>
+SUPABASE_ANON_KEY=<ask Nino>
+EOF
 npm install
 npm start
 ```
 
+Open `.env` and replace `<ask Nino>` before `npm start` if you pasted the command with the placeholders still in it.
+
 You should see `added` and a package count, then:
 
 ```text
+Supabase client initialized
+Connection test successful
+Successfully loaded all data from database
 HTTP addon accessible at: http://127.0.0.1:49621/manifest.json
-Falling back to ZIP files
 ```
 
-`Database connection failed` before the ZIP line is normal when Supabase is not set. Leave Terminal open.
+You should not see `Falling back to ZIP files`. That line means the keys are missing or rejected. Leave Terminal open.
 
 Open a second Terminal window:
 
@@ -356,14 +445,18 @@ cloudflared tunnel --url http://127.0.0.1:49621
 
 You should see a `https://….trycloudflare.com` address. Leave that window open.
 
-In the first window press `Ctrl+C`. In the project folder create `.env`:
+In the first window press `Ctrl+C`. Add `PUBLIC_URL` to the existing `.env`. Keep the Supabase lines:
 
 ```bash
-printf 'PUBLIC_URL=https://something-random.trycloudflare.com\n' > .env
+cat > .env << 'EOF'
+PUBLIC_URL=https://something-random.trycloudflare.com
+SUPABASE_URL=<ask Nino>
+SUPABASE_ANON_KEY=<ask Nino>
+EOF
 npm start
 ```
 
-Use the address cloudflared actually printed. No slash at the end.
+Use the address cloudflared actually printed. No slash at the end. Replace `<ask Nino>` with the values already in the file if this command overwrote them.
 
 Open `https://that-address/manifest.json` in a browser. You should see the manifest JSON.
 
@@ -377,7 +470,7 @@ Cloudflare's quick tunnel is for a test. For an address that stays the same you 
 2. **Create Tunnel**, name it `kanbox`, and create it.
 3. Choose your operating system and copy the install command they show. It contains a token. On Windows, their command is `cloudflared.exe service install <TUNNEL_TOKEN>` from an Administrator command prompt. On Mac it is `sudo cloudflared service install <TUNNEL_TOKEN>`.
 4. Add a public hostname whose service URL is `http://127.0.0.1:49621`.
-5. Set `PUBLIC_URL` to `https://that-hostname` with no trailing slash, and restart the addon.
+5. Set `PUBLIC_URL` to `https://that-hostname` with no trailing slash. Leave `SUPABASE_URL` and `SUPABASE_ANON_KEY` in the same `.env` file, and restart the addon.
 
 Those dashboard labels are from Cloudflare's docs (last updated 30 Sep 2026). This guide's author did not click through a Cloudflare account.
 
@@ -401,16 +494,28 @@ You should see a shell prompt on the server, not on your PC.
 
 Docker is the shorter of the two Linux options. `--restart unless-stopped` starts the container again after a reboot, once Docker itself starts on boot.
 
+Docker reads `.env` with `--env-file`. The file stays on the server. It is not copied into the image (`.dockerignore` excludes `.env`).
+
 ```bash
 sudo apt update
 sudo apt install -y docker.io git
 git clone https://github.com/Tomartsh/Stremio-KanBoxAddon.git
 cd Stremio-KanBoxAddon
+cat > .env << 'EOF'
+PUBLIC_URL=https://kanbox.example.com
+TRUST_PROXY_HOPS=1
+SUPABASE_URL=<ask Nino>
+SUPABASE_ANON_KEY=<ask Nino>
+EOF
+```
+
+Open `.env` and replace `<ask Nino>` and `kanbox.example.com` before the next commands. The anon key must start with `sb_publishable_`.
+
+```bash
 sudo docker build -t kanbox-addon .
 sudo docker run -d --name kanbox-addon --restart unless-stopped \
   -p 127.0.0.1:49621:49621 \
-  -e PUBLIC_URL=https://kanbox.example.com \
-  -e TRUST_PROXY_HOPS=1 \
+  --env-file .env \
   kanbox-addon
 sudo docker logs kanbox-addon
 ```
@@ -420,13 +525,15 @@ sudo docker logs kanbox-addon
 `docker logs` should include:
 
 ```text
+Supabase client initialized
+Connection test successful
+Successfully loaded all data from database
 HTTP addon accessible at: http://127.0.0.1:49621/manifest.json
-Falling back to ZIP files
 ```
 
-`Database connection failed` before the ZIP line is normal. The port inside the container is 49621 because the Dockerfile sets `PORT=49621`. Only the server itself can open `127.0.0.1:49621`. Caddy, on the same machine, is what the outside world talks to.
+`Falling back to ZIP files` here means `.env` is missing a value or the key was rejected. The port inside the container is 49621 because the Dockerfile sets `PORT=49621`. Only the server itself can open `127.0.0.1:49621`. Caddy, on the same machine, is what the outside world talks to.
 
-Replace `kanbox.example.com` with your domain before you run `docker run`. No trailing slash.
+Replace `kanbox.example.com` with your domain before you run `docker run`. No trailing slash. The anon key must start with `sb_publishable_`.
 
 ### 2b. Node.js, without Docker
 
@@ -454,11 +561,21 @@ cd ~
 git clone https://github.com/Tomartsh/Stremio-KanBoxAddon.git
 cd Stremio-KanBoxAddon
 npm install
-printf 'PUBLIC_URL=https://kanbox.example.com\nTRUST_PROXY_HOPS=1\n' > .env
+cat > .env << 'EOF'
+PUBLIC_URL=https://kanbox.example.com
+TRUST_PROXY_HOPS=1
+SUPABASE_URL=<ask Nino>
+SUPABASE_ANON_KEY=<ask Nino>
+EOF
+```
+
+Replace `<ask Nino>` in `.env` before the next command. The key must start with `sb_publishable_`.
+
+```bash
 npm start
 ```
 
-You should see `HTTP addon accessible at: http://127.0.0.1:49621/manifest.json`. Press `Ctrl+C`. A one-off `npm start` stops when you disconnect. Use [systemd](#systemd) or [pm2](#pm2) before you rely on it.
+You should see `Supabase client initialized`, `Connection test successful`, `Successfully loaded all data from database`, and `HTTP addon accessible at: http://127.0.0.1:49621/manifest.json`. Press `Ctrl+C`. A one-off `npm start` stops when you disconnect. Use [systemd](#systemd) or [pm2](#pm2) before you rely on it. The service reads this same `.env`.
 
 ### 3. Caddy, for HTTPS
 
@@ -495,9 +612,9 @@ Next: [Add it to Stremio](#add-it-to-stremio).
 
 ## Environment variables
 
-A variable is a named setting the program reads when it starts. On your computer, put them in a file called `.env` in the project folder (the same folder as `package.json`). On Render, type them in the dashboard. Do not commit `.env`. It is listed in `.gitignore`.
+A variable is a named setting the program reads when it starts. On your computer, put them in a file called `.env` in the project folder (the same folder as `package.json`). On Render, type them on the service's **Environment** page. Do not commit `.env`. It is listed in `.gitignore`.
 
-None of these are required for the program to start and to serve the GitHub ZIP catalogs. Set `PUBLIC_URL` before any device other than that same computer uses the addon.
+`SUPABASE_URL` and `SUPABASE_ANON_KEY` are the recommended way to load the show list. Ask Nino for them. He sends a one-time secret link. The server still starts if they are empty, and then it uses the GitHub ZIPs. Set `PUBLIC_URL` before any device other than that same computer uses the addon.
 
 | Name | Required? | Default | What it does | Example |
 |---|---|---|---|---|
@@ -505,8 +622,8 @@ None of these are required for the program to start and to serve the GitHub ZIP 
 | `TRUST_PROXY_HOPS` | Optional | `1` | How many proxies sit in front of the program, for the visitor IP used by the Mako rate limit. `1` is correct for Render alone, for one Caddy, or for one `cloudflared`. Use `2` only if two proxies each add the visitor's address (for example Cloudflare in front of Caddy). | `1` |
 | `PLAY_RATE_LIMIT` | Optional | `30` | How many `GET /play/mako/...` requests one IP may make per 60 seconds. The 60 seconds is fixed in `app.js`. Past the limit the response is **429** with the body `Too many requests` and a `Retry-After` header. Use a whole number. | `60` |
 | `PORT` | Optional | `49621` | The port `server.js` listens on. On Render, leave it unset so Render's own `PORT` is used. | `49621` |
-| `SUPABASE_URL` | Optional | empty | Your Supabase project URL. Used only together with `SUPABASE_ANON_KEY`. The program only reads. It does not fill the database. | `https://abcdefgh.supabase.co` |
-| `SUPABASE_ANON_KEY` | Optional | empty | The Supabase anon key that matches `SUPABASE_URL`. If either one is missing, the program downloads the GitHub ZIPs instead. | the anon key from the Supabase dashboard |
+| `SUPABASE_URL` | Recommended. The server still starts if it is empty. | empty | Address of Nino's Supabase database. Used only together with `SUPABASE_ANON_KEY`. The program only reads. It does not fill the database. Ask Nino. Do not invent a project of your own. | `<ask Nino>` |
+| `SUPABASE_ANON_KEY` | Recommended. Set it with `SUPABASE_URL`. | empty | The read-only publishable key from the same link. It starts with `sb_publishable_`. If either value is missing or the database rejects the pair, the program logs `Falling back to ZIP files` and loads the GitHub ZIPs. Never put a service-role key here. Those start with `sb_secret_`, and this addon does not need one. | `<ask Nino>` |
 | `TMDB_API_KEY` | Optional | empty | A TMDB v3 key, or a v4 token (it starts with `eyJ`). Search can then match TMDB titles to shows you already have. With no key, search uses the local catalog only. | a key from themoviedb.org |
 | `TMDB_LANGUAGE` | Optional | `he-IL` | Language sent to TMDB. | `he-IL` |
 
@@ -516,20 +633,22 @@ Do not set these. They are not part of running the addon:
 - `NODE_VERSION` is only for Render's build image. The addon never reads it.
 - `VERCEL` is set by Vercel, not by you. If it is set, logs go to the console only and the log file is skipped.
 
-A finished `.env` for a public server looks like this:
+A finished `.env` for a public server looks like this. Replace both `<ask Nino>` lines from the one-time link before you start the program:
 
 ```text
 PUBLIC_URL=https://kanbox-yourname.onrender.com
 TRUST_PROXY_HOPS=1
+SUPABASE_URL=<ask Nino>
+SUPABASE_ANON_KEY=<ask Nino>
 ```
 
 ## What the program does when someone presses play
 
 This is the part that makes the later errors mean something.
 
-On startup, `addon.js` calls `getJSONFile()` once. There is no timer. `node-cron` is in `package.json` and no file in the server schedules it. New shows appear after a restart (or a new Render deploy), not by themselves.
+On startup, `addon.js` calls `getJSONFile()` once. It tries Supabase first. There is no timer. `node-cron` is in `package.json` and no file in the server schedules it. New shows appear after a restart (or a new Render deploy), not by themselves.
 
-The ZIP names it downloads are `stremio-kandigital.zip`, `stremio-kanarchive.zip`, `stremio-kankids.zip`, `stremio-kanteens.zip`, `stremio-kanpodcasts.zip`, `stremio-reshet.zip`, `stremio-kan88.zip`, and `stremio-mako.zip`. It skips `stremio-live.zip`. Live channels are added by `classes/liveChannels.js` even when that ZIP is absent. When this was checked, `stremio-kan88.zip` contained no shows, and the log said `stremio-kan88.zip has no series`. The Kan 88 row in Stremio can be empty. That is the published file.
+The ZIP names it downloads, only after `Falling back to ZIP files`, are `stremio-kandigital.zip`, `stremio-kanarchive.zip`, `stremio-kankids.zip`, `stremio-kanteens.zip`, `stremio-kanpodcasts.zip`, `stremio-reshet.zip`, `stremio-kan88.zip`, and `stremio-mako.zip`. It skips `stremio-live.zip`. Live channels are added by `classes/liveChannels.js` even when that ZIP is absent. When this was checked, `stremio-kan88.zip` contained no shows, and the log said `stremio-kan88.zip has no series`. The Kan 88 row in Stremio can be empty. That is the published file.
 
 Mako VOD (Channel 12 shows) does not hand Stremio a long-lived video URL. Those tokens last about 15 minutes. Stremio is given a URL on **your** server:
 
@@ -627,12 +746,11 @@ sudo docker build -t kanbox-addon .
 sudo docker rm -f kanbox-addon
 sudo docker run -d --name kanbox-addon --restart unless-stopped \
   -p 127.0.0.1:49621:49621 \
-  -e PUBLIC_URL=https://kanbox.example.com \
-  -e TRUST_PROXY_HOPS=1 \
+  --env-file .env \
   kanbox-addon
 ```
 
-You should see `HTTP addon accessible at: http://127.0.0.1:49621/manifest.json` in `sudo docker logs kanbox-addon`.
+`.env` is the file from the first Docker run, including `SUPABASE_URL` and `SUPABASE_ANON_KEY`. You should see `Successfully loaded all data from database` and `HTTP addon accessible at: http://127.0.0.1:49621/manifest.json` in `sudo docker logs kanbox-addon`.
 
 ### Path C, Node without Docker
 
@@ -730,6 +848,8 @@ You should see `KanBoxAddon` listed as running in the Windows Services app.
 
 `PUBLIC_URL` has to be a stable address. A quick-tunnel name changes every launch, so do not put a `trycloudflare.com` address in the service unless you are only testing.
 
+Leave `SUPABASE_URL` and `SUPABASE_ANON_KEY` in the `.env` file in `AppDirectory`. NSSM starts Node in that folder, and the program reads `.env` from there. Do not paste the keys into the `nssm set` command.
+
 The Cloudflare tunnel has to survive reboot too, or the HTTPS address dies while Node is running. For a named tunnel, Cloudflare's Windows command is `cloudflared.exe service install <TUNNEL_TOKEN>` from an Administrator prompt. That token comes from the tunnel you created in the Cloudflare dashboard.
 
 ## Troubleshooting
@@ -758,19 +878,35 @@ The Cloudflare tunnel has to survive reboot too, or the HTTPS address dies while
 - Linux Docker: `sudo docker rm -f kanbox-addon` and start it once.
 - systemd: `sudo systemctl stop kanbox-addon` before you run `npm start` by hand.
 
+### The log says Falling back to ZIP files
+
+**You see:** `Falling back to ZIP files`, and before it either `SUPABASE_URL or SUPABASE_ANON_KEY not set in environment` or `Connection test failed:`.
+
+**Cause:** the recommended catalog was not used. Missing values take the first line (`classes/DatabaseManager.js` returns before it creates a client). A wrong, swapped, or still-placeholder value creates the client (`Supabase client initialized`) and then fails the `series` check (`Connection test failed:`). `addon.js` catches that and loads the GitHub ZIPs. The process stays up.
+
+**Fix:**
+
+- Open the one-time link again only if it has not been used. If it has expired, ask Nino for a new link. Do not ask him to paste the values into a chat.
+- Put `SUPABASE_URL` and `SUPABASE_ANON_KEY` in Render's **Environment** page, or in `.env` next to `package.json`.
+- The key must start with `sb_publishable_`. Delete any value that starts with `sb_secret_`.
+- The file must not still contain the letters `<ask Nino>`.
+- Restart (`npm start`, `pm2 restart kanbox-addon`, `sudo systemctl restart kanbox-addon`, or a new Render deploy).
+- You should then see `Connection test successful` and `Successfully loaded all data from database`, and you should not see `Falling back to ZIP files`.
+
 ### The catalog is empty
 
-**You see:** the manifest loads, but Stremio's catalogs have no shows. Or the log never says `Writing series`.
+**You see:** the manifest loads, but Stremio's catalogs have no shows. Or the log never says `Writing series` and never says `Successfully loaded all data from database`.
 
-**Cause:** the program only fills shows from Supabase or from the GitHub ZIPs, once, at startup. A `Database connection failed` line is normal. What matters is whether `Falling back to ZIP files` is followed by `Writing series` or by `Something went wrong`.
+**Cause:** shows are loaded once, at startup, from Supabase or from the GitHub ZIPs.
 
 **Fix:**
 
 - Read the log (`logs/Stremio_addon.log`, `pm2 logs`, `docker logs`, or Render's Logs tab).
+- If the log says `Falling back to ZIP files`, use the section above first.
 - If every ZIP says `Something went wrong`, the computer cannot download from `raw.githubusercontent.com`. Fix outbound HTTPS, then restart.
-- `stremio-kan88.zip has no series` is a known empty publish. Other catalogs can still be full.
-- Live channel names can still appear, because those are added in code after the ZIPs.
-- After the ZIPs succeed, restart is what loads a newer ZIP. Refreshing the browser does not.
+- `stremio-kan88.zip has no series` is a known empty publish on the ZIP path. Other catalogs can still be full. A successful Supabase load does not read that ZIP.
+- Live channel names can still appear, because those are added in code after either load path.
+- Restart is what loads a newer database or a newer ZIP. Refreshing the browser does not.
 
 ### Stremio says it failed to fetch the manifest
 
@@ -832,7 +968,7 @@ Not `https://kanbox-yourname.onrender.com/manifest.json`. Not a trailing slash (
 
 **Addon.** A website Stremio trusts to list shows and give it play links. This project is one addon.
 
-**Catalog.** The list of shows. Here it comes from Supabase if you configured it, otherwise from ZIP files on GitHub.
+**Catalog.** The list of shows. The one to use is Nino's Supabase database (`SUPABASE_URL` and `SUPABASE_ANON_KEY`). If those are missing or rejected, the program loads ZIP files from GitHub instead.
 
 **Cold start.** A free Render service that was asleep. The first request waits about a minute while Render starts it. See [Render's free docs](https://render.com/docs/free).
 
@@ -852,6 +988,8 @@ Not `https://kanbox-yourname.onrender.com/manifest.json`. Not a trailing slash (
 
 ## What was checked on this repository
 
-These were run against this code while the page was written: `npm test`, `npm install`, `npm start` (no `.env`, ZIP fallback, manifest JSON), `sudo docker build -t kanbox-addon .`, and a container started from that image. The container log included `HTTP addon accessible at: http://127.0.0.1:49621/manifest.json` and `Falling back to ZIP files`, and `GET /manifest.json` returned `"id": "community.StremioIsraeliTV"`. The container test used host port 49622 forwarded to container port 49621. Node's "address already in use" text was checked with a tiny listener on port 49621, not by starting `server.js` twice.
+These were run against this code while the page was written: `npm test`, `npm install`, `npm start` with no `.env` (that run logged `Falling back to ZIP files` and served the manifest), `sudo docker build -t kanbox-addon .`, and a container started from that image without Supabase variables. The container log included `HTTP addon accessible at: http://127.0.0.1:49621/manifest.json` and `Falling back to ZIP files`, and `GET /manifest.json` returned `"id": "community.StremioIsraeliTV"`. The container test used host port 49622 forwarded to container port 49621. Node's "address already in use" text was checked with a tiny listener on port 49621, not by starting `server.js` twice.
+
+The success lines `Supabase client initialized`, `Connection test successful`, and `Successfully loaded all data from database` are the strings in `classes/DatabaseManager.js` and `addon.js`. They were not produced here with Nino's database. No Supabase URL or key is stored in this repository.
 
 These were not clicked or run here: the Render dashboard, the Stremio app, a Windows PowerShell install, a Mac install, NSSM, a Cloudflare account, and Caddy on a VPS. Those steps follow Render's, Cloudflare's, Caddy's, and NSSM's own docs, plus the commands this repository actually has (`npm start`, port 49621, the environment variables read in `server.js`, `app.js`, and the classes). Where a step is only from those outside docs, the page says so next to the step.
