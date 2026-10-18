@@ -10,7 +10,7 @@ Stremio is an app for films and TV. An **addon** is a small website that tells S
 
 The website is a Node.js program. `npm start` runs `server.js`. That file starts the web server in `app.js`. On your own computer it listens on **port 49621**. On Render, Render chooses the port and the program uses that instead.
 
-When the program starts, it builds a catalog (the list of shows). Use Nino's Supabase database for that list. Ask him for `SUPABASE_URL` and `SUPABASE_ANON_KEY`, as described in [Ask Nino for the catalog](#ask-nino-for-the-catalog). With both values accepted, the log says `Successfully loaded all data from database`.
+When the program starts, it builds a catalog (the list of shows). Use the repository owner's Supabase database for that list. Ask the owner of the repository for `SUPABASE_URL` and `SUPABASE_ANON_KEY`, as described in [Ask the owner of the repository for the catalog](#ask-the-owner-of-the-repository-for-the-catalog). With both values accepted, the log says `Successfully loaded all data from database`.
 
 If the two values are missing or the database rejects them, the program keeps running. It logs `Falling back to ZIP files` and downloads public ZIP files from GitHub, with no password:
 
@@ -28,18 +28,18 @@ Open this in a browser first if you want to see a finished one (it is not yours)
 
 You should see a page of text starting with `"id": "community.StremioIsraeliTV"` and `"name": "Israeli Channels"`. That text is the manifest. Yours will look the same, at your own address.
 
-## Ask Nino for the catalog
+## Ask the owner of the repository for the catalog
 
-The show list lives in a Supabase database that Nino runs. You do not create your own project. Ask Nino, in private, for two settings:
+The show list lives in a Supabase database that the owner of the repository runs. You do not create your own project. Ask the owner of the repository, in private, for two settings:
 
 - `SUPABASE_URL`
 - `SUPABASE_ANON_KEY`
 
-He will send them through a **one-time secret link**. Open the link, copy the two values, and put them where this guide says. After the link has been opened, it will not work again. Do not paste the values into GitHub, into a chat, into a screenshot, or into this file.
+The owner will send them through a **one-time secret link**. Open the link, copy the two values, and put them where this guide says. After the link has been opened, it will not work again. Do not paste the values into GitHub, into a chat, into a screenshot, or into this file.
 
-This guide never shows the real values. Every example says `<ask Nino>`. Replace those words with what the link gave you. If you leave the words `<ask Nino>` in the file, the database will reject them and the program will use the ZIP files instead.
+This guide never shows the real values. Every example says `<ask the owner of the repository>`. Replace those words with what the link gave you. If you leave the words `<ask the owner of the repository>` in the file, the database will reject them and the program will use the ZIP files instead.
 
-The anon key is a **read-only** key. It starts with `sb_publishable_`. The addon only reads shows with that key. It does not need a service-role key. A service-role key starts with `sb_secret_`. Do not ask Nino for one, and do not put one in Render or in `.env`. If a link contains `sb_secret_`, stop and ask him for the publishable key.
+The anon key is a **read-only** key. It starts with `sb_publishable_`. The addon only reads shows with that key. It does not need a service-role key. A service-role key starts with `sb_secret_`. Do not ask the owner of the repository for one, and do not put one in Render or in `.env`. If a link contains `sb_secret_`, stop and ask the owner of the repository for the publishable key.
 
 Where the two values go:
 
@@ -66,7 +66,7 @@ Database load failed: Database connection failed
 Falling back to ZIP files
 ```
 
-You should see this when the values are present but the database rejects them (a wrong or swapped key, or the words `<ask Nino>` left in the file). The client is created first, then the check against the `series` table fails:
+You should see this when the values are present but the database rejects them (a wrong or swapped key, or the words `<ask the owner of the repository>` left in the file). The client is created first, then the check against the `series` table fails:
 
 ```text
 Supabase client initialized
@@ -137,10 +137,10 @@ A fork is how Render can update later when you click Sync fork. You can instead 
    |---|---|
    | `NODE_VERSION` | `22.23.3` |
    | `PUBLIC_URL` | `https://THE-NAME-YOU-TYPED.onrender.com` |
-   | `SUPABASE_URL` | `<ask Nino>` |
-   | `SUPABASE_ANON_KEY` | `<ask Nino>` |
+   | `SUPABASE_URL` | `<ask the owner of the repository>` |
+   | `SUPABASE_ANON_KEY` | `<ask the owner of the repository>` |
 
-   Replace both `<ask Nino>` cells with the values from Nino's one-time secret link. Do not type the words `<ask Nino>` into Render. `SUPABASE_ANON_KEY` must start with `sb_publishable_`. Do not put a `sb_secret_` key in this list. Render stores these on the Environment page. They are not written into the Git repository.
+   Replace both `<ask the owner of the repository>` cells with the values from the owner's one-time secret link. Do not type the words `<ask the owner of the repository>` into Render. `SUPABASE_ANON_KEY` must start with `sb_publishable_`. Do not put a `sb_secret_` key in this list. Render stores these on the Environment page. They are not written into the Git repository.
 
    `NODE_VERSION` is Render's switch for which Node.js it installs. This program does not read `NODE_VERSION`. `package.json` only says Node 18 or newer (`>=18.x`). Render's docs say an open-ended range like that can drift to the newest Node, so pin `22.23.3`.
 
@@ -170,7 +170,7 @@ On Render the port in that line is Render's `PORT`, not 49621. Their docs say th
 HTTP addon accessible at: http://127.0.0.1:10000/manifest.json
 ```
 
-With Nino's two values saved, you should also see `Supabase client initialized`, `Connection test successful`, and `Successfully loaded all data from database`.
+With those two values saved, you should also see `Supabase client initialized`, `Connection test successful`, and `Successfully loaded all data from database`.
 
 If you instead see `Falling back to ZIP files`, the keys were missing or rejected. Open **Environment**, check both values against the secret link, and save again. Render deploys again when you save. The ZIP lines mean the spare catalog loaded. They are not a crashed server. The database catalog is the one you want.
 
@@ -252,11 +252,11 @@ Use the real folder path if Windows put the ZIP somewhere else. A ZIP download h
 
 #### 3. Install the program's libraries and start it
 
-In the project folder, create `.env` before the first start. Notepad: File → Save As → file name `.env` → save as type **All Files**, in the project folder. Two lines, with the words `<ask Nino>` replaced by the one-time link:
+In the project folder, create `.env` before the first start. Notepad: File → Save As → file name `.env` → save as type **All Files**, in the project folder. Two lines, with the words `<ask the owner of the repository>` replaced by the one-time link:
 
 ```text
-SUPABASE_URL=<ask Nino>
-SUPABASE_ANON_KEY=<ask Nino>
+SUPABASE_URL=<ask the owner of the repository>
+SUPABASE_ANON_KEY=<ask the owner of the repository>
 ```
 
 The second value must start with `sb_publishable_`. Do not save a value that starts with `sb_secret_`.
@@ -282,7 +282,7 @@ HTTP addon accessible at: http://127.0.0.1:49621/manifest.json
 
 You should not see `Falling back to ZIP files`. If you do, the two values are missing or wrong. Fix `.env` and run `npm start` again.
 
-If you have not received Nino's link yet, the program still starts and logs:
+If you have not received the owner's link yet, the program still starts and logs:
 
 ```text
 SUPABASE_URL or SUPABASE_ANON_KEY not set in environment
@@ -329,12 +329,12 @@ Cloudflare's quick-tunnel documentation says the address uses `trycloudflare.com
 The addon builds Mako play links from `PUBLIC_URL`. If you skip this, a phone can be sent `http://127.0.0.1:49621/...`, which points at the phone, not your PC.
 
 1. In the **first** window, press `Ctrl+C` so `npm start` stops.
-2. Open the same `.env` file and add `PUBLIC_URL`. Keep the two Supabase lines. The address is the one cloudflared printed, with **no** slash at the end and **no** `/manifest.json`. Replace `<ask Nino>` if you have not already:
+2. Open the same `.env` file and add `PUBLIC_URL`. Keep the two Supabase lines. The address is the one cloudflared printed, with **no** slash at the end and **no** `/manifest.json`. Replace `<ask the owner of the repository>` if you have not already:
 
 ```text
 PUBLIC_URL=https://something-random.trycloudflare.com
-SUPABASE_URL=<ask Nino>
-SUPABASE_ANON_KEY=<ask Nino>
+SUPABASE_URL=<ask the owner of the repository>
+SUPABASE_ANON_KEY=<ask the owner of the repository>
 ```
 
 Or in PowerShell, from the project folder. This replaces the whole file, so include the Supabase lines, not only `PUBLIC_URL`:
@@ -342,12 +342,12 @@ Or in PowerShell, from the project folder. This replaces the whole file, so incl
 ```powershell
 @"
 PUBLIC_URL=https://something-random.trycloudflare.com
-SUPABASE_URL=<ask Nino>
-SUPABASE_ANON_KEY=<ask Nino>
+SUPABASE_URL=<ask the owner of the repository>
+SUPABASE_ANON_KEY=<ask the owner of the repository>
 "@ | Set-Content -Path .env -Encoding ascii
 ```
 
-Then replace `<ask Nino>` in that file with the link's values before you start the server again. Leaving those words in the file makes the database reject the connection.
+Then replace `<ask the owner of the repository>` in that file with the link's values before you start the server again. Leaving those words in the file makes the database reject the connection.
 
 3. Start the addon again:
 
@@ -395,18 +395,18 @@ If `git` is not found, macOS will offer to install the command-line tools. Accep
 
 #### 3. Install and start
 
-Create `.env` in the project folder before you start. Replace `<ask Nino>` with the values from the one-time link. The key must start with `sb_publishable_`.
+Create `.env` in the project folder before you start. Replace `<ask the owner of the repository>` with the values from the one-time link. The key must start with `sb_publishable_`.
 
 ```bash
 cat > .env << 'EOF'
-SUPABASE_URL=<ask Nino>
-SUPABASE_ANON_KEY=<ask Nino>
+SUPABASE_URL=<ask the owner of the repository>
+SUPABASE_ANON_KEY=<ask the owner of the repository>
 EOF
 npm install
 npm start
 ```
 
-Open `.env` and replace `<ask Nino>` before `npm start` if you pasted the command with the placeholders still in it.
+Open `.env` and replace `<ask the owner of the repository>` before `npm start` if you pasted the command with the placeholders still in it.
 
 You should see `added` and a package count, then:
 
@@ -450,13 +450,13 @@ In the first window press `Ctrl+C`. Add `PUBLIC_URL` to the existing `.env`. Kee
 ```bash
 cat > .env << 'EOF'
 PUBLIC_URL=https://something-random.trycloudflare.com
-SUPABASE_URL=<ask Nino>
-SUPABASE_ANON_KEY=<ask Nino>
+SUPABASE_URL=<ask the owner of the repository>
+SUPABASE_ANON_KEY=<ask the owner of the repository>
 EOF
 npm start
 ```
 
-Use the address cloudflared actually printed. No slash at the end. Replace `<ask Nino>` with the values already in the file if this command overwrote them.
+Use the address cloudflared actually printed. No slash at the end. Replace `<ask the owner of the repository>` with the values already in the file if this command overwrote them.
 
 Open `https://that-address/manifest.json` in a browser. You should see the manifest JSON.
 
@@ -504,12 +504,12 @@ cd Stremio-KanBoxAddon
 cat > .env << 'EOF'
 PUBLIC_URL=https://kanbox.example.com
 TRUST_PROXY_HOPS=1
-SUPABASE_URL=<ask Nino>
-SUPABASE_ANON_KEY=<ask Nino>
+SUPABASE_URL=<ask the owner of the repository>
+SUPABASE_ANON_KEY=<ask the owner of the repository>
 EOF
 ```
 
-Open `.env` and replace `<ask Nino>` and `kanbox.example.com` before the next commands. The anon key must start with `sb_publishable_`.
+Open `.env` and replace `<ask the owner of the repository>` and `kanbox.example.com` before the next commands. The anon key must start with `sb_publishable_`.
 
 ```bash
 sudo docker build -t kanbox-addon .
@@ -564,12 +564,12 @@ npm install
 cat > .env << 'EOF'
 PUBLIC_URL=https://kanbox.example.com
 TRUST_PROXY_HOPS=1
-SUPABASE_URL=<ask Nino>
-SUPABASE_ANON_KEY=<ask Nino>
+SUPABASE_URL=<ask the owner of the repository>
+SUPABASE_ANON_KEY=<ask the owner of the repository>
 EOF
 ```
 
-Replace `<ask Nino>` in `.env` before the next command. The key must start with `sb_publishable_`.
+Replace `<ask the owner of the repository>` in `.env` before the next command. The key must start with `sb_publishable_`.
 
 ```bash
 npm start
@@ -614,7 +614,7 @@ Next: [Add it to Stremio](#add-it-to-stremio).
 
 A variable is a named setting the program reads when it starts. On your computer, put them in a file called `.env` in the project folder (the same folder as `package.json`). On Render, type them on the service's **Environment** page. Do not commit `.env`. It is listed in `.gitignore`.
 
-`SUPABASE_URL` and `SUPABASE_ANON_KEY` are the recommended way to load the show list. Ask Nino for them. He sends a one-time secret link. The server still starts if they are empty, and then it uses the GitHub ZIPs. Set `PUBLIC_URL` before any device other than that same computer uses the addon.
+`SUPABASE_URL` and `SUPABASE_ANON_KEY` are the recommended way to load the show list. Ask the owner of the repository for them. The owner sends a one-time secret link. The server still starts if they are empty, and then it uses the GitHub ZIPs. Set `PUBLIC_URL` before any device other than that same computer uses the addon.
 
 | Name | Required? | Default | What it does | Example |
 |---|---|---|---|---|
@@ -622,8 +622,8 @@ A variable is a named setting the program reads when it starts. On your computer
 | `TRUST_PROXY_HOPS` | Optional | `1` | How many proxies sit in front of the program, for the visitor IP used by the Mako rate limit. `1` is correct for Render alone, for one Caddy, or for one `cloudflared`. Use `2` only if two proxies each add the visitor's address (for example Cloudflare in front of Caddy). | `1` |
 | `PLAY_RATE_LIMIT` | Optional | `30` | How many `GET /play/mako/...` requests one IP may make per 60 seconds. The 60 seconds is fixed in `app.js`. Past the limit the response is **429** with the body `Too many requests` and a `Retry-After` header. Use a whole number. | `60` |
 | `PORT` | Optional | `49621` | The port `server.js` listens on. On Render, leave it unset so Render's own `PORT` is used. | `49621` |
-| `SUPABASE_URL` | Recommended. The server still starts if it is empty. | empty | Address of Nino's Supabase database. Used only together with `SUPABASE_ANON_KEY`. The program only reads. It does not fill the database. Ask Nino. Do not invent a project of your own. | `<ask Nino>` |
-| `SUPABASE_ANON_KEY` | Recommended. Set it with `SUPABASE_URL`. | empty | The read-only publishable key from the same link. It starts with `sb_publishable_`. If either value is missing or the database rejects the pair, the program logs `Falling back to ZIP files` and loads the GitHub ZIPs. Never put a service-role key here. Those start with `sb_secret_`, and this addon does not need one. | `<ask Nino>` |
+| `SUPABASE_URL` | Recommended. The server still starts if it is empty. | empty | Address of the repository owner's Supabase database. Used only together with `SUPABASE_ANON_KEY`. The program only reads. It does not fill the database. Ask the owner of the repository. Do not invent a project of your own. | `<ask the owner of the repository>` |
+| `SUPABASE_ANON_KEY` | Recommended. Set it with `SUPABASE_URL`. | empty | The read-only publishable key from the same link. It starts with `sb_publishable_`. If either value is missing or the database rejects the pair, the program logs `Falling back to ZIP files` and loads the GitHub ZIPs. Never put a service-role key here. Those start with `sb_secret_`, and this addon does not need one. | `<ask the owner of the repository>` |
 | `TMDB_API_KEY` | Optional | empty | A TMDB v3 key, or a v4 token (it starts with `eyJ`). Search can then match TMDB titles to shows you already have. With no key, search uses the local catalog only. | a key from themoviedb.org |
 | `TMDB_LANGUAGE` | Optional | `he-IL` | Language sent to TMDB. | `he-IL` |
 
@@ -633,13 +633,13 @@ Do not set these. They are not part of running the addon:
 - `NODE_VERSION` is only for Render's build image. The addon never reads it.
 - `VERCEL` is set by Vercel, not by you. If it is set, logs go to the console only and the log file is skipped.
 
-A finished `.env` for a public server looks like this. Replace both `<ask Nino>` lines from the one-time link before you start the program:
+A finished `.env` for a public server looks like this. Replace both `<ask the owner of the repository>` lines from the one-time link before you start the program:
 
 ```text
 PUBLIC_URL=https://kanbox-yourname.onrender.com
 TRUST_PROXY_HOPS=1
-SUPABASE_URL=<ask Nino>
-SUPABASE_ANON_KEY=<ask Nino>
+SUPABASE_URL=<ask the owner of the repository>
+SUPABASE_ANON_KEY=<ask the owner of the repository>
 ```
 
 ## What the program does when someone presses play
@@ -886,10 +886,10 @@ The Cloudflare tunnel has to survive reboot too, or the HTTPS address dies while
 
 **Fix:**
 
-- Open the one-time link again only if it has not been used. If it has expired, ask Nino for a new link. Do not ask him to paste the values into a chat.
+- Open the one-time link again only if it has not been used. If it has expired, ask the owner of the repository for a new link. Do not ask the owner to paste the values into a chat.
 - Put `SUPABASE_URL` and `SUPABASE_ANON_KEY` in Render's **Environment** page, or in `.env` next to `package.json`.
 - The key must start with `sb_publishable_`. Delete any value that starts with `sb_secret_`.
-- The file must not still contain the letters `<ask Nino>`.
+- The file must not still contain the letters `<ask the owner of the repository>`.
 - Restart (`npm start`, `pm2 restart kanbox-addon`, `sudo systemctl restart kanbox-addon`, or a new Render deploy).
 - You should then see `Connection test successful` and `Successfully loaded all data from database`, and you should not see `Falling back to ZIP files`.
 
@@ -968,7 +968,7 @@ Not `https://kanbox-yourname.onrender.com/manifest.json`. Not a trailing slash (
 
 **Addon.** A website Stremio trusts to list shows and give it play links. This project is one addon.
 
-**Catalog.** The list of shows. The one to use is Nino's Supabase database (`SUPABASE_URL` and `SUPABASE_ANON_KEY`). If those are missing or rejected, the program loads ZIP files from GitHub instead.
+**Catalog.** The list of shows. The one to use is the repository owner's Supabase database (`SUPABASE_URL` and `SUPABASE_ANON_KEY`). If those are missing or rejected, the program loads ZIP files from GitHub instead.
 
 **Cold start.** A free Render service that was asleep. The first request waits about a minute while Render starts it. See [Render's free docs](https://render.com/docs/free).
 
@@ -990,6 +990,6 @@ Not `https://kanbox-yourname.onrender.com/manifest.json`. Not a trailing slash (
 
 These were run against this code while the page was written: `npm test`, `npm install`, `npm start` with no `.env` (that run logged `Falling back to ZIP files` and served the manifest), `sudo docker build -t kanbox-addon .`, and a container started from that image without Supabase variables. The container log included `HTTP addon accessible at: http://127.0.0.1:49621/manifest.json` and `Falling back to ZIP files`, and `GET /manifest.json` returned `"id": "community.StremioIsraeliTV"`. The container test used host port 49622 forwarded to container port 49621. Node's "address already in use" text was checked with a tiny listener on port 49621, not by starting `server.js` twice.
 
-The success lines `Supabase client initialized`, `Connection test successful`, and `Successfully loaded all data from database` are the strings in `classes/DatabaseManager.js` and `addon.js`. They were not produced here with Nino's database. No Supabase URL or key is stored in this repository.
+The success lines `Supabase client initialized`, `Connection test successful`, and `Successfully loaded all data from database` are the strings in `classes/DatabaseManager.js` and `addon.js`. They were not produced here with the owner's database. No Supabase URL or key is stored in this repository.
 
 These were not clicked or run here: the Render dashboard, the Stremio app, a Windows PowerShell install, a Mac install, NSSM, a Cloudflare account, and Caddy on a VPS. Those steps follow Render's, Cloudflare's, Caddy's, and NSSM's own docs, plus the commands this repository actually has (`npm start`, port 49621, the environment variables read in `server.js`, `app.js`, and the classes). Where a step is only from those outside docs, the page says so next to the step.
