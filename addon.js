@@ -6,6 +6,7 @@ const log4js = require("./classes/logger");
 const srList = require("./classes/srList");
 const {fetchData, resolveStreamUrl} = require("./classes/utilities.js");
 const databaseManager = require("./classes/DatabaseManager");
+const { loadStatus } = require("./classes/loadStatus");
 
 const { URL_JSON_BASE, MAKO } = require("./classes/constants.js");
 const { zipFilesToLoad, seriesEntriesFromZipJson, seriesArtwork } = require("./classes/zipSources");
@@ -166,6 +167,8 @@ const manifest = {
 	"name": "Israeli Channels",
 	"description": "Israeli channels live and VOD"
 }
+
+loadStatus.setVersion(manifest.version);
 
 const builder = new addonBuilder(manifest)
 
@@ -1085,18 +1088,30 @@ async function loadDataFromDatabase() {
     }
 }
 
+// Recording must not change catalog loading or logging.
+function recordLoadStatus(record) {
+    try {
+        record();
+    } catch {
+        // Ignore recorder failures.
+    }
+}
+
 async function getJSONFile(){
     logger.info("getJSONFile => Starting data load...");
+    recordLoadStatus(() => loadStatus.noteAttempt());
 
     // TRY DATABASE FIRST
     try {
         await loadDataFromDatabase();
         logger.info("getJSONFile => Successfully loaded all data from database");
+        recordLoadStatus(() => loadStatus.noteDatabaseSuccess());
         ensureLiveChannels(listSeries);
         return;
     } catch (error) {
         logger.warn(`getJSONFile => Database load failed: ${error.message}`);
         logger.info("getJSONFile => Falling back to ZIP files...");
+        recordLoadStatus(() => loadStatus.noteFallback(error));
     }
 
     // FALLBACK TO ZIP FILES
