@@ -8,7 +8,7 @@ const {fetchData, resolveStreamUrl} = require("./classes/utilities.js");
 const databaseManager = require("./classes/DatabaseManager");
 
 const { URL_JSON_BASE, MAKO } = require("./classes/constants.js");
-const { zipFilesToLoad, seriesEntriesFromZipJson } = require("./classes/zipSources");
+const { zipFilesToLoad, seriesEntriesFromZipJson, seriesArtwork } = require("./classes/zipSources");
 const { ensureLiveChannels } = require("./classes/liveChannels");
 const { isLiveChannelId, resolveLiveStreams } = require("./classes/liveStreamResolver");
 const { repairTitle } = require("./classes/repairTitle");
@@ -1154,7 +1154,8 @@ async function getJSONFile(){
                         }
                     }
 
-                    listSeries.addItemByDetails(value.id, value.name, value.poster, value.meta.description, value.link, value.background, value.meta.genres, value.meta, value.type, value.subtype, null);
+                    const artwork = seriesArtwork(value);
+                    listSeries.addItemByDetails(value.id, value.name, artwork.poster, value.meta.description, value.link, artwork.background, value.meta.genres, value.meta, value.type, value.subtype, null);
                     logger.info(`getJSONFile => Writing series. Id: ${value.id} Subtype: ${value.subtype} link: ${value.link} name: ${value.name}`);
                 }
             } else {

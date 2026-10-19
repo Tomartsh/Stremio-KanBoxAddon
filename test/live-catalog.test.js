@@ -187,3 +187,18 @@ test("Kan 88 catalog matches subtype 8 and the kan88 database key", () => {
     const ids = metas.map(meta => meta.id).sort();
     assert.deepEqual(ids, ["il_kan_kan88_8", "il_kan_kan88_stored"]);
 });
+
+test("ZIP series take their poster and background from meta when the top level has none", () => {
+    const { seriesArtwork } = require("../classes/zipSources");
+    // The shape every current KanBoxRepos export uses.
+    assert.deepEqual(
+        seriesArtwork({ id: "il_mako_1", meta: { poster: "https://img/p.jpg", background: "https://img/b.jpg" } }),
+        { poster: "https://img/p.jpg", background: "https://img/b.jpg" }
+    );
+    // Top-level fields, where present, still win.
+    assert.deepEqual(
+        seriesArtwork({ poster: "top-p", background: "top-b", meta: { poster: "meta-p", background: "meta-b" } }),
+        { poster: "top-p", background: "top-b" }
+    );
+    assert.deepEqual(seriesArtwork({ id: "x" }), { poster: undefined, background: undefined });
+});
