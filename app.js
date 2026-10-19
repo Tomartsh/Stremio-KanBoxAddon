@@ -7,6 +7,7 @@ const { cacheControlFor } = require("./classes/cachePolicy");
 const { runWithRequestOrigin } = require("./classes/requestOrigin");
 const { makoPlaylist } = require("./classes/makoPlay");
 const { createTicketCache, createRateLimiter } = require("./classes/makoGuard");
+const { mountStatusRoute } = require("./classes/loadStatus");
 
 const logger = log4js.getLogger("app");
 const app = express();
@@ -53,6 +54,10 @@ app.use((req, res, next) => {
     }
     next();
 });
+
+// Read-only process status. Registered before dataReady so it can report
+// source "loading" while the first Supabase-or-ZIP load is still running.
+mountStatusRoute(app);
 
 // Ensure data is loaded before handling any request (handles serverless cold starts)
 app.use(async (req, res, next) => {
