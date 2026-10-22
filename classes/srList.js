@@ -1,5 +1,6 @@
 const { repairLivePoster, shapeLiveCatalogMeta, shapeLiveDetailMeta } = require("./liveChannels");
 const { repairTitle } = require("./repairTitle");
+const { hasNumberedSeason } = require("./tmdbSeason");
 
 class srList {
     constructor() {
@@ -406,6 +407,7 @@ class srList {
 
         for (var i = 0; i < series.meta.videos.length; i++) {
             var video = series.meta.videos[i];
+            if (!hasNumberedSeason(video)) continue;
             var videoSeason = (video.season != null) ? parseInt(video.season, 10) : 1;
             var videoEpisode = (video.episode != null) ? parseInt(video.episode, 10) : 1;
 

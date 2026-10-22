@@ -13,6 +13,7 @@ const { zipFilesToLoad, seriesEntriesFromZipJson, seriesArtwork } = require("./c
 const { ensureLiveChannels } = require("./classes/liveChannels");
 const { isLiveChannelId, resolveLiveStreams } = require("./classes/liveStreamResolver");
 const { repairTitle } = require("./classes/repairTitle");
+const { hasNumberedSeason } = require("./classes/tmdbSeason");
 const { currentOrigin } = require("./classes/requestOrigin");
 
 // ZIP filename to subtype/type mapping for fallback loading.
@@ -320,6 +321,7 @@ async function mapTmdbToLocalId(id, type) {
 		const series = listSeries.findSeriesByTmdbId(tmdbIdNum);
 		if (series && series.meta && series.meta.videos) {
 			const matchedVideo = series.meta.videos.find(v => {
+				if (!hasNumberedSeason(v)) return false;
 				const vSeason = (v.season != null && v.season !== "") ? parseInt(v.season, 10) : 1;
 				let vEp = 1;
 				if (v.episode) {
@@ -385,6 +387,7 @@ async function mapTmdbToLocalId(id, type) {
 		matchedVideo = videos[0];
 	} else {
 		matchedVideo = videos.find(v => {
+			if (!hasNumberedSeason(v)) return false;
 			const vSeason = (v.season != null && v.season !== "") ? parseInt(v.season, 10) : 1;
 			// Extract episode from ID backwards (e.g., "id:season:episode") or from explicit v.episode / v.number
 			let vEp = 1;
