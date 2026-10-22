@@ -22,5 +22,8 @@
 		"node-html-parser": "^6.1.13",
 		"stremio-addon-sdk": "1.1.x",
 		"uuid": "^11.0.5"
+	},
+	"overrides": {
+		"path-to-regexp@<0.1.13": "0.1.13"
 	}
 }
