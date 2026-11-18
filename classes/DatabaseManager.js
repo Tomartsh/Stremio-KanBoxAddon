@@ -1,5 +1,6 @@
 const { createClient } = require('@supabase/supabase-js');
 const log4js = require("./logger");
+const { rememberNewestReleased } = require("./catalogOrder");
 
 const logger = log4js.getLogger("DatabaseManager");
 
@@ -259,6 +260,49 @@ class DatabaseManager {
             logger.error(`DatabaseManager => loadSeries exception: ${error.message}`);
             return [];
         }
+    }
+
+    /**
+     * Newest `videos.released` per series.
+     * The series table's latest_episode_date column is not filled by the
+     * current updater, and catalog loading does not pull episode rows, so
+     * this is the one pass that gives every catalog a newness date.
+     * @returns {Promise<Map<string, string>>}
+     */
+    async loadNewestReleasedBySeries() {
+        const newest = new Map();
+        if (!this.initialized && !this.initialize()) {
+            return newest;
+        }
+
+        const pageSize = 1000;
+        const maxPages = 250;
+        let page = 0;
+
+        while (page < maxPages) {
+            const start = page * pageSize;
+            const end = start + pageSize - 1;
+            const { data, error } = await this.supabase
+                .from("videos")
+                .select("series_id, released")
+                .not("released", "is", null)
+                .order("series_id", { ascending: true })
+                .order("id", { ascending: true })
+                .range(start, end);
+
+            if (error) {
+                logger.warn(`DatabaseManager => loadNewestReleasedBySeries page ${page} error: ${error.message}`);
+                break;
+            }
+            if (!data || data.length === 0) break;
+
+            rememberNewestReleased(newest, data);
+            if (data.length < pageSize) break;
+            page++;
+        }
+
+        logger.info(`DatabaseManager => Newest episode dates for ${newest.size} series`);
+        return newest;
     }
 
     /**

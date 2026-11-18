@@ -15,6 +15,7 @@ const { isLiveChannelId, resolveLiveStreams } = require("./classes/liveStreamRes
 const { repairTitle } = require("./classes/repairTitle");
 const { hasNumberedSeason } = require("./classes/tmdbSeason");
 const { currentOrigin } = require("./classes/requestOrigin");
+const { filterByGenre, pageMetas, metasMatchingIds, sortMetasByName } = require("./classes/catalogOrder");
 
 // ZIP filename to subtype/type mapping for fallback loading.
 // Overrides incorrect values in scraped ZIP data (e.g., kanDigital had "series" instead of "d").
@@ -62,7 +63,8 @@ const manifest = {
 			name: "כאן 11 דיגיטל",
 			extra: [
 				{name: "search", isRequired: false},
-				{name: "genre", isRequired: false}
+				{name: "genre", isRequired: false},
+				{name: "skip", isRequired: false}
 			]
 		},
         {
@@ -71,7 +73,8 @@ const manifest = {
 			name: "תוכניות ערוץ 12",
 			extra: [
 				{name: "search", isRequired: false},
-				{name: "genre", isRequired: false}
+				{name: "genre", isRequired: false},
+				{name: "skip", isRequired: false}
 			]
 		},
         {
@@ -80,7 +83,8 @@ const manifest = {
 			name: "תוכניות ערוץ 13",
 			extra: [
 				{name: "search", isRequired: false},
-				{name: "genre", isRequired: false}
+				{name: "genre", isRequired: false},
+				{name: "skip", isRequired: false}
 			]
 		},
 		{
@@ -89,7 +93,8 @@ const manifest = {
 			name: "כאן 11 ארכיב",
 			extra: [
 				{name: "search", isRequired: false},
-				{name: "genre", isRequired: false}
+				{name: "genre", isRequired: false},
+				{name: "skip", isRequired: false}
 			]
 		},
 		{
@@ -98,7 +103,8 @@ const manifest = {
 			name: "כאן 11 ילדים",
 			extra: [
 				{name: "search", isRequired: false},
-				{name: "genre", isRequired: false}
+				{name: "genre", isRequired: false},
+				{name: "skip", isRequired: false}
 			]
 		},
         {
@@ -107,7 +113,8 @@ const manifest = {
 			name: "כאן 11 נוער",
 			extra: [
 				{name: "search", isRequired: false},
-				{name: "genre", isRequired: false}
+				{name: "genre", isRequired: false},
+				{name: "skip", isRequired: false}
 			]
 		},
         {
@@ -522,6 +529,24 @@ async function searchMetasByTmdb(subtype, localMetas, search, limit) {
 	return ret;
 }
 
+// Keep catalog order: local name hits and TMDB hits are a filter over the
+// already-sorted list, not a new ranking.
+async function matchesInCatalogOrder(sortedMetas, subtype, search, limit) {
+	const ids = new Set();
+	const searchTerm = repairTitle(search).normalize("NFKC").toLowerCase();
+	for (const meta of sortedMetas) {
+		const name = meta && meta.name ? repairTitle(meta.name).normalize("NFKC").toLowerCase() : "";
+		if (name.includes(searchTerm) && meta.id) ids.add(meta.id);
+	}
+	const tmdbMetas = await searchMetasByTmdb(subtype, sortedMetas, search, limit);
+	if (tmdbMetas && tmdbMetas.length > 0) {
+		for (const meta of tmdbMetas) {
+			if (meta && meta.id) ids.add(meta.id);
+		}
+	}
+	return metasMatchingIds(sortedMetas, ids);
+}
+
 	builder.defineCatalogHandler(async (args) => {
 		const { type, id, extra } = args;
 		logger.debug(
@@ -562,54 +587,17 @@ async function searchMetasByTmdb(subtype, localMetas, search, limit) {
 				seriesSubtype = "`n";
 			}
 
-			// Wildcard / missing search should return all (current behavior).
+			// Catalog order is fixed at load time. Search widens the match set
+			// (local name, then TMDB) and keeps that order.
 			if (!seriesSubtype) {
 				metas = [];
-			} else if (search === "*" || search === "undefined") {
-				metas = listSeries.getMetasBySubtype(seriesSubtype);
 			} else {
-				// MERGED SEARCH: Always return local results, enriched with TMDB matches.
-				// 1. Get local results (substring name match — works for Hebrew and English)
-				const localHits = listSeries.getMetasBySubtypeAndName(seriesSubtype, search);
-				// 2. Try TMDB to boost — TMDB-matched series get priority placement
-				const localMetas = listSeries.getMetasBySubtype(seriesSubtype);
-				const tmdbMetas = await searchMetasByTmdb(seriesSubtype, localMetas, search, 200);
-				if (tmdbMetas && tmdbMetas.length > 0) {
-					// Merge: TMDB matches first, then local-only results that aren't already included
-					const seenIds = new Set(tmdbMetas.map(m => m.id));
-					const merged = [...tmdbMetas];
-					for (const local of localHits) {
-						if (!seenIds.has(local.id)) {
-							merged.push(local);
-						}
-					}
-					metas = merged;
+				const sorted = listSeries.getMetasBySubtype(seriesSubtype);
+				if (search === "*" || search === "undefined") {
+					metas = sorted;
 				} else {
-					metas = localHits;
+					metas = await matchesInCatalogOrder(sorted, seriesSubtype, search, 200);
 				}
-			}
-
-			// Sort series by latest_episode_date (newest first) — only when browsing (no query).
-			// For real searches keep the relevance order (TMDB matches first); a date sort
-			// would bury the exact match under unrelated recent shows.
-			if (search === "*" && metas && metas.length > 0) {
-			    metas.sort((a, b) => {
-			        // Get latest episode date from each meta
-			        const getLatestDate = (meta) => {
-			            if (!meta || !meta.videos || meta.videos.length === 0) {
-			                return new Date(0); // Epoch for series without videos
-			            }
-			            // Find the latest released date among videos
-			            const dates = meta.videos
-			                .map(v => v.released ? new Date(v.released).getTime() : 0)
-			                .filter(d => d > 0);
-			            return dates.length > 0 ? Math.max(...dates) : new Date(0);
-			        };
-
-			        const dateA = getLatestDate(a);
-			        const dateB = getLatestDate(b);
-			        return dateB - dateA; // Newest first
-			    });
 			}
             break;
         case "Podcasts":
@@ -627,41 +615,34 @@ async function searchMetasByTmdb(subtype, localMetas, search, limit) {
 
 			if (!podcastsSubtypes) {
 				metas = [];
-			} else if (search === "*" || search === "undefined") {
-				metas = listSeries.getMetasBySubtypes(podcastsSubtypes);
 			} else {
-				// Try TMDB first (if enabled), otherwise fall back to local search.
-				// TMDB supports Hebrew (he-IL) so we try it for all queries.
-				const localMetas = listSeries.getMetasBySubtypes(podcastsSubtypes);
-				const tmdbMetas = await searchMetasByTmdb(podcastsSubtypes[0], localMetas, search, 1000);
-				if (tmdbMetas === null || tmdbMetas.length === 0) {
-					metas = listSeries.getMetasBySubtypesAndName(podcastsSubtypes, search);
+				const sorted = listSeries.getMetasBySubtypes(podcastsSubtypes);
+				if (search === "*" || search === "undefined") {
+					metas = sorted;
 				} else {
-					metas = tmdbMetas;
+					metas = await matchesInCatalogOrder(sorted, podcastsSubtypes[0], search, 1000);
 				}
 			}
-
-			// --- SORT ALPHABETICALLY (A-Z / Z-A) ---
-            const sort = extra.sort || "name"; // default A-Z
-
-            metas.sort((a, b) => {
-                const nameA = (a.name || "").toLowerCase();
-                const nameB = (b.name || "").toLowerCase();
-                if (sort === "name_desc") {
-                    return nameB.localeCompare(nameA); // Z-A
-                } else {
-                    return nameA.localeCompare(nameB); // A-Z
-                }
-            });
-
-            // --- PAGINATION: 100 ITEMS PER PAGE ---
-            const skip = parseInt(extra.skip || 0, 10);
-            metas = metas.slice(skip, skip + 100);
             break;
 
     }
 	if (metas == undefined){
 		logger.debug("defineCatalogHandler => empty metas object!");
+		metas = [];
+	}
+
+	// Genre narrows the already-ordered list. Podcast name sorting is only
+	// applied when the client asks for it; the loaded order is newest-first.
+	// Skip then takes a page of that list. A missing skip is the first page,
+	// so a later skip does not repeat items already returned.
+	if (type === "series" || type === "Podcasts") {
+		if (extra && extra.genre != null) {
+			metas = filterByGenre(metas, extra.genre);
+		}
+		if (type === "Podcasts" && extra && (extra.sort === "name" || extra.sort === "name_desc")) {
+			metas = sortMetasByName(metas, extra.sort);
+		}
+		metas = pageMetas(metas, extra && extra.skip);
 	}
 
 
@@ -1039,6 +1020,13 @@ async function loadDataFromDatabase() {
             throw new Error("No series found in database");
         }
 
+        let releaseDates = new Map();
+        try {
+            releaseDates = await databaseManager.loadNewestReleasedBySeries();
+        } catch (dateError) {
+            logger.warn(`loadDataFromDatabase => Could not load episode dates: ${dateError.message}`);
+        }
+
         logger.info(`loadDataFromDatabase => Retrieved ${allSeries.length} series from database, adding to list...`);
 
         // Add each series to listSeries
@@ -1050,6 +1038,8 @@ async function loadDataFromDatabase() {
             try {
                 // Count subtypes for debugging
                 subtypeCounts[series.subtype] = (subtypeCounts[series.subtype] || 0) + 1;
+                const newestReleased = releaseDates.get(series.id);
+                if (newestReleased) series.latestEpisodeDate = newestReleased;
 
                 listSeries.addItemByDetails(
                     series.id,
@@ -1110,6 +1100,7 @@ async function getJSONFile(){
         logger.info("getJSONFile => Successfully loaded all data from database");
         recordLoadStatus(() => loadStatus.noteDatabaseSuccess());
         ensureLiveChannels(listSeries);
+        listSeries.sortLoadedCatalogs();
         return;
     } catch (error) {
         logger.warn(`getJSONFile => Database load failed: ${error.message}`);
@@ -1185,6 +1176,7 @@ async function getJSONFile(){
     }
     logger.info("getJSONFile => Completed loading from ZIP files (fallback mode)");
     ensureLiveChannels(listSeries);
+    listSeries.sortLoadedCatalogs();
 }
 
 const addonInterface = builder.getInterface();

@@ -1,6 +1,7 @@
 const { repairLivePoster, shapeLiveCatalogMeta, shapeLiveDetailMeta } = require("./liveChannels");
 const { repairTitle } = require("./repairTitle");
 const { hasNumberedSeason } = require("./tmdbSeason");
+const { keepsSourceOrder, sortSeriesNewestFirst } = require("./catalogOrder");
 
 class srList {
     constructor() {
@@ -84,112 +85,95 @@ class srList {
         return value;
     }
 
-    _mergeMetasById(lists) {
-        const seen = new Set();
-        const metas = [];
-        for (const list of lists) {
-            for (const meta of list) {
-                if (!meta || !meta.id || seen.has(meta.id)) continue;
-                seen.add(meta.id);
-                metas.push(meta);
-            }
-        }
-        return metas;
-    }
-
     getMetasBySubtypes(subtypes) {
-        return this._mergeMetasById((subtypes || []).map(subtype => this.getMetasBySubtype(subtype)));
+        return this._metasForSubtypes(subtypes, null);
     }
 
     getMetasBySubtypesAndName(subtypes, nameToSearch) {
-        return this._mergeMetasById((subtypes || []).map(subtype => this.getMetasBySubtypeAndName(subtype, nameToSearch)));
+        if (nameToSearch != null && String(nameToSearch).trim() === "*") {
+            return this.getMetasBySubtypes(subtypes);
+        }
+        return this._metasForSubtypes(subtypes, nameToSearch);
     }
-   
-    getMetasBySubtype(subtype) {
-        var metas = [];
-        for (var [key, value] of Object.entries(this._seriesList)) {
-            if (value.subtype == subtype){
-                // For database-loaded items with separate meta structure, return just the meta
-                // For ZIP-loaded items where meta is the main structure, return the value itself
-                if (value.meta && value.id && value.type) {
-                    // Database-loaded item: return object with all required fields at top level
-                    metas.push({
-                        id: value.id,
-                        type: value.type,
-                        name: value.name,
-                        poster: value.poster,
-                        posterShape: value.meta.posterShape || "poster",
-                        background: value.background,
-                        description: value.description,
-                        genres: value.genres,
-                        subtype: value.subtype,
-                        link: value.link,
-                        tmdbId: value.meta.tmdbId || value.tmdbId,
-                        latestEpisodeDate: value.latestEpisodeDate,
-                        videos: value.meta.videos || []
-                    });
-                } else {
-                    // ZIP-loaded item: return as-is (legacy structure)
-                    metas.push(value);
-                }
+
+    /**
+     * Newest-first order is fixed when the catalog is loaded. Reading a
+     * subtype (or several, for Kan 88's alias keys) keeps that order.
+     * A name search filters it and does not reshuffle the remaining series.
+     */
+    _metasForSubtypes(subtypes, nameToSearch) {
+        const wanted = new Set(subtypes || []);
+        const searchTerm = nameToSearch == null
+            ? null
+            : repairTitle(String(nameToSearch).trim()).normalize("NFKC").toLowerCase();
+        const metas = [];
+        const seen = new Set();
+        for (const value of Object.values(this._seriesList)) {
+            if (!value || !wanted.has(value.subtype) || !value.id || seen.has(value.id)) continue;
+            if (searchTerm != null) {
+                const seriesName = value.name ? repairTitle(value.name).normalize("NFKC").toLowerCase() : "";
+                if (!seriesName.includes(searchTerm)) continue;
             }
+            seen.add(value.id);
+            metas.push(this._vodCatalogMeta(value));
         }
-
-        // Sort by latestEpisodeDate descending (newest first), except for live TV
-        if (subtype !== 'tv') {
-            metas.sort((a, b) => {
-                const dateA = a.latestEpisodeDate ? new Date(a.latestEpisodeDate).getTime() : 0;
-                const dateB = b.latestEpisodeDate ? new Date(b.latestEpisodeDate).getTime() : 0;
-                return dateB - dateA; // Descending order (newest first)
-            });
-        }
-
         return metas;
+    }
+
+    getMetasBySubtype(subtype) {
+        return this._metasForSubtypes([subtype], null);
     }
 
     getMetasBySubtypeAndName(subtype, nameToSearch) {
-        var metas = [];
-        //if this is a wild card, return all metas of the relevant subtype
-        if (nameToSearch.trim() == "*"){
-            metas = this.getMetasBySubtype(subtype);
-            return metas;
+        if (nameToSearch != null && String(nameToSearch).trim() === "*") {
+            return this.getMetasBySubtype(subtype);
         }
+        return this._metasForSubtypes([subtype], nameToSearch);
+    }
 
-        // Normalize search term: apply repairTitle, NFKC normalization, and lowercase
-        const rawSearch = nameToSearch.trim();
-        const searchTerm = repairTitle(rawSearch).normalize('NFKC').toLowerCase();
-
-        for (var [key, value] of Object.entries(this._seriesList)) {
-            if (value.subtype == subtype){
-                // Apply repairTitle and NFKC normalization to series name before comparing
-                const seriesName = value.name ? repairTitle(value.name).normalize('NFKC').toLowerCase() : "";
-                if (seriesName.includes(searchTerm)){
-                    // Return the same format as getMetasBySubtype for consistency
-                    if (value.meta && value.id && value.type) {
-                        // Database-loaded item: return formatted object
-                        metas.push({
-                            id: value.id,
-                            type: value.type,
-                            name: value.name,
-                            poster: value.poster,
-                            posterShape: value.meta.posterShape || "poster",
-                            background: value.background,
-                            description: value.description,
-                            genres: value.genres,
-                            subtype: value.subtype,
-                            link: value.link,
-                            tmdbId: value.meta.tmdbId || value.tmdbId,
-                            latestEpisodeDate: value.latestEpisodeDate,
-                            videos: value.meta.videos || []
-                        });
-                    } else {
-                        // ZIP-loaded item: return as-is (legacy structure)
-                        metas.push(value);
-                    }
-                }
-            }
+    _vodCatalogMeta(value) {
+        if (value.meta && value.id && value.type) {
+            return {
+                id: value.id,
+                type: value.type,
+                name: value.name,
+                poster: value.poster,
+                posterShape: value.meta.posterShape || "poster",
+                background: value.background,
+                description: value.description,
+                genres: value.genres,
+                subtype: value.subtype,
+                link: value.link,
+                tmdbId: value.meta.tmdbId || value.tmdbId,
+                latestEpisodeDate: value.latestEpisodeDate,
+                videos: value.meta.videos || []
+            };
         }
-        return metas;
+        return value;
+    }
+
+    /**
+     * Order every loaded catalog once. kanArchive and live TV stay in the
+     * order they were loaded. Every other subtype is newest-first, with the
+     * loaded order kept for series that have no date.
+     */
+    sortLoadedCatalogs() {
+        const sourceOrder = [];
+        const sortable = [];
+        for (const item of Object.values(this._seriesList)) {
+            if (!item) continue;
+            if (keepsSourceOrder(item.subtype)) sourceOrder.push(item);
+            else sortable.push(item);
+        }
+        const sorted = sortSeriesNewestFirst(sortable);
+        const next = {};
+        for (const item of sourceOrder) {
+            if (item.id) next[item.id] = item;
+        }
+        for (const item of sorted) {
+            if (item.id) next[item.id] = item;
+        }
+        this._seriesList = next;
     }
 
     async getMetaById(id){
