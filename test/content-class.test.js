@@ -93,6 +93,50 @@ test("new series includes drama, suspense, and comedy", () => {
     assert.equal(classifySeries(series({ genres: ["דת", "בישול"] }), {}), "exclude");
 });
 
+test("a Reshet native genre decides the class and beats a title seed", () => {
+    function reshet(genres, name) {
+        return series({
+            id: "il_reshet_sample",
+            subtype: "r",
+            name: name || "סדרה",
+            genres
+        });
+    }
+
+    assert.equal(classifySeries(reshet("דרמה"), {}), "scripted");
+    assert.equal(classifySeries(reshet("קומדיה"), {}), "scripted");
+    assert.equal(classifySeries(reshet("ריאליטי", "הארץ המובטחת"), {}), "reality");
+    assert.equal(classifySeries(reshet("דוקו-ריאליטי", "הצינור"), {}), "reality");
+    assert.equal(classifySeries(reshet("דוקו־ריאליטי"), {}), "reality");
+    assert.equal(classifySeries(reshet("דוקו ותחקירים"), {}), "exclude");
+    assert.equal(classifySeries(reshet("בידור"), {}), "exclude");
+    assert.equal(classifySeries(reshet("בידור ואירוח"), {}), "exclude");
+    assert.equal(classifySeries(reshet("תכניות אירוח"), {}), "exclude");
+
+    assert.equal(classifySeries(reshet("קומדיה|ריאליטי"), {}), "scripted");
+    assert.equal(classifySeries(reshet(["ריאליטי", "ריאליטי", "דרמה"]), {}), "reality");
+    assert.equal(classifySeries(reshet(["דרמה", "ריאליטי"]), {}), "scripted");
+    assert.equal(classifySeries(reshet(["בידור", "דרמה"]), {}), "exclude");
+
+    assert.equal(classifySeries(reshet("", "הצינור"), {}), "news");
+    assert.equal(classifySeries(reshet([], "הישרדות"), {}), "reality");
+    assert.equal(classifySeries(reshet("", "הארץ המובטחת"), {}), "scripted");
+    assert.equal(classifySeries(series({ subtype: "m", genres: ["דרמה"], name: "הצינור" }), {}), "scripted");
+    assert.equal(classifySeries(series({ subtype: "m", genres: ["דוקו-ריאליטי"] }), {}), "exclude");
+
+    const pinned = { il_reshet_sample: { title: "סדרה", class: "exclude" } };
+    assert.equal(classifySeries(reshet("ריאליטי"), pinned), "exclude");
+
+    const now = NOW;
+    const docu = reshet("דוקו ותחקירים");
+    const realityShow = reshet("דוקו-ריאליטי");
+    assert.deepEqual(selectNewCatalog([docu, realityShow], "scripted", { now, overrides: {} }), []);
+    assert.deepEqual(
+        selectNewCatalog([docu, realityShow], "reality", { now, overrides: {} }).map(item => item.name),
+        ["סדרה"]
+    );
+});
+
 test("a Kan Digital archive label stays out of the new catalogs unless an override says otherwise", () => {
     const archived = series({
         id: "il_kan_digital_archive",
