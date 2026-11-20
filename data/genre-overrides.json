@@ -21,10 +21,6 @@
     "il_reshet_maktub": {
       "title": "מכתוב עם אילון בן יוסף",
       "class": "scripted"
-    },
-    "il_reshet_the_promised_land": {
-      "title": "הארץ המובטחת",
-      "class": "exclude"
     }
   }
 }
