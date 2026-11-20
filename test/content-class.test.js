@@ -283,6 +283,21 @@ test("the shipped overrides file is version 1 with a valid class on every entry"
     assert.equal(document.version, 1);
     assert.equal(loaded.map["il_reshet_maktub"].class, "scripted");
     assert.equal(loaded.map["il_reshet_maktub"].title, "מכתוב עם אילון בן יוסף");
+    assert.equal(loaded.map["il_kan_digital_1094066"].class, "exclude");
+    assert.equal(loaded.map["il_kan_digital_1094066"].title, "החמישיה הקאמרית");
+    const quintet = {
+        id: "il_kan_digital_1094066",
+        name: "החמישיה הקאמרית",
+        type: "series",
+        subtype: "d",
+        genres: ["Archive", "ארכיון", "Comedy", "קומדיה"],
+        latestEpisodeDate: "2026-09-23T21:00:00.000Z"
+    };
+    assert.equal(classifySeries(quintet, loaded.map), "exclude");
+    assert.deepEqual(
+        selectNewCatalog([quintet], "scripted", { now: NOW, overrides: loaded.map }).map(item => item.id),
+        []
+    );
     for (const entry of Object.values(loaded.map)) {
         assert.ok(OVERRIDE_CLASSES.includes(entry.class));
         assert.equal(typeof entry.title, "string");
