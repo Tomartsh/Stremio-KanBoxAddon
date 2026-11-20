@@ -6,9 +6,25 @@
       "title": "החמישיה הקאמרית",
       "class": "exclude"
     },
+    "il_mako_115": {
+      "title": "המונית הנודדת",
+      "class": "exclude"
+    },
+    "il_mako_117": {
+      "title": "ארץ נהדרת",
+      "class": "exclude"
+    },
+    "il_mako_144": {
+      "title": "הקומה ה-12",
+      "class": "exclude"
+    },
     "il_reshet_maktub": {
       "title": "מכתוב עם אילון בן יוסף",
       "class": "scripted"
+    },
+    "il_reshet_the_promised_land": {
+      "title": "הארץ המובטחת",
+      "class": "exclude"
     }
   }
 }

@@ -305,6 +305,21 @@ test("the shipped overrides file is version 1 with a valid class on every entry"
     assert.equal(loaded.map["il_reshet_maktub"].title, "מכתוב עם אילון בן יוסף");
     assert.equal(loaded.map["il_kan_digital_1094066"].class, "exclude");
     assert.equal(loaded.map["il_kan_digital_1094066"].title, "החמישיה הקאמרית");
+    assert.equal(loaded.map["il_mako_115"].title, "המונית הנודדת");
+    assert.equal(loaded.map["il_mako_117"].title, "ארץ נהדרת");
+    assert.equal(loaded.map["il_mako_144"].title, "הקומה ה-12");
+    assert.equal(loaded.map["il_reshet_the_promised_land"].title, "הארץ המובטחת");
+    for (const id of ["il_mako_115", "il_mako_117", "il_mako_144", "il_reshet_the_promised_land"]) {
+        assert.equal(loaded.map[id].class, "exclude");
+        assert.equal(classifySeries({
+            id,
+            name: loaded.map[id].title,
+            type: "series",
+            subtype: id.startsWith("il_reshet") ? "r" : "m",
+            genres: ["קומדיה"],
+            latestEpisodeDate: "2026-11-12T00:00:00.000Z"
+        }, loaded.map), "exclude");
+    }
     const quintet = {
         id: "il_kan_digital_1094066",
         name: "החמישיה הקאמרית",
