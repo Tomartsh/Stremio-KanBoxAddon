@@ -10,12 +10,14 @@
  *
  * When several signals apply, the first one wins:
  *   1. an override in data/genre-overrides.json
- *   2. a news, current-affairs, talk, or hosting label
- *   3. a religious or Judaism label (דת, יהדות, תורה, הלכה), which stays
+ *   2. a Kan Digital series whose genres include Archive / ארכיון, which
+ *      stays out of every new catalog. An override still puts it back in.
+ *   3. a news, current-affairs, talk, or hosting label
+ *   4. a religious or Judaism label (דת, יהדות, תורה, הלכה), which stays
  *      out of every new catalog, including when cooking, comedy, or drama is also tagged
- *   4. a reality label
- *   5. a lifestyle label (cooking and food, home, design, beauty, travel, cars, health)
- *   6. a drama, suspense, thriller, crime, or comedy label
+ *   5. a reality label
+ *   6. a lifestyle label (cooking and food, home, design, beauty, travel, cars, health)
+ *   7. a drama, suspense, thriller, crime, or comedy label
  * Game shows, generic entertainment, and documentaries are left out even
  * when a drama or comedy label is also present. Lifestyle and reality still
  * win over those. A news label wins over reality.
@@ -50,6 +52,8 @@ const NEW_CATALOGS = [
 ];
 
 const PLACEHOLDER_LABELS = new Set(["kan", "כאן"]);
+const KAN_DIGITAL_SUBTYPE = "d";
+const ARCHIVE_LABELS = new Set(["archive", "ארכיון"]);
 
 const REALITY_LABELS = new Set([
     "ריאליטי",
@@ -336,6 +340,12 @@ function classifySeries(series, overrides) {
     if (override && OVERRIDE_CLASSES.includes(override.class)) return override.class;
 
     const labels = genreLabels(series);
+    // Kan Digital marks a re-published archive with Archive / ארכיון. That
+    // label keeps the series out of the three new catalogs. The source
+    // catalog is unchanged, and an override above still wins.
+    if (series && series.subtype === KAN_DIGITAL_SUBTYPE && hasLabel(labels, ARCHIVE_LABELS)) {
+        return "exclude";
+    }
     // A news label and a religious lesson both stay out of the new catalogs.
     // Religion also wins over cooking, reality, and drama, including when
     // only the title identifies the lesson.

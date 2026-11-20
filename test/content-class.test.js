@@ -93,6 +93,26 @@ test("new series includes drama, suspense, and comedy", () => {
     assert.equal(classifySeries(series({ genres: ["דת", "בישול"] }), {}), "exclude");
 });
 
+test("a Kan Digital archive label stays out of the new catalogs unless an override says otherwise", () => {
+    const archived = series({
+        id: "il_kan_digital_archive",
+        subtype: "d",
+        name: "ארכיון",
+        genres: ["ARCHIVE", "Comedy"]
+    });
+    assert.equal(classifySeries(archived, {}), "exclude");
+    assert.equal(classifySeries(series({ subtype: "d", genres: ["ארכיון", "דרמה", "ריאליטי"] }), {}), "exclude");
+    assert.equal(classifySeries(series({ subtype: "m", genres: ["Archive", "קומדיה"] }), {}), "scripted");
+    assert.equal(classifySeries(series({ subtype: "r", genres: ["ארכיון", "לייף סטייל"] }), {}), "lifestyle");
+    const pinned = { il_kan_digital_archive: { title: "ארכיון", class: "scripted" } };
+    assert.equal(classifySeries(archived, pinned), "scripted");
+    assert.deepEqual(selectNewCatalog([archived], "scripted", { now: NOW, overrides: {} }), []);
+    assert.deepEqual(
+        selectNewCatalog([archived], "scripted", { now: NOW, overrides: pinned }).map(item => item.id),
+        ["il_kan_digital_archive"]
+    );
+});
+
 test("a missing genre is scripted, and the Kan placeholder is not a genre", () => {
     assert.equal(classifySeries(series({ genres: [] }), {}), "scripted");
     assert.equal(classifySeries(series({ genres: ["Kan", "כאן"] }), {}), "scripted");
