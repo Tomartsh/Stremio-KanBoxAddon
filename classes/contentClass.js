@@ -1,0 +1,425 @@
+/**
+ * Content class for the cross-source "new" series catalogs.
+ *
+ * A series from Kan Digital (subtype "d"), Mako ("m"), or Reshet ("r") is
+ * scripted, reality, news, or exclude. scripted is listed in סדרות חדשות.
+ * reality is listed in ריאליטי חדש. news and exclude are listed in neither.
+ *
+ * An override in data/genre-overrides.json wins over every other signal.
+ * Otherwise genre labels decide. Reality wins when it is one of the labels,
+ * including when the series is also news or a documentary. News, current
+ * affairs, talk, and hosting labels are news. Documentary labels are exclude.
+ * Any other label is scripted.
+ *
+ * Kan Digital stores genres through setGenreFromString, so they are mostly
+ * English ("Drama", "Comedy", "Documentary") plus the placeholder "Kan" /
+ * "כאן" used when the source label was empty or unrecognized. A string
+ * "Kan" is that same placeholder (the helper returns a string for an empty
+ * label). Mako stores the Hebrew label as scraped ("דרמה", "ריאליטי",
+ * "חדשות"). Reshet stores no genres.
+ *
+ * A series with no real genre is scripted, unless its title is on the seed
+ * list below. That list is the well-known Reshet reality and news/talk
+ * shows, whose titles are the only classification those series have, plus
+ * a few titles that are themselves the news or documentary label. Anything
+ * the seed list gets wrong is corrected with scripts/set-genre.js.
+ */
+
+const fs = require("fs");
+const path = require("path");
+const { newestEpisodeTime } = require("./catalogOrder");
+
+const OVERRIDE_CLASSES = ["scripted", "reality", "news", "exclude"];
+const NEW_CATALOG_SUBTYPES = ["d", "m", "r"];
+const NEW_WINDOW_DAYS = 180;
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+const NEW_CATALOGS = [
+    { id: "newSeries", name: "סדרות חדשות", contentClass: "scripted" },
+    { id: "newReality", name: "ריאליטי חדש", contentClass: "reality" }
+];
+
+const PLACEHOLDER_LABELS = new Set(["kan", "כאן"]);
+
+const REALITY_LABELS = new Set([
+    "ריאליטי",
+    "reality",
+    "reality tv",
+    "reality-tv"
+]);
+
+const NEWS_LABELS = new Set([
+    "חדשות",
+    "אקטואליה",
+    "אירוח",
+    "תחקיר",
+    "news",
+    "actuality",
+    "current affairs",
+    "talk",
+    "talk show",
+    "hosting",
+    "investigative"
+]);
+
+const DOCUMENTARY_LABELS = new Set([
+    "דוקו",
+    "דוקומנטרי",
+    "תעודה",
+    "documentary"
+]);
+
+// Checked in order. Reality is first so a title that is both a reality brand
+// and something else stays reality, matching the genre rule.
+const TITLE_SEEDS = [
+    {
+        contentClass: "reality",
+        contains: [
+            "האח הגדול",
+            "אח לילה",
+            "הישרדות",
+            "the voice",
+            "דה וויס",
+            "משחקי השף",
+            "פאוור קאפל",
+            "היפה והחנון",
+            "מהדורת השבט"
+        ]
+    },
+    {
+        contentClass: "news",
+        contains: [
+            "המהדורה המרכזית",
+            "מהדורת השבת",
+            "המהדורה בערבית",
+            "הצינור",
+            "הדוח היומי",
+            "שיחת היום",
+            "היום שהיה",
+            "אסנהיים",
+            "מוריה וברקו",
+            "אזור בחירה",
+            "המצעד המשפטי",
+            "יום השישי",
+            "עושים שישי",
+            "המגזין עם נגה ניר נאמן",
+            "לילה talk",
+            "חדשות"
+        ],
+        exact: [
+            "המקור",
+            "שישי"
+        ]
+    },
+    {
+        contentClass: "exclude",
+        contains: [
+            "דוקו רשת",
+            "דוקותיים"
+        ]
+    }
+];
+
+const OVERRIDES_DESCRIPTION = "Manual content class for one series, keyed by series id. class is scripted, reality, news, or exclude. An override wins over genre labels and title seeds. scripted is listed in סדרות חדשות, reality in ריאליטי חדש, and news and exclude in neither. Change this file with scripts/set-genre.js.";
+
+const DEFAULT_OVERRIDES_PATH = path.join(__dirname, "..", "data", "genre-overrides.json");
+
+function normalizeLabel(value) {
+    return String(value == null ? "" : value)
+        .normalize("NFKC")
+        .replace(/\s+/g, " ")
+        .trim()
+        .toLowerCase();
+}
+
+function normalizeTitle(value) {
+    return normalizeLabel(value)
+        .replace(/["'״׳‟“”«»`]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
+function labelsFrom(value) {
+    if (Array.isArray(value)) return value;
+    if (typeof value === "string") return value.split(",");
+    return [];
+}
+
+function genreLabels(series) {
+    const raw = [];
+    if (series) {
+        raw.push(...labelsFrom(series.genres));
+        if (series.meta) raw.push(...labelsFrom(series.meta.genres));
+    }
+    const labels = [];
+    const seen = new Set();
+    for (const value of raw) {
+        if (typeof value !== "string" && typeof value !== "number") continue;
+        const label = normalizeLabel(value);
+        if (!label || PLACEHOLDER_LABELS.has(label) || seen.has(label)) continue;
+        seen.add(label);
+        labels.push(label);
+    }
+    return labels;
+}
+
+function seriesTitle(series) {
+    if (!series || typeof series !== "object") return "";
+    if (typeof series.name === "string" && series.name.trim()) return series.name;
+    if (series.meta && typeof series.meta.name === "string") return series.meta.name;
+    return "";
+}
+
+function classifyUnlabelledTitle(title) {
+    const normalized = normalizeTitle(title);
+    if (!normalized) return null;
+    for (const seed of TITLE_SEEDS) {
+        for (const phrase of seed.contains || []) {
+            const needle = normalizeTitle(phrase);
+            if (needle && normalized.includes(needle)) return seed.contentClass;
+        }
+        for (const phrase of seed.exact || []) {
+            if (normalized === normalizeTitle(phrase)) return seed.contentClass;
+        }
+    }
+    return null;
+}
+
+function classFromLabels(labels) {
+    if (labels.some(label => REALITY_LABELS.has(label))) return "reality";
+    if (labels.some(label => NEWS_LABELS.has(label))) return "news";
+    if (labels.some(label => DOCUMENTARY_LABELS.has(label))) return "exclude";
+    if (labels.length === 0) return null;
+    return "scripted";
+}
+
+/**
+ * scripted, reality, news, or exclude.
+ * `overrides` is the map from series id to { title, class }.
+ */
+function classifySeries(series, overrides) {
+    const id = series && series.id != null ? String(series.id) : "";
+    const override = id && overrides ? overrides[id] : null;
+    if (override && OVERRIDE_CLASSES.includes(override.class)) return override.class;
+
+    const fromLabels = classFromLabels(genreLabels(series));
+    if (fromLabels) return fromLabels;
+
+    const fromTitle = classifyUnlabelledTitle(seriesTitle(series));
+    if (fromTitle) return fromTitle;
+    return "scripted";
+}
+
+function isNewCatalogSource(series) {
+    if (!series || typeof series !== "object") return false;
+    if (series.type != null && series.type !== "series") return false;
+    return NEW_CATALOG_SUBTYPES.includes(series.subtype);
+}
+
+/**
+ * Series of one class whose newest episode is inside the window, newest first.
+ * `contentClass` is "scripted" or "reality". Series with no episode date, and
+ * series from any other source, are left out. Equal dates keep input order.
+ */
+function selectNewCatalog(seriesList, contentClass, options = {}) {
+    if (contentClass !== "scripted" && contentClass !== "reality") return [];
+    const now = options.now != null ? options.now : Date.now();
+    const windowDays = options.windowDays != null ? options.windowDays : NEW_WINDOW_DAYS;
+    const windowMs = windowDays * DAY_MS;
+    const overrides = options.overrides != null ? options.overrides : loadOverrides().map;
+    const selected = [];
+    (seriesList || []).forEach((series, index) => {
+        if (!isNewCatalogSource(series)) return;
+        if (classifySeries(series, overrides) !== contentClass) return;
+        const time = newestEpisodeTime(series);
+        if (time == null || time > now || now - time > windowMs) return;
+        selected.push({ series, index, time });
+    });
+    selected.sort((a, b) => {
+        if (a.time !== b.time) return b.time - a.time;
+        return a.index - b.index;
+    });
+    return selected.map(entry => entry.series);
+}
+
+function newCatalogById(id) {
+    return NEW_CATALOGS.find(catalog => catalog.id === id) || null;
+}
+
+function newCatalogManifestEntries() {
+    return NEW_CATALOGS.map(catalog => ({
+        type: "series",
+        id: catalog.id,
+        name: catalog.name,
+        extra: [
+            { name: "search", isRequired: false },
+            { name: "genre", isRequired: false },
+            { name: "skip", isRequired: false }
+        ]
+    }));
+}
+
+function emptyOverridesDocument() {
+    return {
+        version: 1,
+        description: OVERRIDES_DESCRIPTION,
+        overrides: {}
+    };
+}
+
+function documentFromParsed(parsed, strict) {
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+        throw new Error("Genre overrides must be a JSON object.");
+    }
+    if (parsed.version !== 1) {
+        throw new Error("Genre overrides version " + String(parsed.version) + " is not supported.");
+    }
+    if (!parsed.overrides || typeof parsed.overrides !== "object" || Array.isArray(parsed.overrides)) {
+        throw new Error("Genre overrides must contain an overrides object.");
+    }
+    const overrides = {};
+    const skipped = [];
+    for (const [id, entry] of Object.entries(parsed.overrides)) {
+        if (!entry || typeof entry !== "object" || Array.isArray(entry)) {
+            skipped.push("Override for " + id + " must be an object.");
+            continue;
+        }
+        const contentClass = normalizeLabel(entry.class);
+        if (!OVERRIDE_CLASSES.includes(contentClass)) {
+            skipped.push("Override for " + id + " has an invalid class.");
+            continue;
+        }
+        overrides[id] = {
+            title: entry.title == null ? "" : String(entry.title),
+            class: contentClass
+        };
+    }
+    if (strict && skipped.length > 0) throw new Error(skipped[0]);
+    return {
+        version: 1,
+        description: typeof parsed.description === "string" && parsed.description
+            ? parsed.description
+            : OVERRIDES_DESCRIPTION,
+        overrides,
+        skipped
+    };
+}
+
+function readOverridesDocument(filePath = DEFAULT_OVERRIDES_PATH) {
+    const parsed = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    const document = documentFromParsed(parsed, true);
+    return {
+        version: document.version,
+        description: document.description,
+        overrides: document.overrides
+    };
+}
+
+function loadOverrides(filePath = DEFAULT_OVERRIDES_PATH) {
+    try {
+        const parsed = JSON.parse(fs.readFileSync(filePath, "utf8"));
+        const document = documentFromParsed(parsed, false);
+        const error = document.skipped.length ? new Error(document.skipped.join(" ")) : null;
+        return { map: document.overrides, error };
+    } catch (error) {
+        return { map: {}, error };
+    }
+}
+
+function writeOverridesDocument(filePath, document) {
+    const overrides = {};
+    const ids = Object.keys(document.overrides || {}).sort();
+    for (const id of ids) {
+        const entry = document.overrides[id];
+        overrides[id] = {
+            title: entry.title == null ? "" : String(entry.title),
+            class: entry.class
+        };
+    }
+    const body = {
+        version: 1,
+        description: document.description || OVERRIDES_DESCRIPTION,
+        overrides
+    };
+    const directory = path.dirname(filePath);
+    fs.mkdirSync(directory, { recursive: true });
+    const temporary = filePath + ".tmp";
+    fs.writeFileSync(temporary, JSON.stringify(body, null, 2) + "\n");
+    fs.renameSync(temporary, filePath);
+}
+
+function upsertOverride(document, change) {
+    const id = change && change.id != null ? String(change.id).trim() : "";
+    if (!id) throw new Error("A series id is required.");
+    const contentClass = normalizeLabel(change.contentClass);
+    if (!OVERRIDE_CLASSES.includes(contentClass)) {
+        throw new Error("Class must be one of: " + OVERRIDE_CLASSES.join(", ") + ".");
+    }
+    const overrides = Object.assign({}, document.overrides);
+    const previous = overrides[id] && typeof overrides[id] === "object" ? overrides[id] : {};
+    const incomingTitle = change.title == null ? "" : String(change.title).trim();
+    const title = incomingTitle || (previous.title == null ? "" : String(previous.title));
+    overrides[id] = { title, class: contentClass };
+    return {
+        version: 1,
+        description: document.description || OVERRIDES_DESCRIPTION,
+        overrides
+    };
+}
+
+function removeOverride(document, id) {
+    const key = id == null ? "" : String(id).trim();
+    if (!key || !document.overrides || !Object.prototype.hasOwnProperty.call(document.overrides, key)) {
+        throw new Error("No override for " + (key || "that series") + ".");
+    }
+    const overrides = Object.assign({}, document.overrides);
+    delete overrides[key];
+    return {
+        version: 1,
+        description: document.description || OVERRIDES_DESCRIPTION,
+        overrides
+    };
+}
+
+function findSeriesByExactTitle(seriesList, title) {
+    const wanted = normalizeTitle(title);
+    if (!wanted) return [];
+    const matches = [];
+    for (const series of seriesList || []) {
+        if (!series || series.id == null) continue;
+        if (series.subtype != null && !NEW_CATALOG_SUBTYPES.includes(series.subtype)) continue;
+        if (normalizeTitle(seriesTitle(series)) === wanted) matches.push(series);
+    }
+    return matches;
+}
+
+function findOverrideIdsByTitle(document, title) {
+    const wanted = normalizeTitle(title);
+    if (!wanted || !document || !document.overrides) return [];
+    const ids = [];
+    for (const [id, entry] of Object.entries(document.overrides)) {
+        if (entry && normalizeTitle(entry.title) === wanted) ids.push(id);
+    }
+    return ids;
+}
+
+module.exports = {
+    OVERRIDE_CLASSES,
+    NEW_CATALOG_SUBTYPES,
+    NEW_WINDOW_DAYS,
+    NEW_CATALOGS,
+    OVERRIDES_DESCRIPTION,
+    DEFAULT_OVERRIDES_PATH,
+    classifySeries,
+    selectNewCatalog,
+    newCatalogById,
+    newCatalogManifestEntries,
+    emptyOverridesDocument,
+    readOverridesDocument,
+    loadOverrides,
+    writeOverridesDocument,
+    upsertOverride,
+    removeOverride,
+    findSeriesByExactTitle,
+    findOverrideIdsByTitle
+};

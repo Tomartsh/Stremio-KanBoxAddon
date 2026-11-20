@@ -125,6 +125,29 @@ function seriesNewnessTime(series) {
 }
 
 /**
+ * Newest episode release, in milliseconds.
+ * The video `released` timestamp wins, and a stream date counts when it is
+ * newer, which is the same episode date the newest-first sort uses. When the
+ * episode rows were not loaded, `latestEpisodeDate` is that maximum.
+ * A series year is not an episode date.
+ */
+function newestEpisodeTime(series) {
+    if (!series || typeof series !== "object") return null;
+    const videos = [];
+    if (Array.isArray(series.videos)) videos.push(...series.videos);
+    if (series.meta && Array.isArray(series.meta.videos)) videos.push(...series.meta.videos);
+    const fromVideos = newestVideoTime(videos);
+    if (fromVideos != null) return fromVideos;
+    const meta = series.meta && typeof series.meta === "object" ? series.meta : {};
+    let best = null;
+    best = consider(best, parseSortTime(series.latestEpisodeDate));
+    best = consider(best, parseSortTime(series.latest_episode_date));
+    best = consider(best, parseSortTime(meta.latestEpisodeDate));
+    best = consider(best, parseSortTime(meta.latest_episode_date));
+    return best;
+}
+
+/**
  * Newest first. Series with no date stay in their existing order, after
  * every series that has one. Equal dates keep the existing order.
  */
@@ -200,6 +223,7 @@ module.exports = {
     keepsSourceOrder,
     parseSortTime,
     seriesNewnessTime,
+    newestEpisodeTime,
     sortSeriesNewestFirst,
     filterByGenre,
     pageMetas,

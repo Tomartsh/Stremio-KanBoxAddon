@@ -18,6 +18,24 @@ Then follow one path:
 
 When you finish, you paste `https://YOUR-URL/manifest.json` into Stremio and click Install.
 
+## New series and new reality
+
+The manifest lists two series catalogs first: `סדרות חדשות` and `ריאליטי חדש`. Each one gathers Kan Digital, Mako, and Reshet series whose newest episode was released in the last 180 days, newest first. Kan Archive, Kan Kids, Kan Teens, Kan podcasts, Kan 88, and live TV stay in their own catalogs.
+
+Genre labels decide the catalog. A reality label puts the series in `ריאליטי חדש`, including when the series also has another label. News, current affairs, talk, and hosting labels stay out of both catalogs, and so do documentaries. A series with no genre goes to `סדרות חדשות`, except well-known reality and news titles. Reshet does not publish genres, so those titles are matched from a short list in `classes/contentClass.js`.
+
+When a series is in the wrong catalog, correct it with a local override. The command edits `data/genre-overrides.json` in this repository. It leaves the database unchanged.
+
+```bash
+node scripts/set-genre.js set il_mako_101 reality
+node scripts/set-genre.js set "האח הגדול" reality
+node scripts/set-genre.js remove il_mako_101
+```
+
+`set` adds or updates. The class is `scripted`, `reality`, `news`, or `exclude`. `scripted` is `סדרות חדשות`. `reality` is `ריאליטי חדש`. `news` and `exclude` leave the series out of both. A value that starts with `il_` is a series id. Any other value is an exact title, resolved from the published Kan Digital, Mako, and Reshet catalogs. Letter case, quotes, and extra spaces are ignored. If the title matches more than one series, the command prints the ids and changes nothing.
+
+Commit the change to `data/genre-overrides.json` and redeploy. The next start of the addon reads the file. An override wins over genre labels and over the title list.
+
 ## Status endpoint
 
 `GET /status` reports where this process got the show list. `source` is `loading` while the first load is still running, `supabase` when the database load succeeded, or `zip` when the addon fell back to the ZIP exports. Render's free tier idles and starts a new process, so the counters belong to the current process only. The response sends `Cache-Control: no-store`.
@@ -38,6 +56,6 @@ Example (placeholder values):
   "fallbackCount": 1,
   "startedAt": "2026-01-01T00:00:00.000Z",
   "uptimeSeconds": 42,
-  "version": "1.1.0"
+  "version": "1.2.0"
 }
 ```

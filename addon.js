@@ -16,6 +16,13 @@ const { repairTitle } = require("./classes/repairTitle");
 const { hasNumberedSeason } = require("./classes/tmdbSeason");
 const { currentOrigin } = require("./classes/requestOrigin");
 const { filterByGenre, pageMetas, metasMatchingIds, sortMetasByName } = require("./classes/catalogOrder");
+const {
+	newCatalogManifestEntries,
+	newCatalogById,
+	selectNewCatalog,
+	loadOverrides,
+	NEW_CATALOG_SUBTYPES
+} = require("./classes/contentClass");
 
 // ZIP filename to subtype/type mapping for fallback loading.
 // Overrides incorrect values in scraped ZIP data (e.g., kanDigital had "series" instead of "d").
@@ -35,6 +42,11 @@ require("dotenv").config({ path: require("path").join(__dirname, ".env") });
 
 var logger = log4js.getLogger("addon");
 
+const genreOverrides = loadOverrides();
+if (genreOverrides.error) {
+	logger.warn("content class overrides were not applied: " + genreOverrides.error.message);
+}
+
 const listSeries = new srList();
 listSeries.setDatabaseManager(databaseManager);  // Enable lazy loading
 
@@ -48,9 +60,11 @@ const dataReady = getJSONFile().catch(error => {
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md
 const manifest = {
 	"id": "community.StremioIsraeliTV",
-	"version": "1.1.0",
+	"version": "1.2.0",
     "logo": "https://raw.githubusercontent.com/tomartsh/Stremio-KanBoxAddon/main/assets/IdanPlus.jpg",
 		"catalogs": [
+			// סדרות חדשות and ריאליטי חדש, ahead of the per-channel catalogs.
+			...newCatalogManifestEntries(),
 		{
 			type: "tv",
 			id: "TV_Broadcast",
@@ -571,6 +585,21 @@ async function matchesInCatalogOrder(sortedMetas, subtype, search, limit) {
 			metas = listSeries.getMetasByType("tv");
 			break;
 	       case "series":
+			// Cross-source catalogs: Kan Digital, Mako, and Reshet, newest
+			// episode within 180 days, split into scripted and reality.
+			const newCatalog = newCatalogById(id);
+			if (newCatalog) {
+				const pool = listSeries.getMetasBySubtypes(NEW_CATALOG_SUBTYPES);
+				const selected = selectNewCatalog(pool, newCatalog.contentClass, {
+					overrides: genreOverrides.map
+				});
+				if (search === "*" || search === "undefined") {
+					metas = selected;
+				} else {
+					metas = await matchesInCatalogOrder(selected, newCatalog.id, search, 200);
+				}
+				break;
+			}
 			// Map Stremio catalog id -> your dataset subtype
 			let seriesSubtype = null;
 			if (id == "kanDigital"){
