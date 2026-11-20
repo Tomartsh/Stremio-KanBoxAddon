@@ -10,14 +10,18 @@
  *
  * When several signals apply, the first one wins:
  *   1. an override in data/genre-overrides.json
- *   2. a Kan Digital series whose genres include Archive / ארכיון, which
+ *   2. a Reshet series with a native genre (דרמה, קומדיה, ריאליטי,
+ *      דוקו-ריאליטי, דוקו ותחקירים, בידור, בידור ואירוח, תכניות אירוח).
+ *      That genre wins over title seeds. Several values use the most common
+ *      one, and the first one when the counts are equal.
+ *   3. a Kan Digital series whose genres include Archive / ארכיון, which
  *      stays out of every new catalog. An override still puts it back in.
- *   3. a news, current-affairs, talk, or hosting label
- *   4. a religious or Judaism label (דת, יהדות, תורה, הלכה), which stays
+ *   4. a news, current-affairs, talk, or hosting label
+ *   5. a religious or Judaism label (דת, יהדות, תורה, הלכה), which stays
  *      out of every new catalog, including when cooking, comedy, or drama is also tagged
- *   5. a reality label
- *   6. a lifestyle label (cooking and food, home, design, beauty, travel, cars, health)
- *   7. a drama, suspense, thriller, crime, or comedy label
+ *   6. a reality label
+ *   7. a lifestyle label (cooking and food, home, design, beauty, travel, cars, health)
+ *   8. a drama, suspense, thriller, crime, or comedy label
  * Game shows, generic entertainment, and documentaries are left out even
  * when a drama or comedy label is also present. Lifestyle and reality still
  * win over those. A news label wins over reality.
@@ -27,7 +31,9 @@
  * "כאן" used when the source label was empty or unrecognized. A string
  * "Kan" is that same placeholder (the helper returns a string for an empty
  * label). Mako stores the Hebrew label as scraped ("דרמה", "ריאליטי",
- * "לייף סטייל"). Reshet stores no genres.
+ * "לייף סטייל"). Reshet may publish a native genre from Kaltura OTTTAGGenre,
+ * as one value, a pipe-joined string, or an array. With no genre, Reshet
+ * still uses the title list below.
  *
  * A series with no real genre is scripted, unless its title is on the seed
  * list below. That list is the well-known Reshet reality, news, and
@@ -53,7 +59,21 @@ const NEW_CATALOGS = [
 
 const PLACEHOLDER_LABELS = new Set(["kan", "כאן"]);
 const KAN_DIGITAL_SUBTYPE = "d";
+const RESHET_SUBTYPE = "r";
 const ARCHIVE_LABELS = new Set(["archive", "ארכיון"]);
+
+// Reshet's own genre, after trim and hyphen normalization. Documentary and
+// entertainment values stay out of the three new catalogs.
+const RESHET_NATIVE_CLASS = {
+    "דרמה": "scripted",
+    "קומדיה": "scripted",
+    "ריאליטי": "reality",
+    "דוקו-ריאליטי": "reality",
+    "דוקו ותחקירים": "exclude",
+    "בידור": "exclude",
+    "בידור ואירוח": "exclude",
+    "תכניות אירוח": "exclude"
+};
 
 const REALITY_LABELS = new Set([
     "ריאליטי",
@@ -308,6 +328,51 @@ function hasLabel(labels, set) {
     return labels.some(label => set.has(label));
 }
 
+function normalizeReshetGenre(value) {
+    return normalizeLabel(value)
+        .replace(/[־–—-]/g, "-")
+        .replace(/\s*-\s*/g, "-")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
+function reshetGenreTokens(series) {
+    const raw = [];
+    if (series && series.genres != null) raw.push(series.genres);
+    if (series && series.meta && series.meta.genres != null) raw.push(series.meta.genres);
+    const tokens = [];
+    for (const value of raw) {
+        const parts = Array.isArray(value) ? value : String(value).split(/[|]/);
+        for (const part of parts) {
+            const token = normalizeReshetGenre(part);
+            if (token && Object.prototype.hasOwnProperty.call(RESHET_NATIVE_CLASS, token)) {
+                tokens.push(token);
+            }
+        }
+    }
+    return tokens;
+}
+
+/**
+ * The native Reshet genre that decides the class. The most frequent token
+ * wins. Equal counts keep the one that appears first.
+ */
+function primaryReshetGenre(series) {
+    const tokens = reshetGenreTokens(series);
+    if (tokens.length === 0) return null;
+    const counts = new Map();
+    const order = [];
+    for (const token of tokens) {
+        if (!counts.has(token)) order.push(token);
+        counts.set(token, (counts.get(token) || 0) + 1);
+    }
+    let best = order[0];
+    for (const token of order) {
+        if (counts.get(token) > counts.get(best)) best = token;
+    }
+    return best;
+}
+
 function classFromLabels(labels) {
     if (labels.length === 0) return null;
     if (hasLabel(labels, NEWS_LABELS)) return "news";
@@ -338,6 +403,11 @@ function classifySeries(series, overrides) {
     const id = series && series.id != null ? String(series.id) : "";
     const override = id && overrides ? overrides[id] : null;
     if (override && OVERRIDE_CLASSES.includes(override.class)) return override.class;
+
+    if (series && series.subtype === RESHET_SUBTYPE) {
+        const nativeGenre = primaryReshetGenre(series);
+        if (nativeGenre) return RESHET_NATIVE_CLASS[nativeGenre];
+    }
 
     const labels = genreLabels(series);
     // Kan Digital marks a re-published archive with Archive / ארכיון. That
