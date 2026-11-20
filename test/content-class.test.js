@@ -308,8 +308,8 @@ test("the shipped overrides file is version 1 with a valid class on every entry"
     assert.equal(loaded.map["il_mako_115"].title, "המונית הנודדת");
     assert.equal(loaded.map["il_mako_117"].title, "ארץ נהדרת");
     assert.equal(loaded.map["il_mako_144"].title, "הקומה ה-12");
-    assert.equal(loaded.map["il_reshet_the_promised_land"].title, "הארץ המובטחת");
-    for (const id of ["il_mako_115", "il_mako_117", "il_mako_144", "il_reshet_the_promised_land"]) {
+    assert.equal(loaded.map["il_reshet_the_promised_land"], undefined);
+    for (const id of ["il_mako_115", "il_mako_117", "il_mako_144"]) {
         assert.equal(loaded.map[id].class, "exclude");
         assert.equal(classifySeries({
             id,
@@ -332,6 +332,19 @@ test("the shipped overrides file is version 1 with a valid class on every entry"
     assert.deepEqual(
         selectNewCatalog([quintet], "scripted", { now: NOW, overrides: loaded.map }).map(item => item.id),
         []
+    );
+    const promisedLand = {
+        id: "il_reshet_the_promised_land",
+        name: "הארץ המובטחת",
+        type: "series",
+        subtype: "r",
+        genres: [],
+        latestEpisodeDate: "2026-11-08T22:00:00.000Z"
+    };
+    assert.equal(classifySeries(promisedLand, loaded.map), "scripted");
+    assert.deepEqual(
+        selectNewCatalog([promisedLand], "scripted", { now: NOW, overrides: loaded.map }).map(item => item.id),
+        ["il_reshet_the_promised_land"]
     );
     for (const entry of Object.values(loaded.map)) {
         assert.ok(OVERRIDE_CLASSES.includes(entry.class));
