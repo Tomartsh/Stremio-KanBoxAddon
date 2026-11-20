@@ -698,7 +698,7 @@ The phone has to reach the public HTTPS address. `http://127.0.0.1:49621/manifes
 
 1. The browser manifest shows `"id": "community.StremioIsraeliTV"`.
 2. Stremio lists the addon as installed.
-3. In Stremio's board or discover page, catalogs from the manifest show up. The first two are `סדרות חדשות` and `ריאליטי חדש`. The others include `שידורים חיים` (live), `כאן 11 דיגיטל`, `תוכניות ערוץ 12`, and `תוכניות ערוץ 13`.
+3. In Stremio's board or discover page, catalogs from the manifest show up. The first three are `סדרות חדשות`, `ריאליטי חדש`, and `סגנון חיים`. The others include `שידורים חיים` (live), `כאן 11 דיגיטל`, `תוכניות ערוץ 12`, and `תוכניות ערוץ 13`.
 4. Open `שידורים חיים`. You should see channel names such as `כאן 11`.
 5. Press play on one channel.
 

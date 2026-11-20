@@ -586,7 +586,7 @@ async function matchesInCatalogOrder(sortedMetas, subtype, search, limit) {
 			break;
 	       case "series":
 			// Cross-source catalogs: Kan Digital, Mako, and Reshet, newest
-			// episode within 180 days, split into scripted and reality.
+			// episode within 180 days. Drama and suspense, reality, then lifestyle.
 			const newCatalog = newCatalogById(id);
 			if (newCatalog) {
 				const pool = listSeries.getMetasBySubtypes(NEW_CATALOG_SUBTYPES);

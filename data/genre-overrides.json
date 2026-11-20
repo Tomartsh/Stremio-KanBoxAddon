@@ -1,5 +1,5 @@
 {
   "version": 1,
-  "description": "Manual content class for one series, keyed by series id. class is scripted, reality, news, or exclude. An override wins over genre labels and title seeds. scripted is listed in סדרות חדשות, reality in ריאליטי חדש, and news and exclude in neither. Change this file with scripts/set-genre.js.",
+  "description": "Manual content class for one series, keyed by series id. class is scripted, reality, lifestyle, news, or exclude. An override wins over genre labels and title seeds. scripted is listed in סדרות חדשות, reality in ריאליטי חדש, lifestyle in סגנון חיים, and news and exclude in none of them. Change this file with scripts/set-genre.js.",
   "overrides": {}
 }

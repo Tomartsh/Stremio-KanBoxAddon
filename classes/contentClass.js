@@ -2,41 +2,53 @@
  * Content class for the cross-source "new" series catalogs.
  *
  * A series from Kan Digital (subtype "d"), Mako ("m"), or Reshet ("r") is
- * scripted, reality, news, or exclude. scripted is listed in סדרות חדשות.
- * reality is listed in ריאליטי חדש. news and exclude are listed in neither.
+ * scripted, reality, lifestyle, news, or exclude.
+ * scripted (drama, suspense, thriller, crime) is listed in סדרות חדשות.
+ * reality is listed in ריאליטי חדש.
+ * lifestyle is listed in סגנון חיים.
+ * news and exclude are listed in none of them.
  *
- * An override in data/genre-overrides.json wins over every other signal.
- * Otherwise genre labels decide. Reality wins when it is one of the labels,
- * including when the series is also news or a documentary. News, current
- * affairs, talk, and hosting labels are news. Documentary labels are exclude.
- * Any other label is scripted.
+ * When several signals apply, the first one wins:
+ *   1. an override in data/genre-overrides.json
+ *   2. a news, current-affairs, talk, or hosting label
+ *   3. a reality label
+ *   4. a religious or Judaism label (דת, יהדות, תורה, הלכה), which stays
+ *      out of every new catalog, including when cooking or drama is also tagged
+ *   5. a reality label
+ *   6. a lifestyle label (cooking and food, home, design, beauty, travel, cars, health)
+ *   7. a drama, suspense, thriller, or crime label
+ * Comedy is left out unless a drama or suspense label is also present.
+ * Game shows, generic entertainment, and documentaries are left out even
+ * when a drama label is also present. Lifestyle and reality still win over
+ * those. A news label wins over reality.
  *
  * Kan Digital stores genres through setGenreFromString, so they are mostly
  * English ("Drama", "Comedy", "Documentary") plus the placeholder "Kan" /
  * "כאן" used when the source label was empty or unrecognized. A string
  * "Kan" is that same placeholder (the helper returns a string for an empty
  * label). Mako stores the Hebrew label as scraped ("דרמה", "ריאליטי",
- * "חדשות"). Reshet stores no genres.
+ * "לייף סטייל"). Reshet stores no genres.
  *
  * A series with no real genre is scripted, unless its title is on the seed
- * list below. That list is the well-known Reshet reality and news/talk
- * shows, whose titles are the only classification those series have, plus
- * a few titles that are themselves the news or documentary label. Anything
- * the seed list gets wrong is corrected with scripts/set-genre.js.
+ * list below. That list is the well-known Reshet reality, news, and
+ * lifestyle shows, whose titles are the only classification those series
+ * have. Anything the seed list gets wrong is corrected with scripts/set-genre.js.
  */
 
 const fs = require("fs");
 const path = require("path");
 const { newestEpisodeTime } = require("./catalogOrder");
 
-const OVERRIDE_CLASSES = ["scripted", "reality", "news", "exclude"];
+const OVERRIDE_CLASSES = ["scripted", "reality", "lifestyle", "news", "exclude"];
 const NEW_CATALOG_SUBTYPES = ["d", "m", "r"];
 const NEW_WINDOW_DAYS = 180;
 const DAY_MS = 24 * 60 * 60 * 1000;
+const CATALOG_CONTENT_CLASSES = new Set(["scripted", "reality", "lifestyle"]);
 
 const NEW_CATALOGS = [
     { id: "newSeries", name: "סדרות חדשות", contentClass: "scripted" },
-    { id: "newReality", name: "ריאליטי חדש", contentClass: "reality" }
+    { id: "newReality", name: "ריאליטי חדש", contentClass: "reality" },
+    { id: "newLifestyle", name: "סגנון חיים", contentClass: "lifestyle" }
 ];
 
 const PLACEHOLDER_LABELS = new Set(["kan", "כאן"]);
@@ -69,23 +81,89 @@ const DOCUMENTARY_LABELS = new Set([
     "documentary"
 ]);
 
-// Checked in order. Reality is first so a title that is both a reality brand
-// and something else stays reality, matching the genre rule.
+const DRAMA_LABELS = new Set([
+    "דרמה",
+    "drama",
+    "מתח",
+    "thriller",
+    "suspense",
+    "פשע",
+    "crime",
+    "מסתורין",
+    "mystery",
+    "אימה",
+    "horror",
+    "טלנובלה",
+    "telenovela"
+]);
+
+const LIFESTYLE_LABELS = new Set([
+    "לייף סטייל",
+    "לייפסטייל",
+    "lifestyle",
+    "life style",
+    "בישול",
+    "cooking",
+    "food",
+    "אוכל",
+    "נדל\"ן",
+    "נדלן",
+    "real estate",
+    "עיצוב",
+    "design",
+    "יופי",
+    "beauty",
+    "אופנה",
+    "fashion",
+    "טיולים",
+    "travel",
+    "תיירות",
+    "רכב",
+    "cars",
+    "בריאות",
+    "health",
+    "wellness"
+]);
+
+const COMEDY_LABELS = new Set([
+    "קומדיה",
+    "comedy",
+    "קומדיה וסאטירה",
+    "סאטירה",
+    "satire",
+    "סטנדאפ",
+    "stand-up",
+    "standup"
+]);
+
+const ENTERTAINMENT_LABELS = new Set([
+    "בידור",
+    "entertainment"
+]);
+
+const GAME_LABELS = new Set([
+    "שעשועון",
+    "game show",
+    "quiz",
+    "חידון"
+]);
+
+const RELIGIOUS_LABELS = new Set([
+    "דת",
+    "יהדות",
+    "תורה",
+    "הלכה",
+    "religious"
+]);
+
+const RELIGIOUS_TITLE_PHRASES = [
+    "השיעור השבועי",
+    "יהדות"
+];
+
+// Checked in the same order as mixed labels. Religious titles are ahead of
+// lifestyle titles, so a lesson is not filed as cooking or home.
 const TITLE_SEEDS = [
-    {
-        contentClass: "reality",
-        contains: [
-            "האח הגדול",
-            "אח לילה",
-            "הישרדות",
-            "the voice",
-            "דה וויס",
-            "משחקי השף",
-            "פאוור קאפל",
-            "היפה והחנון",
-            "מהדורת השבט"
-        ]
-    },
     {
         contentClass: "news",
         contains: [
@@ -113,6 +191,40 @@ const TITLE_SEEDS = [
     },
     {
         contentClass: "exclude",
+        contains: RELIGIOUS_TITLE_PHRASES
+    },
+    {
+        contentClass: "reality",
+        contains: [
+            "האח הגדול",
+            "אח לילה",
+            "הישרדות",
+            "the voice",
+            "דה וויס",
+            "משחקי השף",
+            "פאוור קאפל",
+            "היפה והחנון",
+            "מהדורת השבט"
+        ]
+    },
+    {
+        contentClass: "lifestyle",
+        contains: [
+            "סודות הנדלן",
+            "אנשי הנדלן",
+            "מרגישות יופי",
+            "מילון היופי",
+            "הבתים היפים",
+            "מבחני הדרכים",
+            "מנחם ותחיה",
+            "סטטוסקופ",
+            "פספורט",
+            "מאסטר בראנץ",
+            "הורס או להריסה"
+        ]
+    },
+    {
+        contentClass: "exclude",
         contains: [
             "דוקו רשת",
             "דוקותיים"
@@ -120,7 +232,7 @@ const TITLE_SEEDS = [
     }
 ];
 
-const OVERRIDES_DESCRIPTION = "Manual content class for one series, keyed by series id. class is scripted, reality, news, or exclude. An override wins over genre labels and title seeds. scripted is listed in סדרות חדשות, reality in ריאליטי חדש, and news and exclude in neither. Change this file with scripts/set-genre.js.";
+const OVERRIDES_DESCRIPTION = "Manual content class for one series, keyed by series id. class is scripted, reality, lifestyle, news, or exclude. An override wins over genre labels and title seeds. scripted is listed in סדרות חדשות, reality in ריאליטי חדש, lifestyle in סגנון חיים, and news and exclude in none of them. Change this file with scripts/set-genre.js.";
 
 const DEFAULT_OVERRIDES_PATH = path.join(__dirname, "..", "data", "genre-overrides.json");
 
@@ -185,24 +297,50 @@ function classifyUnlabelledTitle(title) {
     return null;
 }
 
+function hasLabel(labels, set) {
+    return labels.some(label => set.has(label));
+}
+
 function classFromLabels(labels) {
-    if (labels.some(label => REALITY_LABELS.has(label))) return "reality";
-    if (labels.some(label => NEWS_LABELS.has(label))) return "news";
-    if (labels.some(label => DOCUMENTARY_LABELS.has(label))) return "exclude";
     if (labels.length === 0) return null;
-    return "scripted";
+    if (hasLabel(labels, NEWS_LABELS)) return "news";
+    if (hasLabel(labels, RELIGIOUS_LABELS)) return "exclude";
+    if (hasLabel(labels, REALITY_LABELS)) return "reality";
+    if (hasLabel(labels, LIFESTYLE_LABELS)) return "lifestyle";
+    if (hasLabel(labels, DOCUMENTARY_LABELS) || hasLabel(labels, ENTERTAINMENT_LABELS) || hasLabel(labels, GAME_LABELS)) {
+        return "exclude";
+    }
+    if (hasLabel(labels, DRAMA_LABELS)) return "scripted";
+    if (hasLabel(labels, COMEDY_LABELS)) return "exclude";
+    return "exclude";
 }
 
 /**
- * scripted, reality, news, or exclude.
+ * scripted, reality, lifestyle, news, or exclude.
  * `overrides` is the map from series id to { title, class }.
  */
+function isReligiousTitle(title) {
+    const normalized = normalizeTitle(title);
+    if (!normalized) return false;
+    return RELIGIOUS_TITLE_PHRASES.some(phrase => {
+        const needle = normalizeTitle(phrase);
+        return needle && normalized.includes(needle);
+    });
+}
+
 function classifySeries(series, overrides) {
     const id = series && series.id != null ? String(series.id) : "";
     const override = id && overrides ? overrides[id] : null;
     if (override && OVERRIDE_CLASSES.includes(override.class)) return override.class;
 
-    const fromLabels = classFromLabels(genreLabels(series));
+    const labels = genreLabels(series);
+    // A news label and a religious lesson both stay out of the new catalogs.
+    // Religion also wins over cooking, reality, and drama, including when
+    // only the title identifies the lesson.
+    if (hasLabel(labels, NEWS_LABELS)) return "news";
+    if (hasLabel(labels, RELIGIOUS_LABELS) || isReligiousTitle(seriesTitle(series))) return "exclude";
+
+    const fromLabels = classFromLabels(labels);
     if (fromLabels) return fromLabels;
 
     const fromTitle = classifyUnlabelledTitle(seriesTitle(series));
@@ -218,11 +356,12 @@ function isNewCatalogSource(series) {
 
 /**
  * Series of one class whose newest episode is inside the window, newest first.
- * `contentClass` is "scripted" or "reality". Series with no episode date, and
- * series from any other source, are left out. Equal dates keep input order.
+ * `contentClass` is "scripted", "reality", or "lifestyle". Series with no
+ * episode date, and series from any other source, are left out. Equal dates
+ * keep input order.
  */
 function selectNewCatalog(seriesList, contentClass, options = {}) {
-    if (contentClass !== "scripted" && contentClass !== "reality") return [];
+    if (!CATALOG_CONTENT_CLASSES.has(contentClass)) return [];
     const now = options.now != null ? options.now : Date.now();
     const windowDays = options.windowDays != null ? options.windowDays : NEW_WINDOW_DAYS;
     const windowMs = windowDays * DAY_MS;

@@ -9,7 +9,7 @@
  *   node scripts/set-genre.js set <series-id-or-exact-title> <class>
  *   node scripts/set-genre.js remove <series-id-or-exact-title>
  *
- * class is scripted, reality, news, or exclude.
+ * class is scripted, reality, lifestyle, news, or exclude.
  * A value that starts with il_ is a series id. Any other value is an exact
  * title. Title lookup reads the published Kan Digital, Mako, and Reshet
  * catalogs. Pass --series <file.json> to resolve a title from a local JSON

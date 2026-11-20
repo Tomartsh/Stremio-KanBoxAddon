@@ -47,11 +47,15 @@ function runScript(args) {
     });
 }
 
-test("reality wins over scripted, news, and documentary labels", () => {
+test("news beats reality, and reality beats lifestyle and drama", () => {
+    assert.equal(classifySeries(series({ genres: ["חדשות", "ריאליטי"] }), {}), "news");
+    assert.equal(classifySeries(series({ genres: ["אירוח", "בישול"] }), {}), "news");
     assert.equal(classifySeries(series({ genres: ["דרמה", "ריאליטי"] }), {}), "reality");
-    assert.equal(classifySeries(series({ genres: ["חדשות", "ריאליטי"] }), {}), "reality");
     assert.equal(classifySeries(series({ genres: ["דוקומנטרי", "ריאליטי"] }), {}), "reality");
+    assert.equal(classifySeries(series({ genres: ["ריאליטי", "בישול"] }), {}), "reality");
     assert.equal(classifySeries(series({ genres: ["Reality TV", "Drama"] }), {}), "reality");
+    assert.equal(classifySeries(series({ genres: ["לייף סטייל", "דרמה"] }), {}), "lifestyle");
+    assert.equal(classifySeries(series({ genres: ["לייף סטייל", "דוקומנטרי"] }), {}), "lifestyle");
 });
 
 test("news, talk, and hosting labels stay out of both catalogs", () => {
@@ -68,12 +72,23 @@ test("documentaries stay out even when a scripted label is present", () => {
     assert.equal(classifySeries(series({ genres: ["Music", "מוזיקה", "Documentary", "דוקו"] }), {}), "exclude");
 });
 
-test("scripted labels and other non-news genres go to new series", () => {
-    for (const label of ["דרמה", "קומדיה", "מתח", "Drama", "Comedy", "Thriller", "בישול", "לייף סטייל", "מוזיקה"]) {
+test("new series is drama and suspense, and comedy stays out unless drama is there too", () => {
+    for (const label of ["דרמה", "Drama", "מתח", "Thriller", "פשע", "crime"]) {
         assert.equal(classifySeries(series({ genres: [label] }), {}), "scripted", label);
     }
-    assert.equal(classifySeries(series({ genres: ["Comedy", "קומדיה וסאטירה"] }), {}), "scripted");
+    assert.equal(classifySeries(series({ genres: ["Comedy", "דרמה"] }), {}), "scripted");
     assert.equal(classifySeries(series({ genres: "Drama, Comedy" }), {}), "scripted");
+    assert.equal(classifySeries(series({ genres: ["קומדיה"] }), {}), "exclude");
+    assert.equal(classifySeries(series({ genres: ["Comedy", "קומדיה וסאטירה"] }), {}), "exclude");
+    assert.equal(classifySeries(series({ genres: ["בידור"] }), {}), "exclude");
+    assert.equal(classifySeries(series({ genres: ["שעשועון", "דרמה"] }), {}), "exclude");
+    assert.equal(classifySeries(series({ genres: ["מוזיקה"] }), {}), "exclude");
+    assert.equal(classifySeries(series({ genres: ["בישול"] }), {}), "lifestyle");
+    assert.equal(classifySeries(series({ genres: ["Cooking", "Comedy"] }), {}), "lifestyle");
+    assert.equal(classifySeries(series({ genres: ["לייף סטייל"] }), {}), "lifestyle");
+    assert.equal(classifySeries(series({ genres: ["יהדות"] }), {}), "exclude");
+    assert.equal(classifySeries(series({ genres: ["דת", "דרמה"] }), {}), "exclude");
+    assert.equal(classifySeries(series({ genres: ["דת", "בישול"] }), {}), "exclude");
 });
 
 test("a missing genre is scripted, and the Kan placeholder is not a genre", () => {
@@ -98,8 +113,13 @@ test("unlabelled reality and news titles are seeded, and a real genre wins over 
     assert.equal(classifySeries(series({ subtype: "r", genres: [], name: "שישי" }), {}), "news");
     assert.equal(classifySeries(series({ subtype: "r", genres: [], name: "עושים שישי עם אריק וייס" }), {}), "news");
     assert.equal(classifySeries(series({ subtype: "r", genres: [], name: "דוקו רשת" }), {}), "exclude");
+    assert.equal(classifySeries(series({ genres: [], name: "השיעור השבועי עם סיון רהב מאיר" }), {}), "exclude");
+    assert.equal(classifySeries(series({ genres: ["בישול"], name: "השיעור השבועי עם סיון רהב מאיר" }), {}), "exclude");
+    assert.equal(classifySeries(series({ genres: [], name: "סודות הנדל\"ן" }), {}), "lifestyle");
+    assert.equal(classifySeries(series({ genres: [], name: "מרגישות יופי" }), {}), "lifestyle");
+    assert.equal(classifySeries(series({ genres: [], name: "מבחני הדרכים של אוטו" }), {}), "lifestyle");
     assert.equal(classifySeries(series({ genres: ["דרמה"], name: "הצינור" }), {}), "scripted");
-    assert.equal(classifySeries(series({ genres: ["בישול"], name: "חדשות האוכל" }), {}), "scripted");
+    assert.equal(classifySeries(series({ genres: ["בישול"], name: "חדשות האוכל" }), {}), "lifestyle");
     assert.equal(classifySeries(series({ genres: [], name: "סוכן תרבות מהדורה יומית" }), {}), "scripted");
 });
 
@@ -120,8 +140,11 @@ test("the new catalogs keep the last 180 days from Kan Digital, Mako, and Reshet
     assert.equal(NEW_WINDOW_DAYS, 180);
     const items = [
         series({ id: "old", name: "ישנה", genres: ["דרמה"], latestEpisodeDate: iso(181) }),
-        series({ id: "boundary", name: "גבול", genres: ["Comedy"], latestEpisodeDate: iso(180) }),
+        series({ id: "boundary", name: "גבול", genres: ["Thriller"], latestEpisodeDate: iso(180) }),
+        series({ id: "comedy", name: "קומדיה", genres: ["Comedy"], latestEpisodeDate: iso(1) }),
         series({ id: "mako-drama", subtype: "m", name: "הבריחה", genres: ["דרמה"], latestEpisodeDate: iso(2) }),
+        series({ id: "food", subtype: "m", name: "חדשות האוכל", genres: ["בישול"], latestEpisodeDate: iso(1) }),
+        series({ id: "homes", subtype: "r", name: "הבתים היפים בישראל", genres: ["לייף סטייל"], latestEpisodeDate: iso(0) }),
         series({ id: "mako-reality", subtype: "m", name: "הכוכב הבא", genres: ["ריאליטי", "בישול"], latestEpisodeDate: iso(0) }),
         series({ id: "reshet-reality", subtype: "r", name: "הישרדות", genres: [], latestEpisodeDate: iso(1) }),
         series({ id: "reshet-news", subtype: "r", name: "הצינור", genres: [], latestEpisodeDate: iso(1) }),
@@ -142,6 +165,9 @@ test("the new catalogs keep the last 180 days from Kan Digital, Mako, and Reshet
 
     const reality = selectNewCatalog(items, "reality", { now: NOW, overrides: {} });
     assert.deepEqual(reality.map(item => item.id), ["mako-reality", "reshet-reality"]);
+
+    const lifestyle = selectNewCatalog(items, "lifestyle", { now: NOW, overrides: {} });
+    assert.deepEqual(lifestyle.map(item => item.id), ["homes", "food"]);
 
     const page = pageMetas(scripted, 1);
     assert.deepEqual(page.map(item => item.id), ["same-day-b", "boundary"]);
@@ -193,7 +219,7 @@ test("skip reads the next page of the filtered catalog", () => {
 
 test("stored series from the three sources keep genres and episode dates", () => {
     const list = new srList();
-    list.addItemByDetails("il_old", "ישנה", "", "", null, "", ["Comedy"], { genres: ["Comedy"], videos: [] }, "series", "m", iso(30));
+    list.addItemByDetails("il_old", "ישנה", "", "", null, "", ["דרמה"], { genres: ["דרמה"], videos: [] }, "series", "m", iso(30));
     list.addItemByDetails("il_new", "חדשה", "", "", null, "", ["דרמה"], { genres: ["דרמה"], videos: [{ released: iso(1) }] }, "series", "d", null);
     list.addItemByDetails("il_reshet", "הישרדות", "", "", null, "", [], { genres: [], videos: [] }, "series", "r", iso(2));
     list.addItemByDetails("il_archive", "ארכיון", "", "", null, "", ["דרמה"], { genres: ["דרמה"], videos: [] }, "series", "a", iso(0));
@@ -208,10 +234,10 @@ test("stored series from the three sources keep genres and episode dates", () =>
 
 test("manifest entries are the two series catalogs, new series first", () => {
     const entries = newCatalogManifestEntries();
-    assert.deepEqual(entries.map(entry => entry.id), ["newSeries", "newReality"]);
-    assert.deepEqual(entries.map(entry => entry.name), ["סדרות חדשות", "ריאליטי חדש"]);
+    assert.deepEqual(entries.map(entry => entry.id), ["newSeries", "newReality", "newLifestyle"]);
+    assert.deepEqual(entries.map(entry => entry.name), ["סדרות חדשות", "ריאליטי חדש", "סגנון חיים"]);
     assert.equal(entries[0].type, "series");
-    assert.equal(entries[1].type, "series");
+    assert.equal(entries[2].type, "series");
     assert.deepEqual(entries[0].extra.map(extra => extra.name), ["search", "genre", "skip"]);
 });
 
@@ -220,6 +246,7 @@ test("override file round trip validates the class and keeps the title", () => {
     const filePath = path.join(directory, "genre-overrides.json");
     let document = emptyOverridesDocument();
     document = upsertOverride(document, { id: "il_mako_101", contentClass: "Reality", title: "הכוכב הבא" });
+    document = upsertOverride(document, { id: "il_food", contentClass: "lifestyle", title: "בישול" });
     document = upsertOverride(document, { id: "il_reshet_hatzinor", contentClass: "news", title: "הצינור" });
     writeOverridesDocument(filePath, document);
 
@@ -227,7 +254,8 @@ test("override file round trip validates the class and keeps the title", () => {
     assert.equal(loaded.error, null);
     assert.equal(loaded.map["il_mako_101"].class, "reality");
     assert.equal(loaded.map["il_mako_101"].title, "הכוכב הבא");
-    assert.deepEqual(Object.keys(readOverridesDocument(filePath).overrides), ["il_mako_101", "il_reshet_hatzinor"]);
+    assert.equal(loaded.map["il_food"].class, "lifestyle");
+    assert.deepEqual(Object.keys(readOverridesDocument(filePath).overrides), ["il_food", "il_mako_101", "il_reshet_hatzinor"]);
 
     document = upsertOverride(readOverridesDocument(filePath), { id: "il_mako_101", contentClass: "scripted", title: "" });
     assert.equal(document.overrides["il_mako_101"].title, "הכוכב הבא");
