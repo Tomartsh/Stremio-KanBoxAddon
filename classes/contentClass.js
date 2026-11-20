@@ -3,7 +3,7 @@
  *
  * A series from Kan Digital (subtype "d"), Mako ("m"), or Reshet ("r") is
  * scripted, reality, lifestyle, news, or exclude.
- * scripted (drama, suspense, thriller, crime) is listed in סדרות חדשות.
+ * scripted (drama, suspense, thriller, crime, and comedy) is listed in סדרות חדשות.
  * reality is listed in ריאליטי חדש.
  * lifestyle is listed in סגנון חיים.
  * news and exclude are listed in none of them.
@@ -11,16 +11,14 @@
  * When several signals apply, the first one wins:
  *   1. an override in data/genre-overrides.json
  *   2. a news, current-affairs, talk, or hosting label
- *   3. a reality label
- *   4. a religious or Judaism label (דת, יהדות, תורה, הלכה), which stays
- *      out of every new catalog, including when cooking or drama is also tagged
- *   5. a reality label
- *   6. a lifestyle label (cooking and food, home, design, beauty, travel, cars, health)
- *   7. a drama, suspense, thriller, or crime label
- * Comedy is left out unless a drama or suspense label is also present.
+ *   3. a religious or Judaism label (דת, יהדות, תורה, הלכה), which stays
+ *      out of every new catalog, including when cooking, comedy, or drama is also tagged
+ *   4. a reality label
+ *   5. a lifestyle label (cooking and food, home, design, beauty, travel, cars, health)
+ *   6. a drama, suspense, thriller, crime, or comedy label
  * Game shows, generic entertainment, and documentaries are left out even
- * when a drama label is also present. Lifestyle and reality still win over
- * those. A news label wins over reality.
+ * when a drama or comedy label is also present. Lifestyle and reality still
+ * win over those. A news label wins over reality.
  *
  * Kan Digital stores genres through setGenreFromString, so they are mostly
  * English ("Drama", "Comedy", "Documentary") plus the placeholder "Kan" /
@@ -129,6 +127,11 @@ const COMEDY_LABELS = new Set([
     "קומדיה",
     "comedy",
     "קומדיה וסאטירה",
+    "קומדיה דרמה",
+    "סיטקום",
+    "sitcom",
+    "comedy-drama",
+    "comedy drama",
     "סאטירה",
     "satire",
     "סטנדאפ",
@@ -310,8 +313,7 @@ function classFromLabels(labels) {
     if (hasLabel(labels, DOCUMENTARY_LABELS) || hasLabel(labels, ENTERTAINMENT_LABELS) || hasLabel(labels, GAME_LABELS)) {
         return "exclude";
     }
-    if (hasLabel(labels, DRAMA_LABELS)) return "scripted";
-    if (hasLabel(labels, COMEDY_LABELS)) return "exclude";
+    if (hasLabel(labels, DRAMA_LABELS) || hasLabel(labels, COMEDY_LABELS)) return "scripted";
     return "exclude";
 }
 

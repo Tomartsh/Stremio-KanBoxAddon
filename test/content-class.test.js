@@ -72,16 +72,18 @@ test("documentaries stay out even when a scripted label is present", () => {
     assert.equal(classifySeries(series({ genres: ["Music", "מוזיקה", "Documentary", "דוקו"] }), {}), "exclude");
 });
 
-test("new series is drama and suspense, and comedy stays out unless drama is there too", () => {
-    for (const label of ["דרמה", "Drama", "מתח", "Thriller", "פשע", "crime"]) {
+test("new series includes drama, suspense, and comedy", () => {
+    for (const label of ["דרמה", "Drama", "מתח", "Thriller", "פשע", "crime", "קומדיה", "Comedy", "sitcom", "comedy-drama"]) {
         assert.equal(classifySeries(series({ genres: [label] }), {}), "scripted", label);
     }
     assert.equal(classifySeries(series({ genres: ["Comedy", "דרמה"] }), {}), "scripted");
     assert.equal(classifySeries(series({ genres: "Drama, Comedy" }), {}), "scripted");
-    assert.equal(classifySeries(series({ genres: ["קומדיה"] }), {}), "exclude");
-    assert.equal(classifySeries(series({ genres: ["Comedy", "קומדיה וסאטירה"] }), {}), "exclude");
+    assert.equal(classifySeries(series({ genres: ["Comedy", "קומדיה וסאטירה"] }), {}), "scripted");
     assert.equal(classifySeries(series({ genres: ["בידור"] }), {}), "exclude");
-    assert.equal(classifySeries(series({ genres: ["שעשועון", "דרמה"] }), {}), "exclude");
+    assert.equal(classifySeries(series({ genres: ["בידור", "קומדיה"] }), {}), "exclude");
+    assert.equal(classifySeries(series({ genres: ["שעשועון", "קומדיה"] }), {}), "exclude");
+    assert.equal(classifySeries(series({ genres: ["Documentary", "Comedy"] }), {}), "exclude");
+    assert.equal(classifySeries(series({ genres: ["ריאליטי", "קומדיה"] }), {}), "reality");
     assert.equal(classifySeries(series({ genres: ["מוזיקה"] }), {}), "exclude");
     assert.equal(classifySeries(series({ genres: ["בישול"] }), {}), "lifestyle");
     assert.equal(classifySeries(series({ genres: ["Cooking", "Comedy"] }), {}), "lifestyle");
@@ -161,7 +163,7 @@ test("the new catalogs keep the last 180 days from Kan Digital, Mako, and Reshet
     ];
 
     const scripted = selectNewCatalog(items, "scripted", { now: NOW, overrides: {} });
-    assert.deepEqual(scripted.map(item => item.id), ["mako-drama", "same-day-b", "boundary"]);
+    assert.deepEqual(scripted.map(item => item.id), ["comedy", "mako-drama", "same-day-b", "boundary"]);
 
     const reality = selectNewCatalog(items, "reality", { now: NOW, overrides: {} });
     assert.deepEqual(reality.map(item => item.id), ["mako-reality", "reshet-reality"]);
@@ -170,7 +172,7 @@ test("the new catalogs keep the last 180 days from Kan Digital, Mako, and Reshet
     assert.deepEqual(lifestyle.map(item => item.id), ["homes", "food"]);
 
     const page = pageMetas(scripted, 1);
-    assert.deepEqual(page.map(item => item.id), ["same-day-b", "boundary"]);
+    assert.deepEqual(page.map(item => item.id), ["mako-drama", "same-day-b", "boundary"]);
 });
 
 test("episode released dates decide newness, including a stream date, and a year does not", () => {
@@ -279,6 +281,8 @@ test("the shipped overrides file is version 1 with a valid class on every entry"
     assert.equal(loaded.error, null);
     const document = readOverridesDocument(DEFAULT_OVERRIDES_PATH);
     assert.equal(document.version, 1);
+    assert.equal(loaded.map["il_reshet_maktub"].class, "scripted");
+    assert.equal(loaded.map["il_reshet_maktub"].title, "מכתוב עם אילון בן יוסף");
     for (const entry of Object.values(loaded.map)) {
         assert.ok(OVERRIDE_CLASSES.includes(entry.class));
         assert.equal(typeof entry.title, "string");
