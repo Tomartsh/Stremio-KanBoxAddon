@@ -591,7 +591,7 @@ async function matchesInCatalogOrder(sortedMetas, subtype, search, limit) {
 			if (newCatalog) {
 				const pool = listSeries.getMetasBySubtypes(NEW_CATALOG_SUBTYPES);
 				const selected = selectNewCatalog(pool, newCatalog.contentClass, {
-					overrides: genreOverrides.map
+					overrides: genreOverrides
 				});
 				if (search === "*" || search === "undefined") {
 					metas = selected;

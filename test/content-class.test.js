@@ -493,3 +493,46 @@ test("the genre command sets and removes an override by id or exact title", () =
     assert.equal(missing.status, 1);
     assert.match(missing.stderr, /No override/);
 });
+
+test("shipped byName overrides apply to real live series names when loadedOverrides is passed", () => {
+    const loaded = loadOverrides(DEFAULT_OVERRIDES_PATH);
+    const liveSeries = [
+        series({ id: "il_mako_114", subtype: "m", name: "הבריחה", genres: ["דרמה"] }),
+        series({ id: "il_mako_142", subtype: "m", name: "הקומה ה-12", genres: [] }),
+        series({ id: "il_mako_116", subtype: "m", name: "המונית הנודדת", genres: ["קומדיה"] }),
+        series({ id: "il_mako_118", subtype: "m", name: "ארץ נהדרת", genres: ["קומדיה"] }),
+        series({ id: "il_mako_149", subtype: "m", name: "השירים של ארץ נהדרת", genres: ["קומדיה"] }),
+        series({ id: "il_mako_251", subtype: "m", name: "חגים משדרים מיוחדים", genres: [] }),
+        series({ id: "il_mako_258", subtype: "m", name: "רותם אבוהב סטנדאפ", genres: ["קומדיה"] }),
+        series({ id: "il_mako_262", subtype: "m", name: "עסקים תומכי לוחמים", genres: [] }),
+        series({ id: "il_mako_268", subtype: "m", name: "חזי דין עומד למות", genres: ["דוקומנטרי", "ריאליטי"] }),
+        series({ id: "il_mako_385", subtype: "m", name: "קריוקי ארץ נהדרת", genres: ["קומדיה"] }),
+        series({ id: "il_kan_digital_936892", subtype: "d", name: "ארבע חתונות", genres: ["Kan", "כאן"] }),
+        series({ id: "il_kan_digital_13011", subtype: "d", name: "ערב עם שי שטרן", genres: ["Kan", "כאן", "Comedy", "קומדיה"] }),
+        series({ id: "il_kan_digital_700467", subtype: "d", name: "ערב עם שי שטרן - פינות נבחרות", genres: ["Comedy", "קומדיה", "Kan", "כאן"] }),
+        series({ id: "il_kan_digital_1084615", subtype: "d", name: "ספיישל סטנדאפ - עידן אלתרמן", genres: ["Kan", "כאן"] }),
+        series({ id: "il_kan_digital_1071926", subtype: "d", name: "תום יער עושה סטנדאפ", genres: ["Kan", "כאן"] }),
+        series({ id: "il_reshet_the_promised_land", subtype: "r", name: "הארץ המובטחת", genres: ["דוקו-ריאליטי"] })
+    ];
+
+    const scripted = selectNewCatalog(liveSeries, "scripted", { now: NOW, overrides: loaded });
+    const reality = selectNewCatalog(liveSeries, "reality", { now: NOW, overrides: loaded });
+
+    assert.deepEqual(
+        scripted.map(item => item.id),
+        ["il_mako_114", "il_mako_385", "il_kan_digital_700467"]
+    );
+    assert.deepEqual(
+        reality.map(item => item.id),
+        ["il_kan_digital_936892", "il_reshet_the_promised_land"]
+    );
+    assert.equal(classifySeries(series({ id: "il_mako_129", subtype: "m", name: "הקומה ה - 12", genres: [] }), loaded), "exclude");
+});
+
+test("addon.js passes full genreOverrides (including byName) to selectNewCatalog", () => {
+    const addonSource = fs.readFileSync(path.join(__dirname, "..", "addon.js"), "utf8");
+    const match = addonSource.match(/selectNewCatalog\s*\([\s\S]*?\{([\s\S]*?)\}\s*\)/);
+    assert.ok(match, "expected selectNewCatalog call in addon.js");
+    assert.match(match[1], /\boverrides\s*:\s*genreOverrides\b/);
+    assert.doesNotMatch(match[1], /\boverrides\s*:\s*genreOverrides\.map\b/);
+});
