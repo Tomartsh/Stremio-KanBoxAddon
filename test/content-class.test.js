@@ -93,6 +93,52 @@ test("new series includes drama, suspense, and comedy", () => {
     assert.equal(classifySeries(series({ genres: ["דת", "בישול"] }), {}), "exclude");
 });
 
+test("a name override applies to any source and an id override wins", () => {
+    const byName = {
+        "הקומה ה-12": { class: "exclude" },
+        "ארבע חתונות": { class: "reality" },
+        "חזי דין עומד למות": { class: "exclude" },
+        "ספיישל סטנדאפ-עידן אלתרמן": { class: "exclude" }
+    };
+    const floor = series({
+        id: "il_mako_129",
+        subtype: "m",
+        name: "הקומה ה - 12",
+        genres: ["דרמה"]
+    });
+    const weddings = series({
+        id: "il_kan_digital_936892",
+        subtype: "d",
+        name: "ארבע חתונות",
+        genres: ["Kan", "כאן"]
+    });
+    const hezi = series({
+        id: "il_mako_267",
+        subtype: "m",
+        name: "חזי דין עומד למות",
+        genres: ["דוקומנטרי", "ריאליטי"]
+    });
+    const special = series({
+        id: "il_kan_digital_1084615",
+        subtype: "d",
+        name: "ספיישל סטנדאפ - עידן אלתרמן",
+        genres: []
+    });
+    const named = { byName };
+    assert.equal(classifySeries(floor, named), "exclude");
+    assert.equal(classifySeries(weddings, named), "reality");
+    assert.equal(classifySeries(hezi, named), "exclude");
+    assert.equal(classifySeries(special, named), "exclude");
+    assert.equal(classifySeries(floor, {
+        map: { il_mako_129: { title: "הקומה ה-12", class: "scripted" } },
+        byName
+    }), "scripted");
+    assert.deepEqual(
+        selectNewCatalog([weddings, hezi], "reality", { now: NOW, overrides: named }).map(item => item.id),
+        ["il_kan_digital_936892"]
+    );
+});
+
 test("a Reshet native genre decides the class and beats a title seed", () => {
     function reshet(genres, name) {
         return series({
@@ -349,11 +395,18 @@ test("the shipped overrides file is version 1 with a valid class on every entry"
     assert.equal(loaded.map["il_reshet_maktub"].title, "מכתוב עם אילון בן יוסף");
     assert.equal(loaded.map["il_kan_digital_1094066"].class, "exclude");
     assert.equal(loaded.map["il_kan_digital_1094066"].title, "החמישיה הקאמרית");
-    assert.equal(loaded.map["il_mako_115"].title, "המונית הנודדת");
+    assert.equal(loaded.map["il_mako_115"], undefined);
+    assert.equal(loaded.map["il_mako_144"], undefined);
     assert.equal(loaded.map["il_mako_117"].title, "ארץ נהדרת");
-    assert.equal(loaded.map["il_mako_144"].title, "הקומה ה-12");
+    assert.equal(loaded.map["il_mako_117"].class, "exclude");
+    assert.equal(loaded.byName["הקומה ה-12"].class, "exclude");
+    assert.equal(loaded.byName["המונית הנודדת"].class, "exclude");
+    assert.equal(loaded.byName["ארץ נהדרת"].class, "exclude");
+    assert.equal(loaded.byName["השירים של ארץ נהדרת"].class, "exclude");
+    assert.equal(loaded.byName["חזי דין עומד למות"].class, "exclude");
+    assert.equal(loaded.byName["ארבע חתונות"].class, "reality");
     assert.equal(loaded.map["il_reshet_the_promised_land"], undefined);
-    for (const id of ["il_mako_115", "il_mako_117", "il_mako_144"]) {
+    for (const id of ["il_mako_117"]) {
         assert.equal(loaded.map[id].class, "exclude");
         assert.equal(classifySeries({
             id,

@@ -9,7 +9,8 @@
  * news and exclude are listed in none of them.
  *
  * When several signals apply, the first one wins:
- *   1. an override in data/genre-overrides.json
+ *   1. an override in data/genre-overrides.json, by series id and then by
+ *      normalized series name
  *   2. a Reshet series with a native genre (דרמה, קומדיה, ריאליטי,
  *      דוקו-ריאליטי, דוקו ותחקירים, בידור, בידור ואירוח, תכניות אירוח).
  *      That genre wins over title seeds. Several values use the most common
@@ -259,13 +260,28 @@ const TITLE_SEEDS = [
     }
 ];
 
-const OVERRIDES_DESCRIPTION = "Manual content class for one series, keyed by series id. class is scripted, reality, lifestyle, news, or exclude. An override wins over genre labels and title seeds. scripted is listed in סדרות חדשות, reality in ריאליטי חדש, lifestyle in סגנון חיים, and news and exclude in none of them. Change this file with scripts/set-genre.js.";
+const OVERRIDES_DESCRIPTION = "Manual content class for one series. overrides is keyed by series id and is checked first. byName is keyed by the normalized series name and applies to every source when that id is not listed. class is scripted, reality, lifestyle, news, or exclude. scripted is listed in סדרות חדשות, reality in ריאליטי חדש, lifestyle in סגנון חיים, and news and exclude in none of them. Change this file with scripts/set-genre.js.";
 
 const DEFAULT_OVERRIDES_PATH = path.join(__dirname, "..", "data", "genre-overrides.json");
 
 function normalizeLabel(value) {
     return String(value == null ? "" : value)
         .normalize("NFKC")
+        .replace(/\s+/g, " ")
+        .trim()
+        .toLowerCase();
+}
+
+/**
+ * Key for a byName override. Trims, collapses spaces, treats ׳ and ' as the
+ * same mark, and removes spaces around hyphens.
+ */
+function normalizeOverrideName(value) {
+    return String(value == null ? "" : value)
+        .normalize("NFKC")
+        .replace(/[׳''`´]/g, "'")
+        .replace(/[־–—]/g, "-")
+        .replace(/\s*-\s*/g, "-")
         .replace(/\s+/g, " ")
         .trim()
         .toLowerCase();
@@ -399,10 +415,30 @@ function isReligiousTitle(title) {
     });
 }
 
+function readOverrideInput(overrides) {
+    if (!overrides || typeof overrides !== "object") return { ids: {}, byName: {} };
+    if (Object.prototype.hasOwnProperty.call(overrides, "byName") || Object.prototype.hasOwnProperty.call(overrides, "map")) {
+        return {
+            ids: overrides.map || overrides.overrides || {},
+            byName: overrides.byName || {}
+        };
+    }
+    return { ids: overrides, byName: {} };
+}
+
+function classFromOverrideEntry(entry) {
+    if (!entry || !OVERRIDE_CLASSES.includes(entry.class)) return null;
+    return entry.class;
+}
+
 function classifySeries(series, overrides) {
+    const parsedOverrides = readOverrideInput(overrides);
     const id = series && series.id != null ? String(series.id) : "";
-    const override = id && overrides ? overrides[id] : null;
-    if (override && OVERRIDE_CLASSES.includes(override.class)) return override.class;
+    const byId = id ? classFromOverrideEntry(parsedOverrides.ids[id]) : null;
+    if (byId) return byId;
+    const nameKey = normalizeOverrideName(seriesTitle(series));
+    const byName = nameKey ? classFromOverrideEntry(parsedOverrides.byName[nameKey]) : null;
+    if (byName) return byName;
 
     if (series && series.subtype === RESHET_SUBTYPE) {
         const nativeGenre = primaryReshetGenre(series);
@@ -447,7 +483,7 @@ function selectNewCatalog(seriesList, contentClass, options = {}) {
     const now = options.now != null ? options.now : Date.now();
     const windowDays = options.windowDays != null ? options.windowDays : NEW_WINDOW_DAYS;
     const windowMs = windowDays * DAY_MS;
-    const overrides = options.overrides != null ? options.overrides : loadOverrides().map;
+    const overrides = options.overrides != null ? options.overrides : loadOverrides();
     const selected = [];
     (seriesList || []).forEach((series, index) => {
         if (!isNewCatalogSource(series)) return;
@@ -484,7 +520,8 @@ function emptyOverridesDocument() {
     return {
         version: 1,
         description: OVERRIDES_DESCRIPTION,
-        overrides: {}
+        overrides: {},
+        byName: {}
     };
 }
 
@@ -515,6 +552,7 @@ function documentFromParsed(parsed, strict) {
             class: contentClass
         };
     }
+    const byName = byNameFromParsed(parsed, skipped);
     if (strict && skipped.length > 0) throw new Error(skipped[0]);
     return {
         version: 1,
@@ -522,8 +560,35 @@ function documentFromParsed(parsed, strict) {
             ? parsed.description
             : OVERRIDES_DESCRIPTION,
         overrides,
+        byName,
         skipped
     };
+}
+
+function byNameFromParsed(parsed, skipped) {
+    const byName = {};
+    if (parsed.byName == null) return byName;
+    if (typeof parsed.byName !== "object" || Array.isArray(parsed.byName)) {
+        throw new Error("Genre overrides byName must be an object.");
+    }
+    for (const [name, entry] of Object.entries(parsed.byName)) {
+        const key = normalizeOverrideName(name);
+        if (!key) {
+            skipped.push("A byName override needs a series name.");
+            continue;
+        }
+        if (!entry || typeof entry !== "object" || Array.isArray(entry)) {
+            skipped.push("byName override for " + name + " must be an object.");
+            continue;
+        }
+        const contentClass = normalizeLabel(entry.class);
+        if (!OVERRIDE_CLASSES.includes(contentClass)) {
+            skipped.push("byName override for " + name + " has an invalid class.");
+            continue;
+        }
+        byName[key] = { class: contentClass };
+    }
+    return byName;
 }
 
 function readOverridesDocument(filePath = DEFAULT_OVERRIDES_PATH) {
@@ -532,7 +597,8 @@ function readOverridesDocument(filePath = DEFAULT_OVERRIDES_PATH) {
     return {
         version: document.version,
         description: document.description,
-        overrides: document.overrides
+        overrides: document.overrides,
+        byName: document.byName || {}
     };
 }
 
@@ -541,9 +607,9 @@ function loadOverrides(filePath = DEFAULT_OVERRIDES_PATH) {
         const parsed = JSON.parse(fs.readFileSync(filePath, "utf8"));
         const document = documentFromParsed(parsed, false);
         const error = document.skipped.length ? new Error(document.skipped.join(" ")) : null;
-        return { map: document.overrides, error };
+        return { map: document.overrides, byName: document.byName || {}, error };
     } catch (error) {
-        return { map: {}, error };
+        return { map: {}, byName: {}, error };
     }
 }
 
@@ -557,10 +623,19 @@ function writeOverridesDocument(filePath, document) {
             class: entry.class
         };
     }
+    const byName = {};
+    const names = Object.keys(document.byName || {}).sort();
+    for (const name of names) {
+        const key = normalizeOverrideName(name);
+        const entry = document.byName[name];
+        if (!key || !entry) continue;
+        byName[key] = { class: entry.class };
+    }
     const body = {
         version: 1,
         description: document.description || OVERRIDES_DESCRIPTION,
-        overrides
+        overrides,
+        byName
     };
     const directory = path.dirname(filePath);
     fs.mkdirSync(directory, { recursive: true });
@@ -584,7 +659,8 @@ function upsertOverride(document, change) {
     return {
         version: 1,
         description: document.description || OVERRIDES_DESCRIPTION,
-        overrides
+        overrides,
+        byName: document.byName || {}
     };
 }
 
@@ -598,7 +674,8 @@ function removeOverride(document, id) {
     return {
         version: 1,
         description: document.description || OVERRIDES_DESCRIPTION,
-        overrides
+        overrides,
+        byName: document.byName || {}
     };
 }
 

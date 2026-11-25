@@ -1,26 +1,56 @@
 {
   "version": 1,
-  "description": "Manual content class for one series, keyed by series id. class is scripted, reality, lifestyle, news, or exclude. An override wins over genre labels and title seeds. scripted is listed in סדרות חדשות, reality in ריאליטי חדש, lifestyle in סגנון חיים, and news and exclude in none of them. Change this file with scripts/set-genre.js.",
+  "description": "Manual content class for one series. overrides is keyed by series id and is checked first. byName is keyed by the normalized series name and applies to every source when that id is not listed. class is scripted, reality, lifestyle, news, or exclude. scripted is listed in סדרות חדשות, reality in ריאליטי חדש, lifestyle in סגנון חיים, and news and exclude in none of them. Change this file with scripts/set-genre.js.",
   "overrides": {
     "il_kan_digital_1094066": {
       "title": "החמישיה הקאמרית",
-      "class": "exclude"
-    },
-    "il_mako_115": {
-      "title": "המונית הנודדת",
       "class": "exclude"
     },
     "il_mako_117": {
       "title": "ארץ נהדרת",
       "class": "exclude"
     },
-    "il_mako_144": {
-      "title": "הקומה ה-12",
-      "class": "exclude"
-    },
     "il_reshet_maktub": {
       "title": "מכתוב עם אילון בן יוסף",
       "class": "scripted"
+    }
+  },
+  "byName": {
+    "ארבע חתונות": {
+      "class": "reality"
+    },
+    "ארץ נהדרת": {
+      "class": "exclude"
+    },
+    "המונית הנודדת": {
+      "class": "exclude"
+    },
+    "הקומה ה-12": {
+      "class": "exclude"
+    },
+    "השירים של ארץ נהדרת": {
+      "class": "exclude"
+    },
+    "חגים משדרים מיוחדים": {
+      "class": "exclude"
+    },
+    "חזי דין עומד למות": {
+      "class": "exclude"
+    },
+    "ספיישל סטנדאפ-עידן אלתרמן": {
+      "class": "exclude"
+    },
+    "עסקים תומכי לוחמים": {
+      "class": "exclude"
+    },
+    "ערב עם שי שטרן": {
+      "class": "exclude"
+    },
+    "רותם אבוהב סטנדאפ": {
+      "class": "exclude"
+    },
+    "תום יער עושה סטנדאפ": {
+      "class": "exclude"
     }
   }
 }
